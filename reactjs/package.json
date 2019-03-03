@@ -1,5 +1,5 @@
 {
-  "name": "reactjs",
+  "name": "react-boilerplate",
   "version": "1.0.0",
   "description": "Boilerplate code for react",
   "private": true,
@@ -8,8 +8,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "eslint": "eslint src/**",
-    "eslint2": "eslint --fix --ext .js src/ -f html -o ./eslint.html"
+    "eslint": "eslint --fix --ext .js src/ -f html -o ./eslint.html"
   },
   "dependencies": {
     "react": "^16.8.3",
@@ -25,7 +24,7 @@
     "prettier": "^1.15.3"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-boilerplate"
   },
   "browserslist": [
     ">0.2%",
