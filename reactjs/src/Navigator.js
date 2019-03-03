@@ -4,6 +4,7 @@ import Experiment from './Experiment';
 import Form from './components/Form';
 import Generator from './Generator';
 import Table from './components/Table';
+import TodoApp from './components/TodoApp';
 
 export default class Navigator extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export default class Navigator extends Component {
     this.switchToFormComponent = this.switchToFormComponent.bind(this);
     this.switchToGeneratorComponent = this.switchToGeneratorComponent.bind(this);
     this.switchToTableComponent = this.switchToTableComponent.bind(this);
+    this.switchToTodoComponent = this.switchToTodoComponent.bind(this);
   }
 
   switchToExperimentComponent() {
@@ -39,6 +41,12 @@ export default class Navigator extends Component {
     });
   }
 
+  switchToTodoComponent() {
+    this.setState({
+      routeIndex: 4
+    });
+  }
+
   renderPage() {
     if (this.state.routeIndex === 0) {
       return <Experiment />;
@@ -48,6 +56,8 @@ export default class Navigator extends Component {
       return <Form />;
     } else if (this.state.routeIndex === 3) {
       return <Generator />;
+    } else if (this.state.routeIndex === 4) {
+      return <TodoApp />;
     } else {
       return;
     }
@@ -62,6 +72,7 @@ export default class Navigator extends Component {
             <button onClick={this.switchToTableComponent}>Table</button>
             <button onClick={this.switchToFormComponent}>Form</button>
             <button onClick={this.switchToGeneratorComponent}>Generator</button>
+            <button onClick={this.switchToTodoComponent}>Todo App</button>
           </nav>
         </header>
         {this.renderPage()}
