@@ -1,7 +1,9 @@
 {
+  "plugins": [
+    "react"
+  ],
   "extends": [
-    "prettier",
-    "plugin:react/recommend"
+    "prettier"
   ],
   "parserOptions": {
     "ecmaVersion": 7,
@@ -112,8 +114,5 @@
       "last"
     ],
     "space-before-function-paren": "off"
-  },
-  "plugins": [
-    "react"
-  ]
+  }
 }

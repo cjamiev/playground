@@ -6,7 +6,8 @@ export default class TestApi extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      result: [], entry: {}
+      result: [],
+      entry: {}
     };
     this.filterAll = this.filterAll.bind(this);
     this.renderTable = this.renderTable.bind(this);
@@ -54,10 +55,6 @@ export default class TestApi extends Component {
   }
 
   render() {
-    return (
-      <>
-        {this.renderTable()}
-      </>
-    );
+    return <>{this.renderTable()}</>;
   }
 }
