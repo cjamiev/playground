@@ -6,7 +6,7 @@ import Table from './components/Table';
 import TestApi from './components/TestApi';
 import TodoApp from './components/TodoApp';
 
-export default class Navigator extends Component {
+export default class Navigation extends Component {
   constructor(props) {
     super(props);
     this.state = { routeIndex: 0 };
@@ -76,12 +76,6 @@ export default class Navigator extends Component {
           </nav>
         </header>
         {this.renderPage()}
-        <footer className="page-footer font-small pt-4">
-          <div className="footer-copyright text-center py-3">
-            © 2019 Copyright: React Test Bench
-            <a href="https://reactjs.org/docs/getting-started.html"> Doc</a>
-          </div>
-        </footer>
       </>
     );
   }
