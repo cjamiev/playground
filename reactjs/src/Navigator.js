@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 
-import Experiment from './Experiment';
+import Sandbox from './sandbox/Sandbox';
 import Form from './components/Form';
-import Generator from './Generator';
 import Table from './components/Table';
+import TestApi from './components/TestApi';
 import TodoApp from './components/TodoApp';
 
 export default class Navigator extends Component {
   constructor(props) {
     super(props);
     this.state = { routeIndex: 0 };
-    this.switchToExperimentComponent = this.switchToExperimentComponent.bind(this);
+    this.switchToSandboxComponent = this.switchToSandboxComponent.bind(this);
     this.switchToFormComponent = this.switchToFormComponent.bind(this);
-    this.switchToGeneratorComponent = this.switchToGeneratorComponent.bind(this);
+    this.switchToTestApiComponent = this.switchToTestApiComponent.bind(this);
     this.switchToTableComponent = this.switchToTableComponent.bind(this);
     this.switchToTodoComponent = this.switchToTodoComponent.bind(this);
   }
 
-  switchToExperimentComponent() {
+  switchToSandboxComponent() {
     this.setState({
       routeIndex: 0
     });
@@ -35,7 +35,7 @@ export default class Navigator extends Component {
     });
   }
 
-  switchToGeneratorComponent() {
+  switchToTestApiComponent() {
     this.setState({
       routeIndex: 3
     });
@@ -49,13 +49,13 @@ export default class Navigator extends Component {
 
   renderPage() {
     if (this.state.routeIndex === 0) {
-      return <Experiment />;
+      return <Sandbox />;
     } else if (this.state.routeIndex === 1) {
       return <Table />;
     } else if (this.state.routeIndex === 2) {
       return <Form />;
     } else if (this.state.routeIndex === 3) {
-      return <Generator />;
+      return <TestApi />;
     } else if (this.state.routeIndex === 4) {
       return <TodoApp />;
     } else {
@@ -68,10 +68,10 @@ export default class Navigator extends Component {
       <>
         <header>
           <nav>
-            <button onClick={this.switchToExperimentComponent}>Experiment</button>
+            <button onClick={this.switchToSandboxComponent}>Sandbox</button>
             <button onClick={this.switchToTableComponent}>Table</button>
             <button onClick={this.switchToFormComponent}>Form</button>
-            <button onClick={this.switchToGeneratorComponent}>Generator</button>
+            <button onClick={this.switchToTestApiComponent}>TestApi</button>
             <button onClick={this.switchToTodoComponent}>Todo App</button>
           </nav>
         </header>

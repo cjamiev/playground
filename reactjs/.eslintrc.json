@@ -1,6 +1,7 @@
 {
   "extends": [
-    "prettier"
+    "prettier",
+    "plugin:react/recommend"
   ],
   "parserOptions": {
     "ecmaVersion": 7,
@@ -14,16 +15,51 @@
     "array-callback-return": "warn",
     "arrow-spacing": "error",
     "block-scoped-var": "warn",
-    "comma-dangle": ["error", "never"],
-    "comma-style": ["error", "last"],
-    "complexity": ["error", { "max": 10}],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "comma-style": [
+      "error",
+      "last"
+    ],
+    "complexity": [
+      "error",
+      {
+        "max": 10
+      }
+    ],
     "eqeqeq": "error",
-    "indent": ["error", 2],
-    "jsx-quotes": ["error", "prefer-double"],
-    "max-classes-per-file": ["warn", 1],
-    "max-depth": ["error", { "max": 2 }],
-    "max-lines": ["warn", {"max": 500}],
-    "max-lines-per-function": ["warn", { "max": 50 }],
+    "indent": [
+      "error",
+      2
+    ],
+    "jsx-quotes": [
+      "error",
+      "prefer-double"
+    ],
+    "max-classes-per-file": [
+      "warn",
+      1
+    ],
+    "max-depth": [
+      "error",
+      {
+        "max": 2
+      }
+    ],
+    "max-lines": [
+      "warn",
+      {
+        "max": 500
+      }
+    ],
+    "max-lines-per-function": [
+      "warn",
+      {
+        "max": 50
+      }
+    ],
     "max-params": "warn",
     "no-bitwise": "warn",
     "no-confusing-arrow": "error",
@@ -50,32 +86,34 @@
     "no-undef": "error",
     "no-unexpected-multiline": "warn",
     "no-unreachable": "warn",
-    "no-unused-vars": ["error", { "varsIgnorePattern": "React" }],
+    "no-unused-vars": "error",
     "no-use-before-define": "error",
     "no-var": "error",
-    "object-shorthand": ["error", "always"],
+    "object-shorthand": [
+      "error",
+      "always"
+    ],
     "one-var-declaration-per-line": "error",
     "prefer-arrow-callback": "error",
     "prefer-const": "warn",
-    "prettier/prettier": [
-      "error",
-      {
-        "trailingComma": "none",
-        "singleQuote": true,
-        "printWidth": 120
-      }
-    ],
     "quotes": [
       "error",
       "single"
     ],
     "semi": "error",
-    "semi-spacing": ["error", {"before": false}],
-    "semi-style": ["error", "last"],
+    "semi-spacing": [
+      "error",
+      {
+        "before": false
+      }
+    ],
+    "semi-style": [
+      "error",
+      "last"
+    ],
     "space-before-function-paren": "off"
   },
   "plugins": [
-    "prettier",
     "react"
   ]
 }
