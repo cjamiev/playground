@@ -9,10 +9,13 @@ const todos = (state = initialState, action) => {
       return state.map(todo => {
         return (todo.id === action.id ? { ...todo, completed: !todo.completed } : todo);
       });
+    },
+    'DEFAULT': () => {
+      return state;
     }
   };
 
-  return todoCases.hasOwnProperty(action.type) ? todoCases[action.type]() : state;
+  return (todoCases[action.type] || todoCases['DEFAULT'])();
 };
 
 export default todos;
