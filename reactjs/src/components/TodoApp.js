@@ -39,22 +39,6 @@ export default class TodoApp extends Component {
     this.state = { items: [], text: '' };
   }
 
-  render() {
-    return (
-      <>
-        <h3>TODO</h3>
-        <TodoList
-          items={this.state.items}
-          removeItem={this.removeItem}
-          moveItemUp={this.moveItemUp}
-          moveItemDown={this.moveItemDown}
-        />
-        <input id="new-todo" onChange={this.handleChange} value={this.state.text} />
-        <button onClick={this.addItem}>Add Item</button>
-      </>
-    );
-  }
-
   handleChange = e => {
     this.setState({ text: e.target.value });
   };
@@ -97,4 +81,20 @@ export default class TodoApp extends Component {
 
     this.setState({ items: newItemsState });
   };
+
+  render() {
+    return (
+      <>
+        <h3>TODO</h3>
+        <TodoList
+          items={this.state.items}
+          removeItem={this.removeItem}
+          moveItemUp={this.moveItemUp}
+          moveItemDown={this.moveItemDown}
+        />
+        <input id="new-todo" onChange={this.handleChange} value={this.state.text} />
+        <button onClick={this.addItem}>Add Item</button>
+      </>
+    );
+  }
 }

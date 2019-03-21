@@ -5,6 +5,7 @@ import Form from './components/Form';
 import Table from './components/Table';
 import TestApi from './components/TestApi';
 import TodoApp from './components/TodoApp';
+import Test from './containers/Test';
 
 export default class Navigation extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ export default class Navigation extends Component {
     this.switchToTestApiComponent = this.switchToTestApiComponent.bind(this);
     this.switchToTableComponent = this.switchToTableComponent.bind(this);
     this.switchToTodoComponent = this.switchToTodoComponent.bind(this);
+    this.switchToTestComponent = this.switchToTestComponent.bind(this);
   }
 
   switchToSandboxComponent() {
@@ -47,6 +49,12 @@ export default class Navigation extends Component {
     });
   }
 
+  switchToTestComponent() {
+    this.setState({
+      routeIndex: 5
+    });
+  }
+
   renderPage() {
     if (this.state.routeIndex === 0) {
       return <Sandbox />;
@@ -58,6 +66,8 @@ export default class Navigation extends Component {
       return <TestApi />;
     } else if (this.state.routeIndex === 4) {
       return <TodoApp />;
+    } else if (this.state.routeIndex === 5) {
+      return <Test />;
     } else {
       return;
     }
@@ -73,6 +83,7 @@ export default class Navigation extends Component {
             <button onClick={this.switchToFormComponent}>Form</button>
             <button onClick={this.switchToTestApiComponent}>TestApi</button>
             <button onClick={this.switchToTodoComponent}>Todo App</button>
+            <button onClick={this.switchToTestComponent}>Test</button>
           </nav>
         </header>
         {this.renderPage()}
