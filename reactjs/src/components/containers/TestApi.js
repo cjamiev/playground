@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addTest, removeTest } from '../actions/testActions';
+import { addTest, removeTest } from '../../actions/testActions';
 
-class Test extends Component {
+class TestApi extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,4 +40,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Test);
+export default connect(mapStateToProps, mapDispatchToProps)(TestApi);

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-import Sandbox from './sandbox/Sandbox';
-import Form from './components/Form';
-import Table from './components/Table';
-import TestApi from './components/TestApi';
-import TodoApp from './components/TodoApp';
-import Test from './containers/Test';
+import Sandbox from './Sandbox';
+import Form from './Form';
+import Table from './Table';
+import TodoApp from './TodoApp';
+import TestApi from './containers/TestApi';
 
 export default class Navigation extends Component {
   constructor(props) {
@@ -13,10 +12,9 @@ export default class Navigation extends Component {
     this.state = { routeIndex: 0 };
     this.switchToSandboxComponent = this.switchToSandboxComponent.bind(this);
     this.switchToFormComponent = this.switchToFormComponent.bind(this);
-    this.switchToTestApiComponent = this.switchToTestApiComponent.bind(this);
     this.switchToTableComponent = this.switchToTableComponent.bind(this);
     this.switchToTodoComponent = this.switchToTodoComponent.bind(this);
-    this.switchToTestComponent = this.switchToTestComponent.bind(this);
+    this.switchToTestApiComponent = this.switchToTestApiComponent.bind(this);
   }
 
   switchToSandboxComponent() {
@@ -37,21 +35,15 @@ export default class Navigation extends Component {
     });
   }
 
-  switchToTestApiComponent() {
-    this.setState({
-      routeIndex: 3
-    });
-  }
-
   switchToTodoComponent() {
     this.setState({
       routeIndex: 4
     });
   }
 
-  switchToTestComponent() {
+  switchToTestApiComponent() {
     this.setState({
-      routeIndex: 5
+      routeIndex: 3
     });
   }
 
@@ -66,8 +58,6 @@ export default class Navigation extends Component {
       return <TestApi />;
     } else if (this.state.routeIndex === 4) {
       return <TodoApp />;
-    } else if (this.state.routeIndex === 5) {
-      return <Test />;
     } else {
       return;
     }
@@ -81,9 +71,8 @@ export default class Navigation extends Component {
             <button onClick={this.switchToSandboxComponent}>Sandbox</button>
             <button onClick={this.switchToTableComponent}>Table</button>
             <button onClick={this.switchToFormComponent}>Form</button>
-            <button onClick={this.switchToTestApiComponent}>TestApi</button>
             <button onClick={this.switchToTodoComponent}>Todo App</button>
-            <button onClick={this.switchToTestComponent}>Test</button>
+            <button onClick={this.switchToTestApiComponent}>Test Api</button>
           </nav>
         </header>
         {this.renderPage()}
