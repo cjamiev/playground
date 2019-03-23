@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addTest, removeTest } from '../../actions/testActions';
+import { addTest, removeTest } from '../actions/testActions';
 
 class TestApi extends Component {
   constructor(props) {

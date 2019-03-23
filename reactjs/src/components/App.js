@@ -2,7 +2,7 @@
 import { NavLink, Route, Switch } from "react-router-dom";
 
 import AboutPage from "./AboutPage";
-import FuelSavingsPage from "./containers/FuelSavingsPage";
+import FuelSavingsPage from "../containers/FuelSavingsPage";
 import HomePage from "./HomePage";
 import NotFoundPage from "./NotFoundPage";
 import PropTypes from "prop-types";

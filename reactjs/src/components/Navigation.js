@@ -4,7 +4,7 @@ import Sandbox from './Sandbox';
 import Form from './Form';
 import Table from './Table';
 import TodoApp from './TodoApp';
-import TestApi from './containers/TestApi';
+import TestApi from '../containers/TestApi';
 
 export default class Navigation extends Component {
   constructor(props) {
