@@ -1,55 +1,40 @@
 import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import { createStore, compose, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import logger from 'redux-logger';
+import thunk from 'redux-thunk';
+
 import rootReducer from '../reducers';
 
 export const history = createBrowserHistory();
+const middlewareProd = applyMiddleware(thunk, routerMiddleware(history));
+const middlewareDev = applyMiddleware(thunk, routerMiddleware(history), logger);
 
-function configureStoreProd(initialState) {
-  const reactRouterMiddleware = routerMiddleware(history);
-  const middlewares = [
-    // Add other middleware on this line...
-
-    // thunk middleware can also accept an extra argument to be passed to each thunk action
-    // https://github.com/reduxjs/redux-thunk#injecting-a-custom-argument
-    thunk,
-    reactRouterMiddleware
-  ];
-
+const configureStoreProd = initialState => {
   return createStore(
     rootReducer(history),
     initialState,
-    compose(applyMiddleware(...middlewares))
+    compose(middlewareProd)
   );
-}
+};
 
-function configureStoreDev(initialState) {
-  const reactRouterMiddleware = routerMiddleware(history);
-  const middlewares = [
-    thunk,
-    reactRouterMiddleware,
-    logger
-  ];
-
+const configureStoreDev = (initialState) => {
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(
     rootReducer(history),
     initialState,
-    composeEnhancers(applyMiddleware(...middlewares))
+    composeEnhancers(middlewareDev)
   );
 
   if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
     module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers').default; // eslint-disable-line global-require
+      const nextRootReducer = require('../reducers').default;
       store.replaceReducer(nextRootReducer(history));
     });
   }
 
   return store;
-}
+};
 
 const configureStore = process.env.NODE_ENV === 'production' ? configureStoreProd : configureStoreDev;
 
