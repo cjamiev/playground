@@ -9,7 +9,7 @@ import Table from './Table';
 import TestApi from '../containers/TestApi';
 import TodoApp from './TodoApp';
 
-const Routes = props => {
+const Routes = React.memo(() => {
   return (
     <Switch>
       <Route exact path="/" component={Sandbox} />
@@ -20,6 +20,6 @@ const Routes = props => {
       <Route component={NotFoundPage} />
     </Switch>
   );
-};
+});
 
 export default Routes;

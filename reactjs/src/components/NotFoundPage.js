@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const NotFoundPage = () => {
+const NotFoundPage = React.memo(() => {
   return (
     <div>
       <h4>
@@ -10,6 +10,6 @@ const NotFoundPage = () => {
       <Link to="/"> Go back to homepage </Link>
     </div>
   );
-};
+});
 
 export default NotFoundPage;

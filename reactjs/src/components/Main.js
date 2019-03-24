@@ -5,7 +5,7 @@ import Footer from './Footer';
 import Navigation from './Navigation';
 import Routes from './Routes';
 
-const Main = props => {
+const Main = React.memo(() => {
   return (
     <>
       <Navigation />
@@ -13,6 +13,6 @@ const Main = props => {
       <Footer />
     </>
   );
-};
+});
 
 export default hot(module)(Main);

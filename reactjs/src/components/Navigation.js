@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Navigation = props => {
+const Navigation = React.memo(props => {
   const activeStyle = { color: 'blue' };
   return (
     <>
@@ -12,6 +12,6 @@ const Navigation = props => {
       <NavLink to="/test-api" activeStyle={activeStyle}>Test Api</NavLink>
     </>
   );
-};
+});
 
 export default Navigation;
