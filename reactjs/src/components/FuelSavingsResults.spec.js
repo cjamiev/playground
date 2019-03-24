@@ -10,7 +10,7 @@ describe('<FuelSavingsResults />', () => {
       threeYear: '360'
     };
 
-    const wrapper = shallow(<FuelSavingsResults savings={savings}/>);
+    const wrapper = shallow(<FuelSavingsResults savings={savings} />);
     // console.log(wrapper.debug()); // View shallowly rendered component
     const savingsLabelText = wrapper.find('.fuel-savings-label').text();
     expect(savingsLabelText).toEqual('Savings');
@@ -23,7 +23,7 @@ describe('<FuelSavingsResults />', () => {
       threeYear: '360'
     };
 
-    const wrapper = shallow(<FuelSavingsResults savings={savings}/>);
+    const wrapper = shallow(<FuelSavingsResults savings={savings} />);
     const numObjectsWithSavingsClass = wrapper.find('.savings').length;
     expect(numObjectsWithSavingsClass).toEqual(3);
   });
@@ -35,7 +35,7 @@ describe('<FuelSavingsResults />', () => {
       threeYear: '-360'
     };
 
-    const wrapper = shallow(<FuelSavingsResults savings={savings}/>);
+    const wrapper = shallow(<FuelSavingsResults savings={savings} />);
     const labelText = wrapper.find('.fuel-savings-label').text();
     expect(labelText).toEqual('Loss');
   });
@@ -47,7 +47,7 @@ describe('<FuelSavingsResults />', () => {
       threeYear: '-360'
     };
 
-    const wrapper = shallow(<FuelSavingsResults savings={savings}/>);
+    const wrapper = shallow(<FuelSavingsResults savings={savings} />);
     const numObjectsWithLossClass = wrapper.find('.loss').length;
     expect(numObjectsWithLossClass).toEqual(3);
   });

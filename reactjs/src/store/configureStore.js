@@ -18,7 +18,7 @@ function configureStoreProd(initialState) {
     // thunk middleware can also accept an extra argument to be passed to each thunk action
     // https://github.com/reduxjs/redux-thunk#injecting-a-custom-argument
     thunk,
-    reactRouterMiddleware,
+    reactRouterMiddleware
   ];
 
   return createStore(
@@ -43,7 +43,7 @@ function configureStoreDev(initialState) {
     logger
   ];
 
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support for Redux dev tools
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(
     connectRouterHistory(rootReducer),
     initialState,

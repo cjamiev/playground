@@ -6,9 +6,9 @@ import FuelSavingsResults from './FuelSavingsResults';
 
 /* Object builder. Could use test data builder pattern too.
    More info: http://blog.codeleak.pl/2014/06/test-data-builders-and-object-mother.html
-   Returns fuel savings object. Overrides default values
+   Returns fuel fuelSavings object. Overrides default values
    for any properties sent in on args object.
-   Example: To get a fuel savings object like the
+   Example: To get a fuel fuelSavings object like the
    default below, but with newMpg set to 10, call with
    getFuelSavings({ newMpg: 10});
 */
@@ -23,7 +23,7 @@ function getFuelSavings(args) {
     displayResults: false,
     dateModified: null,
     necessaryDataIsProvidedToCalculateSavings: false,
-    savings: {
+    fuelSavings: {
       monthly: 0,
       annual: 0,
       threeYear: 0
@@ -77,7 +77,7 @@ describe('<FuelSavingsForm />', () => {
   it('should contain <FuelSavingsResults /> when necessary conditions are met', () => {
     const fuelSavings = getFuelSavings({
       necessaryDataIsProvidedToCalculateSavings: true,
-      savings: {
+      fuelSavings: {
         monthly: 10,
         annual: 120,
         threeYear: 360
@@ -89,7 +89,7 @@ describe('<FuelSavingsForm />', () => {
       onChange={jest.fn()}
       fuelSavings={fuelSavings}
     />);
-    const expected = <FuelSavingsResults savings={fuelSavings.savings} />;
+    const expected = <FuelSavingsResults fuelSavings={fuelSavings.fuelSavings} />;
 
     expect(wrapper.contains(expected)).toBeTruthy();
   });
@@ -101,7 +101,7 @@ describe('<FuelSavingsForm />', () => {
       onChange={jest.fn()}
       fuelSavings={fuelSavings}
     />);
-    const expected = <FuelSavingsResults savings={fuelSavings.savings} />;
+    const expected = <FuelSavingsResults fuelSavings={fuelSavings.fuelSavings} />;
 
     expect(wrapper.contains(expected)).toBeFalsy();
   });

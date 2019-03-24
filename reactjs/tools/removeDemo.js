@@ -1,7 +1,7 @@
 // This script removes demo app files
 import rimraf from 'rimraf';
 import fs from 'fs';
-import {chalkSuccess} from './chalkConfig';
+import { chalkSuccess } from './chalkConfig';
 
 /* eslint-disable no-console */
 
@@ -50,8 +50,8 @@ function createFile(file) {
 
 function removePackageJsonScriptEntry(scriptName) {
   const packageJsonPath = './package.json';
-  let fileData = fs.readFileSync(packageJsonPath);
-  let content = JSON.parse(fileData);
+  const fileData = fs.readFileSync(packageJsonPath);
+  const content = JSON.parse(fileData);
   delete content.scripts[scriptName];
   fs.writeFileSync(packageJsonPath,
     JSON.stringify(content, null, 2) + '\n');
@@ -61,7 +61,7 @@ let numPathsRemoved = 0;
 pathsToRemove.map(path => {
   removePath(path, () => {
     numPathsRemoved++;
-    if (numPathsRemoved === pathsToRemove.length) { // All paths have been processed
+    if (numPathsRemoved === pathsToRemove.length) {
       // Now we can create files since we're done deleting.
       filesToCreate.map(file => createFile(file));
     }

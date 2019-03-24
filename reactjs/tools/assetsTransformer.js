@@ -1,14 +1,15 @@
 //---------------------------------------------------------------------
 // This is a fix for jest handling static assets like imported images
-// when running tests. It's configured in jest section of package.json 
+// when running tests. It's configured in jest section of package.json
 //
 // See:
 // https://github.com/facebook/jest/issues/2663#issuecomment-317109798
 //---------------------------------------------------------------------
 const path = require('path');
 
+/*src, filename, (and optional) config, options */
 module.exports = {
-  process(src, filename /*, config, options */) {
+  process(src, filename) {
     return 'module.exports = ' + JSON.stringify(path.basename(filename)) + ';';
-  },
+  }
 };

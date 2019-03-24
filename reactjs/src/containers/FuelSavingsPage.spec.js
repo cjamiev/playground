@@ -1,19 +1,19 @@
-import React from "react";
-import { mount, shallow } from "enzyme";
-import configureMockStore from "redux-mock-store";
-import { Provider } from "react-redux";
-import { create } from "react-test-renderer";
-import ConnectedFuelSavingsPage, { FuelSavingsPage } from "./FuelSavingsPage";
-import FuelSavingsForm from "../components/FuelSavingsForm";
-import initialState from "../reducers/initialState";
+import React from 'react';
+import { mount, shallow } from 'enzyme';
+import configureMockStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
+import { create } from 'react-test-renderer';
+import ConnectedFuelSavingsPage, { FuelSavingsPage } from './FuelSavingsPage';
+import FuelSavingsForm from '../components/FuelSavingsForm';
+import initialState from '../reducers/initialState';
 
-describe("<FuelSavingsPage />", () => {
+describe('<FuelSavingsPage />', () => {
   const actions = {
     saveFuelSavings: jest.fn(),
     calculateFuelSavings: jest.fn()
   };
 
-  it("should contain <FuelSavingsForm />", () => {
+  it('should contain <FuelSavingsForm />', () => {
     const wrapper = shallow(
       <FuelSavingsPage
         actions={actions}
@@ -24,7 +24,7 @@ describe("<FuelSavingsPage />", () => {
     expect(wrapper.find(FuelSavingsForm).length).toEqual(1);
   });
 
-  it("calls saveFuelSavings upon clicking save", () => {
+  it('calls saveFuelSavings upon clicking save', () => {
     const wrapper = mount(
       <FuelSavingsPage
         actions={actions}
@@ -33,25 +33,25 @@ describe("<FuelSavingsPage />", () => {
     );
 
     const save = wrapper.find('input[type="submit"]');
-    save.simulate("click");
+    save.simulate('click');
 
     expect(actions.saveFuelSavings).toHaveBeenCalledWith(
       initialState.fuelSavings
     );
   });
 
-  it("calls calculateFuelSavings upon changing a field", () => {
+  it('calls calculateFuelSavings upon changing a field', () => {
     const wrapper = mount(
       <FuelSavingsPage
         actions={actions}
         fuelSavings={initialState.fuelSavings}
       />
     );
-    const name = "newMpg";
+    const name = 'newMpg';
     const value = 10;
 
     const input = wrapper.find('input[name="newMpg"]');
-    input.simulate("change", { target: { name, value } });
+    input.simulate('change', { target: { name, value } });
 
     expect(actions.calculateFuelSavings).toHaveBeenCalledWith(
       initialState.fuelSavings,
@@ -60,7 +60,7 @@ describe("<FuelSavingsPage />", () => {
     );
   });
 
-  it("should match snapshot", () => {
+  it('should match snapshot', () => {
     const store = configureMockStore()(initialState);
     const component = create(
       <Provider store={store}>

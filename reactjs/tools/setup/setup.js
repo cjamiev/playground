@@ -1,8 +1,8 @@
 /* eslint-disable no-var */
 var rimraf = require('rimraf');
 var chalk = require('chalk');
-var replace = require("replace");
-var prompt = require("prompt");
+var replace = require('replace');
+var prompt = require('prompt');
 var prompts = require('./setupPrompts');
 
 var chalkSuccess = chalk.green;
@@ -15,8 +15,8 @@ console.log(chalkSuccess('Dependencies installed.'));
 
 prompt.start();
 
-console.log(chalkWarn("WARNING:  Preparing to delete local git repository..."));
-prompt.get([{name: 'deleteGit', description: "Delete the git repository?  [Y/n]"}], function(err, result) {
+console.log(chalkWarn('WARNING:  Preparing to delete local git repository...'));
+prompt.get([{ name: 'deleteGit', description: 'Delete the git repository?  [Y/n]' }], (err, result) => {
   var deleteGit = result.deleteGit.toUpperCase();
 
   if (err) {
@@ -26,29 +26,29 @@ prompt.get([{name: 'deleteGit', description: "Delete the git repository?  [Y/n]"
   function updatePackage() {
     console.log(chalkProcessing('Updating package.json settings:'));
 
-    prompt.get(prompts, function(err, result) {
+    prompt.get(prompts, (promtErr, promptResult) => {
       // parse user responses
       // default values provided for fields that will cause npm to complain if left empty
       const responses = [
         {
           key: 'name',
-          value: result.projectName || 'new-project'
+          value: promptResult.projectName || 'new-project'
         },
         {
           key: 'version',
-          value: result.version || '0.1.0'
+          value: promptResult.version || '0.1.0'
         },
         {
           key: 'author',
-          value: result.author
+          value: promptResult.author
         },
         {
           key: 'license',
-          value: result.license || 'MIT'
+          value: promptResult.license || 'MIT'
         },
         {
           key: 'description',
-          value: result.description
+          value: promptResult.description
         },
         // simply use an empty URL here to clear the existing repo URL
         {
@@ -71,7 +71,7 @@ prompt.get([{name: 'deleteGit', description: "Delete the git repository?  [Y/n]"
       // reset package.json 'keywords' field to empty state
       replace({
         regex: /"keywords": \[[\s\S]+?\]/,
-        replacement: `"keywords": []`,
+        replacement: '"keywords": []',
         paths: ['package.json'],
         recursive: false,
         silent: true
@@ -80,7 +80,7 @@ prompt.get([{name: 'deleteGit', description: "Delete the git repository?  [Y/n]"
       // remove setup script from package.json
       replace({
         regex: /\s*"setup":.*,/,
-        replacement: "",
+        replacement: '',
         paths: ['package.json'],
         recursive: false,
         silent: true

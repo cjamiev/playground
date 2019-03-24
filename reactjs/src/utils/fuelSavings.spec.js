@@ -65,8 +65,8 @@ describe('Fuel Savings Calculator', () => {
       // arrange
       const milesPerYear = 1200;
 
-        // act & assert
-        expect(() => calculateMilesDrivenPerMonth(milesPerYear, 'minute')).toThrow('Unknown milesDrivenTimeframe passed: minute');
+      // act & assert
+      expect(() => calculateMilesDrivenPerMonth(milesPerYear, 'minute')).toThrow('Unknown milesDrivenTimeframe passed: minute');
     });
   });
 
