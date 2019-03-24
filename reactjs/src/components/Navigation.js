@@ -1,4 +1,10 @@
-import React, { Component } from 'react';
+/* eslint-disable import/no-named-as-default */
+import { NavLink, Route, Switch } from 'react-router-dom';
+
+import NotFoundPage from './NotFoundPage';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { hot } from 'react-hot-loader';
 
 import Sandbox from './Sandbox';
 import Form from './Form';
@@ -6,77 +12,49 @@ import Table from './Table';
 import TodoApp from './TodoApp';
 import TestApi from '../containers/TestApi';
 
-export default class Navigation extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { routeIndex: 0 };
-    this.switchToSandboxComponent = this.switchToSandboxComponent.bind(this);
-    this.switchToFormComponent = this.switchToFormComponent.bind(this);
-    this.switchToTableComponent = this.switchToTableComponent.bind(this);
-    this.switchToTodoComponent = this.switchToTodoComponent.bind(this);
-    this.switchToTestApiComponent = this.switchToTestApiComponent.bind(this);
-  }
+// This is a class-based component because the current
+// version of hot reloading won't hot reload a stateless
+// component at the top-level.
 
-  switchToSandboxComponent() {
-    this.setState({
-      routeIndex: 0
-    });
-  }
-
-  switchToTableComponent() {
-    this.setState({
-      routeIndex: 1
-    });
-  }
-
-  switchToFormComponent() {
-    this.setState({
-      routeIndex: 2
-    });
-  }
-
-  switchToTodoComponent() {
-    this.setState({
-      routeIndex: 4
-    });
-  }
-
-  switchToTestApiComponent() {
-    this.setState({
-      routeIndex: 3
-    });
-  }
-
-  renderPage() {
-    if (this.state.routeIndex === 0) {
-      return <Sandbox />;
-    } else if (this.state.routeIndex === 1) {
-      return <Table />;
-    } else if (this.state.routeIndex === 2) {
-      return <Form />;
-    } else if (this.state.routeIndex === 3) {
-      return <TestApi />;
-    } else if (this.state.routeIndex === 4) {
-      return <TodoApp />;
-    } else {
-      return;
-    }
-  }
-
+class Navigation extends React.Component {
   render() {
+    const activeStyle = { color: 'blue' };
     return (
-      <>
-        <header>
-          <nav>
-            <button onClick={this.switchToSandboxComponent}>Sandbox</button>
-            <button onClick={this.switchToTableComponent}>Table</button>
-            <button onClick={this.switchToFormComponent}>Form</button>
-            <button onClick={this.switchToTodoComponent}>Todo App</button>
-            <button onClick={this.switchToTestApiComponent}>Test Api</button>
-          </nav>
-        </header>
-        {this.renderPage()}
-      </>
+      <div>
+        <div>
+          <NavLink exact to="/" activeStyle={activeStyle}>Sandbox</NavLink>
+          {' | '}
+          <NavLink to="/fuel-savings" activeStyle={activeStyle}>Demo App</NavLink>
+          {' | '}
+          <NavLink to="/table" activeStyle={activeStyle}>Table</NavLink>
+          {' | '}
+          <NavLink to="/form" activeStyle={activeStyle}>Form</NavLink>
+          {' | '}
+          <NavLink to="/todo-app" activeStyle={activeStyle}>Todo App</NavLink>
+          {' | '}
+          <NavLink to="/test-api" activeStyle={activeStyle}>Test Api</NavLink>
+        </div>
+        <Switch>
+          <Route exact path="/" component={Sandbox} />
+          <Route path="/table" component={Table} />
+          <Route path="/form" component={Form} />
+          <Route path="/todo-app" component={TodoApp} />
+          <Route path="/test-api" component={TestApi} />
+          <Route component={NotFoundPage} />
+        </Switch>
+        <footer className="page-footer font-small pt-4">
+          <div className="footer-copyright text-center py-3">
+            © 2019 Copyright: React Test Bench
+            <a href="https://reactjs.org/docs/getting-started.html"> Doc </a>
+          </div>
+        </footer>
+      </div>
     );
   }
 }
+
+Navigation.propTypes = {
+  children: PropTypes.element
+};
+
+export default hot(module)(Navigation);
