@@ -1,27 +1,46 @@
-/* eslint-disable import/default */
-
+import { ConnectedRouter } from 'connected-react-router';
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import Root from './Root';
+import { Provider } from 'react-redux';
+
+import LanguageProvider from './containers/LanguageProvider';
+import Main from './Components/Main';
+import configureStore, { history } from './store/configureStore';
+import { translationMessages } from './i18n';
 import './styles/styles.scss';
 import './favicon.ico';
 
-render(
+const store = configureStore();
+const MOUNT_NODE = document.getElementById('app');
+
+ReactDOM.render(
   <AppContainer>
-    <Root />
+    <Provider store={store}>
+      <LanguageProvider messages={translationMessages}>
+        <ConnectedRouter history={history}>
+          <Main />
+        </ConnectedRouter>
+      </LanguageProvider>
+    </Provider>
   </AppContainer>,
-  document.getElementById('app')
+  MOUNT_NODE
 );
 
 if (module.hot) {
-  module.hot.accept('./Root', () => {
-    const NewRoot = Root.default;
-    render(
+  module.hot.accept(['./i18n', './Components/Main'], () => {
+    const NewMain = Main.default;
+    ReactDOM.render(
       <AppContainer>
-        <NewRoot store={store} history={history} />
+        <Provider store={store}>
+          <LanguageProvider messages={translationMessages}>
+            <ConnectedRouter history={history}>
+              <NewMain />
+            </ConnectedRouter>
+          </LanguageProvider>
+        </Provider>
       </AppContainer>,
-      document.getElementById('app')
+      MOUNT_NODE
     );
   });
 }
