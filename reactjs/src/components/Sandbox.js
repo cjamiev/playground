@@ -2,12 +2,10 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 
 import messages from './messages';
 import { appLocales } from '../i18n';
-import { changeLocale } from '../containers/LanguageProvider/actions';
-import { makeSelectLocale } from '../containers/LanguageProvider/selectors';
+import { changeLocale } from '../actions/localeActions';
 
 export class Sandbox extends React.PureComponent {
   render() {
@@ -28,9 +26,11 @@ export class Sandbox extends React.PureComponent {
   }
 }
 
-const mapStateToProps = createSelector(makeSelectLocale(), locale => ({
-  locale
-}));
+const mapStateToProps = state => {
+  return {
+    locale: state.language.get('locale')
+  };
+};
 
 export function mapDispatchToProps(dispatch) {
   return {

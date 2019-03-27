@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
-import languageProviderReducer from '../containers/LanguageProvider/reducer';
+import localeProviderReducer from './localeReducer';
 import testReducer from './testReducer';
 
 const rootReducer = (history) => combineReducers({
-  language: languageProviderReducer,
+  language: localeProviderReducer,
   router: connectRouter(history),
   test: testReducer
 });

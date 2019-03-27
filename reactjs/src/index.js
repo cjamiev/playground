@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 
-import LanguageProvider from './containers/LanguageProvider';
+import LocaleProvider from './containers/LocaleProvider';
 import Main from './Components/Main';
 import configureStore, { history } from './store/configureStore';
 import { translationMessages } from './i18n';
@@ -17,11 +17,11 @@ const MOUNT_NODE = document.getElementById('app');
 ReactDOM.render(
   <AppContainer>
     <Provider store={store}>
-      <LanguageProvider messages={translationMessages}>
+      <LocaleProvider messages={translationMessages}>
         <ConnectedRouter history={history}>
           <Main />
         </ConnectedRouter>
-      </LanguageProvider>
+      </LocaleProvider>
     </Provider>
   </AppContainer>,
   MOUNT_NODE
@@ -33,11 +33,11 @@ if (module.hot) {
     ReactDOM.render(
       <AppContainer>
         <Provider store={store}>
-          <LanguageProvider messages={translationMessages}>
+          <LocaleProvider messages={translationMessages}>
             <ConnectedRouter history={history}>
               <NewMain />
             </ConnectedRouter>
-          </LanguageProvider>
+          </LocaleProvider>
         </Provider>
       </AppContainer>,
       MOUNT_NODE
