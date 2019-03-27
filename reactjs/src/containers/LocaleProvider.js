@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 
+import { DEFAULT_LOCALE } from '../i18n';
+
 export class LocaleProvider extends React.PureComponent {
   render() {
     return (
       <IntlProvider
-        locale={this.props.locale}
+        locale={this.props.locale || DEFAULT_LOCALE}
         key={this.props.locale}
         messages={this.props.messages[this.props.locale]}
       >
@@ -25,7 +27,7 @@ LocaleProvider.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    locale: state.language.get('locale')
+    locale: state.language.locale
   };
 };
 
