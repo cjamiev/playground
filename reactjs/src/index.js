@@ -5,14 +5,14 @@ import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 
 import LocaleProvider from './containers/LocaleProvider';
-import Main from './Components/Main';
+import Main from './components/Main';
 import configureStore, { history } from './store/configureStore';
 import { translationMessages } from './i18n';
 import './styles/styles.scss';
 import './favicon.ico';
 
 const store = configureStore();
-const MOUNT_NODE = document.getElementById('app');
+const MOUNT_NODE = document.getElementById('root');
 
 ReactDOM.render(
   <AppContainer>

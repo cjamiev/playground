@@ -1,4 +1,0 @@
-
-ERROR: B:/CJV/Documents/workspace/boilerplate/angular/src/app/components/todo-item/todo-item.component.ts[34, 54]: Shadowed name: 'todo'
-ERROR: B:/CJV/Documents/workspace/boilerplate/angular/src/app/components/todos/todos.component.ts[30, 46]: Shadowed name: 'todo'
-

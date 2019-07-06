@@ -91,7 +91,6 @@ module.exports = {
     'no-trailing-spaces': 'error',
     'no-unexpected-multiline': 'warn',
     'no-unreachable': 'warn',
-    'no-use-before-define': 'error',
     'no-var': 'error',
     'object-shorthand': [
       'error',

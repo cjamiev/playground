@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { decrementElementIndex, incrementElementIndex } from '../utility';
+import { decrementElementIndex, incrementElementIndex } from 'src/utils/utility';
 
 const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => (
   <ul>
