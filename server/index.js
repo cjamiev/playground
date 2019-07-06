@@ -1,3 +1,5 @@
+const router = require('./router');
+
 const routerOne = (req, res) => {
     if(req.url === '/test'){
         console.log('get1');
@@ -24,28 +26,6 @@ const routerTwo = (req, res) => {
     } 
 };
 
-const router = () => {
-    const routesWithMethodGet = [];
-    const routesWithMethodPost = [];
-    const routes = {
-      get(route) {
-        routesWithMethodGet.push(route);
-  
-        return this;
-      },
-      post(route) {
-        routesWithMethodPost.push(route);
-  
-        return this;
-      },
-      entries() {
-        return { routesWithMethodGet, routesWithMethodPost };
-      }
-    };
-  
-    return routes;
-};
-
 const route = (router) => {
     return (request, response) => {
         const { routesWithMethodGet, routesWithMethodPost } = router.entries();
@@ -60,14 +40,12 @@ const route = (router) => {
 };
 
 const testResponse = (request, response) => {
-    console.log('request ', request.url, request.method);
     response.setHeader('Access-Control-Allow-Origin', '*');
 	response.setHeader('Access-Control-Request-Method', '*');
 	response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
 	response.setHeader('Access-Control-Allow-Headers', '*');
 
     const routes = router().get(routerOne).post(routerTwo);
-    console.log(routes);
 
     route(routes)(request, response);
 };
