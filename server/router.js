@@ -12,8 +12,11 @@ const router = () => {
 
       return this;
     },
-    entries() {
-      return { routesWithMethodGet, routesWithMethodPost };
+    loadGetRoutes() {
+      return routesWithMethodGet;
+    },
+    loadPostRoutes() {
+      return routesWithMethodPost;
     }
   };
 

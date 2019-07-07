@@ -1,53 +1,76 @@
 const router = require('./router');
 
+const cors = res => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Request-Method', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+	res.setHeader('Access-Control-Allow-Headers', '*');
+}
+
 const routerOne = (req, res) => {
     if(req.url === '/test'){
-        console.log('get1');
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'testing get'}));        
     }
     if(req.url === '/test2'){
-        console.log('get2');
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'testing get2'}));        
     }
 };
 
+const routerOneOne = (req, res) => {
+    console.log('oneone');
+    if(req.url === '/test3'){
+        console.log('oneone');
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'testing get3'}));        
+    }
+    if(req.url === '/test4'){
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'testing get4'}));        
+    }
+};
+
 const routerTwo = (req, res) => {
     if(req.url === '/test'){
-        console.log('post1');
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'testing post'}));        
     }
     if(req.url === '/test2'){
-        console.log('post2');
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'testing post2'}));        
     } 
 };
 
-const route = (router) => {
+const route = (routesWithMethodGet, routesWithMethodPost) => {
     return (request, response) => {
-        const { routesWithMethodGet, routesWithMethodPost } = router.entries();
-        console.log(routesWithMethodGet, routesWithMethodPost);
-    
         if(request.method === 'GET'){
-          routesWithMethodGet.forEach(route => route(request, response));
+          routesWithMethodGet.forEach(route => {
+            console.log(request.url);
+            route(request, response);
+          }
+        );
+        } else if (request.method === 'POST'){
+          routesWithMethodPost.forEach(route => route(request , response));
         } else {
-          routesWithMethodPost.forEach(route => route(request, response));
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.end(JSON.stringify({ message: 'not found'}));    
         }
     };
 };
 
 const testResponse = (request, response) => {
-    response.setHeader('Access-Control-Allow-Origin', '*');
-	response.setHeader('Access-Control-Request-Method', '*');
-	response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
-	response.setHeader('Access-Control-Allow-Headers', '*');
+    cors(response);
 
-    const routes = router().get(routerOne).post(routerTwo);
+    console.log('entry', request.url, request.method);
 
-    route(routes)(request, response);
+    const routes1 = router().get(routerOne).post(routerTwo);
+    const routes2 = router().get(routerOneOne);
+
+    const routesWithMethodGet = routes1.loadGetRoutes().concat(routes2.loadGetRoutes());
+    const routesWithMethodPost = routes1.loadPostRoutes().concat(routes2.loadPostRoutes());
+
+    route(routesWithMethodGet, routesWithMethodPost)(request, response);
 };
 
 const http = require('http');
