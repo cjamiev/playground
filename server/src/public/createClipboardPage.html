@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="common.js"></script>
+  <script src="createClipboardPage.js"></script>
+  <link href="https://unpkg.com/sanitize.css" rel="stylesheet" />
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <section>
+    <div class="topnav">
+      <a href="viewClipboardsPage.html">View Clipboards</a>
+      <a class="active" href="createClipboardPage.html">Create Clipbaord</a>
+    </div>
+  </section>
+
+  <section class="parent-container">
+    <h1> Create Clipboard</h1>
+    <div>
+      <label>Type:
+        <select id="view-clipboards-type">
+          <option value="copy">Copy</option>
+          <option value="urls">Url</option>
+          <option value="commands">Command</option>
+        </select>
+      </label><br>
+      <label>Name:<input id="view-clipboards-name" type="text"></label><br>
+      <label>Value:<input id="view-clipboards-value" type="text"></label><br>
+      <input type="button" value="Submit" onClick="createNewClipboardEntry()">
+      <p id="view-clipboards-message"></p>
+    </div>
+  </section>
+</body>
+
+</html>
