@@ -1,7 +1,7 @@
 const handleAccordions = () => {
   [...document.getElementsByClassName('accordion')].forEach(component => {
     component.addEventListener('click', function() {
-  this.classList.toggle('active');
+  this.classList.toggle('accordion-active');
   var panel = this.nextElementSibling;
   if (panel.style.display === 'block') {
     panel.style.display = 'none';
@@ -13,25 +13,19 @@ const handleAccordions = () => {
 };
 
 const createAccordion = (accordionId, label, content) => {
-  const accordionOperations = {
-    accordionComponent() {
-      const parentDiv = document.createElement('div');
-      parentDiv.id = accordionId;
-      const collapsibleButton = document.createElement('button');
-      collapsibleButton.className = 'accordion';
-      collapsibleButton.innerHTML = label;
-      const innerPanel = document.createElement('div');
-      innerPanel.className = 'accordion-panel';
-      const text = document.createElement('p');
-      text.innerHTML = content;
+  const parentDiv = document.createElement('div');
+  parentDiv.id = accordionId;
+  const collapsibleButton = document.createElement('button');
+  collapsibleButton.className = 'accordion';
+  collapsibleButton.innerHTML = label;
+  const innerPanel = document.createElement('div');
+  innerPanel.className = 'accordion-panel';
+  const text = document.createElement('p');
+  text.innerHTML = content;
 
-      innerPanel.appendChild(text);
-      parentDiv.appendChild(collapsibleButton);
-      parentDiv.appendChild(innerPanel);
+  innerPanel.appendChild(text);
+  parentDiv.appendChild(collapsibleButton);
+  parentDiv.appendChild(innerPanel);
 
-      return parentDiv;
-    }
-  }
-
-  return accordionOperations;
+  return parentDiv;
 };

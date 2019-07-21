@@ -2,7 +2,7 @@ const http = require("http"),
     url = require("url"),
     path = require("path"),
     fs = require("fs")
-    port = process.argv[2] || 8081;
+    port = process.argv[2] || 8080;
 
 http.createServer(function(request, response) {
 
