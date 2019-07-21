@@ -1,5 +1,24 @@
+@import './sanitize.css';
 @import './accordion.css';
 @import './alert.css';
 @import './button.css';
 @import './modal.css';
 @import './table.css';
+
+button {
+  background-color: #eff3f6;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+.container {
+  width: 95%;
+  margin: auto;
+}
