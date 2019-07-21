@@ -26,8 +26,8 @@ const newTable = createTable(
   ]
 )
 
-const body = document.body;
-body.appendChild(newTable);
+const testTable = document.getElementById('test-table');
+testTable.appendChild(newTable);
 
 // Modal Test
 const testModalOne = createModal('testModal1', 'testing the new modal');
@@ -45,12 +45,28 @@ modalOneButton.innerHTML = 'Open Modal One';
 modalTwoButton.onclick = testModalTwo.openModal;
 modalTwoButton.innerHTML = 'Open Modal Two';
 
-body.appendChild(modalH2);
-body.appendChild(modalOneButton);
-body.appendChild(modalTwoButton);
-body.appendChild(modalComponentOne);
-body.appendChild(modalComponentTwo);
+const testModal = document.getElementById('test-modal');
+testModal.appendChild(modalH2);
+testModal.appendChild(modalOneButton);
+testModal.appendChild(modalTwoButton);
+testModal.appendChild(modalComponentOne);
+testModal.appendChild(modalComponentTwo);
 
 window.onclick = (event) => {
   closeAllModals(event);
 }
+
+// Accordion Test
+const accH2 = document.createElement('h2');
+  const acc1 = createAccordion('acc1','Accordion 1', 'Test accordion 1');
+  const acc2 = createAccordion('acc2','Accordion 2', 'Test accordion 2');
+  const acc3 = createAccordion('acc3','Accordion 3', 'Test accordion 3');
+
+  accH2.innerHTML = 'Accordions';
+
+  const accordionDiv = document.getElementById('test-accordion');
+  accordionDiv.appendChild(accH2);
+  accordionDiv.appendChild(acc1.accordionComponent());
+  accordionDiv.appendChild(acc2.accordionComponent());
+  accordionDiv.appendChild(acc3.accordionComponent());
+  handleAccordions();
