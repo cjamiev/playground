@@ -1,5 +1,6 @@
 const createTable = (tableHeader = [], tableBody = []) => {
   const table = document.createElement('table');
+  table.className = 'table';
   const thead = document.createElement('thead');
   const headRow = document.createElement('tr');
 
@@ -17,12 +18,13 @@ const createTable = (tableHeader = [], tableBody = []) => {
     const bodyRow = document.createElement('tr');
     
     row.forEach(({ type, onclick, innerHTML}) => {
-
+      const cellParent = document.createElement('td');
       const cell = type === 'button' ? document.createElement('button') : document.createElement('span');
       cell.innerHTML = innerHTML;
       cell.onclick = onclick;
 
-      bodyRow.appendChild(cell);
+      cellParent.appendChild(cell);
+      bodyRow.appendChild(cellParent);
     });
 
     tbody.appendChild(bodyRow);

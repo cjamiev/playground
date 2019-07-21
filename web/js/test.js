@@ -1,5 +1,5 @@
 const newTable = createTable(
-  ['col1, col2'], 
+  ['col1', 'col2'], 
   [
     [
       {
