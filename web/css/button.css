@@ -1,0 +1,32 @@
+button {
+  background-color: #eff3f6;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+.clipboard {
+  background-color: green;
+}
+
+.command {
+  background-color: yellow;
+}
+
+.link {
+  background-color: red;
+}
+
+.download {
+  background-color: magenta;
+}
+
+.date {
+  background-color: blue;
+}
