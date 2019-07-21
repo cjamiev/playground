@@ -3,7 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const { createClipboard, executeCommand, getClipboard } = require('./clipboard-service');
+const { createClipmark, executeCommand, getClipmark } = require('./clipmark-service');
 
 const server = express();
 const PUBLIC_DIR = path.resolve(__dirname, './public');
@@ -13,8 +13,8 @@ server
   .use(cors())
   .use(express.static(PUBLIC_DIR))
   .use(bodyParser.json())
-  .get('/clipboards', getClipboard)
-  .post('/create-clipboard', createClipboard)
+  .get('/clipmarks', getClipmark)
+  .post('/create-clipmark', createClipmark)
   .post('/execute-command', executeCommand);
 
 server.listen(port, () => {

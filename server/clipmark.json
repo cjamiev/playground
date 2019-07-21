@@ -1,0 +1,20 @@
+{
+  "clipboards": [
+    {
+      "name": "test1",
+      "value": "test1"
+    }
+  ],
+  "urls": [
+    {
+      "name": "facebook",
+      "value": "https://www.facebook.com"
+    }
+  ],
+  "commands": [
+    {
+      "name": "ls",
+      "value": "ls"
+    }
+  ]
+}
