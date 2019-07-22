@@ -1,14 +1,12 @@
-const router = require('./router');
 const fs = require('fs');
+const { router } = require('./router');
 
 const routerOne = (req, res) => {
   if (req.url === '/' || req.url === '/index.html') {
     fs.readFile('./myserver/index.html', (err, content) => {
       if (err) {
-        fs.readFile('./404.html', (err, content404) => {
-          res.writeHead(200, { 'Content-Type': 'text/html' });
-          res.end(content404, 'utf-8');
-        });
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'not found' }));
       } else {
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(content, 'utf-8');

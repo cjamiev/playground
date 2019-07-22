@@ -23,4 +23,12 @@ const router = () => {
   return routes;
 };
 
-module.exports = router;
+const flatten = (arr = []) => arr.reduce((accumulator, item) => accumulator.concat(item), []);
+const loadRoutes = (routes) => {
+  const routesWithMethodGet = flatten(routes.map(route => route.loadGetRoutes()));
+  const routesWithMethodPost = flatten(routes.map(route => route.loadPostRoutes()));
+
+  return { routesWithMethodGet, routesWithMethodPost };
+};
+
+module.exports = { loadRoutes, router };
