@@ -86,3 +86,51 @@ alertTest.appendChild(alert1);
 alertTest.appendChild(alert2);
 alertTest.appendChild(alert3);
 alertTest.appendChild(alert4);
+
+// Form Test
+const selectData = {
+  id: 1,
+  type: 'select',
+  label: 'Select1',
+  values: ['value1', 'value2'],
+};
+const checkboxData = {
+  id: 2,
+  type: 'checkbox',
+  label: 'checkbox1',
+  values: ['ckvalue1', 'ckvalue2']
+};
+const radioData = {
+  id: 3,
+  type: 'radio',
+  label: 'radio1',
+  values: ['rvalue1', 'rvalue2']
+};
+const textData = {
+  id: 4,
+  type: 'text',
+  label: 'Text1',
+  regex: '[0-9]+',
+  errorMessage: 'Please enter a valid number',
+  orderSeq: 4
+}
+const dateData = {
+  id: 5,
+  type: 'date',
+  label: 'Date1',
+  orderSeq: 5
+}
+
+const checkboxComponent = createCheckbox(checkboxData, 'test-payload');
+const radioComponent = createRadio(radioData, 'test-payload');
+const selectComponent = createSelect(selectData, 'test-payload');
+const textComponent = createText(textData, 'test-payload');
+const dateComponent = createDate(dateData, 'test-payload');
+
+const formTest = document.getElementById('form-test');
+
+formTest.appendChild(checkboxComponent);
+formTest.appendChild(radioComponent);
+formTest.appendChild(selectComponent);
+formTest.appendChild(textComponent);
+formTest.appendChild(dateComponent);
