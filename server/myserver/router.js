@@ -1,3 +1,5 @@
+const flatten = (arr = []) => arr.reduce((accumulator, item) => accumulator.concat(item), []);
+
 const router = () => {
   const routesWithMethodGet = [];
   const routesWithMethodPost = [];
@@ -23,7 +25,6 @@ const router = () => {
   return routes;
 };
 
-const flatten = (arr = []) => arr.reduce((accumulator, item) => accumulator.concat(item), []);
 const loadRoutes = (routes) => {
   const routesWithMethodGet = flatten(routes.map(route => route.loadGetRoutes()));
   const routesWithMethodPost = flatten(routes.map(route => route.loadPostRoutes()));

@@ -1,34 +1,26 @@
-const fs = require('fs');
+const http = require('http');
 const { cors } = require('./config');
-const { routes1, routes2 } = require('./routes');
-const { loadRoutes } = require('./router');
+const { routeError, routeOptions, routesWithMethodGet, routesWithMethodPost } = require('./routes');
 
-const { routesWithMethodGet, routesWithMethodPost } = loadRoutes([routes1, routes2]);
-
-const handleError = (response) => {
-  setTimeout(() => {
-    if (!response._headerSent) {
-      fs.readFile('./myserver/404.html', (err, content404) => {
-        response.writeHead(200, { 'Content-Type': 'text/html' });
-        response.end(content404, 'utf-8');
-      });
-    }
-  }, 250);
-};
+const port = 8081;
+const METHOD_GET = 'GET';
+const METHOD_POST = 'POST';
+const METHOD_OPTIONS = 'OPTIONS';
 
 const myserver = (request, response) => {
   cors(response);
 
-  if (request.method === 'GET') {
+  if (request.method === METHOD_GET) {
     routesWithMethodGet.forEach(route => route(request, response));
-  } else if (request.method === 'POST') {
+  } else if (request.method === METHOD_POST) {
     routesWithMethodPost.forEach(route => route(request, response));
+  } else if (request.method === METHOD_OPTIONS) {
+    routeOptions(response);
   }
 
-  handleError(response);
+  routeError(response);
 };
 
-const http = require('http');
-http.createServer(myserver).listen(8081);
+http.createServer(myserver).listen(port);
 
-console.log('Server running at http://127.0.0.1:8081/');
+console.log(`Server running at http://127.0.0.1:${port}/`);
