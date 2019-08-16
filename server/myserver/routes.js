@@ -1,10 +1,8 @@
 const fs = require('fs');
-const { loadRoutes, router } = require('./router');
+const { router } = require('./router');
 
 const UTF8 = 'utf-8';
 const STATUS_OK = 200;
-const NOT_FOUND = 404;
-const DELAY = 250;
 const RESPONSE_TYPE_JSON = { 'Content-Type': 'application/json' };
 const RESPONSE_TYPE_HTML = { 'Content-Type': 'text/html' };
 
@@ -58,27 +56,4 @@ const routerTwo = (req, res) => {
 const routes1 = router().get(routerOne).post(routerTwo);
 const routes2 = router().get(routerOneOne);
 
-const { routesWithMethodGet, routesWithMethodPost } = loadRoutes([routes1, routes2]);
-
-const routeOptions = (res) => {
-  res.writeHead(STATUS_OK, RESPONSE_TYPE_JSON);
-  res.end();
-};
-
-const routeError = (res) => {
-  setTimeout(() => {
-    if (!res._headerSent) {
-      fs.readFile('./myserver/404.html', (err, content404) => {
-        res.writeHead(NOT_FOUND, RESPONSE_TYPE_HTML);
-        res.end(content404, UTF8);
-      });
-    }
-  }, DELAY);
-};
-
-module.exports = {
-  routeError,
-  routeOptions,
-  routesWithMethodGet,
-  routesWithMethodPost
-};
+module.exports = { routes1, routes2 };
