@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { router } = require('./router');
+const { router } = require('./src/router');
 
 const UTF8 = 'utf-8';
 const STATUS_OK = 200;
