@@ -1,9 +1,9 @@
-const { cors } = require('./cors');
 const { DEFAULT_ERROR_ROUTE, DEFAULT_METHOD_OPTIONS_RESPONSE } = require('./defaults');
 
 const METHOD_GET = 'GET';
 const METHOD_POST = 'POST';
 const METHOD_OPTIONS = 'OPTIONS';
+const DELAY = 250;
 
 const flatten = (arr = []) => arr.reduce((accumulator, item) => accumulator.concat(item), []);
 
@@ -14,14 +14,22 @@ const loadRoutes = (routes) => {
   return { routesWithMethodGet, routesWithMethodPost };
 };
 
+const handleError = (errorRoute, request, response) => {
+  setTimeout(() => {
+    if (!response._headerSent) {
+      errorRoute(request, response);
+    }
+  }, DELAY);
+};
+
 const services = (routes, config) => {
   const { routesWithMethodGet, routesWithMethodPost } = loadRoutes(routes);
-  const isCorsOn = config.some(item => item.cors);
-  const errorRoute = config.find(item => item.errorRoute).errorRoute || DEFAULT_ERROR_ROUTE;
+  const cors = config.find(item => item.isCorsOn);
+  const errorRoute = config.find(item => item.overrideDefaultError).errorRoute || DEFAULT_ERROR_ROUTE;
 
   return (request, response) => {
-    if (isCorsOn) {
-      cors(response);
+    if (cors.isCorsOn) {
+      cors.runCors(response);
     }
 
     if (request.method === METHOD_GET) {
@@ -32,7 +40,7 @@ const services = (routes, config) => {
       DEFAULT_METHOD_OPTIONS_RESPONSE(request, response);
     }
 
-    errorRoute(request, response);
+    handleError(errorRoute, request, response);
   };
 };
 

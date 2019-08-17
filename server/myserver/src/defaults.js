@@ -1,6 +1,5 @@
 const STATUS_OK = 200;
 const NOT_FOUND = 404;
-const DELAY = 250;
 const RESPONSE_TYPE_JSON = { 'Content-Type': 'application/json' };
 
 const DEFAULT_CALLBACK = (portnumber) => {
@@ -8,12 +7,8 @@ const DEFAULT_CALLBACK = (portnumber) => {
 };
 
 const DEFAULT_ERROR_ROUTE = (req, res) => {
-  setTimeout(() => {
-    if (!res._headerSent) {
-      res.writeHead(NOT_FOUND, RESPONSE_TYPE_JSON);
-      res.end(JSON.stringify({ message: `request is invalid with method:${req.method} and url:${req.url}` }));
-    }
-  }, DELAY);
+  res.writeHead(NOT_FOUND, RESPONSE_TYPE_JSON);
+  res.end(JSON.stringify({ message: `request is invalid with method:${req.method} and url:${req.url}` }));
 };
 
 const DEFAULT_METHOD_OPTIONS_RESPONSE = (req, res) => {

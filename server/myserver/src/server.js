@@ -1,5 +1,6 @@
 const http = require('http');
 const { services } = require('./services');
+const { cors } = require('./cors');
 const { DEFAULT_CALLBACK } = require('./defaults');
 
 const DEFAULT_PORT = '8080';
@@ -10,13 +11,15 @@ const serverFactory = () => {
   const server = {
     addCors() {
       config.push({
-        cors: true
+        isCorsOn: true,
+        runCors: cors
       });
 
       return this;
     },
     addRouteError(errorRoute) {
       config.push({
+        overrideDefaultError: true,
         errorRoute
       });
 
