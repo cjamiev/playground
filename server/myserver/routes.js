@@ -8,14 +8,22 @@ const STATUS_OK = 200;
 const RESPONSE_TYPE_JSON = { 'Content-Type': 'application/json' };
 const RESPONSE_TYPE_HTML = { 'Content-Type': 'text/html' };
 
+const send = (response, data) => {
+  response.writeHead(STATUS_OK, RESPONSE_TYPE_JSON);
+  response.end(JSON.stringify(data));
+};
+
+const sendHTML = (response, data) => {
+  response.writeHead(STATUS_OK, RESPONSE_TYPE_JSON);
+  response.end(data, UTF8);
+};
+
 const homeRoute = (req, res) => {
   fs.readFile('./myserver/index.html', (err, content) => {
     if (err) {
-      res.writeHead(STATUS_OK, RESPONSE_TYPE_JSON);
-      res.end(JSON.stringify({ message: 'not found' }));
+      send(res, { message: 'not found' });
     } else {
-      res.writeHead(STATUS_OK, RESPONSE_TYPE_HTML);
-      res.end(content, UTF8);
+      sendHTML(res, content);
     }
   });
 };
@@ -23,25 +31,26 @@ const homeRoute = (req, res) => {
 testRouter.get('/', homeRoute);
 testRouter.get('/index.html', homeRoute);
 testRouter.get('/test', (req, res) => {
-  res.writeHead(STATUS_OK, RESPONSE_TYPE_JSON);
-  res.end(JSON.stringify({ message: 'testing get from testRouter' }));
+  send(res, { message: 'testing get from testRouter' });
 });
 testRouter.get('/test2', (req, res) => {
-  res.writeHead(STATUS_OK, RESPONSE_TYPE_JSON);
-  res.end(JSON.stringify({ message: 'testing get2 from testRouter' }));
+  send(res, { message: 'testing get2 from testRouter' });
 });
+
+const realRoute = (req, res) => {
+  send(res, req.body);
+};
+
 testRouter.post('/test3', (req, res) => {
-  res.writeHead(STATUS_OK, RESPONSE_TYPE_JSON);
-  res.end(JSON.stringify({ message: 'testing post3 from testRouter1' }));
+  realRoute(req, res);
 });
 
 testRouter2.post('/test2', (req, res) => {
-  res.writeHead(STATUS_OK, RESPONSE_TYPE_JSON);
-  res.end(JSON.stringify({ message: 'testing post2 from testRouter2' }));
+  send(res, req.body);
 });
+
 testRouter2.get('/test3', (req, res) => {
-  res.writeHead(STATUS_OK, RESPONSE_TYPE_JSON);
-  res.end(JSON.stringify({ message: 'testing get3 from testRouter2' }));
+  send(res, { message: 'testing get3 from testRouter2' });
 });
 
 module.exports = { testRouter, testRouter2 };
