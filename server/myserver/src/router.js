@@ -1,4 +1,4 @@
-const resolvePost = async (request) => {
+const resolvePostBody = async (request) => {
   const promise = new Promise((resolve, reject) => {
     const queryData = [];
     request.on('data', (data) => {
@@ -18,7 +18,7 @@ const resolvePost = async (request) => {
 const createNewPostRoute = (url, route) => {
   return async (req, res) => {
     if (req.url === url) {
-      req.body = await resolvePost(req);
+      req.body = await resolvePostBody(req);
       route(req, res);
     }
   };
