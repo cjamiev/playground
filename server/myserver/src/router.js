@@ -2,13 +2,24 @@ const router = () => {
   const routesWithMethodGet = [];
   const routesWithMethodPost = [];
   const routes = {
-    get(route) {
-      routesWithMethodGet.push(route);
+    get(url, route) {
+      const newRoute = (req, res) => {
+        if (req.url === url) {
+          route(req, res);
+        }
+      };
+
+      routesWithMethodGet.push(newRoute);
 
       return this;
     },
-    post(route) {
-      routesWithMethodPost.push(route);
+    post(url, route) {
+      const newRoute = (req, res) => {
+        if (req.url === url) {
+          route(req, res);
+        }
+      };
+      routesWithMethodPost.push(newRoute);
 
       return this;
     },

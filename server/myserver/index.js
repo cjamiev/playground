@@ -1,5 +1,5 @@
 const { serverFactory } = require('./src/server');
-const { routes1, routes2 } = require('./routes');
+const { testRouter, testRouter2 } = require('./routes');
 
 const server = serverFactory();
 
@@ -14,7 +14,7 @@ server
     res.writeHead(NOT_FOUND, RESPONSE_TYPE_JSON);
     res.end(JSON.stringify({ message: 'testing override' }));
   })
-  .addRoute(routes1)
-  .addRoute(routes2);
+  .addRoute(testRouter)
+  .addRoute(testRouter2);
 
 server.start();
