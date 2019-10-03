@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+		<title>q</title>
+	</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			
+			<ul class="list-group col-8">
+				<li class="list-group-item"><a href="https://www.google.com" target="_blank">Ex. Link</a><button class="btn btn-primary" onClick="copyToClipboard('Ex. Copy')">Ex. Copy</button></li>
+				<li class="list-group-item"><a href="./resource/test.txt" download> Ex. Download</a></li>
+				<li class="list-group-item"><span data-date="2019,9,2,12,0,0">...loading</span></li>
+				<li class="list-group-item"><span data-date="2019,9,3,12,0,0">...loading</span></li>
+				<li class="list-group-item"><span data-date="2019,9,9,12,0,0">...loading</span></li>
+				<li class="list-group-item"><span data-date="2019,9,16,8,0,0">...loading</span></li>
+				<li class="list-group-item">Christmas: <span data-date="2019,11,25,0,0,0">...loading</span></li>
+			</ul>
+			
+		</div>
+	</div>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="./js/clock.js"></script>
+	<script src="./js/copy.js"></script>
+	<script>
+		const countdown = () => {
+			const timerElements = document.querySelectorAll('[data-date]');
+			const today = new Date();
+			
+			timerElements.forEach(el => {
+				const data = el.getAttribute('data-date').split(',').map(item => Number(item));
+				const futureDate = new Date(...data);
+				const { weeks, days, hours, minutes, seconds } = clockBetweenDates(futureDate, today);
+				
+				if(weeks > 0){
+					el.innerHTML = weeks + ' week(s) and ' + (days + hours/24).toPrecision(2) + ' day(s)'
+				}	
+				else if(days > 0){
+					el.innerHTML = (days + hours/24).toPrecision(2) + ' day(s)';
+				}
+				else {
+					el.innerHTML = formattedClock(hours, minutes, seconds);
+				}
+			});
+		}
+		
+		setInterval(countdown,1000);
+	</script>
+</body>
+</html>
+	
