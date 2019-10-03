@@ -19,15 +19,24 @@
 				<li class="list-group-item"><span data-date="2019,9,9,12,0,0">...loading</span></li>
 				<li class="list-group-item"><span data-date="2019,9,16,8,0,0">...loading</span></li>
 				<li class="list-group-item">Christmas: <span data-date="2019,11,25,0,0,0">...loading</span></li>
+				<li class="list-group-item"><button class="btn btn-secondary" onClick=executeCommand('notepad-clipboard.bat')>open clipboard.txt</button></li>
 			</ul>
 			
 		</div>
 	</div>
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 	<script src="./js/clock.js"></script>
 	<script src="./js/copy.js"></script>
 	<script>
+	  const executeCommand = command => {
+    return fetch('/command'+command, {
+				method: 'GET'
+			})
+      .then(response => response.json())
+      .then(result => result)
+      .catch(error => console.log('error:', error));
+		};
+
 		const countdown = () => {
 			const timerElements = document.querySelectorAll('[data-date]');
 			const today = new Date();

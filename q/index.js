@@ -13,26 +13,26 @@ const mimeTypes = {
   '.css': 'text/css',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
-  '.wav': 'audio/wav',
-  '.mp3': 'audio/mpeg',
   '.svg': 'image/svg+xml',
   '.pdf': 'application/pdf',
   '.doc': 'application/msword'
 };
 
-const getPath = (url) => {
+const getCommand = (command) => `cd ./scripts && ${command}`;
+
+const getFilePath = (url) => {
 	if(url === '/' || url === '/index.html'){
 		return './index.html';
-	} else if(url === '/command'){
-		return 'command';
+	} else if(url.includes('/command')){
+		return url.replace('/command','');
 	} else {
 		return '.' + url;
 	}
-}
+};
 
-const executeCommand = (command) => {
+const executeCommand = (filepath) => {
 	try {
-		return execSync(command, { encoding: UTF8 } );
+		return execSync(getCommand(filepath), { encoding: UTF8 } );
 	} catch (ex) {
 		return {
 			error: true,
@@ -44,7 +44,7 @@ const executeCommand = (command) => {
 	}
 };
 
-const fileResponse = (filePath, response) => {
+const sendFile = (filePath, response) => {
 	const extname = String(path.extname(filePath)).toLowerCase();
 	const contentType = mimeTypes[extname] || 'application/octet-stream';
 	
@@ -59,18 +59,14 @@ const fileResponse = (filePath, response) => {
     });
 }
 
-const handleResponse = (endpoint, response) => {
-	if(endpoint === 'command'){
-		executeCommand('ls');
-	} else {
-		fileResponse(endpoint, response);
-	}
-}
-
 http.createServer(function (request, response) {
-  const endpoint = getPath(request.url);
+  const filepath = getFilePath(request.url);
 	
-	handleResponse(endpoint, response);
+	if(filepath.includes('.bat')){
+		executeCommand(filepath, response);
+	} else {
+		sendFile(filepath, response);
+	}
 }).listen(parseInt(port));
 
 console.log(`Server listening on port ${port}`);
