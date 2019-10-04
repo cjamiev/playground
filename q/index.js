@@ -2,9 +2,10 @@ const execSync = require('child_process').execSync;
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const port = process.argv[2] || 9000;
+const port = process.argv[2] || 1000;
 
 const UTF8 = 'utf-8';
+const JSON_TYPE = {'Content-type': 'application/json'};
 const mimeTypes = {
   '.ico': 'image/x-icon',
   '.html': 'text/html',
@@ -17,6 +18,9 @@ const mimeTypes = {
   '.pdf': 'application/pdf',
   '.doc': 'application/msword'
 };
+const NOT_FOUND = 'file not found';
+const STATUS_OK = 200;
+const STATUS_ERROR = 500;
 
 const getCommand = (command) => `cd ./scripts && ${command}`;
 
@@ -30,17 +34,21 @@ const getFilePath = (url) => {
 	}
 };
 
-const executeCommand = (filepath) => {
+const executeCommand = (filepath, response) => {
 	try {
-		return execSync(getCommand(filepath), { encoding: UTF8 } );
+		const result = execSync(getCommand(filepath), { encoding: UTF8 } );
+
+		response.writeHead(STATUS_OK, JSON_TYPE);
+		response.end(JSON.stringify({ message: result }), UTF8);
 	} catch (ex) {
-		return {
+		response.writeHead(STATUS_ERROR, JSON_TYPE);
+		response.end(JSON.stringify({
 			error: true,
 			message: {
 				status: ex.status,
 				message: ex.message
 			}
-		};
+		}));
 	}
 };
 
@@ -50,10 +58,10 @@ const sendFile = (filePath, response) => {
 	
 	fs.readFile(filePath, function(error, content){
       if(error){
-        response.writeHead(500);
-        response.end('file not found');
+        response.writeHead(STATUS_ERROR);
+        response.end(NOT_FOUND);
       } else {
-				response.writeHead(200, {'Content-type': contentType});
+				response.writeHead(STATUS_OK, {'Content-type': contentType});
         response.end(content, UTF8);
       }
     });
@@ -61,7 +69,7 @@ const sendFile = (filePath, response) => {
 
 http.createServer(function (request, response) {
   const filepath = getFilePath(request.url);
-	
+
 	if(filepath.includes('.bat')){
 		executeCommand(filepath, response);
 	} else {

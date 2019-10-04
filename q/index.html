@@ -10,7 +10,7 @@
 
 	<div class="container">
 		<div class="row">
-			
+
 			<ul class="list-group col-8">
 				<li class="list-group-item"><a href="https://www.google.com" target="_blank">Ex. Link</a><button class="btn btn-primary" onClick="copyToClipboard('Ex. Copy')">Ex. Copy</button></li>
 				<li class="list-group-item"><a href="./resource/test.txt" download> Ex. Download</a></li>
@@ -19,47 +19,23 @@
 				<li class="list-group-item"><span data-date="2019,9,9,12,0,0">...loading</span></li>
 				<li class="list-group-item"><span data-date="2019,9,16,8,0,0">...loading</span></li>
 				<li class="list-group-item">Christmas: <span data-date="2019,11,25,0,0,0">...loading</span></li>
-				<li class="list-group-item"><button class="btn btn-secondary" onClick=executeCommand('notepad-clipboard.bat')>open clipboard.txt</button></li>
+				<li class="list-group-item"><button class="btn btn-secondary" onClick="executeCommand('notepad-clipboard.bat')">open clipboard.txt</button></li>
+				<li class="list-group-item"><button class="btn btn-secondary" onClick="executeCommand('ls.bat')">ls</button></li>
 			</ul>
-			
+
+		</div>
+	</div>
+
+	<div class="card">
+		<div id="response" class="card-body">
+			<h5 class="card-title">Results:</h5>
+			<p class="card-text">Command output will be shown here.</p>
 		</div>
 	</div>
 
 	<script src="./js/clock.js"></script>
 	<script src="./js/copy.js"></script>
-	<script>
-	  const executeCommand = command => {
-    return fetch('/command'+command, {
-				method: 'GET'
-			})
-      .then(response => response.json())
-      .then(result => result)
-      .catch(error => console.log('error:', error));
-		};
-
-		const countdown = () => {
-			const timerElements = document.querySelectorAll('[data-date]');
-			const today = new Date();
-			
-			timerElements.forEach(el => {
-				const data = el.getAttribute('data-date').split(',').map(item => Number(item));
-				const futureDate = new Date(...data);
-				const { weeks, days, hours, minutes, seconds } = clockBetweenDates(futureDate, today);
-				
-				if(weeks > 0){
-					el.innerHTML = weeks + ' week(s) and ' + (days + hours/24).toPrecision(2) + ' day(s)'
-				}	
-				else if(days > 0){
-					el.innerHTML = (days + hours/24).toPrecision(2) + ' day(s)';
-				}
-				else {
-					el.innerHTML = formattedClock(hours, minutes, seconds);
-				}
-			});
-		}
-		
-		setInterval(countdown,1000);
-	</script>
+	<script src="./js/onload.js"></script>
 </body>
 </html>
 	
