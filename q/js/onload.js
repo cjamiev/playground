@@ -32,10 +32,10 @@ const countdown = () => {
     const { weeks, days, hours, minutes, seconds } = clockBetweenDates(futureDate, today);
     
     if(weeks > 0){
-      el.innerHTML = weeks + ' week(s) and ' + (days + hours/24).topcision(2) + ' day(s)'
+      el.innerHTML = weeks + ' week(s) and ' + (days + hours/24).toPrecision(2) + ' day(s)'
     }	
     else if(days > 0){
-      el.innerHTML = (days + hours/24).topcision(2) + ' day(s)';
+      el.innerHTML = (days + hours/24).toPrecision(2) + ' day(s)';
     }
     else {
       el.innerHTML = formattedClock(hours, minutes, seconds);
