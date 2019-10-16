@@ -2,19 +2,26 @@
 <html>
 
 <head>
-  <link rel="stylesheet" type="text/css" href="./css/all.css">
   <title>Page Title</title>
 </head>
 
 <body>
+  <h1> Test Simple Node App</h1>
 
-  <h1>This is a Heading</h1>
-  <p>This is a paragraph.</p>
+  <button onClick="testPost()"> Test Post </button>
+  <button onClick="testGet()"> Test Get </button>
   <script src='js/api.js'></script>
   <script>
-    api.post('/test', { id: 1 }).then(data => {
-      console.log(data);
-    });
+    const testPost = () => {
+      api.post('/test-url1', { id: 1 }).then(data => {
+        console.log(data);
+      });
+    }
+    const testGet = () => {
+      api.get('/test-url2').then(data => {
+        console.log(data);
+      });
+    }
   </script>
 
 </body>

@@ -77,11 +77,11 @@ const handleStaticResponse = (request, response) => {
 
 const handleResponse = (request, response) => {
   response.writeHead(STATUS_OK, { 'Content-Type': TYPE_JSON });
-  response.end({
+  response.end(JSON.stringify({
     url: request.url,
     method: request.method,
     timestamp: new Date()
-  }, UTF8);
+  }), UTF8);
 };
 
 http.createServer((request, response) => {
