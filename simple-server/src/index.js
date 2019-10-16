@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const port = process.argv[2] || 1000;
+const ROOT_DIR = './src/static/';
 const UTF8 = 'utf-8';
 const TYPE_JSON = 'application/json';
 const TYPE_OCTET = 'application/octet-stream';
@@ -21,7 +22,6 @@ const mimeTypes = {
 const NOT_FOUND = 'file not found';
 const STATUS_OK = 200;
 const STATUS_ERROR = 500;
-const METHOD_GET = 'GET';
 const METHOD_POST = 'POST';
 
 const cors = res => {
@@ -48,15 +48,19 @@ const resolvePostBody = async (request) => {
   return result;
 };
 
-const getFilePath = (url) => {
-  if (url === '/' || url === '/index.html') {
-    return './src/static/index.html';
-  } else {
-    return './src/static/' + url;
-  }
+const handlePostResponse = async (request, response) => {
+  const payload = await resolvePostBody(request);
+  response.writeHead(STATUS_OK, { 'Content-Type': TYPE_JSON });
+  response.end(JSON.stringify({
+    url: request.url,
+    method: METHOD_POST,
+    payload,
+    timestamp: new Date()
+  }), UTF8);
 };
 
-const staticRoute = (filePath, response) => {
+const handleStaticResponse = (request, response) => {
+  const filePath = (request.url === '/' || request.url === '/index.html') ? ROOT_DIR + 'index.html' : ROOT_DIR + request.url;
   const extname = String(path.extname(filePath)).toLowerCase();
   const contentType = mimeTypes[extname] || TYPE_OCTET;
 
@@ -71,19 +75,25 @@ const staticRoute = (filePath, response) => {
   });
 };
 
-http.createServer(async (request, response) => {
+const handleResponse = (request, response) => {
+  response.writeHead(STATUS_OK, { 'Content-Type': TYPE_JSON });
+  response.end({
+    url: request.url,
+    method: request.method,
+    timestamp: new Date()
+  }, UTF8);
+};
+
+http.createServer((request, response) => {
   cors(response);
   if (request.method === METHOD_POST) {
-    const result = await resolvePostBody(request);
-
-    console.log(result);
-    response.writeHead(STATUS_OK, { 'Content-Type': TYPE_JSON });
-    response.end(JSON.stringify(result), UTF8);
+    handlePostResponse(request, response);
   }
-
+  else if (path.extname(request.url)) {
+    handleStaticResponse(request, response);
+  }
   else {
-    const filepath = getFilePath(request.url);
-    staticRoute(filepath, response);
+    handleResponse(request, response);
   }
 }).listen(parseInt(port));
 
