@@ -1,4 +1,3 @@
-const execSync = require('child_process').execSync;
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -19,7 +18,6 @@ const mimeTypes = {
   '.pdf': 'application/pdf',
   '.doc': 'application/msword'
 };
-const EXTENSION_BAT = '.bat';
 const NOT_FOUND = 'file not found';
 const STATUS_OK = 200;
 const STATUS_ERROR = 500;
@@ -50,33 +48,11 @@ const resolvePostBody = async (request) => {
   return result;
 };
 
-const getCommand = (command) => `cd ./scripts && ${command}`;
-
 const getFilePath = (url) => {
   if (url === '/' || url === '/index.html') {
     return './src/static/index.html';
-  } else if (url.includes('/command')) {
-    return url.replace('/command', '');
   } else {
     return './src/static/' + url;
-  }
-};
-
-const executeCommand = (filepath, response) => {
-  try {
-    const result = execSync(getCommand(filepath), { encoding: UTF8 });
-
-    response.writeHead(STATUS_OK, { 'Content-Type': TYPE_JSON });
-    response.end(JSON.stringify({ message: result }), UTF8);
-  } catch (ex) {
-    response.writeHead(STATUS_ERROR, { 'Content-Type': TYPE_JSON });
-    response.end(JSON.stringify({
-      error: true,
-      message: {
-        status: ex.status,
-        message: ex.message
-      }
-    }));
   }
 };
 
@@ -107,12 +83,7 @@ http.createServer(async (request, response) => {
 
   else {
     const filepath = getFilePath(request.url);
-
-    if (filepath.includes(EXTENSION_BAT)) {
-      executeCommand(filepath, response);
-    } else {
-      staticRoute(filepath, response);
-    }
+    staticRoute(filepath, response);
   }
 }).listen(parseInt(port));
 
