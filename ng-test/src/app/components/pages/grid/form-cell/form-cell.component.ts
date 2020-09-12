@@ -1,16 +1,11 @@
 import {Component} from '@angular/core';
-import {FormArray} from "@angular/forms";
+import {FormArray} from '@angular/forms';
 
 @Component({
     selector: 'app-form-cell',
-    template: `
-        <div *ngIf="formGroup" [formGroup]="formGroup">
-            <mat-form-field [floatLabel]="'never'" style="width: 100%">
-                <input matInput [formControlName]="key" [id]="key" placeholder="Enter {{columnName}}">
-            </mat-form-field>
-        </div>
-    `
+    templateUrl: './form-cell.component.html'
 })
+
 export class FormCellComponent {
     formGroup: FormArray;
     key;

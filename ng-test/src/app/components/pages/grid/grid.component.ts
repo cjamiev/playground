@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Column, ColumnApi, GridApi, GridReadyEvent, RowNode} from "ag-grid";
 import {FormCellComponent} from './form-cell/form-cell.component';
@@ -8,66 +7,8 @@ import { BranchService } from '../../../services/branch.service';
 
 @Component({
     selector: 'app-grid',
-    template: `
-        <div class="container"
-             fxLayout="column" fxLayoutAlign="start center">
-            <mat-form-field class="dealership-field">
-                <mat-select placeholder="Branch" (selectionChange)="updateForm()" [(value)]="selectedBranch">
-                    <mat-option *ngFor="let branch of branchNames" [value]="branch">
-                        {{ branch }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <form class="dealership-form"
-                  fxLayout="column" fxLayoutAlign="start center"
-                  (ngSubmit)="onSubmit()" [formGroup]="gridForm">
-                <mat-form-field class="dealership-field">
-                    <input matInput formControlName="salesperson" placeholder="Lead Salesperson">
-                </mat-form-field>
-                <mat-form-field class="dealership-field">
-                    <input matInput formControlName="telephone" placeholder="Branch Telephone" type="tel">
-                </mat-form-field>
-                <mat-form-field class="dealership-field">
-                    <textarea matInput
-                              formControlName="address"
-                              rows="4"
-                              placeholder="Branch Address"></textarea>
-                </mat-form-field>
-                <ag-grid-angular style="width: 700px; height: 300px;"
-                                 [rowData]="rowData"
-                                 [columnDefs]="columnDefs"
-
-                                 [frameworkComponents]="getComponents()"
-                                 [context]="getContext()"
-
-                                 [getRowNodeId]="getRowNodeId"
-
-                                 (rowDataChanged)="refreshFormControls()"
-                                 (gridReady)="gridReady($event)">
-                </ag-grid-angular>
-                <button style="margin-top: 10px; float: right;"
-                        mat-raised-button [disabled]="!gridForm.valid"
-                        type="submit">Submit
-                </button>
-            </form>
-        </div>
-    `,
-    styles: [
-            `
-            .container {
-                height: 700px;
-            }
-
-            .dealership-form {
-                width: 100%;
-                height: 100%;
-            }
-
-            .dealership-field {
-                width: 300px;
-            }
-        `
-    ]
+    templateUrl: './grid.component.html',
+    styleUrls: ['./grid.component.css'],
 })
 export class GridComponent {
     private api: GridApi;
@@ -87,8 +28,7 @@ export class GridComponent {
     columnDefs;
     rowData;
 
-    constructor(public snackBar: MatSnackBar,
-                private branchService: BranchService) {
+    constructor(private branchService: BranchService) {
 
         this.columnDefs = [
             {headerName: 'Order #', field: "orderNumber", width: 110, suppressSizeToFit: true},
@@ -175,11 +115,6 @@ export class GridComponent {
 
     onSubmit() {
         console.dir(this.gridForm.value);
-
-        this.snackBar.open("Open Console for Form State", null, {
-            verticalPosition: "top",
-            duration: 2000
-        });
     }
 
     private createKey(columnApi: ColumnApi, column: Column): any {

@@ -6,11 +6,6 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 /* Material Modules*/
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 /* Flex */
 import {FlexLayoutModule} from '@angular/flex-layout';
 /* ag-Grid Module*/
@@ -46,11 +41,6 @@ import { AboutComponent } from './components/pages/about/about.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatSnackBarModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
     FlexLayoutModule,
     AgGridModule.withComponents([FormCellComponent]),
   ],
