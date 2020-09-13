@@ -13,11 +13,13 @@ export class FormCellComponent {
     private value: string;
     private columnName: string;
     private rowId: number;
+    private type: string;
 
     agInit(params: any) {
         this.columnName = params.column.colDef.headerName;
         this.key = params.context.createKey(params.columnApi, params.column);
         this.value = params.value;
+        this.type = params.context.cellProperties;
         this.rowId = params.node.id;
     }
 

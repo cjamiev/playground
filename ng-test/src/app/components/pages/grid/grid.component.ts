@@ -1,15 +1,32 @@
 import {Component} from '@angular/core';
-import {FormArray, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
 
-import {Column, ColumnApi, GridApi, GridReadyEvent, RowNode} from "ag-grid";
+import {Column, ColumnApi, GridApi, GridReadyEvent, RowNode} from 'ag-grid';
 import {FormCellComponent} from './form-cell/form-cell.component';
 import { BranchService } from '../../../services/branch.service';
 
 const COLUMN_DEF = [
-    {headerName: 'Order #', field: "orderNumber", width: 110, suppressSizeToFit: true},
-    {headerName: 'Make', field: "make", cellRenderer: 'formCell'},
-    {headerName: 'Model', field: "model", cellRenderer: 'formCell'},
-    {headerName: 'Price', field: "price", cellRenderer: 'formCell'}
+    {
+        headerName: 'Order #',
+        field: 'orderNumber',
+        width: 110,
+        suppressSizeToFit: true
+    },
+    {
+        headerName: 'Make',
+        field: 'make',
+        cellRenderer: 'formCell'
+    },
+    {
+        headerName: 'Model',
+        field: 'model',
+        cellRenderer: 'formCell'
+    },
+    {
+        headerName: 'Price',
+        field: 'price',
+        cellRenderer: 'formCell'
+    }
 ];
 
 @Component({
@@ -21,101 +38,70 @@ const COLUMN_DEF = [
 export class GridComponent {
     private api: GridApi;
     private columnApi: ColumnApi;
-
-    // this cannot be null - create it with no controls instead
-    gridForm: FormGroup = new FormGroup({
-        salesperson: new FormControl(),
-        telephone: new FormControl(),
-        address: new FormControl(),
-        stock: new FormGroup({})
-    });
-
-    branchNames: string[];
-    selectedBranch: string;
-
+    gridForm: FormGroup = new FormGroup({gridData: new FormGroup({})});
     columnDefs;
     rowData;
 
     constructor(private branchService: BranchService) {
         this.columnDefs = COLUMN_DEF;
-        this.branchNames = this.branchService.branches;
-        this.selectedBranch = this.branchNames[0];
         this.updateForm();
     }
 
-    updateForm() {
-        const currentBranch = this.branchService.getBranchData(this.selectedBranch);
-        this.gridForm.controls['salesperson'].patchValue(currentBranch.salesperson);
-        this.gridForm.controls['telephone'].patchValue(currentBranch.telephone);
-        this.gridForm.controls['address'].patchValue(currentBranch.address);
-
-        this.rowData = currentBranch.stock;
+    updateForm(): void {
+        this.rowData = this.branchService.branches.rowData.map(row => {
+            return row.reduce((accumulator, cell) => {
+              return {
+                ...accumulator,
+                [cell.header]: cell.value
+              };
+            }, {});
+          });
     }
 
-    refreshFormControls() {
+    refreshFormControls(): void {
         if (this.api) {
-            // slight chicken and egg here - the grid cells will be created before the grid is ready, but
-            // we need set formGroup up front
-            // as such we'll create the grid (and cells) and force refresh the cells
-            // FormCellComponent will then set the form in the refresh, completing the loop
-            // this is only necessary once, on initialisation
             this.createFormControls();
             this.api.refreshCells({force: true});
         }
     }
 
-    gridReady(params: GridReadyEvent) {
+    gridReady(params: GridReadyEvent): void {
         this.api = params.api;
         this.columnApi = params.columnApi;
-
         this.refreshFormControls();
-
         this.api.sizeColumnsToFit();
     }
 
-    private createFormControls() {
-        let columns = this.columnApi.getAllColumns();
-
-        const stockGroup = (<FormGroup>this.gridForm.controls['stock']);
-
-        // clear out old form group controls if switching between branches
-        let controlNames = Object.keys(stockGroup.controls);
-        controlNames.forEach((controlName) => {
-            stockGroup.removeControl(controlName)
-        });
+    private createFormControls(): void {
+        const columns = this.columnApi.getAllColumns();
+        const gridDataGroup = (<FormGroup>this.gridForm.controls['gridData']);
 
         this.api.forEachNode((rowNode: RowNode) => {
+            console.log(rowNode);
             const formArray: FormArray = new FormArray([]);
-            columns.filter((column: Column) => column.getColDef().field !== 'orderNumber')
+            columns
                 .forEach((column: Column) => {
-                    const key = this.createKey(this.columnApi, column); // the cells will use this same createKey method
+                    const key = this.createKey(this.columnApi, column);
                     formArray.setControl(<any>key, new FormControl());
                 });
-            stockGroup.addControl(<any>rowNode.id, formArray);
+            gridDataGroup.addControl(<any>rowNode.id, formArray);
         });
     }
 
-    getRowNodeId(data: any) {
-        // optional here - ag-Grid will create row ids if you don't supply one, but
-        // if you have a way of uniquely identifying rows here's where you'd do it.
-        // doing so would make it easier to pull out specific rows from the form,
-        // say by order number, as we do here
-        return data.orderNumber;
-    }
-
-    getComponents() {
+    getComponents(){
         return {'formCell': FormCellComponent};
     }
 
     getContext() {
         return {
-            formGroup: this.gridForm.controls.stock,
+            cellProperties: this.branchService.branches.rowData,
+            formGroup: this.gridForm.controls.gridData,
             createKey: this.createKey
-        }
+        };
     }
 
     onSubmit() {
-        console.dir(this.gridForm.value);
+        console.log(this.gridForm.value);
     }
 
     private createKey(columnApi: ColumnApi, column: Column): any {
