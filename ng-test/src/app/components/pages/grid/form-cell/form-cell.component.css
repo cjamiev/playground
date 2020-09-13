@@ -1,0 +1,11 @@
+.default {
+  background-color: #FFFFFF;
+}
+
+.invalid {
+  background-color: #FF0000;
+}
+
+.valid {
+  background-color: #006600;
+}

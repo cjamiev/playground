@@ -5,11 +5,19 @@ import {Column, ColumnApi, GridApi, GridReadyEvent, RowNode} from "ag-grid";
 import {FormCellComponent} from './form-cell/form-cell.component';
 import { BranchService } from '../../../services/branch.service';
 
+const COLUMN_DEF = [
+    {headerName: 'Order #', field: "orderNumber", width: 110, suppressSizeToFit: true},
+    {headerName: 'Make', field: "make", cellRenderer: 'formCell'},
+    {headerName: 'Model', field: "model", cellRenderer: 'formCell'},
+    {headerName: 'Price', field: "price", cellRenderer: 'formCell'}
+];
+
 @Component({
     selector: 'app-grid',
     templateUrl: './grid.component.html',
     styleUrls: ['./grid.component.css'],
 })
+
 export class GridComponent {
     private api: GridApi;
     private columnApi: ColumnApi;
@@ -29,14 +37,7 @@ export class GridComponent {
     rowData;
 
     constructor(private branchService: BranchService) {
-
-        this.columnDefs = [
-            {headerName: 'Order #', field: "orderNumber", width: 110, suppressSizeToFit: true},
-            {headerName: 'Make', field: "make", cellRenderer: 'formCell'},
-            {headerName: 'Model', field: "model", cellRenderer: 'formCell'},
-            {headerName: 'Price', field: "price", cellRenderer: 'formCell'}
-        ];
-
+        this.columnDefs = COLUMN_DEF;
         this.branchNames = this.branchService.branches;
         this.selectedBranch = this.branchNames[0];
         this.updateForm();

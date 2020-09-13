@@ -4,7 +4,7 @@ export interface Branch {
     salesperson: string;
     telephone: string;
     address: string;
-    stock: any[]
+    stock: any[];
 }
 
 @Injectable()

@@ -1,0 +1,12 @@
+<form class="dealership-form" (ngSubmit)="onSubmit()" [formGroup]="gridForm">
+    <ag-grid-angular style="width: 700px; height: 300px;"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      [frameworkComponents]="getComponents()"
+      [context]="getContext()"
+      [getRowNodeId]="getRowNodeId"
+      (rowDataChanged)="refreshFormControls()"
+      (gridReady)="gridReady($event)">
+    </ag-grid-angular>
+    <button [disabled]="!gridForm.valid" type="submit">Submit</button>
+</form>

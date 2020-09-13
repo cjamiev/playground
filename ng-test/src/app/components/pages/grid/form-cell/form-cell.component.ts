@@ -1,16 +1,17 @@
-import {Component} from '@angular/core';
-import {FormArray} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormArray } from '@angular/forms';
 
 @Component({
     selector: 'app-form-cell',
-    templateUrl: './form-cell.component.html'
+    templateUrl: './form-cell.component.html',
+    styleUrls: ['./form-cell.component.css'],
 })
 
 export class FormCellComponent {
     formGroup: FormArray;
-    key;
-    private value;
-    columnName: string;
+    private key: number;
+    private value: string;
+    private columnName: string;
     private rowId: number;
 
     agInit(params: any) {
@@ -22,9 +23,6 @@ export class FormCellComponent {
 
     refresh(params: any): boolean {
         this.formGroup = params.context.formGroup.controls[this.rowId];
-
-        // this could also be done in GridComponent.createFormControls, but the cell component could be doing something with
-        // the value, so it feels more natural that the control value be set here
         this.formGroup.at(this.key).patchValue(this.value);
         return true;
     }
