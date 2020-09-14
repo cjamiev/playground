@@ -1,5 +1,5 @@
-<form class="dealership-form" (ngSubmit)="onSubmit()" [formGroup]="gridForm">
-    <ag-grid-angular style="width: 700px; height: 300px;"
+<form class="grid-form" (ngSubmit)="onSubmit()" [formGroup]="gridForm">
+    <ag-grid-angular class="ag-grid-theme"
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [frameworkComponents]="getComponents()"

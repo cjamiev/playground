@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
-import {Column, ColumnApi, GridApi, GridReadyEvent, RowNode} from 'ag-grid';
-import {FormCellComponent} from './form-cell/form-cell.component';
+import { Column, ColumnApi, GridApi, GridReadyEvent, RowNode } from 'ag-grid';
+import { FormCellComponent } from './form-cell/form-cell.component';
 import { BranchService } from '../../../services/branch.service';
 
 const COLUMN_DEF = [
@@ -82,17 +82,17 @@ export class GridComponent {
             columns
                 .forEach((column: Column) => {
                     const key = this.createKey(this.columnApi, column);
-                    formArray.setControl(<any>key, new FormControl());
+                    formArray.setControl(<number> key, new FormControl());
                 });
-            gridDataGroup.addControl(<any>rowNode.id, formArray);
+            gridDataGroup.addControl(<string> rowNode.id, formArray);
         });
     }
 
-    getComponents(){
+    getComponents(): any {
         return {'formCell': FormCellComponent};
     }
 
-    getContext() {
+    getContext(): any {
         return {
             cellProperties: this.branchService.branches.rowData,
             formGroup: this.gridForm.controls.gridData,
@@ -100,7 +100,7 @@ export class GridComponent {
         };
     }
 
-    onSubmit() {
+    onSubmit(): void {
         console.log(this.gridForm.value);
     }
 
