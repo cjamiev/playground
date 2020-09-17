@@ -11,9 +11,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 /* ag-Grid Module*/
 import {AgGridModule} from 'ag-grid-angular';
 
-import {GridComponent} from './components/pages/grid/grid.component';
-import {FormCellComponent} from './components/pages/grid/form-cell/form-cell.component';
-import {BranchService} from './services/branch.service';
+import { GridComponent } from './components/pages/grid/grid.component';
+import { LayoutStylesComponent } from './components/pages/layout-styles/layout-styles.component';
+import { FormCellComponent } from './components/pages/grid/form-cell/form-cell.component';
+import { BranchService } from './services/branch.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,7 +33,8 @@ import { AboutComponent } from './components/pages/about/about.component';
     AddTodoComponent,
     AboutComponent,
     GridComponent,
-    FormCellComponent
+    FormCellComponent,
+    LayoutStylesComponent
   ],
   imports: [
     BrowserModule,
