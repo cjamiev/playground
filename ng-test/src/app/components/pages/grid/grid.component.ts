@@ -9,8 +9,7 @@ const COLUMN_DEF = [
     {
         headerName: 'Order #',
         field: 'orderNumber',
-        width: 110,
-        suppressSizeToFit: true
+        cellRenderer: 'formCell'
     },
     {
         headerName: 'Make',
@@ -48,14 +47,7 @@ export class GridComponent {
     }
 
     updateForm(): void {
-        this.rowData = this.branchService.branches.rowData.map(row => {
-            return row.reduce((accumulator, cell) => {
-              return {
-                ...accumulator,
-                [cell.header]: cell.value
-              };
-            }, {});
-          });
+        this.rowData = this.branchService.branches.rowData;
     }
 
     refreshFormControls(): void {
@@ -77,7 +69,6 @@ export class GridComponent {
         const gridDataGroup = (<FormGroup>this.gridForm.controls['gridData']);
 
         this.api.forEachNode((rowNode: RowNode) => {
-            console.log(rowNode);
             const formArray: FormArray = new FormArray([]);
             columns
                 .forEach((column: Column) => {
@@ -94,17 +85,24 @@ export class GridComponent {
 
     getContext(): any {
         return {
-            cellProperties: this.branchService.branches.rowData,
+            rowData: this.branchService.branches.rowData,
             formGroup: this.gridForm.controls.gridData,
             createKey: this.createKey
         };
     }
 
     onSubmit(): void {
+        const rowData = this.branchService.branches.rowData;
+        // const reconstructedData = rowData.map((cell, index) => {
+        //     return {
+        //         ...cell,
+        //         value: this.gridForm.value[]
+        //     }
+        // })
         console.log(this.gridForm.value);
     }
 
     private createKey(columnApi: ColumnApi, column: Column): any {
-        return columnApi.getAllColumns().indexOf(column) - 1;
+        return columnApi.getAllColumns().indexOf(column);
     }
 }

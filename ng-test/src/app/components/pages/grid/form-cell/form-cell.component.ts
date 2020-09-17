@@ -13,12 +13,17 @@ export class FormCellComponent {
     private value: string;
     private columnName: string;
     private rowId: number;
+    private editable: boolean = false;
+    private class: string;
 
     agInit(params: any): void {
         this.columnName = params.column.colDef.headerName;
         this.key = params.context.createKey(params.columnApi, params.column);
-        this.value = params.value;
         this.rowId = params.node.id;
+        const data = params.value;
+        this.value = data.value;
+        this.editable = data.editable;
+        this.class = data.class || 'default';
     }
 
     refresh(params: any): boolean {
