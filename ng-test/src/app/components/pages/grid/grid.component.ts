@@ -93,13 +93,22 @@ export class GridComponent {
 
     onSubmit(): void {
         const rowData = this.branchService.branches.rowData;
-        // const reconstructedData = rowData.map((cell, index) => {
-        //     return {
-        //         ...cell,
-        //         value: this.gridForm.value[]
-        //     }
-        // })
-        console.log(this.gridForm.value);
+        const editedData = this.gridForm.value.gridData;
+        const formattedData = rowData.map((row, rowIndex) => {
+            const editedRow = editedData[rowIndex];
+            return Object.entries(row).map((cell, colId) => {
+              const colName = cell[0];
+              const colValue = cell[1] as object;
+              return {
+                [colName]: {
+                  ...colValue,
+                  value: editedRow[colId]
+                }
+              };
+            });
+          });
+
+        console.log(formattedData);
     }
 
     private createKey(columnApi: ColumnApi, column: Column): any {
