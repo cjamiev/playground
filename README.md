@@ -2,6 +2,8 @@
 This project is intended to be used to start new experimental projects before
 moving them to a real project folder
 
+As well as a testing platform for html, javascript, and css. 
+
 ## Best Practices:
 
 - Naming: what they do NOT how they do it
@@ -33,6 +35,7 @@ moving them to a real project folder
 - Vertical 400 lines, Horizontal 80 - 120
 - Try/Catch block separate the internals into another function
 - For complex if conditionals consider a good named function
+- Condition nesting depth <= 2
 - Test Single concept
 
 ## Javascript
@@ -40,11 +43,15 @@ moving them to a real project folder
 #### Best Practices:
 
 - Always initialize variables, '',{},[],(){},0,false
+- Avoid using null/undefined
+- Use Object factories to pass in default parameters. 
 - Treat everything as immutable/const
 - Use === for comparison
 - Short: y = (x === 2 ? "yes" : "no");
 - Use closures:	an inner function + variables in the outer (enclosing) function’s scope gives data privacy
 - Functions should be pure
+- Use map, reduce, filter, slice, etc instead of for/while loops
+- Use object literals instead of switch statements
 
 #### Concepts
 
@@ -61,7 +68,6 @@ moving them to a real project folder
 - destructuring
 - Redux: Single State of Truth, Immutable State, changes use Pure functions
 	Action -> Reducer -> dispatch -> store -> view
-
 
 #### Functions
 
@@ -94,6 +100,9 @@ moving them to a real project folder
 - Formula for id is 'componentname'-'variablename'-'counter' all lowercase
 - Constructors only initialize variables data loading in ngInit
 - The names of URI, Selector, Template and Styles should all be identical (without 'app')
+- Don't embed subscriptions. Chain them instead.
+- Constructors should only initialize variables use ngInit for data loading.
+- Don't subscribe to observables in components do that in services and use async pipe in templates.
 
 ## React Best Practices:
 
@@ -119,6 +128,7 @@ const simpleComponent = ({ children }) => (
 
 #### Best Practices:
 
+- Use data-test-id as a substitute for ids. 
 - Attributes Order: 1. id, class 2. tag specific attributes 3. other - angular specific attributes/directives 4. events
 - Use 'input' with type 'button' for forms and 'button' elsewhere
 - Use 'for' attribute input labels
