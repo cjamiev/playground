@@ -2,9 +2,9 @@
   "name": "testing-platform",
   "version": "1.0.0",
   "description": "This app is to quickly run tests both on code behavior and potential css layouts",
-  "main": "src/index.js",
+  "main": "node server-test/index.js",
   "scripts": {
-    "start": "node with-server-test/index.js"
+    "start": "node server-test/index.js 1001"
   },
   "author": "CJV",
   "license": "ISC",
