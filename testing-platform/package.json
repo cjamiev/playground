@@ -1,0 +1,17 @@
+{
+  "name": "testing-platform",
+  "version": "1.0.0",
+  "description": "This app is to quickly run tests both on code behavior and potential css layouts",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node with-server-test/index.js"
+  },
+  "author": "CJV",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "7.9.0",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-import": "2.22.0",
+    "prettier": "2.1.2"
+  }
+}
