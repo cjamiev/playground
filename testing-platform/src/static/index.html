@@ -2,35 +2,24 @@
 <html>
 
 <head>
-  <!-- <meta http-equiv="refresh" content="3"> -->
   <title>Testing Site</title>
 </head>
 
 <body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="./styles.html">Styles Page</a>
+        </li>
+    </nav>
+  </header>
+
   <h1> Test Simple Node App</h1>
 
-  <button onClick="testPost()"> Test Post </button>
   <button onClick="testGet()"> Test Get </button>
-  <script src='js/api.js'></script>
-  <script>
-    const testGet = () => {
-      api.get('/test-url2').then(data => {
-        console.log(data);
-      });
-    }
-    const testPost = (event) => {
-      console.log('hit');
-      const numData = document.getElementById('numData').value;
-      const strData = document.getElementById('strData').value;
 
-      api.post('/test-url1', { numData, strData }).then(data => {
-        console.log(data);
-      });
-
-      return false;
-    }
-  </script>
-
+  <h2>Input Form</h2>
   <form onsubmit="return false">
     <fieldset>
       <legend>Data Entry:</legend>
@@ -38,10 +27,39 @@
       <input id="numData" type="text"><br>
       <label for="strData">Enter String:</label>
       <input id="strData" type="text"><br>
+      <label for="strData">Set True/False:</label>
+      <input id="boolData" type="checkbox" value="True" />
       <input type="submit" value="Submit" onclick="testPost()">
     </fieldset>
-  </form>
+  </form><br>
 
+  <h2>Output area</h2>
+  <textarea id="output" rows="10" cols="100"></textarea>
+
+  <script src='js/api.js'></script>
+  <script>
+    const setOutput = (data) => {
+      document.getElementById('output').value = JSON.stringify(data, undefined, 4);
+    }
+  </script>
+  <script>
+    const testGet = () => {
+      api.get('/test-url2').then(data => {
+        setOutput(data);
+      });
+    }
+    const testPost = (event) => {
+      const numData = document.getElementById('numData').value;
+      const strData = document.getElementById('strData').value;
+      const boolData = document.getElementById('boolData').checked;
+
+      api.post('/test-url1', { numData, strData, boolData }).then(data => {
+        setOutput(data);
+      });
+
+      return false;
+    }
+  </script>
 </body>
 
 </html>
