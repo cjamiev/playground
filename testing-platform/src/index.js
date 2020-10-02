@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const port = process.argv[2] || 1000;
+const port = process.argv[2] || 1001;
 const ROOT_DIR = './src/static/';
 const UTF8 = 'utf-8';
 const TYPE_JSON = 'application/json';
@@ -19,7 +19,7 @@ const mimeTypes = {
   '.pdf': 'application/pdf',
   '.doc': 'application/msword'
 };
-const NOT_FOUND = 'file not found';
+const NOT_FOUND = 'resource not found';
 const STATUS_OK = 200;
 const STATUS_ERROR = 500;
 const METHOD_POST = 'POST';
