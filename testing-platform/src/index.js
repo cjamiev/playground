@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const port = process.argv[2] || 1000;
-const ROOT_DIR = './server-test/static/';
+const ROOT_DIR = './src/static/';
 const UTF8 = 'utf-8';
 const TYPE_JSON = 'application/json';
 const TYPE_OCTET = 'application/octet-stream';

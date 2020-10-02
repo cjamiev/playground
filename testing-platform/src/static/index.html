@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- <meta http-equiv="refresh" content="3"> -->
+  <title>Testing Site</title>
+</head>
+
+<body>
+  <h1> Test Simple Node App</h1>
+
+  <button onClick="testPost()"> Test Post </button>
+  <button onClick="testGet()"> Test Get </button>
+  <script src='js/api.js'></script>
+  <script>
+    const testGet = () => {
+      api.get('/test-url2').then(data => {
+        console.log(data);
+      });
+    }
+    const testPost = (event) => {
+      console.log('hit');
+      const numData = document.getElementById('numData').value;
+      const strData = document.getElementById('strData').value;
+
+      api.post('/test-url1', { numData, strData }).then(data => {
+        console.log(data);
+      });
+
+      return false;
+    }
+  </script>
+
+  <form onsubmit="return false">
+    <fieldset>
+      <legend>Data Entry:</legend>
+      <label for="numData">Enter Number:</label>
+      <input id="numData" type="text"><br>
+      <label for="strData">Enter String:</label>
+      <input id="strData" type="text"><br>
+      <input type="submit" value="Submit" onclick="testPost()">
+    </fieldset>
+  </form>
+
+</body>
+
+</html>
