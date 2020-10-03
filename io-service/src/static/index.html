@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>IO Page</title>
+</head>
+
+<body>
+  <h1> IO Page </h1>
+
+  <form onsubmit="return false">
+    <fieldset>
+      <legend>Write To File:</legend>
+      <label for="filenameData">Enter Filename:</label>
+      <input id="filenameData" type="text"><br>
+      <label for="contentData">Enter Content:</label>
+      <textarea id="contentData" rows="10" cols="100"></textarea>
+      <input type="submit" value="Submit" onclick="writeToFile()">
+    </fieldset>
+  </form><br>
+
+  <h2>Output area</h2>
+  <textarea id="output" rows="10" cols="100"></textarea>
+
+  <script src='js/api.js'></script>
+  <script>
+    const setOutput = (data) => {
+      document.getElementById('output').value = JSON.stringify(data, undefined, 4);
+    }
+  </script>
+  <script>
+    const writeToFile = (event) => {
+      const filename = document.getElementById('filenameData').value;
+      const content = document.getElementById('contentData').value;
+
+      api.post('/', { filename, content }).then(data => {
+        setOutput(data);
+      });
+
+      return false;
+    }
+  </script>
+</body>
+
+</html>
