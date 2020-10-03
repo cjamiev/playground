@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>IO Page</title>
+</head>
+
+<body>
+  <h1> String Operations Page </h1>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="./index.html">IO Page</a>
+        </li>
+    </nav>
+  </header>
+
+  <form onsubmit="return false">
+    <fieldset>
+      <legend>String Input:</legend>
+      <label for="strData">Check for Split Lines otherwise Regex</label>
+      <input id="operation" type="checkbox" value="true" /><br>
+      <label for="delimiterData">Enter Delimiter:</label>
+      <input id="delimiterData" type="text"><br>
+      <label for="findData">Find Text:</label>
+      <input id="findData" type="text"><br>
+      <label for="replaceData">Replacing Text:</label>
+      <input id="replaceData" type="text"><br>
+      <label for="contentData">Enter Content:</label>
+      <textarea id="contentData" rows="10" cols="100"></textarea>
+      <input type="submit" value="Submit" onclick="operateOnData()">
+    </fieldset>
+  </form><br>
+
+  <h2>Output area</h2>
+  <textarea id="output" rows="10" cols="100"></textarea>
+
+  <script>
+    const operateOnData = (event) => {
+      const operation = document.getElementById('operation').checked;
+      const delimiter = document.getElementById('delimiterData').value;
+      const find = document.getElementById('findData').value;
+      const regex = new RegExp(find, 'gm');
+      const replaceText = document.getElementById('replaceData').value;
+      const content = document.getElementById('contentData').value;
+      if (operation) {
+        document.getElementById('output').value = content.split(delimiter).join('\n');
+      }
+      else {
+        document.getElementById('output').value = content.replace(regex, replaceText);
+      }
+
+      return false;
+    }
+  </script>
+</body>
+
+</html>
