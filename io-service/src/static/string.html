@@ -6,7 +6,6 @@
 </head>
 
 <body>
-  <h1> String Operations Page </h1>
   <header>
     <nav>
       <ul>
@@ -15,51 +14,78 @@
         </li>
     </nav>
   </header>
+  <h1> String Operations Page </h1>
 
   <form onsubmit="return false">
     <fieldset>
       <legend>String Input:</legend>
-      <label for="strData">Choose Operation</label><br>
-      <label for="sortOp">Sort</label>
-      <input id="sortOp" type="radio" name="operationgroup" value="1" checked />
-      <label for="regexOp">Regex</label>
-      <input id="regexOp" type="radio" name="operationgroup" value="2" />
-      <label for="splitOp">Split Lines</label>
-      <input id="splitOp" type="radio" name="operationgroup" value="3" /><br>
-      <label for="delimiterData">Enter Delimiter:</label>
-      <input id="delimiterData" type="text"><br>
-      <label for="findData">Find Text:</label>
-      <input id="findData" type="text"><br>
-      <label for="replaceData">Replacing Text:</label>
-      <input id="replaceData" type="text"><br>
-      <label for="contentData">Enter Content:</label>
-      <textarea id="contentData" rows="10" cols="100"></textarea>
+      <div>
+        <label for="operation">Operation: </label>
+        <input id="sortOp" type="radio" name="operationgroup" value="1" checked />
+        <label for="sortOp">Sort</label>
+        <input id="sortDescOp" type="radio" name="operationgroup" value="2" />
+        <label for="sortDescOp">Sort Desc</label>
+        <input id="regexOp" type="radio" name="operationgroup" value="3" />
+        <label for="regexOp">Regex</label>
+        <input id="splitOp" type="radio" name="operationgroup" value="4" />
+        <label for="splitOp">Split Lines</label>
+      </div>
+      <div>
+        <label for="delimiterData">Delimiter:</label>
+        <select id="delimiterData">
+          <option value="0">comma</option>
+          <option value="1">new line</option>
+          <option value="2">space</option>
+        </select>
+      </div>
+      <div>
+        <label for="findData">Find:</label>
+        <input id="findData" type="text">
+        <label for="replaceData">Replace With:</label>
+        <input id="replaceData" type="text">
+      </div>
+      <div>
+        <label for="contentData">Content:</label><br>
+        <textarea id="contentData" rows="10" cols="100"></textarea>
+      </div>
       <input type="submit" value="Submit" onclick="operateOnData()">
     </fieldset>
   </form><br>
 
-  <h2>Output area</h2>
+  <h2>Output Area</h2>
   <textarea id="output" rows="10" cols="100"></textarea>
 
   <script>
+    const DELIMITERS = [',', '\n', ' '];
     const sortByDelimiter = (content, delimiter = ' ') => content.split(delimiter).sort().join(delimiter);
+    const sortDecendingByDelimiter = (content, delimiter = ' ') => content.split(delimiter).sort().reverse().join(delimiter);
 
     const operateOnData = (event) => {
       const regexOp = document.getElementById('regexOp').checked;
       const splitOp = document.getElementById('splitOp').checked;
-      const delimiter = document.getElementById('delimiterData').value;
-      const find = document.getElementById('findData').value;
-      const regex = new RegExp(find, 'gm');
-      const replaceText = document.getElementById('replaceData').value;
+      const sortOp = document.getElementById('sortOp').checked;
+
+      const delimiterSelection = document.getElementById('delimiterData');
+      const delimiterValue = delimiterSelection.options[delimiterSelection.selectedIndex].value;
+      const delimiter = DELIMITERS[delimiterValue];
+
       const content = document.getElementById('contentData').value;
+
       if (splitOp) {
         document.getElementById('output').value = content.split(delimiter).join('\n');
       }
       else if (regexOp) {
+        const find = document.getElementById('findData').value;
+        const regex = new RegExp(find, 'gm');
+        const replaceText = document.getElementById('replaceData').value;
+
         document.getElementById('output').value = content.replace(regex, replaceText);
       }
-      else {
+      else if (sortOp) {
         document.getElementById('output').value = sortByDelimiter(content, delimiter);
+      }
+      else {
+        document.getElementById('output').value = sortDecendingByDelimiter(content, delimiter);
       }
 
       return false;
