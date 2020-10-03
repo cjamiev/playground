@@ -18,27 +18,18 @@
 
   <form onsubmit="return false">
     <fieldset>
-      <legend>Write To File:</legend>
-      <label for="filenameData">Enter Filename:</label>
-      <input id="filenameData" type="text"><br>
-      <label for="contentData">Enter Content:</label>
-      <textarea id="contentData" rows="10" cols="100"></textarea>
-      <input type="submit" value="Submit" onclick="writeToFile()">
-    </fieldset>
-  </form><br>
-
-  <form onsubmit="return false">
-    <fieldset>
-      <legend>Read File:</legend>
+      <legend>IO Operation:</legend>
       <div>
-        <label for="filesData">Select File:</label>
+        <label for="filesData">Load File:</label>
         <select id="filesData">
           <option value="none">Select</option>
         </select>
+        <label for="filenameData">Create new file:</label>
+        <input id="filenameData" type="text"><br>
       </div>
-      <label for="fileData">File Content:</label>
-      <textarea id="fileData" rows="10" cols="100"></textarea>
-      <input type="submit" value="Submit" onclick="getFile()">
+      <label for="contentData">Enter Content:</label>
+      <textarea id="contentData" rows="10" cols="100"></textarea>
+      <input type="submit" value="Submit" onclick="writeToFile()">
     </fieldset>
   </form><br>
 
@@ -58,6 +49,7 @@
 
       api.post('/', { filename, content }).then(data => {
         setOutput(data);
+        getAllFiles();
       });
 
       return false;
@@ -68,6 +60,15 @@
         const filenames = result.data;
 
         const fileDropdown = document.getElementById('filesData');
+        while (fileDropdown.lastElementChild) {
+          fileDropdown.removeChild(fileDropdown.lastElementChild);
+        }
+
+        const option = document.createElement('option');
+        option.value = 'select';
+        option.innerHTML = 'select';
+        fileDropdown.appendChild(option);
+
         filenames.forEach(name => {
           const option = document.createElement('option');
           option.value = name;
@@ -89,11 +90,12 @@
         // const data = result.data.replace(/\\n/g, String.fromCharCode(13, 10));
         const data = nameAndExt[1] === 'json' ? JSON.parse(result.data) : result.data;
 
-        document.getElementById('fileData').value = data;
+        document.getElementById('contentData').value = data;
       });
     }
 
     getAllFiles();
+    document.getElementById("filesData").addEventListener("change", getFile);
   </script>
 </body>
 
