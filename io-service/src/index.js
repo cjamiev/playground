@@ -71,7 +71,7 @@ const handlePostResponse = async (request, response) => {
   const filename = payload.filename || 'no-name-' + new Date().toString().slice(4, 24).replace(/ /g, '.').replace(/:/g, '.');
   const filepath = payload.filepath || './storage/';
 
-  const data = writeToFile(filepath + filename, JSON.stringify(content));
+  const data = writeToFile(filepath + filename, content);
 
   response.end(JSON.stringify({ data }), UTF8);
 };
