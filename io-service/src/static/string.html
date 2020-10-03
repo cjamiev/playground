@@ -19,8 +19,13 @@
   <form onsubmit="return false">
     <fieldset>
       <legend>String Input:</legend>
-      <label for="strData">Check for Split Lines otherwise Regex</label>
-      <input id="operation" type="checkbox" value="true" /><br>
+      <label for="strData">Choose Operation</label><br>
+      <label for="sortOp">Sort</label>
+      <input id="sortOp" type="radio" name="operationgroup" value="1" checked />
+      <label for="regexOp">Regex</label>
+      <input id="regexOp" type="radio" name="operationgroup" value="2" />
+      <label for="splitOp">Split Lines</label>
+      <input id="splitOp" type="radio" name="operationgroup" value="3" /><br>
       <label for="delimiterData">Enter Delimiter:</label>
       <input id="delimiterData" type="text"><br>
       <label for="findData">Find Text:</label>
@@ -37,18 +42,24 @@
   <textarea id="output" rows="10" cols="100"></textarea>
 
   <script>
+    const sortByDelimiter = (content, delimiter = ' ') => content.split(delimiter).sort().join(delimiter);
+
     const operateOnData = (event) => {
-      const operation = document.getElementById('operation').checked;
+      const regexOp = document.getElementById('regexOp').checked;
+      const splitOp = document.getElementById('splitOp').checked;
       const delimiter = document.getElementById('delimiterData').value;
       const find = document.getElementById('findData').value;
       const regex = new RegExp(find, 'gm');
       const replaceText = document.getElementById('replaceData').value;
       const content = document.getElementById('contentData').value;
-      if (operation) {
+      if (splitOp) {
         document.getElementById('output').value = content.split(delimiter).join('\n');
       }
-      else {
+      else if (regexOp) {
         document.getElementById('output').value = content.replace(regex, replaceText);
+      }
+      else {
+        document.getElementById('output').value = sortByDelimiter(content, delimiter);
       }
 
       return false;
