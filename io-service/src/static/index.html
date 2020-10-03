@@ -27,6 +27,21 @@
     </fieldset>
   </form><br>
 
+  <form onsubmit="return false">
+    <fieldset>
+      <legend>Read File:</legend>
+      <div>
+        <label for="filesData">Select File:</label>
+        <select id="filesData">
+          <option value="none">Select</option>
+        </select>
+      </div>
+      <label for="fileData">File Content:</label>
+      <textarea id="fileData" rows="10" cols="100"></textarea>
+      <input type="submit" value="Submit" onclick="getFile()">
+    </fieldset>
+  </form><br>
+
   <h2>Output area</h2>
   <textarea id="output" rows="10" cols="100"></textarea>
 
@@ -47,6 +62,38 @@
 
       return false;
     }
+
+    const getAllFiles = () => {
+      api.get('/').then(result => {
+        const filenames = result.data;
+
+        const fileDropdown = document.getElementById('filesData');
+        filenames.forEach(name => {
+          const option = document.createElement('option');
+          option.value = name;
+          option.innerHTML = name;
+
+          fileDropdown.appendChild(option);
+        });
+      });
+    }
+
+    const getFile = () => {
+      const filesData = document.getElementById('filesData');
+      const filename = filesData.options[filesData.selectedIndex].value;
+      const nameAndExt = filename.split('.');
+
+      const url = '/?read=true&name=' + nameAndExt[0] + '&ext=' + nameAndExt[1];
+
+      api.get(url).then(result => {
+        // const data = result.data.replace(/\\n/g, String.fromCharCode(13, 10));
+        const data = nameAndExt[1] === 'json' ? JSON.parse(result.data) : result.data;
+
+        document.getElementById('fileData').value = data;
+      });
+    }
+
+    getAllFiles();
   </script>
 </body>
 

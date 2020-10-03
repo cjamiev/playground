@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const url = require('url');
 
 const port = process.argv[2] || 1002;
 const ROOT_DIR = './src/static/';
@@ -42,6 +43,8 @@ const writeToFile = (filepath, content) => {
 const loadFile = (filepath) => {
   return fs.existsSync(filepath) ? fs.readFileSync(filepath, UTF8) : null;
 };
+
+const readDirectory = dir => fs.readdirSync(dir);
 
 const resolvePostBody = async (request) => {
   const promise = new Promise((resolve, reject) => {
@@ -92,8 +95,16 @@ const handleStaticResponse = (request, response) => {
 const handleResponse = (request, response) => {
   response.writeHead(STATUS_OK, { 'Content-Type': TYPE_JSON });
 
-  const data = loadFile('./' + request.url);
-  response.end(JSON.stringify({ data }), UTF8);
+  const queryParams = url.parse(request.url, true).query;
+
+  if (queryParams.read === 'true') {
+    const data = loadFile('./storage/' + queryParams.name + '.' + queryParams.ext);
+    response.end(JSON.stringify({ data }), UTF8);
+  }
+  else {
+    const data = readDirectory('./storage');
+    response.end(JSON.stringify({ data }), UTF8);
+  }
 };
 
 http.createServer((request, response) => {
