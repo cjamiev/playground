@@ -29,7 +29,9 @@
       </div>
       <label for="contentData">Enter Content:</label>
       <textarea id="contentData" rows="10" cols="100"></textarea>
-      <input type="submit" value="Submit" onclick="writeToFile()">
+      <input type="button" value="Copy to Clipboard" onclick="copyFileToClipboard()">
+      <input type="button" value="Validate JSON Format" onclick="validateJson()">
+      <input type="submit" value="Save" onclick="writeToFile()">
     </fieldset>
   </form><br>
 
@@ -41,8 +43,7 @@
     const setOutput = (data) => {
       document.getElementById('output').value = JSON.stringify(data, undefined, 4);
     }
-  </script>
-  <script>
+
     const writeToFile = (event) => {
       const filename = document.getElementById('filenameData').value;
       const content = document.getElementById('contentData').value;
@@ -60,9 +61,7 @@
         const filenames = result.data;
 
         const fileDropdown = document.getElementById('filesData');
-        while (fileDropdown.lastElementChild) {
-          fileDropdown.removeChild(fileDropdown.lastElementChild);
-        }
+        fileDropdown.querySelectorAll('*').forEach(node => node.remove());
 
         const option = document.createElement('option');
         option.value = 'select';
@@ -87,11 +86,18 @@
       const url = '/?read=true&name=' + nameAndExt[0] + '&ext=' + nameAndExt[1];
 
       api.get(url).then(result => {
-        // const data = result.data.replace(/\\n/g, String.fromCharCode(13, 10));
-        const data = nameAndExt[1] === 'json' ? JSON.parse(result.data) : result.data;
-
-        document.getElementById('contentData').value = data;
+        document.getElementById('contentData').value = result.data;
+        document.getElementById('filenameData').value = filename;
       });
+    }
+
+    const copyFileToClipboard = () => {
+      copyToClipboard(document.getElementById('contentData').value);
+    }
+
+    const validateJson = () => {
+      const contentData = parseObject(document.getElementById('contentData').value);
+      document.getElementById('output').value = contentData;
     }
 
     getAllFiles();
