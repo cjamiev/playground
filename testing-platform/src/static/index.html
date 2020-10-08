@@ -3,18 +3,30 @@
 
 <head>
   <title>Testing Site</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
   <header>
-    <nav>
-      <ul>
-        <li>
-          <a href="./styles.html">Styles Page</a>
+    <nav class="nav-bar">
+      <ul class="nav">
+        <li class="nav-item">
+          <input type="text" />
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./index.html">Node App</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./styles.html">Styles Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./vuejs.html">Vue Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./contentblock.html">Content Block Page</a>
         </li>
     </nav>
   </header>
-
   <h1> Test Simple Node App</h1>
 
   <button onClick="testGet()"> Test Get </button>

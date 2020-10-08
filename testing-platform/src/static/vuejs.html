@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Testing Site</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    .red {
+      color: red;
+    }
+
+    #app {
+      display: flex;
+      justify-content: center;
+      font-family: 'Work Sans', sans-serif;
+    }
+
+    .myform {
+      width: 300px;
+      padding: 10px 40px;
+    }
+
+    .mylabel {
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      font-weight: bold;
+    }
+
+    .myinput,
+    .mytextarea {
+      border: 1px solid #ccc;
+      color: #333;
+      width: calc(100% - 30px);
+    }
+
+    .myinput,
+    .mytextarea,
+    .mybutton {
+      border-radius: 4px;
+      padding: 8px 15px;
+      font-family: 'Work Sans', sans-serif;
+      font-weight: 300;
+    }
+
+    .mydiv {
+      margin: 20px 0;
+    }
+
+    .mybutton {
+      color: white;
+      border: none;
+      width: 100%;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: #ccc;
+      cursor: pointer;
+      box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+      transition: 0.25s all ease;
+    }
+
+    .mybutton:hover {
+      transform: translateY(2px);
+    }
+
+    .active {
+      background: #5968d7;
+    }
+
+    .myprecontent {
+      width: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="nav-bar">
+      <ul class="nav">
+        <li class="nav-item">
+          <input type="text" />
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./index.html">Node App</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./styles.html">Styles Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./vuejs.html">Vue Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./contentblock.html">Content Block Page</a>
+        </li>
+    </nav>
+  </header>
+
+  <h1> Vue App</h1>
+
+  <div id="app">
+    <form class="myform" @submit.prevent="submitForm">
+      <div class="mydiv">
+        <label class="mylabel" for="name">Name:</label><br>
+        <input class="myinput" id="name" type="text" v-model="name" required />
+      </div>
+      <div>
+        <label class="mylabel" for="email">Email:</label><br>
+        <input class="myinput" id="email" type="email" v-model="email" required />
+      </div>
+      <div>
+        <label class="mylabel" for="caps">HOW DO I TURN OFF CAPS LOCK:</label><br>
+        <textarea class="mytextarea" id="caps" v-model="caps" required></textarea>
+      </div>
+      <button class="mybutton" :class="[name ? activeClass : '']" type="submit">Submit</button>
+      <div>
+        <h3>Response from server:</h3>
+        <pre class="myprecontent">{{ response }}</pre>
+      </div>
+    </form>
+  </div>
+
+  <script src='js/api.js'></script>
+  <script>
+
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          name: '',
+          email: '',
+          caps: '',
+          response: '',
+          activeClass: 'active'
+        }
+      },
+      methods: {
+        submitForm() {
+          api.post('/test-url1', {
+            name: this.name,
+            email: this.email,
+            caps: this.caps
+          }).then(response => {
+            this.response = JSON.stringify(response, null, 2)
+          })
+        }
+      }
+    });
+
+  </script>
+
+</body>
+
+</html>

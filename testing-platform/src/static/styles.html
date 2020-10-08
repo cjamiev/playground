@@ -2,11 +2,20 @@
 <html>
 
 <head>
-  <meta http-equiv="refresh" content="3">
+  <!-- <meta http-equiv="refresh" content="3"> -->
   <link rel="stylesheet" type="text/css" href="style.css">
   <style>
-    p {
-      color: blue;
+    body {
+      background-color: #f6f8fa;
+    }
+
+    .main {
+      width: 80%;
+      height: 1000px;
+      background-color: #fff;
+      margin: 20px auto;
+      border-radius: 15px 15px 15px 15px;
+      border: 1px solid #e1e4d8;
     }
   </style>
   <title>HTML and CSS Testing</title>
@@ -14,15 +23,27 @@
 
 <body>
   <header>
-    <nav>
-      <ul>
-        <li>
-          <a href="./index.html">Node App</a>
+    <nav class="nav-bar">
+      <ul class="nav">
+        <li class="nav-item">
+          <input type="text" />
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./index.html">Node App</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./styles.html">Styles Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./vuejs.html">Vue Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./contentblock.html">Content Block Page</a>
         </li>
     </nav>
   </header>
 
-  <div id="main">
+  <div class="main">
     <p> Testing Page for css and html</p>
   </div>
 

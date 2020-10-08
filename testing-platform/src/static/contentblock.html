@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="refresh" content="3">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    .copyblock-parent {
+      background-color: rgb(40, 44, 52);
+      border-radius: 15px;
+      margin: 20px;
+      width: 400px;
+      height: 250px;
+      color: #ffffff;
+    }
+
+    .copyblock-header {
+      background-color: rgb(25, 30, 32);
+      border-radius: 15px 15px 0px 0px;
+      display: flex;
+      padding: 10px 0px 5px 10px;
+    }
+
+    .copyblock-title {
+      color: rgb(255, 170, 0);
+      font-size: 18px;
+      flex-grow: 4;
+    }
+
+    .copyblock-btn {
+      background-color: #ffffff;
+      border-radius: 5px;
+      border-color: white;
+      color: blue;
+      flex-grow: 1;
+      font-weight: 600;
+      margin-right: 10px;
+      visibility: hidden;
+    }
+
+    .copyblock-btn:hover {
+      background-color: blue;
+      border-color: blue;
+      color: white;
+      cursor: pointer;
+    }
+
+    .copyblock-parent:hover .copyblock-btn {
+      visibility: visible;
+    }
+
+    .copyblock-content {
+      margin-top: 10px;
+    }
+  </style>
+  <style>
+    .contentblock-parent {
+      background-color: rgb(255, 255, 255);
+      border: 1px solid rgb(40, 44, 52);
+      border-radius: 15px;
+      box-shadow: 0;
+      margin: 20px;
+      width: 400px;
+      height: 250px;
+      color: #000;
+      transition: box-shadow 1s;
+    }
+
+    .contentblock-parent:hover {
+      box-shadow: 0 0 3px #515151;
+    }
+
+    .contentblock-header {
+      border-bottom: 1px solid rgb(40, 44, 52);
+      border-radius: 15px 15px 0px 0px;
+      display: flex;
+      padding: 10px 0px 5px 10px;
+    }
+
+    .contentblock-title {
+      font-size: 16px;
+      flex-grow: 9;
+      font-weight: 600;
+    }
+
+    .contentblock-btn {
+      flex-grow: 1;
+      font-size: 26px;
+      font-weight: 500;
+      margin: -5px 0px -5px;
+    }
+
+    .contentblock-btn:hover {
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .contentblock-content {
+      margin-top: 10px;
+    }
+  </style>
+  <title>Copy Block</title>
+</head>
+
+<body>
+  <header>
+    <nav class="nav-bar">
+      <ul class="nav">
+        <li class="nav-item">
+          <input type="text" />
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./index.html">Node App</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./styles.html">Styles Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./vuejs.html">Vue Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./contentblock.html">Content Block Page</a>
+        </li>
+    </nav>
+  </header>
+
+  <div class="copyblock-parent">
+    <div class="copyblock-header">
+      <p class="copyblock-title"> Title </p>
+      <button class="copyblock-btn"> Copy </button>
+    </div>
+    <pre class="copyblock-content">
+      line 1
+      line 2
+      line 3
+    </pre>
+  </div>
+
+  <div class="contentblock-parent">
+    <div class="contentblock-header">
+      <p class="contentblock-title"> Title </p>
+      <span class="contentblock-btn"> &times; </span>
+    </div>
+    <pre class="contentblock-content">
+      line 1
+      line 2
+      line 3
+    </pre>
+  </div>
+
+</body>
+
+</html>
