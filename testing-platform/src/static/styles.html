@@ -5,17 +5,165 @@
   <!-- <meta http-equiv="refresh" content="3"> -->
   <link rel="stylesheet" type="text/css" href="style.css">
   <style>
-    body {
+    .main {
       background-color: #f6f8fa;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      height: 1000px;
+      width: 100%;
     }
 
-    .main {
-      width: 80%;
-      height: 1000px;
+    .center {
+      flex: 6;
+      display: flex;
+      flex-direction: column;
+      margin-right: 50px;
+      margin-left: 50px;
+    }
+
+    .center-content {
+      flex: 4;
+    }
+
+    .clipboard-content {
+      height: 200px;
       background-color: #fff;
-      margin: 20px auto;
       border-radius: 15px 15px 15px 15px;
       border: 1px solid #e1e4d8;
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .clipboard-header {
+      font-weight: 600;
+    }
+
+    .clipboard-row {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .clipboard-cell {
+      flex: 1;
+      border-top: 1px solid #e1e4d8;
+      border-bottom: 1px solid #e1e4d8;
+    }
+
+    .footer {
+      flex: 1;
+    }
+
+    .left-side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 1000px;
+      background-color: #fff;
+      border: 1px solid #e1e4d8;
+    }
+
+    .left-side-content {
+      flex: 3;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .left-side-footer {
+      border-top: 1px solid #e1e4d8;
+      flex: 1;
+      padding-top: 20px;
+    }
+
+    .right-side {
+      flex: 3;
+      height: 1000px;
+    }
+
+    .copy-btn {
+      background-color: #2ea44f;
+      border: 1px solid #2ea44f;
+      border-radius: 8px 8px 8px 8px;
+      color: white;
+      width: 100px;
+      height: 30px;
+      margin: 10px auto;
+    }
+
+    .copy-btn:active {
+      background-color: #2ea44f;
+      box-shadow: 0 5px #2fa45f;
+      transform: translateY(4px);
+    }
+
+    .copy-btn:hover {
+      background-color: #fff;
+      border: 1px solid #2ea44f;
+      border-radius: 8px 8px 8px 8px;
+      color: #2ea44f;
+      box-shadow: 2px 2px 0px #2ea44f;
+    }
+
+    .add-new-btn-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .add-new-btn-inputs {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .add-label {
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      font-weight: bold;
+      margin: auto 10px;
+      flex: 1;
+    }
+
+    .add-input {
+      border: 1px solid #ccc;
+      color: #333;
+      margin: auto 10px;
+      flex: 3;
+    }
+
+    .submit-btn {
+      background-color: #fff;
+      border: 1px solid #0366d6;
+      border-radius: 8px 8px 8px 8px;
+      width: 50%;
+      height: 30px;
+      margin: 10px auto;
+      outline: #0366d6;
+      color: #0366d6;
+    }
+
+    .submit-btn:hover {
+      background-color: #0366d6;
+      border: 1px solid #0366d6;
+      border-radius: 8px 8px 8px 8px;
+      color: white;
+    }
+
+    .submit-btn:active {
+      color: #0366d6;
+      background-color: #fff;
+      box-shadow: 2px 2px 0px #0366d6;
+      transform: translateY(4px);
+    }
+
+    .links {
+      text-decoration: none;
+      color: #0366d6;
+      font-weight: 600;
+    }
+
+    .links:hover {
+      text-decoration: underline;
     }
   </style>
   <title>HTML and CSS Testing</title>
@@ -25,9 +173,6 @@
   <header>
     <nav class="nav-bar">
       <ul class="nav">
-        <li class="nav-item">
-          <input type="text" />
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="./index.html">Node App</a>
         </li>
@@ -44,7 +189,45 @@
   </header>
 
   <div class="main">
-    <p> Testing Page for css and html</p>
+    <div class="left-side">
+      <div class="left-side-content">
+        <button class="copy-btn"> test button </button>
+        <button class="copy-btn"> test2 button </button>
+        <button class="copy-btn"> test3 button </button>
+        <button class="copy-btn"> test4 button </button>
+      </div>
+      <footer class="left-side-footer">
+        <form class="add-new-btn-form" onsubmit="return false">
+          <div class="add-new-btn-inputs">
+            <label class="add-label">Name:</label>
+            <input class="add-input" type="text" />
+          </div>
+          <div class="add-new-btn-inputs">
+            <label class="add-label">Value:</label>
+            <input class="add-input" type="text" />
+          </div>
+          <input class="submit-btn" type="submit" value="Add">
+        </form>
+      </footer>
+    </div>
+    <div class="center">
+      <div class="center-content">
+        <div class="clipboard-content">
+          <div class="clipboard-header"> Test 1</div>
+          <div class="clipboard-row">
+            <span class="clipboard-cell"> Item 1</span>
+            <a class="clipboard-cell links" href="https://github.com/cjamiev/playground"
+              target="_blank">cjamiev/playground</a>
+            <span class="clipboard-cell"> Item 3</span>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        Footer is here
+      </footer>
+    </div>
+    <div class="right-side">
+    </div>
   </div>
 
 </body>
