@@ -42,6 +42,10 @@ table {
 	border-spacing: 0;
 }
 
-input, button {
+input, button, textarea {
 	outline:none;
+}
+
+select {
+	appearance: none;
 }

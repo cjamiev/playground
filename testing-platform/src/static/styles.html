@@ -10,7 +10,7 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      height: 1000px;
+      height: 870px;
       width: 100%;
     }
 
@@ -69,12 +69,11 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      height: 1000px;
       background-color: #282c34;
     }
 
     .left-side-content {
-      flex: 3;
+      flex: 4;
       display: flex;
       flex-direction: column;
     }
@@ -88,7 +87,6 @@
 
     .right-side {
       flex: 3;
-      height: 1000px;
     }
 
     .copy-btn {
@@ -201,6 +199,63 @@
     .links:hover {
       text-decoration: underline;
     }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      padding: 12px 16px;
+      z-index: 1;
+    }
+
+    .clipboard-cell:hover .dropdown-content {
+      display: block;
+    }
+
+    .contentblock-parent {
+      background-color: #f6f8fa;
+      box-shadow: 0;
+      margin: 20px;
+      width: 80%;
+      height: 250px;
+      color: #000;
+      transition: box-shadow 1s;
+    }
+
+    .contentblock-header {
+      border-bottom: 1px solid rgb(40, 44, 52);
+      border: 1px solid rgb(40, 44, 52);
+      border-radius: 15px 15px 0px 0px;
+      display: flex;
+      padding: 10px 0px 5px 10px;
+    }
+
+    .contentblock-title {
+      font-size: 16px;
+      flex-grow: 9;
+      font-weight: 600;
+    }
+
+    .contentblock-btn {
+      flex-grow: 1;
+      font-size: 26px;
+      font-weight: 500;
+      margin: -5px 0px -5px;
+    }
+
+    .contentblock-btn:hover {
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .contentblock-content {
+      width: 100%;
+      height: 100%;
+      border-radius: 0px 0px 15px 15px;
+      box-sizing: border-box;
+    }
   </style>
   <title>HTML and CSS Testing</title>
 </head>
@@ -253,7 +308,12 @@
           <span class="clipboard-cell"> Item 1</span>
           <a class="clipboard-cell links" href="https://github.com/cjamiev/playground"
             target="_blank">cjamiev/playground</a>
-          <span class="clipboard-cell"> Item 3</span>
+          <div class="clipboard-cell">
+            <span>Mouse over me</span>
+            <div class="dropdown-content">
+              <p>Hello World!</p>
+            </div>
+          </div>
         </div>
         <div class="clipboard-row">
           <span class="clipboard-cell">
@@ -269,9 +329,22 @@
             target="_blank">cjamiev/playground</a>
           <span class="clipboard-cell"> 8:59:59</span>
         </div>
+
+
       </div>
     </div>
     <div class="right-side">
+      <div class="contentblock-parent">
+        <div class="contentblock-header">
+          <p class="contentblock-title"> Title </p>
+          <span class="contentblock-btn"> &times; </span>
+        </div>
+        <textarea class="contentblock-content">
+          line 1
+          line 2
+          line 3
+        </textarea>
+      </div>
     </div>
   </div>
 
