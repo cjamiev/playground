@@ -42,6 +42,6 @@ table {
 	border-spacing: 0;
 }
 
-input[type="button"], button {
+input, button {
 	outline:none;
 }

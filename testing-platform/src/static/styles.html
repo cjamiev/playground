@@ -38,6 +38,11 @@
 
     .clipboard-header {
       font-weight: 600;
+      padding: 10px;
+      border-radius: 15px 15px 0px 0px;
+      background-color: rgb(40, 44, 52);
+      border: 1px solid rgb(40, 44, 52);
+      color: white;
     }
 
     .clipboard-row {
@@ -45,10 +50,15 @@
       flex-direction: row;
     }
 
+    .clipboard-row:hover {
+      background-color: #f6f8fa;
+    }
+
     .clipboard-cell {
       flex: 1;
       border-top: 1px solid #e1e4d8;
       border-bottom: 1px solid #e1e4d8;
+      padding: 10px;
     }
 
     .footer {
@@ -60,8 +70,7 @@
       display: flex;
       flex-direction: column;
       height: 1000px;
-      background-color: #fff;
-      border: 1px solid #e1e4d8;
+      background-color: #282c34;
     }
 
     .left-side-content {
@@ -74,6 +83,7 @@
       border-top: 1px solid #e1e4d8;
       flex: 1;
       padding-top: 20px;
+      color: white;
     }
 
     .right-side {
@@ -82,27 +92,53 @@
     }
 
     .copy-btn {
-      background-color: #2ea44f;
-      border: 1px solid #2ea44f;
+      background-color: #61dafb;
+      border: 1px solid #61dafb;
       border-radius: 8px 8px 8px 8px;
-      color: white;
+      color: black;
+      font-weight: 500;
       width: 100px;
       height: 30px;
       margin: 10px auto;
     }
 
     .copy-btn:active {
-      background-color: #2ea44f;
-      box-shadow: 0 5px #2fa45f;
+      background-color: #61dafb;
+      box-shadow: 0 5px #61dafb;
       transform: translateY(4px);
     }
 
     .copy-btn:hover {
       background-color: #fff;
-      border: 1px solid #2ea44f;
+      border: 1px solid #61dafb;
       border-radius: 8px 8px 8px 8px;
-      color: #2ea44f;
-      box-shadow: 2px 2px 0px #2ea44f;
+      color: #000;
+      box-shadow: 2px 2px 0px #61dafb;
+    }
+
+    .command-btn {
+      background-color: #24292e;
+      border: 1px solid #24292e;
+      border-radius: 8px 8px 8px 8px;
+      color: white;
+      font-weight: 500;
+      width: 100px;
+      height: 20px;
+      margin: 0px auto;
+    }
+
+    .command-btn:active {
+      background-color: #24292e;
+      box-shadow: 0 5px #24292e;
+      transform: translateY(4px);
+    }
+
+    .command-btn:hover {
+      background-color: #24292e;
+      border: 1px solid #24292e;
+      border-radius: 8px 8px 8px 8px;
+      color: white;
+      box-shadow: 2px 2px 0px #24292e;
     }
 
     .add-new-btn-form {
@@ -133,26 +169,26 @@
 
     .submit-btn {
       background-color: #fff;
-      border: 1px solid #0366d6;
+      border: 1px solid #61dafb;
       border-radius: 8px 8px 8px 8px;
       width: 50%;
       height: 30px;
       margin: 10px auto;
-      outline: #0366d6;
-      color: #0366d6;
+      color: #000;
+      font-weight: 600;
     }
 
     .submit-btn:hover {
-      background-color: #0366d6;
-      border: 1px solid #0366d6;
+      background-color: #61dafb;
+      border: 1px solid #61dafb;
       border-radius: 8px 8px 8px 8px;
       color: white;
     }
 
     .submit-btn:active {
-      color: #0366d6;
+      color: #61dafb;
       background-color: #fff;
-      box-shadow: 2px 2px 0px #0366d6;
+      box-shadow: 2px 2px 0px #61dafb;
       transform: translateY(4px);
     }
 
@@ -211,20 +247,29 @@
       </footer>
     </div>
     <div class="center">
-      <div class="center-content">
-        <div class="clipboard-content">
-          <div class="clipboard-header"> Test 1</div>
-          <div class="clipboard-row">
-            <span class="clipboard-cell"> Item 1</span>
-            <a class="clipboard-cell links" href="https://github.com/cjamiev/playground"
-              target="_blank">cjamiev/playground</a>
-            <span class="clipboard-cell"> Item 3</span>
-          </div>
+      <div class="clipboard-content">
+        <div class="clipboard-header"> Test 1</div>
+        <div class="clipboard-row">
+          <span class="clipboard-cell"> Item 1</span>
+          <a class="clipboard-cell links" href="https://github.com/cjamiev/playground"
+            target="_blank">cjamiev/playground</a>
+          <span class="clipboard-cell"> Item 3</span>
+        </div>
+        <div class="clipboard-row">
+          <span class="clipboard-cell">
+            <button class="command-btn"> test button </button>
+          </span>
+          <a class="clipboard-cell links" href="https://github.com/cjamiev/playground"
+            target="_blank">cjamiev/playground</a>
+          <span class="clipboard-cell"> Item 3</span>
+        </div>
+        <div class="clipboard-row">
+          <span class="clipboard-cell"> Item 1</span>
+          <a class="clipboard-cell links" href="https://github.com/cjamiev/playground"
+            target="_blank">cjamiev/playground</a>
+          <span class="clipboard-cell"> 8:59:59</span>
         </div>
       </div>
-      <footer class="footer">
-        Footer is here
-      </footer>
     </div>
     <div class="right-side">
     </div>
