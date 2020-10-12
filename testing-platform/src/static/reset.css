@@ -42,7 +42,7 @@ table {
 	border-spacing: 0;
 }
 
-input, button, textarea {
+input, button, textarea, pre {
 	outline:none;
 }
 

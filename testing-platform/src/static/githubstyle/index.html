@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- <meta http-equiv="refresh" content="3"> -->
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <link rel="stylesheet" type="text/css" href="buttons.css">
+  <link rel="stylesheet" type="text/css" href="clipboard.css">
+  <link rel="stylesheet" type="text/css" href="contentblock.css">
+  <style>
+    .main {
+      background-color: #f6f8fa;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      height: 870px;
+      width: 100%;
+    }
+
+    .center {
+      flex: 6;
+      display: flex;
+      flex-direction: column;
+      margin-right: 50px;
+      margin-left: 50px;
+    }
+
+    .center-content {
+      flex: 4;
+    }
+
+    .footer {
+      flex: 1;
+    }
+
+    .left-side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: #282c34;
+    }
+
+    .left-side-content {
+      flex: 4;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .left-side-footer {
+      border-top: 1px solid #e1e4d8;
+      flex: 1;
+      padding-top: 20px;
+      color: white;
+    }
+
+    .right-side {
+      flex: 3;
+    }
+
+    .add-new-btn-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .add-new-btn-inputs {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .add-label {
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      font-weight: bold;
+      margin: auto 10px;
+      flex: 1;
+    }
+
+    .add-input {
+      border: 1px solid #ccc;
+      color: #333;
+      margin: auto 10px;
+      flex: 3;
+    }
+
+    .links {
+      text-decoration: none;
+      color: #0366d6;
+      font-weight: 600;
+    }
+
+    .links:hover {
+      text-decoration: underline;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      padding: 12px 16px;
+      z-index: 1;
+    }
+
+    .clipboard-cell:hover .dropdown-content {
+      display: block;
+    }
+  </style>
+  <title>HTML and CSS Testing</title>
+</head>
+
+<body>
+  <header>
+    <nav class="nav-bar">
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" href="../index.html">Node App</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../styles.html">Styles Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../vuejs.html">Vue Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../contentblock.html">Content Block Page</a>
+        </li>
+    </nav>
+  </header>
+
+  <div class="main">
+    <div class="left-side">
+      <div class="left-side-content">
+        <button class="copy-btn"> test button </button>
+        <button class="copy-btn"> test2 button </button>
+        <button class="copy-btn"> test3 button </button>
+        <button class="copy-btn"> test4 button </button>
+      </div>
+      <footer class="left-side-footer">
+        <form class="add-new-btn-form" onsubmit="return false">
+          <div class="add-new-btn-inputs">
+            <label class="add-label">Name:</label>
+            <input class="add-input" type="text" />
+          </div>
+          <div class="add-new-btn-inputs">
+            <label class="add-label">Value:</label>
+            <input class="add-input" type="text" />
+          </div>
+          <input class="submit-btn" type="submit" value="Add">
+        </form>
+      </footer>
+    </div>
+    <div class="center">
+      <div class="clipboard-content">
+        <div class="clipboard-header"> Test 1</div>
+        <div class="clipboard-row">
+          <span class="clipboard-cell"> Item 1</span>
+          <a class="clipboard-cell links" href="https://github.com/cjamiev/playground"
+            target="_blank">cjamiev/playground</a>
+          <div class="clipboard-cell">
+            <span>Mouse over me</span>
+            <div class="dropdown-content">
+              <p>Hello World!</p>
+            </div>
+          </div>
+        </div>
+        <div class="clipboard-row">
+          <span class="clipboard-cell">
+            <button class="command-btn"> test button </button>
+          </span>
+          <a class="clipboard-cell links" href="https://github.com/cjamiev/playground"
+            target="_blank">cjamiev/playground</a>
+          <span class="clipboard-cell"> Item 3</span>
+        </div>
+        <div class="clipboard-row">
+          <span class="clipboard-cell"> Item 1</span>
+          <a class="clipboard-cell links" href="https://github.com/cjamiev/playground"
+            target="_blank">cjamiev/playground</a>
+          <span class="clipboard-cell"> 8:59:59</span>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="right-side">
+      <div class="contentblock-parent">
+        <div class="contentblock-header">
+          <p class="contentblock-title"> Title </p>
+          <span class="contentblock-btn"> &times; </span>
+        </div>
+        <pre class="contentblock-content" contenteditable="true">
+          line 1
+          line 2
+          line 3
+        </pre>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
