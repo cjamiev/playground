@@ -1,5 +1,0 @@
-
-<div *ngIf="formGroup" [formGroup]="formGroup">
-  <input *ngIf="editable" [attr.data-test-id]="key" [class]="class" [formControlName]="key" placeholder="Enter {{columnName}}">
-  <span *ngIf="!editable" [class]="class" >{{value}}</span>
-</div>
