@@ -1,0 +1,16 @@
+# compiled output
+/dist
+**/tmp
+/backup
+
+# dependencies
+/node_modules
+/my_modules
+
+# misc
+/coverage
+npm-debug.log
+yarn-error.log
+config.json
+log.json
+sessionStorage.json

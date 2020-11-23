@@ -1,0 +1,72 @@
+{
+  "name": "mock-server",
+  "version": "1.7.0",
+  "description": "Runs a server with mock data",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "babel-node src/index.js"
+  },
+  "author": "CJV",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.4.5",
+    "@babel/node": "7.4.5",
+    "@babel/plugin-proposal-class-properties": "7.4.4",
+    "@babel/preset-env": "7.4.5",
+    "babel-eslint": "10.0.2",
+    "babel-jest": "24.8.0",
+    "babel-plugin-module-resolver": "3.2.0",
+    "eslint": "6.0.1",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-plugin-import": "2.18.0",
+    "jest": "24.8.0",
+    "prettier": "1.18.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./src"
+          ]
+        }
+      ],
+      "@babel/plugin-proposal-class-properties"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "collectCoverage": true,
+    "moduleDirectories": [
+      "src",
+      "__tests__/testHelper",
+      "node_modules"
+    ],
+    "moduleNameMapper": {
+      "testHelper(.*)$": "<rootDir>/__tests__/testHelper/$1"
+    },
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/fileTransformer.js"
+    },
+    "testPathIgnorePatterns": [
+      "__tests__/dependencies.js",
+      "__tests__/testHelper/*"
+    ],
+    "testRegex": "__tests__/.*\\.(js|jsx)$",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "<rootDir>/config/setupTests.js"
+    ]
+  }
+}
