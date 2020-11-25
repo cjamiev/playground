@@ -1,43 +1,59 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import { addTest, removeTest } from './testActions';
+import { openModal } from '../components/modalActions';
 
-export class TestContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      input: 0
+const ZERO = 0;
+const parseInput = (data) => {
+  if (!isNaN(data)) {
+    return {
+      isValid: true,
+      data: parseInt(data)
+    };
+  } else {
+    return {
+      isValid: false,
+      data: 'Not a valid number'
     };
   }
+};
 
-  handleInputChange = event => {
-    this.setState({ input: event.target.value });
+const TestContainer = (props) => {
+  const [input, setInput] = useState(ZERO);
+  const dispatch = useDispatch();
+
+  const handleInputChange = event => {
+    setInput(event.target.value);
   };
 
-  handleAddTest = event => {
-    this.props.addTest(parseInt(this.state.input));
+  const handleAddTest = event => {
+    const result = parseInput(input);
+
+    if (result.isValid) {
+      props.addTest(result.data);
+    } else {
+      dispatch(openModal({ title: 'Error Message', message: result.data }));
+    }
   };
 
-  handleRemoveTest = event => {
-    this.props.removeTest(parseInt(this.state.input));
+  const handleRemoveTest = event => {
+    props.removeTest(input);
   };
 
-  render() {
-    return (
-      <div style={divStyle}>
-        <p>State:{this.props.test}</p>
-        <label>Input value</label>
-        <input type="text" onChange={this.handleInputChange} value={this.state.input} />
-        <button type="button" onClick={this.handleAddTest}>
-          Add To State
-        </button>
-        <button type="button" onClick={this.handleRemoveTest}>
-          Remove From State
-        </button>
-      </div>
-    );
-  }
-}
+  return (
+    <div style={divStyle}>
+      <p>State:{props.test}</p>
+      <label>Input value</label>
+      <input type="text" onChange={handleInputChange} value={input} />
+      <button type="button" onClick={handleAddTest}>
+        Add To State
+      </button>
+      <button type="button" onClick={handleRemoveTest}>
+        Remove From State
+      </button>
+    </div>
+  );
+};
 
 const divStyle = {
   margin: 'auto',

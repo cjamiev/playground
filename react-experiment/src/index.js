@@ -5,7 +5,8 @@ import { Provider } from 'react-redux';
 
 import { configureStore, history } from './configureStore';
 import App from './App';
-import './assets/all.css';
+import './assets/main.css';
+import './assets/reset.css';
 
 const store = configureStore();
 const MOUNT_NODE = document.getElementById('root');
