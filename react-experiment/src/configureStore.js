@@ -5,6 +5,7 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import testReducer from './experiment/testReducer';
+import experimentReducer from './experiment/experimentReducer';
 import modalReducer from './components/modalReducer';
 
 export const customMiddleware = ({ dispatch, getState }) => next => action => {
@@ -20,6 +21,7 @@ const middlewareDev = applyMiddleware(...middlewares);
 
 const rootReducer = browserHistory => {
   return combineReducers({
+    experiment: experimentReducer,
     modal: modalReducer,
     router: connectRouter(browserHistory),
     test: testReducer

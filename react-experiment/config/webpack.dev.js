@@ -17,7 +17,10 @@ module.exports = (env) => {
       historyApiFallback: true,
       inline: true,
       port: 3000,
-      open: true
+      open: true,
+      proxy: {
+        '/api': 'http://localhost:1000'
+      }
     },
     devtool: "source-map",
     module: {
