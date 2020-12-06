@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ConnectedRouter } from 'connected-react-router';
+import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import { configureStore, history } from './configureStore';
+import { configureStore } from './configureStore';
 import App from './App';
 import './assets/main.css';
 import './assets/reset.css';
@@ -13,9 +13,9 @@ const MOUNT_NODE = document.getElementById('root');
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
+    <HashRouter>
       <App />
-    </ConnectedRouter>
+    </HashRouter>
   </Provider>,
   MOUNT_NODE
 );

@@ -18,7 +18,7 @@ const TestComponent = () => {
         title: 'test-title',
         message: 'test-message',
         action: () => {
-          console.log('test');
+          alert('test');
         }
       })
     );

@@ -9,7 +9,7 @@ const testReducer = (state = initialState, action) => {
       return [...state, action.data];
     },
     [REMOVE_TEST]: () => {
-      return state.filter((item) => item !== action.data);
+      return state.filter((item) => item !== Number(action.data));
     }
   };
 
