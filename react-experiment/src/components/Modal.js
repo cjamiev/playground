@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeModal } from './modalActions';
-import '../assets/modal.css';
+import 'assets/modal.css';
 
 export const Modal = (props) => {
   const { isOpen, title, message, action } = useSelector((state) => state.modal);

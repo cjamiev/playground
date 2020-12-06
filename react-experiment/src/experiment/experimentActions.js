@@ -1,4 +1,4 @@
-import { api } from '../api/api';
+import api from 'api';
 
 const TEST_GET = 'TEST_GET';
 const TEST_POST = 'TEST_POST';

@@ -19,7 +19,7 @@ const NotFoundPage = React.memo(() => {
 const Routes = React.memo(() => {
   return (
     <Switch>
-      <Route path="/" component={Experiment} />
+      <Route exact path="/" component={Experiment} />
       <Route path="/experiment" component={Experiment} />
       <Route path="/test-container" component={TestContainer} />
       <Route path="/test-dynamic-form" component={TestDynamicForm} />
