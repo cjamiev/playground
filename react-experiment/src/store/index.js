@@ -2,9 +2,9 @@ import { applyMiddleware, createStore, compose, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-import testReducer from './experiment/testReducer';
-import experimentReducer from './experiment/experimentReducer';
-import modalReducer from './components/modalReducer';
+import testReducer from 'experiment/testReducer';
+import experimentReducer from 'experiment/experimentReducer';
+import modalReducer from 'components/modalReducer';
 
 export const customMiddleware = ({ dispatch, getState }) => (next) => (action) => {
   return next(action);

@@ -3,7 +3,7 @@ import axios from 'axios';
 const GET = 'get';
 const POST = 'post';
 
-export const api = {
+const api = {
   get: (url) => {
     return axios.get(url);
   },
@@ -11,3 +11,5 @@ export const api = {
     return axios.post(url, payload);
   }
 };
+
+export default api;
