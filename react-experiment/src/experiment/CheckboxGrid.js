@@ -11,11 +11,11 @@ const CheckboxGrid = ({ rows, header, onChangeCheckboxGrid }) => {
       values
     };
 
-    const selectedHeader = values.find(item => item.columnId === columnId);
+    const selectedHeader = values.find((item) => item.columnId === columnId);
     let updatedRows = [];
     if (columnId === SELECT_ALL_COLUMN_ID) {
-      updatedRows = rows.map(entry => {
-        const updatedValues = entry.values.map(item => {
+      updatedRows = rows.map((entry) => {
+        const updatedValues = entry.values.map((item) => {
           return {
             ...item,
             selected: selectAll
@@ -28,10 +28,9 @@ const CheckboxGrid = ({ rows, header, onChangeCheckboxGrid }) => {
           values: updatedValues
         };
       });
-    }
-    else {
-      updatedRows = rows.map(entry => {
-        const updatedValues = entry.values.map(item => {
+    } else {
+      updatedRows = rows.map((entry) => {
+        const updatedValues = entry.values.map((item) => {
           if (item.columnId === selectedHeader.columnId) {
             return {
               ...item,
@@ -54,7 +53,7 @@ const CheckboxGrid = ({ rows, header, onChangeCheckboxGrid }) => {
   };
 
   const handleRowChange = ({ id, selectAll, values }) => {
-    const updatedRows = rows.map(entry => {
+    const updatedRows = rows.map((entry) => {
       if (entry.id === id) {
         return {
           ...entry,
@@ -65,14 +64,16 @@ const CheckboxGrid = ({ rows, header, onChangeCheckboxGrid }) => {
       return entry;
     });
 
-    const updatedHeaderValue = selectAll ? header.values : header.values.map(entity => {
-      const isItemCheckedInSameColumn = values.find(item => item.selected && item.columnId === entity.columnId);
+    const updatedHeaderValue = selectAll
+      ? header.values
+      : header.values.map((entity) => {
+        const isItemCheckedInSameColumn = values.find((item) => item.selected && item.columnId === entity.columnId);
 
-      return {
-        ...entity,
-        selected: entity.selected && isItemCheckedInSameColumn
-      };
-    });
+        return {
+          ...entity,
+          selected: entity.selected && isItemCheckedInSameColumn
+        };
+      });
 
     const updatedHeader = {
       ...header,
@@ -83,7 +84,7 @@ const CheckboxGrid = ({ rows, header, onChangeCheckboxGrid }) => {
     onChangeCheckboxGrid({ header: updatedHeader, rows: updatedRows });
   };
 
-  const renderCheckboxRows = rows.map(entry => {
+  const renderCheckboxRows = rows.map((entry) => {
     return (
       <div key={entry.id}>
         <CheckboxRow

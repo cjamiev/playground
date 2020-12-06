@@ -2,12 +2,16 @@ import React from 'react';
 
 const MultiselectRenderer = ({ id, label, values, onChange }) => {
   const handleSelectedChange = ({ target: { options } }) => {
-    const updatedSelection = [...options].filter(entry => entry.selected).map(entry => entry.value);
+    const updatedSelection = [...options].filter((entry) => entry.selected).map((entry) => entry.value);
 
     onChange({ id, selected: updatedSelection });
   };
 
-  const getOptions = values.map(value => <option key={value} label={value} value={value}>{value}</option>);
+  const getOptions = values.map((value) => (
+    <option key={value} label={value} value={value}>
+      {value}
+    </option>
+  ));
 
   return (
     <div>
@@ -30,7 +34,7 @@ MultiselectRenderer.defaultProps = {
   id: '',
   label: '',
   values: [],
-  onChange: selected => selected
+  onChange: (selected) => selected
 };
 
 const multiselectStyle = {

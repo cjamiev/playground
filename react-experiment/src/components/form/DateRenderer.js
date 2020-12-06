@@ -8,12 +8,7 @@ const DateRenderer = ({ id, label, onChange }) => {
   return (
     <div>
       <label>{label}</label>
-      <input
-        style={dateStyle}
-        type="date"
-        name={label}
-        onChange={handleSelectedChange}
-      />
+      <input style={dateStyle} type="date" name={label} onChange={handleSelectedChange} />
     </div>
   );
 };
@@ -21,7 +16,7 @@ const DateRenderer = ({ id, label, onChange }) => {
 DateRenderer.defaultProps = {
   id: '',
   label: '',
-  onChange: selected => selected
+  onChange: (selected) => selected
 };
 
 const dateStyle = {

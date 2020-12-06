@@ -5,17 +5,16 @@ const SelectRenderer = ({ id, label, values, onChange }) => {
     onChange({ id, selected: value });
   };
 
-  const getOptions = values.map(value => <option key={value} value={value}>{value}</option>);
+  const getOptions = values.map((value) => (
+    <option key={value} value={value}>
+      {value}
+    </option>
+  ));
 
   return (
     <Fragment>
       <label>{label}</label>
-      <select
-        data-testid={'select-' + label}
-        style={selectStyle}
-        name="SelectRenderer"
-        onChange={handleSelectedChange}
-      >
+      <select data-testid={'select-' + label} style={selectStyle} name="SelectRenderer" onChange={handleSelectedChange}>
         {getOptions}
       </select>
     </Fragment>
@@ -26,7 +25,7 @@ SelectRenderer.defaultProps = {
   id: '',
   label: '',
   values: '',
-  onChange: selected => selected
+  onChange: (selected) => selected
 };
 
 const selectStyle = {

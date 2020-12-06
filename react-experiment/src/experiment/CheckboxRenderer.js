@@ -7,13 +7,7 @@ const CheckboxRenderer = ({ id = '', label = '', selected = false, onChangeCheck
 
   return (
     <label>
-      <input
-        type="checkbox"
-        name={label}
-        value={label}
-        checked={selected}
-        onChange={handleCheckboxChange}
-      />
+      <input type="checkbox" name={label} value={label} checked={selected} onChange={handleCheckboxChange} />
       {label}
     </label>
   );

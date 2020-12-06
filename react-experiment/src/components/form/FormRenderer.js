@@ -8,18 +8,18 @@ import SelectRenderer from './SelectRenderer';
 import TextRenderer from './TextRenderer';
 
 const handleInputType = {
-  'checkbox': CheckboxRenderer,
-  'date': DateRenderer,
-  'multiselect': MultiselectRenderer,
-  'radio': RadioRenderer,
-  'select': SelectRenderer,
-  'text': TextRenderer
+  checkbox: CheckboxRenderer,
+  date: DateRenderer,
+  multiselect: MultiselectRenderer,
+  radio: RadioRenderer,
+  select: SelectRenderer,
+  text: TextRenderer
 };
 
 const FormRenderer = (fieldsData, onChange) => {
   return fieldsData
     .sort((item1, item2) => item1.orderSeq - item2.orderSeq)
-    .map(entry => {
+    .map((entry) => {
       if (handleInputType.hasOwnProperty(entry.type)) {
         const InputComponent = handleInputType[entry.type];
 

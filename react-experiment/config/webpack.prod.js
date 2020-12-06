@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = env => {
   process.env.NODE_ENV = 'production';
@@ -35,9 +36,9 @@ module.exports = env => {
         {
           test: /\.(svg|png|jpg|gif)$/,
           use: {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
-              name: "[name].[ext]"
+              name: '[name].[ext]'
             }
           }
         }
@@ -47,7 +48,11 @@ module.exports = env => {
       new HtmlWebpackPlugin({
         template: path.resolve('./src/index.html')
       }),
-      new webpack.DefinePlugin({ 'process.env': JSON.stringify(env) })
+      new webpack.DefinePlugin({ 'process.env': JSON.stringify(env) }),
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        reportFilename: '../coverage/webpack-analyzer-report.html'
+      })
     ]
   };
 };

@@ -8,7 +8,7 @@ import testReducer from './experiment/testReducer';
 import experimentReducer from './experiment/experimentReducer';
 import modalReducer from './components/modalReducer';
 
-export const customMiddleware = ({ dispatch, getState }) => next => action => {
+export const customMiddleware = ({ dispatch, getState }) => (next) => (action) => {
   return next(action);
 };
 
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const middlewareDev = applyMiddleware(...middlewares);
 
-const rootReducer = browserHistory => {
+const rootReducer = (browserHistory) => {
   return combineReducers({
     experiment: experimentReducer,
     modal: modalReducer,
@@ -28,8 +28,9 @@ const rootReducer = browserHistory => {
   });
 };
 
-const configureStore = initialState => {
-  const composeEnhancers = (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const configureStore = (initialState) => {
+  const composeEnhancers =
+    (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
   const store = createStore(rootReducer(history), initialState, composeEnhancers(middlewareDev));
 
   return store;

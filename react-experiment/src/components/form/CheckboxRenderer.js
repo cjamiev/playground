@@ -2,29 +2,20 @@ import React, { Fragment } from 'react';
 
 const CheckboxRenderer = ({ id, label, values, selected, onChange }) => {
   const handleSelectedChange = ({ target: { value } }) => {
-    const shouldRemoveOrAdd = selected.find(item => item === value);
-    const updatedSelection = shouldRemoveOrAdd ?
-      selected.filter(item => item !== value) :
-      selected.concat([value]);
+    const shouldRemoveOrAdd = selected.find((item) => item === value);
+    const updatedSelection = shouldRemoveOrAdd ? selected.filter((item) => item !== value) : selected.concat([value]);
 
     onChange({ id, selected: updatedSelection });
   };
 
-  const checkboxes = values.map(value => {
+  const checkboxes = values.map((value) => {
     return (
       <div key={value}>
         <label>
-          <input
-            style={checkboxStyle}
-            type="checkbox"
-            name={label}
-            value={value}
-            onChange={handleSelectedChange}
-          />
+          <input style={checkboxStyle} type="checkbox" name={label} value={value} onChange={handleSelectedChange} />
           {value}
         </label>
       </div>
-
     );
   });
 
@@ -41,7 +32,7 @@ CheckboxRenderer.defaultProps = {
   label: '',
   values: [],
   selected: [],
-  onChange: selected => selected
+  onChange: (selected) => selected
 };
 
 const checkboxStyle = {

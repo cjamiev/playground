@@ -6,18 +6,27 @@ import { testGet, testPost } from './experimentActions';
 const TestComponent = () => {
   const [testData, setTestData] = useState('');
   const dispatch = useDispatch();
-  const experimentData = useSelector(state => state.experiment);
+  const experimentData = useSelector((state) => state.experiment);
 
   useEffect(() => {
-    setTestData(experimentData && experimentData?.value?.test || '');
+    setTestData((experimentData && experimentData?.value?.test) || '');
   }, [experimentData]);
 
-  const open = () => dispatch(openModal({ title: 'test-title', message: 'test-message', action: () => { console.log('test'); } }));
+  const open = () =>
+    dispatch(
+      openModal({
+        title: 'test-title',
+        message: 'test-message',
+        action: () => {
+          console.log('test');
+        }
+      })
+    );
   const runGet = () => {
     dispatch(testGet());
   };
   const runPost = () => {
-    dispatch(testPost({key:'condition'}));
+    dispatch(testPost({ key: 'condition' }));
   };
 
   const onChange = ({ target }) => {

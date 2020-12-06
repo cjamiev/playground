@@ -26,7 +26,7 @@ const incrementElementIndex = (originalArray, index) => {
 
 const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => (
   <ul>
-    {items.map(item => (
+    {items.map((item) => (
       <div key={item.id}>
         <li>{item.text}</li>
         <button
@@ -62,11 +62,11 @@ export default class TodoApp extends Component {
     this.state = { items: [], text: '' };
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ text: e.target.value });
   };
 
-  addItem = e => {
+  addItem = (e) => {
     e.preventDefault();
     if (!this.state.text.length) {
       return;
@@ -77,29 +77,29 @@ export default class TodoApp extends Component {
       id: Date.now()
     };
 
-    this.setState(state => ({
+    this.setState((state) => ({
       items: state.items.concat(newItem),
       text: ''
     }));
   };
 
-  removeItem = id => {
-    const newItemsState = this.state.items.filter(item => {
+  removeItem = (id) => {
+    const newItemsState = this.state.items.filter((item) => {
       return item.id !== id;
     });
 
     this.setState({ items: newItemsState });
   };
 
-  moveItemUp = id => {
-    const index = this.state.items.findIndex(item => item.id === id);
+  moveItemUp = (id) => {
+    const index = this.state.items.findIndex((item) => item.id === id);
     const newItemsState = decrementElementIndex(this.state.items, index);
 
     this.setState({ items: newItemsState });
   };
 
-  moveItemDown = id => {
-    const index = this.state.items.findIndex(item => item.id === id);
+  moveItemDown = (id) => {
+    const index = this.state.items.findIndex((item) => item.id === id);
     const newItemsState = incrementElementIndex(this.state.items, index);
 
     this.setState({ items: newItemsState });

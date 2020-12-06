@@ -3,13 +3,13 @@ import React, { Fragment, useState } from 'react';
 import FormRenderer from './FormRenderer';
 
 const hasError = (fields) => {
-  return fields.find(item => item.error || (!item.selected && item.required));
+  return fields.find((item) => item.error || (!item.selected && item.required));
 };
 
 const handleChange = (currentEntry, setEntry) => {
   return ({ id, selected, error = false }) => {
-    const updatedEntry = currentEntry.map(item => {
-      return (item.id === id) ? { ...item, selected, error } : item;
+    const updatedEntry = currentEntry.map((item) => {
+      return item.id === id ? { ...item, selected, error } : item;
     });
 
     setEntry(updatedEntry);
@@ -29,7 +29,9 @@ const DynamicForm = ({ fieldsList, onSubmit }) => {
     <Fragment>
       <div style={divStyle}>
         {FormRenderer(fields, handleChange(fields, setFields))}
-        <button style={buttonStyle} disabled={hasError(fields)} onClick={handleSubmit(fields, onSubmit)}>Submit</button>
+        <button style={buttonStyle} disabled={hasError(fields)} onClick={handleSubmit(fields, onSubmit)}>
+          Submit
+        </button>
       </div>
     </Fragment>
   );

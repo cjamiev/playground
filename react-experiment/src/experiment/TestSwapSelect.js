@@ -13,11 +13,7 @@ const TestSwapSelect = () => {
 
   return (
     <div style={divStyle}>
-      <SwapSelect
-        onChange={onChange}
-        listOne={listOne}
-        listTwo={listTwo}
-      />
+      <SwapSelect onChange={onChange} listOne={listOne} listTwo={listTwo} />
     </div>
   );
 };

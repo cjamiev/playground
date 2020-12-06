@@ -22,11 +22,11 @@ const TestContainer = (props) => {
   const [input, setInput] = useState(ZERO);
   const dispatch = useDispatch();
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     setInput(event.target.value);
   };
 
-  const handleAddTest = event => {
+  const handleAddTest = (event) => {
     const result = parseInput(input);
 
     if (result.isValid) {
@@ -36,7 +36,7 @@ const TestContainer = (props) => {
     }
   };
 
-  const handleRemoveTest = event => {
+  const handleRemoveTest = (event) => {
     props.removeTest(input);
   };
 
@@ -62,7 +62,7 @@ const divStyle = {
   padding: '10px'
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     test: state.test
   };
@@ -73,7 +73,4 @@ const mapDispatchToProps = {
   removeTest
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TestContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TestContainer);

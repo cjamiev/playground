@@ -3,7 +3,7 @@ import CheckboxRenderer from './CheckboxRenderer';
 
 const CheckboxList = ({ values = [], onChangeCheckboxList }) => {
   const handleCheckboxListChange = ({ id, selected }) => {
-    const updatedSelection = values.map(item => {
+    const updatedSelection = values.map((item) => {
       if (item.id === id) {
         return {
           ...item,
@@ -17,7 +17,7 @@ const CheckboxList = ({ values = [], onChangeCheckboxList }) => {
     onChangeCheckboxList({ id, selected: updatedSelection });
   };
 
-  const renderCheckboxes = values.map(item => {
+  const renderCheckboxes = values.map((item) => {
     return (
       <CheckboxRenderer
         key={item.id}
@@ -29,11 +29,7 @@ const CheckboxList = ({ values = [], onChangeCheckboxList }) => {
     );
   });
 
-  return (
-    <Fragment>
-      {renderCheckboxes}
-    </Fragment>
-  );
+  return <Fragment>{renderCheckboxes}</Fragment>;
 };
 
 export default CheckboxList;

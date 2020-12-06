@@ -5,17 +5,11 @@ const RadioRenderer = ({ id, label, values, onChange }) => {
     onChange({ id, selected: value });
   };
 
-  const radios = values.map(value => {
+  const radios = values.map((value) => {
     return (
       <div key={value}>
         <label>
-          <input
-            style={radioStyle}
-            type="radio"
-            name={label}
-            value={value}
-            onChange={handleSelectedChange}
-          />
+          <input style={radioStyle} type="radio" name={label} value={value} onChange={handleSelectedChange} />
           {value}
         </label>
       </div>
@@ -34,7 +28,7 @@ RadioRenderer.defaultProps = {
   id: '',
   label: '',
   values: '',
-  onChange: selected => selected
+  onChange: (selected) => selected
 };
 
 const radioStyle = {

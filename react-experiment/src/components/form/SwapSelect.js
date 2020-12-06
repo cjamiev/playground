@@ -15,7 +15,7 @@ const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) 
   };
 
   const onSwapRight = () => {
-    const updatedFilteredList = listOne.filter(item => !listOneSelected.includes(item));
+    const updatedFilteredList = listOne.filter((item) => !listOneSelected.includes(item));
     const updatedAppendedList = listTwo.concat(listOneSelected);
 
     setListOne([]);
@@ -24,7 +24,7 @@ const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) 
   };
 
   const onSwapLeft = () => {
-    const updatedFilteredList = listTwo.filter(item => !listTwoSelected.includes(item));
+    const updatedFilteredList = listTwo.filter((item) => !listTwoSelected.includes(item));
     const updatedAppendedList = listOne.concat(listTwoSelected);
 
     setListOne([]);
@@ -35,26 +35,20 @@ const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) 
   return (
     <div className="swapselect-grid">
       <div className="swapselect-multiselect">
-        <MultiselectRenderer
-          id={1}
-          label={listOneLabel}
-          values={listOne}
-          onChange={onListOneChange}
-        />
+        <MultiselectRenderer id={1} label={listOneLabel} values={listOne} onChange={onListOneChange} />
       </div>
-      <div className='swapselect-btn-grid'>
+      <div className="swapselect-btn-grid">
         <div>
-          <button className='swapselect-swapright-btn' disabled={!listOneSelected.length} onClick={onSwapRight}>{'>>'}</button>
-          <button className='swapselect-swapleft-btn' disabled={!listTwoSelected.length} onClick={onSwapLeft}>{'<<'}</button>
+          <button className="swapselect-swapright-btn" disabled={!listOneSelected.length} onClick={onSwapRight}>
+            {'>>'}
+          </button>
+          <button className="swapselect-swapleft-btn" disabled={!listTwoSelected.length} onClick={onSwapLeft}>
+            {'<<'}
+          </button>
         </div>
       </div>
       <div className="swapselect-multiselect">
-        <MultiselectRenderer
-          id={2}
-          label={listTwoLabel}
-          values={listTwo}
-          onChange={onListTwoChange}
-        />
+        <MultiselectRenderer id={2} label={listTwoLabel} values={listTwo} onChange={onListTwoChange} />
       </div>
     </div>
   );
