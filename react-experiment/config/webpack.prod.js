@@ -13,6 +13,10 @@ module.exports = env => {
       path: path.resolve(__dirname, '../build'),
       filename: 'bundle.[contenthash].js'
     },
+    resolve: {
+      extensions: ['.js', '*'],
+      modules: [path.resolve(__dirname, '../src'), 'node_modules']
+    },
     module: {
       rules: [
         {

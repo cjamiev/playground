@@ -9,11 +9,11 @@ module.exports = (env) => {
     mode: 'development',
     entry: './src/index.js',
     output: {
-      path: path.resolve(__dirname, 'build'),
+      path: path.resolve(__dirname, '../build'),
       filename: 'bundle.js'
     },
     devServer: {
-      contentBase: "./build",
+      contentBase: './build',
       historyApiFallback: true,
       inline: true,
       port: 3000,
@@ -22,7 +22,11 @@ module.exports = (env) => {
         '/api': 'http://localhost:1000'
       }
     },
-    devtool: "source-map",
+    resolve: {
+      extensions: ['.js', '*'],
+      modules: [path.resolve(__dirname, '../src'), 'node_modules']
+    },
+    devtool: 'source-map',
     module: {
       rules: [
         {
@@ -46,9 +50,9 @@ module.exports = (env) => {
         {
           test: /\.(svg|png|jpg|gif)$/,
           use: {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
-              name: "[name].[ext]"
+              name: '[name].[ext]'
             }
           }
         }
