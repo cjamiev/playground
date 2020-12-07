@@ -10,7 +10,7 @@ module.exports = (env) => {
     entry: './src/index.js',
     output: {
       path: path.resolve(__dirname, '../build'),
-      filename: 'bundle.js'
+      filename: '[name].bundle.js'
     },
     devServer: {
       contentBase: './build',
@@ -27,6 +27,13 @@ module.exports = (env) => {
       modules: [path.resolve(__dirname, '../src'), 'node_modules']
     },
     devtool: 'source-map',
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: { test: /[\\/]node_modules[\\/]/, name: 'common', chunks: 'all' }
+        }
+      }
+    },
     module: {
       rules: [
         {
