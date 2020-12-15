@@ -49,9 +49,7 @@ module.exports = env => {
       ]
     },
     plugins: [
-      new HtmlWebpackPlugin({
-        template: path.resolve('./src/index.html')
-      }),
+      new HtmlWebpackPlugin({ template: path.resolve('./src/index.html') }),
       new webpack.DefinePlugin({ 'process.env': JSON.stringify(env) }),
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',

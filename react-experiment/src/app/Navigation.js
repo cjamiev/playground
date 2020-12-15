@@ -1,26 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Navigation = React.memo(() => {
-  const activeStyle = { color: 'blue' };
+  const [toggleNav, setToggleNav] = useState(false);
+  const expandNav = toggleNav ? 'navbar-collapse collapse show' : 'navbar-collapse collapse';
 
   return (
     <>
-      <NavLink to="/experiment" replace activeStyle={activeStyle}>
-        Experiment|
-      </NavLink>
-      <NavLink to="/test-container" replace activeStyle={activeStyle}>
-        Test Container|
-      </NavLink>
-      <NavLink to="/test-dynamic-form" replace activeStyle={activeStyle}>
-        Test Dynamic Form|
-      </NavLink>
-      <NavLink to="/test-swap-select" replace activeStyle={activeStyle}>
-        Test Swap Select|
-      </NavLink>
-      <NavLink to="/todo-app" replace activeStyle={activeStyle}>
-        Todo App
-      </NavLink>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <button className="navbar-toggler" onClick={() => {setToggleNav(!toggleNav);}} aria-controls="navbarSupportedContent" aria-expanded={toggleNav} aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className={expandNav} id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/experiment">
+                Experiment
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/test-container">
+                Test Container
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/test-dynamic-form">
+                Test Dynamic Form
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/test-swap-select">
+                Test Swap Select
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/todo-app">
+              Todo App
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </>
   );
 });

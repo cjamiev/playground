@@ -39,9 +39,13 @@ const TestComponent = () => {
       <input onBlur={onChange} />
       <br />
       <label>{testData}</label>
-      <button onClick={open}>Open Modal</button>
-      <button onClick={runGet}>test get api</button>
-      <button onClick={runPost}>test post api</button>
+      <div className="btn-group mr-2" role="group" aria-label="First group">
+        <button className="btn btn-primary" onClick={open}>Open Modal</button>
+      </div>
+      <div className="btn-group mr-2" role="group" aria-label="Second group">
+        <button className="btn btn-secondary" onClick={runGet}>test get api</button>
+        <button className="btn btn-secondary" onClick={runPost}>test post api</button>
+      </div>
     </Fragment>
   );
 };
