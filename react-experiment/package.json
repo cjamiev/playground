@@ -10,7 +10,7 @@
     "eslint-fix": "eslint --ext .js src/ -f html -o ./coverage/eslint-report.html",
     "coverage": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json",
     "test": "jest --env=jsdom --watch",
-    "t": "jest __tests__/components/form/SwapSelect --watch"
+    "t": "jest --env=jsdom __tests__/components/Modal --watch"
   },
   "keywords": [],
   "author": "CJV",
