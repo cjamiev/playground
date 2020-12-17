@@ -1,9 +1,9 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal } from '../components/modalActions';
+import { openModal } from 'components/modalActions';
 import { testGet, testPost } from './experimentActions';
 
-const TestComponent = () => {
+const Experiment = () => {
   const [testData, setTestData] = useState('');
   const dispatch = useDispatch();
   const experimentData = useSelector((state) => state.experiment);
@@ -50,4 +50,4 @@ const TestComponent = () => {
   );
 };
 
-export default TestComponent;
+export default Experiment;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 
-import Experiment from 'experiment';
+import Home from './home';
 import TestContainer from 'experiment/TestContainer';
 import TestDynamicForm from 'experiment/TestDynamicForm';
 import TestSwapSelect from 'experiment/TestSwapSelect';
@@ -19,8 +19,8 @@ const NotFoundPage = React.memo(() => {
 const Routes = React.memo(() => {
   return (
     <Switch>
-      <Route exact path="/" component={Experiment} />
-      <Route path="/experiment" component={Experiment} />
+      <Route exact path="/" component={Home} />
+      <Route path="/home" component={Home} />
       <Route path="/test-container" component={TestContainer} />
       <Route path="/test-dynamic-form" component={TestDynamicForm} />
       <Route path="/test-swap-select" component={TestSwapSelect} />

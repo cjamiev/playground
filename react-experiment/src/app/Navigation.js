@@ -14,8 +14,8 @@ const Navigation = React.memo(() => {
         <div className={expandNav} id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/experiment">
-                Experiment
+              <NavLink className="nav-link" to="/home">
+                Home
               </NavLink>
             </li>
             <li className="nav-item">
