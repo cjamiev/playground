@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Modal } from 'components/modal/Modal';
+import { GlobalModal } from 'components/modal/GlobalModal';
 import Routes from 'routes/Routes';
 import Navigation from './Navigation';
 
@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Navigation />
-      <Modal />
+      <GlobalModal />
       <Routes />
     </>
   );
