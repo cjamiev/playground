@@ -7,7 +7,7 @@ import {
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-import testReducer from 'experiment/testReducer';
+import testReducer from 'routes/home/testReducer';
 import experimentReducer from 'routes/home/experimentReducer';
 import modalReducer from 'components/modalReducer';
 
