@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 
 import testReducer from 'routes/home/testReducer';
 import experimentReducer from 'routes/home/experimentReducer';
-import modalReducer from 'components/modal/modalReducer';
+import globalModalReducer from 'components/modal/globalModalReducer';
 
 const customMiddleware = ({ dispatch, getState }) => (next) => (action) => {
   return next(action);
@@ -23,7 +23,7 @@ const appliedMiddlewares = applyMiddleware(...middlewares);
 
 const rootReducer = combineReducers({
   experiment: experimentReducer,
-  modal: modalReducer,
+  globalModal: globalModalReducer,
   test: testReducer
 });
 

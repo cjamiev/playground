@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { GlobalModal } from 'components/modal/GlobalModal';
+import { LoadingModal } from 'components/modal/LoadingModal';
 import Routes from 'routes/Routes';
 import Navigation from './Navigation';
 
@@ -9,6 +10,7 @@ function App() {
     <>
       <Navigation />
       <GlobalModal />
+      <LoadingModal />
       <Routes />
     </>
   );

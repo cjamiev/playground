@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal } from 'components/modal/modalActions';
+import { openGlobalModal, showLoadingModal } from 'components/modal/globalModalActions';
 import { testGet, testPost } from './experimentActions';
 
 const Experiment = () => {
@@ -14,7 +14,7 @@ const Experiment = () => {
 
   const open = () =>
     dispatch(
-      openModal({
+      openGlobalModal({
         title: 'test-title',
         message: 'test-message',
         action: () => {

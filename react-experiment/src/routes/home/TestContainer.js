@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { addTest, removeTest } from './testActions';
-import { openModal } from 'components/modal/modalActions';
+import { openGlobalModal } from 'components/modal/globalModalActions';
 
 const ZERO = 0;
 const parseInput = (data) => {
@@ -32,7 +32,7 @@ const TestContainer = (props) => {
     if (result.isValid) {
       props.addTest(result.data);
     } else {
-      dispatch(openModal({ title: 'Error Message', message: result.data }));
+      dispatch(openGlobalModal({ title: 'Error Message', message: result.data }));
     }
   };
 
