@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { addTest, removeTest } from './testActions';
-import { openModal } from 'components/modalActions';
+import { openModal } from 'components/modal/modalActions';
 
 const ZERO = 0;
 const parseInput = (data) => {

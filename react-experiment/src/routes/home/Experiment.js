@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal } from 'components/modalActions';
+import { openModal } from 'components/modal/modalActions';
 import { testGet, testPost } from './experimentActions';
 
 const Experiment = () => {

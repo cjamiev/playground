@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 
 import testReducer from 'routes/home/testReducer';
 import experimentReducer from 'routes/home/experimentReducer';
-import modalReducer from 'components/modalReducer';
+import modalReducer from 'components/modal/modalReducer';
 
 const customMiddleware = ({ dispatch, getState }) => (next) => (action) => {
   return next(action);
