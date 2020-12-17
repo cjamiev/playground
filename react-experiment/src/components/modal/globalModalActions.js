@@ -5,7 +5,7 @@ const HIDE_LOADING_MODAL = 'HIDE_LOADING_MODAL';
 
 const openGlobalModal = (data) => ({ type: OPEN_GLOBAL_MODAL, data });
 
-const closeGlobalModal = () => ({ type: CLOSE_GLOBAL_MODAL });
+const closeGlobalModal = (id) => ({ type: CLOSE_GLOBAL_MODAL, id });
 const showLoadingModal = () => ({ type: SHOW_LOADING_MODAL });
 const hideLoadingModal = () => ({ type: HIDE_LOADING_MODAL });
 
