@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 
+import Page from 'components/layout';
 import Experiment from './Experiment';
 import TestContainer from './TestContainer';
 import TestDynamicForm from './TestDynamicForm';
@@ -33,13 +34,12 @@ const Home = () => {
   };
 
   return (
-    <Fragment>
-      <div>Home</div>
+    <Page title={'Home'}>
       <ul className="nav nav-tabs">
         {renderTabs}
       </ul>
       {renderPage()}
-    </Fragment>
+    </Page>
   );
 };
 

@@ -19,16 +19,6 @@ const Navigation = React.memo(() => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/test-container">
-                Test Container
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/test-dynamic-form">
-                Test Dynamic Form
-              </NavLink>
-            </li>
-            <li className="nav-item">
               <NavLink className="nav-link" to="/test-swap-select">
                 Test Swap Select
               </NavLink>
