@@ -7,8 +7,8 @@ import {
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-import testReducer from 'routes/home/testReducer';
-import experimentReducer from 'routes/home/experimentReducer';
+import testReducer from 'routes/home/TestContainer/testReducer';
+import experimentReducer from 'routes/home/Experiment/experimentReducer';
 import globalModalReducer from 'components/modal/globalModalReducer';
 
 const customMiddleware = ({ dispatch, getState }) => (next) => (action) => {

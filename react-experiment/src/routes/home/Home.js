@@ -15,8 +15,8 @@ const Home = () => {
     const tabClass = tabIndex === itemIndex ? 'nav-link active': 'nav-link';
 
     return (
-      <li key={item} className="nav-item">
-        <a className={tabClass} href="#" aria-current="page" onClick={() => { setTabIndex(itemIndex); }}>{item}</a>
+      <li key={item} className="nav-item" onClick={() => { setTabIndex(itemIndex); }} >
+        <a className={tabClass} href="#" aria-current="page">{item}</a>
       </li>
     );
   });
@@ -26,7 +26,7 @@ const Home = () => {
       return (<Experiment />);
     }
     else if (tabIndex === ONE) {
-      return (<TestContainer/>);
+      return (<TestContainer />);
     }
     else {
       return (<TestDynamicForm />);
