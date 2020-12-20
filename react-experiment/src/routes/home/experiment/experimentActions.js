@@ -1,35 +1,8 @@
-import api from 'api';
+const ADD_TEST = 'ADD_TEST';
+const REMOVE_TEST = 'REMOVE_TEST';
 
-const TEST_GET = 'TEST_GET';
-const TEST_POST = 'TEST_POST';
+const addTest = (data) => ({ type: ADD_TEST, data });
 
-const experimentGet = (data) => ({ type: TEST_GET, data });
-const experimentPost = (data) => ({ type: TEST_POST, data });
+const removeTest = (data) => ({ type: REMOVE_TEST, data });
 
-const testGet = () => {
-  return (dispatch) => {
-    api
-      .get('/api/test')
-      .then((response) => {
-        dispatch(experimentGet(response.data));
-      })
-      .catch((error) => {
-        dispatch(experimentGet(error));
-      });
-  };
-};
-
-const testPost = (data) => {
-  return (dispatch) => {
-    api
-      .post('/api/test', data)
-      .then((response) => {
-        dispatch(experimentPost(response.data));
-      })
-      .catch((error) => {
-        dispatch(experimentPost(error));
-      });
-  };
-};
-
-export { TEST_GET, TEST_POST, testGet, testPost };
+export { ADD_TEST, REMOVE_TEST, addTest, removeTest };

@@ -2,12 +2,11 @@ import React, { Fragment, useState } from 'react';
 
 import Page from 'components/layout';
 import Experiment from './experiment';
-import TestContainer from './testcontainer';
 import TestDynamicForm from './testdynamicform';
 import TestGlobalModal from './testglobalmodal';
 import TestApi from './testapi';
 
-const TABS = ['Experiment', 'Test Container', 'Test Dynamic Form', 'Test Global Modal', 'Test Api'];
+const TABS = ['Experiment', 'Test Dynamic Form', 'Test Global Modal', 'Test Api'];
 const ZERO = 0;
 const ONE = 1;
 const TWO = 2;
@@ -28,9 +27,6 @@ const Home = () => {
   const renderPage = () => {
     if(tabIndex === ZERO) {
       return (<Experiment />);
-    }
-    else if (tabIndex === ONE) {
-      return (<TestContainer />);
     }
     else if (tabIndex === TWO) {
       return (<TestDynamicForm />);

@@ -1,24 +1,19 @@
-import { TEST_GET, TEST_POST } from './experimentActions';
+import { ADD_TEST, REMOVE_TEST } from './experimentActions';
 
-const initialState = {};
+const ONE = 1;
+const initialState = [ONE];
 
-const experimentReducer = (state = initialState, action) => {
-  const experimentCases = {
-    [TEST_GET]: () => {
-      return {
-        ...state,
-        value: action.data
-      };
+const testReducer = (state = initialState, action) => {
+  const testCases = {
+    [ADD_TEST]: () => {
+      return [...state, action.data];
     },
-    [TEST_POST]: () => {
-      return {
-        ...state,
-        value: action.data
-      };
+    [REMOVE_TEST]: () => {
+      return state.filter((item) => item !== Number(action.data));
     }
   };
 
-  return experimentCases.hasOwnProperty(action.type) ? experimentCases[action.type]() : state;
+  return testCases.hasOwnProperty(action.type) ? testCases[action.type]() : state;
 };
 
-export default experimentReducer;
+export default testReducer;

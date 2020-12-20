@@ -1,39 +1,76 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { testGet, testPost } from './experimentActions';
+import React, { useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { addTest, removeTest } from './experimentActions';
+import { openGlobalModal } from 'components/modal/globalModalActions';
 
-const Experiment = () => {
-  const [testData, setTestData] = useState('');
+const ZERO = 0;
+const parseInput = (data) => {
+  if (!isNaN(data)) {
+    return {
+      isValid: true,
+      data: parseInt(data)
+    };
+  } else {
+    return {
+      isValid: false,
+      data: 'Not a valid number'
+    };
+  }
+};
+
+const TestContainer = (props) => {
+  const [input, setInput] = useState(ZERO);
   const dispatch = useDispatch();
-  const experimentData = useSelector((state) => state.experiment);
 
-  useEffect(() => {
-    setTestData((experimentData && experimentData?.value?.test) || '');
-  }, [experimentData]);
-
-  const runGet = () => {
-    dispatch(testGet());
-  };
-  const runPost = () => {
-    dispatch(testPost({ key: 'condition' }));
+  const handleInputChange = (event) => {
+    setInput(event.target.value);
   };
 
-  const onChange = ({ target }) => {
-    setTestData(target.value);
+  const handleAddTest = (event) => {
+    const result = parseInput(input);
+
+    if (result.isValid) {
+      props.addTest(result.data);
+    } else {
+      dispatch(openGlobalModal({ title: 'Error Message', message: result.data }));
+    }
+  };
+
+  const handleRemoveTest = (event) => {
+    props.removeTest(input);
   };
 
   return (
-    <Fragment>
-      <br />
-      <input onBlur={onChange} />
-      <br />
-      <label>{testData}</label>
-      <div className="btn-group mr-2" role="group" aria-label="Second group">
-        <button className="btn btn-secondary" onClick={runGet}>test get api</button>
-        <button className="btn btn-secondary" onClick={runPost}>test post api</button>
-      </div>
-    </Fragment>
+    <div style={divStyle}>
+      <p>State:{props.test}</p>
+      <label>Input value</label>
+      <input type="text" onChange={handleInputChange} value={input} />
+      <button type="button" onClick={handleAddTest}>
+        Add To State
+      </button>
+      <button type="button" onClick={handleRemoveTest}>
+        Remove From State
+      </button>
+    </div>
   );
 };
 
-export default Experiment;
+const divStyle = {
+  margin: 'auto',
+  width: '75%',
+  border: '1px solid black',
+  padding: '10px'
+};
+
+const mapStateToProps = (state) => {
+  return {
+    test: state.test
+  };
+};
+
+const mapDispatchToProps = {
+  addTest,
+  removeTest
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TestContainer);
