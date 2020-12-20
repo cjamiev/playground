@@ -28,10 +28,10 @@ const Home = () => {
     if(tabIndex === ZERO) {
       return (<Experiment />);
     }
-    else if (tabIndex === TWO) {
+    else if (tabIndex === ONE) {
       return (<TestDynamicForm />);
     }
-    else if (tabIndex === THREE) {
+    else if (tabIndex === TWO) {
       return (<TestGlobalModal />);
     }
     else {

@@ -1,10 +1,10 @@
 import api from 'api';
 
-const TEST_GET = 'TEST_GET';
-const TEST_POST = 'TEST_POST';
+const TEST_API_GET = 'TEST_API_GET';
+const TEST_API_POST = 'TEST_API_POST';
 
-const testApiGet = (data) => ({ type: TEST_GET, data });
-const testApiPost = (data) => ({ type: TEST_POST, data });
+const testApiGet = (data) => ({ type: TEST_API_GET, data });
+const testApiPost = (data) => ({ type: TEST_API_POST, data });
 
 const testGet = () => {
   return (dispatch) => {
@@ -32,4 +32,4 @@ const testPost = (data) => {
   };
 };
 
-export { TEST_GET, TEST_POST, testGet, testPost };
+export { TEST_API_GET, TEST_API_POST, testGet, testPost };

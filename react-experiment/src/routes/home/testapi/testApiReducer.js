@@ -1,16 +1,16 @@
-import { TEST_GET, TEST_POST } from './testApiActions';
+import { TEST_API_GET, TEST_API_POST } from './testApiActions';
 
 const initialState = {};
 
 const testApiReducer = (state = initialState, action) => {
   const testApiCases = {
-    [TEST_GET]: () => {
+    [TEST_API_GET]: () => {
       return {
         ...state,
         value: action.data
       };
     },
-    [TEST_POST]: () => {
+    [TEST_API_POST]: () => {
       return {
         ...state,
         value: action.data
