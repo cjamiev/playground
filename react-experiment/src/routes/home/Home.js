@@ -4,10 +4,12 @@ import Page from 'components/layout';
 import Experiment from './Experiment';
 import TestContainer from './TestContainer';
 import TestDynamicForm from './TestDynamicForm';
+import TestGlobalModal from './TestGlobalModal';
 
-const TABS = ['Experiment', 'Test Container', 'Test Dynamic Form'];
+const TABS = ['Experiment', 'Test Container', 'Test Dynamic Form', 'Test Global Modal'];
 const ZERO = 0;
 const ONE = 1;
+const TWO = 2;
 
 const Home = () => {
   const [tabIndex, setTabIndex] = useState(ZERO);
@@ -28,8 +30,11 @@ const Home = () => {
     else if (tabIndex === ONE) {
       return (<TestContainer />);
     }
-    else {
+    else if (tabIndex === TWO) {
       return (<TestDynamicForm />);
+    }
+    else {
+      return (<TestGlobalModal />);
     }
   };
 

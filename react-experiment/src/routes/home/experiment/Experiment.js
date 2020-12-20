@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { openGlobalModal, showLoadingModal } from 'components/modal/globalModalActions';
 import { testGet, testPost } from './experimentActions';
 
 const Experiment = () => {
@@ -12,16 +11,6 @@ const Experiment = () => {
     setTestData((experimentData && experimentData?.value?.test) || '');
   }, [experimentData]);
 
-  const open = () =>
-    dispatch(
-      openGlobalModal({
-        title: 'test-title',
-        message: 'test-message',
-        action: () => {
-          alert('test');
-        }
-      })
-    );
   const runGet = () => {
     dispatch(testGet());
   };
@@ -39,9 +28,6 @@ const Experiment = () => {
       <input onBlur={onChange} />
       <br />
       <label>{testData}</label>
-      <div className="btn-group mr-2" role="group" aria-label="First group">
-        <button className="btn btn-primary" onClick={open}>Open Modal</button>
-      </div>
       <div className="btn-group mr-2" role="group" aria-label="Second group">
         <button className="btn btn-secondary" onClick={runGet}>test get api</button>
         <button className="btn btn-secondary" onClick={runPost}>test post api</button>
