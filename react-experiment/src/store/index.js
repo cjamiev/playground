@@ -7,8 +7,9 @@ import {
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-import testReducer from 'routes/home/TestContainer/testReducer';
-import experimentReducer from 'routes/home/Experiment/experimentReducer';
+import testApiReducer from 'routes/home/testapi/testApiReducer';
+import testReducer from 'routes/home/testcontainer/testReducer';
+import experimentReducer from 'routes/home/experiment/experimentReducer';
 import globalModalReducer from 'components/modal/globalModalReducer';
 
 const customMiddleware = ({ dispatch, getState }) => (next) => (action) => {
@@ -24,7 +25,8 @@ const appliedMiddlewares = applyMiddleware(...middlewares);
 const rootReducer = combineReducers({
   experiment: experimentReducer,
   globalModal: globalModalReducer,
-  test: testReducer
+  test: testReducer,
+  testApi: testApiReducer
 });
 
 const configureStore = (initialState) => {

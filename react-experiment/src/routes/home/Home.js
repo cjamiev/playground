@@ -1,15 +1,17 @@
 import React, { Fragment, useState } from 'react';
 
 import Page from 'components/layout';
-import Experiment from './Experiment';
-import TestContainer from './TestContainer';
-import TestDynamicForm from './TestDynamicForm';
-import TestGlobalModal from './TestGlobalModal';
+import Experiment from './experiment';
+import TestContainer from './testcontainer';
+import TestDynamicForm from './testdynamicform';
+import TestGlobalModal from './testglobalmodal';
+import TestApi from './testapi';
 
-const TABS = ['Experiment', 'Test Container', 'Test Dynamic Form', 'Test Global Modal'];
+const TABS = ['Experiment', 'Test Container', 'Test Dynamic Form', 'Test Global Modal', 'Test Api'];
 const ZERO = 0;
 const ONE = 1;
 const TWO = 2;
+const THREE = 3;
 
 const Home = () => {
   const [tabIndex, setTabIndex] = useState(ZERO);
@@ -33,8 +35,11 @@ const Home = () => {
     else if (tabIndex === TWO) {
       return (<TestDynamicForm />);
     }
-    else {
+    else if (tabIndex === THREE) {
       return (<TestGlobalModal />);
+    }
+    else {
+      return (<TestApi />);
     }
   };
 
