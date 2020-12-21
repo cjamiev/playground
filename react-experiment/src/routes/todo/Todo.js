@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 const ZERO = 0;
 const ONE = 1;
@@ -56,68 +56,65 @@ const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => (
   </ul>
 );
 
-export default class TodoApp extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { items: [], text: '' };
-  }
+const Todo = (props) => {
+  const [items, setItems] = useState([]);
+  const [text, setText] = useState('');
 
-  handleChange = (e) => {
-    this.setState({ text: e.target.value });
+  const handleChange = (e) => {
+    setText(e.target.value);
   };
 
-  addItem = (e) => {
+  const addItem = (e) => {
     e.preventDefault();
-    if (!this.state.text.length) {
+    if (!text.length) {
       return;
     }
 
     const newItem = {
-      text: this.state.text,
+      text,
       id: Date.now()
     };
 
-    this.setState((state) => ({
-      items: state.items.concat(newItem),
-      text: ''
-    }));
+    const updatedItems = items.concat(newItem);
+    setItems(updatedItems);
+    setText('');
   };
 
-  removeItem = (id) => {
-    const newItemsState = this.state.items.filter((item) => {
+  const removeItem = (id) => {
+    const updatedItems = items.filter((item) => {
       return item.id !== id;
     });
 
-    this.setState({ items: newItemsState });
+    setItems(updatedItems);
   };
 
-  moveItemUp = (id) => {
-    const index = this.state.items.findIndex((item) => item.id === id);
-    const newItemsState = decrementElementIndex(this.state.items, index);
+  const moveItemUp = (id) => {
+    const index = items.findIndex((item) => item.id === id);
+    const updatedItems = decrementElementIndex(items, index);
 
-    this.setState({ items: newItemsState });
+    setItems(updatedItems);
   };
 
-  moveItemDown = (id) => {
-    const index = this.state.items.findIndex((item) => item.id === id);
-    const newItemsState = incrementElementIndex(this.state.items, index);
+  const moveItemDown = (id) => {
+    const index = items.findIndex((item) => item.id === id);
+    const updatedItems = incrementElementIndex(items, index);
 
-    this.setState({ items: newItemsState });
+    setItems(updatedItems);
   };
 
-  render() {
-    return (
-      <>
-        <h3>TODO</h3>
-        <TodoList
-          items={this.state.items}
-          removeItem={this.removeItem}
-          moveItemUp={this.moveItemUp}
-          moveItemDown={this.moveItemDown}
-        />
-        <input id="new-todo" onChange={this.handleChange} value={this.state.text} />
-        <button onClick={this.addItem}>Add Item</button>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <h3>TODO</h3>
+      <TodoList
+        items={items}
+        removeItem={removeItem}
+        moveItemUp={moveItemUp}
+        moveItemDown={moveItemDown}
+      />
+      <input id="new-todo" onChange={handleChange} value={text} />
+      <button onClick={addItem}>Add Item</button>
+    </>
+  );
+};
+
+export default Todo;
