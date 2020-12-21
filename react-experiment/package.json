@@ -9,6 +9,7 @@
     "format": "prettier --write \"src/**/*.js\"",
     "eslint-fix": "eslint --ext .js src/ -f html -o ./coverage/eslint-report.html",
     "coverage": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json",
+    "e2e": "cypress open",
     "test": "jest --env=jsdom --watch",
     "t": "jest --env=jsdom __tests__/components/GlobalModal --watch"
   },
@@ -26,6 +27,7 @@
     "babel-jest": "26.6.3",
     "babel-loader": "^8.2.1",
     "css-loader": "^5.0.1",
+    "cypress": "^6.1.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-config-react": "^1.1.7",

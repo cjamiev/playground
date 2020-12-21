@@ -9,7 +9,7 @@ const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
   return (
     <ul>
       {items.map((item) => (
-        <div key={item.id}>
+        <div key={item.id} data-testid={item.text}>
           <li>{item.text}</li>
           <button onClick={() => { removeItem(item.id); }}> Done </button>
           <button onClick={() => { moveItemUp(item.id); }}> Move Item Up </button>
@@ -73,8 +73,8 @@ const Todo = (props) => {
         moveItemUp={moveItemUp}
         moveItemDown={moveItemDown}
       />
-      <input onChange={handleChange} value={text} />
-      <button onClick={addItem}>Add Item</button>
+      <input data-testid="todo-in" onChange={handleChange} value={text} />
+      <button data-testid="todo-add-btn" onClick={addItem}>Add Item</button>
     </>
   );
 };
