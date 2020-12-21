@@ -7,13 +7,13 @@ import {
 
 const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
   return (
-    <ul>
+    <ul data-testid='todo-list'>
       {items.map((item) => (
         <div key={item.id} data-testid={item.text}>
-          <li>{item.text}</li>
+          <span>{item.text}</span>
           <button onClick={() => { removeItem(item.id); }}> Done </button>
           <button onClick={() => { moveItemUp(item.id); }}> Move Item Up </button>
-          <button onClick={() => { moveItemDown(item.id);}}> Move Item down </button>
+          <button onClick={() => { moveItemDown(item.id);}}> Move Item Down </button>
         </div>
       ))}
     </ul>
