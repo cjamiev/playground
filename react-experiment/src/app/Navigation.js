@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { closeGlobalModal, hideLoadingModal } from 'components/modal/globalModalActions';
 import { useHistory } from 'react-router-dom';
 
 const navStyle = {
@@ -12,6 +14,7 @@ const NAV_ITEMS = [
 ];
 
 const Navigation = React.memo(() => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [toggleNav, setToggleNav] = useState(false);
   const [currentUrl, setCurrentUrl] = useState(history.location.pathname);
@@ -23,6 +26,8 @@ const Navigation = React.memo(() => {
       if(history.location.pathname !== item.url){
         history.push(item.url);
         setCurrentUrl(item.url);
+        dispatch(closeGlobalModal());
+        dispatch(hideLoadingModal());
       }
     };
 
