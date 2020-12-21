@@ -14,6 +14,7 @@ const THREE = 3;
 
 const Home = () => {
   const [tabIndex, setTabIndex] = useState(ZERO);
+  const [error, setError] = useState('');
   const renderTabs = TABS.map((item, itemIndex) => {
     const tabClass = tabIndex === itemIndex ? 'nav-link active': 'nav-link';
 
@@ -24,9 +25,14 @@ const Home = () => {
     );
   });
 
+
+  const handleError = (message) => {
+    setError(message);
+  };
+
   const renderPage = () => {
     if(tabIndex === ZERO) {
-      return (<Experiment />);
+      return (<Experiment handleError={handleError} />);
     }
     else if (tabIndex === ONE) {
       return (<TestDynamicForm />);
@@ -40,7 +46,7 @@ const Home = () => {
   };
 
   return (
-    <Page title={'Home'}>
+    <Page title={'Home'} error={error}>
       <ul className="nav nav-tabs">
         {renderTabs}
       </ul>

@@ -38,8 +38,10 @@ const Experiment = (props) => {
     const result = parseInput(input);
 
     if (result.isValid) {
+      props.handleError('');
       dispatch(addTest(result.data));
     } else {
+      props.handleError(result.data);
       dispatch(openGlobalModal({ title: 'Error Message', message: result.data }));
     }
   };
