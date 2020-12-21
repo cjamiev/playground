@@ -3,7 +3,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 
 import Home from './home';
 import TestSwapSelect from 'experiment/TestSwapSelect';
-import TodoApp from 'experiment/TodoApp';
+import Todo from './todo';
 
 const NotFoundPage = React.memo(() => {
   return (
@@ -20,7 +20,7 @@ const Routes = React.memo(() => {
       <Route exact path="/" component={Home} />
       <Route path="/home" component={Home} />
       <Route path="/test-swap-select" component={TestSwapSelect} />
-      <Route path="/todo-app" component={TodoApp} />
+      <Route path="/todo" component={Todo} />
       <Route component={NotFoundPage} />
     </Switch>
   );

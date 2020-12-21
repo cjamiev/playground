@@ -10,7 +10,7 @@ const navStyle = {
 const NAV_ITEMS = [
   { label: 'Home', url: '/home'},
   { label: 'Test Swap Select', url: '/test-swap-select'},
-  { label: 'Todo', url: '/todo-app'}
+  { label: 'Todo', url: '/todo'}
 ];
 
 const Navigation = React.memo(() => {
