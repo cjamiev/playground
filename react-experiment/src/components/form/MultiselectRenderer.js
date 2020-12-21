@@ -1,5 +1,19 @@
 import React from 'react';
 
+const divStyle = {
+  width: '200px'
+};
+
+const labelStyle = {
+  display: 'block'
+};
+
+const multiselectStyle = {
+  margin: '10px 0',
+  overflow: 'auto',
+  width: '200px'
+};
+
 const MultiselectRenderer = ({ id, label, values, onChange }) => {
   const handleSelectedChange = ({ target: { options } }) => {
     const updatedSelection = [...options].filter((entry) => entry.selected).map((entry) => entry.value);
@@ -14,8 +28,8 @@ const MultiselectRenderer = ({ id, label, values, onChange }) => {
   ));
 
   return (
-    <div>
-      <label>{label}</label>
+    <div style={divStyle}>
+      <label style={labelStyle}>{label}</label>
       <select
         data-testid={'multiselect-' + label}
         style={multiselectStyle}
@@ -35,11 +49,6 @@ MultiselectRenderer.defaultProps = {
   label: '',
   values: [],
   onChange: (selected) => selected
-};
-
-const multiselectStyle = {
-  margin: '10px 0px 10px 0px',
-  overflow: 'auto'
 };
 
 export default MultiselectRenderer;

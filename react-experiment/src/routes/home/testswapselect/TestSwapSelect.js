@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import SwapSelect from '../components/form/SwapSelect';
+import SwapSelect from 'components/form/SwapSelect';
 
 const TestSwapSelect = () => {
   const [listOne, setListOne] = useState(['grocery', 'Saab', 'Opel', 'Audi']);

@@ -34,7 +34,7 @@ const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) 
 
   return (
     <div className="swapselect-grid">
-      <div className="swapselect-multiselect">
+      <div>
         <MultiselectRenderer id={1} label={listOneLabel} values={listOne} onChange={onListOneChange} />
       </div>
       <div className="swapselect-btn-grid">

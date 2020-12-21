@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 
 import Home from './home';
-import TestSwapSelect from 'experiment/TestSwapSelect';
 import Todo from './todo';
 
 const NotFoundPage = React.memo(() => {
@@ -19,7 +18,6 @@ const Routes = React.memo(() => {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/home" component={Home} />
-      <Route path="/test-swap-select" component={TestSwapSelect} />
       <Route path="/todo" component={Todo} />
       <Route component={NotFoundPage} />
     </Switch>

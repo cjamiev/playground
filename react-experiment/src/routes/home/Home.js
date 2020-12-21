@@ -5,15 +5,16 @@ import Experiment from './experiment';
 import TestDynamicForm from './testdynamicform';
 import TestGlobalModal from './testglobalmodal';
 import TestApi from './testapi';
+import TestSwapSelect from './testswapselect';
 
-const TABS = ['Experiment', 'Test Dynamic Form', 'Test Global Modal', 'Test Api'];
+const TABS = ['Experiment', 'Test Dynamic Form', 'Test Swap Select', 'Test Global Modal', 'Test Api'];
 const ZERO = 0;
 const ONE = 1;
 const TWO = 2;
 const THREE = 3;
 
 const Home = () => {
-  const [tabIndex, setTabIndex] = useState(ZERO);
+  const [tabIndex, setTabIndex] = useState(TWO);
   const [error, setError] = useState('');
   const renderTabs = TABS.map((item, itemIndex) => {
     const tabClass = tabIndex === itemIndex ? 'nav-link active': 'nav-link';
@@ -38,6 +39,9 @@ const Home = () => {
       return (<TestDynamicForm />);
     }
     else if (tabIndex === TWO) {
+      return (<TestSwapSelect />);
+    }
+    else if (tabIndex === THREE) {
       return (<TestGlobalModal />);
     }
     else {
