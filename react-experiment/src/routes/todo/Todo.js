@@ -73,7 +73,7 @@ const Todo = (props) => {
         moveItemUp={moveItemUp}
         moveItemDown={moveItemDown}
       />
-      <input data-testid="todo-in" onChange={handleChange} value={text} />
+      <input data-testid="todo-in" type="text" value={text} onChange={handleChange} />
       <button data-testid="todo-add-btn" onClick={addItem}>Add Item</button>
     </>
   );

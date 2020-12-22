@@ -9,9 +9,10 @@
     "format": "prettier --write \"src/**/*.js\"",
     "eslint-fix": "eslint --ext .js src/ -f html -o ./coverage/eslint-report.html",
     "coverage": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json",
-    "e2e": "cypress open",
+    "e2e": "cypress run",
+    "e2e:watch": "cypress open",
     "test": "jest --env=jsdom --watch",
-    "t": "jest --env=jsdom __tests__/components/GlobalModal --watch"
+    "t": "jest --env=jsdom __tests__/routes/todo/Todo --watch"
   },
   "keywords": [],
   "author": "CJV",
@@ -67,7 +68,8 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/components/**/*.js"
+      "src/components/**/*.js",
+      "src/routes/todo/*.js"
     ],
     "moduleDirectories": [
       "src",
