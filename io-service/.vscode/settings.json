@@ -1,22 +1,16 @@
 {
   "editor.formatOnSave": true,
-  "javascript.format.enable": true,
-  "eslint.autoFixOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "eslint.alwaysShowStatus": true,
   "eslint.options": {
     "extensions": [
       ".html",
-      ".js"
+      ".js",
     ]
   },
   "eslint.validate": [
-    {
-      "language": "html",
-      "autoFix": true
-    },
-    {
-      "language": "javascript",
-      "autoFix": true
-    }
+    "javascript"
   ]
 }
