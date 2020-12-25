@@ -24,7 +24,7 @@ const TestGlobalModal = () => {
         action: getAction(modalIndex)
       })
     );
-    setModalIndex(modalIndex + ONE);
+    setModalIndex(previousModalIndex => previousModalIndex + ONE);
   };
 
   return (
