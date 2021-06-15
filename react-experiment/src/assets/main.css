@@ -11,3 +11,12 @@ body {
   width: 100%;
   position: relative;
 }
+
+button {
+  background-color: #0077ff;
+  border: none;
+  border-radius: 0.4em;
+  color: #fff;
+  padding: 0.5em;
+  margin: 0.2em;
+}
