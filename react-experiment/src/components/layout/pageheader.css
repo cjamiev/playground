@@ -1,0 +1,16 @@
+.pageheader {
+  position: relative;
+}
+
+.pageheader__error {
+  position: absolute;
+  left: calc(50% - 25em);
+  line-height: 3em;
+  text-align: center;
+  font-size: 1.2em;
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  height: 3em;
+  width: 50em;
+}

@@ -1,15 +1,11 @@
 import React from 'react';
-
-const errorStyle = {
-  textAlign: 'center',
-  color: 'red'
-};
+import './pageheader.css';
 
 const PageHeader = ({ title, error }) => {
   return (
-    <header>
+    <header className="pageheader">
+      {error && <div className="pageheader__error">{error}</div>}
       <h1>{title}</h1>
-      {error && <div style={errorStyle}>{error}</div>}
     </header>
   );
 };

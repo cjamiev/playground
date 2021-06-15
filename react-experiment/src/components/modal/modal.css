@@ -1,4 +1,5 @@
 .modal {
+  z-index: 2;
   position: absolute;
   display: flex;
   align-items: center;
@@ -8,10 +9,11 @@
 }
 
 .modal__container {
-  z-index: 1;
+  z-index: 3;
   position: relative;
   display: flex;
   flex-direction: column;
+  top: 70%;
   margin: 0 auto;
   height: 30em;
   width: 60em;
@@ -19,6 +21,7 @@
   background-color: #fff;
   border: 1px solid #000;
   border-radius: .3rem;
+  opacity: 1;
 }
 
 .modal__close {
