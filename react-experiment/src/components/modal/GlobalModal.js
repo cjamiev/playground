@@ -13,8 +13,8 @@ export const GlobalModal = () => {
 
   const close = () => { dispatch(closeGlobalModal(id)); };
   const buttonList = [
-    { label: 'Close', action:close},
-    { primary: true, label: 'Save', action}
+    { primary: true, label: 'Save', action},
+    { label: 'Close', action:close}
   ];
 
   return message ? <Modal title={title} message={message} action={action} close={close} buttonList={buttonList}/> : null;

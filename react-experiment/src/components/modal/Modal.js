@@ -1,45 +1,33 @@
 import React from 'react';
-
-const modalStyle = {
-  zIndex:'1',
-  position: 'absolute',
-  left: '50%'
-};
+import './modal.css';
 
 export const Modal = (props) => {
   const { title, message, children, action, close, buttonList = [] } = props;
   const renderButtons = buttonList.map(item => {
-    const btnClass = item.primary ? 'btn btn-primary': 'btn btn-secondary';
+    const btnClass = item.primary ? 'modal__primary-btn': 'modal__secondary-btn';
 
     return (
-      <button key={item.label} type="button" className={btnClass} onClick={item.action}>{item.label}</button>
+      <button key={item.label} className={btnClass} onClick={item.action}>{item.label}</button>
     );
   });
 
-  const renderBody = children ?
-    children :
-    (<div className="modal-body">
-      <p>{message}</p>
-    </div>
-    );
+  const renderBody = children ? children : (<div className="modal__body">{message}</div>);
   const renderTitle = title ?
-    (<div className="modal-header">
-      <h5 className="modal-title">{title}</h5>
-      <button type="button" className="btn-close" onClick={close} aria-label="Close"></button>
+    (<div className="modal__header">
+      <h2 className="modal__title">{title}</h2>
     </div>): null;
   const renderFooter = renderButtons.length ?
-    (<div className="modal-footer">
+    (<div className="modal__footer">
       {renderButtons}
     </div>): null;
 
   return (
-    <div style={modalStyle} className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div className="modal-dialog">
-        <div className="modal-content">
-          {renderTitle}
-          {renderBody}
-          {renderFooter}
-        </div>
+    <div className="modal">
+      <div className="modal__container">
+        <button className="modal__close" onClick={close} aria-label="Close">X</button>
+        {renderTitle}
+        {renderBody}
+        {renderFooter}
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ const modalReducer = (state = initialState, action) => {
       };
     },
     [CLOSE_GLOBAL_MODAL]: () => {
-      const filtedModalQueue = action.id ? state.modalQueue.filter(item => action.id !== item.id) : [];
+      const filtedModalQueue = String(action.id) ? state.modalQueue.filter(item => action.id !== item.id) : [];
       return {
         ...state,
         modalQueue: filtedModalQueue

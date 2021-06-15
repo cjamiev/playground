@@ -66,7 +66,7 @@ const Todo = (props) => {
 
   return (
     <>
-      <h3>TODO</h3>
+      <h1>TODO</h1>
       <TodoList
         items={items}
         removeItem={removeItem}
