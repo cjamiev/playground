@@ -1,5 +1,4 @@
 import React from 'react';
-import './pageheader.css';
 
 const PageHeader = ({ title, error }) => {
   return (

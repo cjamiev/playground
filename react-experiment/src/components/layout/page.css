@@ -14,3 +14,13 @@
   height: 3em;
   width: 50em;
 }
+
+.pagecontent {
+  margin-top: 5px;
+}
+
+.pagefooter {
+  position: absolute;
+  height: 50px;
+  top: calc(100% - 50px);
+}

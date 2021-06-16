@@ -1,14 +1,8 @@
 import React from 'react';
 
-const footerStyle = {
-  position: 'absolute',
-  height: '50px',
-  top: 'calc(100% - 50px)'
-};
-
-const PageFooter = () => {
+const PageFooter = ({children}) => {
   return (
-    <footer style={footerStyle}>Footer</footer>
+    <footer className='pagefooter'>{children}</footer>
   );
 };
 
