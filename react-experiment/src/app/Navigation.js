@@ -1,28 +1,25 @@
 import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { closeGlobalModal, hideLoadingModal } from 'components/modal/globalModalActions';
 import { useHistory } from 'react-router-dom';
-
-const navStyle = {
-  cursor: 'pointer'
-};
+import { closeGlobalModal, hideLoadingModal } from 'components/modal/globalModalActions';
+import './navigation.css';
 
 const NAV_ITEMS = [
   { label: 'Home', url: '/home'},
   { label: 'Todo', url: '/todo'}
 ];
 
+const INDEX_ZERO = 0;
+
 const Navigation = React.memo(() => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [toggleNav, setToggleNav] = useState(false);
   const [currentUrl, setCurrentUrl] = useState(history.location.pathname);
-  const expandNav = toggleNav ? 'navbar-collapse collapse show' : 'navbar-collapse collapse';
 
   const renderNavItems = NAV_ITEMS.map(item => {
-    const navItemClass = currentUrl === item.url ? 'nav-item nav-link active': 'nav-item nav-link';
+    const navItemClass = (currentUrl === item.url) || (history.location.pathname === '/' && item.url === NAV_ITEMS[INDEX_ZERO].url) ? 'navigation__links-item navigation__links-item--active': 'navigation__links-item';
     const handleClick = () => {
-      if(history.location.pathname !== item.url){
+      if(currentUrl !== item.url){
         history.push(item.url);
         setCurrentUrl(item.url);
         dispatch(closeGlobalModal());
@@ -31,7 +28,7 @@ const Navigation = React.memo(() => {
     };
 
     return (
-      <div key={item.url} style={navStyle} className={navItemClass} onClick={handleClick}>
+      <div key={item.url} className={navItemClass} onClick={handleClick}>
         {item.label}
       </div>
     );
@@ -39,14 +36,9 @@ const Navigation = React.memo(() => {
 
   return (
     <Fragment>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-        <button className="navbar-toggler" onClick={() => {setToggleNav(!toggleNav);}} aria-controls="navbarSupportedContent" aria-expanded={toggleNav} aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className={expandNav} id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-            {renderNavItems}
-          </ul>
+      <nav className="navigation">
+        <div className="navigation__links">
+          {renderNavItems}
         </div>
       </nav>
     </Fragment>

@@ -10,9 +10,7 @@ export const LoadingModal = () => {
   if(isLoading) {
     return (
       <Modal>
-        <div className="spinner-border m-5" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
+        <div className="modal__loading">Loading...</div>
       </Modal>
     );
   }

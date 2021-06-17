@@ -17,11 +17,11 @@ const Home = () => {
   const [tabIndex, setTabIndex] = useState(TWO);
   const [error, setError] = useState('');
   const renderTabs = TABS.map((item, itemIndex) => {
-    const tabClass = tabIndex === itemIndex ? 'nav-link active': 'nav-link';
+    const tabClass = tabIndex === itemIndex ? 'tabs__item tabs__item--active': 'tabs__item';
 
     return (
-      <li key={item} className="nav-item" onClick={() => { setTabIndex(itemIndex); }} >
-        <a className={tabClass} href="#" aria-current="page">{item}</a>
+      <li key={item} className={tabClass} aria-current="page" onClick={() => { setTabIndex(itemIndex); }} >
+        {item}
       </li>
     );
   });
@@ -51,7 +51,7 @@ const Home = () => {
 
   return (
     <Page title={'Home'} error={error}>
-      <ul className="nav nav-tabs">
+      <ul className="tabs">
         {renderTabs}
       </ul>
       {renderPage()}
