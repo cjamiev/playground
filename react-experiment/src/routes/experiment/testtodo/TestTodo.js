@@ -5,6 +5,12 @@ import {
   swapArrayElementPositions
 } from 'utils/arrayHelper';
 
+const divStyle = {
+  margin: 'auto',
+  width: '75%',
+  padding: '10px'
+};
+
 const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
   return (
     <ul data-testid='todo-list'>
@@ -20,7 +26,7 @@ const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
   );
 };
 
-const Todo = (props) => {
+const TestTodo = (props) => {
   const [items, setItems] = useState([]);
   const [text, setText] = useState('');
 
@@ -65,8 +71,8 @@ const Todo = (props) => {
   };
 
   return (
-    <>
-      <h1>TODO</h1>
+    <div style={divStyle}>
+      <h2>TODO</h2>
       <TodoList
         items={items}
         removeItem={removeItem}
@@ -75,8 +81,8 @@ const Todo = (props) => {
       />
       <input data-testid="todo-in" type="text" value={text} onChange={handleChange} />
       <button data-testid="todo-add-btn" onClick={addItem}>Add Item</button>
-    </>
+    </div>
   );
 };
 
-export default Todo;
+export default TestTodo;

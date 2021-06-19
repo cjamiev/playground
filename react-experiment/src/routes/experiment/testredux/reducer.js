@@ -1,4 +1,4 @@
-import { ADD_TEST, REMOVE_TEST } from './experimentActions';
+import { ADD_TEST, REMOVE_TEST } from './actions';
 
 const ONE = 1;
 const initialState = [ONE];

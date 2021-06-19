@@ -3,7 +3,7 @@ import React from 'react';
 import { GlobalModal } from 'components/modal/GlobalModal';
 import { LoadingModal } from 'components/modal/LoadingModal';
 import Routes from 'routes/Routes';
-import Navigation from './Navigation';
+import Navigation from 'components/navigation';
 
 function App() {
   return (

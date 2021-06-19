@@ -29,8 +29,8 @@ const TestGlobalModal = () => {
 
   return (
     <Fragment>
-      <div className="btn-group mr-2" role="group" aria-label="First group">
-        <button className="btn btn-primary" onClick={open}>Open Modal</button>
+      <div role="group">
+        <button className="btn" onClick={open}>Open Modal</button>
       </div>
     </Fragment>
   );

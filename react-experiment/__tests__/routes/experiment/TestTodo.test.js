@@ -1,12 +1,12 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { testRenderComponent } from 'testHelper/componentSetup';
-import Todo from 'routes/Todo';
+import TestTodo from 'routes/experiment/testtodo';
 
 const defaultProps = {};
 
-describe('Todo', () => {
+describe('TestTodo', () => {
   it('adds three items', () => {
-    const { getByText, getAllByText } = testRenderComponent(Todo, defaultProps);
+    const { getByText, getAllByText } = testRenderComponent(TestTodo, defaultProps);
 
     const inputNode = screen.getByRole('textbox');
 

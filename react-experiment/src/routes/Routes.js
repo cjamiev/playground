@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Redirect, Route, Switch } from 'react-router-dom';
+import { ROUTES } from 'constants/routes';
 
 import Home from './home';
-import Todo from './todo';
+import Todo from './experiment';
 
 const NotFoundPage = React.memo(() => {
   return (
@@ -16,9 +17,11 @@ const NotFoundPage = React.memo(() => {
 const Routes = React.memo(() => {
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/home" component={Home} />
-      <Route path="/todo" component={Todo} />
+      <Route exact path="/">
+        <Redirect to={ROUTES.HOME.url} />
+      </ Route>
+      <Route path={ROUTES.HOME.url} component={Home} />
+      <Route path={ROUTES.EXPERIMENT.url} component={Todo} />
       <Route component={NotFoundPage} />
     </Switch>
   );

@@ -20,9 +20,9 @@ const TestApi = () => {
 
   return (
     <Fragment>
-      <div className="btn-group mr-2" role="group" aria-label="Second group">
-        <button className="btn btn-secondary" onClick={runGet}>test get api</button>
-        <button className="btn btn-secondary" onClick={runPost}>test post api</button>
+      <div role="group">
+        <button className="btn" onClick={runGet}>test get api</button>
+        <button className="btn" onClick={runPost}>test post api</button>
       </div>
       <label>{testData}</label>
     </Fragment>

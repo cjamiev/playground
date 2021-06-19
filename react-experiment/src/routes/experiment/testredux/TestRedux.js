@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTest, removeTest } from './experimentActions';
+import { addTest, removeTest } from './actions';
 import { openGlobalModal } from 'components/modal/globalModalActions';
-import './experiment.css';
 
 const divStyle = {
   margin: 'auto',
@@ -70,35 +69,4 @@ const TestRedux = (props) => {
   );
 };
 
-const Experiment = (props) => {
-  return (
-    <div>
-      <button className="btn btn--primary">Test Button</button>
-      <button className="btn btn--secondary">Test2 Button</button>
-      <div class="input-field-group input-field-group--vertical">
-        <div class="input-field">
-          <input class="input-field__item" type="checkbox" value=""/>
-          <label class="input-field__label"> Default checkbox </label>
-        </div>
-        <div class="input-field">
-          <input class="input-field__item" type="checkbox" value=""/>
-          <label class="input-field__label"> Default checkbox </label>
-        </div>
-      </div>
-      <div class="input-field-group input-field-group--vertical">
-        <div class="input-field">
-          <input class="input-field__item" name="radiogroup" type="radio" value=""/>
-          <label class="input-field__label"> Default radio1 </label>
-        </div>
-        <div class="input-field">
-          <input class="input-field__item" name="radiogroup" type="radio" value=""/>
-          <label class="input-field__label"> Default radio2 </label>
-        </div>
-      </div>
-
-      <TestRedux hide={true} handleError={props.handleError}/>
-    </div>
-  );
-};
-
-export default Experiment;
+export default TestRedux;
