@@ -1,8 +1,9 @@
 # Playground
+
 This project is intended to be used to start new experimental projects before
 moving them to a real project folder
 
-As well as a testing platform for html, javascript, and css. 
+As well as a testing platform for html, javascript, and css.
 
 ## Best Practices:
 
@@ -44,11 +45,11 @@ As well as a testing platform for html, javascript, and css.
 
 - Always initialize variables, '',{},[],(){},0,false
 - Avoid using null/undefined
-- Use Object factories to pass in default parameters. 
+- Use Object factories to pass in default parameters.
 - Treat everything as immutable/const
 - Use === for comparison
 - Short: y = (x === 2 ? "yes" : "no");
-- Use closures:	an inner function + variables in the outer (enclosing) function’s scope gives data privacy
+- Use closures: an inner function + variables in the outer (enclosing) function’s scope gives data privacy
 - Functions should be pure
 - Use map, reduce, filter, slice, etc instead of for/while loops
 - Use object literals instead of switch statements
@@ -64,10 +65,10 @@ As well as a testing platform for html, javascript, and css.
   }
   })();
 - Event Queue: setTimeout
-- currying process:breaking down function into a series of functions 
+- currying process:breaking down function into a series of functions
 - destructuring
 - Redux: Single State of Truth, Immutable State, changes use Pure functions
-	Action -> Reducer -> dispatch -> store -> view
+  Action -> Reducer -> dispatch -> store -> view
 
 #### Functions
 
@@ -87,7 +88,6 @@ As well as a testing platform for html, javascript, and css.
 - local/sessionStorage:
   setItem(k,v),getItem(k),removeItem(k),clear()
 - .bind .call() and .apply(): change the value of 'this', .bind returns a function
-
 
 ## Angular Best Practices
 
@@ -128,7 +128,7 @@ const simpleComponent = ({ children }) => (
 
 #### Best Practices:
 
-- Use data-test-id as a substitute for ids. 
+- Use data-test-id as a substitute for ids.
 - Attributes Order: 1. id, class 2. tag specific attributes 3. other - angular specific attributes/directives 4. events
 - Use 'input' with type 'button' for forms and 'button' elsewhere
 - Use 'for' attribute input labels
