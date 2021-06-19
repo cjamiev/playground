@@ -8,9 +8,9 @@ const ZERO = 0;
 
 export const GlobalModal = () => {
   const modalQueue = useSelector(state => state.globalModal.modalQueue);
-  const { id, title, message, action } = modalQueue[ZERO] || {};
   const dispatch = useDispatch();
 
+  const { id, title, message, action } = modalQueue[ZERO] || {};
   const close = () => { dispatch(closeGlobalModal(id)); };
   const buttonList = [
     { primary: true, label: 'Save', action},

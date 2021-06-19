@@ -6,6 +6,7 @@ import MultiselectRenderer from './MultiselectRenderer';
 import RadioRenderer from './RadioRenderer';
 import SelectRenderer from './SelectRenderer';
 import TextRenderer from './TextRenderer';
+import './form.css';
 
 const handleInputType = {
   checkbox: CheckboxRenderer,

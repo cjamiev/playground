@@ -7,14 +7,14 @@ import TestGlobalModal from './testglobalmodal';
 import TestApi from './testapi';
 import TestSwapSelect from './testswapselect';
 
-const TABS = ['Experiment', 'Test Dynamic Form', 'Test Swap Select', 'Test Global Modal', 'Test Api'];
+const TABS = ['Experiment', 'Dynamic Form', 'Swap Select', 'Global Modal', 'Api'];
 const ZERO = 0;
 const ONE = 1;
 const TWO = 2;
 const THREE = 3;
 
 const Home = () => {
-  const [tabIndex, setTabIndex] = useState(TWO);
+  const [tabIndex, setTabIndex] = useState(ZERO);
   const [error, setError] = useState('');
   const renderTabs = TABS.map((item, itemIndex) => {
     const tabClass = tabIndex === itemIndex ? 'tabs__item tabs__item--active': 'tabs__item';
@@ -25,7 +25,6 @@ const Home = () => {
       </li>
     );
   });
-
 
   const handleError = (message) => {
     setError(message);

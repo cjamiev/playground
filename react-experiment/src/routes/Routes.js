@@ -7,7 +7,7 @@ import Todo from './todo';
 const NotFoundPage = React.memo(() => {
   return (
     <div>
-      <h4>404 Page Not Found</h4>
+      <h1>404 Page Not Found</h1>
       <Link to="/"> Go back to homepage </Link>
     </div>
   );

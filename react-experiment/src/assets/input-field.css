@@ -1,0 +1,28 @@
+.input-field-group {
+  display: inline;
+}
+
+.input-field-group--vertical {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.input-field {
+  display: inline;
+  margin: 0.2em;
+}
+
+.input-field__item {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.input-field__item:active {
+  box-shadow: 1px 1px 4px 1px #2e8fff;
+}
+
+.input-field__label {
+  position: relative;
+  bottom: 2.5px;
+}

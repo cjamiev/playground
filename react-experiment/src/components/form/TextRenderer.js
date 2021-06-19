@@ -22,22 +22,10 @@ const TextRenderer = ({ id, label, regex, error, errorMessage, onChange }) => {
   return (
     <Fragment>
       <label>{label}</label>
-      <input style={textStyle} type="text" aria-label="text-field" name={label} onChange={handleSelectedChange} />
+      <input className='textrenderer' type="text" name={label} aria-label="text-field" onChange={handleSelectedChange} />
       {error && <span>{errorMessage}</span>}
     </Fragment>
   );
-};
-
-TextRenderer.defaultProps = {
-  id: '',
-  label: '',
-  error: '',
-  errorMessage: '',
-  onChange: (selected) => selected
-};
-
-const textStyle = {
-  margin: '10px 0px 10px 0px'
 };
 
 export default TextRenderer;
