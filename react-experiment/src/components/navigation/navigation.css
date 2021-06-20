@@ -1,12 +1,13 @@
 .navigation {
   width: 100%;
-  height: 5em;
-  background-color: #000;
+  height: 2em;
+  background-color: #24292e;
+	padding: 16px;
+	font-size: 14px;
 }
 
 .navigation__links {
   display: flex;
-  padding-top: 0.8em;
   padding-left: 1em;
 }
 
@@ -18,7 +19,7 @@
 }
 
 .navigation__links-item:hover {
-  text-shadow: 1px 1px #fff;
+  color: hsla(0, 0%, 100%, .7);
 }
 
 .navigation__links-item--active {

@@ -2,9 +2,20 @@
 @import './tabs.css';
 @import './btn.css';
 @import './input-field.css';
+@import './link.css';
 
 .root {
   height: 100%;
   width: 100%;
   position: relative;
+  background-color: #f6f8fa;
+}
+
+[placeholder]:empty:before {
+  content: attr(placeholder);
+  color: #555; 
+}
+
+[placeholder]:empty:focus::before {
+  content: "";
 }

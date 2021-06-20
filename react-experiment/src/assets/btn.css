@@ -9,27 +9,31 @@
 }
 
 .btn--primary {
-  background-color: #0077ff;
+  background-color: #34a1eb;
+  border: 1px solid #34a1eb;
   color: #fff;
 }
 
 .btn--primary:hover {
-  background-color: #0050ac;
+  background-color: #006cb4;
+  box-shadow: 2px 2px 0px #006cb4;
 }
 
 .btn--primary:active {
-  box-shadow: 1px 1px 4px 4px #2e8fff;
+  transform: translateY(4px);
 }
 
 .btn--secondary {
   background-color: #636c7a;
+  border: 1px solid #636c7a;
   color: #fff;
 }
 
 .btn--secondary:hover {
   background-color: #393f47;
+  box-shadow: 2px 2px 0px #393f47;
 }
 
 .btn--secondary:active {
-  box-shadow: 1px 1px 4px 4px #677180;
+  transform: translateY(4px);
 }
