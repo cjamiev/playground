@@ -1,21 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/**/node_modules
-/**/.gradle
-/**/.settings
-/**/.classpath
-/**/.project
-
-# testing
-/**/coverage
-/**/eslint.html
-
-# production
-/**/build
-/**/bin
-
-# misc
-/**/npm-debug.log*
-/**/yarn-debug.log*
-/**/yarn-error.log*
+/build
+/coverage
+/node_modules
+/storage
+/tmp
+*.log*
