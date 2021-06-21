@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" type="text/css" href="../css/all.css">
+  <link rel="stylesheet" type="text/css" href="./calendar.css">
+  <title>Calendar</title>
+</head>
+
+<body>
+  <header>
+    <nav class="nav-bar">
+      <ul class="nav">
+        <li class="time-item">
+          <span id="current-clock">Loading.....</span><br />
+          <span id="current-date"></span><br />
+          <span id="current-week"></span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../home/index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../clipboard/index.html">Clipboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./index.html">Calendar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../mockserver/viewEndpointsPage.html">Mock Server</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../api-tester/index.html">API Tester</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="alert-field-container" class="alert-field-container">
+      <span id="alert-field" class="alert-field"></span>
+    </div>
+  </header>
+
+  <div class="main">
+    <div id="main-content" class="center">
+      <h1 id="page-title" class="title"></h1>
+      <h2 id="calendar-title" class="title">Expenses</h2>
+      <div class="calendar-btn-group">
+        <button class="calendar-btn" onclick="switchMode('Expenses')">Expenses</button>
+        <button class="calendar-btn" onclick="switchMode('Running')">Running</button>
+        <button class="save-btn" onclick="save()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/utility.js"></script>
+  <script src="../js/clock.js"></script>
+  <script src="../js/onload.js"></script>
+  <script src="calendar.js"></script>
+
+</body>
+
+</html>

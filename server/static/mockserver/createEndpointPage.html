@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../css/all.css">
+  <link rel="stylesheet" type="text/css" href="mockserver.css">
+</head>
+
+<body>
+  <header>
+    <nav class="nav-bar">
+      <ul class="nav">
+        <li class="time-item">
+          <span id="current-clock">Loading.....</span><br />
+          <span id="current-date"></span><br />
+          <span id="current-week"></span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../home/index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../clipboard/index.html">Clipboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../calendar/index.html">Calendar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../mockserver/index.html">Mock Server</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../api-tester/index.html">API Tester</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="alert-field-container" class="alert-field-container">
+      <span id="alert-field" class="alert-field"></span>
+    </div>
+  </header>
+
+  <div class="main">
+    <div class="column-nav">
+      <a class="mock-navigation" href="configPage.html">Configuration</a>
+      <a class="mock-navigation" href="viewEndpointsPage.html">View Endpoints</a>
+      <a class="mock-navigation" href="createEndpointPage.html">Create Endpoint</a>
+      <a class="mock-navigation" href="logPage.html">Logger</a>
+    </div>
+
+    <section class="parent-container">
+      <h2> Create New Mock Endpoint</h2>
+      <div>
+        <button id="payload-mode" class="btns" onClick="switchMode()">Form Mode</button>
+        <label>Optional File Name:
+          <input id="payload-create-endpoint-file-name" type="text">
+        </label>
+        <br>
+        <div id="payload-create-content-container" class="hide">
+          <textarea id="payload-create-endpoint-content" class="payload-content" rows="50" cols="150"></textarea>
+        </div>
+        <div id="payload-create-form-container" class="show">
+          <div class="form-request-fields-container">
+            <h2 class="form-request-field-title">Request</h2>
+            <div class="form-request-field-url">
+              <label>Url</label><br />
+              <input id="payload-create-endpoint-url" type="text">
+            </div>
+            <div class="form-request-field-method">
+              <label>Method</label><br />
+              <select id="payload-create-endpoint-method">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+              </select>
+            </div>
+            <div class="form-request-field-headers">
+              <label>Headers</label><br />
+              <textarea id="payload-create-endpoint-response-headers" rows="10"
+                cols="50">{"Content-Type": "application/json"}</textarea>
+            </div>
+          </div>
+          <div class="form-response-fields-container">
+            <h2 class="form-response-field-title">Response</h2>
+            <label class="form-response-field-status">Status Code
+              <select id="payload-create-endpoint-response-status-code">
+                <option value="200">200</option>
+                <option value="400">400</option>
+                <option value="403">403</option>
+                <option value="404">404</option>
+                <option value="500">500</option>
+                <option value="503">503</option>
+              </select>
+            </label>
+            <div class="form-response-field-body">
+              <label>Body</label><br />
+              <textarea id="payload-create-endpoint-response-body" rows="20" cols="100"
+                placeholder="Enter body response..."></textarea>
+            </div>
+            <div class="form-response-field-conditional">
+              <label>Conditional Response</label><br />
+              <textarea id="payload-create-endpoint-conditional-response-body" rows="20" cols="100"
+                placeholder="Enter conditional response..."></textarea>
+            </div>
+          </div>
+        </div>
+        <button class="btns" onClick="createMockEndpoint()">Submit</button>
+        <span id="payload-create-endpoint-message"></span>
+      </div>
+    </section>
+  </div>
+
+  <script src="../js/utility.js"></script>
+  <script src="../js/clock.js"></script>
+  <script src="../js/onload.js"></script>
+  <script src="common.js"></script>
+  <script src="createEndpointPage.js"></script>
+</body>
+
+</html>

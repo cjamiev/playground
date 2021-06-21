@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" type="text/css" href="../css/all.css">
+  <link rel="stylesheet" type="text/css" href="./api-tester.css">
+  <title>API Tester</title>
+</head>
+
+<body>
+  <header>
+    <nav class="nav-bar">
+      <ul class="nav">
+        <li class="time-item">
+          <span id="current-clock">Loading.....</span><br />
+          <span id="current-date"></span><br />
+          <span id="current-week"></span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../home/index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../clipboard/index.html">Clipboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../calendar/index.html">Calendar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../mockserver/viewEndpointsPage.html">Mock Server</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./index.html">API Tester</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="alert-field-container" class="alert-field-container">
+      <span id="alert-field" class="alert-field"></span>
+    </div>
+  </header>
+
+  <div id="main" class="api-parent">
+    <form class="api-form" onsubmit="return false;">
+      <div class="main-fields">
+        <input id="api-method" class="api-method" type="button" value="GET" onClick="switchAPIMethod()">
+        <input id="api-url" class="api-url" type="text" placeholder="Type in a URI" />
+        <button class="api-submit-btn" onClick="testApi()">Submit</button>
+      </div>
+      <div class="api-request">
+        <div class="api-headers-parent">
+          <label for="api-headers">Headers</label>
+          <pre id="api-headers" class="api-headers" contenteditable></pre>
+        </div>
+        <div class="api-body-parent">
+          <label for="api-body">Body</label>
+          <pre id="api-body" class="api-body" contenteditable></pre>
+        </div>
+      </div>
+    </form>
+
+    <div class="api-result">
+      <div class="api-headers-parent">
+        <label for="api-headers">Headers</label>
+        <pre id="api-response-headers" class="api-headers"></pre>
+      </div>
+      <div class="api-body-parent">
+        <label for="api-body">Body</label>
+        <pre id="api-response-body" class="api-body"></pre>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="./api-tester.js"></script>
+  <script src="../js/clock.js"></script>
+  <script src="../js/onload.js"></script>
+
+</body>
+
+</html>
