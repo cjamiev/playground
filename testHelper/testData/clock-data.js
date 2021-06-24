@@ -21,7 +21,9 @@ const clockBetweenDatesTestData = [
   { testMessage: 'same day', args: [dayOne, dayOne], expectedResult: { weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0 } },
   { testMessage: 'one day difference', args: [dayTwo, dayOne], expectedResult: { weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0 } },
   { testMessage: 'one hour, one minutes, one second difference', args: [dayOnePlusOnes, dayOne], expectedResult: { weeks: 0, days: 0, hours: 1, minutes: 1, seconds: 1 } },
-  { testMessage: 'one week difference', args: [weekTwo, dayOne], expectedResult: { weeks: 1, days: 0, hours: 0, minutes: 0, seconds: 0 } }
+  { testMessage: 'one week difference', args: [weekTwo, dayOne], expectedResult: { weeks: 1, days: 0, hours: 0, minutes: 0, seconds: 0 } },
+  { testMessage: 'one week, options with no week', args: [weekTwo, dayOne, { isWeeksRemoved: true }], expectedResult: { weeks: 0, days: 7, hours: 0, minutes: 0, seconds: 0 } },
+  { testMessage: 'one week, options with no week/days', args: [weekTwo, dayOne, { isWeeksRemoved: true, isDaysRemoved: true }], expectedResult: { weeks: 0, days: 0, hours: 168, minutes: 0, seconds: 0 } }
 ];
 
 const formattedTimerClockTestData = [

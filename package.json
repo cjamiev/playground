@@ -13,7 +13,7 @@
     "e": "cypress open",
     "coverage": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json",
     "test": "jest --env=jsdom --watch",
-    "t": "jest --env=jsdom src/utils/clock --watch"
+    "t": "jest --env=jsdom utils/clock --watch"
   },
   "keywords": [],
   "author": "CJV",

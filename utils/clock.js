@@ -65,17 +65,17 @@ const formattedTimerClock = (h = ZERO, m = ZERO, s = ZERO) => {
   return `${hours}${getFormattedMinutes(minutes)}${getFormattedSeconds(seconds)}`;
 };
 
-const clockBetweenDates = (date1, date2) => {
+const clockBetweenDates = (date1, date2, options = { isWeeksRemoved: false, isDaysRemoved: false, isHoursRemoved: false, isMinutesRemoved: false }) => {
   const diff = date1.getTime() - date2.getTime();
 
   if (diff < ZERO) {
     return { hours: ZERO, minutes: ZERO, seconds: ZERO };
   }
 
-  const weeks = Math.floor(diff / WEEK_IN_MILLISECONDS);
-  const days = Math.floor((diff - weeks * WEEK_IN_MILLISECONDS) / DAY_IN_MILLISECONDS);
-  const hours = Math.floor((diff - weeks * WEEK_IN_MILLISECONDS - days * DAY_IN_MILLISECONDS) / HOUR_IN_MILLISECONDS);
-  const minutes = Math.floor((diff - weeks * WEEK_IN_MILLISECONDS - days * DAY_IN_MILLISECONDS - hours * HOUR_IN_MILLISECONDS) / MINUTE_IN_MILLISECONDS);
+  const weeks = options.isWeeksRemoved ? ZERO : Math.floor(diff / WEEK_IN_MILLISECONDS);
+  const days = options.isDaysRemoved ? ZERO : Math.floor((diff - weeks * WEEK_IN_MILLISECONDS) / DAY_IN_MILLISECONDS);
+  const hours = options.isHoursRemoved ? ZERO : Math.floor((diff - weeks * WEEK_IN_MILLISECONDS - days * DAY_IN_MILLISECONDS) / HOUR_IN_MILLISECONDS);
+  const minutes = options.isMinutesRemoved ? ZERO : Math.floor((diff - weeks * WEEK_IN_MILLISECONDS - days * DAY_IN_MILLISECONDS - hours * HOUR_IN_MILLISECONDS) / MINUTE_IN_MILLISECONDS);
   const seconds = Math.floor(
     (diff - weeks * WEEK_IN_MILLISECONDS - days * DAY_IN_MILLISECONDS - hours * HOUR_IN_MILLISECONDS - minutes * MINUTE_IN_MILLISECONDS) /
     SECOND_IN_MILLISECONDS
