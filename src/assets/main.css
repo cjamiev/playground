@@ -3,12 +3,13 @@
 @import './btn.css';
 @import './input-field.css';
 @import './link.css';
+@import './list.css';
 
 .root {
   height: 100%;
   width: 100%;
+  overflow-x: hidden;
   position: relative;
-  background-color: #f6f8fa;
 }
 
 [placeholder]:empty:before {

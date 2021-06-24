@@ -7,7 +7,7 @@ import './page.css';
 
 const Page = ({ title, error, children, footerComponent }) => {
   return (
-    <div>
+    <div className="page">
       <PageHeader title={title} error={error} />
       <PageContent>{children}</PageContent>
       {footerComponent && <PageFooter> {footerComponent} </PageFooter>}

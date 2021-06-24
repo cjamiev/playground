@@ -1,3 +1,9 @@
+.page {
+  background-color: #f6f8fa;
+  height: 100%;
+  padding-left: 10px;
+}
+
 .pageheader {
   position: relative;
 }
@@ -16,7 +22,7 @@
 }
 
 .pagecontent {
-  margin-top: 5px;
+  background-color: #f6f8fa;
 }
 
 .pagefooter {
