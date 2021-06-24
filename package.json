@@ -1,7 +1,7 @@
 {
   "name": "playground",
-  "version": "1.0.0",
-  "description": "Sandbox for testing and experimenting with react code",
+  "version": "2.0.0",
+  "description": "Sandbox for testing and experimenting",
   "main": "src/index.js",
   "scripts": {
     "start": "webpack serve --config config/webpack.dev.js",
@@ -13,7 +13,7 @@
     "e": "cypress open",
     "coverage": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json",
     "test": "jest --env=jsdom --watch",
-    "t": "jest --env=jsdom __tests__/routes/todo/Todo --watch"
+    "t": "jest --env=jsdom src/utils/clock --watch"
   },
   "keywords": [],
   "author": "CJV",

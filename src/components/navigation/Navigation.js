@@ -1,17 +1,20 @@
-import React, { Fragment, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { closeGlobalModal, hideLoadingModal } from 'components/modal/globalModalActions';
 import { ROUTES } from 'constants/routes';
+import { getFormattedClock, getFormattedDate } from 'clock';
 import './navigation.css';
 
 const NAV_ITEMS = Object.values(ROUTES);
 const INDEX_ZERO = 0;
+const ONE_SECOND = 1000;
 
 const Navigation = React.memo(() => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [currentUrl, setCurrentUrl] = useState(history.location.pathname);
+  const [clock, setClock] = useState(getFormattedClock());
 
   const renderNavItems = NAV_ITEMS.map(item => {
     const navItemClass = (currentUrl === item.url) || (history.location.pathname === '/' && item.url === ROUTES.HOME.url) ? 'navigation__links-item navigation__links-item--active': 'navigation__links-item';
@@ -31,8 +34,15 @@ const Navigation = React.memo(() => {
     );
   });
 
+  setInterval(() => { setClock(getFormattedClock()); }, ONE_SECOND);
+
   return (
     <nav className="navigation">
+      <div className="navigation__time">
+        <span>{clock}</span>
+        <span>{getFormattedDate().date}</span>
+        <span>{getFormattedDate().week}</span>
+      </div>
       <div className="navigation__links">
         {renderNavItems}
       </div>

@@ -9,16 +9,22 @@ const normalizeClockTestData = [
 ];
 
 const dayOne = new Date(2019, 0, 1, 0, 0, 0, 0);
+const dayOneFiveInMorning = new Date(2019, 0, 1, 5, 0, 0, 0);
+const dayOneNoon = new Date(2019, 0, 1, 12, 0, 0, 0);
+const dayOneFiveInEvening = new Date(2019, 0, 1, 17, 0, 0, 0);
+const dayOneBeforeMidnight = new Date(2019, 0, 1, 23, 59, 59, 0);
 const dayTwo = new Date(2019, 0, 2, 0, 0, 0, 0);
 const dayOnePlusOnes = new Date(2019, 0, 1, 1, 1, 1, 0);
+const weekTwo = new Date(2019, 0, 8, 0, 0, 0, 0);
 
 const clockBetweenDatesTestData = [
   { testMessage: 'same day', args: [dayOne, dayOne], expectedResult: { weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0 } },
   { testMessage: 'one day difference', args: [dayTwo, dayOne], expectedResult: { weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0 } },
-  { testMessage: 'one hour, one minutes, one second difference', args: [dayOnePlusOnes, dayOne], expectedResult: { weeks: 0, days: 0, hours: 1, minutes: 1, seconds: 1 } }
+  { testMessage: 'one hour, one minutes, one second difference', args: [dayOnePlusOnes, dayOne], expectedResult: { weeks: 0, days: 0, hours: 1, minutes: 1, seconds: 1 } },
+  { testMessage: 'one week difference', args: [weekTwo, dayOne], expectedResult: { weeks: 1, days: 0, hours: 0, minutes: 0, seconds: 0 } }
 ];
 
-const formattedClockTestData = [
+const formattedTimerClockTestData = [
   { testMessage: 'no arguments', args: [], expectedResult: '0:00:00' },
   { testMessage: 'Clock 5:55:55', args: [5, 55, 55], expectedResult: '5:55:55' },
   { testMessage: '10 < seconds', args: [0, 0, 11], expectedResult: '0:00:11' },
@@ -27,8 +33,23 @@ const formattedClockTestData = [
   { testMessage: '10 > minutes', args: [0, 9, 0], expectedResult: '0:09:00' }
 ];
 
+const getFormattedClockTestData = [
+  { testMessage: 'Start of year', args: [dayOne], expectedResult: '12:00:00 AM' },
+  { testMessage: 'Start of year 5am', args: [dayOneFiveInMorning], expectedResult: '5:00:00 AM' },
+  { testMessage: 'Start of year noon', args: [dayOneNoon], expectedResult: '12:00:00 PM' },
+  { testMessage: 'Start of year 5pm', args: [dayOneFiveInEvening], expectedResult: '5:00:00 PM' },
+  { testMessage: 'Start of year before midnight', args: [dayOneBeforeMidnight], expectedResult: '11:59:59 PM' }
+];
+
+const getFormattedDateTestData = [
+  { testMessage: 'Start of year', args: [dayOne], expectedResult: {date: 'Tue, Jan 1', week: 'Week 1' } },
+  { testMessage: 'Second week of year', args: [weekTwo], expectedResult: {date: 'Tue, Jan 8', week: 'Week 2' } }
+];
+
 module.exports = {
   normalizeClockTestData,
   clockBetweenDatesTestData,
-  formattedClockTestData
+  formattedTimerClockTestData,
+  getFormattedClockTestData,
+  getFormattedDateTestData
 };
