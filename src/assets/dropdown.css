@@ -1,0 +1,35 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dropdown__content {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+ 
+  position: absolute;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown__content--active {
+  visibility: visible;
+}
+
+.dropdown__item {
+  border-bottom: 1px solid white;
+  flex: 1;
+  cursor: pointer;
+}
+
+.dropdown__item:hover {
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+}

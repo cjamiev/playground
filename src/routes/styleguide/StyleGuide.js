@@ -4,6 +4,9 @@ import Page from 'components/layout';
 
 const StyleGuide = () => {
   const [error, setError] = useState('');
+  const [show, setShow] = useState(false);
+
+  const dropdownClass = show ? 'dropdown__content dropdown__content--active':'dropdown__content';
 
   return (
     <Page title={'CSS Style Guide'} error={error}>
@@ -62,6 +65,24 @@ const StyleGuide = () => {
             <span>Item 32</span>
           </div>
         </div>
+      </div>
+
+      <div>
+        <h2> Dynamically shown content </h2>
+        <div class="tooltip">Hover over me
+          <span class="tooltip__text tooltip__text--top">Tooltip text</span>
+        </div>
+
+        <br/>
+
+        <div className="dropdown" onClick={() => { setShow(!show);}}> Dropdown
+          <div className={dropdownClass}>
+            <span className="dropdown__item"> Item1 </span>
+            <span className="dropdown__item"> Item2 </span>
+            <span className="dropdown__item"> Item3 </span>
+          </div>
+        </div>
+
       </div>
     </Page>
   );
