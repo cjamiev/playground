@@ -69,8 +69,8 @@ const StyleGuide = () => {
 
       <div>
         <h2> Dynamically shown content </h2>
-        <div class="tooltip">Hover over me
-          <span class="tooltip__text tooltip__text--top">Tooltip text</span>
+        <div className="tooltip">Hover over me
+          <span className="tooltip__text tooltip__text--top">Tooltip text</span>
         </div>
 
         <br/>

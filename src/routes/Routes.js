@@ -3,6 +3,7 @@ import { Link, Redirect, Route, Switch } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
 
 import Home from './home';
+import Clipboard from './clipboard';
 import Experiment from './experiment';
 import StyleGuide from './styleguide';
 
@@ -22,6 +23,7 @@ const Routes = React.memo(() => {
         <Redirect to={ROUTES.HOME.url} />
       </ Route>
       <Route path={ROUTES.HOME.url} component={Home} />
+      <Route path={ROUTES.CLIPBOARD.url} component={Clipboard} />
       <Route path={ROUTES.EXPERIMENT.url} component={Experiment} />
       <Route path={ROUTES.STYLE_GUIDE.url} component={StyleGuide} />
       <Route component={NotFoundPage} />
