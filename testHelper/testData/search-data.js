@@ -52,7 +52,7 @@ const searchFilesTestData = [
   }
 ];
 
-module.exports = {
+export {
   searchLinesTestData,
   searchFilesTestData
 };

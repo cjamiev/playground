@@ -28,7 +28,7 @@ const swapPositions = (originalArray = [], indexA, indexB) => {
   return newArray;
 };
 
-module.exports = {
+export {
   decrementIndex,
   incrementIndex,
   swapPositions

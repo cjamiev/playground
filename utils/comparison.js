@@ -28,6 +28,6 @@ const isEqual = (entry1, entry2) => {
   return checkEquality;
 };
 
-module.exports = {
+export {
   isEqual
 };

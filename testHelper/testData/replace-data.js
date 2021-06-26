@@ -22,6 +22,6 @@ const replaceLineTestData = [
   }
 ];
 
-module.exports = {
+export {
   replaceLineTestData
 };

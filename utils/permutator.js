@@ -29,6 +29,6 @@ const truthPermutator = (truthKeys = []) => {
   return result;
 };
 
-module.exports = {
+export {
   truthPermutator
 };

@@ -31,6 +31,6 @@ const convertDecimalToBinaryTestData = [
   }
 ];
 
-module.exports = {
+export {
   convertDecimalToBinaryTestData
 };

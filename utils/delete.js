@@ -44,7 +44,7 @@ const removeDirectoryDeep = path => {
   }
 };
 
-module.exports = {
+export {
   deleteFile,
   removeDirectory,
   removeDirectoryDeep

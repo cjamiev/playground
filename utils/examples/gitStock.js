@@ -59,7 +59,7 @@ const unstock = () => {
   });
 };
 
-module.exports = {
+export {
   stock,
   unstock,
   copyModifiedFiles

@@ -92,7 +92,7 @@ const swapPositionsTestData = [
   }
 ];
 
-module.exports = {
+export {
   decrementIndexTestData,
   incrementIndexTestData,
   swapPositionsTestData

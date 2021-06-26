@@ -114,4 +114,4 @@ const getFormattedDate = (date) => {
   return { date: displayDate, week: displayWeek };
 };
 
-module.exports = { clockBetweenDates, formattedTimerClock, normalizeClock, getFormattedClock, getFormattedDate };
+export { clockBetweenDates, formattedTimerClock, normalizeClock, getFormattedClock, getFormattedDate };

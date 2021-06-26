@@ -15,4 +15,4 @@ const isEmpty = targetObject => !isNotEmpty(targetObject);
 
 const xOr = (a, b) => (!a && b) || (a && !b);
 
-module.exports = { isEmpty, xOr };
+export { isEmpty, xOr };

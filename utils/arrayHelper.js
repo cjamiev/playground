@@ -29,7 +29,7 @@ const flattenDeep = (arr = []) =>
 
 const unique = (arr = []) => arr.filter((item, position) => arr.indexOf(item) === position);
 
-module.exports = {
+export {
   decrementElementIndex,
   difference,
   drop,

@@ -48,7 +48,7 @@ const getFormattedDateTestData = [
   { testMessage: 'Second week of year', args: [weekTwo], expectedResult: {date: 'Tue, Jan 8', week: 'Week 2' } }
 ];
 
-module.exports = {
+export {
   normalizeClockTestData,
   clockBetweenDatesTestData,
   formattedTimerClockTestData,

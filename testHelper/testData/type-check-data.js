@@ -224,7 +224,7 @@ const isStringTestData = [
   }
 ];
 
-module.exports = {
+export {
   isBooleanTestData,
   isJSONStringTestData,
   isNilTestData,

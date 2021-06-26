@@ -95,7 +95,7 @@ const sortByDelimiterTestData = [
   { testMessage: 'by newline', args: ['d\nc\nb\na', '\n'], expectedResult: 'a\nb\nc\nd' }
 ];
 
-module.exports = {
+export {
   alphaAscendingSortTestData,
   alphaDescendingSortTestData,
   numericAscendingSortTestData,

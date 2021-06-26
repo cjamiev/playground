@@ -31,6 +31,6 @@ const reverseStringTestData = [
   }
 ];
 
-module.exports = {
+export {
   reverseStringTestData
 };

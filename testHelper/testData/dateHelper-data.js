@@ -22,7 +22,7 @@ const weeksBetweenTestData = [
   { testMessage: '2018 and 2019', args: [new Date('January 1, 2018 0:00:00'), new Date('January 1, 2019 0:00:00')], expectedResult: 52.143 }
 ];
 
-module.exports = {
+export {
   changeByDaysTestData,
   daysBetweenTestData,
   weeksBetweenTestData

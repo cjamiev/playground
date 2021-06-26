@@ -27,7 +27,7 @@ const daysBetween = (date1, date2) => {
 
 const weeksBetween = (date1, date2) => parseFloat((daysBetween(date1, date2) / DAYS_IN_A_WEEK).toFixed(PRECISION_LEVEL));
 
-module.exports = {
+export {
   changeByDays,
   getDateAtSetTime,
   daysBetween,

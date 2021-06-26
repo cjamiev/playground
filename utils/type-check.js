@@ -14,7 +14,7 @@ const isObjectLike = value => value !== null && typeof value === 'object';
 const isJSONString = value => (isString(value) && parseObject(value) ? true : false);
 const isNil = value => value === null || value === undefined;
 
-module.exports = {
+export {
   isBoolean,
   isJSONString,
   isNil,

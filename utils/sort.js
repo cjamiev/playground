@@ -6,7 +6,7 @@ const numericDescendingSort = (arr = []) => arr.sort((a, b) => b - a);
 
 const sortByDelimiter = (content, delimiter = ' ') => content.split(delimiter).sort().join(delimiter);
 
-module.exports = {
+export {
   alphaAscendingSort,
   alphaDescendingSort,
   numericAscendingSort,

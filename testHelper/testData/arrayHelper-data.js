@@ -239,7 +239,7 @@ const unqiueTestData = [
   }
 ];
 
-module.exports = {
+export {
   decrementElementIndexData,
   differenceTestData,
   dropTestData,

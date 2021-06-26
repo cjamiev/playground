@@ -34,7 +34,7 @@ const readDirectoryDeep = dir => {
   return flattenDeep(files);
 };
 
-module.exports = {
+export {
   doesFileExist,
   loadFile,
   loadJSONFromFile,

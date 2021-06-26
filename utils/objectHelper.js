@@ -49,7 +49,7 @@ const getObjectPath = (obj, parentKey = '') => {
   return flattenDeep(deepKeys);
 };
 
-module.exports = {
+export {
   cloneDeep,
   getObjectPath,
   map,

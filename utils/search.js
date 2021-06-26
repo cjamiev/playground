@@ -33,7 +33,7 @@ const searchFiles = (files, searchtxt) => {
   return nonEmptyLineMatchesForAllFiles;
 };
 
-module.exports = {
+export {
   searchLines,
   searchFiles
 };

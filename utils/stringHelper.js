@@ -4,4 +4,4 @@ const reverseString = (str = '') =>
     .reverse()
     .join('');
 
-module.exports = { reverseString };
+export { reverseString };

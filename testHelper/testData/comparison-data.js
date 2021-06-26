@@ -19,4 +19,4 @@ const isEqualTestData = [
   { testMessage: 'unequal array comparison', args: [[1, 2, 3], [1, 3, 2]], expectedResult: false }
 ];
 
-module.exports = { isEqualTestData };
+export { isEqualTestData };

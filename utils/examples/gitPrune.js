@@ -48,6 +48,6 @@ const executeGitCommand = (branchName, branchesToIgnore, numberOfDays) => {
   return pruneStaleBranches(branches, branchesToIgnore, numberOfDays);
 };
 
-module.exports = {
+export {
   executeGitCommand
 };

@@ -39,7 +39,7 @@ const xOrTestData = [
   }
 ];
 
-module.exports = {
+export {
   isEmptyTestData,
   xOrTestData
 };

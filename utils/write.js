@@ -62,7 +62,7 @@ const copyDir = (dir, targetPath) => {
   });
 };
 
-module.exports = {
+export {
   copyFile,
   copyDir,
   makeDirectory,

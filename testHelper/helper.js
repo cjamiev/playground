@@ -4,6 +4,6 @@ const testFunctionHelper = ({ testMessage = '', args, expectedResult }, function
   it(testMessage, () => expect(recievedResult).toEqual(expectedResult));
 };
 
-module.exports = {
+export {
   testFunctionHelper
 };

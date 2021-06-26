@@ -21,6 +21,6 @@ const truthPermutatorTestData = [
   }
 ];
 
-module.exports = {
+export {
   truthPermutatorTestData
 };

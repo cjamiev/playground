@@ -39,7 +39,7 @@ const getObjectPathTestData = [
   }
 ];
 
-module.exports = {
+export {
   getObjectPathTestData,
   resolvePathTestData
 };

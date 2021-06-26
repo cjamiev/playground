@@ -28,4 +28,4 @@ const convertDecimalToBinary = (decimalValue = ZERO) => {
   return negative ? `-${binaryResult}` : binaryResult;
 };
 
-module.exports = { convertDecimalToBinary };
+export { convertDecimalToBinary };

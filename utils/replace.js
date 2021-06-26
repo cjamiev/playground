@@ -13,6 +13,6 @@ const replaceLine = (line, mapper) => {
   return line.replace(regex, matchedKey => mapper[matchedKey]);
 };
 
-module.exports = {
+export {
   replaceLine
 };
