@@ -4,6 +4,7 @@ import {
   SHOW_LOADING_MODAL,
   HIDE_LOADING_MODAL
 } from './globalModalActions';
+import { isNumber } from 'type-check';
 
 const initialState = {
   modalQueue: [],
@@ -24,10 +25,11 @@ const modalReducer = (state = initialState, action) => {
       };
     },
     [CLOSE_GLOBAL_MODAL]: () => {
-      const filtedModalQueue = String(action.id) ? state.modalQueue.filter(item => action.id !== item.id) : [];
+      const filteredModalQueue = isNumber(action.id) ? state.modalQueue.filter(item => action.id !== item.id) : [];
+
       return {
         ...state,
-        modalQueue: filtedModalQueue
+        modalQueue: filteredModalQueue
       };
     },
     [SHOW_LOADING_MODAL]: () => {

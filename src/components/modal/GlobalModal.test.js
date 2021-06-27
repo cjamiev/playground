@@ -1,24 +1,70 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper/componentSetup';
 import { GlobalModal } from 'components/modal/GlobalModal';
+import { closeGlobalModal } from './globalModalActions';
 import globalModalReducer from 'components/modal/globalModalReducer';
 
-const defaultStoreProps = {
+const mockDispatch = jest.fn();
+jest.mock('react-redux', () => {
+  return {
+    __esModule: true,
+    ...jest.requireActual('react-redux'),
+    useDispatch: jest.fn(() => mockDispatch)
+  };
+});
+
+const ZERO = 0;
+
+const defaultStore = {
   globalModal: {
+    isLoading: false,
+    modalQueue: []
+  }
+};
+const storeWithPopulatedModalQueue = {
+  globalModal: {
+    isLoading: false,
     modalQueue: [{
+      id: 0,
       title: 'test-title',
       message: 'test-message',
       action: jest.fn()
     }]
   }
 };
+const storeWithLoading = {
+  globalModal: {
+    isLoading: true,
+    modalQueue: []
+  }
+};
 
 describe('GlobalModal', () => {
-  it('checks an item', () => {
-    testRenderContainer(GlobalModal, {}, globalModalReducer, defaultStoreProps);
+  it('empty modalQueue', () => {
+    const { container } = testRenderContainer(GlobalModal, {}, globalModalReducer, defaultStore);
+
+    expect(container).toBeEmptyDOMElement();
+  });
+
+  it('click primary action', () => {
+    testRenderContainer(GlobalModal, {}, globalModalReducer, storeWithPopulatedModalQueue);
 
     fireEvent.click(screen.getByText('Save'));
 
-    expect(defaultStoreProps.globalModal.modalQueue[0].action).toHaveBeenCalled();
+    expect(storeWithPopulatedModalQueue.globalModal.modalQueue[ZERO].action).toHaveBeenCalled();
+  });
+
+  it('click close', () => {
+    testRenderContainer(GlobalModal, {}, globalModalReducer, storeWithPopulatedModalQueue);
+
+    fireEvent.click(screen.getByText('Close'));
+
+    expect(mockDispatch).toHaveBeenCalledWith(closeGlobalModal(ZERO));
+  });
+
+  it('show loading', () => {
+    testRenderContainer(GlobalModal, {}, globalModalReducer, storeWithLoading);
+
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 });

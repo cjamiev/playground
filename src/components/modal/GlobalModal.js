@@ -7,15 +7,25 @@ import { Modal } from './Modal';
 const ZERO = 0;
 
 export const GlobalModal = () => {
-  const modalQueue = useSelector(state => state.globalModal.modalQueue);
+  const { isLoading, modalQueue } = useSelector(state => state.globalModal);
   const dispatch = useDispatch();
-
   const { id, title, message, action } = modalQueue[ZERO] || {};
+
   const close = () => { dispatch(closeGlobalModal(id)); };
   const buttonList = [
     { primary: true, label: 'Save', action},
     { label: 'Close', action:close}
   ];
 
-  return message ? <Modal title={title} message={message} action={action} close={close} buttonList={buttonList}/> : null;
+  if(isLoading) {
+    return (
+      <Modal>
+        <div className="modal__loading">Loading...</div>
+      </Modal>
+    );
+  } else if (message) {
+    return <Modal title={title} message={message} action={action} close={close} buttonList={buttonList}/>;
+  }
+
+  return null;
 };
