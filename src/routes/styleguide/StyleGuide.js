@@ -3,13 +3,10 @@ import React, { useState } from 'react';
 import Page from 'components/layout';
 
 const StyleGuide = () => {
-  const [error, setError] = useState('');
   const [show, setShow] = useState(false);
 
-  const dropdownClass = show ? 'dropdown__content dropdown__content--active':'dropdown__content';
-
   return (
-    <Page title={'CSS Style Guide'} error={error}>
+    <Page title={'CSS Style Guide'}>
       <div>
         <h2> Buttons </h2>
         <button className="btn btn--primary">Primary Button</button>
@@ -76,11 +73,11 @@ const StyleGuide = () => {
         <br/>
 
         <div className="dropdown" onClick={() => { setShow(!show);}}> Dropdown
-          <div className={dropdownClass}>
+          {show && (<div className='dropdown__content'>
             <span className="dropdown__item"> Item1 </span>
             <span className="dropdown__item"> Item2 </span>
             <span className="dropdown__item"> Item3 </span>
-          </div>
+          </div>)}
         </div>
 
       </div>

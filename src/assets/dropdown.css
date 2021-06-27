@@ -5,7 +5,6 @@
 }
 
 .dropdown__content {
-  visibility: hidden;
   width: 120px;
   background-color: black;
   color: #fff;
@@ -16,10 +15,6 @@
 
   display: flex;
   flex-direction: column;
-}
-
-.dropdown__content--active {
-  visibility: visible;
 }
 
 .dropdown__item {
