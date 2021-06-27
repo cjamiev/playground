@@ -3,6 +3,10 @@ module.exports = {
     'src/**/*.js',
     'utils/*.js'
   ],
+  coveragePathIgnorePatterns: [
+    'src/index.js',
+    'src/store/index.js'
+  ],
   moduleDirectories: ['src', 'testHelper', 'utils', 'node_modules'],
   moduleNameMapper: {
     'testHelper(.*)$': '<rootDir>/testHelper/$1'
