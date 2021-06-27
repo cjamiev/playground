@@ -1,9 +1,37 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import Page from 'components/layout';
+import Dropdown from 'components/Dropdown';
+import List from 'components/list';
+
+const testData = [
+  [
+    {
+      'type': 'link',
+      'label': 'cjamiev/playground ',
+      'value': 'https://github.com/cjamiev/playground'
+    },
+    {
+      'type': 'text',
+      'value': 'testing123'
+    }
+  ],
+  [
+    {
+      'type': 'copy',
+      'label': 'username',
+      'value': 'cjamiev1836'
+    }
+  ],
+  [
+    {
+      'type': 'timer',
+      'label': '35rd Birthday',
+      'value': 'March 18, 2023'
+    }
+  ]
+];
 
 const StyleGuide = () => {
-  const [show, setShow] = useState(false);
 
   return (
     <Page title={'CSS Style Guide'}>
@@ -48,20 +76,7 @@ const StyleGuide = () => {
 
       <div>
         <h2> List </h2>
-        <div className="list">
-          <div className="list__header">Header</div>
-          <div className="list__content"> Item 1 </div>
-          <div className="list__content">
-            <span>Item 2</span>
-            <span>Item 21</span>
-            <span>Item 22</span>
-          </div>
-          <div className="list__content list__content--vertical">
-            <span>Item 3</span>
-            <span>Item 31</span>
-            <span>Item 32</span>
-          </div>
-        </div>
+        <List header='test header' data={testData} />
       </div>
 
       <div>
@@ -72,13 +87,7 @@ const StyleGuide = () => {
 
         <br/>
 
-        <div className="dropdown" onClick={() => { setShow(!show);}}> Dropdown
-          {show && (<div className='dropdown__content'>
-            <span className="dropdown__item"> Item1 </span>
-            <span className="dropdown__item"> Item2 </span>
-            <span className="dropdown__item"> Item3 </span>
-          </div>)}
-        </div>
+        <Dropdown label='Dropdown' data={[{ value:'item1'}, { value:'item2'}]} />
 
       </div>
     </Page>

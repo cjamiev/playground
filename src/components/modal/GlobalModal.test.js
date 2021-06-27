@@ -1,4 +1,4 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper/componentSetup';
 import { GlobalModal } from 'components/modal/GlobalModal';
 import globalModalReducer from 'components/modal/globalModalReducer';
@@ -15,9 +15,9 @@ const defaultStoreProps = {
 
 describe('GlobalModal', () => {
   it('checks an item', () => {
-    const { getByText } = testRenderContainer(GlobalModal, {}, globalModalReducer, defaultStoreProps);
+    testRenderContainer(GlobalModal, {}, globalModalReducer, defaultStoreProps);
 
-    fireEvent.click(getByText('Save'));
+    fireEvent.click(screen.getByText('Save'));
 
     expect(defaultStoreProps.globalModal.modalQueue[0].action).toHaveBeenCalled();
   });

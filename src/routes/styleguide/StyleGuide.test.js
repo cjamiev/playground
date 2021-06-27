@@ -5,13 +5,9 @@ import StyleGuide from './StyleGuide';
 const defaultProps = {};
 
 describe('StyleGuide', () => {
-  it('checks dropdown behavior', () => {
+  it('checks page renders', () => {
     testRenderComponent(StyleGuide, defaultProps);
 
-    const dropdownBtn = screen.getByText('Dropdown');
-
-    expect(screen.queryByText('Item1')).not.toBeInTheDocument();
-    fireEvent.click(dropdownBtn);
-    expect(screen.getByText('Item1')).toBeInTheDocument();
+    expect(screen.getByText('CSS Style Guide')).toBeInTheDocument();
   });
 });
