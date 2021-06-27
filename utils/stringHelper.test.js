@@ -1,5 +1,5 @@
-import { reverseStringTestData } from 'testHelper/testData/stringHelper-data';
-import { testFunctionHelper } from 'testHelper/helper';
+import { reverseStringTestData } from './testData/stringHelper-data';
+import { testFunctionHelper } from 'testHelper';
 import { reverseString } from './stringHelper';
 
 describe(':reverseString', () => {

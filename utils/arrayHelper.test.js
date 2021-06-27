@@ -7,8 +7,8 @@ import {
   incrementElementIndexData,
   swapArrayElementPositionsData,
   unqiueTestData
-} from 'testHelper/testData/arrayHelper-data';
-import { testFunctionHelper } from 'testHelper/helper';
+} from './testData/arrayHelper-data';
+import { testFunctionHelper } from 'testHelper';
 import {
   decrementElementIndex,
   difference,

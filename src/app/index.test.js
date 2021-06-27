@@ -1,6 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper/componentSetup';
-import globalModalReducer from 'components/modal/globalModalReducer';
 import App from './index';
 
 const mockHistory = {
@@ -31,7 +30,7 @@ const defaultStoreProps = {
 
 describe('App', () => {
   it('checks page renders', () => {
-    testRenderContainer(App, defaultProps, globalModalReducer, defaultStoreProps);
+    testRenderContainer(App, defaultProps, defaultStoreProps);
 
     expect(screen.getAllByText('Home')[ZERO]).toBeInTheDocument();
   });

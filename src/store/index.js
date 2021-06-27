@@ -35,4 +35,4 @@ const configureStore = (initialState) => {
   return store;
 };
 
-export { configureStore };
+export { rootReducer, configureStore };

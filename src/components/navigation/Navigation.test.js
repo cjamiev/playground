@@ -1,6 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper/componentSetup';
-import globalModalReducer from 'components/modal/globalModalReducer';
 import Navigation from './Navigation';
 
 const defaultProps = {};
@@ -39,7 +38,7 @@ jest.mock('react-redux', () => {
 
 describe('Navigation', () => {
   it('checks dropdown behavior', () => {
-    testRenderContainer(Navigation, defaultProps, globalModalReducer, defaultStoreProps);
+    testRenderContainer(Navigation, defaultProps, defaultStoreProps);
 
     const navLink = screen.getByText('Experiment');
     fireEvent.click(navLink);

@@ -1,5 +1,5 @@
-import { searchLinesTestData, searchFilesTestData } from 'testHelper/testData/search-data';
-import { testFunctionHelper } from 'testHelper/helper';
+import { searchLinesTestData, searchFilesTestData } from './testData/search-data';
+import { testFunctionHelper } from 'testHelper';
 import { searchLines, searchFiles } from './search';
 
 describe(':searchLines', () => {

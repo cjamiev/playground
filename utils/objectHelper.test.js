@@ -1,8 +1,8 @@
 import {
   getObjectPathTestData,
   resolvePathTestData
-} from 'testHelper/testData/objectHelper-data';
-import { testFunctionHelper } from 'testHelper/helper';
+} from './testData/objectHelper-data';
+import { testFunctionHelper } from 'testHelper';
 import {
   cloneDeep,
   getObjectPath,

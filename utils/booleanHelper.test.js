@@ -1,5 +1,5 @@
-import { isEmptyTestData, xOrTestData } from 'testHelper/testData/booleanHelper-data';
-import { testFunctionHelper } from 'testHelper/helper';
+import { isEmptyTestData, xOrTestData } from './testData/booleanHelper-data';
+import { testFunctionHelper } from 'testHelper';
 import {
   isEmpty,
   xOr

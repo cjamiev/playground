@@ -1,4 +1,3 @@
-const { loadJSONFromFile, loadFile } = require('../utils/read');
 const { unitTest } = require('./unitTest');
 const { comparePerformanceTests, performanceTest } = require('./performanceTest');
 

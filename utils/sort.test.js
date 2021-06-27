@@ -4,8 +4,8 @@ import {
   numericAscendingSortTestData,
   numericDescendingSortTestData,
   sortByDelimiterTestData
-} from 'testHelper/testData/sort-data';
-import { testFunctionHelper } from 'testHelper/helper';
+} from './testData/sort-data';
+import { testFunctionHelper } from 'testHelper';
 import {
   alphaAscendingSort,
   alphaDescendingSort,

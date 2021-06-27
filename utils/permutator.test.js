@@ -1,5 +1,5 @@
-import { truthPermutatorTestData } from 'testHelper/testData/permutator-data';
-import { testFunctionHelper } from 'testHelper/helper';
+import { truthPermutatorTestData } from './testData/permutator-data';
+import { testFunctionHelper } from 'testHelper';
 import {
   truthPermutator
 } from './permutator';

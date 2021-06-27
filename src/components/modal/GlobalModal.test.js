@@ -2,7 +2,6 @@ import { fireEvent, screen } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper/componentSetup';
 import { GlobalModal } from 'components/modal/GlobalModal';
 import { closeGlobalModal } from './globalModalActions';
-import globalModalReducer from 'components/modal/globalModalReducer';
 
 const mockDispatch = jest.fn();
 jest.mock('react-redux', () => {
@@ -41,13 +40,13 @@ const storeWithLoading = {
 
 describe('GlobalModal', () => {
   it('empty modalQueue', () => {
-    const { container } = testRenderContainer(GlobalModal, {}, globalModalReducer, defaultStore);
+    const { container } = testRenderContainer(GlobalModal, {}, defaultStore);
 
     expect(container).toBeEmptyDOMElement();
   });
 
   it('click primary action', () => {
-    testRenderContainer(GlobalModal, {}, globalModalReducer, storeWithPopulatedModalQueue);
+    testRenderContainer(GlobalModal, {}, storeWithPopulatedModalQueue);
 
     fireEvent.click(screen.getByText('Save'));
 
@@ -55,7 +54,7 @@ describe('GlobalModal', () => {
   });
 
   it('click close', () => {
-    testRenderContainer(GlobalModal, {}, globalModalReducer, storeWithPopulatedModalQueue);
+    testRenderContainer(GlobalModal, {}, storeWithPopulatedModalQueue);
 
     fireEvent.click(screen.getByText('Close'));
 
@@ -63,7 +62,7 @@ describe('GlobalModal', () => {
   });
 
   it('show loading', () => {
-    testRenderContainer(GlobalModal, {}, globalModalReducer, storeWithLoading);
+    testRenderContainer(GlobalModal, {}, storeWithLoading);
 
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });

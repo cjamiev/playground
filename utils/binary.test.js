@@ -1,5 +1,5 @@
-import { convertDecimalToBinaryTestData } from 'testHelper/testData/binary-data';
-import { testFunctionHelper } from 'testHelper/helper';
+import { convertDecimalToBinaryTestData } from './testData/binary-data';
+import { testFunctionHelper } from 'testHelper';
 import { convertDecimalToBinary } from './binary';
 
 describe(':convertDecimalToBinary', () => {

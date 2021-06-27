@@ -5,8 +5,8 @@ import {
   normalizeClockTestData,
   getFormattedClockTestData,
   getFormattedDateTestData
-} from 'testHelper/testData/clock-data';
-import { testFunctionHelper } from 'testHelper/helper';
+} from './testData/clock-data';
+import { testFunctionHelper } from 'testHelper';
 import {
   incrementDate,
   clockBetweenDates,

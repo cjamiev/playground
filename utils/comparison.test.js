@@ -1,5 +1,5 @@
-import { isEqualTestData } from 'testHelper/testData/comparison-data';
-import { testFunctionHelper } from 'testHelper/helper';
+import { isEqualTestData } from './testData/comparison-data';
+import { testFunctionHelper } from 'testHelper';
 import { cloneDeep } from './objectHelper';
 import { isEqual } from './comparison';
 

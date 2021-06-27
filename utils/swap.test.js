@@ -2,8 +2,8 @@ import {
   swapPositionsTestData,
   decrementIndexTestData,
   incrementIndexTestData
-} from 'testHelper/testData/swap-data';
-import { testFunctionHelper } from 'testHelper/helper';
+} from './testData/swap-data';
+import { testFunctionHelper } from 'testHelper';
 import {
   decrementIndex,
   incrementIndex,
