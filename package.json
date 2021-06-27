@@ -13,7 +13,7 @@
     "e": "cypress open",
     "coverage": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json",
     "test": "jest --env=jsdom --watch",
-    "t": "jest --env=jsdom utils/clock --watch"
+    "t": "jest --env=jsdom utils/clock.test.js --watch"
   },
   "keywords": [],
   "author": "CJV",
@@ -23,6 +23,7 @@
     "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/preset-env": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
+    "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "11.2.7",
     "@testing-library/react-hooks": "7.0.0",
     "babel-eslint": "^10.1.0",

@@ -1,32 +1,17 @@
-const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-];
-const dayOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const WEEK_IN_MILLISECONDS = 604800000;
-const DAY_IN_MILLISECONDS = 86400000;
-const HOUR_IN_MILLISECONDS = 3600000;
-const MINUTE_IN_MILLISECONDS = 60000;
-const SECOND_IN_MILLISECONDS = 1000;
-const SIXTY_TIMES_SIXTY = 3600;
-const SIXTY = 60;
-const HOURS_IN_DAY = 24;
-const DOUBLE_DIGIT = 10;
-const DAYS_IN_A_WEEK = 7;
-const PRECISION_LEVEL = 3;
-const DECIMAL_FORMAT = 2;
-const ONE = 1;
+import { TIME, MONTHS, DAYS_OF_THE_WEEK } from 'constants/time';
+
 const ZERO = 0;
+const ONE = 1;
+const DECIMAL_FORMAT = 2;
+const PRECISION_LEVEL = 3;
+const DAYS_IN_A_WEEK = 7;
+const DOUBLE_DIGIT = 10;
+const SIXTY = 60;
+const SIXTY_TIMES_SIXTY = 3600;
+
+const incrementDate = (date, { weeks = ZERO, days = ZERO, hours = ZERO, minutes = ZERO, seconds = ZERO }) => {
+  return new Date(date.getTime() + weeks * TIME.A_WEEK + days * TIME.A_DAY + hours * TIME.AN_HOUR + minutes * TIME.A_MINUTE + seconds * TIME.A_SECOND);
+};
 
 const secondsToClock = s => {
   const hours = Math.floor(s / SIXTY_TIMES_SIXTY);
@@ -72,13 +57,13 @@ const clockBetweenDates = (date1, date2, options = { isWeeksRemoved: false, isDa
     return { hours: ZERO, minutes: ZERO, seconds: ZERO };
   }
 
-  const weeks = options.isWeeksRemoved ? ZERO : Math.floor(diff / WEEK_IN_MILLISECONDS);
-  const days = options.isDaysRemoved ? ZERO : Math.floor((diff - weeks * WEEK_IN_MILLISECONDS) / DAY_IN_MILLISECONDS);
-  const hours = options.isHoursRemoved ? ZERO : Math.floor((diff - weeks * WEEK_IN_MILLISECONDS - days * DAY_IN_MILLISECONDS) / HOUR_IN_MILLISECONDS);
-  const minutes = options.isMinutesRemoved ? ZERO : Math.floor((diff - weeks * WEEK_IN_MILLISECONDS - days * DAY_IN_MILLISECONDS - hours * HOUR_IN_MILLISECONDS) / MINUTE_IN_MILLISECONDS);
+  const weeks = options.isWeeksRemoved ? ZERO : Math.floor(diff / TIME.A_WEEK);
+  const days = options.isDaysRemoved ? ZERO : Math.floor((diff - weeks * TIME.A_WEEK) / TIME.A_DAY);
+  const hours = options.isHoursRemoved ? ZERO : Math.floor((diff - weeks * TIME.A_WEEK - days * TIME.A_DAY) / TIME.AN_HOUR);
+  const minutes = options.isMinutesRemoved ? ZERO : Math.floor((diff - weeks * TIME.A_WEEK - days * TIME.A_DAY - hours * TIME.AN_HOUR) / TIME.A_MINUTE);
   const seconds = Math.floor(
-    (diff - weeks * WEEK_IN_MILLISECONDS - days * DAY_IN_MILLISECONDS - hours * HOUR_IN_MILLISECONDS - minutes * MINUTE_IN_MILLISECONDS) /
-    SECOND_IN_MILLISECONDS
+    (diff - weeks * TIME.A_WEEK - days * TIME.A_DAY - hours * TIME.AN_HOUR - minutes * TIME.A_MINUTE) /
+    TIME.A_SECOND
   );
 
   return { weeks, days, hours, minutes, seconds };
@@ -108,10 +93,10 @@ const getFormattedDate = (date) => {
   const firstWeekPartial = newYears.getDay() / DAYS_IN_A_WEEK + PARTIAL_WEEK;
   const timeBetweenNowAndNewYears = clockBetweenDates(givenDate, newYears);
 
-  const displayDate = dayOfWeek[givenDate.getDay()] + ', ' + months[givenDate.getMonth()].slice(ZERO, NUMBER_OF_LETTERS) + ' ' + givenDate.getDate();
+  const displayDate = DAYS_OF_THE_WEEK[givenDate.getDay()] + ', ' + MONTHS[givenDate.getMonth()].slice(ZERO, NUMBER_OF_LETTERS) + ' ' + givenDate.getDate();
   const displayWeek = 'Week ' + Math.trunc(firstWeekPartial + timeBetweenNowAndNewYears.weeks + timeBetweenNowAndNewYears.days / DAYS_IN_A_WEEK );
 
   return { date: displayDate, week: displayWeek };
 };
 
-export { clockBetweenDates, formattedTimerClock, normalizeClock, getFormattedClock, getFormattedDate };
+export { incrementDate, clockBetweenDates, formattedTimerClock, normalizeClock, getFormattedClock, getFormattedDate };

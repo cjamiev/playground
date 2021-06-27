@@ -1,4 +1,9 @@
 import React from 'react';
+import { formattedTimerClock } from 'clock';
+import useTimer from 'hooks/useTimer';
+import './list.css';
+
+const ONE = 1;
 
 const TYPE_LINK = 'link';
 const TYPE_TEXT = 'text';
@@ -15,24 +20,50 @@ const copyToClipboard = (text) => {
   document.body.removeChild(copyText);
 };
 
-const getComponentByType = ({ type, label, value }) => {
+const getFormattedTime = ({ weeks, days, hours, minutes, seconds }) => {
+  if(weeks > ONE) {
+    return `${weeks} Weeks`;
+  }
+  else if (days > ONE) {
+    return `${days} Days`;
+  }
+
+  return formattedTimerClock(hours,minutes,seconds);
+};
+
+const DisplayTimer = ({ type, label, value }) => {
+  const time = useTimer(new Date(value));
+
+  return (
+    <div>
+      <label className="list__timer-label" title={value}>{ label }</label>
+      <span>{ getFormattedTime(time) }</span>
+    </div>
+  );
+};
+
+const DisplayContent = ({ type, label, value }) => {
   if(type === TYPE_TEXT) {
     return (<span>{value}</span>);
   } else if (type === TYPE_LINK) {
     return (<a className="link" href={value} target="_blank">{label}</a>);
   } else if (type === TYPE_COPY) {
     return (<button className="btn btn--primary" onClick={() => {copyToClipboard(value);}}>{label}</button>);
+  } else if (type === TYPE_TIMER) {
+    return <DisplayTimer type={type} label={label} value={value} />;
   }
 
   return null;
 };
 
 const List = React.memo(({ header, data = [] }) => {
-  const renderContent = data.map(Entry => {
-    const renderEntry = Entry.map(item => getComponentByType(item));
+  const renderContent = data.map((entry, index) => {
+    const renderEntry = entry.map(({ type, label, value }) => {
+      return <DisplayContent key={`${type}-${label}-${value}`} type={type} label={label} value={value} />;
+    });
 
     return (
-      <div className="list__content">
+      <div key={index} className="list__content">
         {renderEntry}
       </div>
     );

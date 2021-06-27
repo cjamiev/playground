@@ -1,4 +1,5 @@
 import {
+  incrementDateTestData,
   clockBetweenDatesTestData,
   formattedTimerClockTestData,
   normalizeClockTestData,
@@ -7,12 +8,17 @@ import {
 } from 'testHelper/testData/clock-data';
 import { testFunctionHelper } from 'testHelper/helper';
 import {
+  incrementDate,
   clockBetweenDates,
   formattedTimerClock,
   normalizeClock,
   getFormattedClock,
   getFormattedDate
 } from './clock';
+
+describe(':incrementDate', () => {
+  incrementDateTestData.forEach(data => testFunctionHelper(data, incrementDate));
+});
 
 describe(':clockBetweenDates', () => {
   clockBetweenDatesTestData.forEach(data => testFunctionHelper(data, clockBetweenDates));

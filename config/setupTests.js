@@ -1,3 +1,6 @@
+import 'regenerator-runtime/runtime';
+import '@testing-library/jest-dom';
+
 const localStorageMock = {
   getItem: jest.fn(),
   setItem: jest.fn(),

@@ -27,6 +27,34 @@ const testData = [
       'label': 'username',
       'value': 'cjamiev1836'
     }
+  ],
+  [
+    {
+      'type': 'timer',
+      'label': '34rd Birthday',
+      'value': 'March 18, 2022'
+    }
+  ],
+  [
+    {
+      'type': 'timer',
+      'label': '35rd Birthday',
+      'value': 'March 18, 2023'
+    }
+  ],
+  [
+    {
+      'type': 'timer',
+      'label': 'End of month',
+      'value': 'June 30, 2021'
+    }
+  ],
+  [
+    {
+      'type': 'timer',
+      'label': 'End of day',
+      'value': 'June 27, 2021'
+    }
   ]
 ];
 
