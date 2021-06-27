@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
 import DynamicForm from 'components/form/DynamicForm';
 import TableRenderer from 'components/display/TableRenderer';
@@ -57,10 +57,10 @@ const TestDynamicForm = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <DynamicForm fieldsList={fields} onSubmit={onSubmit} />
       <div style={divStyle}>{TableRenderer('Form Payload', fields)}</div>
-    </Fragment>
+    </>
   );
 };
 

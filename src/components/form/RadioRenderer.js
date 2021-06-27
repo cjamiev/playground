@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 const RadioRenderer = ({ id, label, values, onChange }) => {
   const handleSelectedChange = ({ target: { value } }) => {
@@ -17,10 +17,10 @@ const RadioRenderer = ({ id, label, values, onChange }) => {
   });
 
   return (
-    <Fragment>
+    <>
       <label>{label}</label>
       {radios}
-    </Fragment>
+    </>
   );
 };
 

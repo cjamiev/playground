@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { testGet, testPost } from './testApiActions';
 
@@ -19,13 +19,13 @@ const TestApi = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <div role="group">
         <button className="btn" onClick={runGet}>test get api</button>
         <button className="btn" onClick={runPost}>test post api</button>
       </div>
       <label>{testData}</label>
-    </Fragment>
+    </>
   );
 };
 

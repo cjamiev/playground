@@ -2,8 +2,6 @@ import { TIME, MONTHS, DAYS_OF_THE_WEEK } from 'constants/time';
 
 const ZERO = 0;
 const ONE = 1;
-const DECIMAL_FORMAT = 2;
-const PRECISION_LEVEL = 3;
 const DAYS_IN_A_WEEK = 7;
 const DOUBLE_DIGIT = 10;
 const SIXTY = 60;

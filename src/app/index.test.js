@@ -1,20 +1,6 @@
-import { fireEvent, screen } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper/componentSetup';
+import { screen } from '@testing-library/react';
+import { testRenderContainer } from 'testHelper';
 import App from './index';
-
-const mockHistory = {
-  location: {
-    pathname: '/home'
-  },
-  push: jest.fn()
-};
-jest.mock('react-router-dom', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-router-dom'),
-    useHistory: jest.fn(() => mockHistory)
-  };
-});
 
 const ZERO = 0;
 const defaultProps = {};

@@ -1,5 +1,6 @@
 export {
-  setupShallow
+  testRenderComponent,
+  testRenderContainer
 } from './componentSetup';
 
 export {

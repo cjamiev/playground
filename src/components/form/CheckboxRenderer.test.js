@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper/componentSetup';
+import { testRenderComponent } from 'testHelper';
 import CheckboxRenderer from 'components/form/CheckboxRenderer';
 
 const defaultProps = {

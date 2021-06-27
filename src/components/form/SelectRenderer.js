@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 const SelectRenderer = ({ id, label, values, onChange }) => {
   const handleSelectedChange = ({ target: { value } }) => {
@@ -12,12 +12,12 @@ const SelectRenderer = ({ id, label, values, onChange }) => {
   ));
 
   return (
-    <Fragment>
+    <>
       <label>{label}</label>
       <select data-testid={'select-' + label} style={selectStyle} name="SelectRenderer" onChange={handleSelectedChange}>
         {getOptions}
       </select>
-    </Fragment>
+    </>
   );
 };
 

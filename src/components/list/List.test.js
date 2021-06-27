@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper/componentSetup';
+import { testRenderComponent } from 'testHelper';
 import { incrementDate } from 'clock';
 import List from './List';
 

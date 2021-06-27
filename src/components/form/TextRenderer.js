@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 const ZERO = 0;
 
@@ -20,11 +20,11 @@ const TextRenderer = ({ id, label, regex, error, errorMessage, onChange }) => {
   };
 
   return (
-    <Fragment>
+    <>
       <label>{label}</label>
       <input className='textrenderer' type="text" name={label} aria-label="text-field" onChange={handleSelectedChange} />
       {error && <span>{errorMessage}</span>}
-    </Fragment>
+    </>
   );
 };
 

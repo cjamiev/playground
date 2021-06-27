@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { closeGlobalModal, hideLoadingModal } from 'components/modal/globalModalActions';
@@ -7,7 +7,6 @@ import { getFormattedClock, getFormattedDate } from 'clock';
 import './navigation.css';
 
 const NAV_ITEMS = Object.values(ROUTES);
-const INDEX_ZERO = 0;
 const ONE_SECOND = 1000;
 
 const Navigation = React.memo(() => {

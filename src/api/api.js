@@ -1,8 +1,5 @@
 import axios from 'axios';
 
-const GET = 'get';
-const POST = 'post';
-
 const api = {
   get: (url) => {
     return axios.get(url);

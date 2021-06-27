@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
 import Page from 'components/layout';
 import TestRedux from './testredux';

@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { openGlobalModal, showLoadingModal } from 'components/modal/globalModalActions';
+import { openGlobalModal } from 'components/modal/globalModalActions';
 
 const ZERO = 0;
 const ONE = 1;
@@ -28,11 +28,11 @@ const TestGlobalModal = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <div role="group">
         <button className="btn" onClick={open}>Open Modal</button>
       </div>
-    </Fragment>
+    </>
   );
 };
 

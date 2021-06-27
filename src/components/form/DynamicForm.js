@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
 import FormRenderer from './FormRenderer';
 
@@ -26,14 +26,14 @@ const DynamicForm = ({ fieldsList, onSubmit }) => {
   const [fields, setFields] = useState(fieldsList);
 
   return (
-    <Fragment>
+    <>
       <div style={divStyle}>
         {FormRenderer(fields, handleChange(fields, setFields))}
         <button style={buttonStyle} disabled={hasError(fields)} onClick={handleSubmit(fields, onSubmit)}>
           Submit
         </button>
       </div>
-    </Fragment>
+    </ >
   );
 };
 

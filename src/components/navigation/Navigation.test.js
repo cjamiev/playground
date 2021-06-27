@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper/componentSetup';
+import { testRenderContainer } from 'testHelper';
 import Navigation from './Navigation';
 
 const defaultProps = {};

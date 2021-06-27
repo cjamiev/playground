@@ -31,7 +31,7 @@ const getFormattedTime = ({ weeks, days, hours, minutes, seconds }) => {
   return formattedTimerClock(hours,minutes,seconds);
 };
 
-const DisplayTimer = ({ type, label, value }) => {
+const DisplayTimer = ({ label, value }) => {
   const time = useTimer(new Date(value));
 
   return (
@@ -50,7 +50,7 @@ const DisplayContent = ({ type, label, value }) => {
   } else if (type === TYPE_COPY) {
     return (<button className="btn btn--primary" onClick={() => {copyToClipboard(value);}}>{label}</button>);
   } else if (type === TYPE_TIMER) {
-    return <DisplayTimer type={type} label={label} value={value} />;
+    return <DisplayTimer label={label} value={value} />;
   }
 
   return null;

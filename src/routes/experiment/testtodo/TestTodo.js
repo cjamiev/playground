@@ -26,7 +26,7 @@ const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
   );
 };
 
-const TestTodo = (props) => {
+const TestTodo = () => {
   const [items, setItems] = useState([]);
   const [text, setText] = useState('');
 

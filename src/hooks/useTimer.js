@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
-import { clockBetweenDates, getFormattedDate } from 'clock';
+import { useState, useEffect } from 'react';
+import { clockBetweenDates } from 'clock';
 
-const INACTIVE = -1;
 const ONE_SECOND = 1000;
 
 const useTimer = (date) => {

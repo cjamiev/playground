@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 const CheckboxRenderer = ({ id, label, values, selected, onChange }) => {
   const handleSelectedChange = ({ target: { value } }) => {
@@ -20,10 +20,10 @@ const CheckboxRenderer = ({ id, label, values, selected, onChange }) => {
   });
 
   return (
-    <Fragment>
+    <>
       <label>{label}</label>
       {checkboxes}
-    </Fragment>
+    </>
   );
 };
 

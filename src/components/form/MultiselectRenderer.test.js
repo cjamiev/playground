@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper/componentSetup';
+import { testRenderComponent } from 'testHelper';
 import MultiselectRenderer from 'components/form/MultiselectRenderer';
 
 const defaultProps = {

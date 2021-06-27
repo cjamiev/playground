@@ -2,7 +2,7 @@ import React from 'react';
 import './modal.css';
 
 export const Modal = (props) => {
-  const { title, message, children, action, close, buttonList = [] } = props;
+  const { title, message, children, close, buttonList = [] } = props;
   const renderButtons = buttonList.map(item => {
     const btnClass = item.primary ? 'modal__primary-btn': 'modal__secondary-btn';
 
