@@ -1,6 +1,16 @@
-const fs = require('fs');
+const ONE = 1;
+const parseObject = obj => {
+  try {
+    return JSON.parse(obj);
+  } catch (e) {
+    return null;
+  }
+};
 
-const UTF8 = 'utf-8';
+const isJSONString = value => (isString(value) && parseObject(value) ? true : false);
+const drop = (arr = [], n = ONE) => arr.slice(n);
+const flattenDeep = (arr = []) =>
+  (Array.isArray(arr) ? arr.reduce((a, b) => [...flattenDeep(a), ...flattenDeep(b)], []) : [arr]);
 
 const isNumber = (value) => typeof value === 'number';
 const isBoolean = (value) => typeof value === 'boolean';
@@ -47,59 +57,12 @@ const isEqual = (entry1, entry2) => {
   return checkEquality;
 };
 
-const writeToFile = (filepath, content) => {
-  try {
-    fs.writeFileSync(filepath, content);
-    return {
-      error: false,
-      message: 'Wrote to file:' + filepath
-    };
-  } catch (e) {
-    return {
-      error: true,
-      message: e
-    };
-  }
-};
-
-const updateFile = (path, content) => {
-  try {
-    fs.writeFileSync(path, JSON.stringify(content));
-    return '';
-  } catch (e) {
-    return e;
-  }
-};
-
-const deleteFile = (path) => {
-  try {
-    fs.unlinkSync(path);
-    return 'successfully deleted file';
-  } catch (err) {
-    return err;
-  }
-};
-
-const loadFile = (filepath) => {
-  return fs.existsSync(filepath) ? fs.readFileSync(filepath, UTF8) : null;
-};
-
-const loadJSONFromFile = (path, defaultValue) => {
-  return fs.existsSync(path) ? JSON.parse(fs.readFileSync(path, UTF8)) : defaultValue;
-};
-
-const readDirectory = (dir) => fs.readdirSync(dir);
-
 module.exports = {
+  drop,
+  flattenDeep,
   isNumber,
+  isJSONString,
   isBoolean,
-  isString,
   isObject,
-  isEqual,
-  writeToFile,
-  updateFile,
-  deleteFile,
-  loadFile,
-  loadJSONFromFile,
-  readDirectory
+  isEqual
 };

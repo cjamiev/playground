@@ -4,7 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 const exec = child_process.exec;
-const { isEqual, writeToFile, loadFile, readDirectory } = require('./util');
+const { writeToFile, loadFile, readDirectory } = require('./file');
+const { isEqual } = require('./util');
 const {
   createMockFile,
   updateMockFile,

@@ -1,4 +1,5 @@
-const { isBoolean, isNumber, isObject, loadJSONFromFile, updateFile, deleteFile } = require('./util');
+const { isBoolean, isNumber, isObject } = require('./util');
+const { loadJSONFromFile, writeToFile, deleteFile } = require('./file');
 
 const ENTRY_ALREADY_EXISTS_MESSAGE = 'A mock with the specified method and url already exists.';
 const CONFIG_SUCCESS_MESSAGE = 'Updated configuration';
@@ -50,7 +51,7 @@ const updateMockRequests = (request, filename) => {
 
   const updatedMockRequests = mockRequests.concat([newEntry]);
 
-  return updateFile(MOCK_REQUESTS_PATH, updatedMockRequests);
+  return writeToFile(MOCK_REQUESTS_PATH, JSON.stringify(updatedMockRequests));
 };
 
 const createMockFile = ({ content, filename }) => {
@@ -59,7 +60,7 @@ const createMockFile = ({ content, filename }) => {
   if (messageOne) {
     return { message: messageOne, error: true };
   } else {
-    const message = updateFile(MOCK_FILE_PATH + '/' + filename, content.response);
+    const message = writeToFile(MOCK_FILE_PATH + '/' + filename, JSON.stringify(content.response));
 
     return message ? { message, error: true } : { message };
   }
@@ -71,7 +72,7 @@ const updateMockFile = ({ content }) => {
     (entry) => entry.url === content.request.url && entry.method === content.request.method
   );
 
-  const message = updateFile(matched.responsePath, content.response);
+  const message = writeToFile(matched.responsePath, JSON.stringify(content.response));
 
   return message;
 };
@@ -85,7 +86,7 @@ const removeMockRequestsEntry = ({ url, method, responsePath }) => {
 
   deleteFile(responsePath);
 
-  return updateFile(MOCK_REQUESTS_PATH, updatedMockRequests);
+  return writeToFile(MOCK_REQUESTS_PATH, JSON.stringify(updatedMockRequests));
 };
 
 const constructValidConfig = (payloadConfig) => {
@@ -130,7 +131,7 @@ const loadConfiguration = () => {
 
 const updateConfiguration = (payloadConfig) => {
   const updatedConfig = constructValidConfig(payloadConfig);
-  const errorMessage = updateFile(CONFIG_OVERRIDE_PATH, updatedConfig);
+  const errorMessage = writeToFile(CONFIG_OVERRIDE_PATH, JSON.stringify(updatedConfig));
 
   return errorMessage ? errorMessage : CONFIG_SUCCESS_MESSAGE;
 };
@@ -148,11 +149,11 @@ const logEntry = (url, payload) => {
   const currentLog = loadLog();
   const updatedLog = currentLog.concat([{ timestamp, url, payload }]);
 
-  updateFile(LOGFILE_PATH, updatedLog);
+  writeToFile(LOGFILE_PATH, JSON.stringify(updatedLog));
 };
 
 const clearLog = () => {
-  return updateFile(LOGFILE_PATH, []);
+  return writeToFile(LOGFILE_PATH, JSON.stringify([]));
 };
 
 module.exports = {

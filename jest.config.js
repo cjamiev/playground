@@ -1,7 +1,8 @@
 module.exports = {
   collectCoverageFrom: [
     'src/**/*.js',
-    'utils/*.js'
+    'utils/*.js',
+    'server/*.js'
   ],
   coveragePathIgnorePatterns: [
     'src/index.js',
@@ -12,7 +13,7 @@ module.exports = {
     'testHelper(.*)$': '<rootDir>/testHelper/$1'
   },
   testPathIgnorePatterns: ['testHelper/*'],
-  testRegex: '(src|utils)/.*\\.test.(js)$',
+  testRegex: '(server|src|utils)/.*\\.test.(js)$',
   testEnvironment: 'node',
   transform: {
     '^.+\\.(js|jsx|mjs)$': '<rootDir>/node_modules/babel-jest',

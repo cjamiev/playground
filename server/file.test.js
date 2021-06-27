@@ -3,19 +3,15 @@ import {
   readDirectoryDeep,
   readDirectory,
   loadFile,
-  loadJSONFromFile
-} from './read';
-import {
+  loadJSONFromFile,
   deleteFile,
   removeDirectory,
-  removeDirectoryDeep
-} from './delete';
-import {
+  removeDirectoryDeep,
   copyFile,
   copyDir,
   makeDirectory,
   writeToFile
-} from './write';
+} from './file';
 
 const dummyDir = 'tmp/dummy';
 const copyTestDir = 'tmp/copyTest';
