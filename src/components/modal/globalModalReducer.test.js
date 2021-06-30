@@ -1,13 +1,8 @@
-import { fireEvent, screen } from '@testing-library/react';
 import {
   OPEN_GLOBAL_MODAL,
   CLOSE_GLOBAL_MODAL,
   SHOW_LOADING_MODAL,
-  HIDE_LOADING_MODAL,
-  openGlobalModal,
-  closeGlobalModal,
-  showLoadingModal,
-  hideLoadingModal
+  HIDE_LOADING_MODAL
 } from './globalModalActions';
 import globalModalReducer from './globalModalReducer';
 

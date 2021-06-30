@@ -7,9 +7,10 @@ import {
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
+import clipboardReducer from 'routes/clipboard/clipboardReducer';
+import globalModalReducer from 'components/modal/globalModalReducer';
 import testApiReducer from 'routes/experiment/testapi/testApiReducer';
 import testReducer from 'routes/experiment/testredux/reducer';
-import globalModalReducer from 'components/modal/globalModalReducer';
 
 const customMiddleware = ({ dispatch, getState }) => (next) => (action) => {
   return next(action);
@@ -22,8 +23,9 @@ if (process.env.NODE_ENV !== 'production') {
 const appliedMiddlewares = applyMiddleware(...middlewares);
 
 const rootReducer = combineReducers({
-  experiment: testReducer,
+  clipboard: clipboardReducer,
   globalModal: globalModalReducer,
+  experiment: testReducer,
   testApi: testApiReducer
 });
 

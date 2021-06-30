@@ -18,9 +18,12 @@ module.exports = (env) => {
       inline: true,
       port: 3000,
       open: true,
-      proxy: {
-        '/api': 'http://localhost:1000'
-      }
+      proxy: [
+        {
+          context: ['**'],
+          target: 'http://localhost:1000'
+        }
+      ]
     },
     resolve: {
       extensions: ['.js', '*'],

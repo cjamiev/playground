@@ -12,7 +12,7 @@ const writeToFile = () => {
 
 const getAllFiles = () => {
   api.get('/read').then((result) => {
-    const filenames = result.data;
+    const filenames = result.data.filter(item => item.includes('.'));
 
     const fileDiv = document.getElementById('all-files');
     const fileEls = document.querySelectorAll('.file-btn');
@@ -36,9 +36,7 @@ const getAllFiles = () => {
 };
 
 const loadFile = (filename) => {
-  const nameAndExt = filename.split('.');
-
-  const url = '/?read=true&name=' + nameAndExt[0] + '&ext=' + nameAndExt[1];
+  const url = `/read/?name=${filename}`;
 
   api.get(url).then((result) => {
     document.getElementById('contentData').textContent = result.data;

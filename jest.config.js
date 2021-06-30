@@ -2,11 +2,9 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.js',
     'utils/*.js',
-    'server/*.js'
-  ],
-  coveragePathIgnorePatterns: [
-    'src/index.js',
-    'src/store/index.js'
+    'server/*.js',
+    '!src/index.js',
+    '!src/store/index.js'
   ],
   moduleDirectories: ['src', 'testHelper', 'utils', 'node_modules'],
   moduleNameMapper: {

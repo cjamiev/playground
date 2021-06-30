@@ -119,6 +119,7 @@ const createListEntries = (entries) => {
 
 api.get('/clipboard-config').then((result) => {
   result.data.forEach((sectionData) => {
+    console.log('EYE',sectionData);
     createListEntries(JSON.parse(sectionData));
   });
 });
