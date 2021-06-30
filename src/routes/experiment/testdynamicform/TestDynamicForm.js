@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import DynamicForm from 'components/form/DynamicForm';
-import TableRenderer from 'components/display/TableRenderer';
+import TableRenderer from './TableRenderer';
 
 const dataList = [
   {

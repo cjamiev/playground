@@ -7,7 +7,7 @@ import List from 'components/list';
 const Clipboard = () => {
   const [error, setError] = useState('');
   const dispatch = useDispatch();
-  const clipboard = useSelector(state => state.clipboard.value) || [];
+  const clipboard = useSelector(state => state.clipboard.value);
 
   useEffect(() => {
     dispatch(loadClipboard());

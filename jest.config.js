@@ -2,9 +2,10 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.js',
     'utils/*.js',
-    'server/*.js',
+    'server/file.js',
     '!src/index.js',
-    '!src/store/index.js'
+    '!src/store/index.js',
+    '!src/routes/experiment/**'
   ],
   moduleDirectories: ['src', 'testHelper', 'utils', 'node_modules'],
   moduleNameMapper: {
