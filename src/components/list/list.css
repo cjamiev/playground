@@ -1,5 +1,6 @@
 .list {
-  width: 20em;
+  width: 30em;
+  margin-bottom: 4em;
 }
 
 .list__header {
@@ -21,12 +22,15 @@
   display: flex;
   text-align: center;
   place-items: center;
-  justify-content: space-evenly;
 }
 
 .list__content--vertical {
   display: flex;
   flex-direction: column;
+}
+
+.list__item {
+  flex: 1;
 }
 
 .list__timer-label {

@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
-import { LOAD_CLIPBOARD, ERROR_CLIPBOARD, loadClipboard } from './clipboardActions';
+import { LOAD_PASSWORD, ERROR_PASSWORD, loadPassword } from './clipboardActions';
 
 const mockDispatch = jest.fn();
 
@@ -13,20 +13,20 @@ api.get.mockResolvedValue({
 });
 
 describe('clipboardActions', () => {
-  it('loadClipboard', async () => {
-    loadClipboard()(mockDispatch);
+  it('loadPassword', async () => {
+    loadPassword()(mockDispatch);
 
     waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: LOAD_CLIPBOARD, data: []});
+      expect(mockDispatch).toHaveBeenCalledWith({ type: LOAD_PASSWORD, data: []});
     });
   });
 
-  it('loadClipboard - error', async () => {
+  it('loadPassword - error', async () => {
     api.get.mockRejectedValue(new Error('Test Message'));
-    loadClipboard()(mockDispatch);
+    loadPassword()(mockDispatch);
 
     waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_CLIPBOARD, error: 'Test Message'});
+      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_PASSWORD, error: 'Test Message'});
     });
   });
 });

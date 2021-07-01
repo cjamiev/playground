@@ -1,4 +1,4 @@
-import { LOAD_CLIPBOARD, ERROR_CLIPBOARD } from './clipboardActions';
+import { LOAD_PASSWORD, ERROR_PASSWORD } from './clipboardActions';
 import clipboardReducer from './clipboardReducer';
 
 const initialState = {
@@ -13,9 +13,9 @@ describe('clipboardReducer', () => {
     expect(result).toEqual(initialState);
   });
 
-  it('LOAD_CLIPBOARD', () => {
+  it('LOAD_PASSWORD', () => {
     const action = {
-      type: LOAD_CLIPBOARD,
+      type: LOAD_PASSWORD,
       data: [1,2,3]
     };
     const result = clipboardReducer(initialState, action);
@@ -26,9 +26,9 @@ describe('clipboardReducer', () => {
     });
   });
 
-  it('ERROR_CLIPBOARD', () => {
+  it('ERROR_PASSWORD', () => {
     const action = {
-      type: ERROR_CLIPBOARD,
+      type: ERROR_PASSWORD,
       error: {
         message: 'test-error'
       }

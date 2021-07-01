@@ -1,19 +1,19 @@
-import { LOAD_CLIPBOARD, ERROR_CLIPBOARD } from './clipboardActions';
+import { LOAD_PASSWORD, ERROR_PASSWORD } from './clipboardActions';
 
 const initialState = {
-  value: [],
+  passwords: [],
   error: {}
 };
 
 const clipboardReducer = (state = initialState, action) => {
   const clipboardCases = {
-    [LOAD_CLIPBOARD]: () => {
+    [LOAD_PASSWORD]: () => {
       return {
         ...state,
-        value: action.data
+        passwords: action.data
       };
     },
-    [ERROR_CLIPBOARD]: () => {
+    [ERROR_PASSWORD]: () => {
       return {
         ...state,
         error: action.error

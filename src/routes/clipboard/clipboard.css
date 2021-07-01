@@ -1,0 +1,29 @@
+@media only screen and (min-width: 2000px) {
+  .clipboard__container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: 0 auto;
+    width: 75%;
+  } 
+}
+
+@media only screen and (min-width: 1500px) and (max-width: 2000px) {
+  .clipboard__container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media only screen and (min-width: 1000px) and (max-width: 1500px) {
+  .clipboard__container {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .clipboard__container {
+    display: flex;
+    flex-direction: column;
+  }
+}

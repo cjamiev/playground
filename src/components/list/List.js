@@ -35,7 +35,7 @@ const DisplayTimer = ({ label, value }) => {
   const time = useTimer(new Date(value));
 
   return (
-    <div>
+    <div className="list__item">
       <label className="list__timer-label" title={value}>{ label }</label>
       <span>{ getFormattedTime(time) }</span>
     </div>
@@ -44,11 +44,11 @@ const DisplayTimer = ({ label, value }) => {
 
 const DisplayContent = ({ type, label, value }) => {
   if(type === TYPE_TEXT) {
-    return (<span>{value}</span>);
+    return (<span className="list__item">{value}</span>);
   } else if (type === TYPE_LINK) {
-    return (<a className="link" href={value} target="_blank">{label}</a>);
+    return (<a className="link list__item" href={value} target="_blank">{label}</a>);
   } else if (type === TYPE_COPY) {
-    return (<button className="btn btn--primary" onClick={() => {copyToClipboard(value);}}>{label}</button>);
+    return (<button className="btn btn--primary list__item" onClick={() => {copyToClipboard(value);}}>{label}</button>);
   } else if (type === TYPE_TIMER) {
     return <DisplayTimer label={label} value={value} />;
   }

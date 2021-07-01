@@ -1,19 +1,19 @@
 import api from 'api';
 
-const LOAD_CLIPBOARD = 'LOAD_CLIPBOARD';
-const ERROR_CLIPBOARD = 'ERROR_CLIPBOARD';
+const LOAD_PASSWORD = 'LOAD_PASSWORD';
+const ERROR_PASSWORD = 'ERROR_PASSWORD';
 
-const loadClipboard = () => {
+const loadPassword = () => {
   return (dispatch) => {
     api
       .get('/read/?name=db%2Fpassword.json')
       .then((response) => {
-        dispatch({ type: LOAD_CLIPBOARD, data: JSON.parse(response.data.data) });
+        dispatch({ type: LOAD_PASSWORD, data: JSON.parse(response.data.data) });
       })
       .catch((error) => {
-        dispatch({ type: ERROR_CLIPBOARD, error });
+        dispatch({ type: ERROR_PASSWORD, error });
       });
   };
 };
 
-export { LOAD_CLIPBOARD, ERROR_CLIPBOARD, loadClipboard };
+export { LOAD_PASSWORD, ERROR_PASSWORD, loadPassword };

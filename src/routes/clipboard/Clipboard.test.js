@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper';
-import { loadClipboard } from './clipboardActions';
+import { loadPassword } from './clipboardActions';
 import Clipboard from './Clipboard';
 
 const mockDispatch = jest.fn();
