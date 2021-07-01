@@ -1,0 +1,24 @@
+.tabs {
+  display: flex;
+  list-style: none;
+  margin-bottom: 1em;
+}
+
+.tabs__item {
+  flex: 1;
+  color: #1af;
+  padding: 0.5em;
+  cursor: pointer;
+  z-index:1;
+  font-size: 1.5em;
+  text-align: center;
+  border-bottom: 1px solid #777;
+}
+
+.tabs__item--active {
+  border-radius: 0.4em 0.4em 0 0;
+  border-top: 1px solid #777;
+  border-left: 1px solid #777;
+  border-right: 1px solid #777;
+  border-bottom: none;
+}
