@@ -23,7 +23,7 @@ const defaultStoreProps = {
   },
   clipboard: {
     error: {},
-    value: [
+    passwords: [
       {
         'listTitle': 'listOne',
         'listData': [

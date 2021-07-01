@@ -2,7 +2,7 @@ import { LOAD_PASSWORD, ERROR_PASSWORD } from './clipboardActions';
 import clipboardReducer from './clipboardReducer';
 
 const initialState = {
-  value: [],
+  passwords: [],
   error: {}
 };
 
@@ -22,7 +22,7 @@ describe('clipboardReducer', () => {
 
     expect(result).toEqual({
       ...initialState,
-      value: action.data
+      passwords: action.data
     });
   });
 
