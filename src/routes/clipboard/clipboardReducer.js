@@ -1,7 +1,9 @@
-import { LOAD_PASSWORD, ERROR_PASSWORD } from './clipboardActions';
+import { LOAD_PASSWORD, ERROR_PASSWORD, LOAD_FOOD, ERROR_FOOD, LOAD_MAIN, ERROR_MAIN } from './clipboardActions';
 
 const initialState = {
   passwords: [],
+  food: [],
+  main: [],
   error: {}
 };
 
@@ -14,6 +16,30 @@ const clipboardReducer = (state = initialState, action) => {
       };
     },
     [ERROR_PASSWORD]: () => {
+      return {
+        ...state,
+        error: action.error
+      };
+    },
+    [LOAD_FOOD]: () => {
+      return {
+        ...state,
+        food: action.data
+      };
+    },
+    [ERROR_FOOD]: () => {
+      return {
+        ...state,
+        error: action.error
+      };
+    },
+    [LOAD_MAIN]: () => {
+      return {
+        ...state,
+        main: action.data
+      };
+    },
+    [ERROR_MAIN]: () => {
       return {
         ...state,
         error: action.error

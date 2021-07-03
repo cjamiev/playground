@@ -21,13 +21,9 @@ const TABS = [
 const Experiment = () => {
   const [error, setError] = useState('');
 
-  const handleError = (message) => {
-    setError(message);
-  };
-
   return (
     <Page title={'Experiment'} error={error}>
-      <Tabs data={TABS} handleError={handleError} />
+      <Tabs data={TABS} />
     </Page>
   );
 };

@@ -1,4 +1,4 @@
-@media only screen and (min-width: 2000px) {
+@media only screen and (min-width: 166em) {
   .clipboard__container {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -7,21 +7,21 @@
   } 
 }
 
-@media only screen and (min-width: 1500px) and (max-width: 2000px) {
+@media only screen and (min-width: 125em) and (max-width: 166em) {
   .clipboard__container {
     display: grid;
     grid-template-columns: auto auto auto;
   }
 }
 
-@media only screen and (min-width: 1000px) and (max-width: 1500px) {
+@media only screen and (min-width: 83em) and (max-width: 125em) {
   .clipboard__container {
     display: grid;
     grid-template-columns: auto auto;
   }
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 83em) {
   .clipboard__container {
     display: flex;
     flex-direction: column;

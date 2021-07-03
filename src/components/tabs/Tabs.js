@@ -3,7 +3,7 @@ import './tabs.css';
 
 const ZERO = 0;
 
-const Tabs = React.memo(({ data = [], handleError }) => {
+const Tabs = React.memo(({ data = [] }) => {
   const [tabIndex, setTabIndex] = useState(ZERO);
   const TestComponent = data[tabIndex].component;
 
@@ -22,7 +22,7 @@ const Tabs = React.memo(({ data = [], handleError }) => {
       <ul className="tabs">
         {renderTabs}
       </ul>
-      {<TestComponent handleError={handleError} />}
+      {<TestComponent />}
     </>
   );
 });
