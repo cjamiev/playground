@@ -5,19 +5,11 @@
 
 .pageheader {
   position: relative;
+  height: 7em;
 }
 
-.pageheader__error {
-  position: absolute;
-  left: calc(50% - 25em);
-  line-height: 3em;
-  text-align: center;
-  font-size: 1.2em;
-  color: #721c24;
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
-  height: 3em;
-  width: 50em;
+.pageheader__title {
+ margin-top: 0.2em;
 }
 
 .pagefooter {
