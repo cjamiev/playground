@@ -1,3 +1,4 @@
+const { loadFile, writeToFile } = require('../server/file');
 const { unitTest } = require('./unitTest');
 const { comparePerformanceTests, performanceTest } = require('./performanceTest');
 
