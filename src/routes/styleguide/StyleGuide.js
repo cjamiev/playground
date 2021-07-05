@@ -3,15 +3,6 @@ import Page from 'components/layout';
 import Dropdown from 'components/Dropdown';
 import List from 'components/list';
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-redux'),
-    useDispatch: jest.fn(() => mockDispatch)
-  };
-});
-
 const testData = [
   [
     {
