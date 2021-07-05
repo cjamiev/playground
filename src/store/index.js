@@ -7,6 +7,7 @@ import {
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
+import listReducer from 'components/list/listReducer';
 import clipboardReducer from 'routes/clipboard/clipboardReducer';
 import globalModalReducer from 'components/modal/globalModalReducer';
 import testApiReducer from 'routes/experiment/testapi/testApiReducer';
@@ -24,6 +25,7 @@ const appliedMiddlewares = applyMiddleware(...middlewares);
 
 const rootReducer = combineReducers({
   clipboard: clipboardReducer,
+  list: listReducer,
   globalModal: globalModalReducer,
   experiment: testReducer,
   testApi: testApiReducer

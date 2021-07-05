@@ -1,5 +1,7 @@
 import React from 'react';
 import { formattedTimerClock } from 'clock';
+import { useDispatch } from 'react-redux';
+import { executeCommand } from './listActions';
 import useTimer from 'hooks/useTimer';
 import './list.css';
 
@@ -43,12 +45,16 @@ const DisplayTimer = ({ label, value }) => {
 };
 
 const DisplayContent = ({ type, label, value }) => {
+  const dispatch = useDispatch();
+
   if(type === TYPE_TEXT) {
     return (<span className="list__item">{value}</span>);
   } else if (type === TYPE_LINK) {
     return (<a className="link list__item" href={value} target="_blank">{label}</a>);
   } else if (type === TYPE_COPY) {
-    return (<button className="btn btn--primary list__item" onClick={() => {copyToClipboard(value);}}>{label}</button>);
+    return (<button className="btn btn--primary list__item" onClick={() => { copyToClipboard(value); }}>{label}</button>);
+  } else if (type === TYPE_COMMAND) {
+    return (<button className="btn btn--secondary list__item" onClick={() => { dispatch(executeCommand(value.mode, value.name, value.argsId)); }}>{label}</button>);
   } else if (type === TYPE_TIMER) {
     return <DisplayTimer label={label} value={value} />;
   }

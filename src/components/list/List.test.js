@@ -1,7 +1,17 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { testRenderComponent } from 'testHelper';
+import { executeCommand } from './listActions';
 import { incrementDate } from 'clock';
 import List from './List';
+
+const mockDispatch = jest.fn();
+jest.mock('react-redux', () => {
+  return {
+    __esModule: true,
+    ...jest.requireActual('react-redux'),
+    useDispatch: jest.fn(() => mockDispatch)
+  };
+});
 
 const ZERO = 0;
 const today = new Date();
@@ -18,6 +28,11 @@ const copyData = {
   type: 'copy',
   label: 'username',
   value: 'cjamiev1836'
+};
+const commandData = {
+  type: 'command',
+  label: 'test-command',
+  value: { mode: 'test-mode', name: 'test-filename', argsId: 'test-argsId'}
 };
 const timerOneHourData = {
   type: 'timer',
@@ -48,6 +63,9 @@ const defaultProps = {
     copyData
   ],
   [
+    commandData
+  ],
+  [
     timerOneHourData,
     timerTwoDaysData,
     timerTwoWeeksData
@@ -63,10 +81,15 @@ describe('List', () => {
     const copyBtn = screen.getByText(copyData.label);
     fireEvent.click(copyBtn);
 
+    const commandBtn = screen.getByText(commandData.label);
+    fireEvent.click(commandBtn);
+
     expect(document.execCommand).toHaveBeenCalledWith('copy');
+    expect(mockDispatch).toHaveBeenCalled();
     expect(screen.getByText(linkData.label)).toBeInTheDocument();
     expect(screen.getByText(textData.value)).toBeInTheDocument();
     expect(screen.getByText(copyData.label)).toBeInTheDocument();
+    expect(screen.getByText(commandData.label)).toBeInTheDocument();
     expect(screen.getByText(timerOneHourData.label)).toBeInTheDocument();
     expect(screen.getByText(timerTwoDaysData.label)).toBeInTheDocument();
     expect(screen.getByText(timerTwoWeeksData.label)).toBeInTheDocument();
