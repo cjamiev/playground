@@ -4,13 +4,30 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { rootReducer } from '../src/store';
+import { listInitialState } from '../src/components/list/listReducer';
+import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer';
+import { alertInitialState } from '../src/components/alert/alertReducer';
+import { globalModalInitialState } from '../src/components/modal/globalModalReducer';
+import { testApiInitialState } from '../src/routes/experiment/testApi';
+import { testReduxInitialState } from '../src/routes/experiment/testRedux';
+
+const defaultStore = {
+  clipboard: clipboardInitialState,
+  list: listInitialState,
+  alert: alertInitialState,
+  globalModal: globalModalInitialState,
+  experiment: {
+    testApi: testApiInitialState,
+    testRedux: testReduxInitialState
+  }
+};
 
 const testRenderComponent = (Component, props = {}) => {
   return render(<Component {...props} />);
 };
 
-const testRenderContainer = (Component, props = {}, storeState) => {
-  const store = createStore(rootReducer, storeState);
+const testRenderContainer = (Component, props = {}, storeState = {}) => {
+  const store = createStore(rootReducer, { ...defaultStore, ...storeState });
 
   return render(
     <Provider store={store}>

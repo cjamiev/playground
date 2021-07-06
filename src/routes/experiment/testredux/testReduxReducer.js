@@ -1,9 +1,9 @@
 import { ADD_TEST, REMOVE_TEST } from './actions';
 
 const ONE = 1;
-const initialState = [ONE];
+export const testReduxInitialState = [ONE];
 
-const testReducer = (state = initialState, action) => {
+const testReduxReducer = (state = testReduxInitialState, action) => {
   const testCases = {
     [ADD_TEST]: () => {
       return [...state, action.data];
@@ -16,4 +16,4 @@ const testReducer = (state = initialState, action) => {
   return testCases.hasOwnProperty(action.type) ? testCases[action.type]() : state;
 };
 
-export default testReducer;
+export default testReduxReducer;

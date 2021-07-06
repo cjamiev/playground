@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { closeGlobalModal, hideLoadingModal } from 'components/modal/globalModalActions';
+import { dismissAlert } from 'components/alert/alertActions';
 import { ROUTES } from 'constants/routes';
 import { getFormattedClock, getFormattedDate } from 'clock';
 import './navigation.css';
@@ -23,6 +24,7 @@ const Navigation = React.memo(() => {
         setCurrentUrl(item.url);
         dispatch(closeGlobalModal());
         dispatch(hideLoadingModal());
+        dispatch(dismissAlert());
       }
     };
 

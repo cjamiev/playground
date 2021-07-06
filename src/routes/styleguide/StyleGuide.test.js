@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { testRenderContainer } from 'testHelper';
 import StyleGuide from './StyleGuide';
 
 const mockDispatch = jest.fn();
@@ -15,7 +15,7 @@ const defaultProps = {};
 
 describe('StyleGuide', () => {
   it('checks page renders', () => {
-    testRenderComponent(StyleGuide, defaultProps);
+    testRenderContainer(StyleGuide);
 
     expect(screen.getByText('CSS Style Guide')).toBeInTheDocument();
   });

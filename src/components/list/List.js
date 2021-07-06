@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { formattedTimerClock } from 'clock';
 import { useDispatch } from 'react-redux';
 import { executeCommand } from './listActions';
@@ -44,8 +44,23 @@ const DisplayTimer = ({ label, value }) => {
   );
 };
 
-const DisplayContent = ({ type, label, value }) => {
+const DisplayCommand = ({ label, mode, name, showArgs }) => {
   const dispatch = useDispatch();
+  const [arg, setArg] = useState('');
+
+  const handleChange = (event) => {
+    setArg(event.target.value);
+  };
+
+  return (
+    <div className="list__item">
+      <button className="btn btn--secondary list__item" onClick={() => { dispatch(executeCommand(mode, name, arg)); }}>{label}</button>
+      {showArgs &&<input type="text" onChange={handleChange} />}
+    </div>
+  );
+};
+
+const DisplayContent = ({ type, label, value }) => {
 
   if(type === TYPE_TEXT) {
     return (<span className="list__item">{value}</span>);
@@ -54,7 +69,7 @@ const DisplayContent = ({ type, label, value }) => {
   } else if (type === TYPE_COPY) {
     return (<button className="btn btn--primary list__item" onClick={() => { copyToClipboard(value); }}>{label}</button>);
   } else if (type === TYPE_COMMAND) {
-    return (<button className="btn btn--secondary list__item" onClick={() => { dispatch(executeCommand(value.mode, value.name, value.argsId)); }}>{label}</button>);
+    return <DisplayCommand label={label} mode={value.mode} name={value.name} showArgs={value.showArgs} />;
   } else if (type === TYPE_TIMER) {
     return <DisplayTimer label={label} value={value} />;
   }

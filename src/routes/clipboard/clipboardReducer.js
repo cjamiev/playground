@@ -1,13 +1,13 @@
 import { LOAD_PASSWORD, ERROR_PASSWORD, LOAD_FOOD, ERROR_FOOD, LOAD_MAIN, ERROR_MAIN } from './clipboardActions';
 
-const initialState = {
+const clipboardInitialState = {
   passwords: [],
   food: [],
   main: [],
   error: {}
 };
 
-const clipboardReducer = (state = initialState, action) => {
+const clipboardReducer = (state = clipboardInitialState, action) => {
   const clipboardCases = {
     [LOAD_PASSWORD]: () => {
       return {

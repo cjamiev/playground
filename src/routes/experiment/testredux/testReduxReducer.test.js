@@ -1,11 +1,11 @@
 import { ADD_TEST, REMOVE_TEST } from './actions';
-import reducer from './reducer';
+import testRedux from './testReduxReducer';
 
 const initialState = [1,2,2];
 
-describe('reducer', () => {
+describe('testRedux', () => {
   it('default', () => {
-    const result = reducer(undefined, {});
+    const result = testRedux(undefined, {});
 
     expect(result).toEqual([1]);
   });
@@ -15,7 +15,7 @@ describe('reducer', () => {
       type: ADD_TEST,
       data: 3
     };
-    const result = reducer(initialState, action);
+    const result = testRedux(initialState, action);
 
     expect(result).toEqual([
       ...initialState,
@@ -28,7 +28,7 @@ describe('reducer', () => {
       type: REMOVE_TEST,
       data: 2
     };
-    const result = reducer(initialState, action);
+    const result = testRedux(initialState, action);
 
     expect(result).toEqual([1]);
   });

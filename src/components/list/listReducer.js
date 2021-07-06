@@ -3,11 +3,11 @@ import {
   ERROR_COMMAND_RESULT
 } from './listActions';
 
-const initialState = {
+export const listInitialState = {
   commandResponse: ''
 };
 
-const listReducer = (state = initialState, action) => {
+const listReducer = (state = listInitialState, action) => {
   const listCases = {
     [LOAD_COMMAND_RESULT]: () => {
       return {

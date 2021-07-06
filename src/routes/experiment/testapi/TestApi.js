@@ -5,7 +5,7 @@ import { testGet, testPost } from './testApiActions';
 const TestApi = () => {
   const [testData, setTestData] = useState('');
   const dispatch = useDispatch();
-  const testApiData = useSelector(state => state.testApi);
+  const testApiData = useSelector(state => state.experiment.testApi);
 
   useEffect(() => {
     setTestData((testApiData && testApiData?.value?.test) || '');

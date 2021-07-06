@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTest, removeTest } from './actions';
-import { openGlobalModal } from 'components/modal/globalModalActions';
+import { createAlert } from 'components/alert/alertActions';
 
 const divStyle = {
   margin: 'auto',
@@ -28,7 +28,7 @@ const parseInput = (data) => {
 const TestRedux = (props) => {
   const [input, setInput] = useState(ZERO);
   const dispatch = useDispatch();
-  const experimentData = useSelector(state => state.experiment);
+  const experimentData = useSelector(state => state.experiment.testRedux);
 
   const handleInputChange = (event) => {
     setInput(event.target.value);
@@ -40,7 +40,7 @@ const TestRedux = (props) => {
     if (result.isValid) {
       dispatch(addTest(result.data));
     } else {
-      dispatch(openGlobalModal({ title: 'Error Message', message: result.data }));
+      dispatch(createAlert({ content: result.data, status: 'error' }));
     }
   };
 

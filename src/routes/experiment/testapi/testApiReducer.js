@@ -1,8 +1,8 @@
 import { TEST_API_GET, TEST_API_POST } from './testApiActions';
 
-const initialState = {};
+export const testApiInitialState = {};
 
-const testApiReducer = (state = initialState, action) => {
+const testApiReducer = (state = testApiInitialState, action) => {
   const testApiCases = {
     [TEST_API_GET]: () => {
       return {

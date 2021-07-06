@@ -9,9 +9,10 @@ import thunk from 'redux-thunk';
 
 import listReducer from 'components/list/listReducer';
 import clipboardReducer from 'routes/clipboard/clipboardReducer';
+import alertReducer from 'components/alert/alertReducer';
 import globalModalReducer from 'components/modal/globalModalReducer';
 import testApiReducer from 'routes/experiment/testapi/testApiReducer';
-import testReducer from 'routes/experiment/testredux/reducer';
+import testReduxReducer from 'routes/experiment/testredux/testReduxReducer';
 
 const customMiddleware = ({ dispatch, getState }) => (next) => (action) => {
   return next(action);
@@ -26,9 +27,12 @@ const appliedMiddlewares = applyMiddleware(...middlewares);
 const rootReducer = combineReducers({
   clipboard: clipboardReducer,
   list: listReducer,
+  alert: alertReducer,
   globalModal: globalModalReducer,
-  experiment: testReducer,
-  testApi: testApiReducer
+  experiment: combineReducers({
+    testRedux: testReduxReducer,
+    testApi: testApiReducer
+  })
 });
 
 const configureStore = (initialState) => {

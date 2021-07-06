@@ -6,12 +6,12 @@ import {
 } from './globalModalActions';
 import { isNumber } from 'type-check';
 
-const initialState = {
+export const globalModalInitialState = {
   modalQueue: [],
   isLoading: false
 };
 
-const modalReducer = (state = initialState, action) => {
+const modalReducer = (state = globalModalInitialState, action) => {
   const modalCases = {
     [OPEN_GLOBAL_MODAL]: () => {
       return {

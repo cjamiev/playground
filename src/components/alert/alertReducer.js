@@ -4,11 +4,11 @@ import {
 } from './alertActions';
 import { isNumber } from 'type-check';
 
-const initialState = {
+export const alertInitialState = {
   queue: []
 };
 
-const alertReducer = (state = initialState, action) => {
+const alertReducer = (state = alertInitialState, action) => {
   const alertCases = {
     [CREATE_ALERT]: () => {
       return {

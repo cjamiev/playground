@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { dismissAlert } from 'components/alert/alertActions';
 
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
@@ -19,11 +21,11 @@ const TABS = [
 ];
 
 const Experiment = () => {
-  const [error, setError] = useState('');
+  const dispatch = useDispatch();
 
   return (
-    <Page title={'Experiment'} error={error}>
-      <Tabs data={TABS} />
+    <Page title={'Experiment'}>
+      <Tabs data={TABS} onTabSwitch={() => { dispatch(dismissAlert());} }/>
     </Page>
   );
 };
