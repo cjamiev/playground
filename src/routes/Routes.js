@@ -5,6 +5,7 @@ import { ROUTES } from 'constants/routes';
 import Home from './home';
 import Clipboard from './clipboard';
 import Experiment from './experiment';
+import MockServer from './mockserver';
 import StyleGuide from './styleguide';
 
 const NotFoundPage = React.memo(() => {
@@ -25,6 +26,7 @@ const Routes = React.memo(() => {
       <Route path={ROUTES.HOME.url} component={Home} />
       <Route path={ROUTES.CLIPBOARD.url} component={Clipboard} />
       <Route path={ROUTES.EXPERIMENT.url} component={Experiment} />
+      <Route path={ROUTES.MOCKSERVER.url} component={MockServer} />
       <Route path={ROUTES.STYLE_GUIDE.url} component={StyleGuide} />
       <Route component={NotFoundPage} />
     </Switch>
