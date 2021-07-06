@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './dropdown.css';
 
-const Dropdown = React.memo(({ label, data = [] }) => {
+const Dropdown = React.memo(({ label, data }) => {
   const [show, setShow] = useState(false);
 
   const renderContent = data.map(({value}) => {

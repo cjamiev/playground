@@ -13,7 +13,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  top: 70%;
   margin: 0 auto;
   height: 30em;
   width: 60em;
@@ -56,6 +55,7 @@
 .modal__body {
   flex: 6;
   padding: 1em;
+  overflow-y: auto;
 }
 
 .modal__footer {

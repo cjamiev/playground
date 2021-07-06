@@ -6,7 +6,7 @@ const ZERO = 0;
 // eslint-disable-next-line no-empty-function
 const noop = () => {};
 
-const Tabs = React.memo(({ data = [], onTabSwitch = noop }) => {
+const Tabs = React.memo(({ data, onTabSwitch = noop }) => {
   const [tabIndex, setTabIndex] = useState(ZERO);
   const TestComponent = data[tabIndex].component;
 

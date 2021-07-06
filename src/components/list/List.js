@@ -55,7 +55,7 @@ const DisplayCommand = ({ label, mode, name, showArgs }) => {
   return (
     <div className="list__item">
       <button className="btn btn--secondary list__item" onClick={() => { dispatch(executeCommand(mode, name, arg)); }}>{label}</button>
-      {showArgs &&<input type="text" onChange={handleChange} />}
+      {showArgs &&<input type="text" aria-label={`args for ${label}`} onChange={handleChange} />}
     </div>
   );
 };
@@ -77,7 +77,7 @@ const DisplayContent = ({ type, label, value }) => {
   return null;
 };
 
-const List = React.memo(({ header, data = [] }) => {
+const List = React.memo(({ header, data }) => {
   const renderContent = data.map((entry, index) => {
     const renderEntry = entry.map(({ type, label, value }) => {
       return <DisplayContent key={`${type}-${label}-${value}`} type={type} label={label} value={value} />;

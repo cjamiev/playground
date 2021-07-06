@@ -6,18 +6,17 @@ import { openGlobalModal } from 'components/modal/globalModalActions';
 import Page from 'components/layout';
 import List from 'components/list';
 import Tabs from 'components/tabs';
+import ComponentWrapper from 'components/ComponentWrapper';
 import './clipboard.css';
 
-const ComponentWrapper = (props) => {
-  return () => {
-    return (
-      <div className="clipboard__container">
-        {props.clip.map(entry => {
-          return <List key={entry.listTitle} header={entry.listTitle} data={entry.listData} />;
-        })}
-      </div>
-    );
-  };
+const ClipboardTab = (props) => {
+  return (
+    <div className="clipboard__container">
+      {props.clip.map(entry => {
+        return <List key={entry.listTitle} header={entry.listTitle} data={entry.listData} />;
+      })}
+    </div>
+  );
 };
 
 const Clipboard = () => {
@@ -25,9 +24,9 @@ const Clipboard = () => {
   const { passwords, food, main, error } = useSelector(state => state.clipboard);
   const result = useSelector(state => state.list.commandResponse);
   const TABS = [
-    { title: 'Passwords', component: ComponentWrapper({ clip:passwords })},
-    { title: 'Food', component: ComponentWrapper({ clip:food })},
-    { title: 'Main', component: ComponentWrapper({ clip:main })}
+    { title: 'Passwords', component: ComponentWrapper(ClipboardTab,{ clip:passwords })},
+    { title: 'Food', component: ComponentWrapper(ClipboardTab,{ clip:food })},
+    { title: 'Main', component: ComponentWrapper(ClipboardTab,{ clip:main })}
   ];
 
   useEffect(() => {

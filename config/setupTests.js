@@ -9,3 +9,7 @@ const localStorageMock = {
 };
 
 global.localStorage = localStorageMock;
+
+afterEach(() => {
+  jest.clearAllMocks();
+});

@@ -32,7 +32,7 @@ const copyData = {
 const commandData = {
   type: 'command',
   label: 'test-command',
-  value: { mode: 'test-mode', name: 'test-filename', argsId: 'test-argsId'}
+  value: { mode: 'test-mode', name: 'test-filename', showArgs: true}
 };
 const timerOneHourData = {
   type: 'timer',
@@ -82,7 +82,9 @@ describe('List', () => {
     fireEvent.click(copyBtn);
 
     const commandBtn = screen.getByText(commandData.label);
+    const commandInput = screen.getByLabelText(`args for ${commandData.label}`);
     fireEvent.click(commandBtn);
+    fireEvent.change(commandInput, { target: { value: '12345'}});
 
     expect(document.execCommand).toHaveBeenCalledWith('copy');
     expect(mockDispatch).toHaveBeenCalled();

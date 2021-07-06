@@ -50,14 +50,33 @@ const defaultStoreProps = {
   }
 };
 
+const defaultStorePropsTwo = {
+  ...defaultStoreProps,
+  list: {
+    commandResponse: 'test-command-response'
+  },
+  clipboard: {
+    ...defaultStoreProps.clipboard,
+    error: {
+      message: 'test-message'
+    }
+  }
+};
+
 describe('Clipboard', () => {
   it('checks page renders', () => {
     testRenderContainer(Clipboard, defaultProps, defaultStoreProps);
 
     expect(screen.getByText('Clipboard')).toBeInTheDocument();
-    expect(mockDispatch).toHaveBeenCalled();
+    expect(mockDispatch).toHaveBeenCalledTimes(3);
     expect(screen.getByText('label1')).toBeInTheDocument();
     expect(screen.getByText('username')).toBeInTheDocument();
     expect(screen.getByText('password')).toBeInTheDocument();
+  });
+
+  it('check error dispatch and commandResponse dispatch', () => {
+    testRenderContainer(Clipboard, defaultProps, defaultStorePropsTwo);
+
+    expect(mockDispatch).toHaveBeenCalledTimes(5);
   });
 });
