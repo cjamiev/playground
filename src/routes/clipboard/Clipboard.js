@@ -48,7 +48,7 @@ const Clipboard = () => {
   });
 
   return (
-    <Page title={'Clipboard'}>
+    <Page>
       <Tabs data={TABS} />
     </Page>
   );

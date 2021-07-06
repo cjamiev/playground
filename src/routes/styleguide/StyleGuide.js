@@ -34,7 +34,7 @@ const testData = [
 const StyleGuide = () => {
 
   return (
-    <Page title={'CSS Style Guide'}>
+    <Page>
       <div>
         <h2> Buttons </h2>
         <button className="btn btn--primary">Primary Button</button>

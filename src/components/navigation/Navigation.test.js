@@ -1,9 +1,8 @@
 import { act } from 'react-dom/test-utils';
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper';
+import { testRenderContainer, mockDate } from 'testHelper';
 import Navigation from './Navigation';
 import { TIME } from 'constants/time';
-import { mockDate } from 'testHelper';
 
 const mockHistory = {
   location: {

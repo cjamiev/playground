@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper';
 import { loadPassword } from './clipboardActions';
 import Clipboard from './Clipboard';
@@ -9,6 +9,20 @@ jest.mock('react-redux', () => {
     __esModule: true,
     ...jest.requireActual('react-redux'),
     useDispatch: jest.fn(() => mockDispatch)
+  };
+});
+
+const mockHistory = {
+  location: {
+    pathname: '/clipboard'
+  },
+  push: jest.fn()
+};
+jest.mock('react-router-dom', () => {
+  return {
+    __esModule: true,
+    ...jest.requireActual('react-router-dom'),
+    useHistory: jest.fn(() => mockHistory)
   };
 });
 

@@ -24,7 +24,7 @@ const Experiment = () => {
   const dispatch = useDispatch();
 
   return (
-    <Page title={'Experiment'}>
+    <Page>
       <Tabs data={TABS} onTabSwitch={() => { dispatch(dismissAlert());} }/>
     </Page>
   );

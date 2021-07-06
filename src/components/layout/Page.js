@@ -5,10 +5,10 @@ import PageContent from './PageContent';
 import PageFooter from './PageFooter';
 import './page.css';
 
-const Page = ({ title, children, footerComponent }) => {
+const Page = ({ children, footerComponent }) => {
   return (
     <div className="page">
-      <PageHeader title={title} />
+      <PageHeader />
       <PageContent>{children}</PageContent>
       {footerComponent && <PageFooter> {footerComponent} </PageFooter>}
     </div>
