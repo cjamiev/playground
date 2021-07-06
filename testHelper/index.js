@@ -4,5 +4,6 @@ export {
 } from './componentSetup';
 
 export {
-  testFunctionHelper
+  testFunctionHelper,
+  mockDate
 } from './helper';

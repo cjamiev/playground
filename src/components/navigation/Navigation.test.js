@@ -1,17 +1,9 @@
+import { act } from 'react-dom/test-utils';
 import { fireEvent, screen } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper';
 import Navigation from './Navigation';
-
-const defaultProps = {};
-const defaultStoreProps = {
-  globalModal: {
-    modalQueue: [{
-      title: 'test-title',
-      message: 'test-message',
-      action: jest.fn()
-    }]
-  }
-};
+import { TIME } from 'constants/time';
+import { mockDate } from 'testHelper';
 
 const mockHistory = {
   location: {
@@ -37,13 +29,26 @@ jest.mock('react-redux', () => {
 });
 
 describe('Navigation', () => {
-  it('checks dropdown behavior', () => {
-    testRenderContainer(Navigation, defaultProps, defaultStoreProps);
+  it('handles click on navigation link', () => {
+    testRenderContainer(Navigation);
 
     const navLink = screen.getByText('Experiment');
     fireEvent.click(navLink);
 
     expect(mockHistory.push).toHaveBeenCalledWith('/experiment');
     expect(mockDispatch).toHaveBeenCalled();
+  });
+
+  it('check content', () => {
+    mockDate();
+    jest.useFakeTimers();
+    act(() => {
+      testRenderContainer(Navigation);
+      jest.advanceTimersByTime(TIME.A_SECOND);
+    });
+
+    expect(screen.getByText('5:00:00 AM')).toBeInTheDocument();
+    expect(screen.getByText('Fri, Jan 1')).toBeInTheDocument();
+    expect(screen.getByText('Week 1')).toBeInTheDocument();
   });
 });
