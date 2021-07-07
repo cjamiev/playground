@@ -1,29 +1,3 @@
-/*
-Organize css  
-Font & Text:font-family, font-size, font-weight, line-height, text-align, word-spacing
-Color & Background: background-color, background-image, background-position, color
-Box: height, width, border
-
-Show focus on all elements 
-*:focus {
-  box-shadow: 0 0 5px rgba(255, 0, 0, 1);
-  padding: 3px 0px 3px 3px;
-  margin: 5px 1px 3px 0px;
-  border: 1px solid rgba(144, 0, 0, 1);
-}
-
-Blur all elements 
-* {
-  filter: blur(4px);
-}
-
-Grid template
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-}
-*/
 
 input[type="text"],
 input[type="password"] {

@@ -19,22 +19,25 @@
   pointer-events: auto;
   background-color: #fff;
   border: 1px solid #000;
-  border-radius: .3rem;
+  border-radius: 2.1em;
   opacity: 1;
 }
 
 .modal__close {
   position: absolute;
-  margin-top: 0.2em;
-  left: 96%;
+  margin-top: 0.3em;
+  left: 95%;
   width: 1em;
   font-size: 2em;
+  border-radius: 3em;
   border: none;
-  background-color: #fff;
+  background-color: #24292e;
+  color: #fff;
+  cursor: pointer;
 }
 
 .modal__close:hover {
-  text-shadow: 1px 1px #000;
+  text-shadow: 1px 1px #fff;
 }
 
 .modal__close:active {
@@ -50,6 +53,13 @@
   flex: 1;
   padding: 1em;
   border-bottom: 1px solid #000;
+  background-color: #24292e;
+  color: #fff;
+  border-radius: 2em 2em 0 0;
+}
+
+.modal__title {
+  font-size: 36px;
 }
 
 .modal__body {
@@ -63,6 +73,8 @@
   border-top: 1px solid #000;
   height: 4em;
   position: relative;
+  background-color: #24292e;
+  border-radius: 0 0 2em 2em;
 }
 
 .modal__primary-btn {
