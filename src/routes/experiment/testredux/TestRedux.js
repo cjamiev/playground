@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTest, removeTest } from './actions';
-import { createAlert } from 'components/alert/alertActions';
+import { createAlert, dismissAlert } from 'components/alert/alertActions';
 
 const divStyle = {
   margin: 'auto',
   width: '75%',
-  border: '1px solid black',
   padding: '10px'
 };
 
@@ -39,6 +38,7 @@ const TestRedux = (props) => {
 
     if (result.isValid) {
       dispatch(addTest(result.data));
+      dispatch(dismissAlert());
     } else {
       dispatch(createAlert({ content: result.data, status: 'error' }));
     }
@@ -54,7 +54,7 @@ const TestRedux = (props) => {
 
   return (
     <div style={divStyle}>
-      <p>State:{experimentData}</p>
+      <p>State: {experimentData.join(',')}</p>
       <label>Input value</label>
       <input type="text" onChange={handleInputChange} value={input} />
       <button type="button" onClick={handleAddTest}>
