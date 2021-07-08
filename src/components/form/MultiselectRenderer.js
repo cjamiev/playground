@@ -15,15 +15,24 @@ const multiselectStyle = {
 };
 
 const MultiselectRenderer = ({ id, label, values, onChange }) => {
-  const handleSelectedChange = ({ target: { options } }) => {
-    const updatedSelection = [...options].filter((entry) => entry.selected).map((entry) => entry.value);
+  const handleChange = (selectedLabel, currentValues) => {
+    const updatedValues = currentValues.map(item => {
+      if(item.label === selectedLabel) {
+        return {
+          ...item,
+          selected: !item.selected
+        };
+      }
 
-    onChange({ id, selected: updatedSelection });
+      return item;
+    });
+
+    onChange({ id, values: updatedValues });
   };
 
-  const getOptions = values.map((value) => (
-    <option key={value} label={value} value={value}>
-      {value}
+  const getOptions = values.map((item) => (
+    <option key={item.label} value={item.label} onChange={() => { handleChange(item.label, values);}}>
+      {item.label}
     </option>
   ));
 
@@ -36,19 +45,11 @@ const MultiselectRenderer = ({ id, label, values, onChange }) => {
         name="MultiselectRenderer"
         multiple
         aria-label="multi-select"
-        onChange={handleSelectedChange}
       >
         {getOptions}
       </select>
     </div>
   );
-};
-
-MultiselectRenderer.defaultProps = {
-  id: '',
-  label: '',
-  values: [],
-  onChange: (selected) => selected
 };
 
 export default MultiselectRenderer;

@@ -1,31 +1,39 @@
 import React from 'react';
 
 const SelectRenderer = ({ id, label, values, onChange }) => {
-  const handleSelectedChange = ({ target: { value } }) => {
-    onChange({ id, selected: value });
+  const handleChange = (selectedLabel, currentValues) => {
+    const updatedValues = currentValues.map(item => {
+      if(item.label === selectedLabel) {
+        return {
+          ...item,
+          selected: true
+        };
+      }
+
+      return {
+        ...item,
+        selected: false
+      };
+    });
+
+    onChange({ id, values: updatedValues });
   };
 
-  const getOptions = values.map((value) => (
-    <option key={value} value={value}>
-      {value}
+  const getOptions = values.map((item) => (
+    <option key={item.label} value={item.label} onClick={() => { handleChange(item.label, values);}}>
+      {item.label}
     </option>
   ));
+  const selected = values.find(item => item.selected);
 
   return (
     <>
       <label>{label}</label>
-      <select data-testid={'select-' + label} style={selectStyle} name="SelectRenderer" onChange={handleSelectedChange}>
+      <select data-testid={'select-' + label} style={selectStyle} name={label} defaultValue={selected?.label}>
         {getOptions}
       </select>
     </>
   );
-};
-
-SelectRenderer.defaultProps = {
-  id: '',
-  label: '',
-  values: '',
-  onChange: (selected) => selected
 };
 
 const selectStyle = {

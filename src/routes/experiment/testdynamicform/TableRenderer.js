@@ -28,7 +28,7 @@ const renderHeaders = (headers) => headers.map((item) => <th key={item}>{item}</
 
 const renderRows = (values) =>
   values.map((entry) => {
-    const rows = Object.values(entry).map((item, i) => <td key={item.toString() + i}>{item.toString()}</td>);
+    const rows = Object.values(entry).map((item, i) => <td key={JSON.stringify(item) + i}>{JSON.stringify(item)}</td>);
 
     return <tr key={JSON.stringify(entry)}>{rows}</tr>;
   });

@@ -1,0 +1,23 @@
+.checkbox__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkbox__title {
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.checkbox__subcontainer {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.checkbox__box {
+  background-color: aliceblue;
+}
+
+.checkbox__label {
+  margin-left: 5px;
+}

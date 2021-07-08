@@ -8,28 +8,64 @@ const dataList = [
     id: 1,
     type: 'select',
     label: 'Select1',
-    values: ['value1', 'value2'],
+    values: [
+      {
+        label: 'svalue1',
+        selected: false
+      },
+      {
+        label: 'svalue2',
+        selected: true
+      }
+    ],
     orderSeq: 1
   },
   {
     id: 7,
     type: 'multiselect',
     label: 'MSelect1',
-    values: ['mvalue1', 'mvalue2'],
+    values: [
+      {
+        label: 'msvalue1',
+        selected: false
+      },
+      {
+        label: 'msvalue2',
+        selected: true
+      }
+    ],
     orderSeq: 7
   },
   {
     id: 2,
     type: 'checkbox',
     label: 'checkbox1',
-    values: ['ckvalue1', 'ckvalue2'],
+    values: [
+      {
+        label: 'ckvalue1',
+        selected: false
+      },
+      {
+        label: 'ckvalue2',
+        selected: false
+      }
+    ],
     orderSeq: 2
   },
   {
     id: 3,
     type: 'radio',
     label: 'Radio1',
-    values: ['value1', 'value2', 'value3'],
+    values: [
+      {
+        label: 'rvalue1',
+        selected: false
+      },
+      {
+        label: 'rvalue2',
+        selected: true
+      }
+    ],
     required: true,
     orderSeq: 3
   },

@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import FormRenderer from './FormRenderer';
 
 const hasError = (fields) => {
-  return fields.find((item) => item.error || (!item.selected && item.required));
+  return fields.find((entry) => entry.error || (entry.required && !entry.values.find(item => item.selected)));
 };
 
 const handleChange = (currentEntry, setEntry) => {
-  return ({ id, selected, error = false }) => {
+  return ({ id, values, error = false }) => {
     const updatedEntry = currentEntry.map((item) => {
-      return item.id === id ? { ...item, selected, error } : item;
+      return item.id === id ? { ...item, values, error } : item;
     });
 
     setEntry(updatedEntry);
