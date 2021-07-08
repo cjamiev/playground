@@ -1,20 +1,20 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { testRenderComponent } from 'testHelper';
 import RadioRenderer from 'components/form/RadioRenderer';
 
 const defaultProps = {
   id: 1,
   label: 'test-label',
-  values: ['rb1', 'rb2'],
+  values: [{ label: 'rb1', selected: true}, { label: 'rb2', selected: false }],
   onChange: jest.fn()
 };
 
 describe('RadioRenderer', () => {
-  it('checks an item', () => {
-    const { getByLabelText } = testRenderComponent(RadioRenderer, defaultProps);
-    const expectedResult = { id: 1, selected: 'rb1' };
+  it('selects an option', () => {
+    testRenderComponent(RadioRenderer, defaultProps);
+    const expectedResult = { id: 1, values: [{ label: 'rb1', selected: false}, { label: 'rb2', selected: true }] };
 
-    fireEvent.click(getByLabelText('rb1'));
+    fireEvent.click(screen.getByText('rb2'));
 
     expect(defaultProps.onChange).toHaveBeenCalledWith(expectedResult);
   });

@@ -11,9 +11,9 @@
     "jest-reset": "jest --clearCache",
     "e2e": "cypress run",
     "e": "cypress open",
-    "coverage": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json",
-    "test": "jest --env=jsdom --watch",
-    "t": "jest --env=jsdom utils/clock.test.js --watch"
+    "test": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json",
+    "t": "jest --env=jsdom SwapSelect.test.js --watch",
+    "w": "jest --env=jsdom --watchAll=true"
   },
   "keywords": [],
   "author": "CJV",

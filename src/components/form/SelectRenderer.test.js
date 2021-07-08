@@ -1,21 +1,21 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { testRenderComponent } from 'testHelper';
 import SelectRenderer from 'components/form/SelectRenderer';
 
 const defaultProps = {
   id: 1,
   label: 'test-label',
-  values: ['dd1', 'dd2'],
+  values: [{ label: 's1', selected: true}, { label: 's2', selected: false }],
   onChange: jest.fn()
 };
 
 describe('SelectRenderer', () => {
   it('checks an item', () => {
-    const { getByTestId } = testRenderComponent(SelectRenderer, defaultProps);
-    const expectedResult = { id: 1, selected: 'dd1' };
+    testRenderComponent(SelectRenderer, defaultProps);
+    const expectedResult = { id: 1, values: [{ label: 's1', selected: false}, { label: 's2', selected: true }] };
 
-    fireEvent.change(getByTestId('select-test-label'), {
-      target: { value: 'dd1' }
+    fireEvent.change(screen.getByTestId('select-test-label'), {
+      target: { value: 's2' }
     });
 
     expect(defaultProps.onChange).toHaveBeenCalledWith(expectedResult);

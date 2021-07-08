@@ -1,20 +1,20 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { testRenderComponent } from 'testHelper';
 import MultiselectRenderer from 'components/form/MultiselectRenderer';
 
 const defaultProps = {
   id: 1,
   label: 'test-label',
-  values: ['ms1', 'ms2'],
+  values: [{ label: 'ms1', selected: true}, { label: 'ms2', selected: false }],
   onChange: jest.fn()
 };
 
 describe('MultiselectRenderer', () => {
   it('checks an item', () => {
-    const { getByTestId } = testRenderComponent(MultiselectRenderer, defaultProps);
-    const expectedResult = { id: 1, selected: ['ms2'] };
+    testRenderComponent(MultiselectRenderer, defaultProps);
+    const expectedResult = { id: 1, values: [{ label: 'ms1', selected: false}, { label: 'ms2', selected: true }] };
 
-    fireEvent.change(getByTestId('multiselect-test-label'), {
+    fireEvent.change(screen.getByTestId('multiselect-test-label'), {
       target: { value: ['ms2'] }
     });
 
