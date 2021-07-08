@@ -15,26 +15,32 @@ const multiselectStyle = {
 };
 
 const MultiselectRenderer = ({ id, label, values, onChange }) => {
-  const handleChange = (selectedLabel, currentValues) => {
-    const updatedValues = currentValues.map(item => {
-      if(item.label === selectedLabel) {
+  const handleChange = (e) => {
+    const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+    const updatedValues = values.map(item => {
+      if(selectedOptions.find(option => option === item.label)) {
         return {
           ...item,
-          selected: !item.selected
+          selected: true
         };
       }
 
-      return item;
+      return {
+        ...item,
+        selected: false
+      };
     });
 
     onChange({ id, values: updatedValues });
   };
 
   const getOptions = values.map((item) => (
-    <option key={item.label} value={item.label} onChange={() => { handleChange(item.label, values);}}>
+    <option key={item.label} value={item.label}>
       {item.label}
     </option>
   ));
+
+  const selected = values.filter(item => item.selected).map(item => item.label);
 
   return (
     <div style={divStyle}>
@@ -45,6 +51,8 @@ const MultiselectRenderer = ({ id, label, values, onChange }) => {
         name="MultiselectRenderer"
         multiple
         aria-label="multi-select"
+        defaultValue={selected}
+        onChange={handleChange}
       >
         {getOptions}
       </select>
