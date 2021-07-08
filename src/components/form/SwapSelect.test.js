@@ -5,7 +5,7 @@ import SwapSelect from 'components/form/SwapSelect';
 const defaultProps = {
   listOneLabel: 'test-label-one',
   listTwoLabel: 'test-label-two',
-  listOne: ['1', '2'],
+  listOne: [{ label: '1', selected: false}, { label: '2', selected: false }],
   listTwo: [],
   onChange: jest.fn()
 };
@@ -19,14 +19,14 @@ describe('SwapSelect', () => {
     });
     fireEvent.click(getByText('>>'));
 
-    expect(defaultProps.onChange).toHaveBeenCalledWith(['2'], ['1']);
+    expect(defaultProps.onChange).toHaveBeenCalledWith([{ label: '2', selected: false }], [{ label: '1', selected: true }]);
   });
 
   it('swapLeft', () => {
     const updatedProps = {
       ...defaultProps,
       listOne: [],
-      listTwo: ['1', '2']
+      listTwo: [{ label: '1', selected: false}, { label: '2', selected: false }]
     };
     const { getByTestId, getByText } = testRenderComponent(SwapSelect, updatedProps);
 
@@ -35,6 +35,6 @@ describe('SwapSelect', () => {
     });
     fireEvent.click(getByText('<<'));
 
-    expect(updatedProps.onChange).toHaveBeenCalledWith(['2'], ['1']);
+    expect(defaultProps.onChange).toHaveBeenCalledWith([{ label: '2', selected: true }], [{ label: '1', selected: false }]);
   });
 });

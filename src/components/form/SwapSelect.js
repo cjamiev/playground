@@ -7,16 +7,16 @@ const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) 
   const [listOneSelected, setListOne] = useState([]);
   const [listTwoSelected, setListTwo] = useState([]);
 
-  const onListOneChange = ({ selected }) => {
-    setListOne(selected);
+  const onListOneChange = ({values}) => {
+    setListOne(values);
   };
-  const onListTwoChange = ({ selected }) => {
-    setListTwo(selected);
+  const onListTwoChange = ({values}) => {
+    setListTwo(values);
   };
 
   const onSwapRight = () => {
-    const updatedFilteredList = listOne.filter((item) => !listOneSelected.includes(item));
-    const updatedAppendedList = listTwo.concat(listOneSelected);
+    const updatedFilteredList = listOneSelected.filter(item => !item.selected);
+    const updatedAppendedList = listTwo.concat(listOneSelected.filter(item => item.selected));
 
     setListOne([]);
     setListTwo([]);
@@ -24,8 +24,8 @@ const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) 
   };
 
   const onSwapLeft = () => {
-    const updatedFilteredList = listTwo.filter((item) => !listTwoSelected.includes(item));
-    const updatedAppendedList = listOne.concat(listTwoSelected);
+    const updatedFilteredList = listTwoSelected.filter(item => !item.selected);
+    const updatedAppendedList = listOne.concat(listTwoSelected.filter(item => item.selected));
 
     setListOne([]);
     setListTwo([]);
