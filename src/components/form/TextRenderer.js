@@ -12,7 +12,7 @@ const isValidText = (value, regex) => {
   return match[ZERO] === value;
 };
 
-const TextRenderer = ({ id, label, regex, error, errorMessage, onChange }) => {
+const TextRenderer = ({ id, label, selected, regex, error, errorMessage, onChange }) => {
   const handleSelectedChange = ({ target: { value } }) => {
     const hasError = !isValidText(value, regex);
 
@@ -22,7 +22,7 @@ const TextRenderer = ({ id, label, regex, error, errorMessage, onChange }) => {
   return (
     <>
       <label>{label}</label>
-      <input className='textrenderer' type="text" name={label} aria-label="text-field" onChange={handleSelectedChange} />
+      <input className='textrenderer' type="text" name={label} aria-label="text-field" placeholder={selected} onChange={handleSelectedChange} />
       {error && <span>{errorMessage}</span>}
     </>
   );

@@ -8,8 +8,9 @@ import { listInitialState } from '../src/components/list/listReducer';
 import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer';
 import { alertInitialState } from '../src/components/alert/alertReducer';
 import { globalModalInitialState } from '../src/components/modal/globalModalReducer';
-import { testApiInitialState } from '../src/routes/experiment/testApi';
-import { testReduxInitialState } from '../src/routes/experiment/testRedux';
+import { testApiInitialState } from '../src/routes/experiment/testApi/testApiReducer';
+import { testReduxInitialState } from '../src/routes/experiment/testRedux/testReduxReducer';
+import { mockserverInitialState } from '../src/routes/mockserver/mockserverReducer';
 
 const defaultStore = {
   clipboard: clipboardInitialState,
@@ -19,7 +20,8 @@ const defaultStore = {
   experiment: {
     testApi: testApiInitialState,
     testRedux: testReduxInitialState
-  }
+  },
+  mockserver: mockserverInitialState
 };
 
 const testRenderComponent = (Component, props = {}) => {

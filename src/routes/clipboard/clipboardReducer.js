@@ -1,6 +1,6 @@
 import { LOAD_PASSWORD, ERROR_PASSWORD, LOAD_FOOD, ERROR_FOOD, LOAD_MAIN, ERROR_MAIN } from './clipboardActions';
 
-const clipboardInitialState = {
+export const clipboardInitialState = {
   passwords: [],
   food: [],
   main: [],

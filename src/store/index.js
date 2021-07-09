@@ -13,6 +13,7 @@ import alertReducer from 'components/alert/alertReducer';
 import globalModalReducer from 'components/modal/globalModalReducer';
 import testApiReducer from 'routes/experiment/testapi/testApiReducer';
 import testReduxReducer from 'routes/experiment/testredux/testReduxReducer';
+import mockserverReducer from 'routes/mockserver/mockserverReducer';
 
 const customMiddleware = ({ dispatch, getState }) => (next) => (action) => {
   return next(action);
@@ -32,7 +33,8 @@ const rootReducer = combineReducers({
   experiment: combineReducers({
     testRedux: testReduxReducer,
     testApi: testApiReducer
-  })
+  }),
+  mockserver: mockserverReducer
 });
 
 const configureStore = (initialState) => {
