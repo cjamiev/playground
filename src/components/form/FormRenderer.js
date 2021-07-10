@@ -6,6 +6,7 @@ import MultiselectRenderer from './MultiselectRenderer';
 import RadioRenderer from './RadioRenderer';
 import SelectRenderer from './SelectRenderer';
 import TextRenderer from './TextRenderer';
+import TextAreaRenderer from './TextAreaRenderer';
 import './form.css';
 
 const handleInputType = {
@@ -14,7 +15,8 @@ const handleInputType = {
   multiselect: MultiselectRenderer,
   radio: RadioRenderer,
   select: SelectRenderer,
-  text: TextRenderer
+  text: TextRenderer,
+  textarea: TextAreaRenderer
 };
 
 const FormRenderer = (fieldsData, onChange) => {

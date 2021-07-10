@@ -20,11 +20,11 @@ const TextRenderer = ({ id, label, selected, regex, error, errorMessage, onChang
   };
 
   return (
-    <>
+    <div>
       <label>{label}</label>
-      <input className='textrenderer' type="text" name={label} aria-label="text-field" placeholder={selected} onChange={handleSelectedChange} />
+      <input className='textrenderer' type="text" name={label} aria-label="text-field" value={selected} onChange={handleSelectedChange} />
       {error && <span>{errorMessage}</span>}
-    </>
+    </div>
   );
 };
 

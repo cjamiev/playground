@@ -29,15 +29,11 @@ const SelectRenderer = ({ id, label, values, onChange }) => {
   return (
     <>
       <label>{label}</label>
-      <select data-testid={'select-' + label} style={selectStyle} name={label} defaultValue={selected?.label} onChange={handleChange}>
+      <select data-testid={'select-' + label} name={label} defaultValue={selected?.label} onChange={handleChange}>
         {getOptions}
       </select>
     </>
   );
-};
-
-const selectStyle = {
-  margin: '10px 0px 10px 0px'
 };
 
 export default SelectRenderer;

@@ -91,9 +91,11 @@ export const mapConfigPayloadToFields = (config) => {
     },
     {
       id: 7,
-      type: 'text',
+      type: 'textarea',
       label: 'Response',
       selected: JSON.stringify(config.overrideResponse),
+      jsonType: true,
+      errorMessage: 'Please enter valid json',
       orderSeq: 7
     }
   ];
