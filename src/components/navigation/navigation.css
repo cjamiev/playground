@@ -11,12 +11,13 @@
 .navigation__time {
   position: relative;
   bottom: 0.3em;
+  padding-top: 0.1em;
   display: flex;
   flex-direction: column;
   color: white;
   border-right: 1px solid white;
   height: 3.5em;
-  width: 4.5em;
+  width: 5em;
 }
 
 .navigation__time_label {

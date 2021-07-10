@@ -13,7 +13,7 @@ import {
 export const mockserverInitialState = {
   config: {},
   mocks: [],
-  logs: [],
+  log: [],
   message: {},
   error: {}
 };

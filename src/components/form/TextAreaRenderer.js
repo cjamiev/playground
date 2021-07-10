@@ -11,7 +11,7 @@ const TextAreaRenderer = ({ id, label, selected, jsonType, error, errorMessage, 
   return (
     <div className="textarea__container">
       <label>{label}</label>
-      <textarea rows="20" cols="100" value={selected} onChange={handleSelectedChange}></textarea>
+      <textarea rows="20" cols="100" aria-label="text-area" value={selected} onChange={handleSelectedChange}></textarea>
       {error && <span>{errorMessage}</span>}
     </div>
   );

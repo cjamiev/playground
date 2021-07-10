@@ -14,7 +14,7 @@ import mockserverReducer from './mockserverReducer';
 const initialState = {
   config: {},
   mocks: [],
-  logs: [],
+  log: [],
   message: {},
   error: {}
 };

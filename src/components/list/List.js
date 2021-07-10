@@ -3,24 +3,16 @@ import { formattedTimerClock } from 'clock';
 import { useDispatch } from 'react-redux';
 import { executeCommand } from './listActions';
 import useTimer from 'hooks/useTimer';
+import { copyToClipboard } from 'helper/copy';
 import './list.css';
 
-const ONE = 1;
 
+const ONE = 1;
 const TYPE_LINK = 'link';
 const TYPE_TEXT = 'text';
 const TYPE_TIMER = 'timer';
 const TYPE_COMMAND = 'command';
 const TYPE_COPY = 'copy';
-
-const copyToClipboard = (text) => {
-  const copyText = document.createElement('textarea');
-  copyText.value = text;
-  document.body.appendChild(copyText);
-  copyText.select();
-  document.execCommand('copy');
-  document.body.removeChild(copyText);
-};
 
 const getFormattedTime = ({ weeks, days, hours, minutes, seconds }) => {
   if(weeks > ONE) {
