@@ -16,10 +16,20 @@ jest.mock('react-router-dom', () => {
   };
 });
 
+const mockDispatch = jest.fn();
+jest.mock('react-redux', () => {
+  return {
+    __esModule: true,
+    ...jest.requireActual('react-redux'),
+    useDispatch: jest.fn(() => mockDispatch)
+  };
+});
+
 describe('MockServer', () => {
   it('checks page renders', () => {
     testRenderContainer(MockServer);
 
+    expect(mockDispatch).toHaveBeenCalled();
     expect(screen.getByText('Mock Server')).toBeInTheDocument();
   });
 });

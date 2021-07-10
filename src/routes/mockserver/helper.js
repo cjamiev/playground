@@ -61,32 +61,12 @@ export const mapConfigPayloadToFields = (config) => {
       id: 6,
       type: 'select',
       label: 'Status Code',
-      values: [
-        {
-          label: '200',
-          selected: Boolean(config.overrideStatusCode === HTTP_STATUS.OK)
-        },
-        {
-          label: '400',
-          selected: Boolean(config.overrideStatusCode === HTTP_STATUS.BAD_REQUEST)
-        },
-        {
-          label: '401',
-          selected: Boolean(config.overrideStatusCode === HTTP_STATUS.UNAUTHORIZED)
-        },
-        {
-          label: '403',
-          selected: Boolean(config.overrideStatusCode === HTTP_STATUS.FORBIDDEN)
-        },
-        {
-          label: '404',
-          selected: Boolean(config.overrideStatusCode === HTTP_STATUS.NOT_FOUND)
-        },
-        {
-          label: '500',
-          selected: Boolean(config.overrideStatusCode === HTTP_STATUS.INTERNAL_SERVER_ERROR)
-        }
-      ],
+      values: Object.keys(HTTP_STATUS).map(item => {
+        return {
+          label: String(HTTP_STATUS[item]),
+          selected: Boolean(config.overrideStatusCode === HTTP_STATUS[item])
+        };
+      }),
       orderSeq: 6
     },
     {
@@ -101,7 +81,7 @@ export const mapConfigPayloadToFields = (config) => {
   ];
 };
 
-const mapFieldsToPayload = (fields) => {
+export const mapFieldsToConfigPayload = (fields) => {
   return {
     delay: Number(fields.find(item => item.id === 3).selected),
     delayUrls: fields.find(item => item.id === 4).selected.split(','),

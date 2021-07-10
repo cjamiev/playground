@@ -4,7 +4,7 @@ import DynamicForm from 'components/form/DynamicForm';
 import { loadMockServerConfig, updateMockServerConfig, loadMockRequests } from './mockserverActions';
 import Page from 'components/layout';
 import { isEmpty } from 'booleanHelper';
-import { mapConfigPayloadToFields } from './helper';
+import { mapConfigPayloadToFields, mapFieldsToConfigPayload } from './helper';
 
 const MockConfig = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const MockConfig = () => {
   }, [dispatch]);
 
   const onSubmit = (updatedFields) => {
-    const payload = mapFieldsToPayload(updatedFields);
+    const payload = mapFieldsToConfigPayload(updatedFields);
     dispatch(updateMockServerConfig(payload));
   };
 
