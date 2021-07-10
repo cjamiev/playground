@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import FormRenderer from './FormRenderer';
 
@@ -7,9 +7,9 @@ const hasError = (fields) => {
 };
 
 const handleChange = (currentEntry, setEntry) => {
-  return ({ id, values, error = false }) => {
+  return ({ id, selected, values, error = false }) => {
     const updatedEntry = currentEntry.map((item) => {
-      return item.id === id ? { ...item, values, error } : item;
+      return item.id === id ? { ...item, selected, values, error } : item;
     });
 
     setEntry(updatedEntry);
@@ -23,7 +23,11 @@ const handleSubmit = (entry, onSubmit) => {
 };
 
 const DynamicForm = ({ fieldsList, onSubmit }) => {
-  const [fields, setFields] = useState(fieldsList);
+  const [fields, setFields] = useState([]);
+
+  useEffect(() => {
+    setFields(fieldsList);
+  }, [fieldsList]);
 
   return (
     <>

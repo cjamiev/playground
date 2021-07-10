@@ -57,10 +57,11 @@ describe('mockserverActions', () => {
   });
 
   it('updateMockServerConfig', async () => {
-    updateMockServerConfig()(mockDispatch);
+    const payload = { testing: 123 };
+    updateMockServerConfig(payload)(mockDispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: UPDATE_MOCKSERVER_CONFIG, data: 'testing 123'});
+      expect(mockDispatch).toHaveBeenCalledWith({ type: UPDATE_MOCKSERVER_CONFIG, data: 'testing 123', payload});
     });
   });
 

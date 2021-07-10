@@ -53,13 +53,17 @@ describe('mockserverReducer', () => {
       data: {
         error: false,
         message: 'Wrote to file:./storage/mock/config.json'
+      },
+      payload: {
+        testing: 123
       }
     };
     const result = mockserverReducer(initialState, action);
 
     expect(result).toEqual({
       ...initialState,
-      message: action.data
+      message: action.data,
+      config: action.payload
     });
   });
 

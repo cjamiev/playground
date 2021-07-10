@@ -29,7 +29,8 @@ const mockserverReducer = (state = mockserverInitialState, action) => {
     [UPDATE_MOCKSERVER_CONFIG]: () => {
       return {
         ...state,
-        message: action.data
+        message: action.data,
+        config: action.payload
       };
     },
     [LOAD_MOCKREQUESTS]: () => {

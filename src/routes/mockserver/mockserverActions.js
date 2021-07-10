@@ -23,12 +23,12 @@ const loadMockServerConfig = () => {
   };
 };
 
-const updateMockServerConfig = () => {
+const updateMockServerConfig = (payload) => {
   return (dispatch) => {
     api
-      .post('/api/mockserver/config')
+      .post('/api/mockserver/config', JSON.stringify(payload))
       .then((response) => {
-        dispatch({ type: UPDATE_MOCKSERVER_CONFIG, data: response.data.message });
+        dispatch({ type: UPDATE_MOCKSERVER_CONFIG, data: response.data.message, payload });
       })
       .catch((error) => {
         dispatch({ type: ERROR_MOCKSERVER, error });

@@ -1,23 +1,22 @@
 .checkbox__container {
   display: flex;
-  flex-direction: column;
+  margin-bottom: 10px;
 }
 
 .checkbox__title {
-  margin-bottom: 12px;
+  margin-right: 10px;
   font-size: 20px;
 }
 
 .checkbox__subcontainer {
   display: flex;
   flex-direction: row;
-  margin-bottom: 10px;
 }
 
 .checkbox__box {
-  background-color: aliceblue;
+  margin-right: 5px;
 }
 
 .checkbox__label {
-  margin-left: 5px;
+  margin-right: 10px;
 }
