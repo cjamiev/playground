@@ -3,7 +3,7 @@ import React from 'react';
 const ZERO = 0;
 
 const isValidText = (value, regex) => {
-  if (!value) {
+  if (!value || !regex) {
     return true;
   }
 
