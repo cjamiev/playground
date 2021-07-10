@@ -18,7 +18,6 @@
 }
 
 .input-field-group__title {
-  font-size: 20px;
   margin-right: 10px;
 }
 
@@ -38,6 +37,5 @@
 }
 
 .input-field__label {
-  font-size: 20px;
   line-height: 20px;
 }

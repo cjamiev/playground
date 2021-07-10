@@ -1,10 +1,11 @@
 .list {
-  width: 30em;
+  width: 40em;
   margin-bottom: 4em;
 }
 
 .list__header {
   font-weight: 600;
+  font-size: 20px;
   margin-top: 5px;
   padding: 10px;
   border-radius: 15px 15px 0px 0px;

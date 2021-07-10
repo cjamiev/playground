@@ -40,9 +40,9 @@ const Navigation = React.memo(() => {
   return (
     <nav className="navigation">
       <div className="navigation__time">
-        <span>{clock}</span>
-        <span>{getFormattedDate().date}</span>
-        <span>{getFormattedDate().week}</span>
+        <span className="navigation__time_label">{clock}</span>
+        <span className="navigation__time_label">{getFormattedDate().date}</span>
+        <span className="navigation__time_label">{getFormattedDate().week}</span>
       </div>
       <div className="navigation__links">
         {renderNavItems}
