@@ -1,15 +1,7 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper';
+import api from 'api';
 import MockViewEndpoint from './MockViewEndpoint';
-
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-redux'),
-    useDispatch: jest.fn(() => mockDispatch)
-  };
-});
 
 const mockViewEndpointProps = {
   mockserver: {
@@ -25,10 +17,116 @@ describe('MockViewEndpoint', () => {
   it('checks page renders', () => {
     testRenderContainer(MockViewEndpoint, {}, mockViewEndpointProps );
 
-    expect(mockDispatch).toHaveBeenCalledTimes(2);
+    expect(screen.getByText('Filter URL:')).toBeInTheDocument();
+  });
+
+  it('click load then click copy content', async () => {
+    document.execCommand = jest.fn();
+    const mockResponse = {
+      response: {
+        body: {
+          testing: 123
+        },
+        headers: {
+        }
+      },
+      request: {
+        url: '/test',
+        method: 'GET',
+        responsePath: 'filename'
+      }
+    };
+    testRenderContainer(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
+
     const loadBtn = screen.getByText('Load');
     fireEvent.click(loadBtn);
 
-    expect(mockDispatch).toHaveBeenCalledTimes(3);
+    await waitFor(() => expect(screen.getByText('View Endpoint Details')));
+
+    const copyContentBtn = screen.getByText('Copy Content');
+    fireEvent.click(copyContentBtn);
+    expect(document.execCommand).toHaveBeenCalled();
+  });
+
+  it('click load then click copy response', async () => {
+    document.execCommand = jest.fn();
+    const mockResponse = {
+      response: {
+        body: {
+          testing: 123
+        },
+        headers: {
+        }
+      },
+      request: {
+        url: '/test',
+        method: 'GET',
+        responsePath: 'filename'
+      }
+    };
+    testRenderContainer(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
+
+    const loadBtn = screen.getByText('Load');
+    fireEvent.click(loadBtn);
+
+    await waitFor(() => expect(screen.getByText('View Endpoint Details')));
+
+    const copyResponseBtn = screen.getByText('Copy Response');
+    fireEvent.click(copyResponseBtn);
+    expect(document.execCommand).toHaveBeenCalled();
+  });
+
+  it('click load then click delete', async () => {
+    document.execCommand = jest.fn();
+    const mockResponse = {
+      response: {
+        body: {
+          testing: 123
+        },
+        headers: {
+        }
+      },
+      request: {
+        url: '/test',
+        method: 'GET',
+        responsePath: 'filename'
+      }
+    };
+    testRenderContainer(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
+
+    const loadBtn = screen.getByText('Load');
+    fireEvent.click(loadBtn);
+
+    await waitFor(() => expect(screen.getByText('View Endpoint Details')));
+
+    const deleteBtn = screen.getByText('Delete');
+    fireEvent.click(deleteBtn);
+  });
+
+  it('click load then click upload', async () => {
+    document.execCommand = jest.fn();
+    const mockResponse = {
+      response: {
+        body: {
+          testing: 123
+        },
+        headers: {
+        }
+      },
+      request: {
+        url: '/test',
+        method: 'GET',
+        responsePath: 'filename'
+      }
+    };
+    testRenderContainer(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
+
+    const loadBtn = screen.getByText('Load');
+    fireEvent.click(loadBtn);
+
+    await waitFor(() => expect(screen.getByText('View Endpoint Details')));
+
+    const uploadBtn = screen.getByText('Update');
+    fireEvent.click(uploadBtn);
   });
 });
