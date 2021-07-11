@@ -6,7 +6,7 @@ import { noop } from 'helper/noop';
 
 export const Modal = (props) => {
   const dispatch = useDispatch();
-  const { title, message, children, editable = false, dispatchAction, beforeClose = noop, close, buttonList = [] } = props;
+  const { title, message, children, editable = false, dispatchAction, beforeClose = noop, close = noop, buttonList = [] } = props;
   const [content, setContent] = useState(message);
   const [err, setErr] = useState(false);
   const renderButtons = buttonList.map(item => {

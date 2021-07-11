@@ -97,7 +97,7 @@ const updateMockResponse = (payload) => {
     api
       .post('api/mockserver/updateMockEndpoint', payload)
       .then((response) => {
-        dispatch({ type: UPDATE_MOCK_RESPONSE, data: response.data.message, payload });
+        dispatch({ type: UPDATE_MOCK_RESPONSE, data: response.data.message });
       })
       .catch((error) => {
         dispatch({ type: ERROR_MOCKSERVER, error });

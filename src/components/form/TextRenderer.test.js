@@ -1,4 +1,4 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { testRenderComponent } from 'testHelper';
 import TextRenderer from 'components/form/TextRenderer';
 
@@ -13,8 +13,8 @@ const defaultProps = {
 
 describe('TextRenderer', () => {
   it('valid text', () => {
-    const { getByLabelText } = testRenderComponent(TextRenderer, defaultProps);
-    const input = getByLabelText('text-field');
+    testRenderComponent(TextRenderer, defaultProps);
+    const input = screen.getByLabelText('text-field');
     const expectedResult = { id: 1, selected: '123', error: false };
 
     fireEvent.change(input, { target: { value: '123' } });
@@ -23,8 +23,8 @@ describe('TextRenderer', () => {
   });
 
   it('invalid text', () => {
-    const { getByLabelText } = testRenderComponent(TextRenderer, defaultProps);
-    const input = getByLabelText('text-field');
+    testRenderComponent(TextRenderer, defaultProps);
+    const input = screen.getByLabelText('text-field');
     const expectedResult = { id: 1, selected: 'abc', error: true };
 
     fireEvent.change(input, { target: { value: 'abc' } });
