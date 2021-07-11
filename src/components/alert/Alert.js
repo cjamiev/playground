@@ -1,5 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { dismissAlert } from 'components/alert/alertActions';
 import './alert.css';
 
 const ZERO = 0;
@@ -11,15 +12,19 @@ const statusClass = {
 };
 
 const Alert = () => {
+  const dispatch = useDispatch();
   const { queue } = useSelector(state => state.alert);
-  const { content, status } = queue[ZERO] || {};
+  const { id, content, status } = queue[ZERO] || {};
 
   if(!content) {
     return null;
   }
 
   return (
-    <div className={`alert ${statusClass[status]}`}>{content}</div>
+    <div className={`alert ${statusClass[status]}`}>
+      {content}
+      <button className={`alert__close ${statusClass[status]}`} aria-label="Close" onClick={() => { dispatch(dismissAlert(id));}}>X</button>
+    </div>
   );
 };
 

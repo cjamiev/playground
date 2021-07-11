@@ -38,7 +38,7 @@ export const Modal = (props) => {
   return (
     <div className="modal">
       <div className="modal__container">
-        <button className="modal__close" onClick={close} aria-label="Close">X</button>
+        <button className="modal__close" aria-label="Close" onClick={close}>X</button>
         {renderTitle}
         {renderBody}
         {renderFooter}
