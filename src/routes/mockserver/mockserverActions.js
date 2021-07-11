@@ -4,6 +4,9 @@ const LOAD_MOCKSERVER_CONFIG = 'LOAD_MOCKSERVER_CONFIG';
 const UPDATE_MOCKSERVER_CONFIG = 'UPDATE_MOCKSERVER_CONFIG';
 const LOAD_MOCKREQUESTS = 'LOAD_MOCKREQUESTS';
 const UPDATE_MOCKREQUESTS = 'UPDATE_MOCKREQUESTS';
+const DELETE_MOCK_ENDPOINT = 'DELETE_MOCK_ENDPOINT';
+const LOAD_MOCK_RESPONSE = 'LOAD_MOCK_RESPONSE';
+const UPDATE_MOCK_RESPONSE = 'UPDATE_MOCK_RESPONSE';
 const CREATE_MOCK_ENDPOINT = 'CREATE_MOCK_ENDPOINT';
 const UPDATE_MOCK_ENDPOINT = 'UPDATE_MOCK_ENDPOINT';
 const LOAD_MOCKSERVER_LOG = 'LOAD_MOCKSERVER_LOG';
@@ -55,6 +58,45 @@ const updateMockRequests = () => {
       .post('/api/mockserver/mockRequests')
       .then((response) => {
         dispatch({ type: UPDATE_MOCKREQUESTS, data: response.data.message });
+      })
+      .catch((error) => {
+        dispatch({ type: ERROR_MOCKSERVER, error });
+      });
+  };
+};
+
+const deleteMockEndpoint = (endpoint) => {
+  return (dispatch) => {
+    api
+      .post('/api/mockserver/deleteMockEndpoint', endpoint)
+      .then((response) => {
+        dispatch({ type: DELETE_MOCK_ENDPOINT, data: response.data.message, endpoint });
+      })
+      .catch((error) => {
+        dispatch({ type: ERROR_MOCKSERVER, error });
+      });
+  };
+};
+
+const loadMockResponse = (payload) => {
+  return (dispatch) => {
+    api
+      .post('api/mockserver/loadMockResponse', JSON.stringify(payload))
+      .then((response) => {
+        dispatch({ type: LOAD_MOCK_RESPONSE, data: response.data.data, payload });
+      })
+      .catch((error) => {
+        dispatch({ type: ERROR_MOCKSERVER, error });
+      });
+  };
+};
+
+const updateMockResponse = (payload) => {
+  return (dispatch) => {
+    api
+      .post('api/mockserver/updateMockEndpoint', JSON.stringify(payload))
+      .then((response) => {
+        dispatch({ type: UPDATE_MOCK_RESPONSE, data: response.data.message, payload });
       })
       .catch((error) => {
         dispatch({ type: ERROR_MOCKSERVER, error });
@@ -119,6 +161,9 @@ export {
   UPDATE_MOCKSERVER_CONFIG,
   LOAD_MOCKREQUESTS,
   UPDATE_MOCKREQUESTS,
+  DELETE_MOCK_ENDPOINT,
+  LOAD_MOCK_RESPONSE,
+  UPDATE_MOCK_RESPONSE,
   CREATE_MOCK_ENDPOINT,
   UPDATE_MOCK_ENDPOINT,
   LOAD_MOCKSERVER_LOG,
@@ -128,6 +173,9 @@ export {
   updateMockServerConfig,
   loadMockRequests,
   updateMockRequests,
+  deleteMockEndpoint,
+  loadMockResponse,
+  updateMockResponse,
   createMockEndpoint,
   updateMockEndpoint,
   loadMockServerLog,

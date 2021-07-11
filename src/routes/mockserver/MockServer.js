@@ -7,10 +7,12 @@ import Page from 'components/layout';
 import Tabs from 'components/tabs';
 import MockConfig from './MockConfig';
 import MockLog from './MockLog';
+import MockViewEndpoint from './MockViewEndpoint';
 
 const TABS = [
-  { title: 'Configuration', component: MockConfig},
-  { title: 'Log', component: MockLog}
+  { title: 'Configuration', component: MockConfig },
+  { title: 'View Endpoints', component: MockViewEndpoint },
+  { title: 'Log', component: MockLog }
 ];
 
 const MockServer = () => {

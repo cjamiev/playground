@@ -22,17 +22,26 @@ const MockLog = () => {
   }, [dispatch, message]);
 
 
-  const renderCells = log.map(entry => {
+  const renderCells = log.map(({ timestamp, url, payload }) => {
     return (
-      <tr key={entry.timestamp}>
-        {Object.keys(entry).map(item => {
-          const value = entry[item] || 'none';
-          if (typeof value === 'object') {
-            return (<td key={entry.timestamp + 'load'}><button className="btns" onClick={() => { dispatch(openGlobalModal({ title: 'View Request Details', message: JSON.stringify(value), action: () => { copyToClipboard(JSON.stringify(value)); } }));}}>Load</button></td>);
-          } else {
-            return <td key={entry.timestamp + value}>{value}</td>;
-          }
-        })}
+      <tr key={timestamp}>
+        <td>{timestamp}</td>
+        <td>{url}</td>
+        <td>
+          <button
+            className="btn btn--secondary"
+            onClick={
+              () => {
+                dispatch(openGlobalModal({
+                  title: 'View Request Details',
+                  message: JSON.stringify(payload),
+                  action: () => { copyToClipboard(JSON.stringify(payload));
+                  }}));
+              }
+            }>
+            Load
+          </button>
+        </td>
       </tr>
     );
   });

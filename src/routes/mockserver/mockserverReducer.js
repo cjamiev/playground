@@ -3,6 +3,9 @@ import {
   UPDATE_MOCKSERVER_CONFIG,
   LOAD_MOCKREQUESTS,
   UPDATE_MOCKREQUESTS,
+  DELETE_MOCK_ENDPOINT,
+  LOAD_MOCK_RESPONSE,
+  UPDATE_MOCK_RESPONSE,
   CREATE_MOCK_ENDPOINT,
   UPDATE_MOCK_ENDPOINT,
   LOAD_MOCKSERVER_LOG,
@@ -13,6 +16,7 @@ import {
 export const mockserverInitialState = {
   config: {},
   mocks: [],
+  mockResponse: undefined,
   log: [],
   message: {},
   error: {}
@@ -40,6 +44,25 @@ const mockserverReducer = (state = mockserverInitialState, action) => {
       };
     },
     [UPDATE_MOCKREQUESTS]: () => {
+      return {
+        ...state,
+        message: action.data
+      };
+    },
+    [DELETE_MOCK_ENDPOINT]: () => {
+      return {
+        ...state,
+        message: action.data,
+        mocks: state.mocks.filter(item => !(item.method === action.endpoint.method && item.url === action.endpoint.url))
+      };
+    },
+    [LOAD_MOCK_RESPONSE]: () => {
+      return {
+        ...state,
+        mockResponse: action.data
+      };
+    },
+    [UPDATE_MOCK_RESPONSE]: () => {
       return {
         ...state,
         message: action.data
