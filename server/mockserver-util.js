@@ -57,12 +57,12 @@ const updateMockRequests = (request, filename) => {
 const createMockFile = ({ content, filename }) => {
   const messageOne = updateMockRequests(content.request, filename);
 
-  if (messageOne) {
+  if (messageOne.error) {
     return { message: messageOne, error: true };
   } else {
     const message = writeToFile(MOCK_FILE_PATH + '/' + filename, JSON.stringify(content.response));
 
-    return message ? { message, error: true } : { message };
+    return { message: message.message, error: message.error };
   }
 };
 

@@ -44,10 +44,12 @@ const MockViewEndpoint = () => {
   };
 
   const renderCells = filteredMocks.map(({ method, url, responsePath }) => {
+    const urlCell = method === 'GET' ? <a className="link list__item" href={url} target="_blank">{url}</a>:<span>{url}</span>;
+
     return (
       <tr key={`${method}-${url}`}>
         <td>{method}</td>
-        <td>{url}</td>
+        <td>{urlCell}</td>
         <td>
           <button
             className="btn btn--secondary"

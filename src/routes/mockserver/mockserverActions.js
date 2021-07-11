@@ -104,10 +104,10 @@ const updateMockResponse = (payload) => {
   };
 };
 
-const createMockEndpoint = () => {
+const createMockEndpoint = (payload) => {
   return (dispatch) => {
     api
-      .post('/api/mockserver/createMockEndpoint')
+      .post('/api/mockserver/createMockEndpoint', JSON.stringify(payload))
       .then((response) => {
         dispatch({ type: CREATE_MOCK_ENDPOINT, data: response.data.message });
       })
