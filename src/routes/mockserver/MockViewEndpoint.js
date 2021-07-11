@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createAlert } from 'components/alert/alertActions';
 import { loadMockRequests, updateMockRequests, deleteMockEndpoint, loadMockResponse, updateMockResponse } from './mockserverActions';
 import Page from 'components/layout';
 import { openGlobalModal } from 'components/modal/globalModalActions';
 import { copyToClipboard } from 'helper/copy';
+import useFilter from 'hooks/useFilter';
 
 const MockViewEndpoint = () => {
   const dispatch = useDispatch();
+  const [filter, setFilter] = useState('');
   const { mocks, mockResponse, message } = useSelector(state => state.mockserver);
+  const filteredMocks = useFilter(mocks,'url',filter);
 
   useEffect(() => {
     dispatch(loadMockRequests());
@@ -36,8 +39,11 @@ const MockViewEndpoint = () => {
     }
   }, [dispatch, message]);
 
+  const handleFilterChange = event => {
+    setFilter(event.target.value);
+  };
 
-  const renderCells = mocks.map(({ method, url, responsePath }) => {
+  const renderCells = filteredMocks.map(({ method, url, responsePath }) => {
     return (
       <tr key={`${method}-${url}`}>
         <td>{method}</td>
@@ -66,6 +72,9 @@ const MockViewEndpoint = () => {
 
   return (
     <section>
+      <label>Filter URL:
+        <input type="text" onChange={handleFilterChange} />
+      </label>
       <div>
         <table>
           <thead>

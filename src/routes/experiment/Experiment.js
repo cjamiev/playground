@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { dismissAlert } from 'components/alert/alertActions';
-
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
 import TestRedux from './testredux';
@@ -12,11 +11,11 @@ import TestApi from './testapi';
 import TestSwapSelect from './testswapselect';
 
 const TABS = [
+  { title: 'Global Modal', component: TestGlobalModal},
   { title: 'Redux', component: TestRedux},
   { title: 'Todo', component: TestTodo},
   { title: 'Dynamic Form', component: TestDynamicForm},
   { title: 'Swap Select', component: TestSwapSelect},
-  { title: 'Global Modal', component: TestGlobalModal},
   { title: 'Api', component: TestApi}
 ];
 
