@@ -16,7 +16,7 @@ describe('TextAreaRenderer', () => {
   it('valid json', () => {
     const { getByLabelText } = testRenderComponent(TextAreaRenderer, defaultProps);
     const input = getByLabelText('text-area');
-    const expectedResult = { id: 1, selected: '{\"testing\":123}', error: false };
+    const expectedResult = { id: 1, selected: JSON.stringify({testing:123}, undefined, 2), error: false, errorMessage: defaultProps.errorMessage };
 
     fireEvent.change(input, { target: { value: '{\"testing\":123}' } });
 
@@ -26,7 +26,7 @@ describe('TextAreaRenderer', () => {
   it('invalid json', () => {
     const { getByLabelText } = testRenderComponent(TextAreaRenderer, defaultProps);
     const input = getByLabelText('text-area');
-    const expectedResult = { id: 1, selected: 'abc', error: true };
+    const expectedResult = { id: 1, selected: 'abc', error: true, errorMessage: defaultProps.errorMessage };
 
     fireEvent.change(input, { target: { value: 'abc' } });
 

@@ -27,7 +27,12 @@ const storeWithPopulatedModalQueue = {
       id: 0,
       title: 'test-title',
       message: 'test-message',
-      action: jest.fn()
+      buttonList: [
+        {
+          label: 'Save',
+          action: jest.fn()
+        }
+      ]
     }]
   }
 };
@@ -50,13 +55,13 @@ describe('GlobalModal', () => {
 
     fireEvent.click(screen.getByText('Save'));
 
-    expect(storeWithPopulatedModalQueue.globalModal.modalQueue[ZERO].action).toHaveBeenCalled();
+    expect(storeWithPopulatedModalQueue.globalModal.modalQueue[ZERO].buttonList[ZERO].action).toHaveBeenCalled();
   });
 
   it('click close', () => {
     testRenderContainer(GlobalModal, {}, storeWithPopulatedModalQueue);
 
-    fireEvent.click(screen.getByText('Close'));
+    fireEvent.click(screen.getByText('X'));
 
     expect(mockDispatch).toHaveBeenCalledWith(closeGlobalModal(ZERO));
   });

@@ -18,9 +18,7 @@ const modalReducer = (state = globalModalInitialState, action) => {
         ...state,
         modalQueue: [...state.modalQueue, {
           id: state.modalQueue.length,
-          title: action.data.title,
-          message: action.data.message,
-          action: action.data.action
+          ...action.data
         }]
       };
     },

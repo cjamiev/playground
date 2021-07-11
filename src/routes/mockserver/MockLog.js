@@ -35,8 +35,8 @@ const MockLog = () => {
                 dispatch(openGlobalModal({
                   title: 'View Request Details',
                   message: JSON.stringify(payload),
-                  action: () => { copyToClipboard(JSON.stringify(payload));
-                  }}));
+                  buttonList: [{ label: 'Copy', primary: true, action: () => { copyToClipboard(JSON.stringify(payload));}}]
+                }));
               }
             }>
             Load
@@ -48,7 +48,7 @@ const MockLog = () => {
 
   return (
     <section>
-      <h2>Logs</h2><button className="btns" onClick={() => { dispatch(clearMockServerLog());}}>Clear Log</button>
+      <button className="btns" onClick={() => { dispatch(clearMockServerLog());}}>Clear Log</button>
       <p>Run Log must be set to yes in configuration</p>
       <div>
         <table>

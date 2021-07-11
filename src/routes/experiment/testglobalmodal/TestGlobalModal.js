@@ -6,9 +6,9 @@ const ZERO = 0;
 const ONE = 1;
 const getModalTitle = (index) => `test-title-${index}`;
 const getModalMessage = (index) => `test-message-${index}`;
-const getAction = (index) => {
+const getAction = (message) => {
   return () => {
-    alert('test '+ index);
+    alert(message);
   };
 };
 
@@ -21,7 +21,23 @@ const TestGlobalModal = () => {
       openGlobalModal({
         title: getModalTitle(modalIndex),
         message: getModalMessage(modalIndex),
-        action: getAction(modalIndex)
+        buttonList: [
+          {
+            label: 'one',
+            primary: true,
+            action: getAction('test modalIndex:'+ modalIndex)
+          },
+          {
+            label: 'two',
+            primary: true,
+            action: getAction('test 2')
+          },
+          {
+            label: 'three',
+            primary: true,
+            action: getAction('test 3')
+          }
+        ]
       })
     );
     setModalIndex(previousModalIndex => previousModalIndex + ONE);

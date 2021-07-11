@@ -18,9 +18,14 @@ const MockViewEndpoint = () => {
     if(mockResponse){
       dispatch(openGlobalModal({
         title: 'View Endpoint Details',
-        message: JSON.stringify(mockResponse),
-        action: () => { copyToClipboard(JSON.stringify(mockResponse));
-        }}));
+        message: JSON.stringify(mockResponse.response),
+        editable: true,
+        dispatchAction: { label: 'Update', action: updateMockResponse, parse: (response) => { return { content: { request: mockResponse.request, response: JSON.parse(response) }};} },
+        buttonList: [
+          { label: 'Copy Content', primary: true, action: () => { copyToClipboard(JSON.stringify(mockResponse));}},
+          { label: 'Copy Response', primary: true, action: () => { copyToClipboard(JSON.stringify(mockResponse.response));}}
+        ]
+      }));
     }
   }, [dispatch, mockResponse]);
 
@@ -42,7 +47,7 @@ const MockViewEndpoint = () => {
             className="btn btn--secondary"
             onClick={
               () => {
-                dispatch(loadMockResponse({ responsePath }));
+                dispatch(loadMockResponse({ method, url, responsePath }));
               }
             }>
             Load
@@ -61,7 +66,6 @@ const MockViewEndpoint = () => {
 
   return (
     <section>
-      <h2>View Mock Endpoints</h2>
       <div>
         <table>
           <thead>

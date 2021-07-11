@@ -94,7 +94,7 @@ const loadMockResponse = (payload) => {
 const updateMockResponse = (payload) => {
   return (dispatch) => {
     api
-      .post('api/mockserver/updateMockEndpoint', JSON.stringify(payload))
+      .post('api/mockserver/updateMockEndpoint', payload)
       .then((response) => {
         dispatch({ type: UPDATE_MOCK_RESPONSE, data: response.data.message, payload });
       })

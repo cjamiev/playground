@@ -9,13 +9,9 @@ const ZERO = 0;
 export const GlobalModal = () => {
   const { isLoading, modalQueue } = useSelector(state => state.globalModal);
   const dispatch = useDispatch();
-  const { id, title, message, action } = modalQueue[ZERO] || {};
+  const props = modalQueue[ZERO] || {};
 
-  const close = () => { dispatch(closeGlobalModal(id)); };
-  const buttonList = [
-    { primary: true, label: 'Save', action},
-    { label: 'Close', action:close}
-  ];
+  const close = () => { dispatch(closeGlobalModal(props.id)); };
 
   if(isLoading) {
     return (
@@ -23,8 +19,8 @@ export const GlobalModal = () => {
         <div className="modal__loading">Loading...</div>
       </Modal>
     );
-  } else if (message) {
-    return <Modal title={title} message={message} action={action} close={close} buttonList={buttonList}/>;
+  } else if (props.message) {
+    return <Modal close={close} {...props} />;
   }
 
   return null;
