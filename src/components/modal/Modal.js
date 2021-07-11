@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TextAreaRenderer from 'components/form/TextAreaRenderer';
 import './modal.css';
+import { noop } from 'helper/noop';
 
 export const Modal = (props) => {
   const dispatch = useDispatch();
-  const { title, message, children, editable = false, dispatchAction, close, buttonList = [] } = props;
+  const { title, message, children, editable = false, dispatchAction, beforeClose = noop, close, buttonList = [] } = props;
   const [content, setContent] = useState(message);
   const [err, setErr] = useState(false);
   const renderButtons = buttonList.map(item => {
     const btnClass = item.primary ? 'modal__primary-btn': 'modal__secondary-btn';
 
     return (
-      <button key={item.label} className={btnClass} onClick={item.action}>{item.label}</button>
+      <button key={item.label} className={btnClass} onClick={() => { item.action(); beforeClose(); close(); } }>{item.label}</button>
     );
   });
 
   if(dispatchAction) {
-    renderButtons.push(<button key={dispatchAction.label} disabled={err} className='modal__secondary-btn' onClick={() => dispatch(dispatchAction.action(dispatchAction.parse(content)))}>{dispatchAction.label}</button>);
+    renderButtons.push(<button key={dispatchAction.label} disabled={err} className='modal__secondary-btn' onClick={() => { dispatch(dispatchAction.action(dispatchAction.parse(content))); beforeClose(); close();} }>{dispatchAction.label}</button>);
   }
 
   const handleChange = ({ selected, error }) => {
@@ -38,7 +39,7 @@ export const Modal = (props) => {
   return (
     <div className="modal">
       <div className="modal__container">
-        <button className="modal__close" aria-label="Close" onClick={close}>X</button>
+        <button className="modal__close" aria-label="Close" onClick={() => { beforeClose(); close();} }>X</button>
         {renderTitle}
         {renderBody}
         {renderFooter}

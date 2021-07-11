@@ -10,14 +10,15 @@ import {
   UPDATE_MOCK_ENDPOINT,
   LOAD_MOCKSERVER_LOG,
   CLEAR_MOCKSERVER_LOG,
-  ERROR_MOCKSERVER
+  ERROR_MOCKSERVER,
+  CLEAR_MOCK_RESPONSE
 } from './mockserverActions';
 
 export const mockserverInitialState = {
   config: {},
   mocks: [],
-  mockResponse: undefined,
   log: [],
+  mockResponse: undefined,
   message: {},
   error: {}
 };
@@ -69,6 +70,12 @@ const mockserverReducer = (state = mockserverInitialState, action) => {
       return {
         ...state,
         message: action.data
+      };
+    },
+    [CLEAR_MOCK_RESPONSE]: () => {
+      return {
+        ...state,
+        mockResponse: undefined
       };
     },
     [CREATE_MOCK_ENDPOINT]: () => {

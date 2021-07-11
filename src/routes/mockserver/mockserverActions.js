@@ -12,6 +12,7 @@ const UPDATE_MOCK_ENDPOINT = 'UPDATE_MOCK_ENDPOINT';
 const LOAD_MOCKSERVER_LOG = 'LOAD_MOCKSERVER_LOG';
 const CLEAR_MOCKSERVER_LOG = 'CLEAR_MOCKSERVER_LOG';
 const ERROR_MOCKSERVER = 'ERROR_MOCKSERVER';
+const CLEAR_MOCK_RESPONSE = 'CLEAR_MOCK_RESPONSE';
 
 const loadMockServerConfig = () => {
   return (dispatch) => {
@@ -104,6 +105,8 @@ const updateMockResponse = (payload) => {
   };
 };
 
+const clearMockResponse = () => ({ type: CLEAR_MOCK_RESPONSE });
+
 const createMockEndpoint = (payload) => {
   return (dispatch) => {
     api
@@ -169,6 +172,7 @@ export {
   LOAD_MOCKSERVER_LOG,
   CLEAR_MOCKSERVER_LOG,
   ERROR_MOCKSERVER,
+  CLEAR_MOCK_RESPONSE,
   loadMockServerConfig,
   updateMockServerConfig,
   loadMockRequests,
@@ -179,5 +183,6 @@ export {
   createMockEndpoint,
   updateMockEndpoint,
   loadMockServerLog,
-  clearMockServerLog
+  clearMockServerLog,
+  clearMockResponse
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createAlert } from 'components/alert/alertActions';
-import { loadMockRequests, updateMockRequests, deleteMockEndpoint, loadMockResponse, updateMockResponse } from './mockserverActions';
+import { loadMockRequests, updateMockRequests, deleteMockEndpoint, loadMockResponse, updateMockResponse, clearMockResponse } from './mockserverActions';
 import Page from 'components/layout';
 import { openGlobalModal } from 'components/modal/globalModalActions';
 import { copyToClipboard } from 'helper/copy';
@@ -11,7 +11,7 @@ const MockViewEndpoint = () => {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState('');
   const { mocks, mockResponse, message } = useSelector(state => state.mockserver);
-  const filteredMocks = useFilter(mocks,'url',filter);
+  const filteredMocks = useFilter(mocks,'url', filter);
 
   useEffect(() => {
     dispatch(loadMockRequests());
@@ -23,10 +23,12 @@ const MockViewEndpoint = () => {
         title: 'View Endpoint Details',
         message: JSON.stringify(mockResponse.response),
         editable: true,
+        beforeClose: () => { dispatch(clearMockResponse()); },
         dispatchAction: { label: 'Update', action: updateMockResponse, parse: (response) => { return { content: { request: mockResponse.request, response: JSON.parse(response) }};} },
         buttonList: [
-          { label: 'Copy Content', primary: true, action: () => { copyToClipboard(JSON.stringify(mockResponse));}},
-          { label: 'Copy Response', primary: true, action: () => { copyToClipboard(JSON.stringify(mockResponse.response));}}
+          { label: 'Copy Content', primary: true, action: () => { copyToClipboard(JSON.stringify(mockResponse)); }},
+          { label: 'Copy Response', primary: true, action: () => { copyToClipboard(JSON.stringify(mockResponse.response)); }},
+          { label: 'Delete', action: () => { dispatch(deleteMockEndpoint(mockResponse.request)); }}
         ]
       }));
     }
@@ -59,13 +61,6 @@ const MockViewEndpoint = () => {
               }
             }>
             Load
-          </button>
-          <button
-            className="btn btn--secondary"
-            onClick={
-              () => { dispatch(deleteMockEndpoint({ method, url, responsePath })); }
-            }>
-            Delete
           </button>
         </td>
       </tr>
