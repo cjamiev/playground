@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { dismissAlert } from 'components/alert/alertActions';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
+import TestAnimation from './testAnimation';
 import TestRedux from './testredux';
 import TestTodo from './testtodo';
 import TestDynamicForm from './testdynamicform';
@@ -11,6 +12,7 @@ import TestApi from './testapi';
 import TestSwapSelect from './testswapselect';
 
 const TABS = [
+  { title: 'Animation', component: TestAnimation},
   { title: 'Redux', component: TestRedux},
   { title: 'Global Modal', component: TestGlobalModal},
   { title: 'Todo', component: TestTodo},

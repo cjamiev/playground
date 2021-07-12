@@ -1,0 +1,27 @@
+.animation__circle {
+  fill: blue;
+  transition: transform 1s;
+  animation: change 2s infinite;
+}
+
+.animation__container:hover .animation__circle {
+  transform: translateX(50%);
+}
+
+@keyframes change {
+  0% {
+    fill: blue;
+  }
+
+  30% {
+    fill: yellow;
+  }
+
+  68% {
+    fill: green;
+  }
+
+  100% {
+    fill: blue;
+  }
+}
