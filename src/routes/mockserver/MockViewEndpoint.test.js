@@ -1,7 +1,8 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper';
-import api from 'api';
 import MockViewEndpoint from './MockViewEndpoint';
+
+const ZERO = 0;
 
 const mockViewEndpointProps = {
   mockserver: {
@@ -18,6 +19,19 @@ describe('MockViewEndpoint', () => {
     testRenderContainer(MockViewEndpoint, {}, mockViewEndpointProps );
 
     expect(screen.getByText('Filter URL:')).toBeInTheDocument();
+  });
+
+  it('handles filter', () => {
+    testRenderContainer(MockViewEndpoint, {}, mockViewEndpointProps );
+
+    expect(screen.queryByText(mockViewEndpointProps.mockserver.mocks[ZERO].url)).toBeInTheDocument();
+
+    const input = screen.getByLabelText('text-field');
+    fireEvent.change(input, { target: { value: 'apple' } });
+    expect(screen.queryByText(mockViewEndpointProps.mockserver.mocks[ZERO].url)).not.toBeInTheDocument();
+
+    fireEvent.change(input, { target: { value: 'test' } });
+    expect(screen.queryByText(mockViewEndpointProps.mockserver.mocks[ZERO].url)).toBeInTheDocument();
   });
 
   it('click load then click copy content', async () => {

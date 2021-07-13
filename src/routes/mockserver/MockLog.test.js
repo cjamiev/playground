@@ -1,22 +1,33 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper';
+import api from 'api';
 import MockLog from './MockLog';
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-redux'),
-    useDispatch: jest.fn(() => mockDispatch)
-  };
+const mockGet = jest.fn();
+jest.mock('api');
+api.get.mockResolvedValue({
+  data: {
+    data: [{
+      timestamp: '7/10/2021 13:48:20',
+      url: '/api/test',
+      payload: {
+        testing: 123
+      }
+    }],
+    message: {
+      error: false,
+      message: 'Successfully did stuff'
+    }
+  }
 });
 
-const mockConfigProps = {
+const ZERO = 0;
+const mockLogProps = {
   mockserver: {
     log: [{
       timestamp: '7/10/2021 13:48:20',
       url: '/api/test',
-      value: {
+      payload: {
         testing: 123
       }
     }],
@@ -28,17 +39,42 @@ const mockConfigProps = {
 };
 
 describe('MockLog', () => {
-  it('checks page renders', () => {
-    testRenderContainer(MockLog, {}, mockConfigProps );
+  it('checks page renders', async () => {
+    testRenderContainer(MockLog, {}, mockLogProps);
 
-    expect(mockDispatch).toHaveBeenCalledTimes(2);
+    expect(screen.getByText('Run Log must be set to yes in configuration')).toBeInTheDocument();
+
+    await waitFor(() => expect(screen.getByText(mockLogProps.mockserver.log[ZERO].timestamp)).toBeInTheDocument());
+  });
+
+  it('click clear log', async () => {
+    api.get.mockResolvedValueOnce({
+      data: {
+        data: [],
+        message: {
+          message: 'test message'
+        }
+      }
+    });
+    testRenderContainer(MockLog, {}, mockLogProps);
+
     const clearBtn = screen.getByText('Clear Log');
-    fireEvent.click(clearBtn);
 
-    expect(mockDispatch).toHaveBeenCalledTimes(3);
+    await waitFor(() => expect(screen.queryByText(mockLogProps.mockserver.log[ZERO].timestamp)).not.toBeInTheDocument());
+    fireEvent.click(clearBtn);
+  });
+
+  it('click load then click copy content', async () => {
+    document.execCommand = jest.fn();
+    testRenderContainer(MockLog, {}, mockLogProps);
+
     const loadBtn = screen.getByText('Load');
     fireEvent.click(loadBtn);
 
-    expect(mockDispatch).toHaveBeenCalledTimes(4);
+    await waitFor(() => expect(screen.getByText('View Request Details')).toBeInTheDocument());
+
+    const copyBtn = screen.getByText('Copy');
+    fireEvent.click(copyBtn);
+    expect(document.execCommand).toHaveBeenCalled();
   });
 });

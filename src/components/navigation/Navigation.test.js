@@ -39,9 +39,9 @@ describe('Navigation', () => {
   });
 
   it('check content', () => {
-    mockDate();
     jest.useFakeTimers();
     act(() => {
+      mockDate();
       testRenderContainer(Navigation);
       jest.advanceTimersByTime(TIME.A_SECOND);
     });

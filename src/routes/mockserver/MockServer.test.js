@@ -1,6 +1,7 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper';
 import MockServer from './MockServer';
+import { mockserverInitialState } from './mockserverReducer';
 
 const mockHistory = {
   location: {
@@ -16,20 +17,30 @@ jest.mock('react-router-dom', () => {
   };
 });
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-redux'),
-    useDispatch: jest.fn(() => mockDispatch)
-  };
-});
+const mockLogProps = {
+  mockserver: {
+    ...mockserverInitialState,
+    message: {
+      error: false,
+      message: 'Successfully did stuff'
+    }
+  }
+};
 
 describe('MockServer', () => {
   it('checks page renders', () => {
     testRenderContainer(MockServer);
 
-    expect(mockDispatch).toHaveBeenCalled();
     expect(screen.getByText('Mock Server')).toBeInTheDocument();
+  });
+
+  it('tab switch', async () => {
+    testRenderContainer(MockServer, {}, mockLogProps);
+
+    expect(screen.queryByText('Filter URL:')).not.toBeInTheDocument();
+
+    const viewTabBtn = screen.getByText('View Endpoints');
+    fireEvent.click(viewTabBtn);
+    expect(screen.getByText('Filter URL:')).toBeInTheDocument();
   });
 });

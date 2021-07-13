@@ -6,6 +6,8 @@ import Page from 'components/layout';
 import { openGlobalModal } from 'components/modal/globalModalActions';
 import { copyToClipboard } from 'helper/copy';
 import useFilter from 'hooks/useFilter';
+import TextRenderer from 'components/form/TextRenderer';
+import Table from 'components/table';
 
 const MockViewEndpoint = () => {
   const dispatch = useDispatch();
@@ -41,8 +43,8 @@ const MockViewEndpoint = () => {
     }
   }, [dispatch, message]);
 
-  const handleFilterChange = event => {
-    setFilter(event.target.value);
+  const handleFilterChange = ({ selected }) => {
+    setFilter(selected);
   };
 
   const renderCells = filteredMocks.map(({ method, url, responsePath }) => {
@@ -69,20 +71,9 @@ const MockViewEndpoint = () => {
 
   return (
     <section>
-      <label>Filter URL:
-        <input type="text" onChange={handleFilterChange} />
-      </label>
+      <TextRenderer label='Filter URL:' selected={filter} onChange={handleFilterChange} />
       <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Method</th>
-              <th>Url</th>
-              <th>Details</th>
-            </tr>
-          </thead>
-          <tbody>{renderCells}</tbody>
-        </table>
+        <Table headers={['Method', 'Url', 'Details']} body={renderCells} />
       </div>
     </section>
   );

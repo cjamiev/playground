@@ -5,6 +5,7 @@ import { loadMockServerLog, clearMockServerLog } from './mockserverActions';
 import Page from 'components/layout';
 import { openGlobalModal } from 'components/modal/globalModalActions';
 import { copyToClipboard } from 'helper/copy';
+import Table from 'components/table';
 
 const MockLog = () => {
   const dispatch = useDispatch();
@@ -50,18 +51,7 @@ const MockLog = () => {
     <section>
       <button className="btns" onClick={() => { dispatch(clearMockServerLog());}}>Clear Log</button>
       <p>Run Log must be set to yes in configuration</p>
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Timestamp</th>
-              <th>Url</th>
-              <th>Payload</th>
-            </tr>
-          </thead>
-          <tbody>{renderCells}</tbody>
-        </table>
-      </div>
+      <Table headers={['Timestamp', 'Url', 'Payload']} body={renderCells}/>
     </section>
   );
 };

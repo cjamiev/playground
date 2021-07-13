@@ -12,13 +12,13 @@ const TestComponent = ({date}) => {
 };
 
 describe('useTimer', () => {
-  const now = new Date();
-  const oneDayFromNow = new Date(now.getTime() + TIME.A_DAY);
 
   it('Wait one second one day from now', () => {
     jest.useFakeTimers();
-    Date.now = jest.fn(() => now);
     act(() => {
+      const now = new Date();
+      const oneDayFromNow = new Date(now.getTime() + TIME.A_DAY);
+      Date.now = jest.fn(() => now);
       render(<TestComponent date={oneDayFromNow} />);
       jest.advanceTimersByTime(TIME.A_SECOND);
     });
