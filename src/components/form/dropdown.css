@@ -1,6 +1,6 @@
 .dropdown {
   position: relative;
-  display: inline-block;
+  display: block;
   cursor: pointer;
 }
 
@@ -21,6 +21,10 @@
   border-bottom: 1px solid white;
   flex: 1;
   cursor: pointer;
+}
+
+.dropdown__item--active {
+  background-color:rgb(24, 0, 68);
 }
 
 .dropdown__item:hover {

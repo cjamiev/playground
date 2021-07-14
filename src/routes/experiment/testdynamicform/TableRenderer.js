@@ -1,4 +1,5 @@
 import React from 'react';
+import Table from 'components/table';
 
 const getEmptyObject = (keys) => keys.reduce((acc, item) => ({ ...acc, [item]: '' }), {});
 
@@ -24,8 +25,6 @@ const getTableData = (source) => {
   return { headers, rows };
 };
 
-const renderHeaders = (headers) => headers.map((item) => <th key={item}>{item}</th>);
-
 const renderRows = (values) =>
   values.map((entry) => {
     const rows = Object.values(entry).map((item, i) => <td key={JSON.stringify(item) + i}>{JSON.stringify(item)}</td>);
@@ -39,12 +38,7 @@ const TableRenderer = (label, source) => {
   return (
     <div>
       <label>{label}</label>
-      <table>
-        <thead>
-          <tr>{renderHeaders(headers)}</tr>
-        </thead>
-        <tbody>{renderRows(rows)}</tbody>
-      </table>
+      <Table headers={headers} body={renderRows(rows)} />
     </div>
   );
 };

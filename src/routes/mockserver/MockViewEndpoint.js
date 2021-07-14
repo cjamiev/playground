@@ -6,7 +6,7 @@ import Page from 'components/layout';
 import { openGlobalModal } from 'components/modal/globalModalActions';
 import { copyToClipboard } from 'helper/copy';
 import useFilter from 'hooks/useFilter';
-import TextRenderer from 'components/form/TextRenderer';
+import Text from 'components/form/Text';
 import Table from 'components/table';
 
 const MockViewEndpoint = () => {
@@ -71,7 +71,7 @@ const MockViewEndpoint = () => {
 
   return (
     <section>
-      <TextRenderer label='Filter URL:' selected={filter} onChange={handleFilterChange} />
+      <Text label='Filter URL:' selected={filter} onChange={handleFilterChange} />
       <div>
         <Table headers={['Method', 'Url', 'Details']} body={renderCells} />
       </div>

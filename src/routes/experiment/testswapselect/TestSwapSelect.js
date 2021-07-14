@@ -12,16 +12,10 @@ const TestSwapSelect = () => {
   };
 
   return (
-    <div style={divStyle}>
+    <div className="container--center">
       <SwapSelect onChange={onChange} listOne={listOne} listTwo={listTwo} />
     </div>
   );
-};
-
-const divStyle = {
-  margin: 'auto',
-  width: '75%',
-  padding: '10px'
 };
 
 export default TestSwapSelect;

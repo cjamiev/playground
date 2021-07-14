@@ -1,7 +1,7 @@
 import React from 'react';
 import { isJSONString } from 'type-check';
 
-const TextAreaRenderer = ({ id, label, selected, jsonType, error, errorMessage, onChange }) => {
+const TextArea = ({ id, label, selected, jsonType, error, errorMessage, onChange }) => {
   const handleSelectedChange = ({ target: { value } }) => {
     const hasError = jsonType && !isJSONString(value);
     const formattedValue = jsonType && !hasError ? JSON.stringify(JSON.parse(value), undefined, 2): value;
@@ -20,4 +20,4 @@ const TextAreaRenderer = ({ id, label, selected, jsonType, error, errorMessage, 
   );
 };
 
-export default TextAreaRenderer;
+export default TextArea;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import MultiselectRenderer from './MultiselectRenderer';
+import Multiselect from './Multiselect';
 import './SwapSelect.css';
 
 const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) => {
@@ -35,7 +35,7 @@ const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) 
   return (
     <div className="swapselect-grid">
       <div>
-        <MultiselectRenderer id={1} label={listOneLabel} values={listOne} onChange={onListOneChange} />
+        <Multiselect id={1} label={listOneLabel} values={listOne} onChange={onListOneChange} />
       </div>
       <div className="swapselect-btn-grid">
         <div>
@@ -48,18 +48,10 @@ const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) 
         </div>
       </div>
       <div className="swapselect-multiselect">
-        <MultiselectRenderer id={2} label={listTwoLabel} values={listTwo} onChange={onListTwoChange} />
+        <Multiselect id={2} label={listTwoLabel} values={listTwo} onChange={onListTwoChange} />
       </div>
     </div>
   );
-};
-
-SwapSelect.defaultProps = {
-  listOneLabel: 'Group 1',
-  listTwoLabel: 'Group 2',
-  listOne: [],
-  listTwo: [],
-  onChange: (listOne, listTwo) => ({ listOne, listTwo })
 };
 
 export default SwapSelect;

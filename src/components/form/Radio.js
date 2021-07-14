@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RadioRenderer = ({ id, label, values, onChange }) => {
+const Radio = ({ id, label, values, onChange }) => {
   const handleChange = (selectedLabel, currentValues) => {
     const updatedValues = currentValues.map(item => {
       if(item.label === selectedLabel) {
@@ -36,4 +36,4 @@ const RadioRenderer = ({ id, label, values, onChange }) => {
   );
 };
 
-export default RadioRenderer;
+export default Radio;

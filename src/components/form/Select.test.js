@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { testRenderComponent } from 'testHelper';
-import SelectRenderer from 'components/form/SelectRenderer';
+import Select from 'components/form/Select';
 
 const defaultProps = {
   id: 1,
@@ -9,9 +9,9 @@ const defaultProps = {
   onChange: jest.fn()
 };
 
-describe('SelectRenderer', () => {
+describe('Select', () => {
   it('checks an item', () => {
-    testRenderComponent(SelectRenderer, defaultProps);
+    testRenderComponent(Select, defaultProps);
     const expectedResult = { id: 1, values: [{ label: 's1', selected: false}, { label: 's2', selected: true }] };
 
     fireEvent.change(screen.getByTestId('select-test-label'), {

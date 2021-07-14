@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { testRenderComponent } from 'testHelper';
-import CheckboxRenderer from 'components/form/CheckboxRenderer';
+import Checkbox from 'components/form/Checkbox';
 
 const defaultProps = {
   id: 1,
@@ -9,9 +9,9 @@ const defaultProps = {
   onChange: jest.fn()
 };
 
-describe('CheckboxRenderer', () => {
+describe('Checkbox', () => {
   it('checks an item', () => {
-    testRenderComponent(CheckboxRenderer, defaultProps);
+    testRenderComponent(Checkbox, defaultProps);
     const expectedResult = { id: 1, values: [{ label: 'ck1', selected: true}, { label: 'ck2', selected: true }] };
 
     fireEvent.click(screen.getByText('ck2'));
@@ -20,7 +20,7 @@ describe('CheckboxRenderer', () => {
   });
 
   it('unchecks an item', () => {
-    const { getByText } = testRenderComponent(CheckboxRenderer, defaultProps);
+    const { getByText } = testRenderComponent(Checkbox, defaultProps);
     const expectedResult = { id: 1, values: [{ label: 'ck1', selected: false}, { label: 'ck2', selected: false }] };
 
     fireEvent.click(getByText('ck1'));

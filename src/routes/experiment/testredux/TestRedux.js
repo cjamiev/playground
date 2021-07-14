@@ -3,12 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addTest, removeTest } from './actions';
 import { createAlert, dismissAlert } from 'components/alert/alertActions';
 
-const divStyle = {
-  margin: 'auto',
-  width: '75%',
-  padding: '10px'
-};
-
 const ZERO = 0;
 const parseInput = (data) => {
   if (!isNaN(data)) {
@@ -53,7 +47,7 @@ const TestRedux = (props) => {
   }
 
   return (
-    <div style={divStyle}>
+    <div className="container--center">
       <p>State: {experimentData.join(',')}</p>
       <label>Input value</label>
       <input type="text" onChange={handleInputChange} value={input} />

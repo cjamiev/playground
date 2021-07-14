@@ -39,3 +39,7 @@
 .input-field__label {
   line-height: 20px;
 }
+
+.input-field__date {
+  margin: 10px;
+}

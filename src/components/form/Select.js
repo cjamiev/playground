@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SelectRenderer = ({ id, label, values, onChange }) => {
+const Select = ({ id, label, values, onChange }) => {
   const handleChange = (event) => {
     const updatedValues = values.map(item => {
       if(item.label === event.target.value) {
@@ -36,4 +36,4 @@ const SelectRenderer = ({ id, label, values, onChange }) => {
   );
 };
 
-export default SelectRenderer;
+export default Select;

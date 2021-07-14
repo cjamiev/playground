@@ -14,7 +14,7 @@ const multiselectStyle = {
   width: '200px'
 };
 
-const MultiselectRenderer = ({ id, label, values, onChange }) => {
+const Multiselect = ({ id, label, values, onChange }) => {
   const handleChange = (e) => {
     const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
     const updatedValues = values.map(item => {
@@ -48,7 +48,7 @@ const MultiselectRenderer = ({ id, label, values, onChange }) => {
       <select
         data-testid={'multiselect-' + label}
         style={multiselectStyle}
-        name="MultiselectRenderer"
+        name="Multiselect"
         multiple
         aria-label="multi-select"
         defaultValue={selected}
@@ -60,4 +60,4 @@ const MultiselectRenderer = ({ id, label, values, onChange }) => {
   );
 };
 
-export default MultiselectRenderer;
+export default Multiselect;

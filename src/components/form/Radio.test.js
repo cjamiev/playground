@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { testRenderComponent } from 'testHelper';
-import RadioRenderer from 'components/form/RadioRenderer';
+import Radio from 'components/form/Radio';
 
 const defaultProps = {
   id: 1,
@@ -9,9 +9,9 @@ const defaultProps = {
   onChange: jest.fn()
 };
 
-describe('RadioRenderer', () => {
-  it('selects an option', () => {
-    testRenderComponent(RadioRenderer, defaultProps);
+describe('Radio', () => {
+  it('click an option', () => {
+    testRenderComponent(Radio, defaultProps);
     const expectedResult = { id: 1, values: [{ label: 'rb1', selected: false}, { label: 'rb2', selected: true }] };
 
     fireEvent.click(screen.getByText('rb2'));

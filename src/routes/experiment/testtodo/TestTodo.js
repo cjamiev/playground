@@ -5,12 +5,6 @@ import {
   swapArrayElementPositions
 } from 'arrayHelper';
 
-const divStyle = {
-  margin: 'auto',
-  width: '75%',
-  padding: '10px'
-};
-
 const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
   return (
     <ul data-testid='todo-list'>
@@ -71,7 +65,7 @@ const TestTodo = () => {
   };
 
   return (
-    <div style={divStyle}>
+    <div className="container--center">
       <h2>TODO</h2>
       <TodoList
         items={items}

@@ -12,7 +12,7 @@ const isValidText = (value, regex) => {
   return match[ZERO] === value;
 };
 
-const TextRenderer = ({ id, label, selected, regex, error, errorMessage, onChange }) => {
+const Text = ({ id, label, selected, regex, error, errorMessage, onChange }) => {
   const handleSelectedChange = ({ target: { value } }) => {
     const hasError = !isValidText(value, regex);
 
@@ -28,4 +28,4 @@ const TextRenderer = ({ id, label, selected, regex, error, errorMessage, onChang
   );
 };
 
-export default TextRenderer;
+export default Text;

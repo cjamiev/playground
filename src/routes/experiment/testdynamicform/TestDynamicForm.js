@@ -21,7 +21,7 @@ const dataList = [
     orderSeq: 1
   },
   {
-    id: 7,
+    id: 6,
     type: 'multiselect',
     label: 'MSelect1',
     values: [
@@ -32,6 +32,22 @@ const dataList = [
       {
         label: 'msvalue2',
         selected: true
+      }
+    ],
+    orderSeq: 6
+  },
+  {
+    id: 7,
+    type: 'dropdown',
+    label: 'Dropdown1',
+    values: [
+      {
+        label: 'd1',
+        selected: false
+      },
+      {
+        label: 'd2',
+        selected: false
       }
     ],
     orderSeq: 7
@@ -95,15 +111,9 @@ const TestDynamicForm = () => {
   return (
     <>
       <DynamicForm fieldsList={fields} onSubmit={onSubmit} />
-      <div style={divStyle}>{TableRenderer('Form Payload', fields)}</div>
+      <div className="container--center">{TableRenderer('Form Payload', fields)}</div>
     </>
   );
-};
-
-const divStyle = {
-  margin: 'auto',
-  width: '75%',
-  padding: '10px'
 };
 
 export default TestDynamicForm;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CheckboxRenderer = ({ id, label, values, onChange }) => {
+const Checkbox = ({ id, label, values, onChange }) => {
   const handleChange = (selectedLabel, currentValues) => {
     const updatedValues = currentValues.map(item => {
       if(item.label === selectedLabel) {
@@ -35,4 +35,4 @@ const CheckboxRenderer = ({ id, label, values, onChange }) => {
   );
 };
 
-export default CheckboxRenderer;
+export default Checkbox;

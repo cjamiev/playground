@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { testRenderComponent } from 'testHelper';
-import TextRenderer from 'components/form/TextRenderer';
+import Text from 'components/form/Text';
 
 const defaultProps = {
   id: 1,
@@ -11,9 +11,9 @@ const defaultProps = {
   onChange: jest.fn()
 };
 
-describe('TextRenderer', () => {
+describe('Text', () => {
   it('valid text', () => {
-    testRenderComponent(TextRenderer, defaultProps);
+    testRenderComponent(Text, defaultProps);
     const input = screen.getByLabelText('text-field');
     const expectedResult = { id: 1, selected: '123', error: false };
 
@@ -23,7 +23,7 @@ describe('TextRenderer', () => {
   });
 
   it('invalid text', () => {
-    testRenderComponent(TextRenderer, defaultProps);
+    testRenderComponent(Text, defaultProps);
     const input = screen.getByLabelText('text-field');
     const expectedResult = { id: 1, selected: 'abc', error: true };
 
