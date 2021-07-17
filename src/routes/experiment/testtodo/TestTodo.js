@@ -4,6 +4,7 @@ import {
   incrementElementIndex,
   swapArrayElementPositions
 } from 'arrayHelper';
+import Button from 'components/button';
 
 const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
   return (
@@ -11,9 +12,9 @@ const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
       {items.map((item) => (
         <div key={item.id} data-testid={item.text}>
           <span>{item.text}</span>
-          <button onClick={() => { removeItem(item.id); }}> Done </button>
-          <button onClick={() => { moveItemUp(item.id); }}> Move Item Up </button>
-          <button onClick={() => { moveItemDown(item.id);}}> Move Item Down </button>
+          <Button label="Done" onClick={() => { removeItem(item.id); }} />
+          <Button label="Move Item Up" onClick={() => { moveItemUp(item.id); }} />
+          <Button label="Move Item Down" onClick={() => { moveItemDown(item.id);}} />
         </div>
       ))}
     </ul>
@@ -74,7 +75,7 @@ const TestTodo = () => {
         moveItemDown={moveItemDown}
       />
       <input data-testid="todo-in" type="text" value={text} onChange={handleChange} />
-      <button data-testid="todo-add-btn" onClick={addItem}>Add Item</button>
+      <Button data-testid="todo-add-btn" label="Add Item" onClick={addItem} />
     </div>
   );
 };

@@ -23,27 +23,6 @@
   opacity: 1;
 }
 
-.modal__close {
-  position: absolute;
-  margin-top: 0.3em;
-  left: 93%;
-  width: 1em;
-  font-size: 2em;
-  border-radius: 3em;
-  border: none;
-  background-color: #24292e;
-  color: #fff;
-  cursor: pointer;
-}
-
-.modal__close:hover {
-  text-shadow: 1px 1px #fff;
-}
-
-.modal__close:active {
-  color: #aaa;
-}
-
 .modal__loading {
   margin: 1em auto;
   font-size: 8em;
@@ -71,7 +50,7 @@
 .modal__footer {
   flex: 1;
   border-top: 1px solid #000;
-  height: 4em;
+  height: 100%;
   background-color: #24292e;
   border-radius: 0 0 2em 2em;
   text-align: right;

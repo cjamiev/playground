@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Button from 'components/button';
 import Multiselect from './Multiselect';
 import './SwapSelect.css';
 
@@ -39,12 +39,8 @@ const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) 
       </div>
       <div className="swapselect-btn-grid">
         <div>
-          <button className="swapselect-swapright-btn" disabled={!listOneSelected.length} onClick={onSwapRight}>
-            {'>>'}
-          </button>
-          <button className="swapselect-swapleft-btn" disabled={!listTwoSelected.length} onClick={onSwapLeft}>
-            {'<<'}
-          </button>
+          <Button label=">>" className="swapselect-swapright-btn" disabled={!listOneSelected.length} onClick={onSwapRight} />
+          <Button label="<<" className="swapselect-swapleft-btn" disabled={!listTwoSelected.length} onClick={onSwapLeft} />
         </div>
       </div>
       <div className="swapselect-multiselect">

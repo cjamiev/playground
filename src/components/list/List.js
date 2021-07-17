@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import { executeCommand } from './listActions';
 import useTimer from 'hooks/useTimer';
 import { copyToClipboard } from 'helper/copy';
+import Button from 'components/button';
 import './list.css';
-
 
 const ONE = 1;
 const TYPE_LINK = 'link';
@@ -46,7 +46,7 @@ const DisplayCommand = ({ label, mode, name, showArgs }) => {
 
   return (
     <div className="list__item">
-      <button className="btn btn--secondary list__item" onClick={() => { dispatch(executeCommand(mode, name, arg)); }}>{label}</button>
+      <Button label={label} onClick={() => { dispatch(executeCommand(mode, name, arg)); }} />
       {showArgs &&<input type="text" aria-label={`args for ${label}`} onChange={handleChange} />}
     </div>
   );
@@ -59,7 +59,7 @@ const DisplayContent = ({ type, label, value }) => {
   } else if (type === TYPE_LINK) {
     return (<a className="link list__item" href={value} target="_blank">{label}</a>);
   } else if (type === TYPE_COPY) {
-    return (<button className="btn btn--primary list__item" onClick={() => { copyToClipboard(value); }}>{label}</button>);
+    return (<Button label={label} classColor='primary' onClick={() => { copyToClipboard(value); }} />);
   } else if (type === TYPE_COMMAND) {
     return <DisplayCommand label={label} mode={value.mode} name={value.name} showArgs={value.showArgs} />;
   } else if (type === TYPE_TIMER) {

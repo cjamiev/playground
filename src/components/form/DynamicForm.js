@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import Button from 'components/button';
 import Checkbox from './Checkbox';
 import Radio from './Radio';
 import Multiselect from './Multiselect';
@@ -65,9 +66,7 @@ const DynamicForm = ({ fieldsList, onSubmit }) => {
   return (
     <div className="container--center">
       {renderFields(fields, handleChange(fields, setFields))}
-      <button disabled={hasError(fields)} onClick={handleSubmit(fields, onSubmit)}>
-          Submit
-      </button>
+      <Button label="Submit" disabled={hasError(fields)} onClick={handleSubmit(fields, onSubmit)} />
     </div>
   );
 };

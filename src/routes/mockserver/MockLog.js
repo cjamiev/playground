@@ -6,6 +6,7 @@ import Page from 'components/layout';
 import { openGlobalModal } from 'components/modal/globalModalActions';
 import { copyToClipboard } from 'helper/copy';
 import Table from 'components/table';
+import Button from 'components/button';
 
 const MockLog = () => {
   const dispatch = useDispatch();
@@ -29,19 +30,17 @@ const MockLog = () => {
         <td>{timestamp}</td>
         <td>{url}</td>
         <td>
-          <button
-            className="btn btn--secondary"
+          <Button
+            label="Load"
             onClick={
               () => {
                 dispatch(openGlobalModal({
                   title: 'View Request Details',
                   message: JSON.stringify(payload),
-                  buttonList: [{ label: 'Copy', primary: true, action: () => { copyToClipboard(JSON.stringify(payload));}}]
+                  buttonList: [{ label: 'Copy', classProps: { classColor: 'primary' }, action: () => { copyToClipboard(JSON.stringify(payload));}}]
                 }));
               }
-            }>
-            Load
-          </button>
+            } />
         </td>
       </tr>
     );
@@ -49,7 +48,7 @@ const MockLog = () => {
 
   return (
     <section>
-      <button className="btns" onClick={() => { dispatch(clearMockServerLog());}}>Clear Log</button>
+      <Button label='Clear Log' onClick={() => { dispatch(clearMockServerLog());}} />
       <p>Run Log must be set to yes in configuration</p>
       <Table headers={['Timestamp', 'Url', 'Payload']} body={renderCells}/>
     </section>

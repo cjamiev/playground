@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TextArea from 'components/form/TextArea';
+import Button from 'components/button';
 import './modal.css';
 import { noop } from 'helper/noop';
 
@@ -10,15 +11,13 @@ export const Modal = (props) => {
   const [content, setContent] = useState(message);
   const [err, setErr] = useState(false);
   const renderButtons = buttonList.map(item => {
-    const btnClass = item.primary ? 'modal__primary-btn': 'modal__secondary-btn';
-
     return (
-      <button key={item.label} className={btnClass} onClick={() => { item.action(); beforeClose(); close(); } }>{item.label}</button>
+      <Button key={item.label} label={item.label} {...item.classProps} onClick={() => { item.action(); beforeClose(); close(); } } />
     );
   });
 
   if(dispatchAction) {
-    renderButtons.push(<button key={dispatchAction.label} disabled={err} className='modal__secondary-btn' onClick={() => { dispatch(dispatchAction.action(dispatchAction.parse(content))); beforeClose(); close();} }>{dispatchAction.label}</button>);
+    renderButtons.push(<Button key={dispatchAction.label} label={dispatchAction.label} disabled={err} className='modal__secondary-btn' onClick={() => { dispatch(dispatchAction.action(dispatchAction.parse(content))); beforeClose(); close();} } />);
   }
 
   const handleChange = ({ selected, error }) => {
@@ -39,7 +38,7 @@ export const Modal = (props) => {
   return (
     <div className="modal">
       <div className="modal__container">
-        <button className="modal__close" aria-label="Close" onClick={() => { beforeClose(); close();} }>X</button>
+        <Button classType="close" label='X' aria-label="Close" onClick={() => { beforeClose(); close();} } />
         {renderTitle}
         {renderBody}
         {renderFooter}

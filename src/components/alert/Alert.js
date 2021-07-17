@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dismissAlert } from 'components/alert/alertActions';
+import Button from 'components/button';
 import './alert.css';
 
 const ZERO = 0;
@@ -23,7 +24,7 @@ const Alert = () => {
   return (
     <div className={`alert ${statusClass[status]}`}>
       {content}
-      <button className={`alert__close ${statusClass[status]}`} aria-label="Close" onClick={() => { dispatch(dismissAlert(id));}}>X</button>
+      <Button label='X' classType='close' classSize='small' aria-label="Close" onClick={() => { dispatch(dismissAlert(id));}} />
     </div>
   );
 };

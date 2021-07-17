@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { openGlobalModal } from 'components/modal/globalModalActions';
+import Button from 'components/button';
 
 const ZERO = 0;
 const ONE = 1;
@@ -24,17 +25,16 @@ const TestGlobalModal = () => {
         buttonList: [
           {
             label: 'one',
-            primary: true,
+            classProps: { classColor: 'primary' },
             action: getAction('test modalIndex:'+ modalIndex)
           },
           {
             label: 'two',
-            primary: true,
+            classProps: { classColor: 'secondary' },
             action: getAction('test 2')
           },
           {
             label: 'three',
-            primary: true,
             action: getAction('test 3')
           }
         ]
@@ -46,7 +46,7 @@ const TestGlobalModal = () => {
   return (
     <>
       <div role="group">
-        <button className="btn" onClick={open}>Open Modal</button>
+        <Button label="Open Modal" onClick={open} />
       </div>
     </>
   );

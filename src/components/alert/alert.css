@@ -33,22 +33,3 @@
   background-color: #f8d7da;
   border: 1px solid #f5c6cb;
 }
-
-.alert__close {
-  position: absolute; 
-  left: 91%;
-  width: 1em;
-  font-size: 2em;
-  border: none;
-  color: #000;
-  cursor: pointer;
-}
-
-.alert__close:hover {
-  text-shadow: 1px 1px #000;
-  border: none;
-}
-
-.alert__close:active {
-  color: #aaa;
-}

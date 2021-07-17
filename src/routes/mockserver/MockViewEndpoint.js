@@ -8,6 +8,7 @@ import { copyToClipboard } from 'helper/copy';
 import useFilter from 'hooks/useFilter';
 import Text from 'components/form/Text';
 import Table from 'components/table';
+import Button from 'components/button';
 
 const MockViewEndpoint = () => {
   const dispatch = useDispatch();
@@ -28,8 +29,8 @@ const MockViewEndpoint = () => {
         beforeClose: () => { dispatch(clearMockResponse()); },
         dispatchAction: { label: 'Update', action: updateMockResponse, parse: (response) => { return { content: { request: mockResponse.request, response: JSON.parse(response) }};} },
         buttonList: [
-          { label: 'Copy Content', primary: true, action: () => { copyToClipboard(JSON.stringify(mockResponse)); }},
-          { label: 'Copy Response', primary: true, action: () => { copyToClipboard(JSON.stringify(mockResponse.response)); }},
+          { label: 'Copy Content', classProps: { classColor: 'primary' }, action: () => { copyToClipboard(JSON.stringify(mockResponse)); }},
+          { label: 'Copy Response', classProps: { classColor: 'primary' , classSize: 'wide' }, action: () => { copyToClipboard(JSON.stringify(mockResponse.response)); }},
           { label: 'Delete', action: () => { dispatch(deleteMockEndpoint(mockResponse.request)); }}
         ]
       }));
@@ -55,15 +56,13 @@ const MockViewEndpoint = () => {
         <td>{method}</td>
         <td>{urlCell}</td>
         <td>
-          <button
-            className="btn btn--secondary"
+          <Button
+            label="Load"
             onClick={
               () => {
                 dispatch(loadMockResponse({ method, url, responsePath }));
               }
-            }>
-            Load
-          </button>
+            } />
         </td>
       </tr>
     );

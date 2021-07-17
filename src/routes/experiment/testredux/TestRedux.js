@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTest, removeTest } from './actions';
 import { createAlert, dismissAlert } from 'components/alert/alertActions';
+import Button from 'components/button';
 
 const ZERO = 0;
 const parseInput = (data) => {
@@ -51,12 +52,8 @@ const TestRedux = (props) => {
       <p>State: {experimentData.join(',')}</p>
       <label>Input value</label>
       <input type="text" onChange={handleInputChange} value={input} />
-      <button type="button" onClick={handleAddTest}>
-        Add To State
-      </button>
-      <button type="button" onClick={handleRemoveTest}>
-        Remove From State
-      </button>
+      <Button label="Add To State" onClick={handleAddTest} />
+      <Button label="Remove From State" classSize='wide' onClick={handleRemoveTest} />
     </div>
   );
 };
