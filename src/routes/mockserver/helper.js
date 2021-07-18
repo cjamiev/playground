@@ -1,5 +1,13 @@
 import { HTTP_STATUS } from 'constants/httpstatus';
 
+const INDEX_ONE = 1;
+const INDEX_TWO = 2;
+const INDEX_THREE = 3;
+const INDEX_FOUR = 4;
+const INDEX_FIVE = 5;
+const INDEX_SIX = 6;
+const INDEX_SEVEN = 7;
+
 export const getNewMockFields = () => {
   return [
     {
@@ -90,17 +98,17 @@ export const getNewMockFields = () => {
 
 export const mapFieldsToNewMockPayload = (fields) => {
   return {
-    filename: fields.find(item => item.id === 1).selected,
+    filename: fields.find(item => item.id === INDEX_ONE).selected,
     content: {
       request: {
-        url: fields.find(item => item.id === 2).selected,
-        method: fields.find(item => item.id === 3).values.find(item => item.selected).label
+        url: fields.find(item => item.id === INDEX_TWO).selected,
+        method: fields.find(item => item.id === INDEX_THREE).values.find(item => item.selected).label
       },
       response: {
-        headers: JSON.parse(fields.find(item => item.id === 4).selected),
-        status: Number(fields.find(item => item.id === 5).values.find(item => item.selected).label),
-        body: JSON.parse(fields.find(item => item.id === 6).selected),
-        conditionalResponse: JSON.parse(fields.find(item => item.id === 7).selected)
+        headers: JSON.parse(fields.find(item => item.id === INDEX_FOUR).selected),
+        status: Number(fields.find(item => item.id === INDEX_FIVE).values.find(item => item.selected).label),
+        body: JSON.parse(fields.find(item => item.id === INDEX_SIX).selected),
+        conditionalResponse: JSON.parse(fields.find(item => item.id === INDEX_SEVEN).selected)
       }
     }
   };
@@ -189,12 +197,12 @@ export const mapConfigPayloadToFields = (config) => {
 
 export const mapFieldsToConfigPayload = (fields) => {
   return {
-    delay: Number(fields.find(item => item.id === 3).selected),
-    delayUrls: fields.find(item => item.id === 4).selected.split(','),
-    log: fields.find(item => item.id === 1).values.find(item => item.label === 'Yes').selected,
-    error: fields.find(item => item.id === 2).values.find(item => item.label === 'Yes').selected,
-    overrideUrls: fields.find(item => item.id === 5).selected.split(','),
-    overrideStatusCode: Number(fields.find(item => item.id === 6).values.find(item => item.selected).label),
-    overrideResponse: JSON.parse(fields.find(item => item.id === 7).selected)
+    delay: Number(fields.find(item => item.id === INDEX_THREE).selected),
+    delayUrls: fields.find(item => item.id === INDEX_FOUR).selected.split(','),
+    log: fields.find(item => item.id === INDEX_ONE).values.find(item => item.label === 'Yes').selected,
+    error: fields.find(item => item.id === INDEX_TWO).values.find(item => item.label === 'Yes').selected,
+    overrideUrls: fields.find(item => item.id === INDEX_FIVE).selected.split(','),
+    overrideStatusCode: Number(fields.find(item => item.id === INDEX_SIX).values.find(item => item.selected).label),
+    overrideResponse: JSON.parse(fields.find(item => item.id === INDEX_SEVEN).selected)
   };
 };

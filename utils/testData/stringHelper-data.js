@@ -31,6 +31,23 @@ const reverseStringTestData = [
   }
 ];
 
+
+const toDashCaseFromCamelCaseData = [
+  { testMessage: 'empty', args: [''], expectedResult: '' },
+  { testMessage: 'numbers and symbol', args: ['a$$l3'], expectedResult: 'a$$l3' },
+  { testMessage: 'css property with one dash', args: ['borderRadius'], expectedResult: 'border-radius' },
+  { testMessage: 'css property with two dashes', args: ['borderRightRadius'], expectedResult: 'border-right-radius' }
+];
+
+const toCamelCaseFromDashCaseData = [
+  { testMessage: 'empty', args: [''], expectedResult: '' },
+  { testMessage: 'numbers and symbol', args: ['a$$l3'], expectedResult: 'a$$l3' },
+  { testMessage: 'css property with one dash', args: ['border-radius'], expectedResult: 'borderRadius' },
+  { testMessage: 'css property with two dashes', args: ['border-right-radius'], expectedResult: 'borderRightRadius' }
+];
+
 export {
-  reverseStringTestData
+  reverseStringTestData,
+  toDashCaseFromCamelCaseData,
+  toCamelCaseFromDashCaseData
 };

@@ -1,5 +1,15 @@
-.textrenderer {
-  margin: 10px 0 10px 0;
+.text__flex {
+  display: flex;
+  width: 25em;
+}
+
+.text__label {
+  flex: 1;
+  margin: auto 0;
+}
+
+.text__input {
+  flex: 1;
 }
 
 .textarea__container {
