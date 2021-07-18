@@ -9,7 +9,7 @@ const TestApi = () => {
   const testApiData = useSelector(state => state.experiment.testApi);
 
   useEffect(() => {
-    setTestData((testApiData && testApiData?.value?.test) || '');
+    setTestData(testApiData && JSON.stringify(testApiData));
   }, [testApiData]);
 
   const runGet = () => {

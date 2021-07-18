@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TextArea from 'components/form/TextArea';
-import Button from 'components/button';
+import Button, { CloseButton } from 'components/button';
 import './modal.css';
 import { noop } from 'helper/noop';
 
@@ -38,7 +38,7 @@ export const Modal = (props) => {
   return (
     <div className="modal">
       <div className="modal__container">
-        <Button classType="close" label='X' aria-label="Close" onClick={() => { beforeClose(); close();} } />
+        <CloseButton onClick={() => { beforeClose(); close();} } />
         {renderTitle}
         {renderBody}
         {renderFooter}

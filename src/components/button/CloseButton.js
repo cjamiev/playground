@@ -1,5 +1,4 @@
 import React from 'react';
-import './btn.css';
 
 const getColor = (classColor) => {
   if(classColor === 'primary') {
@@ -24,14 +23,14 @@ const getSize = (classSize) => {
   return '';
 };
 
-const Button = ({ label, classColor, classSize, disabled = false, onClick}) => {
+const CloseButton = ({ classColor, classSize, onClick }) => {
   const color = getColor(classColor);
   const size = getSize(classSize);
-  const className = `btn${color}${size}`;
+  const className = `btn btn__close${color}${size}`;
 
   return (
-    <button className={className} disabled={disabled} onClick={onClick}>{label}</button>
+    <button className={className} aria-label="Close" onClick={onClick}>X</button>
   );
 };
 
-export default Button;
+export default CloseButton;

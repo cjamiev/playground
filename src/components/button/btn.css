@@ -43,10 +43,10 @@
 }
 
 .btn--small {
-  font-size: 1em;
+  font-size: 0.5em;
 }
 
-.btn--close {
+.btn__close {
   position: absolute;
   margin-top: 0.1em;
   left: 91%;
@@ -58,10 +58,16 @@
   cursor: pointer;
 }
 
-.btn--close:hover {
+.btn__close:hover {
   text-shadow: 1px 1px #fff;
 }
 
-.btn--close:active {
+.btn__close:active {
   color: #aaa;
+}
+
+.btn--error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
 }
