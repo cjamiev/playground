@@ -30,7 +30,8 @@ const Dropdown = React.memo(({ id, label, values, onChange }) => {
   });
 
   return (
-    <div className="dropdown" onClick={() => { setShow(!show);}}> {label}
+    <div className="dropdown" onClick={() => { setShow(!show);}}>
+      <label className="dropdown__label">{label}</label>
       {show && (<div className='dropdown__content'>{renderContent}</div>)}
     </div>
   );

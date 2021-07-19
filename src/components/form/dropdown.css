@@ -4,6 +4,10 @@
   cursor: pointer;
 }
 
+.dropdown__label {
+  cursor: pointer;
+}
+
 .dropdown__content {
   width: 120px;
   background-color: black;
