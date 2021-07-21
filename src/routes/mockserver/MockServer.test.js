@@ -3,19 +3,7 @@ import { testRenderContainer } from 'testHelper';
 import MockServer from './MockServer';
 import { mockserverInitialState } from './mockserverReducer';
 
-const mockHistory = {
-  location: {
-    pathname: '/mockserver'
-  },
-  push: jest.fn()
-};
-jest.mock('react-router-dom', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-router-dom'),
-    useHistory: jest.fn(() => mockHistory)
-  };
-});
+const pathname = '/mockserver';
 
 const mockLogProps = {
   mockserver: {
@@ -29,13 +17,13 @@ const mockLogProps = {
 
 describe('MockServer', () => {
   it('checks page renders', () => {
-    testRenderContainer(MockServer);
+    testRenderContainer(MockServer, {}, {}, pathname);
 
     expect(screen.getByText('Mock Server')).toBeInTheDocument();
   });
 
   it('tab switch', async () => {
-    testRenderContainer(MockServer, {}, mockLogProps);
+    testRenderContainer(MockServer, {}, mockLogProps, pathname);
 
     expect(screen.queryByText('Filter URL:')).not.toBeInTheDocument();
 

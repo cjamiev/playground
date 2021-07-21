@@ -36,13 +36,13 @@ const storeWithLoading = {
 
 describe('GlobalModal', () => {
   it('empty modalQueue', () => {
-    const { container } = testRenderContainer(GlobalModal, {}, defaultStore, false);
+    const { container } = testRenderContainer(GlobalModal, {}, defaultStore, '/home', false);
 
     expect(container).toBeEmptyDOMElement();
   });
 
   it('click primary action', () => {
-    testRenderContainer(GlobalModal, {}, storeWithPopulatedModalQueue, false);
+    testRenderContainer(GlobalModal, {}, storeWithPopulatedModalQueue, '/home', false);
 
     fireEvent.click(screen.getByText('Save'));
 
@@ -50,7 +50,7 @@ describe('GlobalModal', () => {
   });
 
   it('click close', () => {
-    testRenderContainer(GlobalModal, {}, storeWithPopulatedModalQueue, false);
+    testRenderContainer(GlobalModal, {}, storeWithPopulatedModalQueue, '/home', false);
 
     expect(screen.getByText(storeWithPopulatedModalQueue.globalModal.modalQueue[ZERO].message)).toBeInTheDocument();
     fireEvent.click(screen.getByText('X'));
@@ -59,7 +59,7 @@ describe('GlobalModal', () => {
   });
 
   it('show loading', () => {
-    testRenderContainer(GlobalModal, {}, storeWithLoading, false);
+    testRenderContainer(GlobalModal, {}, storeWithLoading, '/home', false);
 
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });

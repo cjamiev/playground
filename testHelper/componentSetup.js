@@ -7,7 +7,8 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 import { rootReducer } from '../src/store';
 import { GlobalModal } from 'components/modal/GlobalModal';
 import { listInitialState } from '../src/components/list/listReducer';
@@ -38,12 +39,14 @@ const testRenderComponent = (Component, props = {}) => {
 };
 
 // eslint-disable-next-line max-params
-const testRenderContainer = (Component, props = {}, storeState = {}, shouldRenderRootComponents = true) => {
+const testRenderContainer = (Component, props = {}, storeState = {}, locationPathname = '/home', shouldRenderRootComponents = true) => {
   const store = createStore(rootReducer, { ...defaultStore, ...storeState }, compose(appliedMiddlewares));
+  const history = createMemoryHistory();
+  history.push(locationPathname);
 
   return render(
     <Provider store={store}>
-      <Router>
+      <Router history={history}>
         {shouldRenderRootComponents && <GlobalModal />}
         <Component {...props} />
       </Router>

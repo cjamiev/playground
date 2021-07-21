@@ -3,19 +3,7 @@ import { testRenderContainer } from 'testHelper';
 import { loadPassword } from './clipboardActions';
 import Clipboard from './Clipboard';
 
-const mockHistory = {
-  location: {
-    pathname: '/clipboard'
-  },
-  push: jest.fn()
-};
-jest.mock('react-router-dom', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-router-dom'),
-    useHistory: jest.fn(() => mockHistory)
-  };
-});
+const pathname = '/clipboard';
 
 const defaultProps = {};
 const defaultStoreProps = {
@@ -70,7 +58,7 @@ const defaultStorePropsTwo = {
 
 describe('Clipboard', () => {
   it('checks page renders', () => {
-    testRenderContainer(Clipboard, defaultProps, defaultStoreProps);
+    testRenderContainer(Clipboard, defaultProps, defaultStoreProps, pathname);
 
     expect(screen.getByText('Clipboard')).toBeInTheDocument();
     expect(screen.getByText('label1')).toBeInTheDocument();
@@ -79,7 +67,7 @@ describe('Clipboard', () => {
   });
 
   it('check error dispatch and commandResponse dispatch', () => {
-    testRenderContainer(Clipboard, defaultProps, defaultStorePropsTwo);
+    testRenderContainer(Clipboard, defaultProps, defaultStorePropsTwo, pathname);
 
     expect(screen.getByText(defaultStorePropsTwo.clipboard.error.message)).toBeInTheDocument();
   });

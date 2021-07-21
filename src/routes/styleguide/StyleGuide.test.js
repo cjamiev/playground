@@ -2,25 +2,11 @@ import { screen } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper';
 import StyleGuide from './StyleGuide';
 
-const mockHistory = {
-  location: {
-    pathname: '/styleguide'
-  },
-  push: jest.fn()
-};
-jest.mock('react-router-dom', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-router-dom'),
-    useHistory: jest.fn(() => mockHistory)
-  };
-});
-
-const defaultProps = {};
+const pathname = '/styleguide';
 
 describe('StyleGuide', () => {
   it('checks page renders', () => {
-    testRenderContainer(StyleGuide);
+    testRenderContainer(StyleGuide, {}, {}, pathname);
 
     expect(screen.getByText('Style Guide')).toBeInTheDocument();
   });

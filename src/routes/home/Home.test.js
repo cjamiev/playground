@@ -2,23 +2,11 @@ import { screen } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper';
 import Home from './Home';
 
-const mockHistory = {
-  location: {
-    pathname: '/home'
-  },
-  push: jest.fn()
-};
-jest.mock('react-router-dom', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-router-dom'),
-    useHistory: jest.fn(() => mockHistory)
-  };
-});
+const pathname = '/home';
 
 describe('Home', () => {
   it('checks page renders', () => {
-    testRenderContainer(Home);
+    testRenderContainer(Home, {}, {}, pathname);
 
     expect(screen.getByText('Home')).toBeInTheDocument();
   });
