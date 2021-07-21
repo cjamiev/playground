@@ -2,15 +2,6 @@ import { screen } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper';
 import StyleGuide from './StyleGuide';
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-redux'),
-    useDispatch: jest.fn(() => mockDispatch)
-  };
-});
-
 const mockHistory = {
   location: {
     pathname: '/styleguide'

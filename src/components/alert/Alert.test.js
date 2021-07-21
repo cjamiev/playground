@@ -2,15 +2,6 @@ import { fireEvent, screen } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper';
 import Alert from './Alert';
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-redux'),
-    useDispatch: jest.fn(() => mockDispatch)
-  };
-});
-
 const data = {
   content: 'test-content',
   status: 'error'
@@ -22,21 +13,22 @@ const alertStoreProps = {
 };
 
 describe('Alert', () => {
-  it('checks alert renders', async () => {
+  it('checks alert renders', () => {
     testRenderContainer(Alert, {}, alertStoreProps);
 
     expect(screen.getByText(data.content)).toBeInTheDocument();
   });
 
-  it('handle dismiss', async () => {
+  it('handle dismiss', () => {
     testRenderContainer(Alert, {}, alertStoreProps);
 
+    expect(screen.getByText(data.content)).toBeInTheDocument();
     fireEvent.click(screen.getByText('X'));
 
-    expect(mockDispatch).toHaveBeenCalled();
+    expect(screen.queryByText(data.content)).not.toBeInTheDocument();
   });
 
-  it('should not be rendered', async () => {
+  it('should not be rendered', () => {
     testRenderContainer(Alert);
 
     expect(screen.queryByText(data.content)).not.toBeInTheDocument();

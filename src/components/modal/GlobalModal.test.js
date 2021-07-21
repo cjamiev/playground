@@ -3,15 +3,6 @@ import { testRenderContainer } from 'testHelper';
 import { GlobalModal } from 'components/modal/GlobalModal';
 import { closeGlobalModal } from './globalModalActions';
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-redux'),
-    useDispatch: jest.fn(() => mockDispatch)
-  };
-});
-
 const ZERO = 0;
 
 const defaultStore = {
@@ -61,9 +52,10 @@ describe('GlobalModal', () => {
   it('click close', () => {
     testRenderContainer(GlobalModal, {}, storeWithPopulatedModalQueue, false);
 
+    expect(screen.getByText(storeWithPopulatedModalQueue.globalModal.modalQueue[ZERO].message)).toBeInTheDocument();
     fireEvent.click(screen.getByText('X'));
 
-    expect(mockDispatch).toHaveBeenCalledWith(closeGlobalModal(ZERO));
+    expect(screen.queryByText(storeWithPopulatedModalQueue.globalModal.modalQueue[ZERO].message)).not.toBeInTheDocument();
   });
 
   it('show loading', () => {

@@ -3,15 +3,6 @@ import { testRenderContainer } from 'testHelper';
 import { loadPassword } from './clipboardActions';
 import Clipboard from './Clipboard';
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-redux'),
-    useDispatch: jest.fn(() => mockDispatch)
-  };
-});
-
 const mockHistory = {
   location: {
     pathname: '/clipboard'
@@ -72,7 +63,7 @@ const defaultStorePropsTwo = {
   clipboard: {
     ...defaultStoreProps.clipboard,
     error: {
-      message: 'test-message'
+      message: 'test-alert-message'
     }
   }
 };
@@ -82,7 +73,6 @@ describe('Clipboard', () => {
     testRenderContainer(Clipboard, defaultProps, defaultStoreProps);
 
     expect(screen.getByText('Clipboard')).toBeInTheDocument();
-    expect(mockDispatch).toHaveBeenCalledTimes(3);
     expect(screen.getByText('label1')).toBeInTheDocument();
     expect(screen.getByText('username')).toBeInTheDocument();
     expect(screen.getByText('password')).toBeInTheDocument();
@@ -91,6 +81,6 @@ describe('Clipboard', () => {
   it('check error dispatch and commandResponse dispatch', () => {
     testRenderContainer(Clipboard, defaultProps, defaultStorePropsTwo);
 
-    expect(mockDispatch).toHaveBeenCalledTimes(5);
+    expect(screen.getByText(defaultStorePropsTwo.clipboard.error.message)).toBeInTheDocument();
   });
 });

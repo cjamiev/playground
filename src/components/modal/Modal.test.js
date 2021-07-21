@@ -1,24 +1,36 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { testRenderContainer } from 'testHelper';
 import { Modal } from 'components/modal/Modal';
-
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-redux'),
-    useDispatch: jest.fn(() => mockDispatch)
-  };
-});
+import api from 'api';
 
 const ZERO = 0;
+
+jest.mock('api');
+api.post.mockResolvedValue({
+  data: {
+    message: 'test message'
+  }
+});
+
+const mockAction = (payload) => {
+  return (dispatch) => {
+    api
+      .post('url', payload)
+      .then((response) => {
+        dispatch({ type: 'MOCK_ACTION', data: response.data.message });
+      })
+      .catch((error) => {
+        dispatch({ type: 'MOCK_ERROR_ACTION', error });
+      });
+  };
+};
 
 const baseProps = {
   title: 'test-title',
   message: 'test-message',
   children: null,
   editable: true,
-  dispatchAction: { label: 'dispatchAction', action: jest.fn(), parse: jest.fn() },
+  dispatchAction: { label: 'dispatchAction', action: mockAction, parse: x => x },
   beforeClose: jest.fn(),
   close: jest.fn(),
   buttonList: [
@@ -31,14 +43,14 @@ const baseProps = {
 
 describe('Modal', () => {
   it('default', () => {
-    testRenderComponent(Modal, baseProps);
+    testRenderContainer(Modal, baseProps);
 
     expect(screen.getByText(baseProps.title)).toBeInTheDocument();
     expect(screen.getByText(baseProps.message)).toBeInTheDocument();
   });
 
   it('handle close', () => {
-    testRenderComponent(Modal, baseProps);
+    testRenderContainer(Modal, baseProps);
 
     fireEvent.click(screen.getByText('X'));
 
@@ -47,7 +59,7 @@ describe('Modal', () => {
   });
 
   it('handle button action', () => {
-    testRenderComponent(Modal, baseProps);
+    testRenderContainer(Modal, baseProps);
 
     fireEvent.click(screen.getByText(baseProps.buttonList[ZERO].label));
 
@@ -55,22 +67,21 @@ describe('Modal', () => {
   });
 
   it('handle dispatch action', () => {
-    testRenderComponent(Modal, baseProps);
+    testRenderContainer(Modal, baseProps);
 
     fireEvent.click(screen.getByText(baseProps.dispatchAction.label));
 
-    expect(baseProps.dispatchAction.action).toHaveBeenCalled();
-    expect(baseProps.dispatchAction.parse).toHaveBeenCalledWith(baseProps.message);
+    expect(api.post).toHaveBeenCalledWith('url', baseProps.message);
   });
 
   it('handle dispatch action after text change', () => {
-    testRenderComponent(Modal, baseProps);
+    testRenderContainer(Modal, baseProps);
     const input = screen.getByLabelText('text-area');
     const expectedResult = { id: 1, selected: '123', error: false };
 
     fireEvent.change(input, { target: { value: '123' } });
     fireEvent.click(screen.getByText(baseProps.dispatchAction.label));
 
-    expect(baseProps.dispatchAction.parse).toHaveBeenCalledWith('123');
+    expect(api.post).toHaveBeenCalledWith('url', '123');
   });
 });

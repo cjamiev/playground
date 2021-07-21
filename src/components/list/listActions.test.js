@@ -9,7 +9,6 @@ import {
 const error = new Error('Test Message');
 const mockDispatch = jest.fn();
 
-const mockGet = jest.fn();
 jest.mock('api');
 api.get.mockResolvedValue({
   data: {

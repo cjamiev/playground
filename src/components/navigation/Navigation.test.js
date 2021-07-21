@@ -18,15 +18,6 @@ jest.mock('react-router-dom', () => {
   };
 });
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-redux'),
-    useDispatch: jest.fn(() => mockDispatch)
-  };
-});
-
 describe('Navigation', () => {
   it('handles click on navigation link', () => {
     testRenderContainer(Navigation);
@@ -35,7 +26,6 @@ describe('Navigation', () => {
     fireEvent.click(navLink);
 
     expect(mockHistory.push).toHaveBeenCalledWith('/experiment');
-    expect(mockDispatch).toHaveBeenCalled();
   });
 
   it('check content', () => {

@@ -1,14 +1,18 @@
+import React from 'React';
 import { fireEvent, screen } from '@testing-library/react';
 import { testRenderContainer } from 'testHelper';
+import api from 'api';
 import MockCreateEndpoint from './MockCreateEndpoint';
+import Page from 'components/layout/Page';
+import { getNewMockFields, mapFieldsToNewMockPayload, mapConfigPayloadToFields, mapFieldsToConfigPayload } from './helper';
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-redux'),
-    useDispatch: jest.fn(() => mockDispatch)
-  };
+const payload = JSON.stringify(mapFieldsToNewMockPayload(getNewMockFields()));
+
+jest.mock('api');
+api.post.mockResolvedValue({
+  data: {
+    message: 'test message'
+  }
 });
 
 const mockCreateEndpointProps = {
@@ -24,10 +28,9 @@ describe('MockCreateEndpoint', () => {
   it('checks page renders', () => {
     testRenderContainer(MockCreateEndpoint, {}, mockCreateEndpointProps );
 
-    expect(mockDispatch).toHaveBeenCalledTimes(1);
     const submitBtn = screen.getByText('Submit');
     fireEvent.click(submitBtn);
 
-    expect(mockDispatch).toHaveBeenCalledTimes(2);
+    expect(api.post).toHaveBeenCalledWith('/api/mockserver/createMockEndpoint', payload);
   });
 });

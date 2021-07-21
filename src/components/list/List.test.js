@@ -1,16 +1,15 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { testRenderComponent, testRenderContainer } from 'testHelper';
 import { executeCommand } from './listActions';
 import { incrementDate } from 'clock';
+import api from 'api';
 import List from './List';
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-redux'),
-    useDispatch: jest.fn(() => mockDispatch)
-  };
+jest.mock('api');
+api.get.mockResolvedValue({
+  data: {
+    message: 'test message'
+  }
 });
 
 const ZERO = 0;
@@ -76,14 +75,16 @@ describe('List', () => {
       label: 'test-command',
       value: { mode: 'test-mode', name: 'test-filename', showArgs: true}
     };
-    testRenderComponent(List, getProps(commandData));
+    const args = '12345';
+    testRenderContainer(List, getProps(commandData));
+
+    const commandInput = screen.getByLabelText(`args for ${commandData.label}`);
+    fireEvent.change(commandInput, { target: { value: args }});
 
     const commandBtn = screen.getByText(commandData.label);
-    const commandInput = screen.getByLabelText(`args for ${commandData.label}`);
     fireEvent.click(commandBtn);
-    fireEvent.change(commandInput, { target: { value: '12345'}});
 
-    expect(mockDispatch).toHaveBeenCalled();
+    expect(api.get).toHaveBeenCalledWith(`/command?mode=${commandData.value.mode}&file=${commandData.value.name}&args=${args}`);
     expect(screen.getByText(commandData.label)).toBeInTheDocument();
   });
 
