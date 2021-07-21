@@ -1,12 +1,13 @@
 import { HTTP_STATUS } from 'constants/httpstatus';
-
-const INDEX_ONE = 1;
-const INDEX_TWO = 2;
-const INDEX_THREE = 3;
-const INDEX_FOUR = 4;
-const INDEX_FIVE = 5;
-const INDEX_SIX = 6;
-const INDEX_SEVEN = 7;
+import {
+  INDEX_ONE,
+  INDEX_TWO,
+  INDEX_THREE,
+  INDEX_FOUR,
+  INDEX_FIVE,
+  INDEX_SIX,
+  INDEX_SEVEN
+} from 'constants/array';
 
 export const getNewMockFields = () => {
   return [

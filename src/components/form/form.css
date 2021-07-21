@@ -1,14 +1,14 @@
-.text__flex {
+.input__flex {
   display: flex;
   width: 25em;
 }
 
-.text__label {
+.input__label {
   flex: 1;
   margin: auto 0;
 }
 
-.text__input {
+.input__field {
   flex: 1;
 }
 

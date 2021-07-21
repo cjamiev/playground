@@ -21,9 +21,9 @@ const Text = ({ id, label, selected, regex, error, errorMessage, onChange }) => 
 
   return (
     <div>
-      <div className='text__flex'>
-        <label className='text__label'>{label}</label>
-        <input className='text__input' type="text" name={label} aria-label="text-field" value={selected} onChange={handleSelectedChange} />
+      <div className='input__flex'>
+        <label className='input__label'>{label}</label>
+        <input className='input__field' type="text" name={label} aria-label="text-field" value={selected} onChange={handleSelectedChange} />
       </div>
       {error && <span>{errorMessage}</span>}
     </div>

@@ -3,6 +3,8 @@ import Page from 'components/layout';
 import Text from 'components/form/Text';
 import Button from 'components/button';
 import Dropdown from 'components/form/Dropdown';
+import Color, { hexToRGB } from 'components/form/Color';
+import Range from 'components/form/Range';
 import { copyToClipboard } from 'helper/copy';
 import { toDashCaseFromCamelCase } from 'stringHelper';
 import './generator.css';
@@ -62,13 +64,14 @@ const getBoxStyle = ({
   const radiusTopRight = topRightRadius ? `${topRightRadius}px`: '0';
   const radiusBottomRight = bottomRightRadius ? `${bottomRightRadius}px`: '0';
   const radiusBottomLeft = bottomLeftRadius ? `${bottomLeftRadius}px`: '0';
+  const rgbColor = hexToRGB(backgroundColor);
+  const normalizedOpacity = Number(opacity) / OPACITY_MAX;
 
   return {
     border: `${borderThickness}px ${borderStyle} ${borderColor}`,
     borderRadius: `${radiusTopLeft} ${radiusTopRight} ${radiusBottomRight} ${radiusBottomLeft}`,
     boxShadow: `${horizontalBoxShadow}px ${verticalBoxShadow}px ${blurRadiusBoxShadow}px ${spreadBoxShadow}px ${colorBoxShadow}`,
-    backgroundColor,
-    opacity: Number(opacity) / OPACITY_MAX,
+    backgroundColor: `rgba(${rgbColor.red},${rgbColor.green},${rgbColor.blue},${normalizedOpacity})`,
     color: fontColor,
     fontSize: `${fontSize}px`,
     textAlign,
@@ -81,13 +84,12 @@ const getBoxStyle = ({
 };
 
 const getCSSFromJSON = (style) => {
-  const parsedCSS = toDashCaseFromCamelCase(JSON.stringify(style))
-    .replace('{','{\n  ')
-    .replace('}','\n}')
-    .replace(/"/g,'')
-    .replace(/,/g,';\n  ');
-
-  return parsedCSS;
+  const cssProperties = Object.keys(style);
+  return cssProperties
+    .map(key => {
+      return `${toDashCaseFromCamelCase(key)}: ${style[key]};\n`;
+    })
+    .join('');
 };
 
 const Generator = () => {
@@ -123,16 +125,16 @@ const Generator = () => {
   const [width, setWidth] = useState('100');
   const [height, setHeight] = useState('50');
 
-  const handleBorderThicknessChange = ({ target: { value }}) => {
-    setBorderThickness(value);
+  const handleBorderThicknessChange = ({ selected }) => {
+    setBorderThickness(selected);
   };
 
   const handleBorderTypeChange = ({ values }) => {
     setBorderValues(values);
   };
 
-  const handleBorderColorChange = ({ target: { value }}) => {
-    setBorderColor(value);
+  const handleBorderColorChange = ({ selected }) => {
+    setBorderColor(selected);
   };
 
   const handleTopLeftRadiusChange = ({ selected }) => {
@@ -167,24 +169,24 @@ const Generator = () => {
     setSpreadBoxShadow(selected);
   };
 
-  const handleColorBoxShadowChange = ({ target: { value }}) => {
-    setColorBoxShadow(value);
+  const handleColorBoxShadowChange = ({ selected }) => {
+    setColorBoxShadow(selected);
   };
 
-  const handleBackgroundColorChange = ({ target: { value }}) => {
-    setBackgroundColor(value);
+  const handleBackgroundColorChange = ({ selected }) => {
+    setBackgroundColor(selected);
   };
 
-  const handleOpacityChange = ({ target: { value }}) => {
-    setOpacity(value);
+  const handleOpacityChange = ({ selected }) => {
+    setOpacity(selected);
   };
 
-  const handleFontColorChange = ({ target: { value }}) => {
-    setFontColor(value);
+  const handleFontColorChange = ({ selected }) => {
+    setFontColor(selected);
   };
 
-  const handleFontSizeChange = ({ target: { value }}) => {
-    setFontSize(value);
+  const handleFontSizeChange = ({ selected }) => {
+    setFontSize(selected);
   };
 
   const handleTextAlignValuesChange = ({ values }) => {
@@ -203,8 +205,8 @@ const Generator = () => {
     setBlurRadiusTextShadow(selected);
   };
 
-  const handleColorTextShadowChange = ({ target: { value }}) => {
-    setColorTextShadow(value);
+  const handleColorTextShadowChange = ({ selected }) => {
+    setColorTextShadow(selected);
   };
 
   const handleMarginTopChange = ({ selected }) => {
@@ -239,12 +241,12 @@ const Generator = () => {
     setPaddingLeft(selected);
   };
 
-  const handleWidthChange = ({ target: { value }}) => {
-    setWidth(value);
+  const handleWidthChange = ({ selected }) => {
+    setWidth(selected);
   };
 
-  const handleHeightChange = ({ target: { value }}) => {
-    setHeight(value);
+  const handleHeightChange = ({ selected }) => {
+    setHeight(selected);
   };
 
   const borderStyle = borderValues.find(item => item.selected).label;
@@ -286,9 +288,9 @@ const Generator = () => {
         <div className="generator__form_column">
           <div className="generator__form_cell">
             <h2> Border </h2>
-            <label>Thickness </label><input type="range" min="0" max={THICKNESS_MAX} value={borderThickness} onChange={handleBorderThicknessChange} />
+            <Range label="Thickness" min="0" max={THICKNESS_MAX} selected={borderThickness} onChange={handleBorderThicknessChange} />
             <Dropdown label={`Type: ${borderStyle}`} values={borderValues} onChange={handleBorderTypeChange} />
-            <label>Color </label><input type="color" value={borderColor} onChange={handleBorderColorChange} />
+            <Color label="Color" selected={borderColor} onChange={handleBorderColorChange} />
           </div>
           <div className="generator__form_cell">
             <h2> Border Radius </h2>
@@ -303,29 +305,29 @@ const Generator = () => {
             <Text label='Vertical' selected={verticalBoxShadow} onChange={handleVerticalBoxShadowChange} />
             <Text label='Blur Radius' selected={blurRadiusBoxShadow} onChange={handleBlurRadiusBoxShadowChange} />
             <Text label='Spread' selected={spreadBoxShadow} onChange={handleSpreadBoxShadowChange} />
-            <label>Color </label><input type="color" value={colorBoxShadow} onChange={handleColorBoxShadowChange} />
+            <Color label="Color" selected={colorBoxShadow} onChange={handleColorBoxShadowChange} />
           </div>
         </div>
         <div className="generator__form_column">
           <div className="generator__form_cell">
             <h2> Size </h2>
-            <label> Width </label><input type="range" min="0" max={WIDTH_MAX} value={width} onChange={handleWidthChange} />
-            <label> Height </label><input type="range" min="0" max={HEIGHT_MAX} value={height} onChange={handleHeightChange} />
+            <Range label="Width" min="0" max={WIDTH_MAX} selected={width} onChange={handleWidthChange} />
+            <Range label="Height" min="0" max={HEIGHT_MAX} selected={height} onChange={handleHeightChange} />
           </div>
           <div className="generator__form_cell">
             <h2> Color </h2>
-            <label>BG Color </label><input type="color" value={backgroundColor} onChange={handleBackgroundColorChange} />
-            <label> Opacity </label><input type="range" min="0" max={OPACITY_MAX} value={opacity} onChange={handleOpacityChange} />
+            <Color label="BG Color" selected={backgroundColor} onChange={handleBackgroundColorChange} />
+            <Range label="Opacity" min="0" max={OPACITY_MAX} selected={opacity} onChange={handleOpacityChange} />
           </div>
           <div className="generator__form_cell">
             <h2> Text </h2>
-            <label> Font Color </label><input type="color" value={fontColor} onChange={handleFontColorChange} />
-            <label> Font Size </label><input type="range" min="0" max={FONT_SIZE_MAX} value={fontSize} onChange={handleFontSizeChange} />
+            <Color label="Font Color" selected={fontColor} onChange={handleFontColorChange} />
+            <Range label="Font Size" min="0" max={FONT_SIZE_MAX} selected={fontSize} onChange={handleFontSizeChange} />
             <Dropdown label={`Text Align: ${textAlign}`} values={textAlignValues} onChange={handleTextAlignValuesChange} />
             <Text label='Horizontal' selected={horizontalTextShadow} onChange={handleHorizontalTextShadowChange} />
             <Text label='Vertical' selected={verticalTextShadow} onChange={handleVerticalTextShadowChange} />
             <Text label='Blur Radius' selected={blurRadiusTextShadow} onChange={handleBlurRadiusTextShadowChange} />
-            <label>Color </label><input type="color" value={colorTextShadow} onChange={handleColorTextShadowChange} />
+            <Color label="Text Shadow Color" selected={colorTextShadow} onChange={handleColorTextShadowChange} />
           </div>
         </div>
         <div className="generator__form_column">

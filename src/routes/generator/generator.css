@@ -38,3 +38,18 @@
   background: #eee;
   padding: 10px;
 }
+
+.test {
+  border: 1px solid #000000;
+  border-radius: 0px 0px 0px 0px;
+  box-shadow: 0px 0px 0px 0px #ffffff;
+  background-color: rgba(255,255,255,1);
+  color: #000000;
+  font-size: 16px;
+  text-align: initial;
+  text-shadow: 0px 0px 0px #ffffff;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  width: 100px;
+  height: 50px;
+}
