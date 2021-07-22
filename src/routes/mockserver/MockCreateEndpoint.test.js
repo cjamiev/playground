@@ -1,6 +1,6 @@
 import React from 'React';
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper';
+import { reduxTestWrapper } from 'testHelper';
 import api from 'api';
 import MockCreateEndpoint from './MockCreateEndpoint';
 import Page from 'components/layout/Page';
@@ -26,7 +26,7 @@ const mockCreateEndpointProps = {
 
 describe('MockCreateEndpoint', () => {
   it('checks page renders', () => {
-    testRenderContainer(MockCreateEndpoint, {}, mockCreateEndpointProps );
+    reduxTestWrapper(MockCreateEndpoint, {}, mockCreateEndpointProps );
 
     const submitBtn = screen.getByText('Submit');
     fireEvent.click(submitBtn);

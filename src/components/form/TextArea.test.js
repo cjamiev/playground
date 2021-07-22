@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { simpleTestWrapper } from 'testHelper';
 import TextArea from 'components/form/TextArea';
 
 const defaultProps = {
@@ -14,7 +14,7 @@ const defaultProps = {
 
 describe('TextArea', () => {
   it('valid json', () => {
-    const { getByLabelText } = testRenderComponent(TextArea, defaultProps);
+    const { getByLabelText } = simpleTestWrapper(TextArea, defaultProps);
     const input = getByLabelText('text-area');
     const expectedResult = { id: 1, selected: JSON.stringify({testing:123}, undefined, 2), error: false, errorMessage: defaultProps.errorMessage };
 
@@ -24,7 +24,7 @@ describe('TextArea', () => {
   });
 
   it('invalid json', () => {
-    const { getByLabelText } = testRenderComponent(TextArea, defaultProps);
+    const { getByLabelText } = simpleTestWrapper(TextArea, defaultProps);
     const input = getByLabelText('text-area');
     const expectedResult = { id: 1, selected: 'abc', error: true, errorMessage: defaultProps.errorMessage };
 

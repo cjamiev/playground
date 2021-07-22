@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent, testRenderContainer } from 'testHelper';
+import { simpleTestWrapper, reduxTestWrapper } from 'testHelper';
 import { executeCommand } from './listActions';
 import { incrementDate } from 'clock';
 import api from 'api';
@@ -27,7 +27,7 @@ describe('List', () => {
       type: 'invalid',
       label: 'invalid-label'
     };
-    testRenderComponent(List, getProps(invalidTypeData));
+    simpleTestWrapper(List, getProps(invalidTypeData));
 
     expect(screen.queryByText(invalidTypeData.label)).not.toBeInTheDocument();
   });
@@ -38,7 +38,7 @@ describe('List', () => {
       label: 'cjamiev/playground',
       value: 'https://github.com/cjamiev/playground'
     };
-    testRenderComponent(List, getProps(linkData));
+    simpleTestWrapper(List, getProps(linkData));
 
     expect(screen.getByText(linkData.label)).toBeInTheDocument();
   });
@@ -50,7 +50,7 @@ describe('List', () => {
       value: 'cjamiev1836'
     };
     document.execCommand = jest.fn();
-    testRenderComponent(List, getProps(copyData));
+    simpleTestWrapper(List, getProps(copyData));
 
     const copyBtn = screen.getByText(copyData.label);
     fireEvent.click(copyBtn);
@@ -64,7 +64,7 @@ describe('List', () => {
       type: 'text',
       value: 'testing123'
     };
-    testRenderComponent(List, getProps(textData));
+    simpleTestWrapper(List, getProps(textData));
 
     expect(screen.getByText(textData.value)).toBeInTheDocument();
   });
@@ -76,7 +76,7 @@ describe('List', () => {
       value: { mode: 'test-mode', name: 'test-filename', showArgs: true}
     };
     const args = '12345';
-    testRenderContainer(List, getProps(commandData));
+    reduxTestWrapper(List, getProps(commandData));
 
     const commandInput = screen.getByLabelText(`args for ${commandData.label}`);
     fireEvent.change(commandInput, { target: { value: args }});
@@ -94,7 +94,7 @@ describe('List', () => {
       label: 'One hour from now',
       value: incrementDate(today, { hours: 1})
     };
-    testRenderComponent(List, getProps(timerOneHourData));
+    simpleTestWrapper(List, getProps(timerOneHourData));
 
     expect(screen.getByText(timerOneHourData.label)).toBeInTheDocument();
   });
@@ -105,7 +105,7 @@ describe('List', () => {
       label: 'Two days from now',
       value: incrementDate(today, { days: 2})
     };
-    testRenderComponent(List, getProps(timerTwoDaysData));
+    simpleTestWrapper(List, getProps(timerTwoDaysData));
 
     expect(screen.getByText(timerTwoDaysData.label)).toBeInTheDocument();
   });
@@ -116,7 +116,7 @@ describe('List', () => {
       label: 'Two weeks from now',
       value: incrementDate(today, { weeks: 2})
     };
-    testRenderComponent(List, getProps(timerTwoWeeksData));
+    simpleTestWrapper(List, getProps(timerTwoWeeksData));
 
     expect(screen.getByText(timerTwoWeeksData.label)).toBeInTheDocument();
   });

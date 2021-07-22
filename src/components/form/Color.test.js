@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { simpleTestWrapper } from 'testHelper';
 import Color, { hexToRGB } from 'components/form/Color';
 
 const defaultProps = {
@@ -11,7 +11,7 @@ const defaultProps = {
 
 describe('Color', () => {
   it('handle color change', () => {
-    testRenderComponent(Color, defaultProps);
+    simpleTestWrapper(Color, defaultProps);
     const input = screen.getByLabelText('color-field');
     const expectedResult = { id: 1, selected: '#ffffff' };
 

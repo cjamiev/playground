@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { simpleTestWrapper } from 'testHelper';
 import Tabs from './Tabs';
 
 const Component = () => {
@@ -22,7 +22,7 @@ const defaultProps = {
 
 describe('Tabs', () => {
   it('checks tab behavior', () => {
-    testRenderComponent(Tabs, defaultProps);
+    simpleTestWrapper(Tabs, defaultProps);
 
     expect(screen.getByText('component1')).toBeInTheDocument();
     expect(screen.queryByText('component2')).not.toBeInTheDocument();

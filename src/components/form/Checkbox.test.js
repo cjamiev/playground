@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { simpleTestWrapper } from 'testHelper';
 import Checkbox from 'components/form/Checkbox';
 
 const defaultProps = {
@@ -11,7 +11,7 @@ const defaultProps = {
 
 describe('Checkbox', () => {
   it('checks an item', () => {
-    testRenderComponent(Checkbox, defaultProps);
+    simpleTestWrapper(Checkbox, defaultProps);
     const expectedResult = { id: 1, values: [{ label: 'ck1', selected: true}, { label: 'ck2', selected: true }] };
 
     fireEvent.click(screen.getByText('ck2'));
@@ -20,7 +20,7 @@ describe('Checkbox', () => {
   });
 
   it('unchecks an item', () => {
-    const { getByText } = testRenderComponent(Checkbox, defaultProps);
+    const { getByText } = simpleTestWrapper(Checkbox, defaultProps);
     const expectedResult = { id: 1, values: [{ label: 'ck1', selected: false}, { label: 'ck2', selected: false }] };
 
     fireEvent.click(getByText('ck1'));

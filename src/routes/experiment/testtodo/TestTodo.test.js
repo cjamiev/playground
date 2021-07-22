@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { simpleTestWrapper } from 'testHelper';
 import TestTodo from './TestTodo';
 
 const ZERO = 0;
@@ -9,7 +9,7 @@ const defaultProps = {};
 
 describe('TestTodo', () => {
   it('adds three items', () => {
-    testRenderComponent(TestTodo, defaultProps);
+    simpleTestWrapper(TestTodo, defaultProps);
 
     const inputNode = screen.getByRole('textbox');
 

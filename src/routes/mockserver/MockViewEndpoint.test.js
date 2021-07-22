@@ -1,5 +1,5 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper';
+import { reduxTestWrapper, fullTestWrapper } from 'testHelper';
 import MockViewEndpoint from './MockViewEndpoint';
 
 const ZERO = 0;
@@ -16,13 +16,13 @@ const mockViewEndpointProps = {
 
 describe('MockViewEndpoint', () => {
   it('checks page renders', () => {
-    testRenderContainer(MockViewEndpoint, {}, mockViewEndpointProps );
+    reduxTestWrapper(MockViewEndpoint, {}, mockViewEndpointProps );
 
     expect(screen.getByText('Filter URL:')).toBeInTheDocument();
   });
 
   it('handles filter', () => {
-    testRenderContainer(MockViewEndpoint, {}, mockViewEndpointProps );
+    reduxTestWrapper(MockViewEndpoint, {}, mockViewEndpointProps );
 
     expect(screen.queryByText(mockViewEndpointProps.mockserver.mocks[ZERO].url)).toBeInTheDocument();
 
@@ -50,7 +50,7 @@ describe('MockViewEndpoint', () => {
         responsePath: 'filename'
       }
     };
-    testRenderContainer(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
+    fullTestWrapper(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
 
     const loadBtn = screen.getByText('Load');
     fireEvent.click(loadBtn);
@@ -78,7 +78,7 @@ describe('MockViewEndpoint', () => {
         responsePath: 'filename'
       }
     };
-    testRenderContainer(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
+    fullTestWrapper(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
 
     const loadBtn = screen.getByText('Load');
     fireEvent.click(loadBtn);
@@ -106,7 +106,7 @@ describe('MockViewEndpoint', () => {
         responsePath: 'filename'
       }
     };
-    testRenderContainer(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
+    fullTestWrapper(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
 
     const loadBtn = screen.getByText('Load');
     fireEvent.click(loadBtn);
@@ -133,7 +133,7 @@ describe('MockViewEndpoint', () => {
         responsePath: 'filename'
       }
     };
-    testRenderContainer(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
+    fullTestWrapper(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
 
     const loadBtn = screen.getByText('Load');
     fireEvent.click(loadBtn);

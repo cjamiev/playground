@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { simpleTestWrapper } from 'testHelper';
 import Multiselect from 'components/form/Multiselect';
 
 const defaultProps = {
@@ -11,7 +11,7 @@ const defaultProps = {
 
 describe('Multiselect', () => {
   it('checks an item', () => {
-    testRenderComponent(Multiselect, defaultProps);
+    simpleTestWrapper(Multiselect, defaultProps);
     const expectedResult = { id: 1, values: [{ label: 'ms1', selected: false}, { label: 'ms2', selected: true }] };
 
     fireEvent.change(screen.getByTestId('multiselect-test-label'), {

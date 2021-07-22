@@ -1,5 +1,5 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper';
+import { reduxTestWrapper, fullTestWrapper } from 'testHelper';
 import api from 'api';
 import MockLog from './MockLog';
 
@@ -40,7 +40,7 @@ const mockLogProps = {
 
 describe('MockLog', () => {
   it('checks page renders', async () => {
-    testRenderContainer(MockLog, {}, mockLogProps);
+    reduxTestWrapper(MockLog, {}, mockLogProps);
 
     expect(screen.getByText('Run Log must be set to yes in configuration')).toBeInTheDocument();
 
@@ -56,7 +56,7 @@ describe('MockLog', () => {
         }
       }
     });
-    testRenderContainer(MockLog, {}, mockLogProps);
+    reduxTestWrapper(MockLog, {}, mockLogProps);
 
     const clearBtn = screen.getByText('Clear Log');
 
@@ -66,7 +66,7 @@ describe('MockLog', () => {
 
   it('click load then click copy content', async () => {
     document.execCommand = jest.fn();
-    testRenderContainer(MockLog, {}, mockLogProps);
+    fullTestWrapper(MockLog, {}, mockLogProps);
 
     const loadBtn = screen.getByText('Load');
     fireEvent.click(loadBtn);

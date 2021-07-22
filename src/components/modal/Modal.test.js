@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper';
+import { reduxTestWrapper } from 'testHelper';
 import { Modal } from 'components/modal/Modal';
 import api from 'api';
 
@@ -43,14 +43,14 @@ const baseProps = {
 
 describe('Modal', () => {
   it('default', () => {
-    testRenderContainer(Modal, baseProps);
+    reduxTestWrapper(Modal, baseProps);
 
     expect(screen.getByText(baseProps.title)).toBeInTheDocument();
     expect(screen.getByText(baseProps.message)).toBeInTheDocument();
   });
 
   it('handle close', () => {
-    testRenderContainer(Modal, baseProps);
+    reduxTestWrapper(Modal, baseProps);
 
     fireEvent.click(screen.getByText('X'));
 
@@ -59,7 +59,7 @@ describe('Modal', () => {
   });
 
   it('handle button action', () => {
-    testRenderContainer(Modal, baseProps);
+    reduxTestWrapper(Modal, baseProps);
 
     fireEvent.click(screen.getByText(baseProps.buttonList[ZERO].label));
 
@@ -67,7 +67,7 @@ describe('Modal', () => {
   });
 
   it('handle dispatch action', () => {
-    testRenderContainer(Modal, baseProps);
+    reduxTestWrapper(Modal, baseProps);
 
     fireEvent.click(screen.getByText(baseProps.dispatchAction.label));
 
@@ -75,7 +75,7 @@ describe('Modal', () => {
   });
 
   it('handle dispatch action after text change', () => {
-    testRenderContainer(Modal, baseProps);
+    reduxTestWrapper(Modal, baseProps);
     const input = screen.getByLabelText('text-area');
     const expectedResult = { id: 1, selected: '123', error: false };
 

@@ -1,6 +1,7 @@
 export {
-  testRenderComponent,
-  testRenderContainer
+  simpleTestWrapper,
+  reduxTestWrapper,
+  fullTestWrapper
 } from './componentSetup';
 
 export {

@@ -1,9 +1,10 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper';
+import { reduxTestWrapper } from 'testHelper';
 import MockServer from './MockServer';
 import { mockserverInitialState } from './mockserverReducer';
 
 const pathname = '/mockserver';
+const ZERO = 0;
 
 const mockLogProps = {
   mockserver: {
@@ -17,13 +18,13 @@ const mockLogProps = {
 
 describe('MockServer', () => {
   it('checks page renders', () => {
-    testRenderContainer(MockServer, {}, {}, pathname);
+    reduxTestWrapper(MockServer, {}, {}, pathname);
 
-    expect(screen.getByText('Mock Server')).toBeInTheDocument();
+    expect(screen.getAllByText('Mock Server')[ZERO]).toBeInTheDocument();
   });
 
   it('tab switch', async () => {
-    testRenderContainer(MockServer, {}, mockLogProps, pathname);
+    reduxTestWrapper(MockServer, {}, mockLogProps, pathname);
 
     expect(screen.queryByText('Filter URL:')).not.toBeInTheDocument();
 

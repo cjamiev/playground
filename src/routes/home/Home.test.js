@@ -1,13 +1,14 @@
 import { screen } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper';
+import { reduxTestWrapper } from 'testHelper';
 import Home from './Home';
 
 const pathname = '/home';
+const ZERO = 0;
 
 describe('Home', () => {
   it('checks page renders', () => {
-    testRenderContainer(Home, {}, {}, pathname);
+    reduxTestWrapper(Home, {}, {}, pathname);
 
-    expect(screen.getByText('Home')).toBeInTheDocument();
+    expect(screen.getAllByText('Home')[ZERO]).toBeInTheDocument();
   });
 });

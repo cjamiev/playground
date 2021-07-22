@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper';
+import { reduxTestWrapper } from 'testHelper';
 import Alert from './Alert';
 
 const data = {
@@ -14,13 +14,13 @@ const alertStoreProps = {
 
 describe('Alert', () => {
   it('checks alert renders', () => {
-    testRenderContainer(Alert, {}, alertStoreProps);
+    reduxTestWrapper(Alert, {}, alertStoreProps);
 
     expect(screen.getByText(data.content)).toBeInTheDocument();
   });
 
   it('handle dismiss', () => {
-    testRenderContainer(Alert, {}, alertStoreProps);
+    reduxTestWrapper(Alert, {}, alertStoreProps);
 
     expect(screen.getByText(data.content)).toBeInTheDocument();
     fireEvent.click(screen.getByText('X'));
@@ -29,7 +29,7 @@ describe('Alert', () => {
   });
 
   it('should not be rendered', () => {
-    testRenderContainer(Alert);
+    reduxTestWrapper(Alert);
 
     expect(screen.queryByText(data.content)).not.toBeInTheDocument();
   });

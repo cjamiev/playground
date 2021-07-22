@@ -1,38 +1,26 @@
 import { act } from 'react-dom/test-utils';
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderContainer, mockDate } from 'testHelper';
+import { reduxTestWrapper, fullTestWrapper, mockDate } from 'testHelper';
 import Navigation from './Navigation';
 import { TIME } from 'constants/time';
 
-const mockHistory = {
-  location: {
-    pathname: '/home'
-  },
-  push: jest.fn()
-};
-jest.mock('react-router-dom', () => {
-  return {
-    __esModule: true,
-    ...jest.requireActual('react-router-dom'),
-    useHistory: jest.fn(() => mockHistory)
-  };
-});
-
 describe('Navigation', () => {
   it('handles click on navigation link', () => {
-    testRenderContainer(Navigation);
+    const { history } = fullTestWrapper(Navigation);
+
+    expect(history.location.pathname).toEqual('/home');
 
     const navLink = screen.getByText('Experiment');
     fireEvent.click(navLink);
 
-    expect(mockHistory.push).toHaveBeenCalledWith('/experiment');
+    expect(history.location.pathname).toEqual('/experiment');
   });
 
   it('check content', () => {
     jest.useFakeTimers();
     act(() => {
       mockDate();
-      testRenderContainer(Navigation);
+      reduxTestWrapper(Navigation);
       jest.advanceTimersByTime(TIME.A_SECOND);
     });
 

@@ -1,9 +1,10 @@
 import { screen } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper';
+import { reduxTestWrapper } from 'testHelper';
 import { loadPassword } from './clipboardActions';
 import Clipboard from './Clipboard';
 
 const pathname = '/clipboard';
+const ZERO = 0;
 
 const defaultProps = {};
 const defaultStoreProps = {
@@ -51,23 +52,23 @@ const defaultStorePropsTwo = {
   clipboard: {
     ...defaultStoreProps.clipboard,
     error: {
-      message: 'test-alert-message'
+      message: 'test-alert-message2'
     }
   }
 };
 
 describe('Clipboard', () => {
   it('checks page renders', () => {
-    testRenderContainer(Clipboard, defaultProps, defaultStoreProps, pathname);
+    reduxTestWrapper(Clipboard, defaultProps, defaultStoreProps, pathname);
 
-    expect(screen.getByText('Clipboard')).toBeInTheDocument();
+    expect(screen.getAllByText('Clipboard')[ZERO]).toBeInTheDocument();
     expect(screen.getByText('label1')).toBeInTheDocument();
     expect(screen.getByText('username')).toBeInTheDocument();
     expect(screen.getByText('password')).toBeInTheDocument();
   });
 
   it('check error dispatch and commandResponse dispatch', () => {
-    testRenderContainer(Clipboard, defaultProps, defaultStorePropsTwo, pathname);
+    reduxTestWrapper(Clipboard, defaultProps, defaultStorePropsTwo, pathname);
 
     expect(screen.getByText(defaultStorePropsTwo.clipboard.error.message)).toBeInTheDocument();
   });

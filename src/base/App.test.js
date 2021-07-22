@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper';
+import { reduxTestWrapper } from 'testHelper';
 import App from './index';
 
 const ZERO = 0;
@@ -16,7 +16,7 @@ const defaultStoreProps = {
 
 describe('App', () => {
   it('checks page renders', () => {
-    testRenderContainer(App, defaultProps, defaultStoreProps);
+    reduxTestWrapper(App, defaultProps, defaultStoreProps);
 
     expect(screen.getAllByText('Home')[ZERO]).toBeInTheDocument();
   });

@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { simpleTestWrapper } from 'testHelper';
 import Radio from 'components/form/Radio';
 
 const defaultProps = {
@@ -11,7 +11,7 @@ const defaultProps = {
 
 describe('Radio', () => {
   it('click an option', () => {
-    testRenderComponent(Radio, defaultProps);
+    simpleTestWrapper(Radio, defaultProps);
     const expectedResult = { id: 1, values: [{ label: 'rb1', selected: false}, { label: 'rb2', selected: true }] };
 
     fireEvent.click(screen.getByText('rb2'));

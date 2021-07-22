@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { simpleTestWrapper } from 'testHelper';
 import Text from 'components/form/Text';
 
 const defaultProps = {
@@ -13,7 +13,7 @@ const defaultProps = {
 
 describe('Text', () => {
   it('valid text', () => {
-    testRenderComponent(Text, defaultProps);
+    simpleTestWrapper(Text, defaultProps);
     const input = screen.getByLabelText('text-field');
     const expectedResult = { id: 1, selected: '123', error: false };
 
@@ -23,7 +23,7 @@ describe('Text', () => {
   });
 
   it('invalid text', () => {
-    testRenderComponent(Text, defaultProps);
+    simpleTestWrapper(Text, defaultProps);
     const input = screen.getByLabelText('text-field');
     const expectedResult = { id: 1, selected: 'abc', error: true };
 

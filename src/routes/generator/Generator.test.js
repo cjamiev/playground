@@ -1,13 +1,14 @@
 import { screen } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper';
+import { reduxTestWrapper } from 'testHelper';
 import Generator from './Generator';
 
 const pathname = '/generator';
+const ZERO = 0;
 
 describe('Generator', () => {
   it('checks page renders', () => {
-    testRenderContainer(Generator, {}, {}, pathname);
+    reduxTestWrapper(Generator, {}, {}, pathname);
 
-    expect(screen.getByText('Generator')).toBeInTheDocument();
+    expect(screen.getAllByText('Generator')[ZERO]).toBeInTheDocument();
   });
 });

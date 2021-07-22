@@ -1,13 +1,14 @@
 import { screen } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper';
+import { reduxTestWrapper } from 'testHelper';
 import StyleGuide from './StyleGuide';
 
 const pathname = '/styleguide';
+const ZERO = 0;
 
 describe('StyleGuide', () => {
   it('checks page renders', () => {
-    testRenderContainer(StyleGuide, {}, {}, pathname);
+    reduxTestWrapper(StyleGuide, {}, {}, pathname);
 
-    expect(screen.getByText('Style Guide')).toBeInTheDocument();
+    expect(screen.getAllByText('Style Guide')[ZERO]).toBeInTheDocument();
   });
 });

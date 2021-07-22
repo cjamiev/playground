@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { simpleTestWrapper } from 'testHelper';
 import Dropdown from './Dropdown';
 
 const ZERO = 0;
@@ -12,7 +12,7 @@ const defaultProps = {
 
 describe('Dropdown', () => {
   it('click on item', () => {
-    testRenderComponent(Dropdown, defaultProps);
+    simpleTestWrapper(Dropdown, defaultProps);
 
     expect(screen.queryByText(defaultProps.values[ZERO].label)).not.toBeInTheDocument();
 

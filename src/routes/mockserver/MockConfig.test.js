@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderContainer } from 'testHelper';
+import { reduxTestWrapper } from 'testHelper';
 import api from 'api';
 import MockConfig from './MockConfig';
 
@@ -37,7 +37,7 @@ const mockConfigProps = {
 
 describe('MockConfig', () => {
   it('checks page renders', () => {
-    testRenderContainer(MockConfig, {}, mockConfigProps );
+    reduxTestWrapper(MockConfig, {}, mockConfigProps );
 
     const submitBtn = screen.getByText('Submit');
     fireEvent.click(submitBtn);

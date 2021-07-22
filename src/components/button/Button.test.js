@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { simpleTestWrapper } from 'testHelper';
 import Button from './Button';
 
 const defaultProps = {
@@ -9,14 +9,14 @@ const defaultProps = {
 
 describe('Button', () => {
   it('handle click', async () => {
-    testRenderComponent(Button, defaultProps);
+    simpleTestWrapper(Button, defaultProps);
 
     fireEvent.click(screen.getByText(defaultProps.label));
     expect(defaultProps.onClick).toHaveBeenCalled();
   });
 
   it('should be disabled', async () => {
-    testRenderComponent(Button, { ...defaultProps, disabled: true});
+    simpleTestWrapper(Button, { ...defaultProps, disabled: true});
 
     fireEvent.click(screen.getByText(defaultProps.label));
     expect(defaultProps.onClick).not.toHaveBeenCalled();

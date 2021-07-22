@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { simpleTestWrapper } from 'testHelper';
 import CloseButton from './CloseButton';
 
 const defaultProps = {
@@ -8,7 +8,7 @@ const defaultProps = {
 
 describe('CloseButton', () => {
   it('handle click', async () => {
-    testRenderComponent(CloseButton, defaultProps);
+    simpleTestWrapper(CloseButton, defaultProps);
 
     fireEvent.click(screen.getByText('X'));
     expect(defaultProps.onClick).toHaveBeenCalled();

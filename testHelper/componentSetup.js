@@ -1,3 +1,4 @@
+/* eslint-disable max-params */
 import React from 'react';
 import { render } from '@testing-library/react';
 import {
@@ -9,6 +10,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import Page from '../src/components/layout';
 import { rootReducer } from '../src/store';
 import { GlobalModal } from 'components/modal/GlobalModal';
 import { listInitialState } from '../src/components/list/listReducer';
@@ -18,6 +20,7 @@ import { globalModalInitialState } from '../src/components/modal/globalModalRedu
 import { testApiInitialState } from '../src/routes/experiment/testApi/testApiReducer';
 import { testReduxInitialState } from '../src/routes/experiment/testRedux/testReduxReducer';
 import { mockserverInitialState } from '../src/routes/mockserver/mockserverReducer';
+import { isEmpty } from 'booleanHelper';
 
 const middlewares = [thunk];
 const appliedMiddlewares = applyMiddleware(...middlewares);
@@ -34,27 +37,45 @@ const defaultStore = {
   mockserver: mockserverInitialState
 };
 
-const testRenderComponent = (Component, props = {}) => {
+const simpleTestWrapper = (Component, props = {}) => {
   return render(<Component {...props} />);
 };
 
-// eslint-disable-next-line max-params
-const testRenderContainer = (Component, props = {}, storeState = {}, locationPathname = '/home', shouldRenderRootComponents = true) => {
-  const store = createStore(rootReducer, { ...defaultStore, ...storeState }, compose(appliedMiddlewares));
+const reduxTestWrapper = (Component, props = {}, reduxProps = {}, locationPathname = '/home') => {
+  const store = createStore(rootReducer, { ...defaultStore, ...reduxProps }, compose(appliedMiddlewares));
   const history = createMemoryHistory();
   history.push(locationPathname);
 
   return render(
     <Provider store={store}>
       <Router history={history}>
-        {shouldRenderRootComponents && <GlobalModal />}
         <Component {...props} />
       </Router>
     </Provider>
   );
 };
 
+const fullTestWrapper = (Component, props = {}, reduxProps = {}, locationPathname = '/home', shouldRenderPage = false) => {
+  const store = createStore(rootReducer, { ...defaultStore, ...reduxProps }, compose(appliedMiddlewares));
+  const history = createMemoryHistory();
+  history.push(locationPathname);
+
+  const renderComponent = shouldRenderPage ? (<Page><Component {...props} /></Page>): <Component {...props} />;
+
+  const wrapper = render(
+    <Provider store={store}>
+      <Router history={history}>
+        <GlobalModal />
+        {renderComponent}
+      </Router>
+    </Provider>
+  );
+
+  return { wrapper, history };
+};
+
 export {
-  testRenderComponent,
-  testRenderContainer
+  simpleTestWrapper,
+  reduxTestWrapper,
+  fullTestWrapper
 };

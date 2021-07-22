@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { testRenderComponent } from 'testHelper';
+import { simpleTestWrapper } from 'testHelper';
 import Range from 'components/form/Range';
 
 const defaultProps = {
@@ -13,7 +13,7 @@ const defaultProps = {
 
 describe('Range', () => {
   it('handle range change', () => {
-    testRenderComponent(Range, defaultProps);
+    simpleTestWrapper(Range, defaultProps);
     const input = screen.getByLabelText('range-field');
     const expectedResult = { id: 1, selected: '75' };
 
