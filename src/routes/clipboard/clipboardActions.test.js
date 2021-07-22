@@ -13,7 +13,7 @@ import {
 } from './clipboardActions';
 
 const error = new Error('Test Message');
-const mockDispatch = jest.fn();
+const dispatch = jest.fn();
 
 const mockGet = jest.fn();
 jest.mock('api');
@@ -26,53 +26,53 @@ api.get.mockResolvedValue({
 describe('clipboardActions', () => {
   it('loadPassword', async () => {
     const func = loadPassword();
-    func(mockDispatch);
+    func(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: LOAD_PASSWORD, data: [{ test: 123 }]});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_PASSWORD, data: [{ test: 123 }]});
     });
   });
 
   it('loadPassword - error', async () => {
     api.get.mockRejectedValueOnce(error);
-    loadPassword()(mockDispatch);
+    loadPassword()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_PASSWORD, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_PASSWORD, error });
     });
   });
 
   it('loadFood', async () => {
-    loadFood()(mockDispatch);
+    loadFood()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: LOAD_FOOD, data: [{ test: 123 }]});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_FOOD, data: [{ test: 123 }]});
     });
   });
 
   it('loadFood - error', async () => {
     api.get.mockRejectedValueOnce(error);
-    loadFood()(mockDispatch);
+    loadFood()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_FOOD, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_FOOD, error });
     });
   });
 
   it('loadMain', async () => {
-    loadMain()(mockDispatch);
+    loadMain()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: LOAD_MAIN, data: [{ test: 123 }]});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MAIN, data: [{ test: 123 }]});
     });
   });
 
   it('loadMain - error', async () => {
     api.get.mockRejectedValueOnce(new Error('Test Message'));
-    loadMain()(mockDispatch);
+    loadMain()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_MAIN, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MAIN, error });
     });
   });
 });

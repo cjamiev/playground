@@ -39,13 +39,13 @@ const Clipboard = () => {
     if(result) {
       dispatch(openGlobalModal({ title: 'Command Results', message: result }));
     }
-  });
+  }, [dispatch, result]);
 
   useEffect(() => {
     if(error.message) {
       dispatch(createAlert({ content: error.message, status: 'error' }));
     }
-  });
+  }, [dispatch, error.message]);
 
   return (
     <Page>

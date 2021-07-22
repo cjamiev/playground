@@ -29,7 +29,7 @@ import {
 } from './mockserverActions';
 
 const error = new Error('Test Message');
-const mockDispatch = jest.fn();
+const dispatch = jest.fn();
 
 const mockGet = jest.fn();
 jest.mock('api');
@@ -49,110 +49,110 @@ api.post.mockResolvedValue({
 describe('mockserverActions', () => {
   it('loadMockServerConfig', async () => {
     const func = loadMockServerConfig();
-    func(mockDispatch);
+    func(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: LOAD_MOCKSERVER_CONFIG, data: [{ test: 123 }]});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCKSERVER_CONFIG, data: [{ test: 123 }]});
     });
   });
 
   it('loadMockServerConfig - error', async () => {
     api.get.mockRejectedValueOnce(error);
-    loadMockServerConfig()(mockDispatch);
+    loadMockServerConfig()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
     });
   });
 
   it('updateMockServerConfig', async () => {
     const payload = { testing: 123 };
-    updateMockServerConfig(payload)(mockDispatch);
+    updateMockServerConfig(payload)(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: UPDATE_MOCKSERVER_CONFIG, data: 'testing 123', payload});
+      expect(dispatch).toHaveBeenCalledWith({ type: UPDATE_MOCKSERVER_CONFIG, data: 'testing 123', payload});
     });
   });
 
   it('updateMockServerConfig - error', async () => {
     api.post.mockRejectedValueOnce(error);
-    updateMockServerConfig()(mockDispatch);
+    updateMockServerConfig()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
     });
   });
 
   it('loadMockRequests', async () => {
-    loadMockRequests()(mockDispatch);
+    loadMockRequests()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: LOAD_MOCKREQUESTS, data: [{ test: 123 }]});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCKREQUESTS, data: [{ test: 123 }]});
     });
   });
 
   it('loadMockRequests - error', async () => {
     api.get.mockRejectedValueOnce(error);
-    loadMockRequests()(mockDispatch);
+    loadMockRequests()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
     });
   });
 
   it('updateMockRequests', async () => {
-    updateMockRequests()(mockDispatch);
+    updateMockRequests()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: UPDATE_MOCKREQUESTS, data: 'testing 123'});
+      expect(dispatch).toHaveBeenCalledWith({ type: UPDATE_MOCKREQUESTS, data: 'testing 123'});
     });
   });
 
   it('updateMockRequests - error', async () => {
     api.post.mockRejectedValueOnce(error);
-    updateMockRequests()(mockDispatch);
+    updateMockRequests()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
     });
   });
 
   it('deleteMockEndpoint', async () => {
     const endpoint = { method: 'GET', url: '/api/test', responsePath: './filename' };
-    deleteMockEndpoint(endpoint)(mockDispatch);
+    deleteMockEndpoint(endpoint)(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: DELETE_MOCK_ENDPOINT, data: 'testing 123', endpoint});
+      expect(dispatch).toHaveBeenCalledWith({ type: DELETE_MOCK_ENDPOINT, data: 'testing 123', endpoint});
     });
   });
 
   it('deleteMockEndpoint - error', async () => {
     const endpoint = { method: 'GET', url: '/api/test', responsePath: './filename' };
     api.post.mockRejectedValueOnce(error);
-    deleteMockEndpoint()(mockDispatch);
+    deleteMockEndpoint()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
     });
   });
 
 
   it('loadMockResponse', async () => {
     const payload = { method: 'GET', url: '/api/test', responsePath: './filename' };
-    loadMockResponse(payload)(mockDispatch);
+    loadMockResponse(payload)(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: LOAD_MOCK_RESPONSE, data: 'testing 123', payload});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCK_RESPONSE, data: 'testing 123', payload});
     });
   });
 
   it('loadMockResponse - error', async () => {
     api.post.mockRejectedValueOnce(error);
     const payload = { method: 'GET', url: '/api/test', responsePath: './filename' };
-    loadMockResponse(payload)(mockDispatch);
+    loadMockResponse(payload)(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
     });
   });
 
@@ -172,19 +172,19 @@ describe('mockserverActions', () => {
         }
       }
     };
-    updateMockResponse(payload)(mockDispatch);
+    updateMockResponse(payload)(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: UPDATE_MOCK_RESPONSE, data: 'testing 123' });
+      expect(dispatch).toHaveBeenCalledWith({ type: UPDATE_MOCK_RESPONSE, data: 'testing 123' });
     });
   });
 
   it('updateMockResponse - error', async () => {
     api.post.mockRejectedValueOnce(error);
-    updateMockResponse({})(mockDispatch);
+    updateMockResponse({})(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
     });
   });
 
@@ -193,70 +193,70 @@ describe('mockserverActions', () => {
   });
 
   it('createMockEndpoint', async () => {
-    createMockEndpoint()(mockDispatch);
+    createMockEndpoint()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: CREATE_MOCK_ENDPOINT, data: 'testing 123'});
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_MOCK_ENDPOINT, data: 'testing 123'});
     });
   });
 
   it('createMockEndpoint - error', async () => {
     api.post.mockRejectedValueOnce(error);
-    createMockEndpoint()(mockDispatch);
+    createMockEndpoint()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
     });
   });
 
   it('updateMockEndpoint', async () => {
-    updateMockEndpoint()(mockDispatch);
+    updateMockEndpoint()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: UPDATE_MOCK_ENDPOINT, data: 'testing 123'});
+      expect(dispatch).toHaveBeenCalledWith({ type: UPDATE_MOCK_ENDPOINT, data: 'testing 123'});
     });
   });
 
   it('updateMockEndpoint - error', async () => {
     api.post.mockRejectedValueOnce(error);
-    updateMockEndpoint()(mockDispatch);
+    updateMockEndpoint()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
     });
   });
 
   it('loadMockServerLog', async () => {
-    loadMockServerLog()(mockDispatch);
+    loadMockServerLog()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: LOAD_MOCKSERVER_LOG, data: [{ test: 123 }]});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCKSERVER_LOG, data: [{ test: 123 }]});
     });
   });
 
   it('loadMockServerLog - error', async () => {
     api.get.mockRejectedValueOnce(error);
-    loadMockServerLog()(mockDispatch);
+    loadMockServerLog()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
     });
   });
 
   it('clearMockServerLog', async () => {
-    clearMockServerLog()(mockDispatch);
+    clearMockServerLog()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: CLEAR_MOCKSERVER_LOG, data: 'testing 123'});
+      expect(dispatch).toHaveBeenCalledWith({ type: CLEAR_MOCKSERVER_LOG, data: 'testing 123'});
     });
   });
 
   it('clearMockServerLog - error', async () => {
     api.get.mockRejectedValueOnce(error);
-    clearMockServerLog()(mockDispatch);
+    clearMockServerLog()(dispatch);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
     });
   });
 });

@@ -24,9 +24,9 @@ const MockLog = () => {
   }, [dispatch, message]);
 
 
-  const renderCells = log.map(({ timestamp, url, payload }) => {
+  const renderCells = log.map(({ timestamp, url, payload }, index) => {
     return (
-      <tr key={timestamp}>
+      <tr key={timestamp + index}>
         <td>{timestamp}</td>
         <td>{url}</td>
         <td>
