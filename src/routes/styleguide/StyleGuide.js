@@ -5,6 +5,7 @@ import List from 'components/list';
 import Radio from 'components/form/Radio';
 import Checkbox from 'components/form/Checkbox';
 import Button from 'components/button';
+import Accordion, { AccordionGroup } from 'components/accordion';
 import { noop } from 'helper/noop';
 
 const testData = [
@@ -67,6 +68,8 @@ const StyleGuide = () => {
 
         <br/>
         <Dropdown label='Dropdown' values={[{ label:'item1', selected: false}, { label:'item2', selected: false}]} />
+        <Accordion label="Single Accordion" content="content" />
+        <AccordionGroup data={[{ label: 'Accordion Top', content: (<div>Content1</div>)},{ label: 'Accordion', content: (<Button label="Secondary Button" classColor='secondary' classSize='wide' onClick={noop} />)},{ label: 'Accordion Bottom', content: 'Content3'}]} />
       </div>
     </Page>
   );
