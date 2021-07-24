@@ -103,16 +103,29 @@ export const testData = [
     orderSeq: 8
   },
   {
+    id: 8,
+    type: 'swapselect',
+    labelOne: 'list1',
+    labelTwo: 'list2',
+    listOne: [{ label: 'grocery', selected: false }, { label: 'shoes', selected: false }, { label: 'cars', selected: false }],
+    listTwo: [{ label: 'electronics', selected: false }],
+    orderSeq: 8
+  },
+  {
     id: 9,
     type: 'text',
     label: 'Text1',
     regex: '[0-9]+',
     errorMessage: 'Please enter a valid number',
     orderSeq: 9
+  },
+  {
+    id: 10,
+    type: 'textarea',
+    label: 'TextArea1',
+    selected: '{}',
+    jsonType: true,
+    errorMessage: 'Please enter valid json',
+    orderSeq: 10
   }
 ];
-
-/*
-  swapselect: SwapSelect,
-  textarea: TextArea
-*/

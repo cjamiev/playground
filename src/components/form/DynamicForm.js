@@ -33,10 +33,8 @@ export const hasError = (data) => {
   return data.find(entry => entry.error || (entry.required && !entry.values.find(item => item.selected)));
 };
 
-export const updateData = (data, { id, selected, values, error = false }) => {
-  return data.map((item) => {
-    return item.id === id ? { ...item, selected, values, error } : item;
-  });
+export const updateData = (data, changedItem) => {
+  return data.map(item => (item.id === changedItem.id ? { ...item, ...changedItem } : item));
 };
 
 const DynamicForm = ({ data, onChange }) => {
@@ -45,7 +43,7 @@ const DynamicForm = ({ data, onChange }) => {
     .map(entry => {
       const Component = typeMap.hasOwnProperty(entry.type) ? typeMap[entry.type] : null;
 
-      return <Component key={entry.label} {...entry} onChange={onChange} />;
+      return <Component key={entry.label || `${entry.labelOne}  ${entry.labelTwo}`} {...entry} onChange={onChange} />;
     });
 
   return (

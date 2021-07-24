@@ -3,8 +3,9 @@ import { simpleTestWrapper } from 'testHelper';
 import SwapSelect from 'components/form/SwapSelect';
 
 const defaultProps = {
-  listOneLabel: 'test-label-one',
-  listTwoLabel: 'test-label-two',
+  id: 1,
+  labelOne: 'test-label-one',
+  labelTwo: 'test-label-two',
   listOne: [{ label: '1', selected: false}, { label: '2', selected: false }],
   listTwo: [],
   onChange: jest.fn()
@@ -19,7 +20,7 @@ describe('SwapSelect', () => {
     });
     fireEvent.click(getByText('>>'));
 
-    expect(defaultProps.onChange).toHaveBeenCalledWith([{ label: '2', selected: false }], [{ label: '1', selected: true }]);
+    expect(defaultProps.onChange).toHaveBeenCalledWith({ id: defaultProps.id, listOne: [{ label: '2', selected: false }], listTwo: [{ label: '1', selected: true }]});
   });
 
   it('swapLeft', () => {
@@ -35,6 +36,6 @@ describe('SwapSelect', () => {
     });
     fireEvent.click(getByText('<<'));
 
-    expect(defaultProps.onChange).toHaveBeenCalledWith([{ label: '2', selected: true }], [{ label: '1', selected: false }]);
+    expect(defaultProps.onChange).toHaveBeenCalledWith({ id: defaultProps.id, listOne: [{ label: '2', selected: true }], listTwo: [{ label: '1', selected: false }]});
   });
 });

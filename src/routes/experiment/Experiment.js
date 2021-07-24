@@ -9,7 +9,6 @@ import TestTodo from './testtodo';
 import TestDynamicForm from './testdynamicform';
 import TestGlobalModal from './testglobalmodal';
 import TestApi from './testapi';
-import TestSwapSelect from './testswapselect';
 
 const TABS = [
   { title: 'Redux', component: TestRedux},
@@ -17,7 +16,6 @@ const TABS = [
   { title: 'Global Modal', component: TestGlobalModal},
   { title: 'Todo', component: TestTodo},
   { title: 'Dynamic Form', component: TestDynamicForm},
-  { title: 'Swap Select', component: TestSwapSelect},
   { title: 'Api', component: TestApi}
 ];
 

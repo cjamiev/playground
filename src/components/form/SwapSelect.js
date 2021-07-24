@@ -3,7 +3,7 @@ import Button from 'components/button';
 import Multiselect from './Multiselect';
 import './SwapSelect.css';
 
-const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) => {
+const SwapSelect = ({ id, labelOne, labelTwo, listOne, listTwo, onChange }) => {
   const [listOneSelected, setListOne] = useState([]);
   const [listTwoSelected, setListTwo] = useState([]);
 
@@ -20,7 +20,7 @@ const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) 
 
     setListOne([]);
     setListTwo([]);
-    onChange(updatedFilteredList, updatedAppendedList);
+    onChange({ id, listOne: updatedFilteredList, listTwo: updatedAppendedList });
   };
 
   const onSwapLeft = () => {
@@ -29,13 +29,13 @@ const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) 
 
     setListOne([]);
     setListTwo([]);
-    onChange(updatedAppendedList, updatedFilteredList);
+    onChange({ id, listOne: updatedAppendedList, listTwo: updatedFilteredList });
   };
 
   return (
     <div className="swapselect-grid">
       <div>
-        <Multiselect id={1} label={listOneLabel} values={listOne} onChange={onListOneChange} />
+        <Multiselect id={1} label={labelOne} values={listOne} onChange={onListOneChange} />
       </div>
       <div className="swapselect-btn-grid">
         <div>
@@ -44,7 +44,7 @@ const SwapSelect = ({ listOneLabel, listTwoLabel, listOne, listTwo, onChange }) 
         </div>
       </div>
       <div className="swapselect-multiselect">
-        <Multiselect id={2} label={listTwoLabel} values={listTwo} onChange={onListTwoChange} />
+        <Multiselect id={2} label={labelTwo} values={listTwo} onChange={onListTwoChange} />
       </div>
     </div>
   );
