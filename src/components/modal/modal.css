@@ -1,4 +1,4 @@
-.modal {
+.global__modal {
   z-index: 2;
   position: absolute;
   display: flex;
@@ -8,7 +8,7 @@
   background-color: rgba(255,255,255,0.5);
 }
 
-.modal__container {
+.modal {
   z-index: 3;
   position: relative;
   display: flex;

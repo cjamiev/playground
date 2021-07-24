@@ -1,19 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TextArea from 'components/form/TextArea';
 import Button, { CloseButton } from 'components/button';
 import './modal.css';
 import { noop } from 'helper/noop';
 
-export const Modal = (props) => {
+const Modal = (props) => {
   const dispatch = useDispatch();
   const { title, message, children, editable = false, dispatchAction, beforeClose = noop, close = noop, buttonList = [] } = props;
   const [content, setContent] = useState(message);
   const [err, setErr] = useState(false);
+
+  useEffect(() => {
+    setContent(message);
+  }, [message]);
+
   const renderButtons = buttonList.map(item => {
-    return (
-      <Button key={item.label} label={item.label} {...item.classProps} onClick={() => { item.action(); beforeClose(); close(); } } />
-    );
+    if(item.label) {
+      return (
+        <Button key={item.label} label={item.label} {...item.classProps} onClick={() => { item.action(); beforeClose(); close(); } } />
+      );
+    }
+
+    return null;
   });
 
   if(dispatchAction) {
@@ -37,12 +46,12 @@ export const Modal = (props) => {
 
   return (
     <div className="modal">
-      <div className="modal__container">
-        <CloseButton onClick={() => { beforeClose(); close();} } />
-        {renderTitle}
-        {renderBody}
-        {renderFooter}
-      </div>
+      <CloseButton onClick={() => { beforeClose(); close();} } />
+      {renderTitle}
+      {renderBody}
+      {renderFooter}
     </div>
   );
 };
+
+export default Modal;
