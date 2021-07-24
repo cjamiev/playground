@@ -25,7 +25,7 @@ const Experiment = () => {
   const dispatch = useDispatch();
 
   return (
-    <Page>
+    <Page sidePanelContent='Side Panel'>
       <Tabs data={TABS} onTabSwitch={() => { dispatch(dismissAlert());} }/>
     </Page>
   );

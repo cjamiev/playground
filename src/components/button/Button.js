@@ -11,6 +11,9 @@ const getColor = (classColor) => {
   else if (classColor === 'error') {
     return ' btn--error';
   }
+  else if (classColor === 'inherit') {
+    return ' btn--inherit';
+  }
   return '';
 };
 

@@ -3,17 +3,12 @@ import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
 import { AccordionGroup } from './AccordionGroup';
 
-const TestComponent = (content) => {
-  return (<div>{content}</div>);
-
-};
-
 const ZERO = 0;
 const ONE = 1;
 const defaultProps = {
   data: [
-    { label: 'test-label1', content: TestComponent('test-content1') },
-    { label: 'test-label2', content: TestComponent('test-content2') }
+    { label: 'test-label1', content: <div>{'test-content1'}</div> },
+    { label: 'test-label2', content: <div>{'test-content2'}</div> }
   ]
 };
 

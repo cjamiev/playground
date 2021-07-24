@@ -3,13 +3,9 @@ import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
 import Accordion from './Accordion';
 
-const TestComponent = () => {
-  return (<div>content</div>);
-};
-
 const defaultProps = {
   label: 'test-label',
-  content: TestComponent()
+  content: <div>content</div>
 };
 
 describe('Accordion', () => {
