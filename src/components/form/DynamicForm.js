@@ -1,72 +1,56 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import Button from 'components/button';
 import Checkbox from './Checkbox';
-import Radio from './Radio';
-import Multiselect from './Multiselect';
-import Select from './Select';
+import Color from './Color';
+import Calendar from './Date';
 import Dropdown from './Dropdown';
+import Multiselect from './Multiselect';
+import Radio from './Radio';
+import Range from './Range';
+import SwapSelect from './SwapSelect';
+import Select from './Select';
 import Text from './Text';
 import TextArea from './TextArea';
-import Date from './Date';
 import './form.css';
 
-const handleInputType = {
+const typeMap = {
+  button: Button,
   checkbox: Checkbox,
-  radio: Radio,
-  multiselect: Multiselect,
-  select: Select,
+  color: Color,
+  date: Calendar,
   dropdown: Dropdown,
+  multiselect: Multiselect,
+  radio: Radio,
+  range: Range,
+  select: Select,
+  swapselect: SwapSelect,
   text: Text,
-  textarea: TextArea,
-  date: Date
+  textarea: TextArea
 };
 
-const renderFields = (fieldsData, onChange) => {
-  return fieldsData
+export const hasError = (data) => {
+  return data.find(entry => entry.error || (entry.required && !entry.values.find(item => item.selected)));
+};
+
+export const updateData = (data, { id, selected, values, error = false }) => {
+  return data.map((item) => {
+    return item.id === id ? { ...item, selected, values, error } : item;
+  });
+};
+
+const DynamicForm = ({ data, onChange }) => {
+  const form = data
     .sort((item1, item2) => item1.orderSeq - item2.orderSeq)
-    .map((entry) => {
-      if (handleInputType.hasOwnProperty(entry.type)) {
-        const InputComponent = handleInputType[entry.type];
+    .map(entry => {
+      const Component = typeMap.hasOwnProperty(entry.type) ? typeMap[entry.type] : null;
 
-        return <InputComponent key={entry.label} {...entry} onChange={onChange} />;
-      }
-
-      return null;
+      return <Component key={entry.label} {...entry} onChange={onChange} />;
     });
-};
-
-const hasError = (fields) => {
-  return fields.find((entry) => entry.error || (entry.required && !entry.values.find(item => item.selected)));
-};
-
-const handleChange = (currentEntry, setEntry) => {
-  return ({ id, selected, values, error = false }) => {
-    const updatedEntry = currentEntry.map((item) => {
-      return item.id === id ? { ...item, selected, values, error } : item;
-    });
-
-    setEntry(updatedEntry);
-  };
-};
-
-const handleSubmit = (entry, onSubmit) => {
-  return () => {
-    onSubmit(entry);
-  };
-};
-
-const DynamicForm = ({ fieldsList, onSubmit }) => {
-  const [fields, setFields] = useState([]);
-
-  useEffect(() => {
-    setFields(fieldsList);
-  }, [fieldsList]);
 
   return (
     <div className="container--center">
-      {renderFields(fields, handleChange(fields, setFields))}
-      <Button label="Submit" disabled={hasError(fields)} onClick={handleSubmit(fields, onSubmit)} />
+      {form}
     </div>
   );
 };

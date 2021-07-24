@@ -27,7 +27,7 @@ const Alert = () => {
     <div className={`alert ${statusClass[status]}`}>
       {content}
       <span className='alert__counter'>{sizeMessage}</span>
-      <CloseButton classSize='small' classColor='error' onClick={() => { dispatch(dismissAlert(id));}} />
+      <CloseButton classSize='small' classColor={status} onClick={() => { dispatch(dismissAlert(id));}} />
     </div>
   );
 };

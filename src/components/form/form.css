@@ -1,15 +1,26 @@
 .input__flex {
   display: flex;
   width: 25em;
+  margin: 0.2em;
 }
 
 .input__label {
   flex: 1;
-  margin: auto 0;
+  margin: auto 10px;
+}
+
+.input__item {
+  line-height: 20px;
+  width: 1.2em;
+  height: 1.2em;
 }
 
 .input__field {
   flex: 1;
+}
+
+.input__error {
+  color: red;
 }
 
 .textarea__container {
@@ -27,29 +38,6 @@
   flex-wrap: nowrap;
 }
 
-.input-field-group__title {
-  margin-right: 10px;
-}
-
-.input-field {
-  display: flex;
-  margin: 0.2em;
-}
-
-.input-field__item {
-  width: 1.2em;
-  height: 1.2em;
-  margin-right: 10px;
-}
-
-.input-field__item:active {
-  box-shadow: 1px 1px 4px 1px #2e8fff;
-}
-
-.input-field__label {
-  line-height: 20px;
-}
-
-.input-field__date {
-  margin: 10px;
+.input__group-title {
+  flex: 1;
 }

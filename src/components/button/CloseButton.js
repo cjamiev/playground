@@ -7,8 +7,8 @@ const getColor = (classColor) => {
   else if (classColor === 'secondary') {
     return ' btn--secondary';
   }
-  else if (classColor === 'error') {
-    return ' btn--error';
+  else if (classColor === 'error' || classColor === 'success') {
+    return ' btn--inherit';
   }
   return '';
 };

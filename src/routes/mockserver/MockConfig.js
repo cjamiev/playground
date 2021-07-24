@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import DynamicForm from 'components/form/DynamicForm';
+import DynamicForm, { hasError, updateData } from 'components/form/DynamicForm';
 import { createAlert } from 'components/alert/alertActions';
 import { loadMockServerConfig, updateMockServerConfig, loadMockRequests } from './mockserverActions';
 import Page from 'components/layout';
+import Button from 'components/button';
 import { isEmpty } from 'booleanHelper';
 import { mapConfigPayloadToFields, mapFieldsToConfigPayload } from './helper';
 
 const MockConfig = () => {
+  const [fields, setFields] = useState([]);
   const dispatch = useDispatch();
   const { config, message } = useSelector(state => state.mockserver);
 
@@ -21,15 +23,30 @@ const MockConfig = () => {
     }
   }, [dispatch, message]);
 
-  const onSubmit = (updatedFields) => {
-    const payload = mapFieldsToConfigPayload(updatedFields);
+  useEffect(() => {
+    if(!isEmpty(config)) {
+      const mappedData = mapConfigPayloadToFields(config);
+
+      setFields(mappedData);
+    }
+  }, [config]);
+
+  const handleChange = (changedData) => {
+    const updatedFields = updateData(fields, changedData);
+
+    setFields(updatedFields);
+  };
+
+  const onSubmit = () => {
+    const payload = mapFieldsToConfigPayload(fields);
     dispatch(updateMockServerConfig(payload));
   };
 
-  const fields = !isEmpty(config) ? mapConfigPayloadToFields(config) : [];
-
   return (
-    <DynamicForm fieldsList={fields} onSubmit={onSubmit} />
+    <>
+      <DynamicForm data={fields} onChange={handleChange} />
+      <Button label="Submit" disabled={hasError(fields)} onClick={onSubmit} />
+    </>
   );
 };
 

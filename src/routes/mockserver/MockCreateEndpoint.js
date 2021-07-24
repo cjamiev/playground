@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import DynamicForm from 'components/form/DynamicForm';
+import DynamicForm, { hasError, updateData } from 'components/form/DynamicForm';
 import { createAlert } from 'components/alert/alertActions';
 import { createMockEndpoint } from './mockserverActions';
 import Page from 'components/layout';
+import Button from 'components/button';
 import { isEmpty } from 'booleanHelper';
 import { mapFieldsToNewMockPayload, getNewMockFields } from './helper';
 
 const MockCreateEndpoint = () => {
+  const [fields, setFields] = useState(getNewMockFields());
   const dispatch = useDispatch();
   const { message } = useSelector(state => state.mockserver);
 
@@ -17,13 +19,22 @@ const MockCreateEndpoint = () => {
     }
   }, [dispatch, message]);
 
-  const onSubmit = (updatedFields) => {
-    const payload = mapFieldsToNewMockPayload(updatedFields);
+  const handleChange = (changedData) => {
+    const updatedFields = updateData(fields, changedData);
+
+    setFields(updatedFields);
+  };
+
+  const onSubmit = () => {
+    const payload = mapFieldsToNewMockPayload(fields);
     dispatch(createMockEndpoint(payload));
   };
 
   return (
-    <DynamicForm fieldsList={getNewMockFields()} onSubmit={onSubmit} />
+    <>
+      <DynamicForm data={getNewMockFields()} onChange={handleChange} />
+      <Button label="Submit" disabled={hasError(fields)} onClick={onSubmit} />
+    </>
   );
 };
 

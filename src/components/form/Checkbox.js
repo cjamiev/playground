@@ -18,9 +18,9 @@ const Checkbox = ({ id, label, values, onChange }) => {
 
   const checkboxes = values.map(item => {
     return (
-      <div key={item.label} className='input-field'>
-        <input className='input-field__item' type="checkbox" name={item.label} value={item.label} onChange={() => { handleChange(item.label, values); }} checked={item.selected} />
-        <label className="input-field__label" onClick={() => { handleChange(item.label, values); }}>
+      <div key={item.label} className='input__flex'>
+        <input className='input__item' type="checkbox" name={item.label} value={item.label} onChange={() => { handleChange(item.label, values); }} checked={item.selected} />
+        <label className="input__label" onClick={() => { handleChange(item.label, values); }}>
           {item.label}
         </label>
       </div>
@@ -28,8 +28,8 @@ const Checkbox = ({ id, label, values, onChange }) => {
   });
 
   return (
-    <div className='input-field-group'>
-      <label className='input-field-group__title'>{label}</label>
+    <div className='input__flex'>
+      <label className='input__group-title'>{label}</label>
       {checkboxes}
     </div>
   );
