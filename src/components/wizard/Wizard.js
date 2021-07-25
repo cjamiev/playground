@@ -1,26 +1,16 @@
 import React, { useState } from 'react';
 import Button from 'components/button';
 import Modal from 'components/modal';
+import { noop } from 'helper/noop';
 
 const ONE = 1;
 
-const Wizard = ({ title, data, hasError, onSubmit }) => {
-  const [sectionIndex, setSectionIndex] = useState(ONE);
+const Wizard = ({ title, data, sectionIndex, onPrev = noop, onNext = noop, onSubmit = noop }) => {
   const lastPageIndex = data.length;
   const currentPageContent = data[sectionIndex - ONE];
 
-  const incrementSection = () => {
-    if(!hasError) {
-      setSectionIndex(s => s + ONE);
-    }
-  };
-
-  const decrementSection = () => {
-    setSectionIndex(s => s - ONE);
-  };
-
-  const prevButton = sectionIndex > ONE ? { label: 'Previous', classProps: { classColor: 'secondary' }, action: decrementSection } : {};
-  const nextButton = sectionIndex < lastPageIndex ? { label: 'Next', classProps: { classColor: 'primary' }, action: incrementSection } : {};
+  const prevButton = sectionIndex > ONE ? { label: 'Previous', classProps: { classColor: 'secondary' }, action: onPrev } : {};
+  const nextButton = sectionIndex < lastPageIndex ? { label: 'Next', classProps: { classColor: 'primary' }, action: onNext } : {};
   const submitButton = sectionIndex === lastPageIndex ? { label: 'Submit', classProps: { classColor: 'primary' }, action: onSubmit } : {};
   const buttonList = [
     prevButton,

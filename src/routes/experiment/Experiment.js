@@ -7,6 +7,7 @@ import TestAnimation from './testAnimation';
 import TestRedux from './testredux';
 import TestTodo from './testtodo';
 import TestDynamicForm from './testdynamicform';
+import TestWizard from './testwizard';
 import TestGlobalModal from './testglobalmodal';
 import TestApi from './testapi';
 
@@ -16,6 +17,7 @@ const TABS = [
   { title: 'Global Modal', component: TestGlobalModal},
   { title: 'Todo', component: TestTodo},
   { title: 'Dynamic Form', component: TestDynamicForm},
+  { title: 'Wizard', component: TestWizard},
   { title: 'Api', component: TestApi}
 ];
 
