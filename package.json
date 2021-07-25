@@ -13,7 +13,7 @@
     "e2e": "cypress run",
     "e": "cypress open",
     "test": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json",
-    "t": "jest --env=jsdom GlobalModal.test.js --watch",
+    "t": "jest --env=jsdom DynamicForm.test.js --watch",
     "w": "jest --env=jsdom --watchAll=true"
   },
   "keywords": [],

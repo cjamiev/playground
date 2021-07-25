@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
-import Color, { hexToRGB } from 'components/form/Color';
+import Color, { hexToRGB } from './Color';
 
 const defaultProps = {
   id: 1,

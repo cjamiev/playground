@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
-import Text from 'components/form/Text';
+import Text from './Text';
 
 const defaultProps = {
   id: 1,

@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
-import SwapSelect from 'components/form/SwapSelect';
+import SwapSelect from './SwapSelect';
 
 const defaultProps = {
   id: 1,

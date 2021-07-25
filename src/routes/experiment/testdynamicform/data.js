@@ -24,8 +24,9 @@ export const testData = [
   },
   {
     id: 3,
-    type: 'date',
-    label: 'Date1',
+    type: 'calendar',
+    label: 'Calendar1',
+    selected: '2021-01-01',
     orderSeq: 3
   },
   {

@@ -1,7 +1,8 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
-import Checkbox from 'components/form/Checkbox';
+import Checkbox from './Checkbox';
 
+const ONE = 1;
 const defaultProps = {
   id: 1,
   label: 'test-label',
@@ -10,7 +11,7 @@ const defaultProps = {
 };
 
 describe('Checkbox', () => {
-  it('checks an item', () => {
+  it('checks an item by label', () => {
     simpleTestWrapper(Checkbox, defaultProps);
     const expectedResult = { id: 1, values: [{ label: 'ck1', selected: true}, { label: 'ck2', selected: true }] };
 
@@ -19,7 +20,16 @@ describe('Checkbox', () => {
     expect(defaultProps.onChange).toHaveBeenCalledWith(expectedResult);
   });
 
-  it('unchecks an item', () => {
+  it('checks an item by checkbox', () => {
+    simpleTestWrapper(Checkbox, defaultProps);
+    const expectedResult = { id: 1, values: [{ label: 'ck1', selected: true}, { label: 'ck2', selected: true }] };
+
+    fireEvent.click(screen.getAllByLabelText('checkbox')[ONE]);
+
+    expect(defaultProps.onChange).toHaveBeenCalledWith(expectedResult);
+  });
+
+  it('unchecks an item by label', () => {
     const { getByText } = simpleTestWrapper(Checkbox, defaultProps);
     const expectedResult = { id: 1, values: [{ label: 'ck1', selected: false}, { label: 'ck2', selected: false }] };
 

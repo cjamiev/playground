@@ -1,7 +1,8 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
-import Radio from 'components/form/Radio';
+import Radio from './Radio';
 
+const ONE = 1;
 const defaultProps = {
   id: 1,
   label: 'test-label',
@@ -15,6 +16,15 @@ describe('Radio', () => {
     const expectedResult = { id: 1, values: [{ label: 'rb1', selected: false}, { label: 'rb2', selected: true }] };
 
     fireEvent.click(screen.getByText('rb2'));
+
+    expect(defaultProps.onChange).toHaveBeenCalledWith(expectedResult);
+  });
+
+  it('checks an item by radio', () => {
+    simpleTestWrapper(Radio, defaultProps);
+    const expectedResult = { id: 1, values: [{ label: 'rb1', selected: false}, { label: 'rb2', selected: true }] };
+
+    fireEvent.click(screen.getAllByLabelText('radio')[ONE]);
 
     expect(defaultProps.onChange).toHaveBeenCalledWith(expectedResult);
   });

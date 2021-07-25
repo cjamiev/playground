@@ -3,7 +3,7 @@ import React from 'react';
 import Button from 'components/button';
 import Checkbox from './Checkbox';
 import Color from './Color';
-import Calendar from './Date';
+import Calendar from './Calendar';
 import Dropdown from './Dropdown';
 import Multiselect from './Multiselect';
 import Radio from './Radio';
@@ -18,7 +18,7 @@ const typeMap = {
   button: Button,
   checkbox: Checkbox,
   color: Color,
-  date: Calendar,
+  calendar: Calendar,
   dropdown: Dropdown,
   multiselect: Multiselect,
   radio: Radio,
@@ -30,7 +30,17 @@ const typeMap = {
 };
 
 export const hasError = (data) => {
-  return data.find(entry => entry.error || (entry.required && !entry.values.find(item => item.selected)));
+  return data.some(entry => {
+    if(entry.error) {
+      return true;
+    } else if(entry.required && !entry.values && !entry.selected) {
+      return true;
+    } else if(entry.required && !entry.values.some(item => Boolean(item.selected))) {
+      return true;
+    }
+
+    return false;
+  });
 };
 
 export const updateData = (data, changedItem) => {

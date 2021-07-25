@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
-import Range from 'components/form/Range';
+import Range from './Range';
 
 const defaultProps = {
   id: 1,

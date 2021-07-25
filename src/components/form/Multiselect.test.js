@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
-import Multiselect from 'components/form/Multiselect';
+import Multiselect from './Multiselect';
 
 const defaultProps = {
   id: 1,

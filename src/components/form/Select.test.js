@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
-import Select from 'components/form/Select';
+import Select from './Select';
 
 const defaultProps = {
   id: 1,

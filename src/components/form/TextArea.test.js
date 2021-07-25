@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
-import TextArea from 'components/form/TextArea';
+import TextArea from './TextArea';
 
 const defaultProps = {
   id: 1,
