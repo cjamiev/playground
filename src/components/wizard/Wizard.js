@@ -3,15 +3,12 @@ import Button from 'components/button';
 import Modal from 'components/modal';
 import { noop } from 'helper/noop';
 
-const ONE = 1;
+const ZERO = 0;
 
-const Wizard = ({ title, data, sectionIndex, onPrev = noop, onNext = noop, onSubmit = noop }) => {
-  const lastPageIndex = data.length;
-  const currentPageContent = data[sectionIndex - ONE];
-
-  const prevButton = sectionIndex > ONE ? { label: 'Previous', classProps: { classColor: 'secondary' }, action: onPrev } : {};
-  const nextButton = sectionIndex < lastPageIndex ? { label: 'Next', classProps: { classColor: 'primary' }, action: onNext } : {};
-  const submitButton = sectionIndex === lastPageIndex ? { label: 'Submit', classProps: { classColor: 'primary' }, action: onSubmit } : {};
+const Wizard = ({ title, content, sectionIndex = ZERO, isLastPage = false, onPrev = noop, onNext = noop, onSubmit = noop }) => {
+  const prevButton = sectionIndex > ZERO ? { label: 'Previous', classProps: { classColor: 'secondary' }, action: onPrev } : {};
+  const nextButton = isLastPage ? {} : { label: 'Next', classProps: { classColor: 'primary' }, action: onNext };
+  const submitButton = isLastPage ? { label: 'Submit', classProps: { classColor: 'primary' }, action: onSubmit } : {};
   const buttonList = [
     prevButton,
     nextButton,
@@ -19,7 +16,7 @@ const Wizard = ({ title, data, sectionIndex, onPrev = noop, onNext = noop, onSub
   ];
 
   return (
-    <Modal title={title} message={currentPageContent} buttonList={buttonList} />
+    <Modal title={title} message={content} buttonList={buttonList} />
   );
 };
 

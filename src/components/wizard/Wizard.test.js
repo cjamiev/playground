@@ -3,50 +3,82 @@ import { fireEvent, screen } from '@testing-library/react';
 import { reduxTestWrapper } from 'testHelper';
 import Wizard from './Wizard';
 
-const data = [
-  (<div>content1</div>),
-  (<div>content2</div>)
-];
-const defaultProps = {
-  title: 'test-title',
-  data,
+const pageOneProps = {
+  title: 'test-title-page1',
+  content: 'content1',
+  sectionIndex: 0,
+  isLastPage: false,
+  onPrev: jest.fn(),
+  onNext: jest.fn(),
   onSubmit: jest.fn()
 };
-const propsWithError = {
-  ...defaultProps,
-  hasError: true
+
+const pageTwoProps = {
+  title: 'test-title-page2',
+  content: 'content2',
+  sectionIndex: 1,
+  isLastPage: false,
+  onPrev: jest.fn(),
+  onNext: jest.fn(),
+  onSubmit: jest.fn()
+};
+
+const pageThreeProps = {
+  title: 'test-title-page3',
+  content: 'content3',
+  sectionIndex: 2,
+  isLastPage: true,
+  onPrev: jest.fn(),
+  onNext: jest.fn(),
+  onSubmit: jest.fn()
 };
 
 describe('Wizard', () => {
-  it('checks behavior', () => {
-    reduxTestWrapper(Wizard, defaultProps);
+  it('checks page one behavior', () => {
+    reduxTestWrapper(Wizard, pageOneProps);
 
-    expect(screen.getByText('content1')).toBeInTheDocument();
+    expect(screen.getByText(pageOneProps.content)).toBeInTheDocument();
+    expect(screen.getByText(pageOneProps.title)).toBeInTheDocument();
     expect(screen.queryByText('Previous')).not.toBeInTheDocument();
+    expect(screen.getByText('Next')).toBeInTheDocument();
     expect(screen.queryByText('Submit')).not.toBeInTheDocument();
     const nextButton = screen.getByText('Next');
     fireEvent.click(nextButton);
 
-    expect(screen.getByText('content2')).toBeInTheDocument();
-    expect(screen.queryByText('Next')).not.toBeInTheDocument();
-    const submitButton = screen.getByText('Submit');
-    fireEvent.click(submitButton);
-
-    expect(defaultProps.onSubmit).toHaveBeenCalled();
-
-    const previousButton = screen.getByText('Previous');
-    fireEvent.click(previousButton);
-
-    expect(screen.getByText('content1')).toBeInTheDocument();
+    expect(pageOneProps.onNext).toHaveBeenCalled();
   });
 
-  it('should not increment if hasError', () => {
-    reduxTestWrapper(Wizard, propsWithError);
+  it('checks page two behavior', () => {
+    reduxTestWrapper(Wizard, pageTwoProps);
 
-    expect(screen.getByText('content1')).toBeInTheDocument();
+    expect(screen.getByText(pageTwoProps.content)).toBeInTheDocument();
+    expect(screen.getByText(pageTwoProps.title)).toBeInTheDocument();
+    expect(screen.getByText('Previous')).toBeInTheDocument();
+    expect(screen.getByText('Next')).toBeInTheDocument();
+    expect(screen.queryByText('Submit')).not.toBeInTheDocument();
+    const prevButton = screen.getByText('Previous');
+    fireEvent.click(prevButton);
     const nextButton = screen.getByText('Next');
     fireEvent.click(nextButton);
 
-    expect(screen.getByText('content1')).toBeInTheDocument();
+    expect(pageTwoProps.onPrev).toHaveBeenCalled();
+    expect(pageTwoProps.onNext).toHaveBeenCalled();
+  });
+
+  it('checks page three behavior', () => {
+    reduxTestWrapper(Wizard, pageThreeProps);
+
+    expect(screen.getByText(pageThreeProps.content)).toBeInTheDocument();
+    expect(screen.getByText(pageThreeProps.title)).toBeInTheDocument();
+    expect(screen.getByText('Previous')).toBeInTheDocument();
+    expect(screen.queryByText('Next')).not.toBeInTheDocument();
+    expect(screen.getByText('Submit')).toBeInTheDocument();
+    const prevButton = screen.getByText('Previous');
+    fireEvent.click(prevButton);
+    const submitButton = screen.getByText('Submit');
+    fireEvent.click(submitButton);
+
+    expect(pageThreeProps.onPrev).toHaveBeenCalled();
+    expect(pageThreeProps.onSubmit).toHaveBeenCalled();
   });
 });

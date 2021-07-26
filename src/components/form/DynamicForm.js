@@ -35,7 +35,7 @@ export const hasError = (data) => {
       return true;
     } else if(entry.required && !entry.values && !entry.selected) {
       return true;
-    } else if(entry.required && !entry.values.some(item => Boolean(item.selected))) {
+    } else if(entry.required && entry.values && !entry.values.some(item => Boolean(item.selected))) {
       return true;
     }
 

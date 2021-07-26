@@ -7,6 +7,14 @@ describe('hasError', () => {
     expect(hasError([])).toBeFalsy();
   });
 
+  it('no error', () => {
+    expect(hasError([{required: true, selected: '123' }])).toBeFalsy();
+  });
+
+  it('no error', () => {
+    expect(hasError([{required: true, values: [{ selected: '123'}] }])).toBeFalsy();
+  });
+
   it('error', () => {
     expect(hasError([{error: true}])).toBeTruthy();
   });
