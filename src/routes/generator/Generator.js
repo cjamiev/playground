@@ -6,55 +6,36 @@ import Dropdown from 'components/form/Dropdown';
 import Color, { hexToRGB } from 'components/form/Color';
 import { AccordionGroup } from 'components/accordion';
 import Range from 'components/form/Range';
-import { copyToClipboard } from 'helper/copy';
 import GeneratorForm from './GeneratorForm';
+import { copyToClipboard } from 'helper/copy';
 import { toDashCaseFromCamelCase } from 'stringHelper';
 import './generator.css';
 
-const getCSSFromJSON = (style) => {
+const mapCSSFromJSON = (style, name) => {
   const cssProperties = Object.keys(style);
-  return cssProperties
+  const mergedProperties = cssProperties
     .map(key => {
-      return `${toDashCaseFromCamelCase(key)}: ${style[key]};\n`;
+      return `  ${toDashCaseFromCamelCase(key)}: ${style[key]};\n`;
     })
     .join('');
+
+  return `${name} {\n${mergedProperties}}`;
 };
 
 const Generator = () => {
   const [isHoverMode, setIsHoverMode] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const [style, setStyle] = useState(
-    {
-      border: '1px solid #000000',
-      borderRadius: '0px 0px 0px 0px',
-      boxShadow: '0px 0px 0px 0px #ffffff',
-      backgroundColor: 'rgba(255,255,255,1)',
-      color: '#000000',
-      fontSize: '16px',
-      textAlign: 'initial',
-      textShadow: '0px 0px 0px #ffffff',
-      margin: '0px 0px 0px 0px',
-      padding: '0px 0px 0px 0px',
-      width: '100px',
-      height: '50px'
-    }
-  );
-  const [hoverStyle, setHoverStyle] = useState(
-    {
-      border: '1px solid #000000',
-      borderRadius: '0px 0px 0px 0px',
-      boxShadow: '0px 0px 0px 0px #ffffff',
-      backgroundColor: 'rgba(255,255,255,1)',
-      color: '#000000',
-      fontSize: '16px',
-      textAlign: 'initial',
-      textShadow: '0px 0px 0px #ffffff',
-      margin: '0px 0px 0px 0px',
-      padding: '0px 0px 0px 0px',
-      width: '100px',
-      height: '50px'
-    }
-  );
+  const [style, setStyle] = useState({});
+  const [hoverStyle, setHoverStyle] = useState({});
+  const [parentBackgroundColor, setParentBackgroundColor] = useState('#ffffff');
+
+  const styleCSS = mapCSSFromJSON(style, '.name');
+  const hoverCSS = mapCSSFromJSON(hoverStyle, '.name:hover');
+  const generatedCSS = `${styleCSS}\n\n${hoverCSS}`;
+  const boxStyle = isHoverMode || isHovering ? {
+    ...style,
+    ...hoverStyle
+  } : style;
 
   const handleChange = (updatedStyle) => {
     if(isHoverMode) {
@@ -65,20 +46,17 @@ const Generator = () => {
     }
   };
 
-  const styleCSS = getCSSFromJSON(style);
-  const hoverCSS = getCSSFromJSON(hoverStyle);
-  const boxStyle = isHoverMode || isHovering ? {
-    ...style,
-    ...hoverStyle
-  } : style;
+  const handleParentBackgroundColorChange = ({ selected }) => {
+    setParentBackgroundColor(selected);
+  };
 
   return (
     <Page>
       <div className="generator">
         <div className="generator__form_container">
           <Button
-            label={ !isHoverMode ? 'Normal' :'Hover' }
-            classColor={ !isHoverMode ? 'secondary' :'primary' }
+            label={ isHoverMode ? 'Hover Mode' :'Normal Mode' }
+            classColor={ isHoverMode ? 'secondary' :'primary' }
             onClick={
               () => {
                 setIsHoverMode(!isHoverMode);
@@ -87,17 +65,19 @@ const Generator = () => {
             } />
           <GeneratorForm onChange={handleChange} />
         </div>
-        <div className="generator__visual_output">
-          <div
-            style={boxStyle}
-            onMouseOver={() => { !isHoverMode && setIsHovering(true);}}
-            onMouseOut={() => { !isHoverMode && setIsHovering(false);}}>
+        <div className="generator__result_container">
+          <Color label="Parent Color" selected={parentBackgroundColor} onChange={handleParentBackgroundColorChange} />
+          <div style={{ backgroundColor: parentBackgroundColor }} className="generator__box_parent">
+            <div
+              style={boxStyle}
+              onMouseOver={() => { !isHoverMode && setIsHovering(true);}}
+              onMouseOut={() => { !isHoverMode && setIsHovering(false);}}>
               Text
+            </div>
           </div>
         </div>
-        <div className="generator__css_output">
-          <pre className="generator__generated_css">{styleCSS}</pre>
-          <pre className="generator__generated_css">{hoverCSS}</pre>
+        <div className="generator__output_container">
+          <pre className="generator__generated_css">{generatedCSS}</pre>
           <Button
             label="Copy"
             classColor="primary"
