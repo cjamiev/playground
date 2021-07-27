@@ -18,7 +18,7 @@ export const AccordionGroup = React.memo(({ data }) => {
     setCollapsedList(updatedCollapsedList);
   };
 
-  return data.map((item, index) => {
+  const accordions = data.map((item, index) => {
     const isTop = index === ZERO;
     const isBottom = data.length === index + ONE;
     const isCollapsed = collapsedList[index];
@@ -32,4 +32,6 @@ export const AccordionGroup = React.memo(({ data }) => {
       </div>
     );
   });
+
+  return (<div className='accordion-group'>{accordions}</div>);
 });

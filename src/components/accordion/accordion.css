@@ -1,5 +1,10 @@
+
 .accordion {
-  width: 600px;
+  width: 500px;
+}
+
+.accordion-group {
+  margin: 20px 0px;
 }
 
 .accordion__label {
@@ -8,7 +13,7 @@
   text-align: center;
   font-size: 30px;
   padding: 5px;
-  width: 600px;
+  width: 500px;
   height: 50px;
 }
 
@@ -23,8 +28,8 @@
 .accordion__content {
   border: 2px solid #bdbdbd;
   padding: 5px;
-  width: 600px;
-  height: 200px;
+  width: 500px;
+  height: 350px;
 }
 
 .accordion__content--bottom {
