@@ -14,11 +14,11 @@ export const GlobalModal = () => {
   const close = () => { dispatch(closeGlobalModal(props.id)); };
 
   if(isLoading) {
+    const message = <div className="modal__loading">Loading...</div>;
+
     return (
       <div className="global__modal">
-        <Modal>
-          <div className="modal__loading">Loading...</div>
-        </Modal>
+        <Modal message={message} />
       </div>
     );
   } else if (props.message) {

@@ -16,7 +16,7 @@ const TestDynamicForm = () => {
   return (
     <>
       <DynamicForm data={fields} onChange={handleChange} />
-      <div className="container--center">{TableRenderer('Form Payload', fields)}</div>
+      <div className="container--center">{<TableRenderer label={'Payload'} source={fields} />}</div>
     </>
   );
 };

@@ -7,7 +7,7 @@ import { noop } from 'helper/noop';
 
 const Modal = (props) => {
   const dispatch = useDispatch();
-  const { title, message, children, editable = false, dispatchAction, beforeClose = noop, close = noop, buttonList = [] } = props;
+  const { title, message, editable = false, dispatchAction, beforeClose = noop, close = noop, buttonList = [] } = props;
   const [content, setContent] = useState(message);
   const [err, setErr] = useState(false);
 
@@ -34,7 +34,7 @@ const Modal = (props) => {
     setErr(error);
   };
 
-  const renderBody = children ? children : editable ? <div className="modal__body"><TextArea selected={content} jsonType={true} onChange={handleChange}/></div>: (<div className="modal__body">{content}</div>);
+  const renderBody = editable ? <div className="modal__body"><TextArea selected={content} jsonType={true} onChange={handleChange}/></div>: (<div className="modal__body">{content}</div>);
   const renderTitle = title ?
     (<div className="modal__header">
       <h2 className="modal__title">{title}</h2>
