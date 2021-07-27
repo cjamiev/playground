@@ -32,7 +32,7 @@ const renderRows = (values) =>
     return <tr key={JSON.stringify(entry)}>{rows}</tr>;
   });
 
-const TableRenderer = (label, source) => {
+const TableRenderer = ({label, source}) => {
   const { headers, rows } = getTableData(source);
 
   return (

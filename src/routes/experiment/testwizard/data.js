@@ -1,4 +1,4 @@
-export const sectionOne = [
+const sectionOne = [
   {
     id: 1,
     type: 'text',
@@ -9,7 +9,7 @@ export const sectionOne = [
   }
 ];
 
-export const sectionTwo = [
+const sectionTwo = [
   {
     id: 1,
     type: 'text',
@@ -19,7 +19,7 @@ export const sectionTwo = [
   }
 ];
 
-export const sectionThree = [
+const sectionThree = [
   {
     id: 1,
     type: 'text',
@@ -27,3 +27,6 @@ export const sectionThree = [
     orderSeq: 1
   }
 ];
+
+export const testData = [sectionOne, sectionTwo, sectionThree];
+export const testTitles = ['Section One', 'Section Two', 'Section Three'];

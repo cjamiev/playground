@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, screen } from '@testing-library/react';
 import { reduxTestWrapper } from 'testHelper';
-import Wizard from './Wizard';
+import { Wizard } from './Wizard';
 
 const pageOneProps = {
   title: 'test-title-page1',

@@ -1,1 +1,2 @@
-export { default } from './Wizard';
+export { default } from './DynamicWizard';
+export { Wizard } from './Wizard';

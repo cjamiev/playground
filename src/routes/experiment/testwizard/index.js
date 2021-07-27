@@ -1,1 +1,2 @@
-export { default } from './TestWizard';
+export { default } from './TestDynamicWizard';
+export { TestWizard } from './TestWizard';

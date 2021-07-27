@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import Button from 'components/button';
 import DynamicForm, { hasError, updateData } from 'components/form/DynamicForm';
-import Wizard from 'components/wizard';
+import { Wizard } from 'components/wizard';
 import TableRenderer from '../TableRenderer';
-import { sectionOne, sectionTwo, sectionThree } from './data';
+import { testData } from './data';
 
 const ZERO = 0;
 const ONE = 1;
-const TWO = 2;
 
-const TestDynamicForm = () => {
+export const TestWizard = () => {
   const [sectionIndex, setSectionIndex] = useState(ZERO);
-  const [formData, setFormData] = useState([sectionOne, sectionTwo, sectionThree]);
+  const [formData, setFormData] = useState(testData);
 
   const onPrev = () => {
     setSectionIndex(s => s - ONE);
@@ -37,19 +36,14 @@ const TestDynamicForm = () => {
   };
 
   const titles = ['Section One', 'Section Two', 'Section Three'];
-  const data = [
-    <DynamicForm data={formData[ZERO]} onChange={handleChange} />,
-    <DynamicForm data={formData[ONE]} onChange={handleChange} />,
-    <DynamicForm data={formData[TWO]} onChange={handleChange} />
-  ];
-
+  const data = formData.map((item, index) => {
+    return <DynamicForm key={titles[index]} data={item} onChange={handleChange} />;
+  });
 
   return (
     <>
       <Wizard title={titles[sectionIndex]} content={data[sectionIndex]} sectionIndex={sectionIndex} isLastPage={sectionIndex === data.length - ONE} onPrev={onPrev} onNext={onNext} />
-      <div className="container--center">{TableRenderer('Form Payload', formData[sectionIndex])}</div>
+      <div className="container--center">{<TableRenderer label={'Payload'} source={formData[sectionIndex]} />}</div>
     </>
   );
 };
-
-export default TestDynamicForm;
