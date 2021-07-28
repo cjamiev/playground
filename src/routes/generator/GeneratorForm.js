@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Text from 'components/form/Text';
 import Button from 'components/button';
 import Dropdown from 'components/form/Dropdown';
@@ -7,385 +7,120 @@ import { AccordionGroup } from 'components/accordion';
 import Range from 'components/form/Range';
 
 const THICKNESS_MAX = 10;
-const BORDER_TYPES = [
-  { label:'solid', selected: true},
-  { label:'dotted', selected: false},
-  { label:'dashed', selected: false},
-  { label:'double', selected: false},
-  { label:'groove', selected: false},
-  { label:'ridge', selected: false},
-  { label:'inset', selected: false},
-  { label:'outset', selected: false},
-  { label:'none', selected: false}
-];
 const OPACITY_MAX = 100;
 const FONT_SIZE_MAX = 100;
+const WIDTH_MAX = 1000;
+const HEIGHT_MAX = 1000;
+const BORDER_TYPES = [
+  { label:'solid', selected: false },
+  { label:'dotted', selected: false },
+  { label:'dashed', selected: false },
+  { label:'double', selected: false },
+  { label:'groove', selected: false },
+  { label:'ridge', selected: false },
+  { label:'inset', selected: false },
+  { label:'outset', selected: false },
+  { label:'none', selected: false }
+];
 const TEXT_ALIGN_TYPES = [
-  { label: 'initial', selected: true },
+  { label: 'initial', selected: false },
   { label: 'left', selected: false },
   { label: 'right', selected: false },
   { label: 'center', selected: false },
   { label: 'justify', selected: false }
 ];
-const WIDTH_MAX = 1000;
-const HEIGHT_MAX = 1000;
 
-const getBoxStyle = ({
-  borderThickness,
-  borderStyle,
-  borderColor,
-  horizontalBoxShadow,
-  verticalBoxShadow,
-  blurRadiusBoxShadow,
-  spreadBoxShadow,
-  colorBoxShadow,
-  topLeftRadius,
-  topRightRadius,
-  bottomRightRadius,
-  bottomLeftRadius,
-  backgroundColor,
-  opacity,
-  fontColor,
-  fontSize,
-  textAlign,
-  horizontalTextShadow,
-  verticalTextShadow,
-  blurRadiusTextShadow,
-  colorTextShadow,
-  margin,
-  padding,
-  width,
-  height
-}) => {
-  const radiusTopLeft = topLeftRadius ? `${topLeftRadius}px`: '0';
-  const radiusTopRight = topRightRadius ? `${topRightRadius}px`: '0';
-  const radiusBottomRight = bottomRightRadius ? `${bottomRightRadius}px`: '0';
-  const radiusBottomLeft = bottomLeftRadius ? `${bottomLeftRadius}px`: '0';
-  const rgbColor = hexToRGB(backgroundColor);
-  const normalizedOpacity = Number(opacity) / OPACITY_MAX;
+const GeneratorForm = ({ baseStyle, onChange }) => {
+  const [style, setStyle] = useState({});
 
-  return {
-    border: `${borderThickness}px ${borderStyle} ${borderColor}`,
-    borderRadius: `${radiusTopLeft} ${radiusTopRight} ${radiusBottomRight} ${radiusBottomLeft}`,
-    boxShadow: `${horizontalBoxShadow}px ${verticalBoxShadow}px ${blurRadiusBoxShadow}px ${spreadBoxShadow}px ${colorBoxShadow}`,
-    backgroundColor: `rgba(${rgbColor.red},${rgbColor.green},${rgbColor.blue},${normalizedOpacity})`,
-    color: fontColor,
-    fontSize: `${fontSize}px`,
-    textAlign,
-    textShadow: `${horizontalTextShadow}px ${verticalTextShadow}px ${blurRadiusTextShadow}px ${colorTextShadow}`,
-    margin,
-    padding,
-    width: `${width}px`,
-    height: `${height}px`
-  };
-};
+  useEffect(() => {
+    setStyle(baseStyle);
+  }, [baseStyle]);
 
-const GeneratorForm = ({ onChange }) => {
-  const [borderThickness, setBorderThickness] = useState('1');
-  const [borderValues, setBorderValues] = useState(BORDER_TYPES);
-  const [borderColor, setBorderColor] = useState('#000000');
-  const [topLeftRadius, setTopLeftRadius] = useState('0');
-  const [topRightRadius, setTopRightRadius] = useState('0');
-  const [bottomRightRadius, setBottomRightRadius] = useState('0');
-  const [bottomLeftRadius, setBottomLeftRadius] = useState('0');
-  const [horizontalBoxShadow, setHorizontalBoxShadow] = useState('0');
-  const [verticalBoxShadow, setVerticalBoxShadow] = useState('0');
-  const [blurRadiusBoxShadow, setBlurRadiusBoxShadow] = useState('0');
-  const [spreadBoxShadow, setSpreadBoxShadow] = useState('0');
-  const [colorBoxShadow, setColorBoxShadow] = useState('#ffffff');
-  const [backgroundColor, setBackgroundColor] = useState('#ffffff');
-  const [opacity, setOpacity] = useState('100');
-  const [fontColor, setFontColor] = useState('#000000');
-  const [fontSize, setFontSize] = useState('16');
-  const [textAlignValues, setTextAlignValues] = useState(TEXT_ALIGN_TYPES);
-  const [horizontalTextShadow, setHorizontalTextShadow] = useState('0');
-  const [verticalTextShadow, setVerticalTextShadow] = useState('0');
-  const [blurRadiusTextShadow, setBlurRadiusTextShadow] = useState('0');
-  const [colorTextShadow, setColorTextShadow] = useState('#ffffff');
-  const [marginTop, setMarginTop] = useState('0');
-  const [marginRight, setMarginRight] = useState('0');
-  const [marginBottom, setMarginBottom] = useState('0');
-  const [marginLeft, setMarginLeft] = useState('0');
-  const [paddingTop, setPaddingTop] = useState('0');
-  const [paddingRight, setPaddingRight] = useState('0');
-  const [paddingBottom, setPaddingBottom] = useState('0');
-  const [paddingLeft, setPaddingLeft] = useState('0');
-  const [width, setWidth] = useState('100');
-  const [height, setHeight] = useState('50');
+  const handleChange = ({ id, selected, values }) => {
+    const updatedStyle = values ?
+      {
+        ...style,
+        [id]: values.find(item => item.selected).label
+      }
+      : {
+        ...style,
+        [id]: selected
+      };
 
-  const borderStyle = borderValues.find(item => item.selected).label;
-  const textAlign = textAlignValues.find(item => item.selected).label;
-  const margin = `${marginTop}px ${marginRight}px ${marginBottom}px ${marginLeft}px`;
-  const padding = `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px`;
-  const boxStyle = getBoxStyle({
-    borderThickness,
-    borderStyle,
-    borderColor,
-    horizontalBoxShadow,
-    verticalBoxShadow,
-    blurRadiusBoxShadow,
-    spreadBoxShadow,
-    colorBoxShadow,
-    topLeftRadius,
-    topRightRadius,
-    bottomRightRadius,
-    bottomLeftRadius,
-    backgroundColor,
-    opacity,
-    fontColor,
-    fontSize,
-    textAlign,
-    horizontalTextShadow,
-    verticalTextShadow,
-    blurRadiusTextShadow,
-    colorTextShadow,
-    margin,
-    padding,
-    width,
-    height
-  });
-
-  const handleBorderThicknessChange = ({ selected }) => {
-    setBorderThickness(selected);
-
-    onChange(boxStyle);
+    onChange(updatedStyle);
   };
 
-  const handleBorderTypeChange = ({ values }) => {
-    setBorderValues(values);
-
-    onChange(boxStyle);
-  };
-
-  const handleBorderColorChange = ({ selected }) => {
-    setBorderColor(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleTopLeftRadiusChange = ({ selected }) => {
-    setTopLeftRadius(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleTopRightRadiusChange = ({ selected }) => {
-    setTopRightRadius(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleBottomRightRadiusChange = ({ selected }) => {
-    setBottomRightRadius(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleBottomLeftRadiusChange = ({ selected }) => {
-    setBottomLeftRadius(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleHorizontalBoxShadowChange = ({ selected }) => {
-    setHorizontalBoxShadow(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleVerticalBoxShadowChange = ({ selected }) => {
-    setVerticalBoxShadow(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleBlurRadiusBoxShadowChange = ({ selected }) => {
-    setBlurRadiusBoxShadow(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleSpreadBoxShadowChange = ({ selected }) => {
-    setSpreadBoxShadow(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleColorBoxShadowChange = ({ selected }) => {
-    setColorBoxShadow(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleBackgroundColorChange = ({ selected }) => {
-    setBackgroundColor(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleOpacityChange = ({ selected }) => {
-    setOpacity(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleFontColorChange = ({ selected }) => {
-    setFontColor(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleFontSizeChange = ({ selected }) => {
-    setFontSize(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleTextAlignValuesChange = ({ values }) => {
-    setTextAlignValues(values);
-
-    onChange(boxStyle);
-  };
-
-  const handleHorizontalTextShadowChange = ({ selected }) => {
-    setHorizontalTextShadow(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleVerticalTextShadowChange = ({ selected }) => {
-    setVerticalTextShadow(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleBlurRadiusTextShadowChange = ({ selected }) => {
-    setBlurRadiusTextShadow(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleColorTextShadowChange = ({ selected }) => {
-    setColorTextShadow(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleMarginTopChange = ({ selected }) => {
-    setMarginTop(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleMarginRightChange = ({ selected }) => {
-    setMarginRight(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleMarginBottomChange = ({ selected }) => {
-    setMarginBottom(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleMarginLeftChange = ({ selected }) => {
-    setMarginLeft(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handlePaddingTopChange = ({ selected }) => {
-    setPaddingTop(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handlePaddingRightChange = ({ selected }) => {
-    setPaddingRight(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handlePaddingBottomChange = ({ selected }) => {
-    setPaddingBottom(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handlePaddingLeftChange = ({ selected }) => {
-    setPaddingLeft(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleWidthChange = ({ selected }) => {
-    setWidth(selected);
-
-    onChange(boxStyle);
-  };
-
-  const handleHeightChange = ({ selected }) => {
-    setHeight(selected);
-
-    onChange(boxStyle);
-  };
+  const borderValues = BORDER_TYPES.map(item => (item.label === style.borderStyle ? { ...item, selected: true } : item));
+  const textAlignValues = TEXT_ALIGN_TYPES.map(item => (item.label === style.textAlign ? { ...item, selected: true } : item));
 
   return (
     <AccordionGroup
       data={[
         { label: 'Border', content:
               (<>
-                <Range label="Thickness" min="0" max={THICKNESS_MAX} selected={borderThickness} onChange={handleBorderThicknessChange} />
-                <Dropdown label={`Type: ${borderStyle}`} values={borderValues} onChange={handleBorderTypeChange} />
-                <Color label="Color" selected={borderColor} onChange={handleBorderColorChange} />
-              </>)},
+                <Range id='borderThickness' label="Thickness" min="0" max={THICKNESS_MAX} selected={style.borderThickness} onChange={handleChange} />
+                <Dropdown id='borderStyle' label={`Type: ${style.borderStyle}`} values={borderValues} onChange={handleChange} />
+                <Color id='borderColor' label="Color" selected={style.borderColor} onChange={handleChange} />
+              </>)
+        },
         { label: 'Border Radius', content:
               (<>
-                <Text label='Top Left' selected={topLeftRadius} onChange={handleTopLeftRadiusChange} />
-                <Text label='Top Right' selected={topRightRadius} onChange={handleTopRightRadiusChange} />
-                <Text label='Bottom Right' selected={bottomRightRadius} onChange={handleBottomRightRadiusChange} />
-                <Text label='Bottom Left' selected={bottomLeftRadius} onChange={handleBottomLeftRadiusChange} />
-              </>)},{ label: 'Box Shadow', content: (
-          <>
-            <Text label='Horizontal' selected={horizontalBoxShadow} onChange={handleHorizontalBoxShadowChange} />
-            <Text label='Vertical' selected={verticalBoxShadow} onChange={handleVerticalBoxShadowChange} />
-            <Text label='Blur Radius' selected={blurRadiusBoxShadow} onChange={handleBlurRadiusBoxShadowChange} />
-            <Text label='Spread' selected={spreadBoxShadow} onChange={handleSpreadBoxShadowChange} />
-            <Color label="Color" selected={colorBoxShadow} onChange={handleColorBoxShadowChange} />
-          </>)},
-        { label: 'Size', content:
-              (<>
-                <Range label="Width" min="0" max={WIDTH_MAX} selected={width} onChange={handleWidthChange} />
-                <Range label="Height" min="0" max={HEIGHT_MAX} selected={height} onChange={handleHeightChange} />
-              </>)},
+                <Text id='topLeftRadius' label='Top Left' selected={style.topLeftRadius} onChange={handleChange} />
+                <Text id='topRightRadius' label='Top Right' selected={style.topRightRadius} onChange={handleChange} />
+                <Text id='bottomRightRadius' label='Bottom Right' selected={style.bottomRightRadius} onChange={handleChange} />
+                <Text id='bottomLeftRadius' label='Bottom Left' selected={style.bottomLeftRadius} onChange={handleChange} />
+              </>)
+        },
+        { label: 'Box Shadow', content:
+          (<>
+            <Text id='horizontalBoxShadow' label='Horizontal' selected={style.horizontalBoxShadow} onChange={handleChange} />
+            <Text id='verticalBoxShadow' label='Vertical' selected={style.verticalBoxShadow} onChange={handleChange} />
+            <Text id='blurRadiusBoxShadow' label='Blur Radius' selected={style.blurRadiusBoxShadow} onChange={handleChange} />
+            <Text id='spreadBoxShadow' label='Spread' selected={style.spreadBoxShadow} onChange={handleChange} />
+            <Color id='colorBoxShadow' label="Color" selected={style.colorBoxShadow} onChange={handleChange} />
+          </>)
+        },
         { label: 'Color', content:
               (<>
-                <Color label="BG Color" selected={backgroundColor} onChange={handleBackgroundColorChange} />
-                <Range label="Opacity" min="0" max={OPACITY_MAX} selected={opacity} onChange={handleOpacityChange} />
-              </>)},{ label: 'Text', content: (
-          <>
-            <Color label="Font Color" selected={fontColor} onChange={handleFontColorChange} />
-            <Range label="Font Size" min="0" max={FONT_SIZE_MAX} selected={fontSize} onChange={handleFontSizeChange} />
-            <Dropdown label={`Text Align: ${textAlign}`} values={textAlignValues} onChange={handleTextAlignValuesChange} />
-            <Text label='Horizontal' selected={horizontalTextShadow} onChange={handleHorizontalTextShadowChange} />
-            <Text label='Vertical' selected={verticalTextShadow} onChange={handleVerticalTextShadowChange} />
-            <Text label='Blur Radius' selected={blurRadiusTextShadow} onChange={handleBlurRadiusTextShadowChange} />
-            <Color label="Text Shadow Color" selected={colorTextShadow} onChange={handleColorTextShadowChange} />
-          </>)},
+                <Color id='backgroundColor' label="BG Color" selected={style.backgroundColor} onChange={handleChange} />
+                <Range id='opacity' label="Opacity" min="0" max={OPACITY_MAX} selected={style.opacity} onChange={handleChange} />
+              </>)
+        },
+        { label: 'Text', content:
+          (<>
+            <Color id='fontColor' label="Font Color" selected={style.fontColor} onChange={handleChange} />
+            <Range id='fontSize' label="Font Size" min="0" max={FONT_SIZE_MAX} selected={style.fontSize} onChange={handleChange} />
+            <Dropdown id='textAlign' label={`Text Align: ${style.textAlign}`} values={textAlignValues} onChange={handleChange} />
+            <Text id='horizontalTextShadow' label='Horizontal' selected={style.horizontalTextShadow} onChange={handleChange} />
+            <Text id='verticalTextShadow' label='Vertical' selected={style.verticalTextShadow} onChange={handleChange} />
+            <Text id='blurRadiusTextShadow' label='Blur Radius' selected={style.blurRadiusTextShadow} onChange={handleChange} />
+            <Color id='colorTextShadow' label="Text Shadow Color" selected={style.colorTextShadow} onChange={handleChange} />
+          </>)
+        },
         { label: 'Margin', content:
               (<>
-                <Text label='Top' selected={marginTop} onChange={handleMarginTopChange} />
-                <Text label='Right' selected={marginRight} onChange={handleMarginRightChange} />
-                <Text label='Bottom' selected={marginBottom} onChange={handleMarginBottomChange} />
-                <Text label='Left' selected={marginLeft} onChange={handleMarginLeftChange} />
-              </>)},{ label: 'Padding', content: (
-          <>
-            <Text label='Top' selected={paddingTop} onChange={handlePaddingTopChange} />
-            <Text label='Right' selected={paddingRight} onChange={handlePaddingRightChange} />
-            <Text label='Bottom' selected={paddingBottom} onChange={handlePaddingBottomChange} />
-            <Text label='Left' selected={paddingLeft} onChange={handlePaddingLeftChange} />
-          </>)}]} />
+                <Text id='marginTop' label='Top' selected={style.marginTop} onChange={handleChange} />
+                <Text id='marginRight' label='Right' selected={style.marginRight} onChange={handleChange} />
+                <Text id='marginBottom' label='Bottom' selected={style.marginBottom} onChange={handleChange} />
+                <Text id='marginLeft' label='Left' selected={style.marginLeft} onChange={handleChange} />
+              </>)
+        },
+        { label: 'Padding', content:
+          (<>
+            <Text id='paddingTop' label='Top' selected={style.paddingTop} onChange={handleChange} />
+            <Text id='paddingRight' label='Right' selected={style.paddingRight} onChange={handleChange} />
+            <Text id='paddingBottom' label='Bottom' selected={style.paddingBottom} onChange={handleChange} />
+            <Text id='paddingLeft' label='Left' selected={style.paddingLeft} onChange={handleChange} />
+          </>)
+        },
+        { label: 'Size', content:
+              (<>
+                <Range id='width' label="Width" min="0" max={WIDTH_MAX} selected={style.width} onChange={handleChange} />
+                <Range id='height' label="Height" min="0" max={HEIGHT_MAX} selected={style.height} onChange={handleChange} />
+              </>)
+        }
+      ]} />
   );
 };
 
