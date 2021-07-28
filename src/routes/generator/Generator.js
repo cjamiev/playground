@@ -9,6 +9,9 @@ import Range from 'components/form/Range';
 import GeneratorForm from './GeneratorForm';
 import { copyToClipboard } from 'helper/copy';
 import { toDashCaseFromCamelCase } from 'stringHelper';
+import {
+  OPACITY_MAX
+} from 'constants/css';
 import './generator.css';
 
 const baseStyle = {
@@ -51,7 +54,6 @@ const baseStyle = {
   width: '100',
   height: '50'
 };
-const OPACITY_MAX = 100;
 
 const mapCSSFromJSON = (style, name) => {
   const cssProperties = Object.keys(style);
@@ -123,8 +125,8 @@ const getInlineStyle = ({
     transform: `rotate(${rotate}deg) translate(${translateX}px, ${translateY}px) scale(${scaleX},${scaleY}) skew(${skewX}deg, ${skewY}deg)`,
     margin: `${marginTop}px ${marginRight}px ${marginBottom}px ${marginLeft}px`,
     padding: `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px`,
-    width: `${width}px`,
-    height: `${height}px`
+    width: !isNaN(width) ? `${width}px`: width,
+    height: !isNaN(height) ? `${height}px`: height
   };
 };
 
@@ -171,7 +173,7 @@ const Generator = () => {
                 setIsHovering(false);
               }
             } />
-          <GeneratorForm baseStyle={isHoverMode ? hoverStyle : style} onChange={handleChange} />
+          <GeneratorForm style={isHoverMode ? hoverStyle : style} onChange={handleChange} />
         </div>
         <div className="generator__result_container">
           <Color label="Parent Color" selected={parentBackgroundColor} onChange={handleParentBackgroundColorChange} />

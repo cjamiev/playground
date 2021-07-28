@@ -1,42 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Text from 'components/form/Text';
 import Button from 'components/button';
 import Dropdown from 'components/form/Dropdown';
 import Color, { hexToRGB } from 'components/form/Color';
 import { AccordionGroup } from 'components/accordion';
 import Range from 'components/form/Range';
+import {
+  THICKNESS_MAX,
+  OPACITY_MAX,
+  FONT_SIZE_MAX,
+  WIDTH_MAX,
+  HEIGHT_MAX,
+  BORDER_TYPES,
+  TEXT_ALIGN_TYPES
+} from 'constants/css';
 
-const THICKNESS_MAX = 10;
-const OPACITY_MAX = 100;
-const FONT_SIZE_MAX = 100;
-const WIDTH_MAX = 1000;
-const HEIGHT_MAX = 1000;
-const BORDER_TYPES = [
-  { label:'solid', selected: false },
-  { label:'dotted', selected: false },
-  { label:'dashed', selected: false },
-  { label:'double', selected: false },
-  { label:'groove', selected: false },
-  { label:'ridge', selected: false },
-  { label:'inset', selected: false },
-  { label:'outset', selected: false },
-  { label:'none', selected: false }
-];
-const TEXT_ALIGN_TYPES = [
-  { label: 'initial', selected: false },
-  { label: 'left', selected: false },
-  { label: 'right', selected: false },
-  { label: 'center', selected: false },
-  { label: 'justify', selected: false }
-];
-
-const GeneratorForm = ({ baseStyle, onChange }) => {
-  const [style, setStyle] = useState({});
-
-  useEffect(() => {
-    setStyle(baseStyle);
-  }, [baseStyle]);
-
+const GeneratorForm = ({ style, onChange }) => {
   const handleChange = ({ id, selected, values }) => {
     const updatedStyle = values ?
       {
@@ -58,19 +37,19 @@ const GeneratorForm = ({ baseStyle, onChange }) => {
     <AccordionGroup
       data={[
         { label: 'Border', content:
-              (<>
-                <Range id='borderThickness' label="Thickness" min="0" max={THICKNESS_MAX} selected={style.borderThickness} onChange={handleChange} />
-                <Dropdown id='borderStyle' label={`Type: ${style.borderStyle}`} values={borderValues} onChange={handleChange} />
-                <Color id='borderColor' label="Color" selected={style.borderColor} onChange={handleChange} />
-              </>)
+          (<>
+            <Range id='borderThickness' label="Thickness" min="0" max={THICKNESS_MAX} selected={style.borderThickness} onChange={handleChange} />
+            <Dropdown id='borderStyle' label={`Type: ${style.borderStyle}`} values={borderValues} onChange={handleChange} />
+            <Color id='borderColor' label="Color" selected={style.borderColor} onChange={handleChange} />
+          </>)
         },
         { label: 'Border Radius', content:
-              (<>
-                <Text id='topLeftRadius' label='Top Left' selected={style.topLeftRadius} onChange={handleChange} />
-                <Text id='topRightRadius' label='Top Right' selected={style.topRightRadius} onChange={handleChange} />
-                <Text id='bottomRightRadius' label='Bottom Right' selected={style.bottomRightRadius} onChange={handleChange} />
-                <Text id='bottomLeftRadius' label='Bottom Left' selected={style.bottomLeftRadius} onChange={handleChange} />
-              </>)
+          (<>
+            <Text id='topLeftRadius' label='Top Left' selected={style.topLeftRadius} onChange={handleChange} />
+            <Text id='topRightRadius' label='Top Right' selected={style.topRightRadius} onChange={handleChange} />
+            <Text id='bottomRightRadius' label='Bottom Right' selected={style.bottomRightRadius} onChange={handleChange} />
+            <Text id='bottomLeftRadius' label='Bottom Left' selected={style.bottomLeftRadius} onChange={handleChange} />
+          </>)
         },
         { label: 'Box Shadow', content:
           (<>
@@ -82,10 +61,10 @@ const GeneratorForm = ({ baseStyle, onChange }) => {
           </>)
         },
         { label: 'Color', content:
-              (<>
-                <Color id='backgroundColor' label="BG Color" selected={style.backgroundColor} onChange={handleChange} />
-                <Range id='opacity' label="Opacity" min="0" max={OPACITY_MAX} selected={style.opacity} onChange={handleChange} />
-              </>)
+          (<>
+            <Color id='backgroundColor' label="BG Color" selected={style.backgroundColor} onChange={handleChange} />
+            <Range id='opacity' label="Opacity" min="0" max={OPACITY_MAX} selected={style.opacity} onChange={handleChange} />
+          </>)
         },
         { label: 'Text', content:
           (<>
@@ -110,12 +89,12 @@ const GeneratorForm = ({ baseStyle, onChange }) => {
           </>)
         },
         { label: 'Margin', content:
-              (<>
-                <Text id='marginTop' label='Top' selected={style.marginTop} onChange={handleChange} />
-                <Text id='marginRight' label='Right' selected={style.marginRight} onChange={handleChange} />
-                <Text id='marginBottom' label='Bottom' selected={style.marginBottom} onChange={handleChange} />
-                <Text id='marginLeft' label='Left' selected={style.marginLeft} onChange={handleChange} />
-              </>)
+          (<>
+            <Text id='marginTop' label='Top' selected={style.marginTop} onChange={handleChange} />
+            <Text id='marginRight' label='Right' selected={style.marginRight} onChange={handleChange} />
+            <Text id='marginBottom' label='Bottom' selected={style.marginBottom} onChange={handleChange} />
+            <Text id='marginLeft' label='Left' selected={style.marginLeft} onChange={handleChange} />
+          </>)
         },
         { label: 'Padding', content:
           (<>
@@ -126,10 +105,10 @@ const GeneratorForm = ({ baseStyle, onChange }) => {
           </>)
         },
         { label: 'Size', content:
-              (<>
-                <Range id='width' label="Width" min="0" max={WIDTH_MAX} selected={style.width} onChange={handleChange} />
-                <Range id='height' label="Height" min="0" max={HEIGHT_MAX} selected={style.height} onChange={handleChange} />
-              </>)
+          (<>
+            <Text id='width' label="Width" selected={style.width} onChange={handleChange} />
+            <Text id='height' label='Height' selected={style.height} onChange={handleChange} />
+          </>)
         }
       ]} />
   );
