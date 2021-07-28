@@ -8,18 +8,18 @@
 }
 
 .generator__result_container {
-  flex: 7;
+  flex: 5;
 }
 
 .generator__box_parent {
   display: grid;
   place-items: center;
   width: 100%;
-  height: 100%;
+  height: 750px;
 }
 
 .generator__output_container {
-  flex: 1;
+  flex: 2;
   padding: 10px;
 }
 

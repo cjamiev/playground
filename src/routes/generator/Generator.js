@@ -33,6 +33,13 @@ const baseStyle = {
   verticalTextShadow: '0',
   blurRadiusTextShadow: '0',
   colorTextShadow: '#ffffff',
+  rotate: '0',
+  translateX: '0',
+  translateY: '0',
+  scaleX: '1',
+  scaleY: '1',
+  skewX: '0',
+  skewY: '0',
   marginTop: '0',
   marginRight: '0',
   marginBottom: '0',
@@ -79,6 +86,13 @@ const getInlineStyle = ({
   verticalTextShadow,
   blurRadiusTextShadow,
   colorTextShadow,
+  rotate,
+  translateX,
+  translateY,
+  scaleX,
+  scaleY,
+  skewX,
+  skewY,
   marginTop,
   marginRight,
   marginBottom,
@@ -106,6 +120,7 @@ const getInlineStyle = ({
     fontSize: `${fontSize}px`,
     textAlign,
     textShadow: `${horizontalTextShadow}px ${verticalTextShadow}px ${blurRadiusTextShadow}px ${colorTextShadow}`,
+    transform: `rotate(${rotate}deg) translate(${translateX}px, ${translateY}px) scale(${scaleX},${scaleY}) skew(${skewX}deg, ${skewY}deg)`,
     margin: `${marginTop}px ${marginRight}px ${marginBottom}px ${marginLeft}px`,
     padding: `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px`,
     width: `${width}px`,
@@ -170,7 +185,6 @@ const Generator = () => {
           </div>
         </div>
         <div className="generator__output_container">
-          <pre className="generator__generated_css">{generatedCSS}</pre>
           <Button
             label="Copy"
             classColor="primary"
@@ -192,15 +206,14 @@ const Generator = () => {
             classColor="secondary"
             onClick={
               () => {
-                const result = localStorage.getItem('generator');
-                if(result) {
-                  const data = JSON.parse(result);
-                  setStyle(data.style);
-                  setHoverStyle(data.hoverStyle);
-                  setParentBackgroundColor(data.parentBackgroundColor);
-                }
+                const result = localStorage.getItem('generator') || JSON.stringify({ style: baseStyle, hoverStyle: baseStyle, parentBackgroundColor: '#ffffff'});
+                const data = JSON.parse(result);
+                setStyle(data.style);
+                setHoverStyle(data.hoverStyle);
+                setParentBackgroundColor(data.parentBackgroundColor);
               }
             } />
+          <pre className="generator__generated_css">{generatedCSS}</pre>
         </div>
       </div>
     </Page>

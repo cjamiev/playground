@@ -98,6 +98,17 @@ const GeneratorForm = ({ baseStyle, onChange }) => {
             <Color id='colorTextShadow' label="Text Shadow Color" selected={style.colorTextShadow} onChange={handleChange} />
           </>)
         },
+        { label: 'Transform', content:
+          (<>
+            <Text id='rotate' label='rotate' selected={style.rotate} onChange={handleChange} />
+            <Text id='translateX' label='translateX' selected={style.translateX} onChange={handleChange} />
+            <Text id='translateY' label='translateY' selected={style.translateY} onChange={handleChange} />
+            <Text id='scaleX' label='scaleX' selected={style.scaleX} onChange={handleChange} />
+            <Text id='scaleY' label='scaleY' selected={style.scaleY} onChange={handleChange} />
+            <Text id='skewX' label='skewX' selected={style.skewX} onChange={handleChange} />
+            <Text id='skewY' label='skewY' selected={style.skewY} onChange={handleChange} />
+          </>)
+        },
         { label: 'Margin', content:
               (<>
                 <Text id='marginTop' label='Top' selected={style.marginTop} onChange={handleChange} />
