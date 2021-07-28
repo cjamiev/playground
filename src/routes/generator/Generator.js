@@ -179,6 +179,28 @@ const Generator = () => {
                 copyToClipboard(generatedCSS);
               }
             } />
+          <Button
+            label="Cache"
+            classColor="secondary"
+            onClick={
+              () => {
+                localStorage.setItem('generator', JSON.stringify({ style, hoverStyle, parentBackgroundColor }));
+              }
+            } />
+          <Button
+            label="Load"
+            classColor="secondary"
+            onClick={
+              () => {
+                const result = localStorage.getItem('generator');
+                if(result) {
+                  const data = JSON.parse(result);
+                  setStyle(data.style);
+                  setHoverStyle(data.hoverStyle);
+                  setParentBackgroundColor(data.parentBackgroundColor);
+                }
+              }
+            } />
         </div>
       </div>
     </Page>
