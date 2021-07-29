@@ -132,15 +132,15 @@ const getInlineStyle = ({
 const Generator = () => {
   const [isHoverMode, setIsHoverMode] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const [style, setStyle] = useState(baseStyle);
+  const [normalStyle, setNormalStyle] = useState(baseStyle);
   const [hoverStyle, setHoverStyle] = useState({});
   const [parentBackgroundColor, setParentBackgroundColor] = useState('#ffffff');
 
-  const inlineNormalStyle = getInlineStyle(style);
+  const inlineNormalStyle = getInlineStyle(normalStyle);
   const inlineHoverStyle = getInlineStyle(hoverStyle);
-  const styleCSS = mapCSSFromJSON(inlineNormalStyle, '.name');
+  const normalCSS = mapCSSFromJSON(inlineNormalStyle, '.name');
   const hoverCSS = mapCSSFromJSON(inlineHoverStyle, '.name:hover');
-  const generatedCSS = `${styleCSS}\n\n${hoverCSS}`;
+  const generatedCSS = `${normalCSS}\n\n${hoverCSS}`;
   const boxStyle = isHoverMode || isHovering ? {
     ...inlineNormalStyle,
     ...inlineHoverStyle
@@ -162,14 +162,14 @@ const Generator = () => {
     else {
       const updatedStyle = values ?
         {
-          ...style,
+          ...normalStyle,
           [id]: values.find(item => item.selected).label
         }
         : {
-          ...style,
+          ...normalStyle,
           [id]: selected
         };
-      setStyle(updatedStyle);
+      setNormalStyle(updatedStyle);
     }
   };
 
@@ -190,7 +190,7 @@ const Generator = () => {
                 setIsHovering(false);
               }
             } />
-          <GeneratorForm style={isHoverMode ? {...baseStyle, ...hoverStyle} : style} onChange={handleChange} />
+          <GeneratorForm style={isHoverMode ? {...baseStyle, ...hoverStyle} : normalStyle} onChange={handleChange} />
         </div>
         <div className="generator__result_container">
           <Color label="Parent Color" selected={parentBackgroundColor} onChange={handleParentBackgroundColorChange} />
@@ -217,7 +217,7 @@ const Generator = () => {
             classColor="secondary"
             onClick={
               () => {
-                localStorage.setItem('generator', JSON.stringify({ style, hoverStyle, parentBackgroundColor }));
+                localStorage.setItem('generator', JSON.stringify({ normalStyle, hoverStyle, parentBackgroundColor }));
               }
             } />
           <Button
@@ -225,9 +225,9 @@ const Generator = () => {
             classColor="secondary"
             onClick={
               () => {
-                const result = localStorage.getItem('generator') || JSON.stringify({ style: baseStyle, hoverStyle: baseStyle, parentBackgroundColor: '#ffffff'});
+                const result = localStorage.getItem('generator') || JSON.stringify({ normalStyle: baseStyle, hoverStyle: baseStyle, parentBackgroundColor: '#ffffff'});
                 const data = JSON.parse(result);
-                setStyle(data.style);
+                setNormalStyle(data.normalStyle);
                 setHoverStyle(data.hoverStyle);
                 setParentBackgroundColor(data.parentBackgroundColor);
               }
