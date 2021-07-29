@@ -15,15 +15,8 @@ import {
 import './generator.css';
 
 const ONE = 1;
-const baseStyle = {
-  borderThickness: '1',
-  borderStyle: 'solid',
-  borderColor: '#000000',
-  width: '100',
-  height: '50'
-};
 
-const mapCSSFromJSON = (style, name) => {
+const toCssString = (style) => {
   const cssProperties = Object.keys(style);
   const mergedProperties = cssProperties
     .map(key => {
@@ -31,10 +24,32 @@ const mapCSSFromJSON = (style, name) => {
     })
     .join('');
 
-  return `${name} {\n${mergedProperties}}`;
+  return mergedProperties;
 };
 
-// eslint-disable-next-line complexity
+const getFilterProperty = ({ blur, brightness, contrast, grayscale, hueRotate, invert, saturate }) => {
+  const filterBlur = blur ? `blur(${blur}px) ` : '';
+  const filterBrightness = brightness ? `brightness(${brightness}%) ` : '';
+  const filterContrast = contrast ? `contrast(${contrast}%)  ` : '';
+  const filterGrayscale = grayscale ? `grayscale(${grayscale}%)  ` : '';
+  const filterHueRotate = hueRotate ? `hue-rotate(${hueRotate}deg)  ` : '';
+  const filterInvert = invert ? `invert(${invert}%)  ` : '';
+  const filterSaturate = saturate ? `saturate(${saturate}%)  ` : '';
+
+  return `${filterBlur}${filterBrightness}${filterContrast}${filterGrayscale}${filterHueRotate}${filterInvert}${filterSaturate}`;
+};
+const getTransformProperty = ({ rotate, translateX, translateY, scaleX, scaleY, skewX, skewY }) => {
+  const transformRotate = rotate ? `rotate(${rotate}deg) ` : '';
+  const transformTranslateX = translateX ? `translateX(${translateX}px) ` : '';
+  const transformTranslateY = translateY ? `translateY(${translateY}px) ` : '';
+  const transformScaleX = scaleX ? `scaleX(${scaleX}) ` : '';
+  const transformScaleY = scaleY ? `scaleY(${scaleY}) ` : '';
+  const transformSkewX = skewX ? `skewX(${skewX}deg) ` : '';
+  const transformSkewY = skewY ? `skewY(${skewY}deg) ` : '';
+
+  return `${transformRotate}${transformTranslateX}${transformTranslateY}${transformScaleX}${transformScaleY}${transformSkewX}${transformSkewY}`;
+};
+
 const getInlineStyle = ({
   borderThickness,
   borderStyle,
@@ -86,31 +101,20 @@ const getInlineStyle = ({
   width,
   height
 }) => {
-  const radiusTopLeft = topLeftRadius ? `${topLeftRadius}px`: '0';
-  const radiusTopRight = topRightRadius ? `${topRightRadius}px`: '0';
-  const radiusBottomRight = bottomRightRadius ? `${bottomRightRadius}px`: '0';
-  const radiusBottomLeft = bottomLeftRadius ? `${bottomLeftRadius}px`: '0';
   const rgbColor = backgroundColor ? hexToRGB(backgroundColor) : {};
   const normalizedOpacity = Number(opacity) / OPACITY_MAX;
-  const filterBlur = blur ? `blur(${blur}px) ` : '';
-  const filterBrightness = brightness ? `brightness(${brightness}%) ` : '';
-  const filterContrast = contrast ? `contrast(${contrast}%)  ` : '';
-  const filterGrayscale = grayscale ? `grayscale(${grayscale}%)  ` : '';
-  const filterHueRotate = hueRotate ? `hue-rotate(${hueRotate}deg)  ` : '';
-  const filterInvert = invert ? `invert(${invert}%)  ` : '';
-  const filterSaturate = saturate ? `saturate(${saturate}%)  ` : '';
 
   const style = {
     border: `${borderThickness}px ${borderStyle} ${borderColor}`,
-    borderRadius: `${radiusTopLeft} ${radiusTopRight} ${radiusBottomRight} ${radiusBottomLeft}`,
+    borderRadius: `${topLeftRadius}px ${topRightRadius}px ${bottomRightRadius}px ${bottomLeftRadius}px`,
     boxShadow: `${horizontalBoxShadow}px ${verticalBoxShadow}px ${blurRadiusBoxShadow}px ${spreadBoxShadow}px ${colorBoxShadow}`,
     backgroundColor: `rgba(${rgbColor.red},${rgbColor.green},${rgbColor.blue},${normalizedOpacity || ONE})`,
     color: fontColor,
     fontSize: `${fontSize}px`,
     textAlign,
-    filter: `${filterBlur}${filterBrightness}${filterContrast}${filterGrayscale}${filterHueRotate}${filterInvert}${filterSaturate}`,
+    filter: getFilterProperty({ blur, brightness, contrast, grayscale, hueRotate, invert, saturate }),
     textShadow: `${horizontalTextShadow}px ${verticalTextShadow}px ${blurRadiusTextShadow}px ${colorTextShadow}`,
-    transform: `rotate(${rotate}deg) translate(${translateX}px, ${translateY}px) scale(${scaleX},${scaleY}) skew(${skewX}deg, ${skewY}deg)`,
+    transform: getTransformProperty({ rotate, translateX, translateY, scaleX, scaleY, skewX, skewY }),
     transition: `${transitionProperty} ${transitionDuration}s ${transitionTimingFunction} ${transitionDelay}s`,
     margin: `${marginTop}px ${marginRight}px ${marginBottom}px ${marginLeft}px`,
     padding: `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px`,
@@ -140,19 +144,24 @@ const getInlineStyle = ({
 const Generator = () => {
   const [isHoverMode, setIsHoverMode] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const [normalStyle, setNormalStyle] = useState(baseStyle);
+  const [normalStyle, setNormalStyle] = useState({
+    borderThickness: '1',
+    borderStyle: 'solid',
+    borderColor: '#000000',
+    width: '100',
+    height: '50'
+  });
   const [hoverStyle, setHoverStyle] = useState({});
   const [parentBackgroundColor, setParentBackgroundColor] = useState('#ffffff');
 
   const inlineNormalStyle = getInlineStyle(normalStyle);
   const inlineHoverStyle = getInlineStyle(hoverStyle);
-  const normalCSS = mapCSSFromJSON(inlineNormalStyle, '.name');
-  const hoverCSS = mapCSSFromJSON(inlineHoverStyle, '.name:hover');
-  const generatedCSS = `${normalCSS}\n\n${hoverCSS}`;
-  const boxStyle = isHoverMode || isHovering ? {
-    ...inlineNormalStyle,
-    ...inlineHoverStyle
-  } : inlineNormalStyle;
+  const normalCSS = toCssString(inlineNormalStyle);
+  const hoverCSS = toCssString(inlineHoverStyle);
+  const copyCSS = `.name {\n${normalCSS}}\n\n.name:hover {\n${hoverCSS}}`;
+  const inlineStyle = (isHoverMode || isHovering)
+    ? { ...inlineNormalStyle, ...inlineHoverStyle}
+    : inlineNormalStyle;
 
   const handleChange = ({ id, selected, values }) => {
     if(isHoverMode) {
@@ -198,13 +207,13 @@ const Generator = () => {
                 setIsHovering(false);
               }
             } />
-          <GeneratorForm style={isHoverMode ? {...baseStyle, ...hoverStyle} : normalStyle} onChange={handleChange} />
+          <GeneratorForm style={isHoverMode ? hoverStyle : normalStyle} onChange={handleChange} />
         </div>
         <div className="generator__result_container">
           <Color label="Parent Color" selected={parentBackgroundColor} onChange={handleParentBackgroundColorChange} />
           <div style={{ backgroundColor: parentBackgroundColor }} className="generator__box_parent">
             <div
-              style={boxStyle}
+              style={inlineStyle}
               onMouseOver={() => { !isHoverMode && setIsHovering(true);}}
               onMouseOut={() => { !isHoverMode && setIsHovering(false);}}>
               Text
@@ -216,31 +225,30 @@ const Generator = () => {
             label="Copy"
             classColor="primary"
             onClick={
-              () => {
-                copyToClipboard(generatedCSS);
-              }
+              () => { copyToClipboard(copyCSS); }
             } />
           <Button
             label="Cache"
             classColor="secondary"
             onClick={
-              () => {
-                localStorage.setItem('generator', JSON.stringify({ normalStyle, hoverStyle, parentBackgroundColor }));
-              }
+              () => { localStorage.setItem('generator', JSON.stringify({ normalStyle, hoverStyle, parentBackgroundColor })); }
             } />
           <Button
             label="Load"
             classColor="secondary"
             onClick={
               () => {
-                const result = localStorage.getItem('generator') || JSON.stringify({ normalStyle: baseStyle, hoverStyle: baseStyle, parentBackgroundColor: '#ffffff'});
+                const result = localStorage.getItem('generator') || '{}';
                 const data = JSON.parse(result);
-                setNormalStyle(data.normalStyle);
-                setHoverStyle(data.hoverStyle);
-                setParentBackgroundColor(data.parentBackgroundColor);
+                data.normalStyle && setNormalStyle(data.normalStyle);
+                data.hoverStyle && setHoverStyle(data.hoverStyle);
+                data.parentBackgroundColor && setParentBackgroundColor(data.parentBackgroundColor);
               }
             } />
-          <pre className="generator__generated_css">{generatedCSS}</pre>
+          <h2>Normal CSS</h2>
+          <pre className="generator__generated_css">{normalCSS}</pre>
+          <h2>Hover CSS</h2>
+          <pre className="generator__generated_css">{hoverCSS}</pre>
         </div>
       </div>
     </Page>
