@@ -14,54 +14,11 @@ import {
 } from 'constants/css';
 import './generator.css';
 
+const ONE = 1;
 const baseStyle = {
   borderThickness: '1',
   borderStyle: 'solid',
   borderColor: '#000000',
-  topLeftRadius: '0',
-  topRightRadius: '0',
-  bottomRightRadius: '0',
-  bottomLeftRadius: '0',
-  horizontalBoxShadow: '0',
-  verticalBoxShadow: '0',
-  blurRadiusBoxShadow: '0',
-  spreadBoxShadow: '0',
-  colorBoxShadow: '#ffffff',
-  backgroundColor: '#ffffff',
-  opacity: '100',
-  fontColor: '#000000',
-  fontSize: '16',
-  textAlign: 'initial',
-  horizontalTextShadow: '0',
-  verticalTextShadow: '0',
-  blurRadiusTextShadow: '0',
-  colorTextShadow: '#ffffff',
-  blur: '0',
-  brightness: '100',
-  contrast: '100',
-  grayscale: '0',
-  hueRotate: '0',
-  invert: '0',
-  saturate: '100',
-  rotate: '0',
-  translateX: '0',
-  translateY: '0',
-  scaleX: '1',
-  scaleY: '1',
-  skewX: '0',
-  skewY: '0',
-  transitionProperty: 'all',
-  transitionDuration: '0',
-  transitionTimingFunction: 'linear',
-  transitionDelay: '0',
-  marginTop: '0',
-  marginRight: '0',
-  marginBottom: '0',
-  marginLeft: '0',
-  paddingTop: '0',
-  paddingRight: '0',
-  paddingBottom: '0',
-  paddingLeft: '0',
   width: '100',
   height: '50'
 };
@@ -132,14 +89,14 @@ const getInlineStyle = ({
   const radiusTopRight = topRightRadius ? `${topRightRadius}px`: '0';
   const radiusBottomRight = bottomRightRadius ? `${bottomRightRadius}px`: '0';
   const radiusBottomLeft = bottomLeftRadius ? `${bottomLeftRadius}px`: '0';
-  const rgbColor = hexToRGB(backgroundColor);
+  const rgbColor = backgroundColor ? hexToRGB(backgroundColor) : {};
   const normalizedOpacity = Number(opacity) / OPACITY_MAX;
 
-  return {
+  const style = {
     border: `${borderThickness}px ${borderStyle} ${borderColor}`,
     borderRadius: `${radiusTopLeft} ${radiusTopRight} ${radiusBottomRight} ${radiusBottomLeft}`,
     boxShadow: `${horizontalBoxShadow}px ${verticalBoxShadow}px ${blurRadiusBoxShadow}px ${spreadBoxShadow}px ${colorBoxShadow}`,
-    backgroundColor: `rgba(${rgbColor.red},${rgbColor.green},${rgbColor.blue},${normalizedOpacity})`,
+    backgroundColor: `rgba(${rgbColor.red},${rgbColor.green},${rgbColor.blue},${normalizedOpacity || ONE})`,
     color: fontColor,
     fontSize: `${fontSize}px`,
     textAlign,
@@ -152,13 +109,31 @@ const getInlineStyle = ({
     width: !isNaN(width) ? `${width}px`: width,
     height: !isNaN(height) ? `${height}px`: height
   };
+
+  const definedProperties = Object
+    .keys(style)
+    .filter(key => {
+      if(!style[key]) {
+        return false;
+      }
+      else if(style[key].includes('undefined')) {
+        return false;
+      }
+
+      return true;
+    })
+    .reduce((accumulator, key) => {
+      return { [key]: style[key], ...accumulator };
+    }, {});
+
+  return definedProperties;
 };
 
 const Generator = () => {
   const [isHoverMode, setIsHoverMode] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [style, setStyle] = useState(baseStyle);
-  const [hoverStyle, setHoverStyle] = useState(baseStyle);
+  const [hoverStyle, setHoverStyle] = useState({});
   const [parentBackgroundColor, setParentBackgroundColor] = useState('#ffffff');
 
   const inlineNormalStyle = getInlineStyle(style);
@@ -171,11 +146,29 @@ const Generator = () => {
     ...inlineHoverStyle
   } : inlineNormalStyle;
 
-  const handleChange = (updatedStyle) => {
+  const handleChange = ({ id, selected, values }) => {
     if(isHoverMode) {
+      const updatedStyle = values ?
+        {
+          ...hoverStyle,
+          [id]: values.find(item => item.selected).label
+        }
+        : {
+          ...hoverStyle,
+          [id]: selected
+        };
       setHoverStyle(updatedStyle);
     }
     else {
+      const updatedStyle = values ?
+        {
+          ...style,
+          [id]: values.find(item => item.selected).label
+        }
+        : {
+          ...style,
+          [id]: selected
+        };
       setStyle(updatedStyle);
     }
   };
@@ -197,7 +190,7 @@ const Generator = () => {
                 setIsHovering(false);
               }
             } />
-          <GeneratorForm style={isHoverMode ? hoverStyle : style} onChange={handleChange} />
+          <GeneratorForm style={isHoverMode ? {...baseStyle, ...hoverStyle} : style} onChange={handleChange} />
         </div>
         <div className="generator__result_container">
           <Color label="Parent Color" selected={parentBackgroundColor} onChange={handleParentBackgroundColorChange} />
