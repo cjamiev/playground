@@ -34,6 +34,7 @@ const mapCSSFromJSON = (style, name) => {
   return `${name} {\n${mergedProperties}}`;
 };
 
+// eslint-disable-next-line complexity
 const getInlineStyle = ({
   borderThickness,
   borderStyle,
@@ -91,6 +92,13 @@ const getInlineStyle = ({
   const radiusBottomLeft = bottomLeftRadius ? `${bottomLeftRadius}px`: '0';
   const rgbColor = backgroundColor ? hexToRGB(backgroundColor) : {};
   const normalizedOpacity = Number(opacity) / OPACITY_MAX;
+  const filterBlur = blur ? `blur(${blur}px) ` : '';
+  const filterBrightness = brightness ? `brightness(${brightness}%) ` : '';
+  const filterContrast = contrast ? `contrast(${contrast}%)  ` : '';
+  const filterGrayscale = grayscale ? `grayscale(${grayscale}%)  ` : '';
+  const filterHueRotate = hueRotate ? `hue-rotate(${hueRotate}deg)  ` : '';
+  const filterInvert = invert ? `invert(${invert}%)  ` : '';
+  const filterSaturate = saturate ? `saturate(${saturate}%)  ` : '';
 
   const style = {
     border: `${borderThickness}px ${borderStyle} ${borderColor}`,
@@ -100,8 +108,8 @@ const getInlineStyle = ({
     color: fontColor,
     fontSize: `${fontSize}px`,
     textAlign,
+    filter: `${filterBlur}${filterBrightness}${filterContrast}${filterGrayscale}${filterHueRotate}${filterInvert}${filterSaturate}`,
     textShadow: `${horizontalTextShadow}px ${verticalTextShadow}px ${blurRadiusTextShadow}px ${colorTextShadow}`,
-    filter: `blur(${blur}px) brightness(${brightness}%) contrast(${contrast}%) grayscale(${grayscale}%) hue-rotate(${hueRotate}deg) invert(${invert}%) saturate(${saturate}%)`,
     transform: `rotate(${rotate}deg) translate(${translateX}px, ${translateY}px) scale(${scaleX},${scaleY}) skew(${skewX}deg, ${skewY}deg)`,
     transition: `${transitionProperty} ${transitionDuration}s ${transitionTimingFunction} ${transitionDelay}s`,
     margin: `${marginTop}px ${marginRight}px ${marginBottom}px ${marginLeft}px`,
