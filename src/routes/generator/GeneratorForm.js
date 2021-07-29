@@ -12,7 +12,8 @@ import {
   WIDTH_MAX,
   HEIGHT_MAX,
   BORDER_TYPES,
-  TEXT_ALIGN_TYPES
+  TEXT_ALIGN_TYPES,
+  TRANSITION_TIMING_FUNCTION
 } from 'constants/css';
 
 const GeneratorForm = ({ style, onChange }) => {
@@ -32,6 +33,7 @@ const GeneratorForm = ({ style, onChange }) => {
 
   const borderValues = BORDER_TYPES.map(item => (item.label === style.borderStyle ? { ...item, selected: true } : item));
   const textAlignValues = TEXT_ALIGN_TYPES.map(item => (item.label === style.textAlign ? { ...item, selected: true } : item));
+  const transitionTimingFunctionValues = TRANSITION_TIMING_FUNCTION.map(item => (item.label === style.transitionTimingFunction ? { ...item, selected: true } : item));
 
   return (
     <AccordionGroup
@@ -77,6 +79,17 @@ const GeneratorForm = ({ style, onChange }) => {
             <Color id='colorTextShadow' label="Text Shadow Color" selected={style.colorTextShadow} onChange={handleChange} />
           </>)
         },
+        { label: 'Filter', content:
+          (<>
+            <Text id='blur' label='blur' selected={style.blur} onChange={handleChange} />
+            <Text id='brightness' label='brightness' selected={style.brightness} onChange={handleChange} />
+            <Text id='contrast' label='contrast' selected={style.contrast} onChange={handleChange} />
+            <Text id='grayscale' label='grayscale' selected={style.grayscale} onChange={handleChange} />
+            <Text id='hueRotate' label='hue rotate' selected={style.hueRotate} onChange={handleChange} />
+            <Text id='invert' label='invert' selected={style.invert} onChange={handleChange} />
+            <Text id='saturate' label='saturate' selected={style.saturate} onChange={handleChange} />
+          </>)
+        },
         { label: 'Transform', content:
           (<>
             <Text id='rotate' label='rotate' selected={style.rotate} onChange={handleChange} />
@@ -86,6 +99,14 @@ const GeneratorForm = ({ style, onChange }) => {
             <Text id='scaleY' label='scaleY' selected={style.scaleY} onChange={handleChange} />
             <Text id='skewX' label='skewX' selected={style.skewX} onChange={handleChange} />
             <Text id='skewY' label='skewY' selected={style.skewY} onChange={handleChange} />
+          </>)
+        },
+        { label: 'Transition', content:
+          (<>
+            <Text id='transitionProperty' label='Transition Property' selected={style.transitionProperty} onChange={handleChange} />
+            <Text id='transitionDuration' label='Transition Duration' selected={style.transitionDuration} onChange={handleChange} />
+            <Dropdown id='transitionTimingFunction' label={`Transition Timing Function:${style.transitionTimingFunction}`} values={transitionTimingFunctionValues} onChange={handleChange} />
+            <Text id='transitionDelay' label='Transition Delay' selected={style.transitionDelay} onChange={handleChange} />
           </>)
         },
         { label: 'Margin', content:

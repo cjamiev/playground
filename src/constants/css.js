@@ -21,3 +21,10 @@ export const TEXT_ALIGN_TYPES = [
   { label: 'center', selected: false },
   { label: 'justify', selected: false }
 ];
+export const TRANSITION_TIMING_FUNCTION = [
+  { label: 'ease', selected: false },
+  { label: 'linear', selected: false },
+  { label: 'ease-in', selected: false },
+  { label: 'ease-out', selected: false },
+  { label: 'ease-in-out', selected: false }
+];
