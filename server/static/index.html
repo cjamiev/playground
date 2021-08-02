@@ -1,40 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 
 <head>
-  <title>Page Title</title>
+  <title>Playground</title>
+  <script defer="defer" src="bundle.js"></script>
 </head>
 
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li>
-          <a href="./io.html">IO Page</a>
-        </li>
-        <li>
-          <a href="./string.html">String Operations Page</a>
-        </li>
-    </nav>
-  </header>
-  <h1> Test Simple Node App</h1>
-
-  <button onClick="testPost()"> Test Post </button>
-  <button onClick="testGet()"> Test Get </button>
-  <script src='js/api.js'></script>
-  <script>
-    const testPost = () => {
-      api.post('/test-url1', { id: 1 }).then(data => {
-        console.log(data);
-      });
-    }
-    const testGet = () => {
-      api.get('/test-url2').then(data => {
-        console.log(data);
-      });
-    }
-  </script>
-
+  <div id="root" class="root"></div>
 </body>
 
 </html>

@@ -6,3 +6,4 @@
 /storage
 /tmp
 *.log*
+/server/static/bundle.js
