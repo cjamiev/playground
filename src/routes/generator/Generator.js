@@ -6,6 +6,7 @@ import Dropdown from 'components/form/Dropdown';
 import Color, { hexToRGB } from 'components/form/Color';
 import { AccordionGroup } from 'components/accordion';
 import Range from 'components/form/Range';
+import Switch from 'components/switch';
 import GeneratorForm from './GeneratorForm';
 import { copyToClipboard } from 'helper/copy';
 import { toDashCaseFromCamelCase } from 'stringHelper';
@@ -14,7 +15,9 @@ import {
 } from 'constants/css';
 import './generator.css';
 
+const ZERO = 0;
 const ONE = 1;
+const TWO = 2;
 
 const toCssString = (style) => {
   const cssProperties = Object.keys(style);
@@ -142,7 +145,7 @@ const getInlineStyle = ({
 };
 
 const Generator = () => {
-  const [isHoverMode, setIsHoverMode] = useState(false);
+  const [mode, setMode] = useState(ZERO);
   const [isHovering, setIsHovering] = useState(false);
   const [normalStyle, setNormalStyle] = useState({
     borderThickness: '1',
@@ -154,6 +157,7 @@ const Generator = () => {
   const [hoverStyle, setHoverStyle] = useState({});
   const [parentBackgroundColor, setParentBackgroundColor] = useState('#ffffff');
 
+  const isHoverMode = mode === ONE;
   const inlineNormalStyle = getInlineStyle(normalStyle);
   const inlineHoverStyle = getInlineStyle(hoverStyle);
   const normalCSS = toCssString(inlineNormalStyle);
@@ -194,19 +198,15 @@ const Generator = () => {
     setParentBackgroundColor(selected);
   };
 
+  const handleMode = (index) => {
+    setMode(index);
+  };
+
   return (
     <Page>
       <div className="generator">
         <div className="generator__form_container">
-          <Button
-            label={ isHoverMode ? 'Hover Mode' :'Normal Mode' }
-            classColor={ isHoverMode ? 'secondary' :'primary' }
-            onClick={
-              () => {
-                setIsHoverMode(!isHoverMode);
-                setIsHovering(false);
-              }
-            } />
+          <Switch data={[{ label: 'Normal'}, { label: 'Hover'}]} switchIndex={mode} onToggleSwitch={handleMode} />
           <GeneratorForm style={isHoverMode ? hoverStyle : normalStyle} onChange={handleChange} />
         </div>
         <div className="generator__result_container">

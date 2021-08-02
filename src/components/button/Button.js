@@ -27,13 +27,13 @@ const getSize = (classSize) => {
   return '';
 };
 
-const Button = ({ label, classColor, classSize, disabled = false, onClick}) => {
+const Button = ({ label, className, classColor, classSize, disabled = false, onClick}) => {
   const color = getColor(classColor);
   const size = getSize(classSize);
-  const className = `btn${color}${size}`;
+  const btnClass = className ? className : `btn${color}${size}`;
 
   return (
-    <button className={className} disabled={disabled} onClick={onClick}>{label}</button>
+    <button className={btnClass} disabled={disabled} onClick={onClick}>{label}</button>
   );
 };
 

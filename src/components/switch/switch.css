@@ -1,0 +1,24 @@
+.switch {
+  display: flex;
+  list-style: none;
+  margin-bottom: 1em;
+}
+
+.switch__item {
+  flex: 1;
+  cursor: pointer;
+  height: 60px;
+  width: 120px;
+  text-align: center;
+  font-size: 27px;
+  color: #ffffff;
+  background-color: rgba(255,0,0,1);
+  border-radius: 5px 5px 5px 5px;
+  border: 3px solid #9e0000;
+  margin: 0;
+}
+
+.switch__item--active {
+  background-color: rgba(0,235,90,1);
+  border: 4px solid #008f1d;
+}

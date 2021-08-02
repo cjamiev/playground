@@ -6,7 +6,7 @@ const ZERO = 0;
 
 const Tabs = React.memo(({ data, onTabSwitch = noop }) => {
   const [tabIndex, setTabIndex] = useState(ZERO);
-  const TestComponent = data[tabIndex].component;
+  const TabComponent = data[tabIndex].component;
 
   const renderTabs = data.map((item, itemIndex) => {
     const tabClass = tabIndex === itemIndex ? 'tabs__item tabs__item--active': 'tabs__item';
@@ -30,7 +30,7 @@ const Tabs = React.memo(({ data, onTabSwitch = noop }) => {
       <ul className="tabs">
         {renderTabs}
       </ul>
-      {<TestComponent />}
+      {<TabComponent />}
     </>
   );
 });
