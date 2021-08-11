@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useState } from 'react';
 import Page from 'components/layout';
 import Text from 'components/form/Text';
@@ -147,6 +148,7 @@ const getInlineStyle = ({
 const Generator = () => {
   const [mode, setMode] = useState(ZERO);
   const [isHovering, setIsHovering] = useState(false);
+  const [isActiveing, setIsActiveing] = useState(false);
   const [normalStyle, setNormalStyle] = useState({
     borderThickness: '1',
     borderStyle: 'solid',
@@ -155,17 +157,33 @@ const Generator = () => {
     height: '50'
   });
   const [hoverStyle, setHoverStyle] = useState({});
+  const [activeStyle, setActiveStyle] = useState({});
   const [parentBackgroundColor, setParentBackgroundColor] = useState('#ffffff');
 
   const isHoverMode = mode === ONE;
+  const isActiveMode = mode === TWO;
   const inlineNormalStyle = getInlineStyle(normalStyle);
   const inlineHoverStyle = getInlineStyle(hoverStyle);
+  const inlineActiveStyle = getInlineStyle(activeStyle);
   const normalCSS = toCssString(inlineNormalStyle);
   const hoverCSS = toCssString(inlineHoverStyle);
-  const copyCSS = `.name {\n${normalCSS}}\n\n.name:hover {\n${hoverCSS}}`;
-  const inlineStyle = (isHoverMode || isHovering)
-    ? { ...inlineNormalStyle, ...inlineHoverStyle}
-    : inlineNormalStyle;
+  const activeCSS = toCssString(inlineActiveStyle);
+  const copyCSS = `.name {\n${normalCSS}}\n\n.hover:active {\n${hoverCSS}\n\n.name:active {\n${activeCSS}}`;
+  let inlineStyle = inlineNormalStyle;
+  if((isHoverMode || isHovering) && (isActiveMode || isActiveing)) {
+    inlineStyle = { ...inlineNormalStyle, ...inlineHoverStyle, ...inlineActiveStyle};
+  }
+  else if(isHoverMode || isHovering) {
+    inlineStyle = { ...inlineNormalStyle, ...inlineHoverStyle};
+  } else if(isActiveMode || isActiveing) {
+    inlineStyle = { ...inlineNormalStyle, ...inlineActiveStyle};
+  }
+  let currentStyle = normalStyle;
+  if(isHoverMode) {
+    currentStyle = hoverStyle;
+  } else if(isActiveMode) {
+    currentStyle = activeStyle;
+  }
 
   const handleChange = ({ id, selected, values }) => {
     if(isHoverMode) {
@@ -179,6 +197,18 @@ const Generator = () => {
           [id]: selected
         };
       setHoverStyle(updatedStyle);
+    }
+    else if(isActiveMode) {
+      const updatedStyle = values ?
+        {
+          ...activeStyle,
+          [id]: values.find(item => item.selected).label
+        }
+        : {
+          ...activeStyle,
+          [id]: selected
+        };
+      setActiveStyle(updatedStyle);
     }
     else {
       const updatedStyle = values ?
@@ -206,8 +236,8 @@ const Generator = () => {
     <Page>
       <div className="generator">
         <div className="generator__form_container">
-          <Switch data={[{ label: 'Normal'}, { label: 'Hover'}]} switchIndex={mode} onToggleSwitch={handleMode} />
-          <GeneratorForm style={isHoverMode ? hoverStyle : normalStyle} onChange={handleChange} />
+          <Switch data={[{ label: 'Normal'}, { label: 'Hover'}, { label: 'Active'}]} switchIndex={mode} onToggleSwitch={handleMode} />
+          <GeneratorForm style={currentStyle} onChange={handleChange} />
         </div>
         <div className="generator__result_container">
           <Color label="Parent Color" selected={parentBackgroundColor} onChange={handleParentBackgroundColorChange} />
@@ -215,7 +245,12 @@ const Generator = () => {
             <div
               style={inlineStyle}
               onMouseOver={() => { !isHoverMode && setIsHovering(true);}}
-              onMouseOut={() => { !isHoverMode && setIsHovering(false);}}>
+              onMouseOut={() => {
+                !isHoverMode && setIsHovering(false);
+                !isActiveMode && setIsActiveing(false);
+              }}
+              onMouseDown={() => { !isActiveMode && setIsActiveing(true);}}
+              onMouseUp={() => {!isActiveMode && setIsActiveing(false);}}>
               Text
             </div>
           </div>
@@ -231,7 +266,7 @@ const Generator = () => {
             label="Cache"
             classColor="secondary"
             onClick={
-              () => { localStorage.setItem('generator', JSON.stringify({ normalStyle, hoverStyle, parentBackgroundColor })); }
+              () => { localStorage.setItem('generator', JSON.stringify({ normalStyle, hoverStyle, activeStyle, parentBackgroundColor })); }
             } />
           <Button
             label="Load"
@@ -242,6 +277,7 @@ const Generator = () => {
                 const data = JSON.parse(result);
                 data.normalStyle && setNormalStyle(data.normalStyle);
                 data.hoverStyle && setHoverStyle(data.hoverStyle);
+                data.activeStyle && setActiveStyle(data.activeStyle);
                 data.parentBackgroundColor && setParentBackgroundColor(data.parentBackgroundColor);
               }
             } />
@@ -249,6 +285,8 @@ const Generator = () => {
           <pre className="generator__generated_css">{normalCSS}</pre>
           <h2>Hover CSS</h2>
           <pre className="generator__generated_css">{hoverCSS}</pre>
+          <h2>Active CSS</h2>
+          <pre className="generator__generated_css">{activeCSS}</pre>
         </div>
       </div>
     </Page>
