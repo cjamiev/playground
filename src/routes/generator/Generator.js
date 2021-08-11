@@ -145,10 +145,44 @@ const getInlineStyle = ({
   return definedProperties;
 };
 
+const getCurrentStyles = ({ inlineNormalStyle, inlineHoverStyle, inlineActiveStyle, normalStyle, hoverStyle, activeStyle, isHoverMode, isHovering, isActiveMode, isActive }) => {
+  if(isHoverMode) {
+    return {
+      currentInlineStyle: { ...inlineNormalStyle, ...inlineHoverStyle},
+      currentStyle: hoverStyle
+    };
+  } else if(isActiveMode) {
+    return {
+      currentInlineStyle: { ...inlineNormalStyle, ...inlineActiveStyle},
+      currentStyle: hoverStyle
+    };
+  } else if(isHovering && isActive) {
+    return {
+      currentInlineStyle: { ...inlineNormalStyle, ...inlineHoverStyle, ...inlineActiveStyle},
+      currentStyle: normalStyle
+    };
+  } else if(isHovering) {
+    return {
+      currentInlineStyle: { ...inlineNormalStyle, ...inlineHoverStyle},
+      currentStyle: normalStyle
+    };
+  } else if(isActive) {
+    return {
+      currentInlineStyle: { ...inlineNormalStyle, ...inlineActiveStyle},
+      currentStyle: normalStyle
+    };
+  } else {
+    return {
+      currentInlineStyle: inlineNormalStyle,
+      currentStyle: normalStyle
+    };
+  }
+};
+
 const Generator = () => {
   const [mode, setMode] = useState(ZERO);
   const [isHovering, setIsHovering] = useState(false);
-  const [isActiveing, setIsActiveing] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [normalStyle, setNormalStyle] = useState({
     borderThickness: '1',
     borderStyle: 'solid',
@@ -169,21 +203,7 @@ const Generator = () => {
   const hoverCSS = toCssString(inlineHoverStyle);
   const activeCSS = toCssString(inlineActiveStyle);
   const copyCSS = `.name {\n${normalCSS}}\n\n.hover:active {\n${hoverCSS}\n\n.name:active {\n${activeCSS}}`;
-  let inlineStyle = inlineNormalStyle;
-  if((isHoverMode || isHovering) && (isActiveMode || isActiveing)) {
-    inlineStyle = { ...inlineNormalStyle, ...inlineHoverStyle, ...inlineActiveStyle};
-  }
-  else if(isHoverMode || isHovering) {
-    inlineStyle = { ...inlineNormalStyle, ...inlineHoverStyle};
-  } else if(isActiveMode || isActiveing) {
-    inlineStyle = { ...inlineNormalStyle, ...inlineActiveStyle};
-  }
-  let currentStyle = normalStyle;
-  if(isHoverMode) {
-    currentStyle = hoverStyle;
-  } else if(isActiveMode) {
-    currentStyle = activeStyle;
-  }
+  const { currentInlineStyle, currentStyle } = getCurrentStyles({ inlineNormalStyle, inlineHoverStyle, inlineActiveStyle, normalStyle, hoverStyle, activeStyle, isHoverMode, isHovering, isActiveMode, isActive });
 
   const handleChange = ({ id, selected, values }) => {
     if(isHoverMode) {
@@ -243,14 +263,14 @@ const Generator = () => {
           <Color label="Parent Color" selected={parentBackgroundColor} onChange={handleParentBackgroundColorChange} />
           <div style={{ backgroundColor: parentBackgroundColor }} className="generator__box_parent">
             <div
-              style={inlineStyle}
+              style={currentInlineStyle}
               onMouseOver={() => { !isHoverMode && setIsHovering(true);}}
               onMouseOut={() => {
                 !isHoverMode && setIsHovering(false);
-                !isActiveMode && setIsActiveing(false);
+                !isActiveMode && setIsActive(false);
               }}
-              onMouseDown={() => { !isActiveMode && setIsActiveing(true);}}
-              onMouseUp={() => {!isActiveMode && setIsActiveing(false);}}>
+              onMouseDown={() => { !isActiveMode && setIsActive(true);}}
+              onMouseUp={() => {!isActiveMode && setIsActive(false);}}>
               Text
             </div>
           </div>
