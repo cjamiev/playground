@@ -7,13 +7,14 @@ import {
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-import listReducer from 'components/list/listReducer';
-import clipboardReducer from 'routes/clipboard/clipboardReducer';
 import alertReducer from 'components/alert/alertReducer';
+import clipboardReducer from 'routes/clipboard/clipboardReducer';
+import homeReducer from 'routes/home/homeReducer';
 import globalModalReducer from 'components/modal/globalModalReducer';
+import listReducer from 'components/list/listReducer';
+import mockserverReducer from 'routes/mockserver/mockserverReducer';
 import testApiReducer from 'routes/experiment/testapi/testApiReducer';
 import testReduxReducer from 'routes/experiment/testredux/testReduxReducer';
-import mockserverReducer from 'routes/mockserver/mockserverReducer';
 
 const customMiddleware = ({ dispatch, getState }) => (next) => (action) => {
   return next(action);
@@ -26,14 +27,15 @@ if (process.env.NODE_ENV !== 'production') {
 const appliedMiddlewares = applyMiddleware(...middlewares);
 
 const rootReducer = combineReducers({
-  clipboard: clipboardReducer,
-  list: listReducer,
   alert: alertReducer,
-  globalModal: globalModalReducer,
+  clipboard: clipboardReducer,
   experiment: combineReducers({
     testRedux: testReduxReducer,
     testApi: testApiReducer
   }),
+  home: homeReducer,
+  globalModal: globalModalReducer,
+  list: listReducer,
   mockserver: mockserverReducer
 });
 

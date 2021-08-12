@@ -13,27 +13,29 @@ import { createMemoryHistory } from 'history';
 import Page from '../src/components/layout';
 import { rootReducer } from '../src/store';
 import { GlobalModal } from 'components/modal/GlobalModal';
-import { listInitialState } from '../src/components/list/listReducer';
-import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer';
 import { alertInitialState } from '../src/components/alert/alertReducer';
+import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer';
+import { homeInitialState } from '../src/routes/home/homeReducer';
 import { globalModalInitialState } from '../src/components/modal/globalModalReducer';
+import { listInitialState } from '../src/components/list/listReducer';
+import { mockserverInitialState } from '../src/routes/mockserver/mockserverReducer';
 import { testApiInitialState } from '../src/routes/experiment/testApi/testApiReducer';
 import { testReduxInitialState } from '../src/routes/experiment/testRedux/testReduxReducer';
-import { mockserverInitialState } from '../src/routes/mockserver/mockserverReducer';
 import { isEmpty } from 'booleanHelper';
 
 const middlewares = [thunk];
 const appliedMiddlewares = applyMiddleware(...middlewares);
 
 const defaultStore = {
-  clipboard: clipboardInitialState,
-  list: listInitialState,
   alert: alertInitialState,
+  clipboard: clipboardInitialState,
   globalModal: globalModalInitialState,
   experiment: {
     testApi: testApiInitialState,
     testRedux: testReduxInitialState
   },
+  home: homeInitialState,
+  list: listInitialState,
   mockserver: mockserverInitialState
 };
 
