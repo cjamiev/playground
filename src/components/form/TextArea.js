@@ -3,7 +3,7 @@ import { isJSONString } from 'type-check';
 
 const TWO = 2;
 
-const TextArea = ({ id, label, selected, jsonType, error, errorMessage, onChange }) => {
+const TextArea = ({ id, label, selected, jsonType, fullPage, error, errorMessage, onChange }) => {
   const handleSelectedChange = ({ target: { value } }) => {
     const hasError = jsonType && !isJSONString(value);
     const formattedValue = jsonType && !hasError ? JSON.stringify(JSON.parse(value), undefined, TWO): value;
@@ -16,7 +16,7 @@ const TextArea = ({ id, label, selected, jsonType, error, errorMessage, onChange
   return (
     <div className="textarea__container">
       <label>{label}</label>
-      <textarea rows="20" cols="100" aria-label="text-area" value={formattedValue} onChange={handleSelectedChange}></textarea>
+      <textarea className={fullPage ? 'textarea--full-size' : ''} rows="20" cols="100" aria-label="text-area" value={formattedValue} onChange={handleSelectedChange}></textarea>
       {error && <span>{errorMessage}</span>}
     </div>
   );

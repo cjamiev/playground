@@ -28,6 +28,10 @@
   flex-direction: column;
 }
 
+.textarea--full-size {
+  height: 700px;
+}
+
 .input-field-group {
   display: flex;
 }

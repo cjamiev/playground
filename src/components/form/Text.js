@@ -12,7 +12,7 @@ const isValidText = (value, regex) => {
   return match[ZERO] === value;
 };
 
-const Text = ({ id, label, selected = '', regex, error, errorMessage, onChange }) => {
+const Text = ({ id, label, placeholder, selected = '', regex, error, errorMessage, onChange }) => {
   const handleSelectedChange = ({ target: { value } }) => {
     const hasError = !isValidText(value, regex);
 
@@ -22,8 +22,8 @@ const Text = ({ id, label, selected = '', regex, error, errorMessage, onChange }
   return (
     <div>
       <div className='input__flex'>
-        <label className='input__label'>{label}</label>
-        <input className='input__field' type="text" name={label} aria-label="text-field" value={selected} onChange={handleSelectedChange} />
+        {label && <label className='input__label'>{label}</label>}
+        <input className='input__field' type="text" name={label} aria-label="text-field" placeholder={placeholder} value={selected} onChange={handleSelectedChange} />
       </div>
       {error && <span className="input__error">{errorMessage}</span>}
     </div>
