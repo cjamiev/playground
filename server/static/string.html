@@ -58,14 +58,11 @@
 
   <h2>Output Area</h2>
   <textarea id="output" rows="10" cols="100"></textarea>
+  <div id="alert-field"></div>
 
   <script src='js/api.js'></script>
   <script src='js/utility.js'></script>
   <script>
-    const DELIMITERS = [',', '\n', ' '];
-    const sortByDelimiter = (content, delimiter = ' ') => content.split(delimiter).sort().join(delimiter);
-    const sortDecendingByDelimiter = (content, delimiter = ' ') => content.split(delimiter).sort().reverse().join(delimiter);
-
     const operateOnData = (event) => {
       const regexOp = document.getElementById('regexOp').checked;
       const splitOp = document.getElementById('splitOp').checked;

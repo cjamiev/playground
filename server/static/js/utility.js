@@ -40,35 +40,12 @@ const parseObject = (obj) => {
 
 const setOutput = (data) => {
   const alertField = document.getElementById('alert-field');
-  const alertFieldContainer = document.getElementById('alert-field-container');
   alertField.textContent = data.message;
 
-  const alertClass = data.error ? 'error' : 'success';
-  alertField.classList.remove('success');
-  alertField.classList.remove('error');
-  alertField.classList.add(alertClass);
-  alertFieldContainer.classList.add('alert-field-active');
-  setTimeout(removeOutput, 5000);
+  setTimeout(removeOutput, 2000);
 };
 
 const removeOutput = () => {
   const alertField = document.getElementById('alert-field');
-  const alertFieldContainer = document.getElementById('alert-field-container');
-
-  alertField.classList.remove('success');
-  alertField.classList.remove('error');
-  alertFieldContainer.classList.remove('alert-field-active');
-};
-
-const validateJson = () => {
-  const response = parseObject(document.getElementById('contentData').textContent);
-  const alertField = document.getElementById('alert-field');
-  const alertFieldContainer = document.getElementById('alert-field-container');
-  alertField.textContent = response.message;
-
-  const alertClass = response.error ? 'error' : 'success';
-  alertField.classList.remove('success');
-  alertField.classList.remove('error');
-  alertField.classList.add(alertClass);
-  alertFieldContainer.classList.add('alert-field-active');
+  alertField.textContent = '';
 };

@@ -62,7 +62,7 @@
 
     const getAllFiles = () => {
       api.get('/read').then(result => {
-        const filenames = result.data;
+        const filenames = result.data.filter(item => item.includes('.'));
 
         const fileDropdown = document.getElementById('filesData');
         fileDropdown.querySelectorAll('*').forEach(node => node.remove());
@@ -85,9 +85,8 @@
     const getFile = () => {
       const filesData = document.getElementById('filesData');
       const filename = filesData.options[filesData.selectedIndex].value;
-      const nameAndExt = filename.split('.');
 
-      const url = '/?read=true&name=' + nameAndExt[0] + '&ext=' + nameAndExt[1];
+      const url = '/read/?name=' + filename;
 
       api.get(url).then(result => {
         document.getElementById('contentData').value = result.data;
@@ -101,7 +100,7 @@
 
     const validateJsonObject = () => {
       const contentData = parseObject(document.getElementById('contentData').value);
-      document.getElementById('output').value = contentData;
+      document.getElementById('output').value = contentData.message;
     }
 
     getAllFiles();
