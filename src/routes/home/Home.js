@@ -7,12 +7,15 @@ import Button from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
 import Dropdown from 'components/form/Dropdown';
+import Switch from 'components/switch';
 import { DisplayTimer } from 'components/list/List';
 import { copyToClipboard } from 'helper/copy';
 import { sortByDelimiter, sortDescendingByDelimiter } from 'sort';
 import { isJSONString } from 'type-check';
 import './home.css';
 
+const ZERO = 0;
+const ONE = 1;
 const DELIMITER_TYPES = [
   { label:'comma', value: ',', selected: true },
   { label:'space', value: ' ', selected: false },
@@ -30,12 +33,13 @@ const Home = () => {
   const [toggleTimer, setToggleTimer] = useState(false);
   const [copyName, setCopyName] = useState('');
   const [copyContent, setCopyContent] = useState('');
-  const [month, setMonth] = useState(today.getMonth());
+  const [month, setMonth] = useState(today.getMonth()+ONE);
   const [day, setDay] = useState(today.getDate());
   const [year, setYear] = useState(today.getFullYear());
-  const [hour, setHour] = useState(today.getHours()+1);
-  const [minute, setMinute] = useState(0);
-  const [second, setSecond] = useState(0);
+  const [hour, setHour] = useState((today.getHours()+ONE)%12);
+  const [minute, setMinute] = useState(ZERO);
+  const [second, setSecond] = useState(ZERO);
+  const [amOrPmMode, setAmOrPmMode] = useState(today.getHours()+ ONE - 12 > ZERO ? ONE : ZERO);
   const [removeMode, setRemoveMode] = useState(false);
   const dispatch = useDispatch();
   const { directory, file, error, result } = useSelector(state => state.home);
@@ -78,7 +82,7 @@ const Home = () => {
     }} />;
   });
   const timers = clipboardData.filter(item => item.type === 'timer').map(item => {
-    const newTimerDate = new Date(item.value.year,item.value.month,item.value.day,item.value.hour,item.value.minute,item.value.second);
+    const newTimerDate = new Date(item.value.year,item.value.month-ONE,item.value.day,item.value.hour,item.value.minute,item.value.second);
     return (
       <div key={item.name} onClick={() => {
         if(removeMode) {
@@ -96,7 +100,7 @@ const Home = () => {
     return (
       <div>
         <div id="quick-clipboard-add-new-container" className='quick-clipboard-add-new-container quick-clipboard-add-new-container-active'>
-          {toggleClip && <form className="quick-clipboard-add-form" onSubmit={() => { return false;}}>
+          {toggleClip && <div className="quick-clipboard-add-form" >
             <Text label='Name' selected={copyName} onChange={({selected}) => { setCopyName(selected); }} />
             <TextArea label="Value" selected={copyContent} onChange={({ selected }) => { setCopyContent(selected); }}/>
             <button className="quick-clipboard-submit-btn quick-clipboard-add-btn" onClick={
@@ -106,31 +110,32 @@ const Home = () => {
                 localStorage.setItem('clipboard', JSON.stringify(clip));
               }
             }>Submit</button>
-          </form>}
-          {toggleTimer && <form className="quick-clipboard-add-form" onSubmit={() => { return false;}}>
+          </div>}
+          {toggleTimer && <div className="quick-clipboard-add-form">
             <div>
               <Text label='Name' selected={copyName} onChange={({selected}) => { setCopyName(selected); }} />
             </div>
             <div id="timer-fields-date">
-              <Text label='Month' length={2} selected={month} onChange={({selected}) => { setMonth(selected); }} />
-              <Text label='Day' length={2} selected={day} onChange={({selected}) => { setDay(selected); }} />
-              <Text label='Year' length={4} selected={year} onChange={({selected}) => { setYear(selected); }} />
+              <Text label='Month' selected={month} onChange={({selected}) => { setMonth(selected); }} />
+              <Text label='Day' selected={day} onChange={({selected}) => { setDay(selected); }} />
+              <Text label='Year' selected={year} onChange={({selected}) => { setYear(selected); }} />
             </div>
             <div id="timer-fields-clock">
-              <Text label='Hour' length={2} selected={hour} onChange={({selected}) => { setHour(selected); }} />
-              <Text label='Minute' length={2} selected={minute} onChange={({selected}) => { setMinute(selected); }} />
-              <Text label='Second' length={2} selected={second} onChange={({selected}) => { setSecond(selected); }} />
-              {/* <input id="amorpm" className="am-pm-btn" type="button" value="am" onClick="switchAMorPM()"/> */}
+              <Text label='Hour' selected={hour} onChange={({selected}) => { setHour(selected); }} />
+              <Text label='Minute' selected={minute} onChange={({selected}) => { setMinute(selected); }} />
+              <Text label='Second' selected={second} onChange={({selected}) => { setSecond(selected); }} />
+              <Switch data={[{ label: 'am' }, { label: 'pm'}]} switchIndex={amOrPmMode} onToggleSwitch={(index) => { setAmOrPmMode(index);}} />
             </div>
             <button className="quick-clipboard-submit-btn quick-clipboard-add-btn" onClick={
               () => {
-                const timerContent = { month, day, year, hour, minute, second };
+                const parsedHour = amOrPmMode ? Number(hour) + 12 : Number(hour);
+                const timerContent = { month: Number(month), day: Number(day), year: Number(year), hour: parsedHour, minute: Number(minute), second: Number(second) };
                 const clip = JSON.parse(localStorage.getItem('clipboard') || '[]');
                 clip.push({ name: copyName, value: timerContent, type: 'timer' });
                 localStorage.setItem('clipboard', JSON.stringify(clip));
               }
             }>Submit</button>
-          </form>}
+          </div>}
         </div>
         <Button label='Add Clip' onClick={() => { setToggleClip(!toggleClip); setToggleTimer(false);}} />
         <Button label='Add Timer' onClick={() => { setToggleTimer(!toggleTimer); setToggleClip(false);}} />
