@@ -25,8 +25,9 @@ const getFormattedTime = ({ weeks, days, hours, minutes, seconds }) => {
   return formattedTimerClock(hours,minutes,seconds);
 };
 
-const DisplayTimer = ({ label, value }) => {
-  const time = useTimer(new Date(value));
+export const DisplayTimer = ({ label, value, date }) => {
+  const timerDate = date ? date : new Date(value);
+  const time = useTimer(timerDate);
 
   return (
     <div className="list__item">

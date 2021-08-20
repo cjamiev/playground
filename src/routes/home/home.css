@@ -6,3 +6,136 @@
 .home__btns {
   display: flex;
 }
+
+.quick-clipboard {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 20px 0px 0px 30px;
+}
+
+.quick-clipboard-timer {
+  background-color: #001133;
+  margin-left: 1px;
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+}
+
+.quick-clipboard-timer span {
+  color: white;
+  margin: 3px auto;
+}
+
+.quick-clipboard-add-btn {
+  background-color: #020713;
+  border: 1px solid #e6eeff;
+  border-radius: 10px 0px 0px 10px;
+  color: white;
+  width: 100px;
+}
+
+.quick-clipboard-add-btn:active {
+  box-shadow: 0 5px#001133;
+  transform: translateY(2px);
+}
+
+.quick-clipboard-add-btn:hover {
+  background-color: #001133;
+}
+
+.quick-clipboard-remove-btn {  
+  background-color: #020713;
+  border: 1px solid #e6eeff;
+  border-left: 1px solid #000;
+  border-radius: 0px 10px 10px 0px;
+  color: white;
+  width: 100px;
+  margin-left: -5px;
+}
+
+.quick-clipboard-remove-btn:active {
+  transform: translateY(2px);
+}
+
+.quick-clipboard-remove-btn:hover {
+  background-color: #001133;
+}
+
+.quick-clipboard-copy-btn {
+  background-color: #001133;
+  border: 1px solid #001133;
+  color: white;
+  width: 100px;
+}
+
+.quick-clipboard-copy-btn-delete {
+  background-color: #7d1500;
+}
+
+.quick-clipboard-copy-btn:active {
+  transform: translateY(2px);
+}
+
+.quick-clipboard-copy-btn:hover {
+  background-color: #000;
+}
+
+.quick-clipboard-add-new-container {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.quick-clipboard-add-new-container .quick-clipboard-add-form {
+  visibility: hidden;
+  width: 400px;
+  background-color: #001133;
+  color: #fff;
+  border-radius: 6px;
+  padding: 5px 5px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin: 0 0 40px 10px;
+}
+
+.quick-clipboard-add-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.quick-clipboard-add-new-container-active .quick-clipboard-add-form {
+  visibility: visible;
+}
+
+.quick-clipboard-submit-btn,
+.new-item-name,
+.new-item-value {
+  border-radius: 6px;
+  margin-top: 5px;
+}
+
+.new-item-value {
+  height: 200px;
+  margin: 1px auto;
+  padding: 5px;
+  background-color: white;
+  color: black;
+  overflow: auto;
+}
+
+.new-item-timer {
+  width: 15%;
+  margin: 5px auto;
+}
+
+.am-pm-btn {
+  background-color: lightskyblue;
+  border: none;
+  color: white;
+  font-weight: 600;
+}
