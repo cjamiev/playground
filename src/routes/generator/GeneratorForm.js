@@ -2,7 +2,7 @@ import React from 'react';
 import Text from 'components/form/Text';
 import Button from 'components/button';
 import Dropdown from 'components/form/Dropdown';
-import Color, { hexToRGB } from 'components/form/Color';
+import Color from 'components/form/Color';
 import { AccordionGroup } from 'components/accordion';
 import Range from 'components/form/Range';
 import {

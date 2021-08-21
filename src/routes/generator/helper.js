@@ -1,4 +1,5 @@
 import { toDashCaseFromCamelCase } from 'stringHelper';
+import { hexToRGB } from 'components/form/Color';
 import {
   OPACITY_MAX
 } from 'constants/css';
@@ -14,6 +15,30 @@ const toCssString = (style) => {
     .join('');
 
   return mergedProperties;
+};
+
+const getPixelProperties = ({ first, second, third, fourth }) => {
+  if(!first || !second || !third || !fourth) {
+    return;
+  }
+
+  return `${first}px ${second}px ${third}px ${fourth}px`;
+};
+
+const getBoxShadowProperty = ({ horizontalBoxShadow, verticalBoxShadow, blurRadiusBoxShadow, spreadBoxShadow, colorBoxShadow }) => {
+  if(!horizontalBoxShadow || !verticalBoxShadow || !blurRadiusBoxShadow || !spreadBoxShadow || !colorBoxShadow) {
+    return;
+  }
+
+  return `${horizontalBoxShadow}px ${verticalBoxShadow}px ${blurRadiusBoxShadow}px ${spreadBoxShadow}px ${colorBoxShadow}`;
+};
+
+const getTextShadowProperty = ({ horizontalTextShadow, verticalTextShadow, blurRadiusTextShadow, colorTextShadow }) => {
+  if(!horizontalTextShadow || !verticalTextShadow || !blurRadiusTextShadow || !colorTextShadow) {
+    return;
+  }
+
+  return `${horizontalTextShadow}px ${verticalTextShadow}px ${blurRadiusTextShadow}px ${colorTextShadow}`;
 };
 
 const getFilterProperty = ({ blur, brightness, contrast, grayscale, hueRotate, invert, saturate }) => {
@@ -38,6 +63,40 @@ const getTransformProperty = ({ rotate, translateX, translateY, scaleX, scaleY, 
   const transformSkewY = skewY ? `skewY(${skewY}deg) ` : '';
 
   return `${transformRotate}${transformTranslateX}${transformTranslateY}${transformScaleX}${transformScaleY}${transformSkewX}${transformSkewY}`;
+};
+
+const getTransitionProperty = ({ transitionProperty, transitionDuration, transitionTimingFunction, transitionDelay}) => {
+  if(!transitionProperty || !transitionDuration || !transitionTimingFunction || !transitionDelay) {
+    return;
+  }
+
+  return `${transitionProperty} ${transitionDuration}s ${transitionTimingFunction} ${transitionDelay}s`;
+};
+
+const getLengthProperty = (length) => {
+  if(!length) {
+    return;
+  }
+
+  return !isNaN(length) ? `${length}px`: length;
+};
+
+const getBorderProperty = ({borderThickness, borderStyle, borderColor}) => {
+  if(!borderThickness || !borderStyle || !borderColor) {
+    return;
+  }
+
+  return `${borderThickness}px ${borderStyle} ${borderColor}`;
+};
+
+const getColorProperty = (color, opacity) => {
+  if(!color.red) {
+    return;
+  } else if(opacity) {
+    return `rgba(${color.red},${color.green},${color.blue},${opacity})`;
+  } else {
+    return `rgba(${color.red},${color.green},${color.blue})`;
+  }
 };
 
 const getInlineStyle = ({
@@ -95,21 +154,21 @@ const getInlineStyle = ({
   const normalizedOpacity = Number(opacity) / OPACITY_MAX;
 
   const style = {
-    border: `${borderThickness}px ${borderStyle} ${borderColor}`,
-    borderRadius: `${topLeftRadius}px ${topRightRadius}px ${bottomRightRadius}px ${bottomLeftRadius}px`,
-    boxShadow: `${horizontalBoxShadow}px ${verticalBoxShadow}px ${blurRadiusBoxShadow}px ${spreadBoxShadow}px ${colorBoxShadow}`,
-    backgroundColor: `rgba(${rgbColor.red},${rgbColor.green},${rgbColor.blue},${normalizedOpacity || ONE})`,
+    border: getBorderProperty({borderThickness, borderStyle, borderColor}),
+    borderRadius: getPixelProperties({ first: topLeftRadius, second: topRightRadius, third: bottomRightRadius, fourth: bottomLeftRadius }),
+    boxShadow: getBoxShadowProperty({horizontalBoxShadow, verticalBoxShadow, blurRadiusBoxShadow, spreadBoxShadow, colorBoxShadow}),
+    backgroundColor: getColorProperty(rgbColor, normalizedOpacity),
     color: fontColor,
-    fontSize: `${fontSize}px`,
+    fontSize: fontSize && `${fontSize}px`,
     textAlign,
     filter: getFilterProperty({ blur, brightness, contrast, grayscale, hueRotate, invert, saturate }),
-    textShadow: `${horizontalTextShadow}px ${verticalTextShadow}px ${blurRadiusTextShadow}px ${colorTextShadow}`,
+    textShadow: getTextShadowProperty({ horizontalTextShadow, verticalTextShadow, blurRadiusTextShadow, colorTextShadow }),
     transform: getTransformProperty({ rotate, translateX, translateY, scaleX, scaleY, skewX, skewY }),
-    transition: `${transitionProperty} ${transitionDuration}s ${transitionTimingFunction} ${transitionDelay}s`,
-    margin: `${marginTop}px ${marginRight}px ${marginBottom}px ${marginLeft}px`,
-    padding: `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px`,
-    width: !isNaN(width) ? `${width}px`: width,
-    height: !isNaN(height) ? `${height}px`: height
+    transition: getTransitionProperty({ transitionProperty, transitionDuration, transitionTimingFunction, transitionDelay}),
+    margin: getPixelProperties({ first: marginTop, second: marginRight, third: marginBottom, fourth: marginLeft }),
+    padding: getPixelProperties({ first: paddingTop, second: paddingRight, third: paddingBottom, fourth: paddingLeft }),
+    width: getLengthProperty(width),
+    height: getLengthProperty(height)
   };
 
   const definedProperties = Object

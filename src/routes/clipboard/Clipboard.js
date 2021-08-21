@@ -13,7 +13,7 @@ const ClipboardTab = (props) => {
   return (
     <div className="clipboard__container">
       {props.clip.map(entry => {
-        return <List key={entry.listTitle} header={entry.listTitle} data={entry.listData} />;
+        return <List key={entry.title} header={entry.title} data={entry.data} />;
       })}
     </div>
   );
