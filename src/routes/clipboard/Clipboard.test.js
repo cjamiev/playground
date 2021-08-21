@@ -19,8 +19,8 @@ const defaultStoreProps = {
     error: {},
     passwords: [
       {
-        'listTitle': 'listOne',
-        'listData': [
+        'title': 'listOne',
+        'data': [
           [
             {
               'label': 'label1',
