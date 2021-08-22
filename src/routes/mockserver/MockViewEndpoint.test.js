@@ -26,7 +26,7 @@ describe('MockViewEndpoint', () => {
 
     expect(screen.queryByText(mockViewEndpointProps.mockserver.mocks[ZERO].url)).toBeInTheDocument();
 
-    const input = screen.getByLabelText('text-field');
+    const input = screen.getByLabelText('Filter URL: text field');
     fireEvent.change(input, { target: { value: 'apple' } });
     expect(screen.queryByText(mockViewEndpointProps.mockserver.mocks[ZERO].url)).not.toBeInTheDocument();
 

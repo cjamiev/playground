@@ -57,7 +57,7 @@ describe('DynamicWizard', () => {
     fireEvent.click(prevButton);
 
     expect(screen.getByText(defaultProps.sectionTitles[ZERO])).toBeInTheDocument();
-    const input = screen.getByLabelText('text-field');
+    const input = screen.getByLabelText('Text1 text field');
     fireEvent.change(input, { target: { value: 'abc' } });
 
     expect(screen.getByText('Please enter a valid number')).toBeInTheDocument();
@@ -70,14 +70,14 @@ describe('DynamicWizard', () => {
 
     expect(screen.getByText(defaultProps.sectionTitles[ONE])).toBeInTheDocument();
 
-    const inputSectionTwo = screen.getByLabelText('text-field');
+    const inputSectionTwo = screen.getByLabelText('Text2 text field');
     fireEvent.change(inputSectionTwo, { target: { value: 'abc' } });
     fireEvent.click(nextButton);
 
 
     expect(screen.getByText(defaultProps.sectionTitles[TWO])).toBeInTheDocument();
 
-    const inputSectionThree = screen.getByLabelText('text-field');
+    const inputSectionThree = screen.getByLabelText('Text3 text field');
     fireEvent.change(inputSectionThree, { target: { value: '123' } });
 
     const submitButton = screen.getByText('Submit');
