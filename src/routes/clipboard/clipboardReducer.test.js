@@ -1,18 +1,11 @@
 import { LOAD_PASSWORD, ERROR_PASSWORD, LOAD_FOOD, ERROR_FOOD, LOAD_MAIN, ERROR_MAIN } from './clipboardActions';
-import clipboardReducer from './clipboardReducer';
-
-const initialState = {
-  passwords: [],
-  food: [],
-  main: [],
-  error: {}
-};
+import clipboardReducer, { clipboardInitialState } from './clipboardReducer';
 
 describe('clipboardReducer', () => {
   it('default', () => {
     const result = clipboardReducer(undefined, {});
 
-    expect(result).toEqual(initialState);
+    expect(result).toEqual(clipboardInitialState);
   });
 
   it('LOAD_PASSWORD', () => {
@@ -20,10 +13,10 @@ describe('clipboardReducer', () => {
       type: LOAD_PASSWORD,
       data: [1,2,3]
     };
-    const result = clipboardReducer(initialState, action);
+    const result = clipboardReducer(clipboardInitialState, action);
 
     expect(result).toEqual({
-      ...initialState,
+      ...clipboardInitialState,
       passwords: action.data
     });
   });
@@ -35,10 +28,10 @@ describe('clipboardReducer', () => {
         message: 'test-error'
       }
     };
-    const result = clipboardReducer(initialState, action);
+    const result = clipboardReducer(clipboardInitialState, action);
 
     expect(result).toEqual({
-      ...initialState,
+      ...clipboardInitialState,
       error: action.error
     });
   });
@@ -48,10 +41,10 @@ describe('clipboardReducer', () => {
       type: LOAD_FOOD,
       data: [1,2,3]
     };
-    const result = clipboardReducer(initialState, action);
+    const result = clipboardReducer(clipboardInitialState, action);
 
     expect(result).toEqual({
-      ...initialState,
+      ...clipboardInitialState,
       food: action.data
     });
   });
@@ -63,10 +56,10 @@ describe('clipboardReducer', () => {
         message: 'test-error'
       }
     };
-    const result = clipboardReducer(initialState, action);
+    const result = clipboardReducer(clipboardInitialState, action);
 
     expect(result).toEqual({
-      ...initialState,
+      ...clipboardInitialState,
       error: action.error
     });
   });
@@ -76,10 +69,10 @@ describe('clipboardReducer', () => {
       type: LOAD_MAIN,
       data: [1,2,3]
     };
-    const result = clipboardReducer(initialState, action);
+    const result = clipboardReducer(clipboardInitialState, action);
 
     expect(result).toEqual({
-      ...initialState,
+      ...clipboardInitialState,
       main: action.data
     });
   });
@@ -91,10 +84,10 @@ describe('clipboardReducer', () => {
         message: 'test-error'
       }
     };
-    const result = clipboardReducer(initialState, action);
+    const result = clipboardReducer(clipboardInitialState, action);
 
     expect(result).toEqual({
-      ...initialState,
+      ...clipboardInitialState,
       error: action.error
     });
   });

@@ -1,15 +1,11 @@
 import { LOAD_COMMAND_RESULT, ERROR_COMMAND_RESULT } from './listActions';
-import listReducer from './listReducer';
-
-const initialState = {
-  commandResponse: ''
-};
+import listReducer, { listInitialState } from './listReducer';
 
 describe('listReducer', () => {
   it('default', () => {
     const result = listReducer(undefined, {});
 
-    expect(result).toEqual(initialState);
+    expect(result).toEqual(listInitialState);
   });
 
   it('LOAD_COMMAND_RESULT', () => {
@@ -17,10 +13,10 @@ describe('listReducer', () => {
       type: LOAD_COMMAND_RESULT,
       data: 'test-message'
     };
-    const result = listReducer(initialState, action);
+    const result = listReducer(listInitialState, action);
 
     expect(result).toEqual({
-      ...initialState,
+      ...listInitialState,
       commandResponse: action.data
     });
   });
@@ -32,10 +28,10 @@ describe('listReducer', () => {
         message: 'test-error'
       }
     };
-    const result = listReducer(initialState, action);
+    const result = listReducer(listInitialState, action);
 
     expect(result).toEqual({
-      ...initialState,
+      ...listInitialState,
       commandResponse: action.error
     });
   });
