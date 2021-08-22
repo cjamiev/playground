@@ -19,7 +19,7 @@ const Checkbox = ({ id, label, values, onChange }) => {
   const checkboxes = values.map(item => {
     return (
       <div key={item.label} className='input__flex'>
-        <input className='input__item' type="checkbox" name={item.label} value={item.label} aria-label="checkbox" onChange={() => { handleChange(item.label, values); }} checked={item.selected} />
+        <input className='input__item' type="checkbox" name={item.label} value={item.label} aria-label={`${item.label} checkbox`} onChange={() => { handleChange(item.label, values); }} checked={item.selected} />
         <label className="input__label" onClick={() => { handleChange(item.label, values); }}>
           {item.label}
         </label>

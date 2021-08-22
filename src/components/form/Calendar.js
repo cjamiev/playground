@@ -8,7 +8,7 @@ const Calendar = ({ id, label, selected, onChange }) => {
   return (
     <div>
       <label>{label}</label>
-      <input className="input-field__date" type="date" name={label} value={selected} aria-label="calendar-field" onChange={handleSelectedChange} />
+      <input className="input-field__date" type="date" name={label} value={selected} aria-label={`${label} calendar field`} onChange={handleSelectedChange} />
     </div>
   );
 };

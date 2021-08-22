@@ -76,7 +76,7 @@ describe('Modal', () => {
 
   it('handle dispatch action after text change', () => {
     reduxTestWrapper(Modal, baseProps);
-    const input = screen.getByLabelText('text-area');
+    const input = screen.getByLabelText('Modal text area');
     const expectedResult = { id: 1, selected: '123', error: false };
 
     fireEvent.change(input, { target: { value: '123' } });

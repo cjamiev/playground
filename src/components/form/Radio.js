@@ -22,7 +22,7 @@ const Radio = ({ id, label, values, onChange }) => {
   const radios = values.map(item => {
     return (
       <div key={item.label} className='input__flex'>
-        <input className='input__item' type="radio" name={label} value={item.label} checked={item.selected} aria-label="radio" onChange={() => { handleChange(item.label, values);}} />
+        <input className='input__item' type="radio" name={label} value={item.label} checked={item.selected} aria-label={`${item.label} radio`} onChange={() => { handleChange(item.label, values);}} />
         <label className="input__label" onClick={() => { handleChange(item.label, values);}}>{item.label}</label>
       </div>
     );

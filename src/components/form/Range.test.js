@@ -14,7 +14,7 @@ const defaultProps = {
 describe('Range', () => {
   it('handle range change', () => {
     simpleTestWrapper(Range, defaultProps);
-    const input = screen.getByLabelText('range-field');
+    const input = screen.getByLabelText(`${defaultProps.label} range field`);
     const expectedResult = { id: 1, selected: '75' };
 
     fireEvent.change(input, { target: { value: '75' } });

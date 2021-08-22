@@ -24,7 +24,7 @@ describe('Radio', () => {
     simpleTestWrapper(Radio, defaultProps);
     const expectedResult = { id: 1, values: [{ label: 'rb1', selected: false}, { label: 'rb2', selected: true }] };
 
-    fireEvent.click(screen.getAllByLabelText('radio')[ONE]);
+    fireEvent.click(screen.getByLabelText(`${defaultProps.values[ONE].label} radio`));
 
     expect(defaultProps.onChange).toHaveBeenCalledWith(expectedResult);
   });

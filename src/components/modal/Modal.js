@@ -34,7 +34,7 @@ const Modal = (props) => {
     setErr(error);
   };
 
-  const renderBody = editable ? <div className="modal__body"><TextArea selected={content} jsonType={true} onChange={handleChange}/></div>: (<div className="modal__body">{content}</div>);
+  const renderBody = editable ? <div className="modal__body"><TextArea ariaLabel='Modal text area' selected={content} jsonType={true} onChange={handleChange}/></div>: (<div className="modal__body">{content}</div>);
   const renderTitle = title ?
     (<div className="modal__header">
       <h2 className="modal__title">{title}</h2>

@@ -24,7 +24,7 @@ describe('Checkbox', () => {
     simpleTestWrapper(Checkbox, defaultProps);
     const expectedResult = { id: 1, values: [{ label: 'ck1', selected: true}, { label: 'ck2', selected: true }] };
 
-    fireEvent.click(screen.getAllByLabelText('checkbox')[ONE]);
+    fireEvent.click(screen.getByLabelText(`${defaultProps.values[ONE].label} checkbox`));
 
     expect(defaultProps.onChange).toHaveBeenCalledWith(expectedResult);
   });
