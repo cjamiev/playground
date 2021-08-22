@@ -40,7 +40,8 @@ const Generator = () => {
     hoverCSS,
     activeCSS,
     currentInlineStyle,
-    currentStyle
+    currentStyle,
+    ariaLabel
   } = getCurrentStyles({ normalStyle, hoverStyle, activeStyle, isHoverMode, isHovering, isActiveMode, isActive });
   const copyCSS = `.name {\n${normalCSS}}\n\n.hover:active {\n${hoverCSS}\n\n.name:active {\n${activeCSS}}`;
 
@@ -103,6 +104,7 @@ const Generator = () => {
           <div style={{ backgroundColor: parentBackgroundColor }} className="generator__box_parent">
             <div
               style={currentInlineStyle}
+              aria-label={ariaLabel}
               onMouseOver={() => { !isHoverMode && setIsHovering(true);}}
               onMouseOut={() => {
                 !isHoverMode && setIsHovering(false);

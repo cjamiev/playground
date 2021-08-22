@@ -201,7 +201,8 @@ export const getCurrentStyles = ({ normalStyle, hoverStyle, activeStyle, isHover
       currentStyle: hoverStyle,
       normalCSS,
       hoverCSS,
-      activeCSS
+      activeCSS,
+      ariaLabel: 'Hover Mode effect is on'
     };
   } else if(isActiveMode) {
     return {
@@ -209,7 +210,8 @@ export const getCurrentStyles = ({ normalStyle, hoverStyle, activeStyle, isHover
       currentStyle: activeStyle,
       normalCSS,
       hoverCSS,
-      activeCSS
+      activeCSS,
+      ariaLabel: 'Active Mode effect is on'
     };
   } else if(isHovering && isActive) {
     return {
@@ -217,7 +219,8 @@ export const getCurrentStyles = ({ normalStyle, hoverStyle, activeStyle, isHover
       currentStyle: normalStyle,
       normalCSS,
       hoverCSS,
-      activeCSS
+      activeCSS,
+      ariaLabel: 'isHovering and isActive effect is on'
     };
   } else if(isHovering) {
     return {
@@ -225,7 +228,8 @@ export const getCurrentStyles = ({ normalStyle, hoverStyle, activeStyle, isHover
       currentStyle: normalStyle,
       normalCSS,
       hoverCSS,
-      activeCSS
+      activeCSS,
+      ariaLabel: 'isHovering effect is on'
     };
   } else if(isActive) {
     return {
@@ -233,7 +237,8 @@ export const getCurrentStyles = ({ normalStyle, hoverStyle, activeStyle, isHover
       currentStyle: normalStyle,
       normalCSS,
       hoverCSS,
-      activeCSS
+      activeCSS,
+      ariaLabel: 'isActive effect is on'
     };
   } else {
     return {
@@ -241,7 +246,8 @@ export const getCurrentStyles = ({ normalStyle, hoverStyle, activeStyle, isHover
       currentStyle: normalStyle,
       normalCSS,
       hoverCSS,
-      activeCSS
+      activeCSS,
+      ariaLabel: 'normal effect is on'
     };
   }
 };

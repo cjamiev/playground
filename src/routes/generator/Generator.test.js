@@ -50,6 +50,16 @@ describe('Generator', () => {
     expect(result.activeStyle).toEqual(ALL_CSS);
   });
 
+  it('handle copy', () => {
+    document.execCommand = jest.fn();
+    reduxTestWrapper(Generator, {}, {}, pathname);
+
+    const copyBtn = screen.getByText('Copy');
+    fireEvent.click(copyBtn);
+
+    expect(document.execCommand).toHaveBeenCalledWith('copy');
+  });
+
   it('handleMode change', () => {
     reduxTestWrapper(Generator, {}, {}, pathname);
 
@@ -71,5 +81,20 @@ describe('Generator', () => {
     fireEvent.change(parentColorField, { target: { value: '#000000' } });
 
     expect(screen.getByLabelText('Parent Color color field has value #000000')).toBeInTheDocument();
+  });
+
+  it('handle onMouseOver & onMouseDown then onMouseOut & onMouseUp', () => {
+    reduxTestWrapper(Generator, {}, {}, pathname);
+
+    const testArea = screen.getByText('Test Area');
+    fireEvent.mouseOver(testArea);
+    fireEvent.mouseDown(testArea);
+
+    expect(screen.getByLabelText('isHovering and isActive effect is on')).toBeInTheDocument();
+
+    fireEvent.mouseOut(testArea);
+    fireEvent.mouseUp(testArea);
+
+    expect(screen.getByLabelText('normal effect is on')).toBeInTheDocument();
   });
 });
