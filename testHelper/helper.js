@@ -24,7 +24,31 @@ const mockDate = (date) => {
   global.Date = MockDate;
 };
 
+const mockLocalStorage = (defaultStorage) => {
+  const localStorageMock = () => {
+    let store = defaultStorage;
+
+    return {
+      getItem(key) {
+        return store[key];
+      },
+      setItem(key, value) {
+        store[key] = value;
+      },
+      clear() {
+        store = {};
+      },
+      removeItem(key) {
+        delete store[key];
+      }
+    };
+  };
+
+  Object.defineProperty(window, 'localStorage', { value: localStorageMock() });
+};
+
 export {
   testFunctionHelper,
-  mockDate
+  mockDate,
+  mockLocalStorage
 };

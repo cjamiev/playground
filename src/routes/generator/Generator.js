@@ -10,78 +10,27 @@ import Switch from 'components/switch';
 import GeneratorForm from './GeneratorForm';
 import { copyToClipboard } from 'helper/copy';
 import { getCurrentStyles } from './helper';
+import { ALL_CSS } from 'constants/css';
 import './generator.css';
 
 const ZERO = 0;
 const ONE = 1;
 const TWO = 2;
 
-const defaultStyle = {
-  borderThickness: '',
-  borderStyle: '',
-  borderColor: '',
-  topLeftRadius: '',
-  topRightRadius: '',
-  bottomRightRadius: '',
-  bottomLeftRadius: '',
-  horizontalBoxShadow: '',
-  verticalBoxShadow: '',
-  blurRadiusBoxShadow: '',
-  spreadBoxShadow: '',
-  colorBoxShadow: '',
-  backgroundColor: '',
-  opacity: '',
-  fontColor: '',
-  fontSize: '',
-  textAlign: '',
-  horizontalTextShadow: '',
-  verticalTextShadow: '',
-  blurRadiusTextShadow: '',
-  colorTextShadow: '',
-  blur: '',
-  brightness: '',
-  contrast: '',
-  grayscale: '',
-  hueRotate: '',
-  invert: '',
-  saturate: '',
-  rotate: '',
-  translateX: '',
-  translateY: '',
-  scaleX: '',
-  scaleY: '',
-  skewX: '',
-  skewY: '',
-  transitionProperty: '',
-  transitionDuration: '',
-  transitionTimingFunction: '',
-  transitionDelay: '',
-  marginTop: '',
-  marginRight: '',
-  marginBottom: '',
-  marginLeft: '',
-  paddingTop: '',
-  paddingRight: '',
-  paddingBottom: '',
-  paddingLeft: '',
-  width: '',
-  height: ''
-};
-
 const Generator = () => {
   const [mode, setMode] = useState(ZERO);
   const [isHovering, setIsHovering] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [normalStyle, setNormalStyle] = useState({
-    ...defaultStyle,
+    ...ALL_CSS,
     borderThickness: '1',
     borderStyle: 'solid',
     borderColor: '#000000',
     width: '100',
     height: '50'
   });
-  const [hoverStyle, setHoverStyle] = useState(defaultStyle);
-  const [activeStyle, setActiveStyle] = useState(defaultStyle);
+  const [hoverStyle, setHoverStyle] = useState(ALL_CSS);
+  const [activeStyle, setActiveStyle] = useState(ALL_CSS);
   const [parentBackgroundColor, setParentBackgroundColor] = useState('#ffffff');
 
   const isHoverMode = mode === ONE;
@@ -161,7 +110,7 @@ const Generator = () => {
               }}
               onMouseDown={() => { !isActiveMode && setIsActive(true);}}
               onMouseUp={() => {!isActiveMode && setIsActive(false);}}>
-              Text
+              Test Area
             </div>
           </div>
         </div>

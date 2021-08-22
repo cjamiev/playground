@@ -25,11 +25,13 @@ const Color = ({ id, label, selected, onChange }) => {
     onChange({ id, selected: value });
   };
 
+  const ariaLabel = selected ? `${label} color field has value ${selected}` : `${label} color field`;
+
   return (
     <div>
       <div className='input__flex'>
         <label className='input__label'>{label}</label>
-        <input className='input__field' type="color" name={label} aria-label="color-field" value={selected} onChange={handleSelectedChange} />
+        <input className='input__field' type="color" name={label} aria-label={ariaLabel} value={selected} onChange={handleSelectedChange} />
       </div>
     </div>
   );

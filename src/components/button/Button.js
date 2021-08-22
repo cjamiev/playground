@@ -27,13 +27,13 @@ const getSize = (classSize) => {
   return '';
 };
 
-const Button = ({ label, className, classColor, classSize, disabled = false, onClick}) => {
+const Button = ({ label, ariaLabel, className, classColor, classSize, disabled = false, onClick}) => {
   const color = getColor(classColor);
   const size = getSize(classSize);
   const btnClass = className ? className : `btn${color}${size}`;
 
   return (
-    <button className={btnClass} disabled={disabled} onClick={onClick}>{label}</button>
+    <button aria-label={ariaLabel} className={btnClass} disabled={disabled} onClick={onClick}>{label}</button>
   );
 };
 
