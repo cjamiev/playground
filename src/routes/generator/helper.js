@@ -177,9 +177,6 @@ const getInlineStyle = ({
       if(!style[key]) {
         return false;
       }
-      else if(style[key].includes('undefined')) {
-        return false;
-      }
 
       return true;
     })
@@ -209,7 +206,7 @@ export const getCurrentStyles = ({ normalStyle, hoverStyle, activeStyle, isHover
   } else if(isActiveMode) {
     return {
       currentInlineStyle: { ...inlineNormalStyle, ...inlineActiveStyle},
-      currentStyle: hoverStyle,
+      currentStyle: activeStyle,
       normalCSS,
       hoverCSS,
       activeCSS

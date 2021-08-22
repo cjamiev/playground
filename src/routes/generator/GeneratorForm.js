@@ -27,7 +27,7 @@ const GeneratorForm = ({ style, onChange }) => {
         { label: 'Border', content:
           (<>
             <Range id='borderThickness' label="Thickness" min="0" max={THICKNESS_MAX} selected={style.borderThickness} onChange={onChange} />
-            <Dropdown id='borderStyle' label={`Type: ${style.borderStyle || ''}`} values={borderValues} onChange={onChange} />
+            <Dropdown id='borderStyle' label={`Border Type: ${style.borderStyle || ''}`} values={borderValues} onChange={onChange} />
             <Color id='borderColor' label="Color" selected={style.borderColor} onChange={onChange} />
           </>)
         },
@@ -91,7 +91,7 @@ const GeneratorForm = ({ style, onChange }) => {
           (<>
             <Text id='transitionProperty' label='Transition Property' selected={style.transitionProperty} onChange={onChange} />
             <Text id='transitionDuration' label='Transition Duration' selected={style.transitionDuration} onChange={onChange} />
-            <Dropdown id='transitionTimingFunction' label={`Transition Timing Function:${style.transitionTimingFunction || ''}`} values={transitionTimingFunctionValues} onChange={onChange} />
+            <Dropdown id='transitionTimingFunction' label={`Transition Timing Function: ${style.transitionTimingFunction || ''}`} values={transitionTimingFunctionValues} onChange={onChange} />
             <Text id='transitionDelay' label='Transition Delay' selected={style.transitionDelay} onChange={onChange} />
           </>)
         },
