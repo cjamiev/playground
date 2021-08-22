@@ -74,9 +74,9 @@ const parsedHoverStyle = {
 const parsedActiveStyle = {
   backgroundColor: 'rgba(255,255,255,0.5)'
 };
-const parsedNormalCSS = '  height: 50px;\n  width: 10em;\n  margin: 5px 6px 7px 8px;\n  transition: all 1s linear 3s;\n  transform: rotate(90deg) translateX(1px) translateY(1px) scaleX(2) scaleY(2) skewX(2deg) skewY(2deg) ;\n  text-shadow: 9px 10px 11px #111111;\n  filter: blur(0px) brightness(50%) contrast(50%)  grayscale(50%)  hue-rotate(50deg)  invert(50%)  saturate(50%)  ;\n  font-size: 14px;\n  background-color: rgba(17,17,17);\n  box-shadow: 1px 2px 3px 4px #ffffff;\n  border: 1px solid #000000;\n';
-const parsedHoverCSS = '  filter: blur(5px) ;\n';
-const parsedActiveCSS = '  background-color: rgba(255,255,255,0.5);\n';
+const parsedNormalCSS = 'height: 50px;\nwidth: 10em;\nmargin: 5px 6px 7px 8px;\ntransition: all 1s linear 3s;\ntransform: rotate(90deg) translateX(1px) translateY(1px) scaleX(2) scaleY(2) skewX(2deg) skewY(2deg) ;\ntext-shadow: 9px 10px 11px #111111;\nfilter: blur(0px) brightness(50%) contrast(50%)  grayscale(50%)  hue-rotate(50deg)  invert(50%)  saturate(50%)  ;\nfont-size: 14px;\nbackground-color: rgba(17,17,17);\nbox-shadow: 1px 2px 3px 4px #ffffff;\nborder: 1px solid #000000;';
+const parsedHoverCSS = 'filter: blur(5px) ;';
+const parsedActiveCSS = 'background-color: rgba(255,255,255,0.5);';
 
 describe('helper (generator)', () => {
   it('getCurrentStyles - isHoverMode', () => {

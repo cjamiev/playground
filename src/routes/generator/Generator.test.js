@@ -97,4 +97,23 @@ describe('Generator', () => {
 
     expect(screen.getByLabelText('normal effect is on')).toBeInTheDocument();
   });
+
+  it('handle onChange for Hover and Active states', () => {
+    reduxTestWrapper(Generator, {}, {}, pathname);
+    const shownCSS = 'filter: blur(5px) ;';
+
+    const hoverSwitch = screen.getByText('Hover');
+    const filterAccordion = screen.getByText('Filter');
+    const activeSwitch = screen.getByText('Active');
+    fireEvent.click(filterAccordion);
+
+    fireEvent.click(hoverSwitch);
+    const blurField = screen.getByLabelText('blur text field');
+    fireEvent.change(blurField, { target: { value: '5' } });
+    expect(screen.getByText(shownCSS)).toBeInTheDocument();
+
+    fireEvent.click(activeSwitch);
+    fireEvent.change(blurField, { target: { value: '5' } });
+    expect(screen.getAllByText(shownCSS)).toHaveLength(2);
+  });
 });

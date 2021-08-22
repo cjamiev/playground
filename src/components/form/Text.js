@@ -23,7 +23,7 @@ const Text = ({ id, label, placeholder, selected = '', regex, error, errorMessag
     <div>
       <div className='input__flex'>
         {label && <label className='input__label'>{label}</label>}
-        <input className='input__field' type="text" name={label} aria-label="text-field" placeholder={placeholder} value={selected} onChange={handleSelectedChange} />
+        <input className='input__field' type="text" name={label} aria-label={`${label} text field`} placeholder={placeholder} value={selected} onChange={handleSelectedChange} />
       </div>
       {error && <span className="input__error">{errorMessage}</span>}
     </div>

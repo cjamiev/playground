@@ -4,17 +4,18 @@ import {
   OPACITY_MAX
 } from 'constants/css';
 
+const ZERO = 0;
 const ONE = 1;
 
 const toCssString = (style) => {
   const cssProperties = Object.keys(style);
   const mergedProperties = cssProperties
     .map(key => {
-      return `  ${toDashCaseFromCamelCase(key)}: ${style[key]};\n`;
+      return `${toDashCaseFromCamelCase(key)}: ${style[key]};\n`;
     })
     .join('');
 
-  return mergedProperties;
+  return mergedProperties.slice(ZERO, -ONE);
 };
 
 const getPixelProperties = ({ first, second, third, fourth }) => {
