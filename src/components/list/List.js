@@ -5,14 +5,10 @@ import { executeCommand } from './listActions';
 import useTimer from 'hooks/useTimer';
 import { copyToClipboard } from 'helper/copy';
 import Button from 'components/button';
+import { TYPE } from 'constants/type';
 import './list.css';
 
 const ONE = 1;
-const TYPE_LINK = 'link';
-const TYPE_TEXT = 'text';
-const TYPE_TIMER = 'timer';
-const TYPE_COMMAND = 'command';
-const TYPE_COPY = 'copy';
 
 const getFormattedTime = ({ weeks, days, hours, minutes, seconds }) => {
   if(weeks > ONE) {
@@ -54,16 +50,15 @@ const DisplayCommand = ({ label, mode, name, showArgs }) => {
 };
 
 const DisplayContent = ({ type, label, value }) => {
-
-  if(type === TYPE_TEXT) {
+  if(type === TYPE.TEXT) {
     return (<span className="list__item">{value}</span>);
-  } else if (type === TYPE_LINK) {
+  } else if (type === TYPE.LINK) {
     return (<a className="link list__item" href={value} target="_blank">{label}</a>);
-  } else if (type === TYPE_COPY) {
+  } else if (type === TYPE.COPY) {
     return (<Button label={label} classColor='primary' onClick={() => { copyToClipboard(value); }} />);
-  } else if (type === TYPE_COMMAND) {
+  } else if (type === TYPE.COMMAND) {
     return <DisplayCommand label={label} mode={value.mode} name={value.name} showArgs={value.showArgs} />;
-  } else if (type === TYPE_TIMER) {
+  } else if (type === TYPE.TIMER) {
     return <DisplayTimer label={label} value={value} />;
   }
 
