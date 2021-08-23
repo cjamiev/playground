@@ -42,6 +42,7 @@ const Home = () => {
     }
     if(result.message) {
       dispatch(createAlert({ content: result.message, status: 'success' }));
+      dispatch(loadDirectory());
     }
   }, [dispatch, error.message, result.message]);
 
@@ -50,7 +51,7 @@ const Home = () => {
   }, [file]);
 
   const directoryFilesName = directory.filter(item => item.includes('.')).map(item => {
-    return <Button key={item} label={item} onClick={() => { setName(item); dispatch(loadFile(item));}} />;
+    return <Button key={item} label={item.split('.')[ZERO]} onClick={() => { setName(item); dispatch(loadFile(item));}} />;
   });
 
   const selectedDelimiter = delimiters.find(item => item.selected);

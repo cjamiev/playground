@@ -150,9 +150,9 @@ describe('Home', () => {
     fireEvent.click(sidePanelBtn);
 
     await waitFor(() => {
-      expect(screen.getByText('test.txt')).toBeInTheDocument();
+      expect(screen.getByText('test')).toBeInTheDocument();
     });
-    const testBtn = screen.getByText('test.txt');
+    const testBtn = screen.getByText('test');
     fireEvent.click(testBtn);
 
     await waitFor(() => {
