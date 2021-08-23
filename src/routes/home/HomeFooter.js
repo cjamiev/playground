@@ -66,10 +66,12 @@ const HomeFooter = () => {
           <TextArea label="Value" selected={copyContent} onChange={({ selected }) => { setCopyContent(selected); }}/>
           <button className="quick-clipboard-submit-btn quick-clipboard-add-btn" onClick={
             () => {
-              const clip = JSON.parse(localStorage.getItem('clipboard') || '[]');
-              clip.push({ name: copyName, value: copyContent, type: 'copy' });
-              localStorage.setItem('clipboard', JSON.stringify(clip));
-              setToggleClip(false);
+              if(copyName && copyContent) {
+                const clip = JSON.parse(localStorage.getItem('clipboard') || '[]');
+                clip.push({ name: copyName, value: copyContent, type: 'copy' });
+                localStorage.setItem('clipboard', JSON.stringify(clip));
+                setToggleClip(false);
+              }
             }
           }>Submit</button>
         </div>}
@@ -90,12 +92,14 @@ const HomeFooter = () => {
           </div>
           <button className="quick-clipboard-submit-btn quick-clipboard-add-btn" onClick={
             () => {
-              const parsedHour = amOrPmMode ? Number(hour) + TWELVE : Number(hour);
-              const timerContent = { month: Number(month), day: Number(day), year: Number(year), hour: parsedHour, minute: Number(minute), second: Number(second) };
-              const clip = JSON.parse(localStorage.getItem('clipboard') || '[]');
-              clip.push({ name: copyName, value: timerContent, type: 'timer' });
-              localStorage.setItem('clipboard', JSON.stringify(clip));
-              setToggleTimer(false);
+              if(copyName) {
+                const parsedHour = amOrPmMode ? Number(hour) + TWELVE : Number(hour);
+                const timerContent = { month: Number(month), day: Number(day), year: Number(year), hour: parsedHour, minute: Number(minute), second: Number(second) };
+                const clip = JSON.parse(localStorage.getItem('clipboard') || '[]');
+                clip.push({ name: copyName, value: timerContent, type: 'timer' });
+                localStorage.setItem('clipboard', JSON.stringify(clip));
+                setToggleTimer(false);
+              }
             }
           }>Submit</button>
         </div>}
