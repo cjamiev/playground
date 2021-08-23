@@ -22,6 +22,7 @@ import { mockserverInitialState } from '../src/routes/mockserver/mockserverReduc
 import { testApiInitialState } from '../src/routes/experiment/testApi/testApiReducer';
 import { testReduxInitialState } from '../src/routes/experiment/testRedux/testReduxReducer';
 import { isEmpty } from 'booleanHelper';
+import { ROUTES } from 'constants/routes';
 
 const middlewares = [thunk];
 const appliedMiddlewares = applyMiddleware(...middlewares);
@@ -43,7 +44,7 @@ const simpleTestWrapper = (Component, props = {}) => {
   return render(<Component {...props} />);
 };
 
-const reduxTestWrapper = (Component, props = {}, reduxProps = {}, locationPathname = '/home') => {
+const reduxTestWrapper = (Component, props = {}, reduxProps = {}, locationPathname = ROUTES.HOME.url) => {
   const store = createStore(rootReducer, { ...defaultStore, ...reduxProps }, compose(appliedMiddlewares));
   const history = createMemoryHistory();
   history.push(locationPathname);
@@ -57,7 +58,7 @@ const reduxTestWrapper = (Component, props = {}, reduxProps = {}, locationPathna
   );
 };
 
-const fullTestWrapper = (Component, props = {}, reduxProps = {}, locationPathname = '/home', shouldRenderPage = false) => {
+const fullTestWrapper = (Component, props = {}, reduxProps = {}, locationPathname = ROUTES.HOME.url, shouldRenderPage = false) => {
   const store = createStore(rootReducer, { ...defaultStore, ...reduxProps }, compose(appliedMiddlewares));
   const history = createMemoryHistory();
   history.push(locationPathname);
