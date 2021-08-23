@@ -29,7 +29,13 @@
 }
 
 .textarea--full-size {
-  height: 700px;
+  height: 600px;
+  width: 90%;
+}
+
+.textarea-regular-size {
+  height: 400px;
+  width: 1200px;
 }
 
 .input-field-group {

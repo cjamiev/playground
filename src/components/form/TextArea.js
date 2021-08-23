@@ -16,7 +16,7 @@ const TextArea = ({ id, label, ariaLabel, selected, jsonType, fullPage, error, e
   return (
     <div className="textarea__container">
       {label && <label>{label}</label>}
-      <textarea className={fullPage ? 'textarea--full-size' : ''} rows="20" cols="100" aria-label={ariaLabel ? ariaLabel : `${label} text area`} value={formattedValue} onChange={handleSelectedChange}></textarea>
+      <textarea className={fullPage ? 'textarea--full-size' : 'textarea-regular-size'} aria-label={ariaLabel ? ariaLabel : `${label} text area`} value={formattedValue} onChange={handleSelectedChange}></textarea>
       {error && <span>{errorMessage}</span>}
     </div>
   );

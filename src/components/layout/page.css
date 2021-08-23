@@ -32,5 +32,5 @@
 .pagefooter {
   position: absolute;
   height: 50px;
-  top: calc(100% - 50px);
+  top: calc(100% - 150px);
 }

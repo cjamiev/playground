@@ -1,8 +1,3 @@
-.home__sidepanel {
-  position: relative;
-  left: 50px;
-}
-
 .home__btns {
   display: flex;
 }
