@@ -1,12 +1,12 @@
 .input__flex {
+  flex: 1;
   display: flex;
-  width: 25em;
-  margin: 0.2em;
+  width: 30em;
 }
 
 .input__label {
   flex: 1;
-  margin: auto 10px;
+  margin: auto 0;
 }
 
 .input__item {

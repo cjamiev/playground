@@ -136,7 +136,7 @@ export const mapConfigPayloadToFields = (config) => {
     {
       id: 2,
       type: 'radio',
-      label: 'Error All Endpoints?',
+      label: 'Error All?',
       values: [
         {
           label: 'Yes',

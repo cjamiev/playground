@@ -137,7 +137,7 @@ const configFields = [
   {
     id: 2,
     type: 'radio',
-    label: 'Error All Endpoints?',
+    label: 'Error All?',
     values: [
       {
         label: 'Yes',
