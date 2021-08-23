@@ -66,7 +66,11 @@ const Home = () => {
     >
       <div className="home__btns">
         <Text placeholder='Enter File Name' selected={name} onChange={({selected}) => { setName(selected); }} />
-        <Button label='Save' onClick={() => { dispatch(writeFile(name, content)); }} />
+        <Button label='Save' onClick={() => {
+          if(name && content) {
+            dispatch(writeFile(name, content));
+          }
+        }} />
         <Button label='Copy' onClick={() => { copyToClipboard(content); }} />
         <Button label='Validate' onClick={() => {
           dispatch(dismissAlert());
@@ -88,7 +92,7 @@ const Home = () => {
           setContent(content.replace(regex, replace));
         }} />
       </div>
-      <TextArea fullPage selected={content} onChange={({ selected }) => { setContent(selected); }}/>
+      <TextArea ariaLabel='Content text area' fullPage selected={content} onChange={({ selected }) => { setContent(selected); }}/>
     </Page>
   );
 };
