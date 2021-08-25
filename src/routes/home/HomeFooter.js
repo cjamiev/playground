@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Button from 'components/button';
 import { DisplayTimer } from 'components/list/List';
 import { copyToClipboard } from 'helper/copy';
-import { ClipboardFormTimer, ClipboardFormCopy } from 'components/ClipboardForm';
+import { TimerForm, ValueForm } from 'components/ClipboardForm';
+import { TYPE } from 'constants/type';
 
 const ZERO = 0;
 const ONE = 1;
@@ -47,7 +48,7 @@ const HomeFooter = () => {
     <div>
       <div className='homefooter-form'>
         <div className='homefooter-form__container'>
-          {toggleClip && <ClipboardFormCopy onChange={
+          {toggleClip && <ValueForm type={TYPE.COPY} onChange={
             ({name, content}) => {
               const clip = JSON.parse(localStorage.getItem('clipboard') || '[]');
               clip.push({ name, value: content, type: 'copy' });
@@ -55,7 +56,7 @@ const HomeFooter = () => {
               setToggleClip(false);
             }
           }/>}
-          {toggleTimer && <ClipboardFormTimer onChange={({ name, content}) => {
+          {toggleTimer && <TimerForm onChange={({ name, content}) => {
             const clip = JSON.parse(localStorage.getItem('clipboard') || '[]');
             clip.push({ name, value: content, type: 'timer' });
             localStorage.setItem('clipboard', JSON.stringify(clip));

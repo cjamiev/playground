@@ -9,7 +9,7 @@ const ZERO = 0;
 const ONE = 1;
 const TWELVE = 12;
 
-const ClipboardFormTimer = ({ onChange }) => {
+const TimerForm = ({ onChange }) => {
   const today = new Date();
   const [name, setName] = useState('');
   const [month, setMonth] = useState(today.getMonth() + ONE);
@@ -50,4 +50,4 @@ const ClipboardFormTimer = ({ onChange }) => {
   );
 };
 
-export default ClipboardFormTimer;
+export default TimerForm;

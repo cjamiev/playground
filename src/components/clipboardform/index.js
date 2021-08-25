@@ -1,2 +1,2 @@
-export { default as ClipboardFormCopy } from './ClipboardFormCopy';
-export { default as ClipboardFormTimer } from './ClipboardFormTimer';
+export { default as ValueForm } from './ValueForm';
+export { default as TimerForm } from './TimerForm';
