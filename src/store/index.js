@@ -9,11 +9,11 @@ import thunk from 'redux-thunk';
 
 import alertReducer from 'components/alert/alertReducer';
 import clipboardReducer from 'routes/clipboard/clipboardReducer';
-import homeReducer from 'routes/home/homeReducer';
+import experimentReducer from 'routes/experiment/experimentReducer';
 import globalModalReducer from 'components/modal/globalModalReducer';
+import homeReducer from 'routes/home/homeReducer';
 import listReducer from 'components/list/listReducer';
 import mockserverReducer from 'routes/mockserver/mockserverReducer';
-import testApiReducer from 'routes/experiment/testapi/testApiReducer';
 
 const customMiddleware = ({ dispatch, getState }) => (next) => (action) => {
   return next(action);
@@ -28,11 +28,9 @@ const appliedMiddlewares = applyMiddleware(...middlewares);
 const rootReducer = combineReducers({
   alert: alertReducer,
   clipboard: clipboardReducer,
-  experiment: combineReducers({
-    testApi: testApiReducer
-  }),
-  home: homeReducer,
+  experiment: experimentReducer,
   globalModal: globalModalReducer,
+  home: homeReducer,
   list: listReducer,
   mockserver: mockserverReducer
 });
