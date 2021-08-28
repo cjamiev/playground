@@ -20,7 +20,6 @@ import { globalModalInitialState } from '../src/components/modal/globalModalRedu
 import { listInitialState } from '../src/components/list/listReducer';
 import { mockserverInitialState } from '../src/routes/mockserver/mockserverReducer';
 import { testApiInitialState } from '../src/routes/experiment/testApi/testApiReducer';
-import { testReduxInitialState } from '../src/routes/experiment/testRedux/testReduxReducer';
 import { isEmpty } from 'booleanHelper';
 import { ROUTES } from 'constants/routes';
 
@@ -32,8 +31,7 @@ const defaultStore = {
   clipboard: clipboardInitialState,
   globalModal: globalModalInitialState,
   experiment: {
-    testApi: testApiInitialState,
-    testRedux: testReduxInitialState
+    testApi: testApiInitialState
   },
   home: homeInitialState,
   list: listInitialState,

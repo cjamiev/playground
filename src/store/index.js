@@ -14,7 +14,6 @@ import globalModalReducer from 'components/modal/globalModalReducer';
 import listReducer from 'components/list/listReducer';
 import mockserverReducer from 'routes/mockserver/mockserverReducer';
 import testApiReducer from 'routes/experiment/testapi/testApiReducer';
-import testReduxReducer from 'routes/experiment/testredux/testReduxReducer';
 
 const customMiddleware = ({ dispatch, getState }) => (next) => (action) => {
   return next(action);
@@ -30,7 +29,6 @@ const rootReducer = combineReducers({
   alert: alertReducer,
   clipboard: clipboardReducer,
   experiment: combineReducers({
-    testRedux: testReduxReducer,
     testApi: testApiReducer
   }),
   home: homeReducer,
