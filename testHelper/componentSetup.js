@@ -15,11 +15,11 @@ import { rootReducer } from '../src/store';
 import { GlobalModal } from 'components/modal/GlobalModal';
 import { alertInitialState } from '../src/components/alert/alertReducer';
 import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer';
-import { homeInitialState } from '../src/routes/home/homeReducer';
+import { experimentInitialState } from '../src/routes/experiment/experimentReducer';
 import { globalModalInitialState } from '../src/components/modal/globalModalReducer';
+import { homeInitialState } from '../src/routes/home/homeReducer';
 import { listInitialState } from '../src/components/list/listReducer';
 import { mockserverInitialState } from '../src/routes/mockserver/mockserverReducer';
-import { testApiInitialState } from '../src/routes/experiment/testApi/testApiReducer';
 import { isEmpty } from 'booleanHelper';
 import { ROUTES } from 'constants/routes';
 
@@ -30,9 +30,7 @@ const defaultStore = {
   alert: alertInitialState,
   clipboard: clipboardInitialState,
   globalModal: globalModalInitialState,
-  experiment: {
-    testApi: testApiInitialState
-  },
+  experiment: experimentInitialState,
   home: homeInitialState,
   list: listInitialState,
   mockserver: mockserverInitialState
