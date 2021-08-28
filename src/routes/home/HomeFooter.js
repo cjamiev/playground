@@ -29,7 +29,8 @@ const HomeFooter = () => {
     }} />;
   });
   const timers = clipboardData.filter(item => item.type === 'timer').map(item => {
-    const newTimerDate = new Date(item.value.year,item.value.month-ONE,item.value.day,item.value.hour,item.value.minute,item.value.second);
+    const newDate = new Date(item.value.year,item.value.month-ONE,item.value.day,item.value.hour,item.value.minute,item.value.second);
+
     return (
       <div key={item.name} onClick={() => {
         if(removeMode) {
@@ -39,7 +40,7 @@ const HomeFooter = () => {
           setRemoveMode(false);
         }
       }}>
-        <DisplayTimer label={item.name} date={newTimerDate} />
+        <DisplayTimer label={item.name} value={newDate.toString()} />
       </div>
     );
   });

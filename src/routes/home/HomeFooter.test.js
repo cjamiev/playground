@@ -52,7 +52,7 @@ describe('HomeFooter', () => {
 
     const nameField = screen.getByLabelText('Name text field');
     const valueField = screen.getByLabelText('Value text area');
-    const submitBtn = screen.getByText('Submit');
+    const submitBtn = screen.getByText('Save');
 
     fireEvent.change(nameField, { target: { value: 'Name1' } });
     fireEvent.change(valueField, { target: { value: 'Value1' } });
@@ -69,7 +69,7 @@ describe('HomeFooter', () => {
 
     const nameField = screen.getByLabelText('Name text field');
     const secondField = screen.getByLabelText('Second text field');
-    const submitBtn = screen.getByText('Submit');
+    const submitBtn = screen.getByText('Save');
 
     fireEvent.change(nameField, { target: { value: 'Timer1' } });
     fireEvent.change(secondField, { target: { value: '1' } });

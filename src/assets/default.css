@@ -6,7 +6,7 @@ input[type="color"] {
   height: 30px;
   border: 1px solid #ccc;
   padding: 3px;
-  margin: 5px;
+  margin: 5px 5px 5px 0px;
 }
 
 button,
@@ -17,7 +17,7 @@ input[type="submit"] {
   border-radius: 8px;
   height: 40px;
   min-width: 80px;
-  margin: 5px;
+  margin: 5px 5px 5px 0px;
 }
 
 button:hover,
@@ -42,7 +42,7 @@ select {
   min-height: 40px;
   min-width: 100px;
   border-radius: 8px;
-  margin: 5px;
+  margin: 5px 5px 5px 0px;
 }
 
 a, 

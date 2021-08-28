@@ -15,10 +15,12 @@ const ValueForm = ({ type, onChange }) => {
         ? <TextArea label="Value" selected={content} onChange={({ selected }) => { setContent(selected); }}/>
         : <Text label='Value' selected={content} onChange={({selected}) => { setContent(selected); }} />
       }
-      <Button label='Submit' classColor='primary' onClick={
+      <Button label='Save' classColor='primary' onClick={
         () => {
           if(name && content) {
             onChange({ name, content });
+            setName('');
+            setContent('');
           }
         }
       } />

@@ -37,12 +37,13 @@ const TimerForm = ({ onChange }) => {
         <Text label='Second' selected={second} onChange={({selected}) => { setSecond(selected); }} />
         <Switch data={[{ label: 'am' }, { label: 'pm'}]} switchIndex={amOrPmMode} onToggleSwitch={(index) => { setAmOrPmMode(index);}} />
       </div>
-      <Button label='Submit' classColor='primary' onClick={
+      <Button label='Save' classColor='primary' onClick={
         () => {
           if(name) {
             const parsedHour = amOrPmMode ? Number(hour) + TWELVE : Number(hour);
             const timerContent = { month: Number(month), day: Number(day), year: Number(year), hour: parsedHour, minute: Number(minute), second: Number(second) };
             onChange({ name, content: timerContent});
+            setName('');
           }
         }
       } />

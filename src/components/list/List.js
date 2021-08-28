@@ -21,9 +21,8 @@ const getFormattedTime = ({ weeks, days, hours, minutes, seconds }) => {
   return formattedTimerClock(hours,minutes,seconds);
 };
 
-export const DisplayTimer = ({ label, value, date }) => {
-  const timerDate = date ? date : new Date(value);
-  const time = useTimer(timerDate);
+export const DisplayTimer = ({ label, value }) => {
+  const time = useTimer(new Date(value));
 
   return (
     <div className="list__item">
@@ -49,7 +48,7 @@ const DisplayCommand = ({ label, mode, name, showArgs }) => {
   );
 };
 
-const DisplayContent = ({ type, label, value }) => {
+export const DisplayContent = ({ type, label, value }) => {
   if(type === TYPE.TEXT) {
     return (<span className="list__item">{value}</span>);
   } else if (type === TYPE.LINK) {

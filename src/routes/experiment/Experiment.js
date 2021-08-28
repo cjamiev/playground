@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { dismissAlert } from 'components/alert/alertActions';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
+import TestNew from './testnew';
 import TestAnimation from './testAnimation';
 import TestRedux from './testredux';
 import TestTodo from './testtodo';
@@ -12,6 +13,7 @@ import TestGlobalModal from './testglobalmodal';
 import TestApi from './testapi';
 
 const TABS = [
+  { title: 'New', component: TestNew},
   { title: 'Redux', component: TestRedux},
   { title: 'Animation', component: TestAnimation},
   { title: 'Global Modal', component: TestGlobalModal},
