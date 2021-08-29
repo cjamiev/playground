@@ -2,11 +2,18 @@ import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
 import TimerForm from './TimerForm';
 
+const ZERO = 0;
+const ONE = 1;
+const TWELVE = 12;
+
 const defaultProps = {
   onChange: jest.fn()
 };
 
 describe('TimerForm', () => {
+  const today = new Date();
+  const isAmMode = today.getHours() + ONE - TWELVE <= ZERO;
+
   it('Handle form', () => {
     simpleTestWrapper(TimerForm, defaultProps);
 
@@ -28,10 +35,10 @@ describe('TimerForm', () => {
     fireEvent.change(secondField, { target: { value: '6' } });
     fireEvent.click(saveBtn);
 
-    expect(defaultProps.onChange).toHaveBeenCalledWith({ name: 'Timer1', content: { month: 1, day: 2, year: 3, hour: 4, minute: 5, second: 6 }});
+    expect(defaultProps.onChange).toHaveBeenCalledWith({ name: 'Timer1', content: { month: 1, day: 2, year: 3, hour: isAmMode ? 4 : 16, minute: 5, second: 6 }});
   });
 
-  it('Handle form with pm mode', () => {
+  it('Handle form with am/pm mode', () => {
     simpleTestWrapper(TimerForm, defaultProps);
 
     const nameField = screen.getByLabelText('Name text field');
@@ -41,7 +48,7 @@ describe('TimerForm', () => {
     const hourField = screen.getByLabelText('Hour text field');
     const minuteField = screen.getByLabelText('Minute text field');
     const secondField = screen.getByLabelText('Second text field');
-    const pmSwitch = screen.getByLabelText('pm mode is off');
+    const ampmSwitch = isAmMode ? screen.getByLabelText('pm mode is off') : screen.getByLabelText('am mode is off');
     const saveBtn = screen.getByText('Save');
 
     fireEvent.change(nameField, { target: { value: 'Timer1' } });
@@ -51,9 +58,9 @@ describe('TimerForm', () => {
     fireEvent.change(hourField, { target: { value: '4' } });
     fireEvent.change(minuteField, { target: { value: '5' } });
     fireEvent.change(secondField, { target: { value: '6' } });
-    fireEvent.click(pmSwitch);
+    fireEvent.click(ampmSwitch);
     fireEvent.click(saveBtn);
 
-    expect(defaultProps.onChange).toHaveBeenCalledWith({ name: 'Timer1', content: { month: 1, day: 2, year: 3, hour: 16, minute: 5, second: 6 }});
+    expect(defaultProps.onChange).toHaveBeenCalledWith({ name: 'Timer1', content: { month: 1, day: 2, year: 3, hour: isAmMode ? 16 : 4, minute: 5, second: 6 }});
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Checkbox = ({ id, label, values, onChange }) => {
+const Checkbox = ({ id, label, horizontal, values, onChange }) => {
   const handleChange = (selectedLabel, currentValues) => {
     const updatedValues = currentValues.map(item => {
       if(item.label === selectedLabel) {
@@ -15,12 +15,13 @@ const Checkbox = ({ id, label, values, onChange }) => {
 
     onChange({ id, values: updatedValues });
   };
+  const className = horizontal ? 'input__flex': '';
 
   const checkboxes = values.map(item => {
     return (
-      <div key={item.label} className='input__flex'>
-        <input className='input__item' type="checkbox" name={item.label} value={item.label} aria-label={`${item.label} checkbox`} onChange={() => { handleChange(item.label, values); }} checked={item.selected} />
-        <label className="input__label" onClick={() => { handleChange(item.label, values); }}>
+      <div key={item.label} className='input__item-container'>
+        <input className='input__item-field' type="checkbox" name={item.label} value={item.label} aria-label={`${item.label} checkbox`} onChange={() => { handleChange(item.label, values); }} checked={item.selected} />
+        <label className="input__item-label" onClick={() => { handleChange(item.label, values); }}>
           {item.label}
         </label>
       </div>
@@ -28,8 +29,8 @@ const Checkbox = ({ id, label, values, onChange }) => {
   });
 
   return (
-    <div className='input__flex'>
-      <label className='input__group-title'>{label}</label>
+    <div className={className}>
+      <label className='input__label'>{label}</label>
       {checkboxes}
     </div>
   );

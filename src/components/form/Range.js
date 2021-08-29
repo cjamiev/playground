@@ -1,16 +1,17 @@
 import React from 'react';
 
-const Range = ({ id, label, min, max, selected, onChange }) => {
+const Range = ({ id, label, horizontal = false, min, max, selected, onChange }) => {
   const handleSelectedChange = ({ target: { value } }) => {
 
     onChange({ id, selected: value });
   };
+  const className = horizontal ? 'input__flex': '';
 
   return (
     <div>
-      <div className='input__flex'>
+      <div className={className}>
         <label className='input__label'>{label}</label>
-        <input className='input__field' type="range" name={label} aria-label={`${label} range field`} min={min} max={max} value={selected} onChange={handleSelectedChange} />
+        <input className='input__item-field' type="range" name={label} aria-label={`${label} range field`} min={min} max={max} value={selected} onChange={handleSelectedChange} />
       </div>
     </div>
   );

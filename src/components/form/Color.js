@@ -19,19 +19,21 @@ export const hexToRGB = (hex) => {
 };
 
 
-const Color = ({ id, label, selected, onChange }) => {
+const Color = ({ id, label, horizontal = false, selected, onChange }) => {
   const handleSelectedChange = ({ target: { value } }) => {
 
     onChange({ id, selected: value });
   };
 
   const ariaLabel = selected ? `${label} color field has value ${selected}` : `${label} color field`;
+  const className = horizontal ? 'input__flex': '';
+
 
   return (
     <div>
-      <div className='input__flex'>
+      <div className={className}>
         <label className='input__label'>{label}</label>
-        <input className='input__field' type="color" name={label} aria-label={ariaLabel} value={selected} onChange={handleSelectedChange} />
+        <input className='input__item-field' type="color" name={label} aria-label={ariaLabel} value={selected} onChange={handleSelectedChange} />
       </div>
     </div>
   );
