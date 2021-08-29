@@ -33,7 +33,9 @@ const MockCreateEndpoint = () => {
   return (
     <>
       <DynamicForm data={getNewMockFields()} onChange={handleChange} />
-      <Button label="Submit" disabled={hasError(fields)} onClick={onSubmit} />
+      <div className="container--center">
+        <Button label="Submit" disabled={hasError(fields)} onClick={onSubmit} />
+      </div>
     </>
   );
 };
