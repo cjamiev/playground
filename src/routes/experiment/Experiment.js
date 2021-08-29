@@ -36,13 +36,11 @@ const TestApi = () => {
   };
 
   return (
-    <>
-      <div role="group">
-        <Button label="Get Api" onClick={runGet} />
-        <Button label="Post Api" onClick={runPost} />
-      </div>
-      <label>{testData}</label>
-    </>
+    <div className="container--center">
+      <Button label="Get Api" onClick={runGet} />
+      <Button label="Post Api" onClick={runPost} />
+      <div>{testData}</div>
+    </div>
   );
 };
 

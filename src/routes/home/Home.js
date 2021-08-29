@@ -58,7 +58,7 @@ const Home = () => {
 
   return (
     <Page
-      sidePanelContent={<div>{directoryFilesName}</div>}
+      sidePanelContent={<div className="container--center">{directoryFilesName}</div>}
       footerComponent={HomeFooter()}
     >
       <div className="home__btns">

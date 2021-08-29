@@ -1,17 +1,16 @@
 .page {
   height: 100%;
-  padding-left: 10px;
   display: flex;
 }
 
 .page__sidepanel {
   position: relative;
-  width: 400px;
+  width: 300px;
   border-right: 1px solid rgb(228, 228, 228);
-  margin-right: 10px;
 }
 
 .page__rightside {
+  padding-left: 10px;
   width: 100%;
 }
 
