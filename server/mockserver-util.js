@@ -3,10 +3,10 @@ const { loadJSONFromFile, writeToFile, deleteFile } = require('./file');
 
 const ENTRY_ALREADY_EXISTS_MESSAGE = 'A mock with the specified method and url already exists.';
 const CONFIG_SUCCESS_MESSAGE = 'Updated configuration';
-const CONFIG_OVERRIDE_PATH = './storage/mock/config.json';
-const MOCK_FILE_PATH = './storage/mock/responses';
-const MOCK_REQUESTS_PATH = './storage/mock/mockPaths.json';
-const LOGFILE_PATH = './storage/mock/log.json';
+const CONFIG_OVERRIDE_PATH = './storage/io/mock/config.json';
+const MOCK_FILE_PATH = './storage/io/mock/responses';
+const MOCK_REQUESTS_PATH = './storage/io/mock/mockPaths.json';
+const LOGFILE_PATH = './storage/io/mock/log.json';
 const DEFAULT_CONFIG = {
   delay: 0,
   delayUrls: [],

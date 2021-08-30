@@ -10,7 +10,7 @@ const ERROR_MAIN = 'ERROR_MAIN';
 const loadPassword = () => {
   return (dispatch) => {
     api
-      .get('/read/?name=db%2Fpassword.json')
+      .get('/db/?name=password.json')
       .then((response) => {
         dispatch({ type: LOAD_PASSWORD, data: JSON.parse(response.data.data) });
       })
@@ -23,7 +23,7 @@ const loadPassword = () => {
 const loadFood = () => {
   return (dispatch) => {
     api
-      .get('/read/?name=db%2Ffood.json')
+      .get('/db/?name=food.json')
       .then((response) => {
         dispatch({ type: LOAD_FOOD, data: JSON.parse(response.data.data) });
       })
@@ -36,7 +36,7 @@ const loadFood = () => {
 const loadMain = () => {
   return (dispatch) => {
     api
-      .get('/read/?name=db%2Fmain.json')
+      .get('/db/?name=main.json')
       .then((response) => {
         dispatch({ type: LOAD_MAIN, data: JSON.parse(response.data.data) });
       })

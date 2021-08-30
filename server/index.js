@@ -42,8 +42,9 @@ const NOT_FOUND = 'Not found';
 const STATUS_OK = 200;
 const STATUS_ERROR = 500;
 const METHOD_POST = 'POST';
-const IO_DIRECTORY = './storage/io';
-const CLIPBOARD_DIRECTORY = './storage/io/clipboard';
+const FILE_DIRECTORY = './storage/io/file';
+const DB_DIRECTORY = './storage/io/db';
+const SCRIPT_DIRECTORY = './storage/io/scripts';
 
 const cors = (res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -52,7 +53,7 @@ const cors = (res) => {
   res.setHeader('Access-Control-Allow-Headers', '*');
 };
 
-const COMMAND_STR = 'cd ./storage/scripts && start cmd.exe';
+const COMMAND_STR = `cd ${SCRIPT_DIRECTORY} && start cmd.exe`;
 const getCommand = (requestUrl) => {
   const queryParameters = requestUrl.split('?')[1].split('&');
   const mode = queryParameters[0].split('=')[1];
@@ -64,7 +65,7 @@ const getCommand = (requestUrl) => {
   } else if (mode === 'block') {
     return `${COMMAND_STR} /k ${command} ${args}`;
   }
-  return `cd ./storage/scripts && ${command} ${args}`;
+  return `cd ${SCRIPT_DIRECTORY} && ${command} ${args}`;
 };
 
 const resolvePostBody = async (request) => {
@@ -99,7 +100,7 @@ const handleWriteResponse = async (request, response) => {
 
   const content = payload.content || '';
   const filename = payload.filename || new Date().toString().slice(4, 24).replace(/ /g, '.').replace(/:/g, '.');
-  const filepath = payload.filepath || IO_DIRECTORY + '/';
+  const filepath = payload.filepath || FILE_DIRECTORY + '/';
 
   const data = writeToFile(filepath + filename, content);
 
@@ -111,8 +112,8 @@ const handleReadResponse = (request, response) => {
 
   const data =
     queryParams.name
-      ? loadFile(IO_DIRECTORY + '/' + queryParams.name)
-      : readDirectory(IO_DIRECTORY);
+      ? loadFile(FILE_DIRECTORY + '/' + queryParams.name)
+      : readDirectory(FILE_DIRECTORY);
 
   send(response, { data });
 };
@@ -125,12 +126,13 @@ const handleCommandResponse = (request, response) => {
   });
 };
 
-const handleClipboardResponse = (request, response) => {
-  const directories = readDirectory(CLIPBOARD_DIRECTORY);
-  const data = [];
-  directories.forEach((filename) => {
-    data.push(loadFile(CLIPBOARD_DIRECTORY + '/' + filename));
-  });
+const handleDbResponse = (request, response) => {
+  const queryParams = url.parse(request.url, true).query;
+
+  const data =
+    queryParams.name
+      ? loadFile(DB_DIRECTORY + '/' + queryParams.name)
+      : readDirectory(DB_DIRECTORY);
 
   send(response, { data });
 };
@@ -251,8 +253,8 @@ http
       handleReadResponse(request, response);
     } else if (request.url.includes('command')) {
       handleCommandResponse(request, response);
-    } else if (request.url.includes('clipboard-config')) {
-      handleClipboardResponse(request, response);
+    } else if (request.url.includes('db')) {
+      handleDbResponse(request, response);
     } else if (request.url.includes('api/mockserver')) {
       handleMockServerResponse(request, response);
     } else if (path.extname(request.url)) {
