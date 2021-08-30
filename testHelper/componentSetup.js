@@ -16,6 +16,7 @@ import { GlobalModal } from 'components/modal/GlobalModal';
 import { alertInitialState } from '../src/components/alert/alertReducer';
 import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer';
 import { experimentInitialState } from '../src/routes/experiment/experimentReducer';
+import { fileInitialState } from '../src/routes/file/fileReducer';
 import { globalModalInitialState } from '../src/components/modal/globalModalReducer';
 import { homeInitialState } from '../src/routes/home/homeReducer';
 import { listInitialState } from '../src/components/list/listReducer';
@@ -31,6 +32,7 @@ const defaultStore = {
   clipboard: clipboardInitialState,
   globalModal: globalModalInitialState,
   experiment: experimentInitialState,
+  file: fileInitialState,
   home: homeInitialState,
   list: listInitialState,
   mockserver: mockserverInitialState
