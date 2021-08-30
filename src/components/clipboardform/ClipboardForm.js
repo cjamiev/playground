@@ -66,13 +66,14 @@ const ClipboardForm = () => {
   };
 
   const selectedType = types.find(item => item.selected);
+  const addLabel = data[currentIndex] ? 'Update Entry' : 'Add New Entry';
 
   return (
     <div className="flex-container">
       <div className="container--center">
         <h2>Clipboard Form</h2>
         <Text label='Title' selected={title} onChange={({selected}) => { setTitle(selected); }} />
-        <Button label='Add New Entry' classColor='secondary' onClick={
+        <Button label={addLabel} classColor='secondary' onClick={
           () => {
             if(entry.length > ZERO) {
               const updatedData = data[currentIndex]
@@ -110,7 +111,7 @@ const ClipboardForm = () => {
         }
       </div>
       <div className="container--center">
-        <h2>Current Entry</h2>
+        <h2>Entry {currentIndex + ONE}</h2>
         <ClipboardList
           items={entry}
           removeItem={removeItem}
