@@ -21,7 +21,15 @@
 }
 
 .container--center {
-  margin: auto;
-  width: 75%;
+  margin: 0 auto;
+  width: 90%;
   padding: 10px;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.clickable {
+  cursor: pointer;
 }

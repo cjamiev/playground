@@ -3,8 +3,8 @@ import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
 import Dropdown from 'components/form/Dropdown';
 import Button from 'components/button';
-import { TimerForm, ValueForm } from 'components/ClipboardForm';
-import { DisplayContent } from 'components/list/List';
+import { TimerForm, ValueForm } from 'components/clipboardform';
+import List, { DisplayContent } from 'components/list';
 import { TYPE } from 'constants/type';
 import {
   decrementElementIndex,
@@ -12,6 +12,7 @@ import {
   swapArrayElementPositions
 } from 'arrayHelper';
 
+const ZERO = 1;
 const ONE = 1;
 const CLIPBOARD_TYPES = [
   { label: TYPE.COPY, selected: true },
@@ -36,6 +37,7 @@ const ClipboardForm = () => {
   const [title, setTitle] = useState('');
   const [types, setTypes] = useState(CLIPBOARD_TYPES);
   const [entry, setEntry] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(ZERO);
   const [data, setData] = useState([]);
 
   const removeItem = selectedIndex => {
@@ -58,42 +60,57 @@ const ClipboardForm = () => {
     setEntry(updatedItems);
   };
 
+  const handleClickEntry = (selectedIndex, selectedEntry) => {
+    setCurrentIndex(selectedIndex);
+    setEntry(selectedEntry);
+  };
+
   const selectedType = types.find(item => item.selected);
 
   return (
-    <div className="container--center">
-      <h2>Clipboard Form</h2>
-      <Text label='Name' selected={name} onChange={({selected}) => { setTitle(selected); }} />
-      <Dropdown label={`Type: ${selectedType.label}`} values={types} onChange={({ values }) => { setTypes(values); }} />
-      {selectedType.label === TYPE.TIMER
-        ? <TimerForm onChange={({ name, content}) => {
-          const newDate = new Date(content.year,content.month-ONE,content.day,content.hour,content.minute,content.second);
-
-          setEntry([...entry, { label: name, value: newDate.toString(), type: selectedType.label }]);
-        }} />
-        : <ValueForm type={selectedType} onChange={
-          ({name, content}) => {
-            setEntry([...entry, { label: name, value: content, type: selectedType.label }]);
+    <div className="flex-container">
+      <div className="container--center">
+        <h2>Clipboard Form</h2>
+        <Text label='Title' selected={title} onChange={({selected}) => { setTitle(selected); }} />
+        <Button label='Add New Entry' classColor='secondary' onClick={
+          () => {
+            setEntry([]);
+            setData([...data, entry]);
           }
-        }/>
-      }
-      <Button label='Add New Entry' classColor='secondary' onClick={
-        () => {
-          setEntry([]);
-          setData([...data, entry]);
+        } />
+        <Button label='Remove Entry' classColor='secondary' onClick={
+          () => {
+            setEntry([]);
+            setData(data.filter((item, indx) => indx !== currentIndex));
+          }
+        } />
+        <Dropdown label={`Type: ${selectedType.label}`} values={types} onChange={({ values }) => { setTypes(values); }} />
+        {selectedType.label === TYPE.TIMER
+          ? <TimerForm onChange={({ name, content}) => {
+            const newDate = new Date(content.year,content.month-ONE,content.day,content.hour,content.minute,content.second);
+
+            setEntry([...entry, { label: name, value: newDate.toString(), type: selectedType.label }]);
+          }} />
+          : <ValueForm type={selectedType} onChange={
+            ({name, content}) => {
+              setEntry([...entry, { label: name, value: content, type: selectedType.label }]);
+            }
+          }/>
         }
-      } />
-      <Button label='Submit' classColor='primary' onClick={
-        () => {
-          console.log('data', data);
-        }
-      } />
-      <ClipboardList
-        items={entry}
-        removeItem={removeItem}
-        moveItemUp={moveItemUp}
-        moveItemDown={moveItemDown}
-      />
+      </div>
+      <div className="container--center">
+        <h2>Current Entry</h2>
+        <ClipboardList
+          items={entry}
+          removeItem={removeItem}
+          moveItemUp={moveItemUp}
+          moveItemDown={moveItemDown}
+        />
+      </div>
+      <div className="container--center">
+        <h2>Data</h2>
+        <List key={title} header={title} data={data} handleClick={handleClickEntry}/>
+      </div>
     </div>
   );
 };

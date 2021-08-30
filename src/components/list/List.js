@@ -25,10 +25,10 @@ export const DisplayTimer = ({ label, value }) => {
   const time = useTimer(new Date(value));
 
   return (
-    <div className="list__item">
+    <span className="list__item">
       <label className="list__timer-label" title={value}>{ label }</label>
       <span>{ getFormattedTime(time) }</span>
-    </div>
+    </span>
   );
 };
 
@@ -41,10 +41,10 @@ const DisplayCommand = ({ label, mode, name, showArgs }) => {
   };
 
   return (
-    <div className="list__item">
+    <span className="list__item">
       <Button label={label} onClick={() => { dispatch(executeCommand(mode, name, arg)); }} />
       {showArgs &&<input type="text" aria-label={`args for ${label}`} onChange={handleChange} />}
-    </div>
+    </span>
   );
 };
 
@@ -64,14 +64,16 @@ export const DisplayContent = ({ type, label, value }) => {
   return null;
 };
 
-const List = React.memo(({ header, data }) => {
+const List = React.memo(({ header, data, handleClick }) => {
   const renderContent = data.map((entry, index) => {
     const renderEntry = entry.map(({ type, label, value }) => {
       return <DisplayContent key={`${type}-${label}-${value}`} type={type} label={label} value={value} />;
     });
 
+    const className = handleClick ? 'list__content clickable' : 'list__content';
+
     return (
-      <div key={index} className="list__content">
+      <div key={index} className={className} onClick={() => (handleClick && handleClick(index, entry))}>
         {renderEntry}
       </div>
     );
@@ -79,7 +81,7 @@ const List = React.memo(({ header, data }) => {
 
   return (
     <div className="list">
-      <div className="list__header">{header}</div>
+      {header && <div className="list__header">{header}</div>}
       {renderContent}
     </div>
   );

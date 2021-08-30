@@ -3,7 +3,6 @@ import Button from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
 import Switch from 'components/switch';
-import './clipboardform.css';
 
 const ZERO = 0;
 const ONE = 1;
@@ -22,7 +21,7 @@ const TimerForm = ({ onChange }) => {
   const [removeMode, setRemoveMode] = useState(false);
 
   return (
-    <div className="clipboard-form">
+    <div>
       <div>
         <Text label='Name' selected={name} onChange={({selected}) => { setName(selected); }} />
       </div>

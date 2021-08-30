@@ -13,8 +13,8 @@ const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
         <div key={item.id} data-testid={item.text}>
           <span>{item.text}</span>
           <Button label="Done" onClick={() => { removeItem(item.id); }} />
-          <Button label="Move Item Up" onClick={() => { moveItemUp(item.id); }} />
-          <Button label="Move Item Down" onClick={() => { moveItemDown(item.id);}} />
+          <Button label="Move Up" onClick={() => { moveItemUp(item.id); }} />
+          <Button label="Move Down" onClick={() => { moveItemDown(item.id);}} />
         </div>
       ))}
     </ul>

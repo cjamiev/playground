@@ -9,7 +9,7 @@ const ValueForm = ({ type, onChange }) => {
   const [content, setContent] = useState('');
 
   return (
-    <div className="clipboard-form" >
+    <div>
       <Text label='Name' selected={name} onChange={({selected}) => { setName(selected); }} />
       {type === TYPE.COPY
         ? <TextArea label="Value" selected={content} onChange={({ selected }) => { setContent(selected); }}/>

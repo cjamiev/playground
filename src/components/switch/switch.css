@@ -1,11 +1,9 @@
 .switch {
-  display: flex;
   list-style: none;
   margin-bottom: 1em;
 }
 
 .switch__item {
-  flex: 1;
   cursor: pointer;
   height: 60px;
   width: 120px;
