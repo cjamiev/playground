@@ -12,7 +12,7 @@ import {
   swapArrayElementPositions
 } from 'arrayHelper';
 
-const ZERO = 1;
+const ZERO = 0;
 const ONE = 1;
 const CLIPBOARD_TYPES = [
   { label: TYPE.COPY, selected: true },
@@ -74,8 +74,19 @@ const ClipboardForm = () => {
         <Text label='Title' selected={title} onChange={({selected}) => { setTitle(selected); }} />
         <Button label='Add New Entry' classColor='secondary' onClick={
           () => {
-            setEntry([]);
-            setData([...data, entry]);
+            if(entry.length > ZERO) {
+              const updatedData = data[currentIndex]
+                ? data.map((item, index) => {
+                  if(index === currentIndex) {
+                    return entry;
+                  }
+                  return item;
+                })
+                : [...data, entry];
+              setEntry([]);
+              setData(updatedData);
+              setCurrentIndex(updatedData.length);
+            }
           }
         } />
         <Button label='Remove Entry' classColor='secondary' onClick={
