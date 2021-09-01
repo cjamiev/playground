@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadPassword, loadFood, loadMain } from './clipboardActions';
+import { loadClipboard } from './clipboardActions';
 import { createAlert } from 'components/alert/alertActions';
 import { openGlobalModal } from 'components/modal/globalModalActions';
 import Page from 'components/layout';
@@ -8,6 +8,8 @@ import List from 'components/list';
 import Tabs from 'components/tabs';
 import ComponentWrapper from 'components/ComponentWrapper';
 import './clipboard.css';
+
+const ZERO = 0;
 
 const ClipboardTab = (props) => {
   return (
@@ -21,18 +23,16 @@ const ClipboardTab = (props) => {
 
 const Clipboard = () => {
   const dispatch = useDispatch();
-  const { passwords, food, main, error } = useSelector(state => state.clipboard);
+  const { clipboard, error } = useSelector(state => state.clipboard);
   const result = useSelector(state => state.list.commandResponse);
-  const TABS = [
-    { title: 'Passwords', component: ComponentWrapper(ClipboardTab,{ clip:passwords })},
-    { title: 'Food', component: ComponentWrapper(ClipboardTab,{ clip:food })},
-    { title: 'Main', component: ComponentWrapper(ClipboardTab,{ clip:main })}
-  ];
+  const TABS = Object.keys(clipboard).map(filename => {
+    const name = filename.split('.')[ZERO];
+
+    return { title: name, component: ComponentWrapper(ClipboardTab,{ clip:clipboard[name] })};
+  });
 
   useEffect(() => {
-    dispatch(loadPassword());
-    dispatch(loadFood());
-    dispatch(loadMain());
+    dispatch(loadClipboard());
   }, [dispatch]);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const Clipboard = () => {
 
   return (
     <Page>
-      <Tabs data={TABS} />
+      {TABS.length > ZERO && <Tabs data={TABS} />}
     </Page>
   );
 };

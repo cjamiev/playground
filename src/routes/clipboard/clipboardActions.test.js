@@ -1,15 +1,9 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
 import {
-  LOAD_PASSWORD,
-  ERROR_PASSWORD,
-  loadPassword,
-  LOAD_FOOD,
-  ERROR_FOOD,
-  loadFood,
-  LOAD_MAIN,
-  ERROR_MAIN,
-  loadMain
+  LOAD_CLIPBOARD,
+  ERROR_CLIPBOARD,
+  loadClipboard
 } from './clipboardActions';
 
 const error = new Error('Test Message');
@@ -19,60 +13,26 @@ const mockGet = jest.fn();
 jest.mock('api');
 api.get.mockResolvedValue({
   data: {
-    data: '[{"test":123}]'
+    data: '{ "one": [1,2,3], "two": [2,3,4] }'
   }
 });
 
 describe('clipboardActions', () => {
-  it('loadPassword', async () => {
-    const func = loadPassword();
+  it('loadClipboard', async () => {
+    const func = loadClipboard();
     func(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_PASSWORD, data: [{ test: 123 }]});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_CLIPBOARD, data: { one: [1,2,3], two: [2,3,4]}});
     });
   });
 
-  it('loadPassword - error', async () => {
+  it('loadClipboard - error', async () => {
     api.get.mockRejectedValueOnce(error);
-    loadPassword()(dispatch);
+    loadClipboard()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_PASSWORD, error });
-    });
-  });
-
-  it('loadFood', async () => {
-    loadFood()(dispatch);
-
-    await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_FOOD, data: [{ test: 123 }]});
-    });
-  });
-
-  it('loadFood - error', async () => {
-    api.get.mockRejectedValueOnce(error);
-    loadFood()(dispatch);
-
-    await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_FOOD, error });
-    });
-  });
-
-  it('loadMain', async () => {
-    loadMain()(dispatch);
-
-    await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MAIN, data: [{ test: 123 }]});
-    });
-  });
-
-  it('loadMain - error', async () => {
-    api.get.mockRejectedValueOnce(new Error('Test Message'));
-    loadMain()(dispatch);
-
-    await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MAIN, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_CLIPBOARD, error });
     });
   });
 });

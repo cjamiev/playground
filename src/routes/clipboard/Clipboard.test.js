@@ -17,30 +17,32 @@ const defaultStoreProps = {
   },
   clipboard: {
     error: {},
-    passwords: [
-      {
-        'title': 'listOne',
-        'data': [
-          [
-            {
-              'label': 'label1',
-              'type': 'link',
-              'value': 'www.url1.com'
-            },
-            {
-              'label': 'username',
-              'type': 'copy',
-              'value': 'user'
-            },
-            {
-              'label': 'password',
-              'type': 'copy',
-              'value': 'password'
-            }
+    clipboard: {
+      passwords: [
+        {
+          'title': 'listOne',
+          'data': [
+            [
+              {
+                'label': 'label1',
+                'type': 'link',
+                'value': 'www.url1.com'
+              },
+              {
+                'label': 'username',
+                'type': 'copy',
+                'value': 'user'
+              },
+              {
+                'label': 'password',
+                'type': 'copy',
+                'value': 'password'
+              }
+            ]
           ]
-        ]
-      }
-    ]
+        }
+      ]
+    }
   }
 };
 

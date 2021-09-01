@@ -1,4 +1,4 @@
-import { LOAD_PASSWORD, ERROR_PASSWORD, LOAD_FOOD, ERROR_FOOD, LOAD_MAIN, ERROR_MAIN } from './clipboardActions';
+import { LOAD_CLIPBOARD, ERROR_CLIPBOARD } from './clipboardActions';
 import clipboardReducer, { clipboardInitialState } from './clipboardReducer';
 
 describe('clipboardReducer', () => {
@@ -8,22 +8,25 @@ describe('clipboardReducer', () => {
     expect(result).toEqual(clipboardInitialState);
   });
 
-  it('LOAD_PASSWORD', () => {
+  it('LOAD_CLIPBOARD', () => {
     const action = {
-      type: LOAD_PASSWORD,
-      data: [1,2,3]
+      type: LOAD_CLIPBOARD,
+      data: {
+        one: [1,2,3],
+        two: [4,5,6]
+      }
     };
     const result = clipboardReducer(clipboardInitialState, action);
 
     expect(result).toEqual({
       ...clipboardInitialState,
-      passwords: action.data
+      clipboard: action.data
     });
   });
 
-  it('ERROR_PASSWORD', () => {
+  it('ERROR_CLIPBOARD', () => {
     const action = {
-      type: ERROR_PASSWORD,
+      type: ERROR_CLIPBOARD,
       error: {
         message: 'test-error'
       }
@@ -36,59 +39,4 @@ describe('clipboardReducer', () => {
     });
   });
 
-  it('LOAD_FOOD', () => {
-    const action = {
-      type: LOAD_FOOD,
-      data: [1,2,3]
-    };
-    const result = clipboardReducer(clipboardInitialState, action);
-
-    expect(result).toEqual({
-      ...clipboardInitialState,
-      food: action.data
-    });
-  });
-
-  it('ERROR_FOOD', () => {
-    const action = {
-      type: ERROR_FOOD,
-      error: {
-        message: 'test-error'
-      }
-    };
-    const result = clipboardReducer(clipboardInitialState, action);
-
-    expect(result).toEqual({
-      ...clipboardInitialState,
-      error: action.error
-    });
-  });
-
-  it('LOAD_MAIN', () => {
-    const action = {
-      type: LOAD_MAIN,
-      data: [1,2,3]
-    };
-    const result = clipboardReducer(clipboardInitialState, action);
-
-    expect(result).toEqual({
-      ...clipboardInitialState,
-      main: action.data
-    });
-  });
-
-  it('ERROR_MAIN', () => {
-    const action = {
-      type: ERROR_MAIN,
-      error: {
-        message: 'test-error'
-      }
-    };
-    const result = clipboardReducer(clipboardInitialState, action);
-
-    expect(result).toEqual({
-      ...clipboardInitialState,
-      error: action.error
-    });
-  });
 });

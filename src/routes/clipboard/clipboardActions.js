@@ -1,59 +1,25 @@
 import api from 'api';
 
-const LOAD_PASSWORD = 'LOAD_PASSWORD';
-const ERROR_PASSWORD = 'ERROR_PASSWORD';
-const LOAD_FOOD = 'LOAD_FOOD';
-const ERROR_FOOD = 'ERROR_FOOD';
-const LOAD_MAIN = 'LOAD_MAIN';
-const ERROR_MAIN = 'ERROR_MAIN';
+const LOAD_CLIPBOARD = 'LOAD_CLIPBOARD';
+const ERROR_CLIPBOARD = 'ERROR_CLIPBOARD';
 
-const loadPassword = () => {
+const ZERO = 0;
+
+const loadClipboard = () => {
   return (dispatch) => {
     api
-      .get('/db/?name=password.json')
+      .get('/db/?name=clipboard.db')
       .then((response) => {
-        dispatch({ type: LOAD_PASSWORD, data: JSON.parse(response.data.data) });
+        dispatch({ type: LOAD_CLIPBOARD, data: JSON.parse(response.data.data) });
       })
       .catch((error) => {
-        dispatch({ type: ERROR_PASSWORD, error });
-      });
-  };
-};
-
-const loadFood = () => {
-  return (dispatch) => {
-    api
-      .get('/db/?name=food.json')
-      .then((response) => {
-        dispatch({ type: LOAD_FOOD, data: JSON.parse(response.data.data) });
-      })
-      .catch((error) => {
-        dispatch({ type: ERROR_FOOD, error });
-      });
-  };
-};
-
-const loadMain = () => {
-  return (dispatch) => {
-    api
-      .get('/db/?name=main.json')
-      .then((response) => {
-        dispatch({ type: LOAD_MAIN, data: JSON.parse(response.data.data) });
-      })
-      .catch((error) => {
-        dispatch({ type: ERROR_MAIN, error });
+        dispatch({ type: ERROR_CLIPBOARD, error });
       });
   };
 };
 
 export {
-  LOAD_PASSWORD,
-  ERROR_PASSWORD,
-  loadPassword,
-  LOAD_FOOD,
-  ERROR_FOOD,
-  loadFood,
-  LOAD_MAIN,
-  ERROR_MAIN,
-  loadMain
+  LOAD_CLIPBOARD,
+  ERROR_CLIPBOARD,
+  loadClipboard
 };

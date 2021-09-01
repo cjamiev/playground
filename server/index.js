@@ -44,7 +44,7 @@ const STATUS_ERROR = 500;
 const METHOD_POST = 'POST';
 const FILE_DIRECTORY = './storage/io/file';
 const DB_DIRECTORY = './storage/io/db';
-const SCRIPT_DIRECTORY = './storage/io/scripts';
+const SCRIPT_DIRECTORY = './storage/io/script';
 
 const cors = (res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
