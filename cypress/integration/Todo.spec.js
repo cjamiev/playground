@@ -4,11 +4,10 @@ const TWO = 2;
 
 context('Todo', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/#/experiment');
+    cy.visit('http://localhost:3000/#/home');
   });
 
   it('Add To Do Item(s)', () => {
-    cy.contains('Todo').click();
     cy.get('[data-testid="todo-in"]').type('item1').should('have.value', 'item1');
     cy.contains('Add Item').click();
     cy.get('[data-testid="todo-in"]').type('item2').should('have.value', 'item2');
@@ -26,8 +25,8 @@ context('Todo', () => {
         cy.get(item).contains('item3');
       }
     });
-    cy.get('[data-testid="item3"]').contains('Move Item Up').click();
-    cy.get('[data-testid="item1"]').contains('Move Item Down').click();
+    cy.get('[data-testid="item3"]').contains('Move Up').click();
+    cy.get('[data-testid="item1"]').contains('Move Down').click();
     cy.get('[data-testid="todo-list"]').children().should('have.length', 3).each((item, index) => {
       if(index === ZERO) {
         cy.get(item).contains('item3');

@@ -8,7 +8,7 @@ const ZERO = 0;
 const loadClipboard = () => {
   return (dispatch) => {
     api
-      .get('/db/?name=clipboard.db')
+      .get('/db/?name=clipboard.json')
       .then((response) => {
         dispatch({ type: LOAD_CLIPBOARD, data: JSON.parse(response.data.data) });
       })

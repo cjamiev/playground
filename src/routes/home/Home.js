@@ -1,95 +1,97 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadDirectory, loadFile, writeFile } from './homeActions';
-import { createAlert, dismissAlert } from 'components/alert/alertActions';
+import React, { useState } from 'react';
 import Page from 'components/layout';
-import Button from 'components/button';
-import Text from 'components/form/Text';
-import TextArea from 'components/form/TextArea';
-import Dropdown from 'components/form/Dropdown';
-import Switch from 'components/switch';
-import { copyToClipboard } from 'helper/copy';
-import { sortByDelimiter, sortDescendingByDelimiter } from 'sort';
-import { isJSONString } from 'type-check';
 import HomeFooter from './HomeFooter';
+import Button from 'components/button';
+import {
+  decrementElementIndex,
+  incrementElementIndex,
+  swapArrayElementPositions
+} from 'arrayHelper';
 import './home.css';
 
-const ZERO = 0;
-const ONE = 1;
-const DELIMITER_TYPES = [
-  { label:'comma', value: ',', selected: true },
-  { label:'space', value: ' ', selected: false },
-  { label:'new line', value: '\n', selected: false }
-];
+const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
+  return (
+    <ul data-testid='todo-list'>
+      {items.map((item) => (
+        <div key={item.id} data-testid={item.text}>
+          <span>{item.text}</span>
+          <Button label="Done" onClick={() => { removeItem(item.id); }} />
+          <Button label="Move Up" onClick={() => { moveItemUp(item.id); }} />
+          <Button label="Move Down" onClick={() => { moveItemDown(item.id);}} />
+        </div>
+      ))}
+    </ul>
+  );
+};
 
-const Home = () => {
-  const today = new Date();
-  const [name, setName] = useState('');
-  const [content, setContent] = useState('');
-  const [delimiters, setDelimiters] = useState(DELIMITER_TYPES);
-  const [find, setFind] = useState('');
-  const [replace, setReplace] = useState('');
-  const dispatch = useDispatch();
-  const { directory, file, error, result } = useSelector(state => state.home);
+const TestTodo = () => {
+  const currentTodo = JSON.parse(localStorage.getItem('todo') || '[]');
+  const [items, setItems] = useState(currentTodo);
+  const [text, setText] = useState('');
 
-  useEffect(() => {
-    dispatch(loadDirectory());
-  }, [dispatch]);
+  const handleChange = (e) => {
+    setText(e.target.value);
+  };
 
-  useEffect(() => {
-    if(error.message) {
-      dispatch(createAlert({ content: error.message, status: 'error' }));
+  const addItem = (e) => {
+    e.preventDefault();
+    if (!text.length) {
+      return;
     }
-    if(result.message) {
-      dispatch(createAlert({ content: result.message, status: 'success' }));
-      dispatch(loadDirectory());
-    }
-  }, [dispatch, error.message, result.message]);
 
-  useEffect(() => {
-    setContent(file);
-  }, [file]);
+    const newItem = {
+      text,
+      id: Date.now()
+    };
 
-  const directoryFilesName = directory.filter(item => item.includes('.')).map(item => {
-    return <Button key={item} label={item.split('.')[ZERO]} onClick={() => { setName(item); dispatch(loadFile(item));}} />;
-  });
+    const updatedItems = items.concat(newItem);
+    setItems(updatedItems);
+    setText('');
+    localStorage.setItem('todo', JSON.stringify(updatedItems));
+  };
 
-  const selectedDelimiter = delimiters.find(item => item.selected);
+  const removeItem = id => {
+    const updatedItems = items.filter(item => item.id !== id);
+
+    setItems(updatedItems);
+    localStorage.setItem('todo', JSON.stringify(updatedItems));
+  };
+
+  const moveItemUp = id => {
+    const index = items.findIndex(item => item.id === id);
+    const updatedItems = decrementElementIndex(items, index);
+
+    setItems(updatedItems);
+    localStorage.setItem('todo', JSON.stringify(updatedItems));
+  };
+
+  const moveItemDown = id => {
+    const index = items.findIndex((item) => item.id === id);
+    const updatedItems = incrementElementIndex(items, index);
+
+    setItems(updatedItems);
+    localStorage.setItem('todo', JSON.stringify(updatedItems));
+  };
 
   return (
-    <Page
-      sidePanelContent={<div className="container--center">{directoryFilesName}</div>}
-      footerComponent={HomeFooter()}
-    >
-      <div className="home__btns">
-        <Text placeholder='Enter File Name' selected={name} onChange={({selected}) => { setName(selected); }} />
-        <Button label='Save' onClick={() => {
-          if(name && content) {
-            dispatch(writeFile(name, content));
-          }
-        }} />
-        <Button label='Copy' onClick={() => { copyToClipboard(content); }} />
-        <Button label='Validate' onClick={() => {
-          dispatch(dismissAlert());
-          const isValid = isJSONString(content);
-          const message = isValid ? 'Is Valid JSON' : 'Is NOT Valid JSON';
-          const status = isValid ? 'success' : 'error';
-          dispatch(createAlert({ content: message, status }));
-        }} />
-        <Button label='Sort Asc' onClick={() => { setContent(sortByDelimiter(content, selectedDelimiter.value)); }} />
-        <Button label='Sort Desc' onClick={() => { setContent(sortDescendingByDelimiter(content, selectedDelimiter.value)); }} />
-        <Button label='Split' onClick={() => { setContent(content.split(selectedDelimiter.value).join('\n')); }} />
-        <Button label='Join' onClick={() => { setContent(content.split('\n').join(selectedDelimiter.value)); }} />
-        <Button label='Trim' onClick={() => { setContent(content.replace(/\n|\t|\r/gm, '').replace(/[ ]{2,}/gm, ' ')); }} />
-        <Dropdown label={`Delimiter: ${selectedDelimiter.label}`} values={delimiters} onChange={({ values }) => { setDelimiters(values); }} />
-        <Text placeholder='Text to search' selected={find} onChange={({selected}) => { setFind(selected); }} />
-        <Text placeholder='Text to replace' selected={replace} onChange={({selected}) => { setReplace(selected); }} />
-        <Button label='Replace All' onClick={() => {
-          const regex = new RegExp(find, 'gm');
-          setContent(content.replace(regex, replace));
-        }} />
-      </div>
-      <TextArea ariaLabel='Content text area' fullPage selected={content} onChange={({ selected }) => { setContent(selected); }}/>
+    <div className="container--center">
+      <h2>TODO</h2>
+      <TodoList
+        items={items}
+        removeItem={removeItem}
+        moveItemUp={moveItemUp}
+        moveItemDown={moveItemDown}
+      />
+      <input data-testid="todo-in" type="text" value={text} onChange={handleChange} />
+      <Button data-testid="todo-add-btn" label="Add Item" onClick={addItem} />
+    </div>
+  );
+};
+
+const Home = () => {
+  return (
+    <Page footerComponent={HomeFooter()}>
+      <TestTodo />
     </Page>
   );
 };
