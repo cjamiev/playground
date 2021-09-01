@@ -95,25 +95,25 @@ const send = (response, { data = {}, message = '', error = false }) => {
   response.end(JSON.stringify({ data, message, error }), UTF8);
 };
 
-const handleWriteResponse = async (request, response) => {
+const handleWriteResponse = async (request, response, directory) => {
   const payload = await resolvePostBody(request);
 
   const content = payload.content || '';
   const filename = payload.filename || new Date().toString().slice(4, 24).replace(/ /g, '.').replace(/:/g, '.');
-  const filepath = payload.filepath || FILE_DIRECTORY + '/';
+  const filepath = payload.filepath || directory + '/';
 
   const data = writeToFile(filepath + filename, content);
 
   send(response, { data });
 };
 
-const handleReadResponse = (request, response) => {
+const handleReadResponse = (request, response, directory) => {
   const queryParams = url.parse(request.url, true).query;
 
   const data =
     queryParams.name
-      ? loadFile(FILE_DIRECTORY + '/' + queryParams.name)
-      : readDirectory(FILE_DIRECTORY);
+      ? loadFile(directory + '/' + queryParams.name)
+      : readDirectory(directory);
 
   send(response, { data });
 };
@@ -127,14 +127,11 @@ const handleCommandResponse = (request, response) => {
 };
 
 const handleDbResponse = (request, response) => {
-  const queryParams = url.parse(request.url, true).query;
-
-  const data =
-    queryParams.name
-      ? loadFile(DB_DIRECTORY + '/' + queryParams.name)
-      : readDirectory(DB_DIRECTORY);
-
-  send(response, { data });
+  if (request.method === METHOD_POST) {
+    handleWriteResponse(request, response, DB_DIRECTORY);
+  } else {
+    handleReadResponse(request, response, DB_DIRECTORY);
+  }
 };
 
 const handleMockServerPostResponses = async (request, response) => {
@@ -248,9 +245,9 @@ http
   .createServer((request, response) => {
     cors(response);
     if (request.url.includes('write')) {
-      handleWriteResponse(request, response);
+      handleWriteResponse(request, response, FILE_DIRECTORY);
     } else if (request.url.includes('read')) {
-      handleReadResponse(request, response);
+      handleReadResponse(request, response, FILE_DIRECTORY);
     } else if (request.url.includes('command')) {
       handleCommandResponse(request, response);
     } else if (request.url.includes('db')) {
