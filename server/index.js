@@ -150,9 +150,9 @@ const handleMockServerPostResponses = async (request, response) => {
 
     send(response, { message });
   } else if (request.url.includes('createMockEndpoint')) {
-    const { message, error } = createMockFile(payload);
+    const message = createMockFile(payload);
 
-    send(response, { message, error });
+    send(response, { message });
   } else if (request.url.includes('updateMockEndpoint')) {
     const message = updateMockFile(payload);
 
