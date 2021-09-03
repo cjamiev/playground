@@ -13,7 +13,7 @@ import Button from 'components/button';
 const MockViewEndpoint = () => {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState('');
-  const { mocks, mockResponse, message } = useSelector(state => state.mockserver);
+  const { mocks, mockResponse } = useSelector(state => state.mockserver);
   const filteredMocks = useFilter(mocks,'url', filter);
 
   useEffect(() => {
@@ -36,13 +36,6 @@ const MockViewEndpoint = () => {
       }));
     }
   }, [dispatch, mockResponse]);
-
-
-  useEffect(() => {
-    if(message.message) {
-      dispatch(createAlert({ content: message.message, status: message.error ? 'error': 'success' }));
-    }
-  }, [dispatch, message]);
 
   const handleFilterChange = ({ selected }) => {
     setFilter(selected);

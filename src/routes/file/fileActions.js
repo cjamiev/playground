@@ -1,10 +1,8 @@
 import api from 'api';
+import { createAlert } from 'components/alert/alertActions';
 
 const LOAD_DIRECTORY = 'LOAD_DIRECTORY';
-const ERROR_DIRECTORY = 'ERROR_DIRECTORY';
 const LOAD_FILE = 'LOAD_FILE';
-const ERROR_FILE = 'ERROR_FILE';
-const WRITE_FILE = 'WRITE_FILE';
 
 const loadDirectory = () => {
   return (dispatch) => {
@@ -14,7 +12,7 @@ const loadDirectory = () => {
         dispatch({ type: LOAD_DIRECTORY, data: response.data.data });
       })
       .catch((error) => {
-        dispatch({ type: ERROR_DIRECTORY, error });
+        dispatch(createAlert({ content: error.message, status: 'error' }));
       });
   };
 };
@@ -27,7 +25,7 @@ const loadFile = (filename) => {
         dispatch({ type: LOAD_FILE, data: response.data.data });
       })
       .catch((error) => {
-        dispatch({ type: ERROR_FILE, error });
+        dispatch(createAlert({ content: error.message, status: 'error' }));
       });
   };
 };
@@ -37,21 +35,18 @@ const writeFile = (filename, content) => {
     api
       .post('/write', { filename, content })
       .then((response) => {
-        dispatch({ type: WRITE_FILE, data: response.data.data });
+        dispatch(createAlert({ content: response.data.message, status: 'success' }));
       })
       .catch((error) => {
-        dispatch({ type: ERROR_FILE, error });
+        dispatch(createAlert({ content: error.message, status: 'error' }));
       });
   };
 };
 
 export {
   LOAD_DIRECTORY,
-  ERROR_DIRECTORY,
   loadDirectory,
   LOAD_FILE,
-  ERROR_FILE,
   loadFile,
-  WRITE_FILE,
   writeFile
 };

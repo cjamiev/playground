@@ -2,16 +2,11 @@ import {
   LOAD_MOCKSERVER_CONFIG,
   UPDATE_MOCKSERVER_CONFIG,
   LOAD_MOCKREQUESTS,
-  UPDATE_MOCKREQUESTS,
   DELETE_MOCK_ENDPOINT,
   LOAD_MOCK_RESPONSE,
-  UPDATE_MOCK_RESPONSE,
-  CREATE_MOCK_ENDPOINT,
-  UPDATE_MOCK_ENDPOINT,
+  CLEAR_MOCK_RESPONSE,
   LOAD_MOCKSERVER_LOG,
-  CLEAR_MOCKSERVER_LOG,
-  ERROR_MOCKSERVER,
-  CLEAR_MOCK_RESPONSE
+  CLEAR_MOCKSERVER_LOG
 } from './mockserverActions';
 import mockserverReducer, { mockserverInitialState } from './mockserverReducer';
 
@@ -46,10 +41,6 @@ describe('mockserverReducer', () => {
   it('UPDATE_MOCKSERVER_CONFIG', () => {
     const action = {
       type: UPDATE_MOCKSERVER_CONFIG,
-      data: {
-        error: false,
-        message: 'Wrote to file:./storage/mock/config.json'
-      },
       payload: {
         testing: 123
       }
@@ -58,7 +49,6 @@ describe('mockserverReducer', () => {
 
     expect(result).toEqual({
       ...mockserverInitialState,
-      message: action.data,
       config: action.payload
     });
   });
@@ -75,22 +65,6 @@ describe('mockserverReducer', () => {
     expect(result).toEqual({
       ...mockserverInitialState,
       mocks: action.data
-    });
-  });
-
-  it('UPDATE_MOCKREQUESTS', () => {
-    const action = {
-      type: UPDATE_MOCKREQUESTS,
-      data: {
-        error: false,
-        message: 'Wrote to file:./storage/mock/responses/test.json'
-      }
-    };
-    const result = mockserverReducer(mockserverInitialState, action);
-
-    expect(result).toEqual({
-      ...mockserverInitialState,
-      message: action.data
     });
   });
 
@@ -132,21 +106,6 @@ describe('mockserverReducer', () => {
     });
   });
 
-  it('UPDATE_MOCK_RESPONSE', () => {
-    const action = {
-      type: UPDATE_MOCK_RESPONSE,
-      data: {
-        message: 'it worked'
-      }
-    };
-    const result = mockserverReducer(mockserverInitialState, action);
-
-    expect(result).toEqual({
-      ...mockserverInitialState,
-      message: action.data
-    });
-  });
-
   it('CLEAR_MOCK_RESPONSE', () => {
     const action = {
       type: CLEAR_MOCK_RESPONSE
@@ -156,38 +115,6 @@ describe('mockserverReducer', () => {
     expect(result).toEqual({
       ...mockserverInitialState,
       mockResponse: undefined
-    });
-  });
-
-  it('CREATE_MOCK_ENDPOINT', () => {
-    const action = {
-      type: CREATE_MOCK_ENDPOINT,
-      data: {
-        error: false,
-        message: 'Wrote to file:./storage/mock/responses/test.json'
-      }
-    };
-    const result = mockserverReducer(mockserverInitialState, action);
-
-    expect(result).toEqual({
-      ...mockserverInitialState,
-      message: action.data
-    });
-  });
-
-  it('UPDATE_MOCK_ENDPOINT', () => {
-    const action = {
-      type: UPDATE_MOCK_ENDPOINT,
-      data: {
-        error: false,
-        message: 'Wrote to file:./storage/mock/responses/test.json'
-      }
-    };
-    const result = mockserverReducer(mockserverInitialState, action);
-
-    expect(result).toEqual({
-      ...mockserverInitialState,
-      message: action.data
     });
   });
 
@@ -215,36 +142,13 @@ describe('mockserverReducer', () => {
 
   it('CLEAR_MOCKSERVER_LOG', () => {
     const action = {
-      type: CLEAR_MOCKSERVER_LOG,
-      data: {
-        error: false,
-        message: {
-          'error': false,
-          'message': 'Wrote to file:./storage/mock/log.json'
-        }
-      }
+      type: CLEAR_MOCKSERVER_LOG
     };
     const result = mockserverReducer(mockserverInitialState, action);
 
     expect(result).toEqual({
       ...mockserverInitialState,
-      log: [],
-      message: action.data
-    });
-  });
-
-  it('ERROR_MOCKSERVER', () => {
-    const action = {
-      type: ERROR_MOCKSERVER,
-      error: {
-        message: 'Wrote to file:./storage/mock/log.json'
-      }
-    };
-    const result = mockserverReducer(mockserverInitialState, action);
-
-    expect(result).toEqual({
-      ...mockserverInitialState,
-      error: action.error
+      log: []
     });
   });
 });

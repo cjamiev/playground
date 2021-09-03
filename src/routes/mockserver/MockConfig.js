@@ -11,17 +11,11 @@ import { mapConfigPayloadToFields, mapFieldsToConfigPayload } from './helper';
 const MockConfig = () => {
   const [fields, setFields] = useState([]);
   const dispatch = useDispatch();
-  const { config, message } = useSelector(state => state.mockserver);
+  const { config } = useSelector(state => state.mockserver);
 
   useEffect(() => {
     dispatch(loadMockServerConfig());
   }, [dispatch]);
-
-  useEffect(() => {
-    if(message.message) {
-      dispatch(createAlert({ content: message.message, status: message.error ? 'error': 'success' }));
-    }
-  }, [dispatch, message]);
 
   useEffect(() => {
     if(!isEmpty(config)) {

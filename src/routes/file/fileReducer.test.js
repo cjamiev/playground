@@ -1,9 +1,6 @@
 import {
   LOAD_DIRECTORY,
-  ERROR_DIRECTORY,
-  LOAD_FILE,
-  ERROR_FILE,
-  WRITE_FILE
+  LOAD_FILE
 } from './fileActions';
 import fileReducer, { fileInitialState } from './fileReducer';
 
@@ -27,21 +24,6 @@ describe('fileReducer', () => {
     });
   });
 
-  it('ERROR_DIRECTORY', () => {
-    const action = {
-      type: ERROR_DIRECTORY,
-      error: {
-        message: 'test-error'
-      }
-    };
-    const result = fileReducer(fileInitialState, action);
-
-    expect(result).toEqual({
-      ...fileInitialState,
-      error: action.error
-    });
-  });
-
   it('LOAD_FILE', () => {
     const action = {
       type: LOAD_FILE,
@@ -52,36 +34,6 @@ describe('fileReducer', () => {
     expect(result).toEqual({
       ...fileInitialState,
       file: action.data
-    });
-  });
-
-  it('ERROR_FILE', () => {
-    const action = {
-      type: ERROR_FILE,
-      error: {
-        message: 'test-error'
-      }
-    };
-    const result = fileReducer(fileInitialState, action);
-
-    expect(result).toEqual({
-      ...fileInitialState,
-      error: action.error
-    });
-  });
-
-  it('WRITE_FILE', () => {
-    const action = {
-      type: WRITE_FILE,
-      data: {
-        message: 'Successful'
-      }
-    };
-    const result = fileReducer(fileInitialState, action);
-
-    expect(result).toEqual({
-      ...fileInitialState,
-      result: action.data
     });
   });
 });

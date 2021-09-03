@@ -4,15 +4,10 @@ import {
   LOAD_MOCKSERVER_CONFIG,
   UPDATE_MOCKSERVER_CONFIG,
   LOAD_MOCKREQUESTS,
-  UPDATE_MOCKREQUESTS,
   DELETE_MOCK_ENDPOINT,
   LOAD_MOCK_RESPONSE,
-  UPDATE_MOCK_RESPONSE,
-  CREATE_MOCK_ENDPOINT,
-  UPDATE_MOCK_ENDPOINT,
   LOAD_MOCKSERVER_LOG,
   CLEAR_MOCKSERVER_LOG,
-  ERROR_MOCKSERVER,
   CLEAR_MOCK_RESPONSE,
   loadMockServerConfig,
   updateMockServerConfig,
@@ -27,6 +22,7 @@ import {
   clearMockServerLog,
   clearMockResponse
 } from './mockserverActions';
+import { CREATE_ALERT } from 'components/alert/alertActions';
 
 const error = new Error('Test Message');
 const dispatch = jest.fn();
@@ -45,6 +41,14 @@ api.post.mockResolvedValue({
     message: 'testing 123'
   }
 });
+const errorObject = {
+  content: 'Test Message',
+  status: 'error'
+};
+const successObject = {
+  content: 'testing 123',
+  status: 'success'
+};
 
 describe('mockserverActions', () => {
   it('loadMockServerConfig', async () => {
@@ -61,7 +65,7 @@ describe('mockserverActions', () => {
     loadMockServerConfig()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 
@@ -70,7 +74,7 @@ describe('mockserverActions', () => {
     updateMockServerConfig(payload)(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: UPDATE_MOCKSERVER_CONFIG, data: 'testing 123', payload});
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
     });
   });
 
@@ -79,7 +83,7 @@ describe('mockserverActions', () => {
     updateMockServerConfig()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 
@@ -96,7 +100,7 @@ describe('mockserverActions', () => {
     loadMockRequests()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 
@@ -104,7 +108,7 @@ describe('mockserverActions', () => {
     updateMockRequests()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: UPDATE_MOCKREQUESTS, data: 'testing 123'});
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
     });
   });
 
@@ -113,7 +117,7 @@ describe('mockserverActions', () => {
     updateMockRequests()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 
@@ -122,7 +126,8 @@ describe('mockserverActions', () => {
     deleteMockEndpoint(endpoint)(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: DELETE_MOCK_ENDPOINT, data: 'testing 123', endpoint});
+      expect(dispatch).toHaveBeenCalledWith({ type: DELETE_MOCK_ENDPOINT, endpoint });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
     });
   });
 
@@ -132,7 +137,7 @@ describe('mockserverActions', () => {
     deleteMockEndpoint()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 
@@ -152,7 +157,7 @@ describe('mockserverActions', () => {
     loadMockResponse(payload)(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 
@@ -175,7 +180,7 @@ describe('mockserverActions', () => {
     updateMockResponse(payload)(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: UPDATE_MOCK_RESPONSE, data: 'testing 123' });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
     });
   });
 
@@ -184,7 +189,7 @@ describe('mockserverActions', () => {
     updateMockResponse({})(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 
@@ -196,7 +201,7 @@ describe('mockserverActions', () => {
     createMockEndpoint()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_MOCK_ENDPOINT, data: 'testing 123'});
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
     });
   });
 
@@ -205,7 +210,7 @@ describe('mockserverActions', () => {
     createMockEndpoint()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 
@@ -213,7 +218,7 @@ describe('mockserverActions', () => {
     updateMockEndpoint()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: UPDATE_MOCK_ENDPOINT, data: 'testing 123'});
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
     });
   });
 
@@ -222,7 +227,7 @@ describe('mockserverActions', () => {
     updateMockEndpoint()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 
@@ -239,7 +244,7 @@ describe('mockserverActions', () => {
     loadMockServerLog()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 
@@ -247,7 +252,7 @@ describe('mockserverActions', () => {
     clearMockServerLog()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CLEAR_MOCKSERVER_LOG, data: 'testing 123'});
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
     });
   });
 
@@ -256,7 +261,7 @@ describe('mockserverActions', () => {
     clearMockServerLog()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_MOCKSERVER, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 });

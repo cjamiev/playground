@@ -2,20 +2,27 @@ import { waitFor } from '@testing-library/react';
 import api from 'api';
 import {
   LOAD_DIRECTORY,
-  ERROR_DIRECTORY,
   loadDirectory,
   LOAD_FILE,
-  ERROR_FILE,
   loadFile,
   WRITE_FILE,
   writeFile
 } from './fileActions';
+import { CREATE_ALERT } from 'components/alert/alertActions';
 
 const error = new Error('Test Message');
 const dispatch = jest.fn();
 
 const mockGet = jest.fn();
 jest.mock('api');
+const errorObject = {
+  content: 'Test Message',
+  status: 'error'
+};
+const successObject = {
+  content: 'testing 123',
+  status: 'success'
+};
 
 describe('fileActions', () => {
   it('loadDirectory', async () => {
@@ -37,7 +44,7 @@ describe('fileActions', () => {
     loadDirectory()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_DIRECTORY, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 
@@ -59,20 +66,20 @@ describe('fileActions', () => {
     loadFile()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_FILE, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 
   it('writeFile', async () => {
     api.post.mockResolvedValue({
       data: {
-        data: 'test message'
+        message: 'testing 123'
       }
     });
     writeFile()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: WRITE_FILE, data: 'test message'});
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
     });
   });
 
@@ -81,7 +88,7 @@ describe('fileActions', () => {
     writeFile()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_FILE, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 });

@@ -102,9 +102,9 @@ const handleWriteResponse = async (request, response, directory) => {
   const filename = payload.filename || new Date().toString().slice(4, 24).replace(/ /g, '.').replace(/:/g, '.');
   const filepath = payload.filepath || directory + '/';
 
-  const data = writeToFile(filepath + filename, content);
+  const { message, error } = writeToFile(filepath + filename, content);
 
-  send(response, { data });
+  send(response, { message, error });
 };
 
 const handleReadResponse = (request, response, directory) => {
@@ -138,25 +138,25 @@ const handleMockServerPostResponses = async (request, response) => {
   const payload = await resolvePostBody(request);
 
   if (request.url.includes('config')) {
-    const message = updateConfiguration(payload);
+    const { message, error } = updateConfiguration(payload);
 
-    send(response, { message });
+    send(response, { message, error });
   } else if (request.url.includes('loadMockResponse')) {
     const data = loadMockResponse(payload.responsePath);
 
     send(response, { data });
   } else if (request.url.includes('deleteMockEndpoint')) {
-    const message = removeMockRequestsEntry(payload);
+    const { message, error } = removeMockRequestsEntry(payload);
 
-    send(response, { message });
+    send(response, { message, error });
   } else if (request.url.includes('createMockEndpoint')) {
-    const message = createMockFile(payload);
+    const { message, error } = createMockFile(payload);
 
-    send(response, { message });
+    send(response, { message, error });
   } else if (request.url.includes('updateMockEndpoint')) {
-    const message = updateMockFile(payload);
+    const { message, error } = updateMockFile(payload);
 
-    send(response, { message });
+    send(response, { message, error });
   }
 };
 
@@ -172,9 +172,9 @@ const handleMockServerResponse = (request, response) => {
 
     send(response, { data });
   } else if (request.url.includes('clearLog')) {
-    const message = clearLog();
+    const { message, error } = clearLog();
 
-    send(response, { message });
+    send(response, { message, error });
   } else if (request.url.includes('loadLog')) {
     const data = loadLog();
 

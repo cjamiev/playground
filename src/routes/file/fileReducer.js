@@ -1,16 +1,11 @@
 import {
   LOAD_DIRECTORY,
-  ERROR_DIRECTORY,
-  LOAD_FILE,
-  ERROR_FILE,
-  WRITE_FILE
+  LOAD_FILE
 } from './fileActions';
 
 export const fileInitialState = {
   directory: [],
-  file: '',
-  error: {},
-  result: {}
+  file: ''
 };
 
 const fileReducer = (state = fileInitialState, action) => {
@@ -21,28 +16,10 @@ const fileReducer = (state = fileInitialState, action) => {
         directory: action.data
       };
     },
-    [ERROR_DIRECTORY]: () => {
-      return {
-        ...state,
-        error: action.error
-      };
-    },
     [LOAD_FILE]: () => {
       return {
         ...state,
         file: action.data
-      };
-    },
-    [ERROR_FILE]: () => {
-      return {
-        ...state,
-        error: action.error
-      };
-    },
-    [WRITE_FILE]: () => {
-      return {
-        ...state,
-        result: action.data
       };
     }
   };

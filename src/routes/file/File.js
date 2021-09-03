@@ -29,28 +29,18 @@ const File = () => {
   const [find, setFind] = useState('');
   const [replace, setReplace] = useState('');
   const dispatch = useDispatch();
-  const { directory, file, error, result } = useSelector(state => state.file);
+  const { directory, file } = useSelector(state => state.file);
 
   useEffect(() => {
     dispatch(loadDirectory());
   }, [dispatch]);
 
   useEffect(() => {
-    if(error.message) {
-      dispatch(createAlert({ content: error.message, status: 'error' }));
-    }
-    if(result.message) {
-      dispatch(createAlert({ content: result.message, status: 'success' }));
-      dispatch(loadDirectory());
-    }
-  }, [dispatch, error.message, result.message]);
-
-  useEffect(() => {
     setContent(file);
   }, [file]);
 
   const directoryFilesName = directory.filter(item => item.includes('.')).map(item => {
-    return <Button key={item} label={item.split('.')[ZERO]} onClick={() => { setName(item); dispatch(loadFile(item));}} />;
+    return <Button key={item} label={item.split('.')[ZERO]} onClick={() => { setName(item); dispatch(loadFile(item)); dispatch(dismissAlert());}} />;
   });
 
   const selectedDelimiter = delimiters.find(item => item.selected);

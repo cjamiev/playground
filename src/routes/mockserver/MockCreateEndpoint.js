@@ -11,13 +11,6 @@ import { mapFieldsToNewMockPayload, getNewMockFields } from './helper';
 const MockCreateEndpoint = () => {
   const [fields, setFields] = useState(getNewMockFields());
   const dispatch = useDispatch();
-  const { message } = useSelector(state => state.mockserver);
-
-  useEffect(() => {
-    if(message.message) {
-      dispatch(createAlert({ content: message.message, status: message.error ? 'error': 'success' }));
-    }
-  }, [dispatch, message]);
 
   const handleChange = (changedData) => {
     const updatedFields = updateData(fields, changedData);

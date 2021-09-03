@@ -7,13 +7,7 @@ const pathname = '/mockserver';
 const ZERO = 0;
 
 const mockLogProps = {
-  mockserver: {
-    ...mockserverInitialState,
-    message: {
-      error: false,
-      message: 'Successfully did stuff'
-    }
-  }
+  mockserver: mockserverInitialState
 };
 
 describe('MockServer', () => {

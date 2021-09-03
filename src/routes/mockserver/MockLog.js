@@ -10,19 +10,11 @@ import Button from 'components/button';
 
 const MockLog = () => {
   const dispatch = useDispatch();
-  const { log, message } = useSelector(state => state.mockserver);
+  const { log } = useSelector(state => state.mockserver);
 
   useEffect(() => {
     dispatch(loadMockServerLog());
   }, [dispatch]);
-
-
-  useEffect(() => {
-    if(message.message) {
-      dispatch(createAlert({ content: message.message, status: message.error ? 'error': 'success' }));
-    }
-  }, [dispatch, message]);
-
 
   const renderCells = log.map(({ timestamp, url, payload }, index) => {
     return (

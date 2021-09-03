@@ -55,14 +55,14 @@ const updateMockRequests = (request, filename) => {
 };
 
 const createMockFile = ({ content, filename }) => {
-  const messageOne = updateMockRequests(content.request, filename);
+  const updateResult = updateMockRequests(content.request, filename);
 
-  if (messageOne.error) {
-    return { message: messageOne, error: true };
+  if (updateResult.error) {
+    return { message: updateResult.message, error: true };
   } else {
-    const message = writeToFile(MOCK_FILE_PATH + '/' + filename, JSON.stringify(content.response));
+    const { message, error } = writeToFile(MOCK_FILE_PATH + '/' + filename, JSON.stringify(content.response));
 
-    return { message: message.message, error: message.error };
+    return { message, error };
   }
 };
 
@@ -72,9 +72,9 @@ const updateMockFile = ({ content }) => {
     (entry) => entry.url === content.request.url && entry.method === content.request.method
   );
 
-  const message = writeToFile(matched.responsePath, JSON.stringify(content.response));
+  const result = writeToFile(matched.responsePath, JSON.stringify(content.response));
 
-  return message;
+  return result;
 };
 
 const removeMockRequestsEntry = ({ url, method, responsePath }) => {
@@ -131,9 +131,9 @@ const loadConfiguration = () => {
 
 const updateConfiguration = (payloadConfig) => {
   const updatedConfig = constructValidConfig(payloadConfig);
-  const errorMessage = writeToFile(CONFIG_OVERRIDE_PATH, JSON.stringify(updatedConfig));
+  const result = writeToFile(CONFIG_OVERRIDE_PATH, JSON.stringify(updatedConfig));
 
-  return errorMessage ? errorMessage : CONFIG_SUCCESS_MESSAGE;
+  return result.error ? result : { message: CONFIG_SUCCESS_MESSAGE, error: false };
 };
 
 const loadLog = () => {
