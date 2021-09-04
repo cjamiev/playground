@@ -1,4 +1,16 @@
 input[type="text"],
+input[type="date"] {
+  cursor: text;
+}
+
+input[type="password"],
+input[type="range"],
+input[type="color"],
+select {
+  cursor: pointer;
+}
+
+input[type="text"],
 input[type="password"],
 input[type="range"],
 input[type="color"] {
@@ -36,6 +48,7 @@ input[type="radio"],
 input[type="checkbox"] {
   width: 25px;
   height: 25px;
+  cursor: pointer;
 }
 
 select {
