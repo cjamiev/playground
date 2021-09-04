@@ -24,7 +24,7 @@ const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
   );
 };
 
-const TestTodo = () => {
+const Home = () => {
   const currentTodo = JSON.parse(localStorage.getItem('todo') || '[]');
   const [items, setItems] = useState(currentTodo);
   const [text, setText] = useState('');
@@ -74,24 +74,18 @@ const TestTodo = () => {
   };
 
   return (
-    <div className="container--center">
-      <h2>TODO</h2>
-      <TodoList
-        items={items}
-        removeItem={removeItem}
-        moveItemUp={moveItemUp}
-        moveItemDown={moveItemDown}
-      />
-      <input data-testid="todo-in" type="text" value={text} onChange={handleChange} />
-      <Button data-testid="todo-add-btn" label="Add Item" onClick={addItem} />
-    </div>
-  );
-};
-
-const Home = () => {
-  return (
     <Page footerComponent={HomeFooter()}>
-      <TestTodo />
+      <div className="container--center">
+        <h2>TODO</h2>
+        <TodoList
+          items={items}
+          removeItem={removeItem}
+          moveItemUp={moveItemUp}
+          moveItemDown={moveItemDown}
+        />
+        <input data-testid="todo-in" type="text" value={text} onChange={handleChange} />
+        <Button data-testid="todo-add-btn" label="Add Item" onClick={addItem} />
+      </div>
     </Page>
   );
 };

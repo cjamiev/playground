@@ -1,13 +1,14 @@
 .alert {
-  position: absolute;
+  position: fixed;
   left: calc(50% - 25em);
   line-height: 3em;
   text-align: center;
   font-size: 1.2em;
-  height: 3em;
+  height: 65px;
   width: 50em;
   border-radius: 0.5em;
   top: 1em;
+  z-index: 2;
 }
 
 .alert--info {
