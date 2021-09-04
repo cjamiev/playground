@@ -21,9 +21,11 @@ const Radio = ({ id, label, horizontal = false, values, onChange }) => {
   const className = horizontal ? 'input__flex': '';
 
   const radios = values.map(item => {
+    const ariaLabel = item.selected ? `${item.label} radio option is selected`: `${item.label} radio option is not selected`;
+
     return (
       <div key={item.label} className='input__item-container'>
-        <input className='input__item-field' type="radio" name={label} value={item.label} checked={item.selected} aria-label={`${item.label} radio`} onChange={() => { handleChange(item.label, values);}} />
+        <input className='input__item-field' type="radio" name={label} value={item.label} checked={item.selected} aria-label={ariaLabel} onChange={() => { handleChange(item.label, values);}} />
         <label className="input__item-label" onClick={() => { handleChange(item.label, values);}}>{item.label}</label>
       </div>
     );

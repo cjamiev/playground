@@ -18,9 +18,11 @@ const Checkbox = ({ id, label, horizontal, values, onChange }) => {
   const className = horizontal ? 'input__flex': '';
 
   const checkboxes = values.map(item => {
+    const ariaLabel = item.selected ? `${item.label} checkbox option is selected`: `${item.label} checkbox option is not selected`;
+
     return (
       <div key={item.label} className='input__item-container'>
-        <input className='input__item-field' type="checkbox" name={item.label} value={item.label} aria-label={`${item.label} checkbox`} onChange={() => { handleChange(item.label, values); }} checked={item.selected} />
+        <input className='input__item-field' type="checkbox" name={item.label} value={item.label} aria-label={ariaLabel} onChange={() => { handleChange(item.label, values); }} checked={item.selected} />
         <label className="input__item-label" onClick={() => { handleChange(item.label, values); }}>
           {item.label}
         </label>

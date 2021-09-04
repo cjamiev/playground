@@ -24,8 +24,10 @@ const Dropdown = React.memo(({ id, label, values, onChange }) => {
 
   const renderContent = values.map(item => {
     const className = item.selected ? 'dropdown__item dropdown__item--active' : 'dropdown__item';
+    const ariaLabel = item.selected ? `${item.label} dropdown option is selected`: `${item.label} dropdown option is not selected`;
+
     return (
-      <span key={item.label} className={className} onClick={() => { handleChange(item.label);}}> {item.label} </span>
+      <span key={item.label} aria-label={ariaLabel} className={className} onClick={() => { handleChange(item.label);}}> {item.label} </span>
     );
   });
 
