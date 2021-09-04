@@ -2,10 +2,15 @@
   position: relative;
   display: block;
   cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .dropdown__label {
   cursor: pointer;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .dropdown__content {

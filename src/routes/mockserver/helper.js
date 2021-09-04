@@ -27,7 +27,7 @@ export const getNewMockFields = () => {
     },
     {
       id: 3,
-      type: 'select',
+      type: 'dropdown',
       label: 'Method',
       values: [
         {
@@ -55,7 +55,7 @@ export const getNewMockFields = () => {
     },
     {
       id: 5,
-      type: 'select',
+      type: 'dropdown',
       label: 'Status Code',
       values: Object.keys(HTTP_STATUS).map(item => {
         return {
@@ -174,7 +174,7 @@ export const mapConfigPayloadToFields = (config) => {
     },
     {
       id: 6,
-      type: 'select',
+      type: 'dropdown',
       label: 'Status Code',
       values: Object.keys(HTTP_STATUS).map(item => {
         return {
