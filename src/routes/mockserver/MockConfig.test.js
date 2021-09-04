@@ -45,7 +45,7 @@ describe('MockConfig', () => {
     expect(api.post).toHaveBeenCalledWith('/api/mockserver/config', JSON.stringify(mockserverConfig));
   });
 
-  it('onChange', () => {
+  it('handle onChange', () => {
     reduxTestWrapper(MockConfig, {}, mockConfigProps);
 
     fireEvent.click(screen.getByLabelText('Yes radio option is not selected'));

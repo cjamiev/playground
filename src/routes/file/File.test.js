@@ -55,7 +55,7 @@ describe('File', () => {
     const contentField = screen.getByLabelText('Content text area');
     const splitBtn = screen.getByText('Split');
     const joinBtn = screen.getByText('Join');
-    const delimiterDropdown = screen.getByText('Delimiter: comma');
+    const delimiterDropdown = screen.getByText('Delimiter comma');
 
     fireEvent.change(contentField, { target: { value: '1,3,2,5,4' } });
 

@@ -69,7 +69,7 @@ const File = () => {
         <Button label='Split' onClick={() => { setContent(content.split(selectedDelimiter.value).join('\n')); }} />
         <Button label='Join' onClick={() => { setContent(content.split('\n').join(selectedDelimiter.value)); }} />
         <Button label='Trim' onClick={() => { setContent(content.replace(/\n|\t|\r/gm, '').replace(/[ ]{2,}/gm, ' ')); }} />
-        <Dropdown label={`Delimiter: ${selectedDelimiter.label}`} values={delimiters} onChange={({ values }) => { setDelimiters(values); }} />
+        <Dropdown label='Delimiter' values={delimiters} onChange={({ values }) => { setDelimiters(values); }} />
         <Text placeholder='Text to search' selected={find} onChange={({selected}) => { setFind(selected); }} />
         <Text placeholder='Text to replace' selected={replace} onChange={({selected}) => { setReplace(selected); }} />
         <Button label='Replace All' onClick={() => {

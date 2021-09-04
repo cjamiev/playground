@@ -96,7 +96,7 @@ const ClipboardForm = () => {
             setData(data.filter((item, indx) => indx !== currentIndex));
           }
         } />
-        <Dropdown label={`Type: ${selectedType.label}`} values={types} onChange={({ values }) => { setTypes(values); }} />
+        <Dropdown label='Type' values={types} onChange={({ values }) => { setTypes(values); }} />
         {selectedType.label === TYPE.TIMER
           ? <TimerForm onChange={({ name, content}) => {
             const newDate = new Date(content.year,content.month-ONE,content.day,content.hour,content.minute,content.second);

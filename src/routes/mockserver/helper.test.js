@@ -18,7 +18,7 @@ const newmockFields = [
   },
   {
     id: 3,
-    type: 'select',
+    type: 'dropdown',
     label: 'Method',
     values: [
       {
@@ -46,7 +46,7 @@ const newmockFields = [
   },
   {
     id: 5,
-    type: 'select',
+    type: 'dropdown',
     label: 'Status Code',
     values: Object.keys(HTTP_STATUS).map(item => {
       return {
@@ -175,7 +175,7 @@ const configFields = [
   },
   {
     id: 6,
-    type: 'select',
+    type: 'dropdown',
     label: 'Status Code',
     values: Object.keys(HTTP_STATUS).map(item => {
       return {

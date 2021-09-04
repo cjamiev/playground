@@ -26,9 +26,9 @@ const GeneratorForm = ({ style, onChange }) => {
       data={[
         { label: 'Border', content:
           (<>
-            <Range id='borderThickness' label="Thickness" min="0" max={THICKNESS_MAX} selected={style.borderThickness} onChange={onChange} />
-            <Dropdown id='borderStyle' label={`Border Type: ${style.borderStyle || ''}`} values={borderValues} onChange={onChange} />
-            <Color id='borderColor' label="Color" selected={style.borderColor} onChange={onChange} />
+            <Range id='borderThickness' label='Thickness' min='0' max={THICKNESS_MAX} selected={style.borderThickness} onChange={onChange} />
+            <Dropdown id='borderStyle' label='Border Type' values={borderValues} onChange={onChange} />
+            <Color id='borderColor' label='Color' selected={style.borderColor} onChange={onChange} />
           </>)
         },
         { label: 'Border Radius', content:
@@ -45,24 +45,24 @@ const GeneratorForm = ({ style, onChange }) => {
             <Text id='verticalBoxShadow' label='Vertical' selected={style.verticalBoxShadow} onChange={onChange} />
             <Text id='blurRadiusBoxShadow' label='Blur Radius' selected={style.blurRadiusBoxShadow} onChange={onChange} />
             <Text id='spreadBoxShadow' label='Spread' selected={style.spreadBoxShadow} onChange={onChange} />
-            <Color id='colorBoxShadow' label="Color" selected={style.colorBoxShadow} onChange={onChange} />
+            <Color id='colorBoxShadow' label='Color' selected={style.colorBoxShadow} onChange={onChange} />
           </>)
         },
         { label: 'Color', content:
           (<>
-            <Color id='backgroundColor' label="BG Color" selected={style.backgroundColor} onChange={onChange} />
-            <Range id='opacity' label="Opacity" min="0" max={OPACITY_MAX} selected={style.opacity} onChange={onChange} />
+            <Color id='backgroundColor' label='BG Color' selected={style.backgroundColor} onChange={onChange} />
+            <Range id='opacity' label='Opacity' min='0' max={OPACITY_MAX} selected={style.opacity} onChange={onChange} />
           </>)
         },
         { label: 'Text', content:
           (<>
-            <Color id='fontColor' label="Font Color" selected={style.fontColor} onChange={onChange} />
-            <Range id='fontSize' label="Font Size" min="0" max={FONT_SIZE_MAX} selected={style.fontSize} onChange={onChange} />
-            <Dropdown id='textAlign' label={`Text Align: ${style.textAlign || ''}`} values={textAlignValues} onChange={onChange} />
+            <Color id='fontColor' label='Font Color' selected={style.fontColor} onChange={onChange} />
+            <Range id='fontSize' label='Font Size' min='0' max={FONT_SIZE_MAX} selected={style.fontSize} onChange={onChange} />
+            <Dropdown id='textAlign' label='Text Align' values={textAlignValues} onChange={onChange} />
             <Text id='horizontalTextShadow' label='Horizontal' selected={style.horizontalTextShadow} onChange={onChange} />
             <Text id='verticalTextShadow' label='Vertical' selected={style.verticalTextShadow} onChange={onChange} />
             <Text id='blurRadiusTextShadow' label='Blur Radius' selected={style.blurRadiusTextShadow} onChange={onChange} />
-            <Color id='colorTextShadow' label="Text Shadow Color" selected={style.colorTextShadow} onChange={onChange} />
+            <Color id='colorTextShadow' label='Text Shadow Color' selected={style.colorTextShadow} onChange={onChange} />
           </>)
         },
         { label: 'Filter', content:
@@ -91,7 +91,7 @@ const GeneratorForm = ({ style, onChange }) => {
           (<>
             <Text id='transitionProperty' label='Transition Property' selected={style.transitionProperty} onChange={onChange} />
             <Text id='transitionDuration' label='Transition Duration' selected={style.transitionDuration} onChange={onChange} />
-            <Dropdown id='transitionTimingFunction' label={`Transition Timing Function: ${style.transitionTimingFunction || ''}`} values={transitionTimingFunctionValues} onChange={onChange} />
+            <Dropdown id='transitionTimingFunction' label='Transition Timing Function' values={transitionTimingFunctionValues} onChange={onChange} />
             <Text id='transitionDelay' label='Transition Delay' selected={style.transitionDelay} onChange={onChange} />
           </>)
         },
@@ -113,7 +113,7 @@ const GeneratorForm = ({ style, onChange }) => {
         },
         { label: 'Size', content:
           (<>
-            <Text id='width' label="Width" selected={style.width} onChange={onChange} />
+            <Text id='width' label='Width' selected={style.width} onChange={onChange} />
             <Text id='height' label='Height' selected={style.height} onChange={onChange} />
           </>)
         }

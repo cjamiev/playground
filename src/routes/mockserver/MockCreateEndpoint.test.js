@@ -33,4 +33,15 @@ describe('MockCreateEndpoint', () => {
 
     expect(api.post).toHaveBeenCalledWith('/api/mockserver/createMockEndpoint', payload);
   });
+
+  it('handle onChange', () => {
+    reduxTestWrapper(MockCreateEndpoint, {}, mockCreateEndpointProps );
+
+    const methodBtn = screen.getByText('Method GET');
+    fireEvent.click(methodBtn);
+    const postOption = screen.getByText('POST');
+    fireEvent.click(postOption);
+
+    expect(screen.getByText('Method POST')).toBeInTheDocument();
+  });
 });
