@@ -1,7 +1,6 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { simpleTestWrapper } from 'testHelper';
+import { render, screen } from '@testing-library/react';
 import { TIME, MONTHS, DAYS_OF_THE_WEEK } from 'constants/time';
 import useTimer from './useTimer';
 

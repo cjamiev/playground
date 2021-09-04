@@ -22,6 +22,7 @@
 
 .navigation__time_label {
   font-size: 16px;
+  white-space: nowrap;
 }
 
 .navigation__links {
@@ -36,6 +37,7 @@
   margin-right: 1em;
   cursor: pointer;
   height: 1.4em;
+  white-space: nowrap;
 }
 
 .navigation__links-item:hover {

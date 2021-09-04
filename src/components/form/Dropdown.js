@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import useOnClickOutside from 'hooks/useOnClickOutside';
 import './dropdown.css';
 
 const Dropdown = React.memo(({ id, label, values, onChange }) => {
+  const ref = useRef();
   const [show, setShow] = useState(false);
+  useOnClickOutside(ref, () => setShow(false));
 
   const handleChange = (selected) => {
     const updatedValues = values.map(item => {
@@ -34,7 +37,7 @@ const Dropdown = React.memo(({ id, label, values, onChange }) => {
   const selectedValue = values.find(item => item.selected) || {};
 
   return (
-    <div className="dropdown" onClick={() => { setShow(!show);}}>
+    <div ref={ref} role="button" className="dropdown" onClick={() => { setShow(!show);}}>
       <label className="dropdown__label">{label} {selectedValue.label}</label>
       {show && (<div className='dropdown__content'>{renderContent}</div>)}
     </div>

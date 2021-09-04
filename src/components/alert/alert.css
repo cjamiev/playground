@@ -7,8 +7,12 @@
   height: 65px;
   width: 50em;
   border-radius: 0.5em;
-  top: 1em;
+  top: 100px;
   z-index: 2;
+}
+
+.alert--sticky {
+  top: 1em;
 }
 
 .alert--info {
@@ -37,9 +41,8 @@
 
 .alert__counter {
   position: absolute;
-  margin-top: 0.7em;
-  left: 93%;
-  border-radius: 3em;
+  bottom: -15px;
+  left: 44%;
 }
 
 .alert__counter:hover {
