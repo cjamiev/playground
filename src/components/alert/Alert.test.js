@@ -1,22 +1,42 @@
-import { fireEvent, screen } from '@testing-library/react';
-import { reduxTestWrapper } from 'testHelper';
-import Alert from './Alert';
 
+import React from 'react';
+import { fireEvent, screen } from '@testing-library/react';
+import { reduxTestWrapper, fullTestWrapper } from 'testHelper';
+import Alert from './Alert';
+import { ROUTES } from 'constants/routes';
+
+const ZERO = 0;
 const data = {
   content: 'test-content',
   status: 'error'
+};
+const data2 = {
+  content: 'test-content2',
+  status: 'success'
 };
 const alertStoreProps = {
   alert: {
     queue: [data]
   }
 };
+const alertStoreProps2 = {
+  alert: {
+    queue: [data, data2]
+  }
+};
+
+const TestComponent = () => {
+  return (
+    <span>dummy</span>
+  );
+};
 
 describe('Alert', () => {
-  it('checks alert renders', () => {
-    reduxTestWrapper(Alert, {}, alertStoreProps);
+  it('check alert renders', () => {
+    reduxTestWrapper(Alert, {}, alertStoreProps2);
 
     expect(screen.getByText(data.content)).toBeInTheDocument();
+    expect(screen.getByText('1 more item(s)')).toBeInTheDocument();
   });
 
   it('handle dismiss', () => {
@@ -32,5 +52,18 @@ describe('Alert', () => {
     reduxTestWrapper(Alert);
 
     expect(screen.queryByText(data.content)).not.toBeInTheDocument();
+  });
+
+  it('should render on scroll', () => {
+    const { wrapper } = fullTestWrapper(TestComponent, {}, alertStoreProps, ROUTES.HOME.url, true);
+    const scrollContainer = wrapper.container.querySelector('.page');
+
+    Object.defineProperty(global.window, 'pageYOffset', { value: 100 });
+    fireEvent.scroll(window, { target: { scrollY: 100 } });
+    expect(screen.getByText(data.content)).toBeInTheDocument();
+
+    Object.defineProperty(global.window, 'pageYOffset', { value: 151 });
+    fireEvent.scroll(window, { target: { scrollY: 151 } });
+    expect(screen.getByText(data.content)).toBeInTheDocument();
   });
 });

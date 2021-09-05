@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Table = ({headers = [], body = null}) => {
+const Table = ({headers, body}) => {
   const renderHeaders = headers.map(item => {
     return (<th key={item}>{item}</th>);
   });

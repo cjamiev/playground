@@ -29,7 +29,6 @@ const Alert = () => {
       }
       else {
         setIsSticky(false);
-
       }
     };
   }, []);

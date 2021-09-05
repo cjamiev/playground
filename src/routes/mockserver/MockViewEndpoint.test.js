@@ -6,7 +6,10 @@ const ZERO = 0;
 
 const mockViewEndpointProps = {
   mockserver: {
-    mocks: [{ method: 'GET', url: '/test', responsePath: 'filename' }],
+    mocks: [
+      { method: 'GET', url: '/test', responsePath: 'filename' },
+      { method: 'POST', url: '/test2', responsePath: 'filename2' }
+    ],
     message: {
       error: false,
       message: 'Successfully did stuff'
@@ -15,12 +18,6 @@ const mockViewEndpointProps = {
 };
 
 describe('MockViewEndpoint', () => {
-  it('checks page renders', () => {
-    reduxTestWrapper(MockViewEndpoint, {}, mockViewEndpointProps );
-
-    expect(screen.getByText('Filter URL:')).toBeInTheDocument();
-  });
-
   it('handles filter', () => {
     reduxTestWrapper(MockViewEndpoint, {}, mockViewEndpointProps );
 
@@ -52,7 +49,7 @@ describe('MockViewEndpoint', () => {
     };
     fullTestWrapper(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
 
-    const loadBtn = screen.getByText('Load');
+    const loadBtn = screen.getAllByText('Load')[ZERO];
     fireEvent.click(loadBtn);
 
     await waitFor(() => expect(screen.getByText('View Endpoint Details')));
@@ -80,7 +77,7 @@ describe('MockViewEndpoint', () => {
     };
     fullTestWrapper(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
 
-    const loadBtn = screen.getByText('Load');
+    const loadBtn = screen.getAllByText('Load')[ZERO];
     fireEvent.click(loadBtn);
 
     await waitFor(() => expect(screen.getByText('View Endpoint Details')));
@@ -108,7 +105,7 @@ describe('MockViewEndpoint', () => {
     };
     fullTestWrapper(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
 
-    const loadBtn = screen.getByText('Load');
+    const loadBtn = screen.getAllByText('Load')[ZERO];
     fireEvent.click(loadBtn);
 
     await waitFor(() => expect(screen.getByText('View Endpoint Details')));
@@ -135,7 +132,7 @@ describe('MockViewEndpoint', () => {
     };
     fullTestWrapper(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
 
-    const loadBtn = screen.getByText('Load');
+    const loadBtn = screen.getAllByText('Load')[ZERO];
     fireEvent.click(loadBtn);
 
     await waitFor(() => expect(screen.getByText('View Endpoint Details')));
