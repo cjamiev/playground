@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Page from 'components/layout';
 import HomeFooter from './HomeFooter';
 import Button from 'components/button';
+import Text from 'components/form/Text';
 import {
   decrementElementIndex,
   incrementElementIndex,
@@ -29,8 +30,8 @@ const Home = () => {
   const [items, setItems] = useState(currentTodo);
   const [text, setText] = useState('');
 
-  const handleChange = (e) => {
-    setText(e.target.value);
+  const handleChange = ({selected}) => {
+    setText(selected);
   };
 
   const addItem = (e) => {
@@ -76,7 +77,7 @@ const Home = () => {
   return (
     <Page footerComponent={HomeFooter()}>
       <div className="container--center">
-        <input data-testid="todo-in" type="text" value={text} onChange={handleChange} />
+        <Text data-testid="todo-in" placeholder='Enter to do item' selected={text} onChange={handleChange} />
         <Button isSmall data-testid="todo-add-btn" label="+" onClick={addItem} />
         <TodoList
           items={items}
