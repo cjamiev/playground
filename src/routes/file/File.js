@@ -77,7 +77,7 @@ const File = () => {
           setContent(content.replace(regex, replace));
         }} />
       </div>
-      <TextArea ariaLabel='Content text area' fullPage selected={content} onChange={({ selected }) => { setContent(selected); }}/>
+      <TextArea ariaLabel='Content text area' selected={content} onChange={({ selected }) => { setContent(selected); }}/>
     </Page>
   );
 };

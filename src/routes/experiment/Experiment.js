@@ -4,11 +4,13 @@ import Button from 'components/button';
 import { createAlert, dismissAlert } from 'components/alert/alertActions';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
+import TextArea from 'components/form/TextArea';
 import TestNew from './testnew';
 import TestDynamicForm from './testdynamicform';
 import TestDynamicWizard from './testwizard';
 import TestGlobalModal from './testglobalmodal';
 import { experimentGet, experimentPost } from './experimentActions';
+import { noop } from 'helper/noop';
 
 const TABS = [
   { title: 'New', component: TestNew},
@@ -21,12 +23,6 @@ const TestApi = () => {
   const dispatch = useDispatch();
   const experimentData = useSelector(state => state.experiment);
 
-  useEffect(() => {
-    if(experimentData.value) {
-      dispatch(createAlert({ content: JSON.stringify(experimentData), status: 'success' }));
-    }
-  }, [dispatch, experimentData]);
-
   const runGet = () => {
     dispatch(experimentGet());
   };
@@ -38,6 +34,7 @@ const TestApi = () => {
     <div className="container--center">
       <Button label="Get Api" onClick={runGet} />
       <Button label="Post Api" onClick={runPost} />
+      <TextArea selected={experimentData ? JSON.stringify(experimentData) : ''} jsonType={true} onChange={noop}/>
     </div>
   );
 };

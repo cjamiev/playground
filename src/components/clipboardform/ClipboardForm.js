@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Text from 'components/form/Text';
-import TextArea from 'components/form/TextArea';
 import Dropdown from 'components/form/Dropdown';
 import Button from 'components/button';
 import { TimerForm, ValueForm } from 'components/clipboardform';

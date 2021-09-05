@@ -30,12 +30,7 @@
   flex-direction: column;
 }
 
-.textarea--full-size {
+.textarea__field {
   height: 600px;
-  width: 90%;
-}
-
-.textarea-regular-size {
-  height: 400px;
-  width: 1200px;
+  width: 95%;
 }
