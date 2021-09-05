@@ -5,36 +5,40 @@
   overflow: auto;
 }
 
-.page__sidepanel {
+.sidepanel {
   width: 600px;
   border-right: 1px solid rgb(228, 228, 228);
 }
 
-.page__sidepanel--full {
+.sidepanel--full {
   width: 100%;
 }
 
-.page__rightside {
+.page__main {
   padding-left: 10px;
   width: 100%;
 }
 
-.page__rightside--hide {
+.page__main--hide {
   width: 0px;
 }
 
-.pageheader {
+.pageheader,
+.sidepanel__header {
   position: relative;
   height: 7em;
 }
 
-.pageheader__sidepanel_button {
+.pageheader__sidepanel_button,
+.sidepanel__button {
   display: inline-block;
 }
 
-.pageheader__title {
+.pageheader__title, 
+.sidepanel__title {
   display: inline-block;
-  margin-top: 0.2em;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .pagefooter {

@@ -3,6 +3,7 @@ import Button from 'components/button';
 import PageHeader from './PageHeader';
 import PageContent from './PageContent';
 import PageFooter from './PageFooter';
+import SidePanel from './SidePanel';
 import './page.css';
 
 const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) => {
@@ -13,20 +14,23 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
   };
 
   const hasSidePanelContent = !!sidePanelContent;
-  const sidePanelClassName = isSidePanelWide ? 'page__sidepanel page__sidepanel--full' : 'page__sidepanel';
-  const rightSideClassName = isSidePanelWide && showSidePanel ? 'page__rightside page__rightside--hide' : 'page__rightside';
+  const mainClassName = isSidePanelWide && showSidePanel ? 'page__main page__main--hide' : 'page__main';
 
   return (
     <div className="page">
-      {showSidePanel &&
-        <div className={sidePanelClassName}>
-          {isSidePanelWide && <Button label='X' classColor='inherit' isSmall={true} onClick={toggleSidePanel} />}
-          {sidePanelContent}
-        </div>}
-      <div className={rightSideClassName}>
-        <PageHeader toggleSidePanel={toggleSidePanel} hasSidePanelContent={hasSidePanelContent}/>
+      <SidePanel
+        showSidePanel={showSidePanel}
+        sidePanelContent={sidePanelContent}
+        isSidePanelWide={isSidePanelWide}
+        toggleSidePanel={toggleSidePanel}
+      />
+      <div className={mainClassName}>
+        <PageHeader
+          toggleSidePanel={toggleSidePanel}
+          hasSidePanelContent={hasSidePanelContent}
+        />
         <PageContent>{children}</PageContent>
-        {footerComponent && <PageFooter> {footerComponent} </PageFooter>}
+        <PageFooter> {footerComponent} </PageFooter>
       </div>
     </div>
   );
