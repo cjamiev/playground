@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from 'components/button';
-import { dismissAlert } from 'components/alert/alertActions';
+import { createAlert, dismissAlert } from 'components/alert/alertActions';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
 import TestNew from './testnew';
@@ -18,13 +18,14 @@ const TABS = [
 ];
 
 const TestApi = () => {
-  const [testData, setTestData] = useState('');
   const dispatch = useDispatch();
   const experimentData = useSelector(state => state.experiment);
 
   useEffect(() => {
-    setTestData(experimentData && JSON.stringify(experimentData));
-  }, [experimentData]);
+    if(experimentData.value) {
+      dispatch(createAlert({ content: JSON.stringify(experimentData), status: 'success' }));
+    }
+  }, [dispatch, experimentData]);
 
   const runGet = () => {
     dispatch(experimentGet());
@@ -37,7 +38,6 @@ const TestApi = () => {
     <div className="container--center">
       <Button label="Get Api" onClick={runGet} />
       <Button label="Post Api" onClick={runPost} />
-      <div>{testData}</div>
     </div>
   );
 };
