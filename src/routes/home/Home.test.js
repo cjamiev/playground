@@ -1,4 +1,3 @@
-import api from 'api';
 import { fireEvent, screen } from '@testing-library/react';
 import { reduxTestWrapper } from 'testHelper';
 import Home from './Home';

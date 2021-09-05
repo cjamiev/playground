@@ -33,6 +33,7 @@ const ClipboardList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
 };
 
 const ClipboardForm = () => {
+  const [key, setKey] = useState('');
   const [title, setTitle] = useState('');
   const [types, setTypes] = useState(CLIPBOARD_TYPES);
   const [entry, setEntry] = useState([]);
@@ -65,12 +66,13 @@ const ClipboardForm = () => {
   };
 
   const selectedType = types.find(item => item.selected);
-  const addLabel = data[currentIndex] ? 'Update Entry' : 'Add New Entry';
+  const addLabel = data[currentIndex] ? 'Update' : 'Add';
 
   return (
     <div className="flex-container">
       <div className="container--center">
         <h2>Clipboard Form</h2>
+        <Text label='Key' selected={key} onChange={({selected}) => { setKey(selected); }} />
         <Text label='Title' selected={title} onChange={({selected}) => { setTitle(selected); }} />
         <Button label={addLabel} classColor='secondary' onClick={
           () => {
@@ -89,7 +91,7 @@ const ClipboardForm = () => {
             }
           }
         } />
-        <Button label='Remove Entry' classColor='secondary' onClick={
+        <Button label='Delete' classColor='secondary' onClick={
           () => {
             setEntry([]);
             setData(data.filter((item, indx) => indx !== currentIndex));
