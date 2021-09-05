@@ -49,7 +49,7 @@ const Clipboard = () => {
   }, [dispatch, error.message]);
 
   return (
-    <Page sidePanelContent={<ClipboardForm />} isSidePanelWide={true}>
+    <Page sidePanelContent={<ClipboardForm clipboard={clipboard} />} isSidePanelWide={true}>
       {TABS.length > ZERO && <Tabs data={TABS} />}
     </Page>
   );

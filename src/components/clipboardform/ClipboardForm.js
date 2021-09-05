@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Text from 'components/form/Text';
 import Dropdown from 'components/form/Dropdown';
 import Button from 'components/button';
@@ -32,13 +32,39 @@ const ClipboardList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
   ));
 };
 
-const ClipboardForm = () => {
+const ClipboardForm = ({ clipboard }) => {
+  const CLIPBOARD_KEYS = Object.keys(clipboard).map(filename => {
+    return { label: filename, selected: false };
+  });
+  const [existingKeys, setExistingKeys] = useState(CLIPBOARD_KEYS);
+  const [existingTitles, setExistingTitles] = useState([]);
   const [key, setKey] = useState('');
   const [title, setTitle] = useState('');
   const [types, setTypes] = useState(CLIPBOARD_TYPES);
   const [entry, setEntry] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(ZERO);
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const selectedKey = existingKeys.find(item => item.selected);
+    if(selectedKey) {
+      const titleList = clipboard[selectedKey.label].map(item => {
+        return { label: item.title, selected: false };
+      });
+      setKey(selectedKey.label);
+      setExistingTitles(titleList);
+    }
+  }, [clipboard, title, existingKeys]);
+
+  useEffect(() => {
+    const selectedKey = existingKeys.find(item => item.selected);
+    const selectedTitle = existingTitles.find(item => item.selected);
+    if(selectedTitle) {
+      const selectedData = clipboard[selectedKey.label].find(item => item.title === selectedTitle.label).data;
+      setTitle(selectedTitle.label);
+      setData(selectedData);
+    }
+  }, [clipboard, title, existingKeys, existingTitles]);
 
   const removeItem = selectedIndex => {
     const updatedItems = entry.filter((_, index) => index !== selectedIndex);
@@ -72,6 +98,8 @@ const ClipboardForm = () => {
     <div className="flex-container">
       <div className="container--center">
         <h2>Clipboard Form</h2>
+        <Dropdown label='Existing Key' values={existingKeys} onChange={({ values }) => { setExistingKeys(values); }} />
+        { existingTitles.length > ZERO && <Dropdown label='Existing Title' values={existingTitles} onChange={({ values }) => { setExistingTitles(values); }} />}
         <Text label='Key' selected={key} onChange={({selected}) => { setKey(selected); }} />
         <Text label='Title' selected={title} onChange={({selected}) => { setTitle(selected); }} />
         <Button label={addLabel} classColor='secondary' onClick={
