@@ -22,7 +22,7 @@ describe('File', () => {
     reduxTestWrapper(File, {}, {}, pathname);
 
     const contentField = screen.getByLabelText('Content text area');
-    const validateBtn = screen.getByText('Validate');
+    const validateBtn = screen.getByText('Is valid JSON?');
 
     fireEvent.change(contentField, { target: { value: '1 2 3 4 5' } });
     fireEvent.click(validateBtn);

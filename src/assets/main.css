@@ -26,8 +26,13 @@
   padding: 10px;
 }
 
-.flex-container {
+.flex--horizontal {
   display: flex;
+}
+
+.flex--vertical {
+  display: flex;
+  flex-direction: column;
 }
 
 .clickable {

@@ -95,7 +95,7 @@ const ClipboardForm = ({ clipboard }) => {
   const addLabel = data[currentIndex] ? 'Update' : 'Add';
 
   return (
-    <div className="flex-container">
+    <div className="flex--horizontal">
       <div className="container--center">
         <h2>Clipboard Form</h2>
         <Dropdown label='Existing Key' values={existingKeys} onChange={({ values }) => { setExistingKeys(values); }} />

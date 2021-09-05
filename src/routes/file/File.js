@@ -49,33 +49,48 @@ const File = () => {
     <Page
       sidePanelContent={<div className="container--center">{directoryFilesName}</div>}
     >
-      <div className="file__btns">
-        <Text placeholder='Enter File Name' selected={name} onChange={({selected}) => { setName(selected); }} />
-        <Button label='Save' onClick={() => {
-          if(name && content) {
-            dispatch(writeFile(name, content));
-          }
-        }} />
-        <Button label='Copy' onClick={() => { copyToClipboard(content); }} />
-        <Button label='Validate' onClick={() => {
-          dispatch(dismissAlert());
-          const isValid = isJSONString(content);
-          const message = isValid ? 'Is Valid JSON' : 'Is NOT Valid JSON';
-          const status = isValid ? 'success' : 'error';
-          dispatch(createAlert({ content: message, status }));
-        }} />
-        <Button label='Sort Asc' onClick={() => { setContent(sortByDelimiter(content, selectedDelimiter.value)); }} />
-        <Button label='Sort Desc' onClick={() => { setContent(sortDescendingByDelimiter(content, selectedDelimiter.value)); }} />
-        <Button label='Split' onClick={() => { setContent(content.split(selectedDelimiter.value).join('\n')); }} />
-        <Button label='Join' onClick={() => { setContent(content.split('\n').join(selectedDelimiter.value)); }} />
-        <Button label='Trim' onClick={() => { setContent(content.replace(/\n|\t|\r/gm, '').replace(/[ ]{2,}/gm, ' ')); }} />
-        <Dropdown label='Delimiter' values={delimiters} onChange={({ values }) => { setDelimiters(values); }} />
-        <Text placeholder='Text to search' selected={find} onChange={({selected}) => { setFind(selected); }} />
-        <Text placeholder='Text to replace' selected={replace} onChange={({selected}) => { setReplace(selected); }} />
-        <Button label='Replace All' onClick={() => {
-          const regex = new RegExp(find, 'gm');
-          setContent(content.replace(regex, replace));
-        }} />
+      <div className="flex--horizontal">
+        <div className="flex--vertical">
+          <Text placeholder='Enter File Name' selected={name} onChange={({selected}) => { setName(selected); }} />
+          <Button label='Save'
+            classColor='primary'
+            onClick={() => {
+              if(name && content) {
+                dispatch(writeFile(name, content));
+              }
+            }} />
+          <Button label='Copy' classColor='primary' onClick={() => { copyToClipboard(content); }} />
+
+        </div>
+        <div className="flex--vertical">
+          <Button label='Is valid JSON?'
+            classColor='secondary'
+            onClick={() => {
+              dispatch(dismissAlert());
+              const isValid = isJSONString(content);
+              const message = isValid ? 'Is Valid JSON' : 'Is NOT Valid JSON';
+              const status = isValid ? 'success' : 'error';
+              dispatch(createAlert({ content: message, status }));
+            }} />
+        </div>
+        <div className="flex--vertical">
+          <Dropdown label='Delimiter' values={delimiters} onChange={({ values }) => { setDelimiters(values); }} />
+          <Button label='Sort Asc' classColor='secondary' onClick={() => { setContent(sortByDelimiter(content, selectedDelimiter.value)); }} />
+          <Button label='Sort Desc' classColor='secondary' onClick={() => { setContent(sortDescendingByDelimiter(content, selectedDelimiter.value)); }} />
+        </div>
+        <div className="flex--vertical">
+          <Button label='Split' classColor='secondary' onClick={() => { setContent(content.split(selectedDelimiter.value).join('\n')); }} />
+          <Button label='Join' classColor='secondary' onClick={() => { setContent(content.split('\n').join(selectedDelimiter.value)); }} />
+          <Button label='Trim' classColor='secondary' onClick={() => { setContent(content.replace(/\n|\t|\r/gm, '').replace(/[ ]{2,}/gm, ' ')); }} />
+        </div>
+        <div className="flex--vertical">
+          <Text placeholder='Text to search' selected={find} onChange={({selected}) => { setFind(selected); }} />
+          <Text placeholder='Text to replace' selected={replace} onChange={({selected}) => { setReplace(selected); }} />
+          <Button label='Replace All' classColor='secondary' onClick={() => {
+            const regex = new RegExp(find, 'gm');
+            setContent(content.replace(regex, replace));
+          }} />
+        </div>
       </div>
       <TextArea ariaLabel='Content text area' selected={content} onChange={({ selected }) => { setContent(selected); }}/>
     </Page>
