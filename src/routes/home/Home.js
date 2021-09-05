@@ -76,16 +76,14 @@ const Home = () => {
 
   return (
     <Page footerComponent={HomeFooter()}>
-      <div className="container--center">
-        <Text data-testid="todo-in" placeholder='Enter to do item' selected={text} onChange={handleChange} />
-        <Button isSmall data-testid="todo-add-btn" label="+" onClick={addItem} />
-        <TodoList
-          items={items}
-          removeItem={removeItem}
-          moveItemUp={moveItemUp}
-          moveItemDown={moveItemDown}
-        />
-      </div>
+      <Text data-testid="todo-in" placeholder='Enter to do item' selected={text} onChange={handleChange} />
+      <Button isSmall data-testid="todo-add-btn" label="+" onClick={addItem} />
+      <TodoList
+        items={items}
+        removeItem={removeItem}
+        moveItemUp={moveItemUp}
+        moveItemDown={moveItemDown}
+      />
     </Page>
   );
 };

@@ -7,6 +7,7 @@ import Page from 'components/layout';
 import List from 'components/list';
 import Tabs from 'components/tabs';
 import ComponentWrapper from 'components/ComponentWrapper';
+import { ClipboardForm } from 'components/clipboardform';
 import './clipboard.css';
 
 const ZERO = 0;
@@ -48,7 +49,7 @@ const Clipboard = () => {
   }, [dispatch, error.message]);
 
   return (
-    <Page>
+    <Page sidePanelContent={<ClipboardForm />} isSidePanelWide={true}>
       {TABS.length > ZERO && <Tabs data={TABS} />}
     </Page>
   );

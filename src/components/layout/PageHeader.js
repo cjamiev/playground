@@ -14,7 +14,7 @@ const PageHeader = ({ toggleSidePanel, hasSidePanelContent }) => {
     <header className="pageheader">
       <h1 className="pageheader__title">{currentPage.label}</h1>
       {hasSidePanelContent && <div className="pageheader__sidepanel_button">
-        <Button label='(|)' classColor='inherit' classSize='small' onClick={toggleSidePanel} />
+        <Button label='(|)' classColor='inherit' isSmall={true} onClick={toggleSidePanel} />
       </div>}
       <Alert />
     </header>

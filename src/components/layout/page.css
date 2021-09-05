@@ -6,14 +6,21 @@
 }
 
 .page__sidepanel {
-  position: relative;
   width: 600px;
   border-right: 1px solid rgb(228, 228, 228);
+}
+
+.page__sidepanel--full {
+  width: 100%;
 }
 
 .page__rightside {
   padding-left: 10px;
   width: 100%;
+}
+
+.page__rightside--hide {
+  width: 0px;
 }
 
 .pageheader {
