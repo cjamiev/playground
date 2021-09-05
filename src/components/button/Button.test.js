@@ -27,28 +27,4 @@ describe('Button', () => {
 
     expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
   });
-
-  it('should render primary', () => {
-    simpleTestWrapper(Button, { ...defaultProps, classColor: 'primary'});
-
-    expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
-  });
-
-  it('should render secondary', () => {
-    simpleTestWrapper(Button, { ...defaultProps, classColor: 'secondary'});
-
-    expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
-  });
-
-  it('should render inherit', () => {
-    simpleTestWrapper(Button, { ...defaultProps, classColor: 'inherit'});
-
-    expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
-  });
-
-  it('should render isSmall', () => {
-    simpleTestWrapper(Button, { ...defaultProps, isSmall: true});
-
-    expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
-  });
 });

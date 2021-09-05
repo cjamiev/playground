@@ -1,22 +1,6 @@
 import React from 'react';
 import './btn.css';
-
-const getColor = (classColor) => {
-  if(classColor === 'primary') {
-    return ' btn--primary';
-  }
-  else if (classColor === 'secondary') {
-    return ' btn--secondary';
-  }
-  else if (classColor === 'inherit') {
-    return ' btn--inherit';
-  }
-  return '';
-};
-
-const getSize = (isSmall) => {
-  return isSmall ? ' btn--small': '';
-};
+import { getColor, getSize } from './helper';
 
 const Button = ({ label, ariaLabel, className, classColor, isSmall = false, disabled = false, onClick}) => {
   const btnClass = className ? className : `btn ${getSize(isSmall)}${getColor(classColor)}`;

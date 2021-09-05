@@ -1,17 +1,5 @@
 import React from 'react';
-
-const getColor = (classColor) => {
-  if(classColor === 'primary') {
-    return ' btn--primary';
-  }
-  else if (classColor === 'secondary') {
-    return ' btn--secondary';
-  }
-  else if (classColor === 'error' || classColor === 'success') {
-    return ' btn--inherit';
-  }
-  return '';
-};
+import { getColor } from './helper';
 
 const CloseButton = ({ classColor, onClick }) => {
   const color = getColor(classColor);
