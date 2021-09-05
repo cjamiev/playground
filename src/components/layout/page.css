@@ -2,11 +2,12 @@
   height: 100%;
   display: flex;
   min-height: 945px;
+  overflow: auto;
 }
 
 .page__sidepanel {
   position: relative;
-  width: 300px;
+  width: 600px;
   border-right: 1px solid rgb(228, 228, 228);
 }
 

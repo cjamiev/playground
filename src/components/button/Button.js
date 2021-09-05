@@ -8,29 +8,18 @@ const getColor = (classColor) => {
   else if (classColor === 'secondary') {
     return ' btn--secondary';
   }
-  else if (classColor === 'error') {
-    return ' btn--error';
-  }
   else if (classColor === 'inherit') {
     return ' btn--inherit';
   }
   return '';
 };
 
-const getSize = (classSize) => {
-  if(classSize === 'wide') {
-    return ' btn--wide';
-  }
-  else if(classSize === 'small') {
-    return ' btn--small';
-  }
-  return '';
+const getSize = (isSmall) => {
+  return isSmall ? ' btn--small': '';
 };
 
-const Button = ({ label, ariaLabel, className, classColor, classSize, disabled = false, onClick}) => {
-  const color = getColor(classColor);
-  const size = getSize(classSize);
-  const btnClass = className ? className : `btn${color}${size}`;
+const Button = ({ label, ariaLabel, className, classColor, isSmall = false, disabled = false, onClick}) => {
+  const btnClass = className ? className : `btn ${getSize(isSmall)}${getColor(classColor)}`;
 
   return (
     <button aria-label={ariaLabel} className={btnClass} disabled={disabled} onClick={onClick}>{label}</button>

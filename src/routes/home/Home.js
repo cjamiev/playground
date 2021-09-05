@@ -14,10 +14,10 @@ const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
     <ul data-testid='todo-list'>
       {items.map((item) => (
         <div key={item.id} data-testid={item.text}>
-          <span>{item.text}</span>
-          <Button label="Done" onClick={() => { removeItem(item.id); }} />
-          <Button label="Move Up" onClick={() => { moveItemUp(item.id); }} />
-          <Button label="Move Down" onClick={() => { moveItemDown(item.id);}} />
+          <Button isSmall label="X" onClick={() => { removeItem(item.id); }} />
+          <Button isSmall label="Up" onClick={() => { moveItemUp(item.id); }} />
+          <Button isSmall label="Dwn" onClick={() => { moveItemDown(item.id);}} />
+          <span>{item.text} </span>
         </div>
       ))}
     </ul>
@@ -76,15 +76,14 @@ const Home = () => {
   return (
     <Page footerComponent={HomeFooter()}>
       <div className="container--center">
-        <h2>TODO</h2>
+        <input data-testid="todo-in" type="text" value={text} onChange={handleChange} />
+        <Button isSmall data-testid="todo-add-btn" label="+" onClick={addItem} />
         <TodoList
           items={items}
           removeItem={removeItem}
           moveItemUp={moveItemUp}
           moveItemDown={moveItemDown}
         />
-        <input data-testid="todo-in" type="text" value={text} onChange={handleChange} />
-        <Button data-testid="todo-add-btn" label="Add Item" onClick={addItem} />
       </div>
     </Page>
   );
