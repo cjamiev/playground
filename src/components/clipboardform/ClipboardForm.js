@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Text from 'components/form/Text';
 import Dropdown from 'components/form/Dropdown';
 import Button from 'components/button';
 import { TimerForm, ValueForm } from 'components/clipboardform';
 import List, { DisplayContent } from 'components/list';
+import { updateClipboard } from 'routes/clipboard/clipboardActions';
 import { TYPE } from 'constants/type';
 import {
   decrementElementIndex,
@@ -33,6 +35,7 @@ const ClipboardList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
 };
 
 const ClipboardForm = ({ clipboard }) => {
+  const dispatch = useDispatch();
   const CLIPBOARD_KEYS = Object.keys(clipboard).map(filename => {
     return { label: filename, selected: false };
   });
@@ -63,6 +66,7 @@ const ClipboardForm = ({ clipboard }) => {
       const selectedData = clipboard[selectedKey.label].find(item => item.title === selectedTitle.label).data;
       setTitle(selectedTitle.label);
       setData(selectedData);
+      setCurrentIndex(selectedData.length);
     }
   }, [clipboard, title, existingKeys, existingTitles]);
 
@@ -138,6 +142,19 @@ const ClipboardForm = ({ clipboard }) => {
             }
           }/>
         }
+        <Button label='Submit' classColor='primary' onClick={
+          () => {
+            if(key && title && data.length > ZERO) {
+              const updatedSection = clipboard.hasOwnProperty(key)
+                ? clipboard[key].map(item => (item.title === title ? { title, data } : item))
+                : [{ title, data }];
+
+              const content = {...clipboard, [key] : updatedSection };
+
+              dispatch(updateClipboard(content));
+            }
+          }
+        } />
       </div>
       <div className="container--center">
         <h2>Entry {currentIndex + ONE}</h2>

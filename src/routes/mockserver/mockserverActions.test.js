@@ -52,8 +52,7 @@ const successObject = {
 
 describe('mockserverActions', () => {
   it('loadMockServerConfig', async () => {
-    const func = loadMockServerConfig();
-    func(dispatch);
+    loadMockServerConfig()(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCKSERVER_CONFIG, data: [{ test: 123 }]});

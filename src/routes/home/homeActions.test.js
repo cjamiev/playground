@@ -24,8 +24,7 @@ describe('homeActions', () => {
         data: [1,2,3]
       }
     });
-    const func = loadDirectory();
-    func(dispatch);
+    loadDirectory()(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_DIRECTORY, data: [1,2,3]});

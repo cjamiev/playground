@@ -1,4 +1,5 @@
 import api from 'api';
+import { createAlert } from 'components/alert/alertActions';
 
 const LOAD_CLIPBOARD = 'LOAD_CLIPBOARD';
 const ERROR_CLIPBOARD = 'ERROR_CLIPBOARD';
@@ -18,8 +19,22 @@ const loadClipboard = () => {
   };
 };
 
+const updateClipboard = (content) => {
+  return (dispatch) => {
+    api
+      .post('/db', { filename: 'clipboard.json', content: JSON.stringify(content) })
+      .then((response) => {
+        dispatch(createAlert({ content: response.data.message, status: 'success' }));
+      })
+      .catch((error) => {
+        dispatch(createAlert({ content: error.message, status: 'error' }));
+      });
+  };
+};
+
 export {
   LOAD_CLIPBOARD,
   ERROR_CLIPBOARD,
-  loadClipboard
+  loadClipboard,
+  updateClipboard
 };

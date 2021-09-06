@@ -102,9 +102,7 @@ describe('File', () => {
     const mockGet = jest.fn();
     mockPost.mockResolvedValue({
       data: {
-        data: {
-          message: 'successful'
-        }
+        message: 'successful'
       }
     });
     api.post = mockPost;

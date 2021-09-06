@@ -36,8 +36,10 @@ const File = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    setContent(file);
-  }, [file]);
+    if(name) {
+      setContent(file);
+    }
+  }, [name, file]);
 
   const directoryFilesName = directory.filter(item => item.includes('.')).map(item => {
     return <Button key={item} label={item.split('.')[ZERO]} onClick={() => { setName(item); dispatch(loadFile(item)); dispatch(dismissAlert());}} />;

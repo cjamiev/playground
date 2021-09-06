@@ -1,7 +1,18 @@
+import api from 'api';
 import { fireEvent, screen } from '@testing-library/react';
-import { simpleTestWrapper } from 'testHelper';
+import { reduxTestWrapper } from 'testHelper';
 import ClipboardForm from './ClipboardForm';
 
+jest.mock('api');
+const mockPost = jest.fn();
+mockPost.mockResolvedValue({
+  data: {
+    data: {
+      message: 'successful'
+    }
+  }
+});
+api.post = mockPost;
 document.execCommand = jest.fn();
 const pathname = '/home';
 const ZERO = 0;
@@ -18,7 +29,7 @@ const clipboard = {
 
 describe('ClipboardForm', () => {
   it('handle form', () => {
-    simpleTestWrapper(ClipboardForm, { clipboard: {} });
+    reduxTestWrapper(ClipboardForm, { clipboard: {} });
     fireEvent.change(screen.getByLabelText('Key text field'), { target: { value: 'test-key' } });
     fireEvent.change(screen.getByLabelText('Title text field'), { target: { value: 'test-title' } });
 
@@ -58,7 +69,7 @@ describe('ClipboardForm', () => {
   });
 
   it('handle existing data', () => {
-    simpleTestWrapper(ClipboardForm, { clipboard });
+    reduxTestWrapper(ClipboardForm, { clipboard });
     fireEvent.click(screen.getByText('Existing Key'));
     fireEvent.click(screen.getByText('keyOne'));
     fireEvent.click(screen.getByText('Existing Title'));
@@ -74,5 +85,8 @@ describe('ClipboardForm', () => {
 
     expect(screen.getByText('test-title2')).toBeInTheDocument();
     expect(screen.getByText('copy2')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Submit'));
+    expect(api.post).toHaveBeenCalledWith('/db', { filename: 'clipboard.json', content: JSON.stringify(clipboard) });
   });
 });
