@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Table = ({headers, body}) => {
+const Table = ({headers, body, isFlex = true}) => {
   const renderHeaders = headers.map(item => {
     return (<th key={item.label} className={item.className}>{item.label}</th>);
   });
@@ -8,7 +8,7 @@ const Table = ({headers, body}) => {
   return (
     <table>
       <thead>
-        <tr className='flex--horizontal'>
+        <tr className={isFlex ? 'flex--horizontal' : ''}>
           {renderHeaders}
         </tr>
       </thead>
