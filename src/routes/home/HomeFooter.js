@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Button from 'components/button';
 import { DisplayTimer } from 'components/list/List';
 import { copyToClipboard } from 'helper/copy';
-import { TimerForm, ValueForm } from 'components/clipboardform';
+import TimerForm from 'components/form/TimerForm';
+import ValueForm from 'components/form/ValueForm';
 import { TYPE } from 'constants/type';
 
 const ZERO = 0;

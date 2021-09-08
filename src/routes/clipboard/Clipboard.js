@@ -8,7 +8,7 @@ import List from 'components/list';
 import Tabs from 'components/tabs';
 import Text from 'components/form/Text';
 import ComponentWrapper from 'components/ComponentWrapper';
-import { ClipboardForm } from 'components/clipboardform';
+import ClipboardForm from './clipboardform';
 import './clipboard.css';
 
 const ZERO = 0;
