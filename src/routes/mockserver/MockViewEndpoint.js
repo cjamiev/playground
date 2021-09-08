@@ -45,10 +45,9 @@ const MockViewEndpoint = () => {
     const urlCell = method === 'GET' ? <a className="link list__item" href={url} target="_blank">{url}</a>:<span>{url}</span>;
 
     return (
-      <tr key={`${method}-${url}`}>
-        <td>{method}</td>
-        <td>{urlCell}</td>
-        <td>
+      <tr key={`${method}-${url}`} className='flex--horizontal'>
+        <td className='flex--one'>{method}</td>
+        <td className='flex--one horizontal-center'>
           <Button
             classColor="primary"
             label="Load"
@@ -58,6 +57,7 @@ const MockViewEndpoint = () => {
               }
             } />
         </td>
+        <td className='flex--five'>{urlCell}</td>
       </tr>
     );
   });
@@ -66,7 +66,7 @@ const MockViewEndpoint = () => {
     <section>
       <Text label='Filter URL:' selected={filter} onChange={handleFilterChange} />
       <div>
-        <Table headers={['Method', 'Url', 'Details']} body={renderCells} />
+        <Table headers={[{label:'Method', className:'flex--one'}, {label:'Details', className:'flex--one'}, {label:'Url', className:'flex--five'}]} body={renderCells} />
       </div>
     </section>
   );

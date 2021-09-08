@@ -12,7 +12,7 @@ describe('Home', () => {
     reduxTestWrapper(Home, {}, {}, pathname);
 
     const textField = screen.getByLabelText('Enter to do item text field');
-    const addBtn = screen.getByText('+');
+    const addBtn = screen.getByText('Add Item');
 
     fireEvent.change(textField, { target: { value: 'itemOne' } });
     fireEvent.click(addBtn);
@@ -30,7 +30,7 @@ describe('Home', () => {
     const upBtn = screen.getAllByText('Up')[TWO];
     fireEvent.click(upBtn);
 
-    const doneBtn = screen.getAllByText('X')[ONE];
+    const doneBtn = screen.getAllByText('Remove')[ONE];
     fireEvent.click(doneBtn);
 
     expect(screen.getByText('itemOne')).toBeInTheDocument();

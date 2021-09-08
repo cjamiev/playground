@@ -2,13 +2,13 @@ import React from 'react';
 
 const Table = ({headers, body}) => {
   const renderHeaders = headers.map(item => {
-    return (<th key={item}>{item}</th>);
+    return (<th key={item.label} className={item.className}>{item.label}</th>);
   });
 
   return (
     <table>
       <thead>
-        <tr>
+        <tr className='flex--horizontal'>
           {renderHeaders}
         </tr>
       </thead>

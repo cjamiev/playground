@@ -5,6 +5,7 @@ import Dropdown from 'components/form/Dropdown';
 import Button from 'components/button';
 import { TimerForm, ValueForm } from 'components/clipboardform';
 import List, { DisplayContent } from 'components/list';
+import Table from 'components/table';
 import { updateClipboard } from 'routes/clipboard/clipboardActions';
 import { TYPE } from 'constants/type';
 import {
@@ -23,14 +24,16 @@ const CLIPBOARD_TYPES = [
   { label: TYPE.TIMER, selected: false }
 ];
 
-const ClipboardList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
-  return items.map(({ type, label, value }, index) => (
-    <div key={`${label}-${index}`}>
-      <DisplayContent key={`${type}-${label}-${value}`} type={type} label={label} value={value} />
-      <Button label="Remove" onClick={() => { removeItem(index); }} />
-      <Button label="Up" onClick={() => { moveItemUp(index); }} />
-      <Button label="Down" onClick={() => { moveItemDown(index);}} />
-    </div>
+const renderCells = ({ entry, removeItem, moveItemUp, moveItemDown }) => {
+  return entry.map(({ type, label, value }, index) => (
+    <tr className='flex--horizontal' key={`${label}-${index}`} data-testid={entry.label}>
+      <td className='flex--two'><div className='horizontal-center'><DisplayContent key={`${type}-${label}-${value}`} type={type} label={label} value={value} /></div></td>
+      <td className='flex--three'>
+        <Button classColor='primary' label='Remove' onClick={() => { removeItem(index); }} />
+        <Button classColor='secondary' label='Up' onClick={() => { moveItemUp(index); }} />
+        <Button classColor='secondary' label='Down' onClick={() => { moveItemDown(index);}} />
+      </td>
+    </tr>
   ));
 };
 
@@ -99,14 +102,30 @@ const ClipboardForm = ({ clipboard }) => {
   const addLabel = data[currentIndex] ? 'Update' : 'Add';
 
   return (
-    <div className="flex--horizontal">
-      <div className="container--center">
-        <h2>Clipboard Form</h2>
+    <div className='flex--horizontal'>
+      <div className='container--center flex--one'>
+        <h2>Form</h2>
         <Dropdown label='Existing Key' values={existingKeys} onChange={({ values }) => { setExistingKeys(values); }} />
         { existingTitles.length > ZERO && <Dropdown label='Existing Title' values={existingTitles} onChange={({ values }) => { setExistingTitles(values); }} />}
         <Text label='Key' selected={key} onChange={({selected}) => { setKey(selected); }} />
         <Text label='Title' selected={title} onChange={({selected}) => { setTitle(selected); }} />
-        <Button label={addLabel} classColor='secondary' onClick={
+        <Dropdown label='Type' values={types} onChange={({ values }) => { setTypes(values); }} />
+        {selectedType.label === TYPE.TIMER
+          ? <TimerForm onChange={({ name, content}) => {
+            const newDate = new Date(content.year,content.month-ONE,content.day,content.hour,content.minute,content.second);
+
+            setEntry([...entry, { label: name, value: newDate.toString(), type: selectedType.label }]);
+          }} />
+          : <ValueForm type={selectedType} onChange={
+            ({name, content}) => {
+              setEntry([...entry, { label: name, value: content, type: selectedType.label }]);
+            }
+          }/>
+        }
+      </div>
+      <div className='container--center flex--three'>
+        <h2>Entry #{currentIndex + ONE}</h2>
+        <Button label={addLabel} classColor='primary' onClick={
           () => {
             if(entry.length > ZERO) {
               const updatedData = data[currentIndex]
@@ -123,26 +142,17 @@ const ClipboardForm = ({ clipboard }) => {
             }
           }
         } />
-        <Button label='Delete' classColor='secondary' onClick={
+        <Button label='Delete' classColor='primary' onClick={
           () => {
             setEntry([]);
             setData(data.filter((item, indx) => indx !== currentIndex));
           }
         } />
-        <Dropdown label='Type' values={types} onChange={({ values }) => { setTypes(values); }} />
-        {selectedType.label === TYPE.TIMER
-          ? <TimerForm onChange={({ name, content}) => {
-            const newDate = new Date(content.year,content.month-ONE,content.day,content.hour,content.minute,content.second);
-
-            setEntry([...entry, { label: name, value: newDate.toString(), type: selectedType.label }]);
-          }} />
-          : <ValueForm type={selectedType} onChange={
-            ({name, content}) => {
-              setEntry([...entry, { label: name, value: content, type: selectedType.label }]);
-            }
-          }/>
-        }
-        <Button label='Submit' classColor='primary' onClick={
+        {entry.length > ZERO && <Table headers={[{label:'Clip', className:'flex--two'}, {label:'Actions', className:'flex--three'}]} body={renderCells({ entry, removeItem, moveItemUp, moveItemDown})} />}
+      </div>
+      <div className='container--center flex--one'>
+        <h2>Data</h2>
+        {data.length > ZERO && <Button label='Submit' classColor='primary' onClick={
           () => {
             if(key && title && data.length > ZERO) {
               const updatedSection = clipboard.hasOwnProperty(key)
@@ -154,19 +164,7 @@ const ClipboardForm = ({ clipboard }) => {
               dispatch(updateClipboard(content));
             }
           }
-        } />
-      </div>
-      <div className="container--center">
-        <h2>Entry {currentIndex + ONE}</h2>
-        <ClipboardList
-          items={entry}
-          removeItem={removeItem}
-          moveItemUp={moveItemUp}
-          moveItemDown={moveItemDown}
-        />
-      </div>
-      <div className="container--center">
-        <h2>Data</h2>
+        } />}
         <List key={title} header={title} data={data} handleClick={handleClickEntry}/>
       </div>
     </div>

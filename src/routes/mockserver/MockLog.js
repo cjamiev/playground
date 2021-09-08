@@ -18,11 +18,11 @@ const MockLog = () => {
 
   const renderCells = log.map(({ timestamp, url, payload }, index) => {
     return (
-      <tr key={timestamp + index}>
-        <td>{timestamp}</td>
-        <td>{url}</td>
-        <td>
+      <tr key={timestamp + index} className='flex--horizontal'>
+        <td className='flex--one'>{timestamp}</td>
+        <td className='flex--one horizontal-center'>
           <Button
+            classColor="primary"
             label="Load"
             onClick={
               () => {
@@ -34,6 +34,7 @@ const MockLog = () => {
               }
             } />
         </td>
+        <td className='flex--five'>{url}</td>
       </tr>
     );
   });
@@ -42,7 +43,7 @@ const MockLog = () => {
     <section>
       <Button classColor="primary" label='Clear Log' onClick={() => { dispatch(clearMockServerLog());}} />
       <p>Run Log must be set to yes in configuration</p>
-      <Table headers={['Timestamp', 'Url', 'Payload']} body={renderCells}/>
+      <Table headers={[{label:'Timestamp', className:'flex--one'}, {label:'Payload', className:'flex--one'}, {label:'Url', className:'flex--five'}]} body={renderCells}/>
     </section>
   );
 };

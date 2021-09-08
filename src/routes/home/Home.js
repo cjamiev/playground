@@ -3,6 +3,7 @@ import Page from 'components/layout';
 import HomeFooter from './HomeFooter';
 import Button from 'components/button';
 import Text from 'components/form/Text';
+import Table from 'components/table';
 import {
   decrementElementIndex,
   incrementElementIndex,
@@ -10,19 +11,22 @@ import {
 } from 'arrayHelper';
 import './home.css';
 
-const TodoList = ({ items, removeItem, moveItemUp, moveItemDown }) => {
+const ZERO = 0;
+
+const renderCells = ({ items, removeItem, moveItemUp, moveItemDown }) => {
   return (
-    <ul data-testid='todo-list'>
+    <>
       {items.map((item) => (
-        <div key={item.id} data-testid={item.text}>
-          <Button isSmall label="X" onClick={() => { removeItem(item.id); }} />
-          <Button isSmall label="Up" onClick={() => { moveItemUp(item.id); }} />
-          <Button isSmall label="Dwn" onClick={() => { moveItemDown(item.id);}} />
-          <span>{item.text} </span>
-        </div>
+        <tr className='flex--horizontal' key={item.id} data-testid={item.text}>
+          <td className='flex--three'>{item.text}</td>
+          <td className='flex--one'>
+            <Button classColor="primary" label="Remove" onClick={() => { removeItem(item.id); }} />
+            <Button classColor="secondary" label="Up" onClick={() => { moveItemUp(item.id); }} />
+            <Button classColor="secondary" label="Dwn" onClick={() => { moveItemDown(item.id);}} />
+          </td>
+        </tr>
       ))}
-    </ul>
-  );
+    </>);
 };
 
 const Home = () => {
@@ -77,13 +81,8 @@ const Home = () => {
   return (
     <Page footerComponent={HomeFooter()}>
       <Text data-testid="todo-in" placeholder='Enter to do item' selected={text} onChange={handleChange} />
-      <Button isSmall data-testid="todo-add-btn" label="+" onClick={addItem} />
-      <TodoList
-        items={items}
-        removeItem={removeItem}
-        moveItemUp={moveItemUp}
-        moveItemDown={moveItemDown}
-      />
+      <Button data-testid="todo-add-btn" label="Add Item" onClick={addItem} />
+      {items.length > ZERO && <Table headers={[{label:'To Do', className:'flex--three'}, {label:'Actions', className:'flex--one'}]} body={renderCells({ items, removeItem, moveItemUp, moveItemDown})} />}
     </Page>
   );
 };
