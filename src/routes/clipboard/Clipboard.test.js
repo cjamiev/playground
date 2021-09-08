@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { reduxTestWrapper } from 'testHelper';
 import { loadPassword } from './clipboardActions';
 import Clipboard from './Clipboard';
@@ -38,6 +38,23 @@ const defaultStoreProps = {
                 'type': 'copy',
                 'value': 'password'
               }
+            ],
+            [
+              {
+                'label': 'label2',
+                'type': 'link',
+                'value': 'www.url1.com'
+              },
+              {
+                'label': 'username2',
+                'type': 'copy',
+                'value': 'user'
+              },
+              {
+                'label': 'password2',
+                'type': 'copy',
+                'value': 'password'
+              }
             ]
           ]
         }
@@ -67,6 +84,19 @@ describe('Clipboard', () => {
     expect(screen.getByText('label1')).toBeInTheDocument();
     expect(screen.getByText('username')).toBeInTheDocument();
     expect(screen.getByText('password')).toBeInTheDocument();
+    expect(screen.getByText('label2')).toBeInTheDocument();
+    expect(screen.getByText('username2')).toBeInTheDocument();
+    expect(screen.getByText('password2')).toBeInTheDocument();
+  });
+
+  it('checks filter', () => {
+    reduxTestWrapper(Clipboard, defaultProps, defaultStoreProps, pathname);
+
+    const input = screen.getByLabelText('Filter by label text field');
+    fireEvent.change(input, { target: { value: 'label2' } });
+
+    expect(screen.queryByText('label1')).not.toBeInTheDocument();
+    expect(screen.getByText('label2')).toBeInTheDocument();
   });
 
   it('check error dispatch and commandResponse dispatch', () => {

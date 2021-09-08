@@ -40,7 +40,7 @@ const MockLog = () => {
 
   return (
     <section>
-      <Button label='Clear Log' onClick={() => { dispatch(clearMockServerLog());}} />
+      <Button classColor="primary" label='Clear Log' onClick={() => { dispatch(clearMockServerLog());}} />
       <p>Run Log must be set to yes in configuration</p>
       <Table headers={['Timestamp', 'Url', 'Payload']} body={renderCells}/>
     </section>

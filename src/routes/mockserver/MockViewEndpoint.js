@@ -50,6 +50,7 @@ const MockViewEndpoint = () => {
         <td>{urlCell}</td>
         <td>
           <Button
+            classColor="primary"
             label="Load"
             onClick={
               () => {

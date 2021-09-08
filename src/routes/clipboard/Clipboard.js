@@ -76,7 +76,7 @@ const Clipboard = () => {
 
   return (
     <Page sidePanelContent={<ClipboardForm clipboard={clipboard} />} isSidePanelWide={true}>
-      <Text placeholder='Filter' selected={filter} onChange={handleFilterChange} />
+      <Text placeholder='Filter by label' selected={filter} onChange={handleFilterChange} />
       {TABS.length > ZERO && !filter && <Tabs data={TABS} />}
       {filter && <List header={`filtered by ${filter}`} data={filteredData || []} />}
     </Page>

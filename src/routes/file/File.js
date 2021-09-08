@@ -42,7 +42,7 @@ const File = () => {
   }, [name, file]);
 
   const directoryFilesName = directory.filter(item => item.includes('.')).map(item => {
-    return <Button key={item} label={item.split('.')[ZERO]} onClick={() => { setName(item); dispatch(loadFile(item)); dispatch(dismissAlert());}} />;
+    return <Button key={item} className='btn file-btn' label={item.split('.')[ZERO]} onClick={() => { setName(item); dispatch(loadFile(item)); dispatch(dismissAlert());}} />;
   });
 
   const selectedDelimiter = delimiters.find(item => item.selected);

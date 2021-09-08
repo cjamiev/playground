@@ -26,7 +26,7 @@ const Modal = (props) => {
   });
 
   if(dispatchAction) {
-    renderButtons.push(<Button key={dispatchAction.label} label={dispatchAction.label} disabled={err} className='modal__secondary-btn' onClick={() => { dispatch(dispatchAction.action(dispatchAction.parse(content))); beforeClose(); close();} } />);
+    renderButtons.push(<Button key={dispatchAction.label} label={dispatchAction.label} disabled={err} classColor="secondary" onClick={() => { dispatch(dispatchAction.action(dispatchAction.parse(content))); beforeClose(); close();} } />);
   }
 
   const handleChange = ({ selected, error }) => {

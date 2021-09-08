@@ -40,7 +40,7 @@ const MockConfig = () => {
     <>
       <DynamicForm data={fields} onChange={handleChange} />
       <div className="container--center">
-        <Button label="Submit" disabled={hasError(fields)} onClick={onSubmit} />
+        <Button classColor="primary" label="Submit" disabled={hasError(fields)} onClick={onSubmit} />
       </div>
     </>
   );
