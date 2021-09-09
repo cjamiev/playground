@@ -1,14 +1,7 @@
 import React from 'react';
 import Button from 'components/button';
-import { useHistory } from 'react-router-dom';
-import { ROUTES } from 'constants/routes';
 
-const NAV_ITEMS = Object.values(ROUTES);
-
-const SidePanel = ({ showSidePanel, sidePanelContent, isSidePanelWide, toggleSidePanel }) => {
-  const history = useHistory();
-  const currentPage = NAV_ITEMS.find(item => item.url === history.location.pathname);
-
+const SidePanel = ({ showSidePanel, sidePanelContent, isSidePanelWide, toggleSidePanel, title }) => {
   if(!showSidePanel) {
     return null;
   }
@@ -20,8 +13,8 @@ const SidePanel = ({ showSidePanel, sidePanelContent, isSidePanelWide, toggleSid
     <div className={sidePanelClassName}>
       <header className={sidePanelHeaderClassName}>
         {isSidePanelWide
-          ? <h1 className="sidepanel__title">{currentPage.sidePanelLabel}</h1>
-          : <h2 className="sidepanel__title">{currentPage.sidePanelLabel}</h2>}
+          ? <h1 className="sidepanel__title">{title}</h1>
+          : <h2 className="sidepanel__title">{title}</h2>}
         {isSidePanelWide && <div className="sidepanel__button">
           <Button label='X' classColor='inherit' isSmall={true} onClick={toggleSidePanel} />
         </div>}
