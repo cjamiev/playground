@@ -17,7 +17,7 @@
 }
 
 .home__task-text {
-  font-size: 30px;
+  font-size: 36px;
   margin: 5px;
 }
 
@@ -28,6 +28,13 @@
 }
 
 .home__task-link {
+  margin: 10px 5px;
+}
+
+.home__task-link-label {
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 10px;
   font-size: 24px;
-  margin: 5px;
+  cursor: pointer;
 }

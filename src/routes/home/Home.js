@@ -21,7 +21,7 @@ const renderCells = ({ items, removeItem, moveItemUp, moveItemDown }) => {
           <td className='flex--three flex--vertical'>
             {<span className="home__task-text">{text}</span>}
             {note && <span className="home__task-note">{note}</span>}
-            {url && <a className="link home__task-link" href={url} target="_blank">{url}</a>}
+            {url && <a className="link home__task-link" href={url} target="_blank"><label className="home__task-link-label">{url}</label></a>}
           </td>
           <td className='flex--one'>
             <Button classColor="primary" label="Remove" onClick={() => { removeItem(id); }} />
