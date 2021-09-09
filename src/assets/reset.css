@@ -34,21 +34,6 @@ table {
 	border-spacing: 0;
 }
 
-h1 {
-	font-size: 48px;
-	font-weight: 600;
-}
-
-h2 {
-	font-size: 36px;
-	font-weight: 600;
-}
-
-h3 {
-	font-size: 24px;
-	font-weight: 600;
-}
-
 ol, ul {
 	list-style: none;
 }

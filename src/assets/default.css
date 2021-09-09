@@ -93,3 +93,27 @@ table th {
   background-color: rgb(40, 44, 52);
   color: white;
 }
+
+h1 {
+	font-size: 48px;
+	font-weight: 600;
+}
+
+h2 {
+	font-size: 36px;
+	font-weight: 600;
+}
+
+h3 {
+	font-size: 24px;
+	font-weight: 600;
+}
+
+[placeholder]:empty:before {
+  content: attr(placeholder);
+  color: #555; 
+}
+
+[placeholder]:empty:focus::before {
+  content: "";
+}

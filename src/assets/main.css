@@ -11,15 +11,6 @@
   background-color: #f6f8fa;
 }
 
-[placeholder]:empty:before {
-  content: attr(placeholder);
-  color: #555; 
-}
-
-[placeholder]:empty:focus::before {
-  content: "";
-}
-
 .container--center {
   margin: 0 auto;
   width: 90%;
@@ -33,10 +24,6 @@
 .flex--vertical {
   display: flex;
   flex-direction: column;
-}
-
-.clickable {
-  cursor: pointer;
 }
 
 .flex--one {
@@ -62,4 +49,20 @@
 .horizontal-center {
   text-align: center;
   place-items: center;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.invisible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
