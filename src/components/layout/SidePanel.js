@@ -14,10 +14,11 @@ const SidePanel = ({ showSidePanel, sidePanelContent, isSidePanelWide, toggleSid
   }
 
   const sidePanelClassName = isSidePanelWide ? 'sidepanel sidepanel--full' : 'sidepanel';
+  const sidePanelHeaderClassName = isSidePanelWide ? 'sidepanel__header--full' : 'sidepanel__header';
 
   return (
     <div className={sidePanelClassName}>
-      <header className="sidepanel__header">
+      <header className={sidePanelHeaderClassName}>
         {isSidePanelWide
           ? <h1 className="sidepanel__title">{currentPage.sidePanelLabel}</h1>
           : <h2 className="sidepanel__title">{currentPage.sidePanelLabel}</h2>}

@@ -23,7 +23,7 @@
   width: 0px;
 }
 
-.pageheader {
+.pageheader, .sidepanel__header--full {
   position: relative;
   height: 100px;
 }
