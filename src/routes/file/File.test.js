@@ -11,7 +11,6 @@ describe('File', () => {
     document.execCommand = jest.fn();
     reduxTestWrapper(File, {}, {}, pathname);
 
-    const contentField = screen.getByLabelText('Content text area');
     const copyBtn = screen.getByText('Copy');
 
     fireEvent.click(copyBtn);
@@ -36,6 +35,9 @@ describe('File', () => {
   it('handle sort', () => {
     reduxTestWrapper(File, {}, {}, pathname);
 
+    const sidePanelBtn = screen.getByText('(|)');
+    fireEvent.click(sidePanelBtn);
+
     const contentField = screen.getByLabelText('Content text area');
     const sortAscBtn = screen.getByText('Sort Asc');
     const sortDescBtn = screen.getByText('Sort Desc');
@@ -51,6 +53,9 @@ describe('File', () => {
 
   it('handle split/join', () => {
     reduxTestWrapper(File, {}, {}, pathname);
+
+    const sidePanelBtn = screen.getByText('(|)');
+    fireEvent.click(sidePanelBtn);
 
     const contentField = screen.getByLabelText('Content text area');
     const splitBtn = screen.getByText('Split');
@@ -70,6 +75,9 @@ describe('File', () => {
   it('handle trim', () => {
     reduxTestWrapper(File, {}, {}, pathname);
 
+    const sidePanelBtn = screen.getByText('(|)');
+    fireEvent.click(sidePanelBtn);
+
     const contentField = screen.getByLabelText('Content text area');
     const trimBtn = screen.getByText('Trim');
 
@@ -81,6 +89,9 @@ describe('File', () => {
 
   it('handle find and replace', () => {
     reduxTestWrapper(File, {}, {}, pathname);
+
+    const sidePanelBtn = screen.getByText('(|)');
+    fireEvent.click(sidePanelBtn);
 
     const contentField = screen.getByLabelText('Content text area');
     const findField = screen.getByPlaceholderText('Text to search');
@@ -129,7 +140,7 @@ describe('File', () => {
     expect(api.post).toHaveBeenCalledWith('/write', { filename: 'test2.txt', content: '1 2 3 4 5' });
   });
 
-  it('handle side panel file', async () => {
+  it('handle loading existing file', async () => {
     jest.mock('api');
     const mockGet = jest.fn();
     api.get = mockGet.mockResolvedValueOnce({
@@ -144,8 +155,8 @@ describe('File', () => {
     });
     reduxTestWrapper(File, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByText('(|)');
-    fireEvent.click(sidePanelBtn);
+    const fileDropdown = screen.getByText('Select an existing file');
+    fireEvent.click(fileDropdown);
 
     await waitFor(() => {
       expect(screen.getByText('test')).toBeInTheDocument();

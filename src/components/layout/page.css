@@ -23,10 +23,13 @@
   width: 0px;
 }
 
-.pageheader,
-.sidepanel__header {
+.pageheader {
   position: relative;
-  height: 7em;
+  height: 100px;
+}
+
+.sidepanel__header {
+  height: 60px;
 }
 
 .pageheader__sidepanel_button,

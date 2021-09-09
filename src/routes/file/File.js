@@ -41,51 +41,22 @@ const File = () => {
     }
   }, [name, file]);
 
-  const directoryFilesName = directory.filter(item => item.includes('.')).map(item => {
-    return <Button key={item} className='btn file-btn' label={item.split('.')[ZERO]} onClick={() => { setName(item); dispatch(loadFile(item)); dispatch(dismissAlert());}} />;
+  const files = directory.filter(item => item.includes('.')).map(item => {
+    return { label:item.split('.')[ZERO], value: item, selected: false };
   });
 
   const selectedDelimiter = delimiters.find(item => item.selected);
 
   return (
     <Page
-      sidePanelContent={<div className="container--center">{directoryFilesName}</div>}
-    >
-      <div className="flex--horizontal">
-        <div className="flex--vertical">
-          <Text placeholder='Enter File Name' selected={name} onChange={({selected}) => { setName(selected); }} />
-          <Button label='Save'
-            classColor='primary'
-            onClick={() => {
-              if(name && content) {
-                dispatch(writeFile(name, content));
-              }
-            }} />
-          <Button label='Copy' classColor='primary' onClick={() => { copyToClipboard(content); }} />
-
-        </div>
-        <div className="flex--vertical">
-          <Button label='Is valid JSON?'
-            classColor='secondary'
-            onClick={() => {
-              dispatch(dismissAlert());
-              const isValid = isJSONString(content);
-              const message = isValid ? 'Is Valid JSON' : 'Is NOT Valid JSON';
-              const status = isValid ? 'success' : 'error';
-              dispatch(createAlert({ content: message, status }));
-            }} />
-        </div>
-        <div className="flex--vertical">
+      sidePanelContent={
+        <div className="container--center">
           <Dropdown label='Delimiter' values={delimiters} onChange={({ values }) => { setDelimiters(values); }} />
           <Button label='Sort Asc' classColor='secondary' onClick={() => { setContent(sortByDelimiter(content, selectedDelimiter.value)); }} />
           <Button label='Sort Desc' classColor='secondary' onClick={() => { setContent(sortDescendingByDelimiter(content, selectedDelimiter.value)); }} />
-        </div>
-        <div className="flex--vertical">
           <Button label='Split' classColor='secondary' onClick={() => { setContent(content.split(selectedDelimiter.value).join('\n')); }} />
           <Button label='Join' classColor='secondary' onClick={() => { setContent(content.split('\n').join(selectedDelimiter.value)); }} />
           <Button label='Trim' classColor='secondary' onClick={() => { setContent(content.replace(/\n|\t|\r/gm, '').replace(/[ ]{2,}/gm, ' ')); }} />
-        </div>
-        <div className="flex--vertical">
           <Text placeholder='Text to search' selected={find} onChange={({selected}) => { setFind(selected); }} />
           <Text placeholder='Text to replace' selected={replace} onChange={({selected}) => { setReplace(selected); }} />
           <Button label='Replace All' classColor='secondary' onClick={() => {
@@ -93,7 +64,36 @@ const File = () => {
             setContent(content.replace(regex, replace));
           }} />
         </div>
-      </div>
+      }
+    >
+      <Dropdown
+        label='Select an existing file'
+        values={files}
+        onChange={({ values }) => {
+          const selectedFile = values.find(item => item.selected);
+          setName(selectedFile.value);
+          dispatch(loadFile(selectedFile.value));
+          dispatch(dismissAlert());
+        }}
+      />
+      <Text placeholder='Enter File Name' selected={name} onChange={({selected}) => { setName(selected); }} />
+      <Button label='Save'
+        classColor='primary'
+        onClick={() => {
+          if(name && content) {
+            dispatch(writeFile(name, content));
+          }
+        }} />
+      <Button label='Copy' classColor='primary' onClick={() => { copyToClipboard(content); }} />
+      <Button label='Is valid JSON?'
+        classColor='secondary'
+        onClick={() => {
+          dispatch(dismissAlert());
+          const isValid = isJSONString(content);
+          const message = isValid ? 'Is Valid JSON' : 'Is NOT Valid JSON';
+          const status = isValid ? 'success' : 'error';
+          dispatch(createAlert({ content: message, status }));
+        }} />
       <TextArea ariaLabel='Content text area' selected={content} onChange={({ selected }) => { setContent(selected); }}/>
     </Page>
   );
