@@ -11,21 +11,38 @@ describe('Home', () => {
   it('handle todo list', () => {
     reduxTestWrapper(Home, {}, {}, pathname);
 
-    const textField = screen.getByLabelText('Enter to do item text field');
+    const sidePanelBtn = screen.getByText('(|)');
+    fireEvent.click(sidePanelBtn);
+
+    const taskField = screen.getByLabelText('Task text field');
+    const notesField = screen.getByLabelText('Notes text field');
+    const urlField = screen.getByLabelText('URL text field');
     const addBtn = screen.getByText('Add Item');
 
-    fireEvent.change(textField, { target: { value: 'itemOne' } });
+    fireEvent.change(taskField, { target: { value: 'taskOne' } });
+    fireEvent.change(notesField, { target: { value: 'noteOne' } });
+    fireEvent.change(urlField, { target: { value: 'urlOne' } });
     fireEvent.click(addBtn);
-    fireEvent.change(textField, { target: { value: 'itemTwo' } });
+    fireEvent.change(taskField, { target: { value: 'taskTwo' } });
+    fireEvent.change(notesField, { target: { value: 'noteTwo' } });
+    fireEvent.change(urlField, { target: { value: 'urlTwo' } });
     fireEvent.click(addBtn);
-    fireEvent.change(textField, { target: { value: 'itemThree' } });
+    fireEvent.change(taskField, { target: { value: 'taskThree' } });
+    fireEvent.change(notesField, { target: { value: 'noteThree' } });
+    fireEvent.change(urlField, { target: { value: 'urlThree' } });
     fireEvent.click(addBtn);
 
-    expect(screen.getByText('itemOne')).toBeInTheDocument();
-    expect(screen.getByText('itemTwo')).toBeInTheDocument();
-    expect(screen.getByText('itemThree')).toBeInTheDocument();
+    expect(screen.getByText('taskOne')).toBeInTheDocument();
+    expect(screen.getByText('noteOne')).toBeInTheDocument();
+    expect(screen.getByText('urlOne')).toBeInTheDocument();
+    expect(screen.getByText('taskTwo')).toBeInTheDocument();
+    expect(screen.getByText('noteTwo')).toBeInTheDocument();
+    expect(screen.getByText('urlTwo')).toBeInTheDocument();
+    expect(screen.getByText('taskThree')).toBeInTheDocument();
+    expect(screen.getByText('noteThree')).toBeInTheDocument();
+    expect(screen.getByText('urlThree')).toBeInTheDocument();
 
-    const downBtn = screen.getAllByText('Dwn')[ZERO];
+    const downBtn = screen.getAllByText('Down')[ZERO];
     fireEvent.click(downBtn);
     const upBtn = screen.getAllByText('Up')[TWO];
     fireEvent.click(upBtn);
@@ -33,8 +50,8 @@ describe('Home', () => {
     const doneBtn = screen.getAllByText('Remove')[ONE];
     fireEvent.click(doneBtn);
 
-    expect(screen.getByText('itemOne')).toBeInTheDocument();
-    expect(screen.getByText('itemTwo')).toBeInTheDocument();
-    expect(screen.queryByText('itemThree')).not.toBeInTheDocument();
+    expect(screen.getByText('taskOne')).toBeInTheDocument();
+    expect(screen.getByText('taskTwo')).toBeInTheDocument();
+    expect(screen.queryByText('taskThree')).not.toBeInTheDocument();
   });
 });
