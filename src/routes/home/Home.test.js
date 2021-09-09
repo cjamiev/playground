@@ -8,8 +8,10 @@ const ONE = 1;
 const TWO = 2;
 
 describe('Home', () => {
-  it('handle todo list', () => {
+  it('handle tasks', () => {
     reduxTestWrapper(Home, {}, {}, pathname);
+
+    expect(screen.getByText('No tasks to display')).toBeInTheDocument();
 
     const sidePanelBtn = screen.getByText('(|)');
     fireEvent.click(sidePanelBtn);
@@ -53,5 +55,6 @@ describe('Home', () => {
     expect(screen.getByText('taskOne')).toBeInTheDocument();
     expect(screen.getByText('taskTwo')).toBeInTheDocument();
     expect(screen.queryByText('taskThree')).not.toBeInTheDocument();
+    expect(screen.queryByText('No items to display')).not.toBeInTheDocument();
   });
 });

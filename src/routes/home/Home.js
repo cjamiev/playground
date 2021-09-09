@@ -3,6 +3,7 @@ import Page from 'components/layout';
 import Button from 'components/button';
 import Text from 'components/form/Text';
 import Table from 'components/table';
+import TimerForm from 'components/form/TimerForm';
 import {
   decrementElementIndex,
   incrementElementIndex,
@@ -99,14 +100,29 @@ const Home = () => {
     <Page
       sidePanelContent={
         <div className="container--center">
-          <Text data-testid="todo-task" placeholder='Task' selected={text} onChange={handleTextChange} />
-          <Text data-testid="todo-notes" placeholder='Notes' selected={note} onChange={handleNoteChange} />
-          <Text data-testid="todo-url" placeholder='URL' selected={url} onChange={handleUrlChange} />
-          <Button data-testid="todo-add-btn" classColor='primary' label="Add Item" onClick={addItem} />
+          <div>
+            <h3> Add Tasks </h3>
+            <Text data-testid="todo-task" placeholder='Task' selected={text} onChange={handleTextChange} />
+            <Text data-testid="todo-notes" placeholder='Notes' selected={note} onChange={handleNoteChange} />
+            <Text data-testid="todo-url" placeholder='URL' selected={url} onChange={handleUrlChange} />
+            <Button data-testid="todo-add-btn" classColor='primary' label="Add Item" onClick={addItem} />
+          </div>
+          <div>
+            <h3> Add Global Timer </h3>
+            <TimerForm onChange={({ name, content}) => {
+              const globalTimer = JSON.parse(localStorage.getItem('globaltimer') || '[]');
+              globalTimer.push({ name, value: content, type: 'timer' });
+              localStorage.setItem('globaltimer', JSON.stringify(globalTimer));
+              setToggleTimer(false);
+            }} />
+          </div>
         </div>
       }
     >
-      {items.length > ZERO && <Table headers={[{label:'To Do', className:'flex--three'}, {label:'Actions', className:'flex--one'}]} body={renderCells({ items, removeItem, moveItemUp, moveItemDown})} />}
+      {items.length > ZERO
+        ? <Table headers={[{label:'To Do', className:'flex--three'}, {label:'Actions', className:'flex--one'}]} body={renderCells({ items, removeItem, moveItemUp, moveItemDown})} />
+        : <p> No tasks to display </p>
+      }
     </Page>
   );
 };

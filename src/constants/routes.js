@@ -1,5 +1,5 @@
 export const ROUTES = {
-  HOME: { label: 'Home', url: '/home'},
+  HOME: { label: 'Home', sidePanelLabel: 'Home Configuration', url: '/home'},
   FILE: { label: 'File', sidePanelLabel: 'Select A File', url: '/file'},
   CLIPBOARD: { label: 'Clipboard', sidePanelLabel: 'Clipboard Configuration', url: '/clipboard'},
   EXPERIMENT: { label: 'Experiment', sidePanelLabel: 'Test Api', url: '/experiment'},
