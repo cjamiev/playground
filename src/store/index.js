@@ -12,7 +12,6 @@ import clipboardReducer from 'routes/clipboard/clipboardReducer';
 import experimentReducer from 'routes/experiment/experimentReducer';
 import fileReducer from 'routes/file/fileReducer';
 import globalModalReducer from 'components/modal/globalModalReducer';
-import homeReducer from 'routes/home/homeReducer';
 import listReducer from 'components/list/listReducer';
 import mockserverReducer from 'routes/mockserver/mockserverReducer';
 
@@ -32,7 +31,6 @@ const rootReducer = combineReducers({
   experiment: experimentReducer,
   file: fileReducer,
   globalModal: globalModalReducer,
-  home: homeReducer,
   list: listReducer,
   mockserver: mockserverReducer
 });

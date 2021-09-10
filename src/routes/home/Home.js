@@ -2,40 +2,18 @@ import React, { useState } from 'react';
 import Page from 'components/layout';
 import Button from 'components/button';
 import Text from 'components/form/Text';
-import Table from 'components/table';
+import Tabs from 'components/tabs';
 import TimerForm from 'components/form/TimerForm';
-import {
-  decrementElementIndex,
-  incrementElementIndex,
-  swapArrayElementPositions
-} from 'arrayHelper';
+import ComponentWrapper from 'components/ComponentWrapper';
+import HomeTodo from './HomeTodo';
+import HomeTimer from './HomeTimer';
 import './home.css';
-
-const ZERO = 0;
-
-const renderCells = ({ items, removeItem, moveItemUp, moveItemDown }) => {
-  return (
-    <>
-      {items.map(({ id, text, note, url }) => (
-        <tr className='flex--horizontal' key={id} data-testid={text}>
-          <td className='flex--three flex--vertical'>
-            {<span className="home__task-text">{text}</span>}
-            {note && <span className="home__task-note">{note}</span>}
-            {url && <a className="link home__task-link" href={url} target="_blank"><label className="home__task-link-label">{url}</label></a>}
-          </td>
-          <td className='flex--one'>
-            <Button classColor="primary" label="Remove" onClick={() => { removeItem(id); }} />
-            <Button classColor="secondary" label="Up" onClick={() => { moveItemUp(id); }} />
-            <Button classColor="secondary" label="Down" onClick={() => { moveItemDown(id);}} />
-          </td>
-        </tr>
-      ))}
-    </>);
-};
 
 const Home = () => {
   const currentTodo = JSON.parse(localStorage.getItem('todo') || '[]');
-  const [items, setItems] = useState(currentTodo);
+  const currentTimers = JSON.parse(localStorage.getItem('globaltimers') || '[]');
+  const [tasks, setTasks] = useState(currentTodo);
+  const [timers, setTimers] = useState(currentTimers);
   const [text, setText] = useState('');
   const [note, setNote] = useState('');
   const [url, setUrl] = useState('');
@@ -52,6 +30,14 @@ const Home = () => {
     setUrl(selected);
   };
 
+  const handleTasksChange = (updatedTasks) => {
+    setTasks(updatedTasks);
+  };
+
+  const handleTimersChange = (updatedTimers) => {
+    setTimers(updatedTimers);
+  };
+
   const addItem = (e) => {
     e.preventDefault();
     if (!text.length) {
@@ -65,36 +51,18 @@ const Home = () => {
       id: Date.now()
     };
 
-    const updatedItems = items.concat(newItem);
-    setItems(updatedItems);
+    const updatedTasks = tasks.concat(newItem);
+    setTasks(updatedTasks);
     setText('');
     setNote('');
     setUrl('');
-    localStorage.setItem('todo', JSON.stringify(updatedItems));
+    localStorage.setItem('todo', JSON.stringify(updatedTasks));
   };
 
-  const removeItem = id => {
-    const updatedItems = items.filter(item => item.id !== id);
-
-    setItems(updatedItems);
-    localStorage.setItem('todo', JSON.stringify(updatedItems));
-  };
-
-  const moveItemUp = id => {
-    const index = items.findIndex(item => item.id === id);
-    const updatedItems = decrementElementIndex(items, index);
-
-    setItems(updatedItems);
-    localStorage.setItem('todo', JSON.stringify(updatedItems));
-  };
-
-  const moveItemDown = id => {
-    const index = items.findIndex((item) => item.id === id);
-    const updatedItems = incrementElementIndex(items, index);
-
-    setItems(updatedItems);
-    localStorage.setItem('todo', JSON.stringify(updatedItems));
-  };
+  const TABS = [
+    { title: 'To do', component: ComponentWrapper(HomeTodo, { tasks, onChange: handleTasksChange })},
+    { title: 'Timers', component: ComponentWrapper(HomeTimer, { timers, onChange: handleTimersChange })}
+  ];
 
   return (
     <Page
@@ -110,19 +78,16 @@ const Home = () => {
           <div>
             <h3> Add Global Timer </h3>
             <TimerForm onChange={({ name, content}) => {
-              const globalTimer = JSON.parse(localStorage.getItem('globaltimer') || '[]');
-              globalTimer.push({ name, value: content, type: 'timer' });
-              localStorage.setItem('globaltimer', JSON.stringify(globalTimer));
-              setToggleTimer(false);
+              const globalTimer = JSON.parse(localStorage.getItem('globaltimers') || '[]');
+              const updatedTimers = timers.concat({ name, value: content, type: 'timer' });
+              setTimers(updatedTimers);
+              localStorage.setItem('globaltimers', JSON.stringify(updatedTimers));
             }} />
           </div>
         </div>
       }
     >
-      {items.length > ZERO
-        ? <Table headers={[{label:'To Do', className:'flex--three'}, {label:'Actions', className:'flex--one'}]} body={renderCells({ items, removeItem, moveItemUp, moveItemDown})} />
-        : <p> No tasks to display </p>
-      }
+      <Tabs data={TABS} />
     </Page>
   );
 };

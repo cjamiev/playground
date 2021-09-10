@@ -18,7 +18,6 @@ import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer'
 import { experimentInitialState } from '../src/routes/experiment/experimentReducer';
 import { fileInitialState } from '../src/routes/file/fileReducer';
 import { globalModalInitialState } from '../src/components/modal/globalModalReducer';
-import { homeInitialState } from '../src/routes/home/homeReducer';
 import { listInitialState } from '../src/components/list/listReducer';
 import { mockserverInitialState } from '../src/routes/mockserver/mockserverReducer';
 import { isEmpty } from 'booleanHelper';
@@ -33,7 +32,6 @@ const defaultStore = {
   globalModal: globalModalInitialState,
   experiment: experimentInitialState,
   file: fileInitialState,
-  home: homeInitialState,
   list: listInitialState,
   mockserver: mockserverInitialState
 };
