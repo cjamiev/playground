@@ -13,6 +13,22 @@ describe('helper (Button)', () => {
     expect(getColor('secondary')).toEqual(' btn--secondary');
   });
 
+  it('getColor - success', () => {
+    expect(getColor('success')).toEqual(' btn--success');
+  });
+
+  it('getColor - info', () => {
+    expect(getColor('info')).toEqual(' btn--info');
+  });
+
+  it('getColor - warning', () => {
+    expect(getColor('warning')).toEqual(' btn--warning');
+  });
+
+  it('getColor - error', () => {
+    expect(getColor('error')).toEqual(' btn--error');
+  });
+
   it('getColor - inherit', () => {
     expect(getColor('inherit')).toEqual(' btn--inherit');
   });
