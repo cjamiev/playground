@@ -39,7 +39,7 @@ const TimerForm = ({ onChange }) => {
       <Button label='Save' classColor='primary' onClick={
         () => {
           if(name) {
-            const parsedHour = amOrPmMode ? Number(hour) + TWELVE : Number(hour);
+            const parsedHour = amOrPmMode ? Number(hour) + TWELVE : Number(hour) % TWELVE;
             const timerContent = { month: Number(month), day: Number(day), year: Number(year), hour: parsedHour, minute: Number(minute), second: Number(second) };
             onChange({ name, content: timerContent});
             setName('');

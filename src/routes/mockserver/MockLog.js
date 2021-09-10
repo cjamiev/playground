@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createAlert } from 'components/alert/alertActions';
 import { loadMockServerLog, clearMockServerLog } from './mockserverActions';
 import Page from 'components/layout';
 import { openGlobalModal } from 'components/modal/globalModalActions';
