@@ -1,7 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadClipboard } from './clipboardActions';
-import { createAlert } from 'components/alert/alertActions';
 import { openGlobalModal } from 'components/modal/globalModalActions';
 import Page from 'components/layout';
 import List from 'components/list';
@@ -26,7 +25,7 @@ const ClipboardTab = (props) => {
 const Clipboard = () => {
   const [filter, setFilter] = useState('');
   const dispatch = useDispatch();
-  const { clipboard, error } = useSelector(state => state.clipboard);
+  const { clipboard } = useSelector(state => state.clipboard);
   const result = useSelector(state => state.list.commandResponse);
   const TABS = Object.keys(clipboard).map(filename => {
     const name = filename.split('.')[ZERO];
@@ -57,12 +56,6 @@ const Clipboard = () => {
       dispatch(openGlobalModal({ title: 'Command Results', message: result }));
     }
   }, [dispatch, result]);
-
-  useEffect(() => {
-    if(error.message) {
-      dispatch(createAlert({ content: error.message, status: 'error' }));
-    }
-  }, [dispatch, error.message]);
 
   const handleFilterChange = ({ selected }) => {
     setFilter(selected);

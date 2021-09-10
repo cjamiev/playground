@@ -1,57 +1,40 @@
 import api from 'api';
+import { createAlert } from 'components/alert/alertActions';
 
-const LOAD_DIRECTORY = 'LOAD_DIRECTORY';
-const ERROR_DIRECTORY = 'ERROR_DIRECTORY';
-const LOAD_FILE = 'LOAD_FILE';
-const ERROR_FILE = 'ERROR_FILE';
-const WRITE_FILE = 'WRITE_FILE';
+const LOAD_HOME = 'LOAD_HOME';
+const ERROR_HOME = 'ERROR_HOME';
 
-const loadDirectory = () => {
+const ZERO = 0;
+
+const loadHome = () => {
   return (dispatch) => {
     api
-      .get('/read')
+      .get('/db/?name=home.json')
       .then((response) => {
-        dispatch({ type: LOAD_DIRECTORY, data: response.data.data });
+        dispatch({ type: LOAD_HOME, data: JSON.parse(response.data.data) });
       })
       .catch((error) => {
-        dispatch({ type: ERROR_DIRECTORY, error });
+        dispatch({ type: ERROR_HOME, error });
       });
   };
 };
 
-const loadFile = (filename) => {
+const updateHome = (content) => {
   return (dispatch) => {
     api
-      .get(`/read/?name=${filename}`)
+      .post('/db', { filename: 'clipboard.json', content: JSON.stringify(content) })
       .then((response) => {
-        dispatch({ type: LOAD_FILE, data: response.data.data });
+        dispatch(createAlert({ content: response.data.message, status: 'success' }));
       })
       .catch((error) => {
-        dispatch({ type: ERROR_FILE, error });
-      });
-  };
-};
-
-const writeFile = (filename, content) => {
-  return (dispatch) => {
-    api
-      .post('/write', { filename, content })
-      .then((response) => {
-        dispatch({ type: WRITE_FILE, data: response.data.data });
-      })
-      .catch((error) => {
-        dispatch({ type: ERROR_FILE, error });
+        dispatch(createAlert({ content: error.message, status: 'error' }));
       });
   };
 };
 
 export {
-  LOAD_DIRECTORY,
-  ERROR_DIRECTORY,
-  loadDirectory,
-  LOAD_FILE,
-  ERROR_FILE,
-  loadFile,
-  WRITE_FILE,
-  writeFile
+  LOAD_HOME,
+  ERROR_HOME,
+  loadHome,
+  updateHome
 };

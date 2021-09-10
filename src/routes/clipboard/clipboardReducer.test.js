@@ -1,4 +1,4 @@
-import { LOAD_CLIPBOARD, ERROR_CLIPBOARD } from './clipboardActions';
+import { LOAD_CLIPBOARD } from './clipboardActions';
 import clipboardReducer, { clipboardInitialState } from './clipboardReducer';
 
 describe('clipboardReducer', () => {
@@ -21,21 +21,6 @@ describe('clipboardReducer', () => {
     expect(result).toEqual({
       ...clipboardInitialState,
       clipboard: action.data
-    });
-  });
-
-  it('ERROR_CLIPBOARD', () => {
-    const action = {
-      type: ERROR_CLIPBOARD,
-      error: {
-        message: 'test-error'
-      }
-    };
-    const result = clipboardReducer(clipboardInitialState, action);
-
-    expect(result).toEqual({
-      ...clipboardInitialState,
-      error: action.error
     });
   });
 

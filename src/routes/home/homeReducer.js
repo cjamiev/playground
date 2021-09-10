@@ -1,48 +1,25 @@
 import {
-  LOAD_DIRECTORY,
-  ERROR_DIRECTORY,
-  LOAD_FILE,
-  ERROR_FILE,
-  WRITE_FILE
+  LOAD_HOME,
+  ERROR_HOME
 } from './homeActions';
 
 export const homeInitialState = {
-  directory: [],
-  file: '',
-  error: {},
-  result: {}
+  home: {},
+  error: {}
 };
 
 const homeReducer = (state = homeInitialState, action) => {
   const homeCases = {
-    [LOAD_DIRECTORY]: () => {
+    [LOAD_HOME]: () => {
       return {
         ...state,
-        directory: action.data
+        home: action.data
       };
     },
-    [ERROR_DIRECTORY]: () => {
+    [ERROR_HOME]: () => {
       return {
         ...state,
         error: action.error
-      };
-    },
-    [LOAD_FILE]: () => {
-      return {
-        ...state,
-        file: action.data
-      };
-    },
-    [ERROR_FILE]: () => {
-      return {
-        ...state,
-        error: action.error
-      };
-    },
-    [WRITE_FILE]: () => {
-      return {
-        ...state,
-        result: action.data
       };
     }
   };

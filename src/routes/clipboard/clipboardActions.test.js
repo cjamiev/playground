@@ -46,7 +46,7 @@ describe('clipboardActions', () => {
     loadClipboard()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_CLIPBOARD, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 

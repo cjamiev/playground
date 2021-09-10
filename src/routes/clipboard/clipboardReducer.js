@@ -1,11 +1,9 @@
 import {
-  LOAD_CLIPBOARD,
-  ERROR_CLIPBOARD
+  LOAD_CLIPBOARD
 } from './clipboardActions';
 
 export const clipboardInitialState = {
-  clipboard: {},
-  error: {}
+  clipboard: {}
 };
 
 const clipboardReducer = (state = clipboardInitialState, action) => {
@@ -14,12 +12,6 @@ const clipboardReducer = (state = clipboardInitialState, action) => {
       return {
         ...state,
         clipboard: action.data
-      };
-    },
-    [ERROR_CLIPBOARD]: () => {
-      return {
-        ...state,
-        error: action.error
       };
     }
   };

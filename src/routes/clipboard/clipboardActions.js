@@ -2,7 +2,6 @@ import api from 'api';
 import { createAlert } from 'components/alert/alertActions';
 
 const LOAD_CLIPBOARD = 'LOAD_CLIPBOARD';
-const ERROR_CLIPBOARD = 'ERROR_CLIPBOARD';
 
 const ZERO = 0;
 
@@ -14,7 +13,7 @@ const loadClipboard = () => {
         dispatch({ type: LOAD_CLIPBOARD, data: JSON.parse(response.data.data) });
       })
       .catch((error) => {
-        dispatch({ type: ERROR_CLIPBOARD, error });
+        dispatch(createAlert({ content: error.message, status: 'error' }));
       });
   };
 };
@@ -34,7 +33,6 @@ const updateClipboard = (content) => {
 
 export {
   LOAD_CLIPBOARD,
-  ERROR_CLIPBOARD,
   loadClipboard,
   updateClipboard
 };

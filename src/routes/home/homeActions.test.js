@@ -1,86 +1,69 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
 import {
-  LOAD_DIRECTORY,
-  ERROR_DIRECTORY,
-  loadDirectory,
-  LOAD_FILE,
-  ERROR_FILE,
-  loadFile,
-  WRITE_FILE,
-  writeFile
+  LOAD_HOME,
+  ERROR_HOME,
+  loadHome,
+  updateHome
 } from './homeActions';
+import { CREATE_ALERT } from 'components/alert/alertActions';
 
 const error = new Error('Test Message');
 const dispatch = jest.fn();
 
 const mockGet = jest.fn();
 jest.mock('api');
+api.get.mockResolvedValue({
+  data: {
+    data: '{ "one": [1,2,3], "two": [2,3,4] }'
+  }
+});
+api.post.mockResolvedValue({
+  data: {
+    message: 'testing 123'
+  }
+});
+const errorObject = {
+  content: 'Test Message',
+  status: 'error'
+};
+const successObject = {
+  content: 'testing 123',
+  status: 'success'
+};
 
 describe('homeActions', () => {
-  it('loadDirectory', async () => {
-    api.get.mockResolvedValueOnce({
-      data: {
-        data: [1,2,3]
-      }
-    });
-    loadDirectory()(dispatch);
+  it('loadHome', async () => {
+    loadHome()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_DIRECTORY, data: [1,2,3]});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_HOME, data: { one: [1,2,3], two: [2,3,4]}});
     });
   });
 
-  it('loadDirectory - error', async () => {
+  it('loadHome - error', async () => {
     api.get.mockRejectedValueOnce(error);
-    loadDirectory()(dispatch);
+    loadHome()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_DIRECTORY, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_HOME, error });
     });
   });
 
-  it('loadFile', async () => {
-    api.get.mockResolvedValueOnce({
-      data: {
-        data: 'test file'
-      }
-    });
-    loadFile()(dispatch);
+  it('updateHome', async () => {
+    updateHome({ test : 123 })(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_FILE, data: 'test file'});
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
     });
   });
 
-  it('loadFile - error', async () => {
-    api.get.mockRejectedValueOnce(error);
-    loadFile()(dispatch);
+  it('updateHome - error', async () => {
+    api.post.mockRejectedValueOnce(error);
+    updateHome()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_FILE, error });
-    });
-  });
-
-  it('writeFile', async () => {
-    api.post.mockResolvedValue({
-      data: {
-        data: 'test message'
-      }
-    });
-    writeFile()(dispatch);
-
-    await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: WRITE_FILE, data: 'test message'});
-    });
-  });
-
-  it('writeFile - error', async () => {
-    api.post.mockRejectedValueOnce(new Error('Test Message'));
-    writeFile()(dispatch);
-
-    await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_FILE, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 });

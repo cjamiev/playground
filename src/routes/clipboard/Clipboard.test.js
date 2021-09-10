@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { reduxTestWrapper } from 'testHelper';
+import { reduxTestWrapper, fullTestWrapper } from 'testHelper';
 import { loadPassword } from './clipboardActions';
 import Clipboard from './Clipboard';
 
@@ -9,11 +9,7 @@ const ZERO = 0;
 const defaultProps = {};
 const defaultStoreProps = {
   globalModal: {
-    modalQueue: [{
-      title: 'test-title',
-      message: 'test-message',
-      action: jest.fn()
-    }]
+    modalQueue: []
   },
   clipboard: {
     error: {},
@@ -68,12 +64,7 @@ const defaultStorePropsTwo = {
   list: {
     commandResponse: 'test-command-response'
   },
-  clipboard: {
-    ...defaultStoreProps.clipboard,
-    error: {
-      message: 'test-alert-message2'
-    }
-  }
+  clipboard: defaultStoreProps.clipboard
 };
 
 describe('Clipboard', () => {
@@ -100,8 +91,8 @@ describe('Clipboard', () => {
   });
 
   it('check error dispatch and commandResponse dispatch', () => {
-    reduxTestWrapper(Clipboard, defaultProps, defaultStorePropsTwo, pathname);
+    fullTestWrapper(Clipboard, defaultProps, defaultStorePropsTwo, pathname);
 
-    expect(screen.getByText(defaultStorePropsTwo.clipboard.error.message)).toBeInTheDocument();
+    expect(screen.getByText(defaultStorePropsTwo.list.commandResponse)).toBeInTheDocument();
   });
 });
