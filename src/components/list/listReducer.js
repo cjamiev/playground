@@ -1,6 +1,7 @@
 import {
   LOAD_COMMAND_RESULT,
-  ERROR_COMMAND_RESULT
+  ERROR_COMMAND_RESULT,
+  CLEAR_COMMAND_RESULT
 } from './listActions';
 
 export const listInitialState = {
@@ -17,6 +18,11 @@ const listReducer = (state = listInitialState, action) => {
     [ERROR_COMMAND_RESULT]: () => {
       return {
         commandResponse: action.error
+      };
+    },
+    [CLEAR_COMMAND_RESULT]: () => {
+      return {
+        commandResponse: ''
       };
     }
   };

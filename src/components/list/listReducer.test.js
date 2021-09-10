@@ -1,4 +1,8 @@
-import { LOAD_COMMAND_RESULT, ERROR_COMMAND_RESULT } from './listActions';
+import {
+  LOAD_COMMAND_RESULT,
+  ERROR_COMMAND_RESULT,
+  CLEAR_COMMAND_RESULT
+} from './listActions';
 import listReducer, { listInitialState } from './listReducer';
 
 describe('listReducer', () => {
@@ -33,6 +37,18 @@ describe('listReducer', () => {
     expect(result).toEqual({
       ...listInitialState,
       commandResponse: action.error
+    });
+  });
+
+  it('CLEAR_COMMAND_RESULT', () => {
+    const action = {
+      type: CLEAR_COMMAND_RESULT
+    };
+    const result = listReducer(listInitialState, action);
+
+    expect(result).toEqual({
+      ...listInitialState,
+      commandResponse: ''
     });
   });
 });

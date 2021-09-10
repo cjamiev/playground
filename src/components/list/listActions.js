@@ -2,6 +2,7 @@ import api from 'api';
 
 const LOAD_COMMAND_RESULT = 'LOAD_COMMAND_RESULT';
 const ERROR_COMMAND_RESULT = 'ERROR_COMMAND_RESULT';
+const CLEAR_COMMAND_RESULT = 'CLEAR_COMMAND_RESULT';
 
 const executeCommand = (mode, filename, args) => {
   return (dispatch) => {
@@ -16,8 +17,12 @@ const executeCommand = (mode, filename, args) => {
   };
 };
 
+const clearCommand = () => ({ type: CLEAR_COMMAND_RESULT });
+
 export {
   executeCommand,
   LOAD_COMMAND_RESULT,
-  ERROR_COMMAND_RESULT
+  ERROR_COMMAND_RESULT,
+  clearCommand,
+  CLEAR_COMMAND_RESULT
 };

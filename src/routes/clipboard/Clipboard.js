@@ -1,7 +1,9 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { clearCommand } from 'components/list/listActions';
 import { loadClipboard } from './clipboardActions';
 import { openGlobalModal } from 'components/modal/globalModalActions';
+import { copyToClipboard } from 'helper/copy';
 import Page from 'components/layout';
 import List from 'components/list';
 import Tabs from 'components/tabs';
@@ -53,7 +55,14 @@ const Clipboard = () => {
 
   useEffect(() => {
     if(result) {
-      dispatch(openGlobalModal({ title: 'Command Results', message: result }));
+      dispatch(openGlobalModal({
+        title: 'Command Results',
+        message: result,
+        beforeClose: () => { dispatch(clearCommand()); },
+        buttonList: [
+          { label: 'Copy', classProps: { classColor: 'primary' }, action: () => { copyToClipboard(JSON.stringify(result)); }}
+        ]
+      }));
     }
   }, [dispatch, result]);
 

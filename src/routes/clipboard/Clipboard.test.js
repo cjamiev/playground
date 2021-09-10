@@ -90,9 +90,13 @@ describe('Clipboard', () => {
     expect(screen.getByText('label2')).toBeInTheDocument();
   });
 
-  it('check error dispatch and commandResponse dispatch', () => {
+  it('commandResponse dispatch', () => {
+    document.execCommand = jest.fn();
     fullTestWrapper(Clipboard, defaultProps, defaultStorePropsTwo, pathname);
 
     expect(screen.getByText(defaultStorePropsTwo.list.commandResponse)).toBeInTheDocument();
+    const copyBtn = screen.getByText('Copy');
+    fireEvent.click(copyBtn);
+    expect(document.execCommand).toHaveBeenCalled();
   });
 });
