@@ -17,8 +17,9 @@ const GlobalTimer = () => {
     const now = new Date();
     const shortestTimer = sortedTimers[ZERO];
     const time = shortestTimer.date.getTime() - now.getTime();
+    const absoluteTime = time > ZERO ? time : ZERO;
 
-    setTimeout(() => { dispatch(createAlert({ content: `Time's up for "${shortestTimer.name}"`, status: 'success' })); },time);
+    setTimeout(() => { dispatch(createAlert({ content: `Time's up for "${shortestTimer.name}"`, status: 'success' })); },absoluteTime);
   }
 
   return (

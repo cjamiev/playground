@@ -13,6 +13,7 @@ import { createMemoryHistory } from 'history';
 import Page from '../src/components/layout';
 import { rootReducer } from '../src/store';
 import { GlobalModal } from 'components/modal/GlobalModal';
+import GlobalTimer from 'components/globaltimer';
 import { alertInitialState } from '../src/components/alert/alertReducer';
 import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer';
 import { experimentInitialState } from '../src/routes/experiment/experimentReducer';
@@ -64,6 +65,7 @@ const fullTestWrapper = (Component, props = {}, reduxProps = {}, locationPathnam
   const wrapper = render(
     <Provider store={store}>
       <Router history={history}>
+        <GlobalTimer />
         <GlobalModal />
         {renderComponent}
       </Router>

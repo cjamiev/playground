@@ -57,4 +57,38 @@ describe('Home', () => {
     expect(screen.queryByText('taskThree')).not.toBeInTheDocument();
     expect(screen.queryByText('No items to display')).not.toBeInTheDocument();
   });
+
+  it('handle timer', () => {
+    reduxTestWrapper(Home, {}, {}, pathname);
+
+    const timersBtn = screen.getByText('Timers');
+    fireEvent.click(timersBtn);
+
+    expect(screen.getByText('No timers to display')).toBeInTheDocument();
+
+    const sidePanelBtn = screen.getByText('(|)');
+    fireEvent.click(sidePanelBtn);
+
+    const timerField = screen.getByLabelText('Name text field');
+    const saveBtn = screen.getByText('Save');
+
+    fireEvent.change(timerField, { target: { value: 'timerOne' } });
+    fireEvent.click(saveBtn);
+    fireEvent.change(timerField, { target: { value: 'timerTwo' } });
+    fireEvent.click(saveBtn);
+    fireEvent.change(timerField, { target: { value: 'timerThree' } });
+    fireEvent.click(saveBtn);
+
+    expect(screen.getByText('timerOne')).toBeInTheDocument();
+    expect(screen.getByText('timerTwo')).toBeInTheDocument();
+    expect(screen.getByText('timerThree')).toBeInTheDocument();
+
+    const doneBtn = screen.getAllByText('Remove')[ONE];
+    fireEvent.click(doneBtn);
+
+    expect(screen.getByText('timerOne')).toBeInTheDocument();
+    expect(screen.getByText('timerThree')).toBeInTheDocument();
+    expect(screen.queryByText('timerTwo')).not.toBeInTheDocument();
+    expect(screen.queryByText('No timers to display')).not.toBeInTheDocument();
+  });
 });
