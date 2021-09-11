@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import useLocalStorage from 'hooks/useLocalStorage';
+import { updateGlobalTimer } from 'components/globaltimer/globalTimerActions';
 import Page from 'components/layout';
 import Button from 'components/button';
 import Text from 'components/form/Text';
@@ -11,6 +13,7 @@ import HomeTimer from './HomeTimer';
 import './home.css';
 
 const Home = () => {
+  const dispatch = useDispatch();
   const [tasks, setTasks] = useLocalStorage('todo', []);
   const [timers, setTimers] = useLocalStorage('globaltimers', []);
   const [text, setText] = useState('');
@@ -35,6 +38,7 @@ const Home = () => {
 
   const handleTimersChange = (updatedTimers) => {
     setTimers(updatedTimers);
+    dispatch(updateGlobalTimer(updatedTimers));
   };
 
   const addItem = (e) => {
@@ -78,6 +82,7 @@ const Home = () => {
             <TimerForm onChange={({ name, content}) => {
               const updatedTimers = timers.concat({ name, value: content, type: 'timer' });
               setTimers(updatedTimers);
+              dispatch(updateGlobalTimer(updatedTimers));
             }} />
           </div>
         </div>

@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { createAlert } from 'components/alert/alertActions';
+import { initializeTimer } from './globalTimerActions';
 
 const ZERO = 0;
 const ONE = 1;
 
 const GlobalTimer = () => {
   const dispatch = useDispatch();
-  const currentTimers = JSON.parse(localStorage.getItem('globaltimers') || '[]');
-  if(currentTimers.length > ZERO) {
-    const sortedTimers = currentTimers
+  const { timers, initialized } = useSelector(state => state.globalTimer);
+
+  useEffect(() => {
+    if(!initialized) {
+      dispatch(initializeTimer());
+    }
+  }, [dispatch, initialized]);
+
+  if(timers.length > ZERO) {
+    const sortedTimers = timers
       .map(item => {
         return { name: item.name, date: new Date(item.value.year,item.value.month-ONE,item.value.day,item.value.hour,item.value.minute,item.value.second)};
       })

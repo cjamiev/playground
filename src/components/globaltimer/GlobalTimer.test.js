@@ -17,6 +17,18 @@ mockLocalStorage({
         second: 0
       },
       type: 'timer'
+    },
+    {
+      name: 'item two',
+      value: {
+        month: 1,
+        day: 1,
+        year: 2030,
+        hour: 0,
+        minute: 0,
+        second: 0
+      },
+      type: 'timer'
     }
   ])
 });
