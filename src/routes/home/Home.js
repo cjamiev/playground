@@ -10,65 +10,8 @@ import TimerForm from 'components/form/TimerForm';
 import ComponentWrapper from 'components/ComponentWrapper';
 import HomeTodo from './HomeTodo';
 import HomeTimer from './HomeTimer';
+import HomeSidePanel from './HomeSidePanel';
 import './home.css';
-
-const SidePanel = ({onChangeItem, onChangeTimer, selectedTimer}) => {
-  const [text, setText] = useState('');
-  const [note, setNote] = useState('');
-  const [url, setUrl] = useState('');
-
-  const handleTextChange = ({selected}) => {
-    setText(selected);
-  };
-
-  const handleNoteChange = ({selected}) => {
-    setNote(selected);
-  };
-
-  const handleUrlChange = ({selected}) => {
-    setUrl(selected);
-  };
-
-  return (
-    <div className="container--center">
-      <div>
-        <h3> Add Tasks </h3>
-        <Text data-testid="todo-task" placeholder='Task' selected={text} onChange={handleTextChange} />
-        <Text data-testid="todo-notes" placeholder='Notes' selected={note} onChange={handleNoteChange} />
-        <Text data-testid="todo-url" placeholder='URL' selected={url} onChange={handleUrlChange} />
-        <Button data-testid="todo-add-btn" classColor='primary' label="Add Item" onClick={() => {
-          if (!text.length) {
-            return;
-          }
-
-          const newItem = {
-            text,
-            note,
-            url,
-            id: Date.now()
-          };
-          setText('');
-          setNote('');
-          setUrl('');
-
-          onChangeItem(newItem);
-        }}
-        />
-      </div>
-      <div>
-        <h3> Add Global Timer </h3>
-        <TimerForm
-          onChange={({ name, content}) => {
-            const newTimer = { name, value: content, type: 'timer' };
-
-            onChangeTimer(newTimer);
-          }}
-          value={selectedTimer}
-        />
-      </div>
-    </div>
-  );
-};
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -115,7 +58,7 @@ const Home = () => {
   return (
     <Page
       sidePanelContent={
-        <SidePanel
+        <HomeSidePanel
           onChangeItem={handleTaskItemChange}
           onChangeTimer={handleTimeItemChange}
           selectedTimer={selectedTimer}
