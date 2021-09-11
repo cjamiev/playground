@@ -27,7 +27,7 @@ export const DisplayTimer = ({ label, value }) => {
   return (
     <span className="list__item">
       <label className="list__timer-label" title={value}>{ label }</label>
-      <span>{ getFormattedTime(time) }</span>
+      <span data-testid={`${label} time`}>{ getFormattedTime(time) }</span>
     </span>
   );
 };

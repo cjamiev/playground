@@ -1,11 +1,13 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { reduxTestWrapper } from 'testHelper';
 import Home from './Home';
-
+import { incrementDate } from 'clock';
 const pathname = '/home';
 const ZERO = 0;
 const ONE = 1;
 const TWO = 2;
+const TWELVE = 12;
+const today = new Date();
 
 describe('Home', () => {
   it('handle tasks', () => {
@@ -16,6 +18,7 @@ describe('Home', () => {
     const sidePanelBtn = screen.getByText('(|)');
     fireEvent.click(sidePanelBtn);
 
+    // Add tasks
     const taskField = screen.getByLabelText('Task text field');
     const notesField = screen.getByLabelText('Notes text field');
     const urlField = screen.getByLabelText('URL text field');
@@ -44,6 +47,7 @@ describe('Home', () => {
     expect(screen.getByText('noteThree')).toBeInTheDocument();
     expect(screen.getByText('urlThree')).toBeInTheDocument();
 
+    // Remove task
     const downBtn = screen.getAllByText('Down')[ZERO];
     fireEvent.click(downBtn);
     const upBtn = screen.getAllByText('Up')[TWO];
@@ -72,6 +76,7 @@ describe('Home', () => {
     const timerField = screen.getByLabelText('Name text field');
     const saveBtn = screen.getByText('Save');
 
+    // Add timers
     fireEvent.change(timerField, { target: { value: 'timerOne' } });
     fireEvent.click(saveBtn);
     fireEvent.change(timerField, { target: { value: 'timerTwo' } });
@@ -83,12 +88,31 @@ describe('Home', () => {
     expect(screen.getByText('timerTwo')).toBeInTheDocument();
     expect(screen.getByText('timerThree')).toBeInTheDocument();
 
-    const doneBtn = screen.getAllByText('Remove')[ONE];
-    fireEvent.click(doneBtn);
+    // Remove timer
+    const removeBtn = screen.getAllByText('Remove')[ONE];
+    fireEvent.click(removeBtn);
 
     expect(screen.getByText('timerOne')).toBeInTheDocument();
     expect(screen.getByText('timerThree')).toBeInTheDocument();
     expect(screen.queryByText('timerTwo')).not.toBeInTheDocument();
     expect(screen.queryByText('No timers to display')).not.toBeInTheDocument();
+
+    // Edit timer to be one hour from now
+    fireEvent.click(sidePanelBtn);
+
+    expect(screen.queryByLabelText('Name text field')).not.toBeInTheDocument();
+
+    const editBtn = screen.getAllByText('Edit')[ZERO];
+    fireEvent.click(editBtn);
+
+    expect(screen.queryByLabelText('Name text field')).toBeInTheDocument();
+    const hourField = screen.getByLabelText('Hour text field');
+    const oneHourFromNow = incrementDate(today, { hours: 1 }).getHours();
+    const normalizedHour = oneHourFromNow > TWELVE ? oneHourFromNow % TWELVE : oneHourFromNow;
+
+    fireEvent.change(hourField, { target: { value: normalizedHour } });
+    fireEvent.click(screen.getByText('Save'));
+
+    expect(screen.getByTestId('timerOne time')).toHaveTextContent('0:59');
   });
 });
