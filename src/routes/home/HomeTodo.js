@@ -34,7 +34,6 @@ const HomeTodo = ({tasks, onChange}) => {
     const updatedItems = tasks.filter(item => item.id !== id);
 
     onChange(updatedItems);
-    localStorage.setItem('todo', JSON.stringify(updatedItems));
   };
 
   const moveItemUp = id => {
@@ -42,7 +41,6 @@ const HomeTodo = ({tasks, onChange}) => {
     const updatedItems = decrementElementIndex(tasks, index);
 
     onChange(updatedItems);
-    localStorage.setItem('todo', JSON.stringify(updatedItems));
   };
 
   const moveItemDown = id => {
@@ -50,7 +48,6 @@ const HomeTodo = ({tasks, onChange}) => {
     const updatedItems = incrementElementIndex(tasks, index);
 
     onChange(updatedItems);
-    localStorage.setItem('todo', JSON.stringify(updatedItems));
   };
 
   return (

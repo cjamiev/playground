@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useLocalStorage from 'hooks/useLocalStorage';
 import Page from 'components/layout';
 import Button from 'components/button';
 import Text from 'components/form/Text';
@@ -10,10 +11,8 @@ import HomeTimer from './HomeTimer';
 import './home.css';
 
 const Home = () => {
-  const currentTodo = JSON.parse(localStorage.getItem('todo') || '[]');
-  const currentTimers = JSON.parse(localStorage.getItem('globaltimers') || '[]');
-  const [tasks, setTasks] = useState(currentTodo);
-  const [timers, setTimers] = useState(currentTimers);
+  const [tasks, setTasks] = useLocalStorage('todo', []);
+  const [timers, setTimers] = useLocalStorage('globaltimers', []);
   const [text, setText] = useState('');
   const [note, setNote] = useState('');
   const [url, setUrl] = useState('');
@@ -56,7 +55,6 @@ const Home = () => {
     setText('');
     setNote('');
     setUrl('');
-    localStorage.setItem('todo', JSON.stringify(updatedTasks));
   };
 
   const TABS = [
@@ -78,10 +76,8 @@ const Home = () => {
           <div>
             <h3> Add Global Timer </h3>
             <TimerForm onChange={({ name, content}) => {
-              const globalTimer = JSON.parse(localStorage.getItem('globaltimers') || '[]');
               const updatedTimers = timers.concat({ name, value: content, type: 'timer' });
               setTimers(updatedTimers);
-              localStorage.setItem('globaltimers', JSON.stringify(updatedTimers));
             }} />
           </div>
         </div>

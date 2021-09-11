@@ -35,7 +35,6 @@ const HomeTimer = ({timers, onChange}) => {
     const updatedTimers = timers.filter(item => item.name !== name);
 
     onChange(updatedTimers);
-    localStorage.setItem('globaltimers', JSON.stringify(updatedTimers));
   };
 
   return (
