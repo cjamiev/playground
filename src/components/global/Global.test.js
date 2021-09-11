@@ -39,7 +39,7 @@ const TestComponent = () => {
   );
 };
 
-describe('GlobalTimer', () => {
+describe('Global', () => {
   jest.useFakeTimers();
 
   it('handle timers', () => {

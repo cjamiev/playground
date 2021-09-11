@@ -13,13 +13,13 @@ import { createMemoryHistory } from 'history';
 import Page from '../src/components/layout';
 import { rootReducer } from '../src/store';
 import { GlobalModal } from 'components/modal/GlobalModal';
-import GlobalTimer from 'components/globaltimer';
+import Global from 'components/global';
 import { alertInitialState } from '../src/components/alert/alertReducer';
 import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer';
 import { experimentInitialState } from '../src/routes/experiment/experimentReducer';
 import { fileInitialState } from '../src/routes/file/fileReducer';
 import { globalModalInitialState } from '../src/components/modal/globalModalReducer';
-import { globalTimerInitialState } from '../src/components/globaltimer/globalTimerReducer';
+import { globalInitialState } from '../src/components/global/globalReducer';
 import { listInitialState } from '../src/components/list/listReducer';
 import { mockserverInitialState } from '../src/routes/mockserver/mockserverReducer';
 import { isEmpty } from 'booleanHelper';
@@ -32,7 +32,7 @@ const defaultStore = {
   alert: alertInitialState,
   clipboard: clipboardInitialState,
   globalModal: globalModalInitialState,
-  globalTimer: globalTimerInitialState,
+  global: globalInitialState,
   experiment: experimentInitialState,
   file: fileInitialState,
   list: listInitialState,
@@ -67,7 +67,7 @@ const fullTestWrapper = (Component, props = {}, reduxProps = {}, locationPathnam
   const wrapper = render(
     <Provider store={store}>
       <Router history={history}>
-        <GlobalTimer />
+        <Global />
         <GlobalModal />
         {renderComponent}
       </Router>

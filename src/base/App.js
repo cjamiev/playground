@@ -5,7 +5,7 @@ import { configureStore } from 'store';
 import { GlobalModal } from 'components/modal/GlobalModal';
 import Routes from 'routes/Routes';
 import Navigation from 'components/navigation';
-import GlobalTimer from 'components/globaltimer';
+import Global from 'components/global';
 import 'assets/main.css';
 
 const store = configureStore();
@@ -14,7 +14,7 @@ function App() {
   return (
     <Provider store={store}>
       <HashRouter>
-        <GlobalTimer />
+        <Global />
         <Navigation />
         <GlobalModal />
         <Routes />

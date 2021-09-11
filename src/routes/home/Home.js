@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import useLocalStorage from 'hooks/useLocalStorage';
-import { updateGlobalTimer } from 'components/globaltimer/globalTimerActions';
+import { updateGlobal } from 'components/global/globalActions';
 import Page from 'components/layout';
 import Button from 'components/button';
 import Text from 'components/form/Text';
@@ -94,12 +94,12 @@ const Home = () => {
       : timers.concat(newTimer);
     setTimers(updatedTimers);
     setSelectedTimer({ name: '', time: new Date()});
-    dispatch(updateGlobalTimer(updatedTimers));
+    dispatch(updateGlobal(updatedTimers));
   };
 
   const handleTimersChange = (updatedTimers) => {
     setTimers(updatedTimers);
-    dispatch(updateGlobalTimer(updatedTimers));
+    dispatch(updateGlobal(updatedTimers));
   };
 
   const editTimer = (name, time) => {

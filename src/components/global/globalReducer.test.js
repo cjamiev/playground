@@ -2,8 +2,8 @@ import { mockLocalStorage } from 'testHelper';
 import {
   UPDATE_GLOBAL_TIMER,
   INITIALIZE_TIMER
-} from './globalTimerActions';
-import globalTimerReducer, { globalTimerInitialState } from './globalTimerReducer';
+} from './globalActions';
+import globalReducer, { globalInitialState } from './globalReducer';
 
 const timerOne = [
   {
@@ -22,11 +22,11 @@ const timerOne = [
 mockLocalStorage({
   globaltimers: JSON.stringify(timerOne)
 });
-describe('globalTimerReducer', () => {
+describe('globalReducer', () => {
   it('default', () => {
-    const result = globalTimerReducer(undefined, {});
+    const result = globalReducer(undefined, {});
 
-    expect(result).toEqual(globalTimerInitialState);
+    expect(result).toEqual(globalInitialState);
   });
 
   it('UPDATE_GLOBAL_TIMER', () => {
@@ -34,10 +34,10 @@ describe('globalTimerReducer', () => {
       type: UPDATE_GLOBAL_TIMER,
       data: [1,2,3]
     };
-    const result = globalTimerReducer(globalTimerInitialState, action);
+    const result = globalReducer(globalInitialState, action);
 
     expect(result).toEqual({
-      ...globalTimerInitialState,
+      ...globalInitialState,
       timers: action.data
     });
   });
@@ -46,10 +46,10 @@ describe('globalTimerReducer', () => {
     const action = {
       type: INITIALIZE_TIMER
     };
-    const result = globalTimerReducer(globalTimerInitialState, action);
+    const result = globalReducer(globalInitialState, action);
 
     expect(result).toEqual({
-      ...globalTimerInitialState,
+      ...globalInitialState,
       initialized: true,
       timers: timerOne
     });

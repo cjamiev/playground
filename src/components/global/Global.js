@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createAlert } from 'components/alert/alertActions';
-import { initializeTimer } from './globalTimerActions';
+import { initializeTimer } from './globalActions';
 
 const ZERO = 0;
 const ONE = 1;
 
-const GlobalTimer = () => {
+const Global = () => {
   const dispatch = useDispatch();
-  const { timers, initialized } = useSelector(state => state.globalTimer);
+  const { timers, initialized } = useSelector(state => state.global);
 
   useEffect(() => {
     if(!initialized) {
@@ -35,4 +35,4 @@ const GlobalTimer = () => {
   );
 };
 
-export default GlobalTimer;
+export default Global;
