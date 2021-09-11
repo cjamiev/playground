@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import useLocalStorage from 'hooks/useLocalStorage';
-import { updateGlobal } from 'components/global/globalActions';
+import { openSidePanel, updateGlobal } from 'components/global/globalActions';
 import Page from 'components/layout';
 import Button from 'components/button';
 import Text from 'components/form/Text';
@@ -104,6 +104,7 @@ const Home = () => {
 
   const editTimer = (name, time) => {
     setSelectedTimer({ name, time });
+    dispatch(openSidePanel());
   };
 
   const TABS = [

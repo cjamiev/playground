@@ -10,9 +10,7 @@ const ONE = 1;
 
 const Global = () => {
   const dispatch = useDispatch();
-  const { timers, initialized, isLoading, modalQueue } = useSelector(state => {
-    return state.global;
-  });
+  const { timers, initialized, isLoading, modalQueue } = useSelector(state => state.global);
   const props = modalQueue[ZERO] || {};
 
   useEffect(() => {

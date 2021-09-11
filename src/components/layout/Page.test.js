@@ -34,5 +34,9 @@ describe('Page', () => {
     fireEvent.click(sidePanelButton);
 
     expect(screen.getByText(defaultProps.sidePanelContent)).toBeInTheDocument();
+
+    fireEvent.click(sidePanelButton);
+
+    expect(screen.queryByText(defaultProps.sidePanelContent)).not.toBeInTheDocument();
   });
 });

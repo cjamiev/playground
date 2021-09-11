@@ -4,7 +4,9 @@ import {
   OPEN_GLOBAL_MODAL,
   CLOSE_GLOBAL_MODAL,
   SHOW_LOADING_MODAL,
-  HIDE_LOADING_MODAL
+  HIDE_LOADING_MODAL,
+  OPEN_SIDE_PANEL,
+  CLOSE_SIDE_PANEL
 } from './globalActions';
 import { isNumber } from 'type-check';
 
@@ -12,7 +14,8 @@ export const globalInitialState = {
   timers: [],
   initialized: false,
   modalQueue: [],
-  isLoading: false
+  isLoading: false,
+  isSidePanelOpen: false
 };
 
 const globalReducer = (state = globalInitialState, action) => {
@@ -54,6 +57,12 @@ const globalReducer = (state = globalInitialState, action) => {
     },
     [HIDE_LOADING_MODAL]: () => {
       return { ...state, isLoading: false };
+    },
+    [OPEN_SIDE_PANEL]: () => {
+      return { ...state, isSidePanelOpen: true };
+    },
+    [CLOSE_SIDE_PANEL]: () => {
+      return { ...state, isSidePanelOpen: false };
     }
   };
 

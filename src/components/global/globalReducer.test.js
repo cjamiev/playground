@@ -5,7 +5,9 @@ import {
   OPEN_GLOBAL_MODAL,
   CLOSE_GLOBAL_MODAL,
   SHOW_LOADING_MODAL,
-  HIDE_LOADING_MODAL
+  HIDE_LOADING_MODAL,
+  OPEN_SIDE_PANEL,
+  CLOSE_SIDE_PANEL
 } from './globalActions';
 import globalReducer, { globalInitialState } from './globalReducer';
 
@@ -146,6 +148,30 @@ describe('globalReducer', () => {
     expect(result).toEqual({
       ...initialState,
       isLoading: false
+    });
+  });
+
+  it('OPEN_SIDE_PANEL', () => {
+    const action = {
+      type: OPEN_SIDE_PANEL
+    };
+    const result = globalReducer(initialState, action);
+
+    expect(result).toEqual({
+      ...initialState,
+      isSidePanelOpen: true
+    });
+  });
+
+  it('CLOSE_SIDE_PANEL', () => {
+    const action = {
+      type: CLOSE_SIDE_PANEL
+    };
+    const result = globalReducer(initialState, action);
+
+    expect(result).toEqual({
+      ...initialState,
+      isSidePanelOpen: false
     });
   });
 });

@@ -10,7 +10,11 @@ import {
   openGlobalModal,
   closeGlobalModal,
   showLoadingModal,
-  hideLoadingModal
+  hideLoadingModal,
+  OPEN_SIDE_PANEL,
+  CLOSE_SIDE_PANEL,
+  openSidePanel,
+  closeSidePanel
 } from './globalActions';
 
 const data = { key: 123};
@@ -46,5 +50,17 @@ describe('globalActions', () => {
     const result = hideLoadingModal();
 
     expect(result).toEqual({ type: HIDE_LOADING_MODAL });
+  });
+
+  it('openSidePanel', () => {
+    const result = openSidePanel(data);
+
+    expect(result).toEqual({ type: OPEN_SIDE_PANEL });
+  });
+
+  it('closeSidePanel', () => {
+    const result = closeSidePanel(data);
+
+    expect(result).toEqual({ type: CLOSE_SIDE_PANEL });
   });
 });
