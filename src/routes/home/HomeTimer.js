@@ -11,7 +11,7 @@ import {
 const ZERO = 0;
 const ONE = 1;
 
-const renderCells = ({ timers, removeTimer }) => {
+const renderCells = ({ timers, removeTimer, editTimer }) => {
   const cells = timers.map(item => {
     const newDate = new Date(item.value.year,item.value.month-ONE,item.value.day,item.value.hour,item.value.minute,item.value.second);
 
@@ -22,6 +22,7 @@ const renderCells = ({ timers, removeTimer }) => {
         </td>
         <td className='flex--one'>
           <Button classColor="primary" label="Remove" onClick={() => { removeTimer(item.name); }} />
+          <Button classColor="primary" label="Edit" onClick={() => { editTimer(item.name, newDate); }} />
         </td>
       </tr>
     );
@@ -30,7 +31,7 @@ const renderCells = ({ timers, removeTimer }) => {
   return (<>{cells}</>);
 };
 
-const HomeTimer = ({timers, onChange}) => {
+const HomeTimer = ({timers, onChange, editTimer}) => {
   const removeTimer = name => {
     const updatedTimers = timers.filter(item => item.name !== name);
 
@@ -40,7 +41,7 @@ const HomeTimer = ({timers, onChange}) => {
   return (
     <>
       {timers.length > ZERO
-        ? <Table headers={[{label:'Timer', className:'flex--three'}, {label:'Actions', className:'flex--one'}]} body={renderCells({ timers, removeTimer })} />
+        ? <Table headers={[{label:'Timer', className:'flex--three'}, {label:'Actions', className:'flex--one'}]} body={renderCells({ timers, removeTimer, editTimer })} />
         : <p> No timers to display </p>
       }
     </>

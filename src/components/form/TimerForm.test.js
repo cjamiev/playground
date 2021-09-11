@@ -6,14 +6,17 @@ const ZERO = 0;
 const ONE = 1;
 const TWELVE = 12;
 
+const today = new Date();
+const isAmMode = today.getHours() - TWELVE <= ZERO;
 const defaultProps = {
-  onChange: jest.fn()
+  onChange: jest.fn(),
+  value: {
+    name: 'test',
+    time: today
+  }
 };
 
 describe('TimerForm', () => {
-  const today = new Date();
-  const isAmMode = today.getHours() + ONE - TWELVE <= ZERO;
-
   it('Handle form', () => {
     simpleTestWrapper(TimerForm, defaultProps);
 

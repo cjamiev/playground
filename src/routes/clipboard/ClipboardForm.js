@@ -101,6 +101,7 @@ const ClipboardForm = ({ clipboard }) => {
 
   const selectedType = types.find(item => item.selected);
   const addLabel = data[currentIndex] ? 'Update' : 'Add';
+  const defaultValue = { name: '', time: new Date()};
 
   return (
     <div className='flex--horizontal'>
@@ -112,11 +113,14 @@ const ClipboardForm = ({ clipboard }) => {
         <Text label='Title' selected={title} onChange={({selected}) => { setTitle(selected); }} />
         <Dropdown label='Type' values={types} onChange={({ values }) => { setTypes(values); }} />
         {selectedType.label === TYPE.TIMER
-          ? <TimerForm onChange={({ name, content}) => {
-            const newDate = new Date(content.year,content.month-ONE,content.day,content.hour,content.minute,content.second);
+          ? <TimerForm
+            onChange={({ name, content}) => {
+              const newDate = new Date(content.year,content.month-ONE,content.day,content.hour,content.minute,content.second);
 
-            setEntry([...entry, { label: name, value: newDate.toString(), type: selectedType.label }]);
-          }} />
+              setEntry([...entry, { label: name, value: newDate.toString(), type: selectedType.label }]);
+            }}
+            value={defaultValue}
+          />
           : <ValueForm type={selectedType} onChange={
             ({name, content}) => {
               setEntry([...entry, { label: name, value: content, type: selectedType.label }]);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
@@ -8,17 +8,29 @@ const ZERO = 0;
 const ONE = 1;
 const TWELVE = 12;
 
-const TimerForm = ({ onChange }) => {
+const TimerForm = ({ onChange, value }) => {
   const today = new Date();
   const [name, setName] = useState('');
   const [month, setMonth] = useState(today.getMonth() + ONE);
   const [day, setDay] = useState(today.getDate());
   const [year, setYear] = useState(today.getFullYear());
-  const [hour, setHour] = useState((today.getHours() +ONE) % TWELVE);
-  const [minute, setMinute] = useState(ZERO);
+  const [hour, setHour] = useState(today.getHours() > TWELVE ? today.getHours() % TWELVE : today.getHours());
+  const [minute, setMinute] = useState(today.getMinutes());
   const [second, setSecond] = useState(ZERO);
-  const [amOrPmMode, setAmOrPmMode] = useState(today.getHours() + ONE - TWELVE > ZERO ? ONE : ZERO);
-  const [removeMode, setRemoveMode] = useState(false);
+  const [amOrPmMode, setAmOrPmMode] = useState(today.getHours() - TWELVE > ZERO ? ONE : ZERO);
+
+  useEffect(() => {
+    if(value) {
+      setName(value.name);
+      setMonth(value.time.getMonth() + ONE);
+      setDay(value.time.getDate());
+      setYear(value.time.getFullYear());
+      setHour((value.time.getHours()) % TWELVE);
+      setMinute(value.time.getMinutes());
+      setSecond(ZERO);
+      setAmOrPmMode(value.time.getHours() - TWELVE > ZERO ? ONE : ZERO);
+    }
+  }, [value]);
 
   return (
     <div>
