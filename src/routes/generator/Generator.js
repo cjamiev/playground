@@ -43,7 +43,7 @@ const Generator = () => {
     currentStyle,
     ariaLabel
   } = getCurrentStyles({ normalStyle, hoverStyle, activeStyle, isHoverMode, isHovering, isActiveMode, isActive });
-  const copyCSS = `.name {\n${normalCSS}}\n\n.hover:active {\n${hoverCSS}\n\n.name:active {\n${activeCSS}}`;
+  const copyCSS = `.name {\n${normalCSS}\n}\n\n.name:hover {\n${hoverCSS}\n}\n\n.name:active {\n${activeCSS}\n}`;
 
   const handleChange = ({ id, selected, values }) => {
     if(isHoverMode) {
