@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { closeGlobalModal, hideLoadingModal } from 'components/modal/globalModalActions';
+import { closeGlobalModal, hideLoadingModal } from 'components/global/globalActions';
 import { dismissAlert } from 'components/alert/alertActions';
 import { ROUTES } from 'constants/routes';
 import { getFormattedClock, getFormattedDate } from 'clock';

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMockRequests, updateMockRequests, deleteMockEndpoint, loadMockResponse, updateMockResponse, clearMockResponse } from './mockserverActions';
 import Page from 'components/layout';
-import { openGlobalModal } from 'components/modal/globalModalActions';
+import { openGlobalModal } from 'components/global/globalActions';
 import { copyToClipboard } from 'helper/copy';
 import useFilter from 'hooks/useFilter';
 import Text from 'components/form/Text';

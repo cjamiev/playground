@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { openGlobalModal } from 'components/modal/globalModalActions';
+import { openGlobalModal } from 'components/global/globalActions';
 import Button from 'components/button';
 
 const ZERO = 0;

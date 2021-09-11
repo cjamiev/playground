@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMockServerLog, clearMockServerLog } from './mockserverActions';
 import Page from 'components/layout';
-import { openGlobalModal } from 'components/modal/globalModalActions';
+import { openGlobalModal } from 'components/global/globalActions';
 import { copyToClipboard } from 'helper/copy';
 import Table from 'components/table';
 import Button from 'components/button';

@@ -12,13 +12,11 @@ import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import Page from '../src/components/layout';
 import { rootReducer } from '../src/store';
-import { GlobalModal } from 'components/modal/GlobalModal';
 import Global from 'components/global';
 import { alertInitialState } from '../src/components/alert/alertReducer';
 import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer';
 import { experimentInitialState } from '../src/routes/experiment/experimentReducer';
 import { fileInitialState } from '../src/routes/file/fileReducer';
-import { globalModalInitialState } from '../src/components/modal/globalModalReducer';
 import { globalInitialState } from '../src/components/global/globalReducer';
 import { listInitialState } from '../src/components/list/listReducer';
 import { mockserverInitialState } from '../src/routes/mockserver/mockserverReducer';
@@ -31,7 +29,6 @@ const appliedMiddlewares = applyMiddleware(...middlewares);
 const defaultStore = {
   alert: alertInitialState,
   clipboard: clipboardInitialState,
-  globalModal: globalModalInitialState,
   global: globalInitialState,
   experiment: experimentInitialState,
   file: fileInitialState,
@@ -68,7 +65,6 @@ const fullTestWrapper = (Component, props = {}, reduxProps = {}, locationPathnam
     <Provider store={store}>
       <Router history={history}>
         <Global />
-        <GlobalModal />
         {renderComponent}
       </Router>
     </Provider>

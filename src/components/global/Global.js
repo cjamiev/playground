@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Modal from 'components/modal';
 import { createAlert } from 'components/alert/alertActions';
+import { closeGlobalModal } from 'components/global/globalActions';
 import { initializeTimer } from './globalActions';
 
 const ZERO = 0;
@@ -8,7 +10,10 @@ const ONE = 1;
 
 const Global = () => {
   const dispatch = useDispatch();
-  const { timers, initialized } = useSelector(state => state.global);
+  const { timers, initialized, isLoading, modalQueue } = useSelector(state => {
+    return state.global;
+  });
+  const props = modalQueue[ZERO] || {};
 
   useEffect(() => {
     if(!initialized) {
@@ -30,9 +35,25 @@ const Global = () => {
     setTimeout(() => { dispatch(createAlert({ content: `Time's up for "${shortestTimer.name}"`, status: 'success' })); },absoluteTime);
   }
 
-  return (
-    <div className="invisible"></div>
-  );
+  const close = () => { dispatch(closeGlobalModal(props.id)); };
+
+  if(isLoading) {
+    const message = <div className="modal__loading">Loading...</div>;
+
+    return (
+      <div className="global__modal">
+        <Modal message={message} />
+      </div>
+    );
+  } else if (props.message) {
+    return (
+      <div className="global__modal">
+        <Modal close={close} {...props} />
+      </div>
+    );
+  }
+
+  return null;
 };
 
 export default Global;

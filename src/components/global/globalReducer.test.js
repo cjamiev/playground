@@ -1,7 +1,11 @@
 import { mockLocalStorage } from 'testHelper';
 import {
   UPDATE_GLOBAL_TIMER,
-  INITIALIZE_TIMER
+  INITIALIZE_TIMER,
+  OPEN_GLOBAL_MODAL,
+  CLOSE_GLOBAL_MODAL,
+  SHOW_LOADING_MODAL,
+  HIDE_LOADING_MODAL
 } from './globalActions';
 import globalReducer, { globalInitialState } from './globalReducer';
 
@@ -22,11 +26,34 @@ const timerOne = [
 mockLocalStorage({
   globaltimers: JSON.stringify(timerOne)
 });
+
+const initialState = {
+  modalQueue: [
+    {
+      id: 0,
+      title: 'test-title',
+      message: 'test-message',
+      action: jest.fn()
+    },
+    {
+      id: 1,
+      title: 'test-title1',
+      message: 'test-message1',
+      action: jest.fn()
+    }
+  ],
+  isLoading: false
+};
+
 describe('globalReducer', () => {
   it('default', () => {
     const result = globalReducer(undefined, {});
 
-    expect(result).toEqual(globalInitialState);
+    expect(result).toEqual({
+      ...globalInitialState,
+      modalQueue: [],
+      isLoading: false
+    });
   });
 
   it('UPDATE_GLOBAL_TIMER', () => {
@@ -52,6 +79,73 @@ describe('globalReducer', () => {
       ...globalInitialState,
       initialized: true,
       timers: timerOne
+    });
+  });
+
+  it('OPEN_GLOBAL_MODAL', () => {
+    const action = {
+      type: OPEN_GLOBAL_MODAL,
+      data: {
+        title: 'test-title2',
+        message: 'test-message2',
+        action: jest.fn()
+      }
+    };
+    const result = globalReducer(initialState, action);
+
+    expect(result).toEqual({
+      ...initialState,
+      modalQueue: [...initialState.modalQueue, { id: 2, ...action.data}]
+    });
+  });
+
+  it('CLOSE_GLOBAL_MODAL', () => {
+    const action = {
+      type: CLOSE_GLOBAL_MODAL,
+      id: 0
+    };
+    const result = globalReducer(initialState, action);
+
+    expect(result).toEqual({
+      ...initialState,
+      modalQueue: [initialState.modalQueue[1]]
+    });
+  });
+
+  it('CLOSE_GLOBAL_MODAL with no id', () => {
+    const action = {
+      type: CLOSE_GLOBAL_MODAL,
+      data: {}
+    };
+    const result = globalReducer(initialState, action);
+
+    expect(result).toEqual({
+      ...initialState,
+      modalQueue: []
+    });
+  });
+
+  it('SHOW_LOADING_MODAL', () => {
+    const action = {
+      type: SHOW_LOADING_MODAL
+    };
+    const result = globalReducer(initialState, action);
+
+    expect(result).toEqual({
+      ...initialState,
+      isLoading: true
+    });
+  });
+
+  it('HIDE_LOADING_MODAL', () => {
+    const action = {
+      type: HIDE_LOADING_MODAL
+    };
+    const result = globalReducer(initialState, action);
+
+    expect(result).toEqual({
+      ...initialState,
+      isLoading: false
     });
   });
 });

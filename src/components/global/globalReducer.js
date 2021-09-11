@@ -1,11 +1,18 @@
 import {
   UPDATE_GLOBAL_TIMER,
-  INITIALIZE_TIMER
+  INITIALIZE_TIMER,
+  OPEN_GLOBAL_MODAL,
+  CLOSE_GLOBAL_MODAL,
+  SHOW_LOADING_MODAL,
+  HIDE_LOADING_MODAL
 } from './globalActions';
+import { isNumber } from 'type-check';
 
 export const globalInitialState = {
   timers: [],
-  initialized: false
+  initialized: false,
+  modalQueue: [],
+  isLoading: false
 };
 
 const globalReducer = (state = globalInitialState, action) => {
@@ -24,6 +31,29 @@ const globalReducer = (state = globalInitialState, action) => {
         initialized: true,
         timers: JSON.parse(globaltimers)
       };
+    },
+    [OPEN_GLOBAL_MODAL]: () => {
+      return {
+        ...state,
+        modalQueue: [...state.modalQueue, {
+          id: state.modalQueue.length,
+          ...action.data
+        }]
+      };
+    },
+    [CLOSE_GLOBAL_MODAL]: () => {
+      const filteredModalQueue = isNumber(action.id) ? state.modalQueue.filter(item => action.id !== item.id) : [];
+
+      return {
+        ...state,
+        modalQueue: filteredModalQueue
+      };
+    },
+    [SHOW_LOADING_MODAL]: () => {
+      return { ...state, isLoading: true };
+    },
+    [HIDE_LOADING_MODAL]: () => {
+      return { ...state, isLoading: false };
     }
   };
 
