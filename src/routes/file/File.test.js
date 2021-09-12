@@ -1,17 +1,8 @@
-import api from 'api';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { reduxTestWrapper } from 'testHelper';
+import { reduxTestWrapper, mockApi } from 'testHelper';
 import File from './File';
 
-jest.mock('api');
-const mockPost = jest.fn(() => {
-  return Promise.resolve({
-    data: {
-      message: 'successful'
-    }
-  });
-});
-const mockGet = jest.fn((url) => {
+const mockGet = (url) => {
   if(url === '/read') {
     return Promise.resolve({
       data: {
@@ -26,9 +17,15 @@ const mockGet = jest.fn((url) => {
       }
     });
   }
-});
-api.post = mockPost;
-api.get = mockGet;
+};
+const mockPost = () => {
+  return Promise.resolve({
+    data: {
+      message: 'successful'
+    }
+  });
+};
+const apiMock = mockApi(mockGet, mockPost);
 
 const pathname = '/file';
 const ZERO = 0;
@@ -145,7 +142,7 @@ describe('File', () => {
     fireEvent.change(contentField, { target: { value: '1 2 3 4 5' } });
     fireEvent.click(saveBtn);
 
-    expect(api.post).toHaveBeenCalledWith('/write', { filename: 'test2.txt', content: '1 2 3 4 5' });
+    expect(apiMock.post).toHaveBeenCalledWith('/write', { filename: 'test2.txt', content: '1 2 3 4 5' });
   });
 
   it('handle loading existing file', async () => {

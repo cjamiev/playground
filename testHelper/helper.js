@@ -1,3 +1,5 @@
+import api from 'api';
+
 const testFunctionHelper = ({ testMessage = '', args, expectedResult }, functionToTest) => {
   const recievedResult = functionToTest(...args);
 
@@ -47,8 +49,17 @@ const mockLocalStorage = (defaultStorage) => {
   Object.defineProperty(window, 'localStorage', { value: localStorageMock() });
 };
 
+const mockApi = (mockGet, mockPost) => {
+  jest.mock('api');
+  api.post = jest.fn(mockPost);
+  api.get = jest.fn(mockGet);
+
+  return api;
+};
+
 export {
   testFunctionHelper,
   mockDate,
-  mockLocalStorage
+  mockLocalStorage,
+  mockApi
 };

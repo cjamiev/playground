@@ -7,5 +7,6 @@ export {
 export {
   testFunctionHelper,
   mockDate,
-  mockLocalStorage
+  mockLocalStorage,
+  mockApi
 } from './helper';
