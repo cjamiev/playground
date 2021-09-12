@@ -41,8 +41,16 @@ const File = () => {
     }
   }, [name, file]);
 
+  const handleNameChange = ({selected}) => {
+    const selectedFile = directory.find(item => item === selected);
+    if(selectedFile) {
+      dispatch(loadFile(selected));
+    }
+    setName(selected);
+  };
+
   const files = directory.map(item => {
-    return { label:item.split('.')[ZERO], value: item, selected: false };
+    return { label:item, value: item, selected: false };
   });
 
   const selectedDelimiter = delimiters.find(item => item.selected);
@@ -76,7 +84,7 @@ const File = () => {
           dispatch(dismissAlert());
         }}
       />
-      <Text placeholder='Enter File Name' selected={name} onChange={({selected}) => { setName(selected); }} />
+      <Text placeholder='Enter File Name' selected={name} onChange={handleNameChange} />
       <Button label='Save'
         classColor='primary'
         onClick={() => {

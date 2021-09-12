@@ -159,9 +159,9 @@ describe('File', () => {
     fireEvent.click(fileDropdown);
 
     await waitFor(() => {
-      expect(screen.getByText('test')).toBeInTheDocument();
+      expect(screen.getByText('test.txt')).toBeInTheDocument();
     });
-    const testBtn = screen.getByText('test');
+    const testBtn = screen.getByText('test.txt');
     fireEvent.click(testBtn);
 
     await waitFor(() => {

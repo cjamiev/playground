@@ -21,6 +21,7 @@ const ONE = 1;
 const TWO = 2;
 
 const Generator = () => {
+  const [name, setName] = useState('');
   const [mode, setMode] = useState(ZERO);
   const [isHovering, setIsHovering] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -101,23 +102,26 @@ const Generator = () => {
     setMode(index);
   };
 
-  const handleSelectRecord = (name) => {
-    const matched = generatorRecords.find(item => item.name === name);
-    setNormalStyle(matched.value.normalStyle);
-    setHoverStyle(matched.value.hoverStyle);
-    setActiveStyle(matched.value.activeStyle);
-    setParentBackgroundColor(matched.value.parentBackgroundColor);
+  const handleSelectRecord = (selectedName) => {
+    const matched = generatorRecords.find(item => item.name === selectedName);
+    setName(selectedName);
+    if(matched) {
+      setNormalStyle(matched.value.normalStyle);
+      setHoverStyle(matched.value.hoverStyle);
+      setActiveStyle(matched.value.activeStyle);
+      setParentBackgroundColor(matched.value.parentBackgroundColor);
+    }
   };
 
-  const handleSubmit = (name) => {
-    const filteredRecords = generatorRecords.filter(item => item.name !== name);
+  const handleSubmit = (selectedName) => {
+    const filteredRecords = generatorRecords.filter(item => item.name !== selectedName);
     const updatedRecords = [...filteredRecords, { name, value: { normalStyle, hoverStyle, activeStyle, parentBackgroundColor }}];
 
     dispatch(updatedGeneratorRecords(updatedRecords));
   };
 
-  const handleDelete = (name) => {
-    const filteredRecords = generatorRecords.filter(item => item.name !== name);
+  const handleDelete = (selectedName) => {
+    const filteredRecords = generatorRecords.filter(item => item.name !== selectedName);
 
     dispatch(updatedGeneratorRecords(filteredRecords));
   };
@@ -127,7 +131,7 @@ const Generator = () => {
   });
 
   return (
-    <Page sidePanelContent={<GeneratorSidePanel records={records} onSelectRecord={handleSelectRecord} onSubmit={handleSubmit} onDelete={handleDelete} />} >
+    <Page sidePanelContent={<GeneratorSidePanel records={records} selectedName={name} onSelectRecord={handleSelectRecord} onSubmit={handleSubmit} onDelete={handleDelete} />} >
       <div className="generator">
         <div className="generator__form_container">
           <Switch data={[{ label: 'Normal'}, { label: 'Hover'}, { label: 'Active'}]} switchIndex={mode} onToggleSwitch={handleMode} />
