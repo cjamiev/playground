@@ -3,6 +3,33 @@ import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { reduxTestWrapper } from 'testHelper';
 import File from './File';
 
+jest.mock('api');
+const mockPost = jest.fn(() => {
+  return Promise.resolve({
+    data: {
+      message: 'successful'
+    }
+  });
+});
+const mockGet = jest.fn((url) => {
+  if(url === '/read') {
+    return Promise.resolve({
+      data: {
+        data: ['test.txt']
+      }
+    });
+  }
+  else {
+    return Promise.resolve({
+      data: {
+        data: 'test file contents'
+      }
+    });
+  }
+});
+api.post = mockPost;
+api.get = mockGet;
+
 const pathname = '/file';
 const ZERO = 0;
 
@@ -108,25 +135,6 @@ describe('File', () => {
   });
 
   it('handle save', () => {
-    jest.mock('api');
-    const mockPost = jest.fn();
-    const mockGet = jest.fn();
-    mockPost.mockResolvedValue({
-      data: {
-        message: 'successful'
-      }
-    });
-    api.post = mockPost;
-    api.get = mockGet.mockResolvedValueOnce({
-      data: {
-        data: ['test.txt']
-      }
-    });
-    mockGet.mockResolvedValueOnce({
-      data: {
-        data: 'test file contents'
-      }
-    });
     reduxTestWrapper(File, {}, {}, pathname);
 
     const nameField = screen.getByPlaceholderText('Enter File Name');
@@ -141,18 +149,6 @@ describe('File', () => {
   });
 
   it('handle loading existing file', async () => {
-    jest.mock('api');
-    const mockGet = jest.fn();
-    api.get = mockGet.mockResolvedValueOnce({
-      data: {
-        data: ['test.txt']
-      }
-    });
-    mockGet.mockResolvedValueOnce({
-      data: {
-        data: 'test file contents'
-      }
-    });
     reduxTestWrapper(File, {}, {}, pathname);
 
     const fileDropdown = screen.getByText('Select an existing file');
