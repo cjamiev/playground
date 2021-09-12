@@ -106,13 +106,12 @@ describe('Home', () => {
     fireEvent.click(editBtn);
 
     expect(screen.queryByLabelText('Name text field')).toBeInTheDocument();
-    const hourField = screen.getByLabelText('Hour text field');
-    const oneHourFromNow = incrementDate(today, { hours: 1 }).getHours();
-    const normalizedHour = oneHourFromNow > TWELVE ? oneHourFromNow % TWELVE : oneHourFromNow;
+    const minuteField = screen.getByLabelText('Minute text field');
+    const oneMinuteFromNow = incrementDate(today, { minutes: 2 }).getMinutes();
 
-    fireEvent.change(hourField, { target: { value: normalizedHour } });
+    fireEvent.change(minuteField, { target: { value: oneMinuteFromNow } });
     fireEvent.click(screen.getByText('Save'));
 
-    expect(screen.getByTestId('timerOne time')).toHaveTextContent('0:59');
+    expect(screen.getByTestId('timerOne time')).toHaveTextContent('0:01');
   });
 });
