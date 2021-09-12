@@ -56,6 +56,7 @@ describe('generatorActions', () => {
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_GENERATOR_RECORDS, data: content });
     });
   });
 

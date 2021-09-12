@@ -55,6 +55,7 @@ describe('clipboardActions', () => {
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_CLIPBOARD, data: { test : 123 } });
     });
   });
 

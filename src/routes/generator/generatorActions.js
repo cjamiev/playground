@@ -35,6 +35,7 @@ const updatedGeneratorRecords = (content) => {
       .post('/db', { filename: 'generator.json', content: JSON.stringify(filteredContent) })
       .then((response) => {
         dispatch(createAlert({ content: response.data.message, status: 'success' }));
+        dispatch({ type: LOAD_GENERATOR_RECORDS, data: filteredContent });
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
