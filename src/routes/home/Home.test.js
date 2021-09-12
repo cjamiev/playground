@@ -97,7 +97,7 @@ describe('Home', () => {
     expect(screen.queryByText('timerTwo')).not.toBeInTheDocument();
     expect(screen.queryByText('No timers to display')).not.toBeInTheDocument();
 
-    // Edit timer to be one hour from now
+    // Edit timer to be one minute from now (this test is hard design in a useful way)
     fireEvent.click(sidePanelBtn);
 
     expect(screen.queryByLabelText('Name text field')).not.toBeInTheDocument();
@@ -107,11 +107,11 @@ describe('Home', () => {
 
     expect(screen.queryByLabelText('Name text field')).toBeInTheDocument();
     const minuteField = screen.getByLabelText('Minute text field');
-    const oneMinuteFromNow = incrementDate(today, { minutes: 2 }).getMinutes();
+    const oneMinuteFromNow = incrementDate(today, { minutes: 1 }).getMinutes();
 
     fireEvent.change(minuteField, { target: { value: oneMinuteFromNow } });
     fireEvent.click(screen.getByText('Save'));
 
-    expect(screen.getByTestId('timerOne time')).toHaveTextContent('0:01');
+    expect(screen.getByTestId('timerOne time')).toHaveTextContent('0:0');
   });
 });
