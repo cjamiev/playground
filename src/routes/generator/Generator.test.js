@@ -1,55 +1,36 @@
-import { fireEvent, screen } from '@testing-library/react';
+import api from 'api';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { reduxTestWrapper, mockLocalStorage } from 'testHelper';
 import Generator from './Generator';
 import { ALL_CSS } from 'constants/css';
 
 const pathname = '/generator';
-const cachedGenerator = {
-  normalStyle: {
-    ...ALL_CSS,
-    borderThickness: '1',
-    borderStyle: 'solid',
-    borderColor: '#000000',
-    width: '100',
-    height: '50'
-  },
-  hoverStyle: {
-    ...ALL_CSS,
-    backgroundColor: '#ff8a8a'
-  },
-  activeStyle: {
-    ...ALL_CSS,
-    blur: '5'
-  },
-  parentBackgroundColor: '#ffffff'
-};
-mockLocalStorage({
-  generator: JSON.stringify(cachedGenerator)
-});
+const content = [
+  {
+    name: 'test',
+    value: {
+      normalStyle: {
+        ...ALL_CSS,
+        borderThickness: '1',
+        borderStyle: 'solid',
+        borderColor: '#000000',
+        width: '100',
+        height: '50'
+      },
+      hoverStyle: {
+        ...ALL_CSS,
+        backgroundColor: '#ff8a8a'
+      },
+      activeStyle: {
+        ...ALL_CSS,
+        blur: '5'
+      },
+      parentBackgroundColor: '#ffffff'
+    }
+  }
+];
 
 describe('Generator', () => {
-  it('handle Load', () => {
-    reduxTestWrapper(Generator, {}, {}, pathname);
-
-    expect(screen.queryByText('background-color: rgba(255,138,138);')).not.toBeInTheDocument();
-
-    const loadBtn = screen.getByText('Load');
-    fireEvent.click(loadBtn);
-
-    expect(screen.getByText('background-color: rgba(255,138,138);')).toBeInTheDocument();
-  });
-
-  it('handle cache', () => {
-    reduxTestWrapper(Generator, {}, {}, pathname);
-
-    const cacheBtn = screen.getByText('Cache');
-    fireEvent.click(cacheBtn);
-    const result = JSON.parse(localStorage.getItem('generator'));
-
-    expect(result.hoverStyle).toEqual(ALL_CSS);
-    expect(result.activeStyle).toEqual(ALL_CSS);
-  });
-
   it('handle copy', () => {
     document.execCommand = jest.fn();
     reduxTestWrapper(Generator, {}, {}, pathname);
@@ -115,5 +96,122 @@ describe('Generator', () => {
     fireEvent.click(activeSwitch);
     fireEvent.change(blurField, { target: { value: '5' } });
     expect(screen.getAllByText(shownCSS)).toHaveLength(2);
+  });
+
+  it('handle Load', async () => {
+    jest.mock('api');
+    const mockGet = jest.fn();
+    api.get = mockGet.mockResolvedValueOnce({
+      data: {
+        data: JSON.stringify(content)
+      }
+    });
+    reduxTestWrapper(Generator, {}, {}, pathname);
+
+    expect(screen.queryByText('background-color: rgba(255,138,138);')).not.toBeInTheDocument();
+
+    const sidePanelBtn = screen.getByText('(|)');
+    fireEvent.click(sidePanelBtn);
+    const dropdownBtn = screen.getByText('Select an existing record');
+    fireEvent.click(dropdownBtn);
+
+    await waitFor(() => {
+      expect(screen.getByText('test')).toBeInTheDocument();
+    });
+    const testBtn = screen.getByText('test');
+    fireEvent.click(testBtn);
+
+    expect(screen.getByText('background-color: rgba(255,138,138);')).toBeInTheDocument();
+  });
+
+  it('handle Delete', async () => {
+    jest.mock('api');
+    const mockPost = jest.fn();
+    const mockGet = jest.fn();
+    mockPost.mockResolvedValue({
+      data: {
+        message: 'successful'
+      }
+    });
+    api.post = mockPost;
+    api.get = mockGet.mockResolvedValueOnce({
+      data: {
+        data: JSON.stringify(content)
+      }
+    });
+    reduxTestWrapper(Generator, {}, {}, pathname);
+
+    const sidePanelBtn = screen.getByText('(|)');
+    fireEvent.click(sidePanelBtn);
+    const dropdownBtn = screen.getByText('Select an existing record');
+    fireEvent.click(dropdownBtn);
+
+    await waitFor(() => {
+      expect(screen.getByText('test')).toBeInTheDocument();
+    });
+    const testBtn = screen.getByText('test');
+    fireEvent.click(testBtn);
+
+    const deleteBtn = screen.getByText('Delete');
+    fireEvent.click(deleteBtn);
+
+    expect(api.post).toHaveBeenCalledWith('/db', { filename: 'generator.json', content: JSON.stringify([]) });
+  });
+
+  it('handle Save', async () => {
+    jest.mock('api');
+    const mockPost = jest.fn();
+    const mockGet = jest.fn();
+    mockPost.mockResolvedValue({
+      data: {
+        message: 'successful'
+      }
+    });
+    api.post = mockPost;
+    api.get = mockGet.mockResolvedValueOnce({
+      data: {
+        data: JSON.stringify(content)
+      }
+    });
+    reduxTestWrapper(Generator, {}, {}, pathname);
+
+    const sidePanelBtn = screen.getByText('(|)');
+    fireEvent.click(sidePanelBtn);
+    const dropdownBtn = screen.getByText('Select an existing record');
+    fireEvent.click(dropdownBtn);
+
+    await waitFor(() => {
+      expect(screen.getByText('test')).toBeInTheDocument();
+    });
+    const testBtn = screen.getByText('test');
+    fireEvent.click(testBtn);
+
+    const saveBtn = screen.getByText('Save');
+    fireEvent.click(saveBtn);
+
+    const result = [
+      {
+        name: 'test',
+        value: {
+          parentBackgroundColor: '#ffffff',
+          normalStyle: {
+            height: '50',
+            width: '100',
+            borderColor: '#000000',
+            borderStyle: 'solid',
+            borderThickness: '1'
+          },
+          hoverStyle: {
+            backgroundColor: '#ff8a8a'
+          },
+          activeStyle: {
+            blur: '5'
+          }
+        }
+      }
+    ];
+
+
+    expect(api.post).toHaveBeenCalledWith('/db', { filename: 'generator.json', content: JSON.stringify(result) });
   });
 });

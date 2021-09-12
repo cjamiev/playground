@@ -11,6 +11,7 @@ import alertReducer from 'components/alert/alertReducer';
 import clipboardReducer from 'routes/clipboard/clipboardReducer';
 import experimentReducer from 'routes/experiment/experimentReducer';
 import fileReducer from 'routes/file/fileReducer';
+import generatorReducer from 'routes/generator/generatorReducer';
 import globalReducer from 'components/global/globalReducer';
 import listReducer from 'components/list/listReducer';
 import mockserverReducer from 'routes/mockserver/mockserverReducer';
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   clipboard: clipboardReducer,
   experiment: experimentReducer,
   file: fileReducer,
+  generator: generatorReducer,
   global: globalReducer,
   list: listReducer,
   mockserver: mockserverReducer

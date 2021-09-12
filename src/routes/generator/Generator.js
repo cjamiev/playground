@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Page from 'components/layout';
 import Text from 'components/form/Text';
 import Button from 'components/button';
@@ -8,6 +9,8 @@ import { AccordionGroup } from 'components/accordion';
 import Range from 'components/form/Range';
 import Switch from 'components/switch';
 import GeneratorForm from './GeneratorForm';
+import GeneratorSidePanel from './GeneratorSidePanel';
+import { loadGeneratorRecords, updatedGeneratorRecords } from './generatorActions';
 import { copyToClipboard } from 'helper/copy';
 import { getCurrentStyles } from './helper';
 import { ALL_CSS } from 'constants/css';
@@ -32,6 +35,12 @@ const Generator = () => {
   const [hoverStyle, setHoverStyle] = useState(ALL_CSS);
   const [activeStyle, setActiveStyle] = useState(ALL_CSS);
   const [parentBackgroundColor, setParentBackgroundColor] = useState('#ffffff');
+  const dispatch = useDispatch();
+  const { generatorRecords } = useSelector(state => state.generator);
+
+  useEffect(() => {
+    dispatch(loadGeneratorRecords());
+  }, [dispatch]);
 
   const isHoverMode = mode === ONE;
   const isActiveMode = mode === TWO;
@@ -92,8 +101,33 @@ const Generator = () => {
     setMode(index);
   };
 
+  const handleSelectRecord = (name) => {
+    const matched = generatorRecords.find(item => item.name === name);
+    setNormalStyle(matched.value.normalStyle);
+    setHoverStyle(matched.value.hoverStyle);
+    setActiveStyle(matched.value.activeStyle);
+    setParentBackgroundColor(matched.value.parentBackgroundColor);
+  };
+
+  const handleSubmit = (name) => {
+    const filteredRecords = generatorRecords.filter(item => item.name !== name);
+    const updatedRecords = [...filteredRecords, { name, value: { normalStyle, hoverStyle, activeStyle, parentBackgroundColor }}];
+
+    dispatch(updatedGeneratorRecords(updatedRecords));
+  };
+
+  const handleDelete = (name) => {
+    const filteredRecords = generatorRecords.filter(item => item.name !== name);
+
+    dispatch(updatedGeneratorRecords(filteredRecords));
+  };
+
+  const records = generatorRecords.map(item => {
+    return { label: item.name, selected: false };
+  });
+
   return (
-    <Page>
+    <Page sidePanelContent={<GeneratorSidePanel records={records} onSelectRecord={handleSelectRecord} onSubmit={handleSubmit} onDelete={handleDelete} />} >
       <div className="generator">
         <div className="generator__form_container">
           <Switch data={[{ label: 'Normal'}, { label: 'Hover'}, { label: 'Active'}]} switchIndex={mode} onToggleSwitch={handleMode} />
@@ -122,25 +156,6 @@ const Generator = () => {
             classColor="primary"
             onClick={
               () => { copyToClipboard(copyCSS); }
-            } />
-          <Button
-            label="Cache"
-            classColor="secondary"
-            onClick={
-              () => { localStorage.setItem('generator', JSON.stringify({ normalStyle, hoverStyle, activeStyle, parentBackgroundColor })); }
-            } />
-          <Button
-            label="Load"
-            classColor="secondary"
-            onClick={
-              () => {
-                const result = localStorage.getItem('generator') || '{}';
-                const data = JSON.parse(result);
-                data.normalStyle && setNormalStyle(data.normalStyle);
-                data.hoverStyle && setHoverStyle(data.hoverStyle);
-                data.activeStyle && setActiveStyle(data.activeStyle);
-                data.parentBackgroundColor && setParentBackgroundColor(data.parentBackgroundColor);
-              }
             } />
           <h2>Normal CSS</h2>
           <pre className="generator__generated_css">{normalCSS}</pre>

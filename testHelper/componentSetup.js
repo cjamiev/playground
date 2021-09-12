@@ -17,6 +17,7 @@ import { alertInitialState } from '../src/components/alert/alertReducer';
 import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer';
 import { experimentInitialState } from '../src/routes/experiment/experimentReducer';
 import { fileInitialState } from '../src/routes/file/fileReducer';
+import { generatorInitialState } from '../src/routes/generator/generatorReducer';
 import { globalInitialState } from '../src/components/global/globalReducer';
 import { listInitialState } from '../src/components/list/listReducer';
 import { mockserverInitialState } from '../src/routes/mockserver/mockserverReducer';
@@ -29,6 +30,7 @@ const appliedMiddlewares = applyMiddleware(...middlewares);
 const defaultStore = {
   alert: alertInitialState,
   clipboard: clipboardInitialState,
+  generator: generatorInitialState,
   global: globalInitialState,
   experiment: experimentInitialState,
   file: fileInitialState,

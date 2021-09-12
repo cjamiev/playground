@@ -1,4 +1,5 @@
 import { toDashCaseFromCamelCase } from 'stringHelper';
+import { filterOutEmptyKeys } from 'objectHelper';
 import { hexToRGB } from 'components/form/Color';
 import {
   OPACITY_MAX
@@ -172,20 +173,7 @@ const getInlineStyle = ({
     height: getLengthProperty(height)
   };
 
-  const definedProperties = Object
-    .keys(style)
-    .filter(key => {
-      if(!style[key]) {
-        return false;
-      }
-
-      return true;
-    })
-    .reduce((accumulator, key) => {
-      return { [key]: style[key], ...accumulator };
-    }, {});
-
-  return definedProperties;
+  return filterOutEmptyKeys(style);
 };
 
 export const getCurrentStyles = ({ normalStyle, hoverStyle, activeStyle, isHoverMode, isHovering, isActiveMode, isActive }) => {
