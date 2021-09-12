@@ -1,12 +1,17 @@
 # Playground
-This project is a experimental project for mastering front end skills. 
+Project to help with building other projects. Used for improving efficency by helping store information
+and easy way to test new features. 
 
-# src
-Front end developed in react. Will include re-usable react components and personal CSS framework. 
+# sections
+Home -> To do list and global timers will alerts that fire on any page. 
+File -> Read files, write files, and perform string ops
+Clipboard -> Store collections of copy buttons, text, timer, urls, or commands
+Experiment -> Test out new functionality and components
+MockServer -> Create, delete, and view mock endpoints
+Generator -> Generate css
 
 ## utils
 Re-usable pure functions will be saved stored here
-Examples that are not robust/re-usable but useful will be stored in 'examples'
 
 ## server
 Simple server for allowing reading/writing, storing information, executing commands, etc. 
