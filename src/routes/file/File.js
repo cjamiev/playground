@@ -41,7 +41,7 @@ const File = () => {
     }
   }, [name, file]);
 
-  const files = directory.filter(item => item.includes('.')).map(item => {
+  const files = directory.map(item => {
     return { label:item.split('.')[ZERO], value: item, selected: false };
   });
 

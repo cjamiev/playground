@@ -36,6 +36,7 @@ const writeFile = (filename, content) => {
       .post('/write', { filename, content })
       .then((response) => {
         dispatch(createAlert({ content: response.data.message, status: 'success' }));
+        dispatch(loadDirectory());
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
