@@ -13,7 +13,8 @@
     "e2e": "cypress run",
     "e": "cypress open",
     "test": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json",
-    "t": "jest --env=jsdom clipboardActions.test.js --watch",
+    "testout": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json > output.txt 2>&1",
+    "t": "jest --env=jsdom App.test.js --watch",
     "w": "jest --env=jsdom --watchAll=true"
   },
   "keywords": [],
