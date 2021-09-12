@@ -103,8 +103,8 @@ const ClipboardForm = ({ clipboard }) => {
   const addLabel = data[currentIndex] ? 'Update' : 'Add';
   const defaultValue = { name: '', time: new Date()};
 
-  return (
-    <div className='flex--horizontal'>
+  const renderFormSection = () => {
+    return (
       <div className='container--center flex--one'>
         <h2>Form</h2>
         <Dropdown label='Existing Key' values={existingKeys} onChange={({ values }) => { setExistingKeys(values); }} />
@@ -128,23 +128,26 @@ const ClipboardForm = ({ clipboard }) => {
           }/>
         }
       </div>
+    );
+  };
+
+  const renderEntrySection = () => {
+    return (
       <div className='container--center flex--three'>
         <h2>Entry #{currentIndex + ONE}</h2>
         <Button label={addLabel} classColor='primary' onClick={
           () => {
-            if(entry.length > ZERO) {
-              const updatedData = data[currentIndex]
-                ? data.map((item, index) => {
-                  if(index === currentIndex) {
-                    return entry;
-                  }
-                  return item;
-                })
-                : [...data, entry];
-              setEntry([]);
-              setData(updatedData);
-              setCurrentIndex(updatedData.length);
-            }
+            const updatedData = data[currentIndex]
+              ? data.map((item, index) => {
+                if(index === currentIndex) {
+                  return entry;
+                }
+                return item;
+              })
+              : [...data, entry];
+            setEntry([]);
+            setData(updatedData);
+            setCurrentIndex(updatedData.length);
           }
         } />
         <Button label='Delete' classColor='primary' onClick={
@@ -155,23 +158,45 @@ const ClipboardForm = ({ clipboard }) => {
         } />
         {entry.length > ZERO && <Table headers={[{label:'Clip', className:'flex--two'}, {label:'Actions', className:'flex--three'}]} body={renderCells({ entry, removeItem, moveItemUp, moveItemDown})} />}
       </div>
+    );
+  };
+
+  const renderDataSection = () => {
+    return (
       <div className='container--center flex--one'>
         <h2>Data</h2>
-        {data.length > ZERO && <Button label='Submit' classColor='primary' onClick={
+        {key && title && <Button label='Submit' classColor='primary' onClick={
           () => {
-            if(key && title && data.length > ZERO) {
-              const updatedSection = clipboard.hasOwnProperty(key)
-                ? clipboard[key].map(item => (item.title === title ? { title, data } : item))
-                : [{ title, data }];
+            const section = clipboard[key] || [];
+            const filteredSection = section.filter(item => item.title !== title);
+            const updatedSection = [...filteredSection, { title, data }];
 
-              const content = {...clipboard, [key] : updatedSection };
+            const content = {...clipboard, [key] : updatedSection };
 
-              dispatch(updateClipboard(content));
-            }
+            dispatch(updateClipboard(content));
+          }
+        } />}
+        {clipboard.hasOwnProperty(key) && title && <Button label='Delete' classColor='primary' onClick={
+          () => {
+            const updatedSection = clipboard[key].filter(item => (item.title !== title));
+
+            const content = {...clipboard, [key] : updatedSection };
+
+            dispatch(updateClipboard(content));
+            setEntry([]);
+            setData([]);
           }
         } />}
         <List key={title} header={title} data={data} handleClick={handleClickEntry}/>
       </div>
+    );
+  };
+
+  return (
+    <div className='flex--horizontal'>
+      {renderFormSection()}
+      {entry.length > ZERO && renderEntrySection()}
+      {data.length > ZERO && renderDataSection()}
     </div>
   );
 };
