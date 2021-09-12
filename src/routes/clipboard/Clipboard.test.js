@@ -8,9 +8,6 @@ const ZERO = 0;
 
 const defaultProps = {};
 const defaultStoreProps = {
-  globalModal: {
-    modalQueue: []
-  },
   clipboard: {
     error: {},
     clipboard: {
