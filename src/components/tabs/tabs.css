@@ -1,18 +1,18 @@
 .tabs {
-  display: flex;
   list-style: none;
-  margin-bottom: 1em;
+  margin: 10px 0;
+  border-bottom: 1px solid #777;
+  padding-bottom: 4px;
 }
 
 .tabs__item {
-  flex: 1;
+  display: inline;
   color: #1af;
-  padding: 0.5em;
+  padding: 10px 20px 5px 20px;
   cursor: pointer;
   z-index:1;
   font-size: 1.5em;
   text-align: center;
-  border-bottom: 1px solid #777;
 }
 
 .tabs__item--active {
@@ -20,5 +20,5 @@
   border-top: 1px solid #777;
   border-left: 1px solid #777;
   border-right: 1px solid #777;
-  border-bottom: none;
+  background-color: #f6f8fa;
 }
