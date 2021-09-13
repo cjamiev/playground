@@ -5,6 +5,7 @@ import Dropdown from 'components/form/Dropdown';
 import Button from 'components/button';
 import TimerForm from 'components/form/TimerForm';
 import ValueForm from 'components/form/ValueForm';
+import CommandForm from 'components/form/CommandForm';
 import List, { DisplayContent } from 'components/list';
 import Table from 'components/table';
 import { updateClipboard } from 'routes/clipboard/clipboardActions';
@@ -99,6 +100,35 @@ const ClipboardForm = ({ clipboard }) => {
     setEntry(selectedEntry);
   };
 
+  const renderForm = (type) => {
+    if(selectedType.label === TYPE.TIMER) {
+      return (<TimerForm
+        onChange={({ name, content}) => {
+          const newDate = new Date(content.year,content.month-ONE,content.day,content.hour,content.minute,content.second);
+
+          setEntry([...entry, { label: name, value: newDate.toString(), type: selectedType.label }]);
+        }}
+        value={defaultValue}
+      />);
+    }
+    else if(selectedType.label === TYPE.COMMAND) {
+      return (<CommandForm onChange={
+        ({name, content}) => {
+          setEntry([...entry, { label: name, value: content, type: selectedType.label }]);
+        }
+      }/>);
+    }
+    else {
+      return (<ValueForm type={selectedType} onChange={
+        ({name, content}) => {
+          setEntry([...entry, { label: name, value: content, type: selectedType.label }]);
+        }
+      }/>);
+    }
+
+
+  };
+
   const selectedType = types.find(item => item.selected);
   const addLabel = data[currentIndex] ? 'Update' : 'Add';
   const defaultValue = { name: '', time: new Date()};
@@ -112,21 +142,7 @@ const ClipboardForm = ({ clipboard }) => {
         <Text label='Key' selected={key} onChange={({selected}) => { setKey(selected); }} />
         <Text label='Title' selected={title} onChange={({selected}) => { setTitle(selected); }} />
         <Dropdown label='Type' values={types} onChange={({ values }) => { setTypes(values); }} />
-        {selectedType.label === TYPE.TIMER
-          ? <TimerForm
-            onChange={({ name, content}) => {
-              const newDate = new Date(content.year,content.month-ONE,content.day,content.hour,content.minute,content.second);
-
-              setEntry([...entry, { label: name, value: newDate.toString(), type: selectedType.label }]);
-            }}
-            value={defaultValue}
-          />
-          : <ValueForm type={selectedType} onChange={
-            ({name, content}) => {
-              setEntry([...entry, { label: name, value: content, type: selectedType.label }]);
-            }
-          }/>
-        }
+        {renderForm(selectedType)}
       </div>
     );
   };

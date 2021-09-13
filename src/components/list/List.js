@@ -42,7 +42,7 @@ const DisplayCommand = ({ label, mode, name, showArgs }) => {
 
   return (
     <span className="list__item">
-      <Button label={label} onClick={() => { dispatch(executeCommand(mode, name, arg)); }} />
+      <Button classColor={'secondary'} label={label} onClick={() => { dispatch(executeCommand(mode, name, arg)); }} />
       {showArgs &&<input type="text" aria-label={`args for ${label}`} onChange={handleChange} />}
     </span>
   );

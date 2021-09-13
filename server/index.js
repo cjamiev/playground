@@ -60,7 +60,10 @@ const getCommand = (requestUrl) => {
   const command = queryParameters[1].split('=')[1];
   const args = queryParameters[2].split('=')[1].replace('+', ' ');
 
-  if (mode === 'detach') {
+  if(command.includes('.sh')) {
+    return `cd ${SCRIPT_DIRECTORY} && sh ${command} ${args}`;
+  }
+  else if (mode === 'detach') {
     return `${COMMAND_STR} /c ${command} ${args}`;
   } else if (mode === 'block') {
     return `${COMMAND_STR} /k ${command} ${args}`;
