@@ -13,7 +13,7 @@ const CommandForm = ({ onChange }) => {
   return (
     <div>
       <Text label='Name' selected={name} onChange={({selected}) => { setName(selected); }} />
-      <Text label='Value' selected={value} onChange={({selected}) => { setValue(selected); }} />
+      <Text label='Command File Name' selected={value} onChange={({selected}) => { setValue(selected); }} />
       <Radio label='Mode' values={mode} onChange={({values}) => { setMode(values); }} />
       <Button label='Save' classColor='primary' onClick={
         () => {
