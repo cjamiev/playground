@@ -15,6 +15,7 @@ import './file.css';
 
 const ZERO = 0;
 const ONE = 1;
+const TWO = 2;
 const DELIMITER_TYPES = [
   { label:'comma', value: ',', selected: true },
   { label:'space', value: ' ', selected: false },
@@ -98,6 +99,9 @@ const File = () => {
         onClick={() => {
           dispatch(dismissAlert());
           const isValid = isJSONString(content);
+          if(isValid) {
+            setContent(JSON.stringify(JSON.parse(content), undefined, TWO));
+          }
           const message = isValid ? 'Is Valid JSON' : 'Is NOT Valid JSON';
           const status = isValid ? 'success' : 'error';
           dispatch(createAlert({ content: message, status }));
