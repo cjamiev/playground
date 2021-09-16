@@ -53,21 +53,13 @@ const cors = (res) => {
   res.setHeader('Access-Control-Allow-Headers', '*');
 };
 
-const COMMAND_STR = `cd ${SCRIPT_DIRECTORY} && start cmd.exe`;
 const getCommand = (requestUrl) => {
-  const queryParameters = requestUrl.split('?')[1].split('&');
-  const mode = queryParameters[0].split('=')[1];
-  const command = queryParameters[1].split('=')[1];
-  const args = queryParameters[2].split('=')[1].replace('+', ' ');
+  const queryParams = url.parse(requestUrl, true).query;
+  const file = queryParams.file;
+  const args = queryParams.args;
 
-  if(command.includes('.sh')) {
-    return `cd ${SCRIPT_DIRECTORY} && sh ${command} ${args}`;
-  }
-  else if (mode === 'detach') {
-    return `${COMMAND_STR} /c ${command} ${args}`;
-  } else if (mode === 'block') {
-    return `${COMMAND_STR} /k ${command} ${args}`;
-  }
+  const command = file.includes('.sh') ? `sh ${file}` : file;
+
   return `cd ${SCRIPT_DIRECTORY} && ${command} ${args}`;
 };
 
@@ -124,7 +116,7 @@ const handleReadResponse = (request, response, directory) => {
 const handleCommandResponse = (request, response) => {
   exec(getCommand(request.url), { encoding: UTF8 }, (error, stdout, stderr) => {
     error
-      ? send(response, { message: error || stderr, error: true })
+      ? send(response, { message: JSON.stringify(error || stderr) })
       : send(response, { message: stderr.concat(stdout) });
   });
 };

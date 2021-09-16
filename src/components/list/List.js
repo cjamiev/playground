@@ -32,7 +32,7 @@ export const DisplayTimer = ({ label, value }) => {
   );
 };
 
-const DisplayCommand = ({ label, mode, name, showArgs }) => {
+const DisplayCommand = ({ label, name, showArgs }) => {
   const dispatch = useDispatch();
   const [arg, setArg] = useState('');
 
@@ -42,7 +42,7 @@ const DisplayCommand = ({ label, mode, name, showArgs }) => {
 
   return (
     <span className="list__item">
-      <Button classColor={'secondary'} label={label} onClick={() => { dispatch(executeCommand(mode, name, arg)); }} />
+      <Button classColor={'secondary'} label={label} onClick={() => { dispatch(executeCommand(name, arg)); }} />
       {showArgs &&<input type="text" aria-label={`args for ${label}`} onChange={handleChange} />}
     </span>
   );
@@ -56,7 +56,7 @@ export const DisplayContent = ({ type, label, value }) => {
   } else if (type === TYPE.COPY) {
     return (<Button label={label} classColor='primary' onClick={() => { copyToClipboard(value); }} />);
   } else if (type === TYPE.COMMAND) {
-    return <DisplayCommand label={label} mode={value.mode} name={value.name} showArgs={value.showArgs} />;
+    return <DisplayCommand label={label} name={value.name} showArgs={value.showArgs} />;
   } else if (type === TYPE.TIMER) {
     return <DisplayTimer label={label} value={value} />;
   }

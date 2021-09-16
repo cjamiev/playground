@@ -8,7 +8,7 @@ import {
   CLEAR_COMMAND_RESULT
 } from './listActions';
 
-const error = new Error('Test Message');
+const errorObject = new Error('Test Message');
 const dispatch = jest.fn();
 
 jest.mock('api');
@@ -20,7 +20,7 @@ api.get.mockResolvedValue({
 
 describe('listActions', () => {
   it('executeCommand', async () => {
-    executeCommand('mode', 'file', 'args')(dispatch);
+    executeCommand('file', 'args')(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_COMMAND_RESULT, data: 'test message'});
@@ -28,11 +28,11 @@ describe('listActions', () => {
   });
 
   it('executeCommand - error', async () => {
-    api.get.mockRejectedValueOnce(new Error('Test Message'));
-    executeCommand('mode', 'file', 'args')(dispatch);
+    api.get.mockRejectedValueOnce(errorObject);
+    executeCommand('file', 'args')(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_COMMAND_RESULT, error });
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_COMMAND_RESULT, error:  errorObject.message});
     });
   });
 

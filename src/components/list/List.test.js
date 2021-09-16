@@ -73,7 +73,7 @@ describe('List', () => {
     const commandData = {
       type: 'command',
       label: 'test-command',
-      value: { mode: 'test-mode', name: 'test-filename', showArgs: true}
+      value: { name: 'test-filename', showArgs: true}
     };
     const args = '12345';
     reduxTestWrapper(List, getProps(commandData));
@@ -84,7 +84,7 @@ describe('List', () => {
     const commandBtn = screen.getByText(commandData.label);
     fireEvent.click(commandBtn);
 
-    expect(api.get).toHaveBeenCalledWith(`/command?mode=${commandData.value.mode}&file=${commandData.value.name}&args=${args}`);
+    expect(api.get).toHaveBeenCalledWith(`/command?file=${commandData.value.name}&args=${args}`);
     expect(screen.getByText(commandData.label)).toBeInTheDocument();
   });
 

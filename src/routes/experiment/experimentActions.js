@@ -12,7 +12,7 @@ const experimentGet = () => {
         dispatch({ type: EXPERIMENT_GET, data });
       })
       .catch((error) => {
-        dispatch({ type: EXPERIMENT_GET, data: error });
+        dispatch({ type: EXPERIMENT_GET, data: error.message });
       });
   };
 };

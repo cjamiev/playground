@@ -20,7 +20,7 @@ const mockAction = (payload) => {
         dispatch({ type: 'MOCK_ACTION', data: response.data.message });
       })
       .catch((error) => {
-        dispatch({ type: 'MOCK_ERROR_ACTION', error });
+        dispatch({ type: 'MOCK_ERROR_ACTION', error: error.message });
       });
   };
 };

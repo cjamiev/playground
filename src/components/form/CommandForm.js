@@ -8,18 +8,18 @@ import { TYPE } from 'constants/type';
 const CommandForm = ({ onChange }) => {
   const [name, setName] = useState('');
   const [value, setValue] = useState('');
-  const [mode, setMode] = useState([{ label: 'simple', selected: true }, { label: 'detach', selected: false }, { label: 'block', selected: false }]);
+  const [args, setArgs] = useState([{ label: 'Yes', value: true, selected: false }, { label: 'No', value: false, selected: true }]);
 
   return (
     <div>
       <Text label='Name' selected={name} onChange={({selected}) => { setName(selected); }} />
       <Text label='Command File Name' selected={value} onChange={({selected}) => { setValue(selected); }} />
-      <Radio label='Mode' values={mode} onChange={({values}) => { setMode(values); }} />
+      <Radio label='Show Args' values={args} onChange={({values}) => { setArgs(values); }} />
       <Button label='Save' classColor='primary' onClick={
         () => {
           if(name && value) {
-            const selectedMode = mode.find(item => item.selected).label;
-            onChange({ name, content: { mode: selectedMode, name: value } });
+            const selectedArgs = args.find(item => item.selected).value;
+            onChange({ name, content: { showArgs: selectedArgs, name: value } });
             setName('');
             setValue('');
           }

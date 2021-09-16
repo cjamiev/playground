@@ -4,15 +4,15 @@ const LOAD_COMMAND_RESULT = 'LOAD_COMMAND_RESULT';
 const ERROR_COMMAND_RESULT = 'ERROR_COMMAND_RESULT';
 const CLEAR_COMMAND_RESULT = 'CLEAR_COMMAND_RESULT';
 
-const executeCommand = (mode, filename, args) => {
+const executeCommand = (filename, args) => {
   return (dispatch) => {
     api
-      .get(`/command?mode=${mode}&file=${filename}&args=${args}`)
+      .get(`/command?file=${filename}&args=${args}`)
       .then((response) => {
         dispatch({ type: LOAD_COMMAND_RESULT, data: response.data.message });
       })
       .catch((error) => {
-        dispatch({ type: ERROR_COMMAND_RESULT, error });
+        dispatch({ type: ERROR_COMMAND_RESULT, error: error.message });
       });
   };
 };
