@@ -63,17 +63,17 @@ const removeDirectory = folderpath => {
   }
 };
 
-const removeDirectoryDeep = path => {
-  if (fs.existsSync(path)) {
-    fs.readdirSync(path).forEach(file => {
-      const curPath = path + '/' + file;
+const removeDirectoryDeep = filepath => {
+  if (fs.existsSync(filepath)) {
+    fs.readdirSync(filepath).forEach(file => {
+      const curPath = filepath + '/' + file;
       if (fs.lstatSync(curPath).isDirectory()) {
         removeDirectoryDeep(curPath);
       } else {
         fs.unlinkSync(curPath);
       }
     });
-    fs.rmdirSync(path);
+    fs.rmdirSync(filepath);
   }
 };
 
