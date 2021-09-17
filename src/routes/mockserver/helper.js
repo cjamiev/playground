@@ -98,18 +98,23 @@ export const getNewMockFields = () => {
 };
 
 export const mapFieldsToNewMockPayload = (fields) => {
+  const optionalFileName = fields.find(item => item.id === INDEX_ONE).selected;
+  const url = fields.find(item => item.id === INDEX_TWO).selected;
+  const filename = optionalFileName ? optionalFileName : url.replace(/\//gm, '-');
+  const method = fields.find(item => item.id === INDEX_THREE).values.find(item => item.selected).label;
+
   return {
-    filename: fields.find(item => item.id === INDEX_ONE).selected,
+    filename,
     content: {
       request: {
-        url: fields.find(item => item.id === INDEX_TWO).selected,
-        method: fields.find(item => item.id === INDEX_THREE).values.find(item => item.selected).label
+        url,
+        method
       },
       response: {
         headers: JSON.parse(fields.find(item => item.id === INDEX_FOUR).selected),
         status: Number(fields.find(item => item.id === INDEX_FIVE).values.find(item => item.selected).label),
         body: JSON.parse(fields.find(item => item.id === INDEX_SIX).selected),
-        conditionalResponse: JSON.parse(fields.find(item => item.id === INDEX_SEVEN).selected)
+        conditionalResponse: method !== 'GET' ? JSON.parse(fields.find(item => item.id === INDEX_SEVEN).selected) : undefined
       }
     }
   };
