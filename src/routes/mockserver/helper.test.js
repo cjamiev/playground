@@ -88,7 +88,7 @@ const newmockFields = [
 ];
 
 const newmockPayload = {
-  filename: '',
+  filename: '-test',
   content: {
     request: {
       url: '/test',
@@ -102,17 +102,7 @@ const newmockPayload = {
       status: 200,
       body: {
         'test': 'testing get'
-      },
-      conditionalResponse: [
-        {
-          'payload': {
-            'key': 'condition'
-          },
-          'body': {
-            'test': 'testing conditional post'
-          }
-        }
-      ]
+      }
     }
   }
 };
