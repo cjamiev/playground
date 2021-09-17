@@ -197,12 +197,15 @@ export const mapConfigPayloadToFields = (config) => {
 };
 
 export const mapFieldsToConfigPayload = (fields) => {
+  const delayUrlsField = fields.find(item => item.id === INDEX_FOUR).selected.replace(/[ ]{2,}/g, '');
+  const overrideUrlsField = fields.find(item => item.id === INDEX_FIVE).selected.replace(/[ ]{2,}/g, '');
+
   return {
     delay: Number(fields.find(item => item.id === INDEX_THREE).selected),
-    delayUrls: fields.find(item => item.id === INDEX_FOUR).selected.split(','),
+    delayUrls: delayUrlsField ? delayUrlsField.split(','): [],
     log: fields.find(item => item.id === INDEX_ONE).values.find(item => item.label === 'Yes').selected,
     error: fields.find(item => item.id === INDEX_TWO).values.find(item => item.label === 'Yes').selected,
-    overrideUrls: fields.find(item => item.id === INDEX_FIVE).selected.split(','),
+    overrideUrls: overrideUrlsField ? overrideUrlsField.split(',') : [],
     overrideStatusCode: Number(fields.find(item => item.id === INDEX_SIX).values.find(item => item.selected).label),
     overrideResponse: JSON.parse(fields.find(item => item.id === INDEX_SEVEN).selected)
   };
