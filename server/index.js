@@ -53,11 +53,7 @@ const cors = (res) => {
   res.setHeader('Access-Control-Allow-Headers', '*');
 };
 
-const getCommand = (requestUrl) => {
-  const queryParams = url.parse(requestUrl, true).query;
-  const file = queryParams.file;
-  const args = queryParams.args;
-
+const getCommand = ({ file, args }) => {
   const command = file.includes('.sh') ? `sh ${file}` : file;
 
   return `cd ${SCRIPT_DIRECTORY} && ${command} ${args}`;
@@ -114,7 +110,9 @@ const handleReadResponse = (request, response, directory) => {
 };
 
 const handleCommandResponse = (request, response) => {
-  exec(getCommand(request.url), { encoding: UTF8 }, (error, stdout, stderr) => {
+  const queryParams = url.parse(requestUrl, true).query;
+
+  exec(getCommand(queryParams), { encoding: UTF8 }, (error, stdout, stderr) => {
     error
       ? send(response, { message: JSON.stringify(error || stderr) })
       : send(response, { message: stderr.concat(stdout) });

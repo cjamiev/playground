@@ -4,6 +4,7 @@ import Modal from 'components/modal';
 import { createAlert } from 'components/alert/alertActions';
 import { closeGlobalModal } from 'components/global/globalActions';
 import { initializeTimer } from './globalActions';
+import { TIME } from 'constants/time';
 
 const ZERO = 0;
 const ONE = 1;
@@ -27,10 +28,11 @@ const Global = () => {
       .sort((item1, item2) => item1.date.getTime() - item2.date.getTime());
     const now = new Date();
     const shortestTimer = sortedTimers[ZERO];
-    const time = shortestTimer.date.getTime() - now.getTime();
-    const absoluteTime = time > ZERO ? time : ZERO;
+    const timeInMilliseconds = shortestTimer.date.getTime() - now.getTime();
+    const absoluteTime = timeInMilliseconds > ZERO ? timeInMilliseconds : ZERO;
+    const isTimeTooLarge = timeInMilliseconds > TIME.A_DAY;
 
-    setTimeout(() => { dispatch(createAlert({ content: `Time's up for "${shortestTimer.name}"`, status: 'success' })); },absoluteTime);
+    !isTimeTooLarge && setTimeout(() => { dispatch(createAlert({ content: `Time's up for "${shortestTimer.name}"`, status: 'success' })); }, absoluteTime);
   }
 
   const close = () => { dispatch(closeGlobalModal(props.id)); };
