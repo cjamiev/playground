@@ -7,7 +7,7 @@ const CLEAR_COMMAND_RESULT = 'CLEAR_COMMAND_RESULT';
 const executeCommand = (filename, args) => {
   return (dispatch) => {
     api
-      .get(`/command?file=${filename}&args=${args}`)
+      .get(`/command?name=${filename}&args=${args}`)
       .then((response) => {
         dispatch({ type: LOAD_COMMAND_RESULT, data: response.data.message });
       })

@@ -3,7 +3,7 @@ import { reduxTestWrapper, mockApi } from 'testHelper';
 import File from './File';
 
 const mockGet = (url) => {
-  if(url === '/read') {
+  if(url === '/file') {
     return Promise.resolve({
       data: {
         data: ['test.txt']
@@ -142,7 +142,7 @@ describe('File', () => {
     fireEvent.change(contentField, { target: { value: '1 2 3 4 5' } });
     fireEvent.click(saveBtn);
 
-    expect(apiMock.post).toHaveBeenCalledWith('/write', { filename: 'test2.txt', content: '1 2 3 4 5' });
+    expect(apiMock.post).toHaveBeenCalledWith('/file', { filename: 'test2.txt', content: '1 2 3 4 5' });
   });
 
   it('handle loading existing file', async () => {

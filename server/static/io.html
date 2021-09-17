@@ -52,7 +52,7 @@
       const filename = document.getElementById('filenameData').value;
       const content = document.getElementById('contentData').value;
 
-      api.post('/write', {filename, content}).then(data => {
+      api.post('/file', {filename, content}).then(data => {
         setOut(data);
         getAllFiles();
       });
@@ -61,7 +61,7 @@
     }
 
     const getAllFiles = () => {
-      api.get('/read').then(result => {
+      api.get('/file').then(result => {
         const filenames = result.data.filter(item => item.includes('.'));
 
         const fileDropdown = document.getElementById('filesData');
@@ -86,7 +86,7 @@
       const filesData = document.getElementById('filesData');
       const filename = filesData.options[filesData.selectedIndex].value;
 
-      const url = '/read/?name=' + filename;
+      const url = '/file/?name=' + filename;
 
       api.get(url).then(result => {
         document.getElementById('contentData').value = result.data;

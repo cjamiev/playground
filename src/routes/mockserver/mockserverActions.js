@@ -13,7 +13,7 @@ const CLEAR_MOCK_RESPONSE = 'CLEAR_MOCK_RESPONSE';
 const loadMockServerConfig = () => {
   return (dispatch) => {
     api
-      .get('/api/mockserver/config')
+      .get('/mockserver/config')
       .then((response) => {
         dispatch({ type: LOAD_MOCKSERVER_CONFIG, data: response.data.data });
       })
@@ -26,7 +26,7 @@ const loadMockServerConfig = () => {
 const updateMockServerConfig = (payload) => {
   return (dispatch) => {
     api
-      .post('/api/mockserver/config', JSON.stringify(payload))
+      .post('/mockserver/config', JSON.stringify(payload))
       .then((response) => {
         const { message, error } = response.data;
         dispatch({ type: UPDATE_MOCKSERVER_CONFIG, payload });
@@ -41,7 +41,7 @@ const updateMockServerConfig = (payload) => {
 const loadMockRequests = () => {
   return (dispatch) => {
     api
-      .get('api/mockserver/mockRequests')
+      .get('mockserver/mockRequests')
       .then((response) => {
         dispatch({ type: LOAD_MOCKREQUESTS, data: response.data.data });
       })
@@ -54,7 +54,7 @@ const loadMockRequests = () => {
 const updateMockRequests = () => {
   return (dispatch) => {
     api
-      .post('/api/mockserver/mockRequests')
+      .post('/mockserver/mockRequests')
       .then((response) => {
         const { message, error } = response.data;
         dispatch(createAlert({ content: message, status: error ? 'error': 'success' }));
@@ -68,7 +68,7 @@ const updateMockRequests = () => {
 const deleteMockEndpoint = (endpoint) => {
   return (dispatch) => {
     api
-      .post('/api/mockserver/deleteMockEndpoint', endpoint)
+      .post('/mockserver/deleteMockEndpoint', endpoint)
       .then((response) => {
         const { message, error } = response.data;
         dispatch({ type: DELETE_MOCK_ENDPOINT, endpoint });
@@ -83,7 +83,7 @@ const deleteMockEndpoint = (endpoint) => {
 const loadMockResponse = (payload) => {
   return (dispatch) => {
     api
-      .post('api/mockserver/loadMockResponse', JSON.stringify(payload))
+      .post('mockserver/loadMockResponse', JSON.stringify(payload))
       .then((response) => {
         dispatch({ type: LOAD_MOCK_RESPONSE, data: response.data.data, payload });
       })
@@ -96,7 +96,7 @@ const loadMockResponse = (payload) => {
 const updateMockResponse = (payload) => {
   return (dispatch) => {
     api
-      .post('api/mockserver/updateMockEndpoint', payload)
+      .post('mockserver/updateMockEndpoint', payload)
       .then((response) => {
         const { message, error } = response.data;
         dispatch(createAlert({ content: message, status: error ? 'error': 'success' }));
@@ -112,7 +112,7 @@ const clearMockResponse = () => ({ type: CLEAR_MOCK_RESPONSE });
 const createMockEndpoint = (payload) => {
   return (dispatch) => {
     api
-      .post('/api/mockserver/createMockEndpoint', JSON.stringify(payload))
+      .post('/mockserver/createMockEndpoint', JSON.stringify(payload))
       .then((response) => {
         const { message, error } = response.data;
         dispatch(createAlert({ content: message, status: error ? 'error': 'success' }));
@@ -126,7 +126,7 @@ const createMockEndpoint = (payload) => {
 const updateMockEndpoint = () => {
   return (dispatch) => {
     api
-      .post('/api/mockserver/updateMockEndpoint')
+      .post('/mockserver/updateMockEndpoint')
       .then((response) => {
         const { message, error } = response.data;
         dispatch(createAlert({ content: message, status: error ? 'error': 'success' }));
@@ -140,7 +140,7 @@ const updateMockEndpoint = () => {
 const loadMockServerLog = () => {
   return (dispatch) => {
     api
-      .get('api/mockserver/loadLog')
+      .get('mockserver/loadLog')
       .then((response) => {
         dispatch({ type: LOAD_MOCKSERVER_LOG, data: response.data.data });
       })
@@ -153,7 +153,7 @@ const loadMockServerLog = () => {
 const clearMockServerLog = () => {
   return (dispatch) => {
     api
-      .get('api/mockserver/clearLog')
+      .get('mockserver/clearLog')
       .then((response) => {
         const { message, error } = response.data;
         dispatch({ type: CLEAR_MOCKSERVER_LOG });

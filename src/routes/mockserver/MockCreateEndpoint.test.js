@@ -31,7 +31,7 @@ describe('MockCreateEndpoint', () => {
     const submitBtn = screen.getByText('Submit');
     fireEvent.click(submitBtn);
 
-    expect(api.post).toHaveBeenCalledWith('/api/mockserver/createMockEndpoint', payload);
+    expect(api.post).toHaveBeenCalledWith('/mockserver/createMockEndpoint', payload);
   });
 
   it('handle onChange', () => {

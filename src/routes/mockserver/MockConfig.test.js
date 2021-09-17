@@ -42,7 +42,7 @@ describe('MockConfig', () => {
     const submitBtn = screen.getByText('Submit');
     fireEvent.click(submitBtn);
 
-    expect(api.post).toHaveBeenCalledWith('/api/mockserver/config', JSON.stringify(mockserverConfig));
+    expect(api.post).toHaveBeenCalledWith('/mockserver/config', JSON.stringify(mockserverConfig));
   });
 
   it('handle onChange', () => {

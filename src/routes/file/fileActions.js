@@ -7,7 +7,7 @@ const LOAD_FILE = 'LOAD_FILE';
 const loadDirectory = () => {
   return (dispatch) => {
     api
-      .get('/read')
+      .get('/file')
       .then((response) => {
         dispatch({ type: LOAD_DIRECTORY, data: response.data.data });
       })
@@ -20,7 +20,7 @@ const loadDirectory = () => {
 const loadFile = (filename) => {
   return (dispatch) => {
     api
-      .get(`/read/?name=${filename}`)
+      .get(`/file/?name=${filename}`)
       .then((response) => {
         dispatch({ type: LOAD_FILE, data: response.data.data });
       })
@@ -33,7 +33,7 @@ const loadFile = (filename) => {
 const writeFile = (filename, content) => {
   return (dispatch) => {
     api
-      .post('/write', { filename, content })
+      .post('/file', { filename, content })
       .then((response) => {
         dispatch(createAlert({ content: response.data.message, status: 'success' }));
         dispatch(loadDirectory());

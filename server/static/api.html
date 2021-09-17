@@ -29,7 +29,7 @@
       document.getElementById('output').value = JSON.stringify(data, undefined, 4);
     }
 
-    api.get('api/mockserver/mockRequests').then(response => {
+    api.get('mockserver/mockRequests').then(response => {
       const apiBtns = document.getElementById('api-btns');
       response.data.forEach((entry, index) => {
         const el = document.createElement('button');

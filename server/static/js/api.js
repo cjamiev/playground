@@ -14,7 +14,7 @@ const api = {
       .then((resp) => {
         return options.sendFullResponse ? { response: resp, promise: resp.json() } : resp.json();
       })
-      .catch((error) => console.log('error:', error));
+      .catch((error) => console.error('error:', error));
   },
   get: (url, options = {}) => {
     return fetch(url, {
@@ -25,6 +25,6 @@ const api = {
       .then((resp) => {
         return options.sendFullResponse ? { response: resp, promise: resp.json() } : resp.json();
       })
-      .catch((error) => console.log('error:', error));
+      .catch((error) => console.error('error:', error));
   }
 };

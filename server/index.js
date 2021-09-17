@@ -44,7 +44,7 @@ const STATUS_ERROR = 500;
 const METHOD_POST = 'POST';
 const FILE_DIRECTORY = './storage/io/file';
 const DB_DIRECTORY = './storage/io/db';
-const SCRIPT_DIRECTORY = './storage/io/script';
+const COMMAND_DIRECTORY = './storage/io/command';
 
 const cors = (res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -53,10 +53,10 @@ const cors = (res) => {
   res.setHeader('Access-Control-Allow-Headers', '*');
 };
 
-const getCommand = ({ file, args }) => {
-  const command = file.includes('.sh') ? `sh ${file}` : file;
+const getExecCommand = ({ name, args }) => {
+  const command = name.includes('.sh') ? `sh ${name}` : name;
 
-  return `cd ${SCRIPT_DIRECTORY} && ${command} ${args}`;
+  return `cd ${COMMAND_DIRECTORY} && ${command} ${args}`;
 };
 
 const resolvePostBody = async (request) => {
@@ -86,44 +86,61 @@ const send = (response, { data = {}, message = '', error = false }) => {
   response.end(JSON.stringify({ data, message, error }), UTF8);
 };
 
-const handleWriteResponse = async (request, response, directory) => {
-  const payload = await resolvePostBody(request);
+const handleFileResponse = async (request, response) => {
+  if (request.method === METHOD_POST) {
+    const payload = await resolvePostBody(request);
 
-  const content = payload.content || '';
-  const filename = payload.filename || new Date().toString().slice(4, 24).replace(/ /g, '.').replace(/:/g, '.');
-  const filepath = payload.filepath || directory + '/';
+    const content = payload.content || '';
+    const filename = payload.filename || new Date().toString().slice(4, 24).replace(/ /g, '.').replace(/:/g, '.');
 
-  const { message, error } = writeToFile(filepath + filename, content);
+    const { message, error } = writeToFile(`${FILE_DIRECTORY}/${filename}`, content);
 
-  send(response, { message, error });
-};
+    send(response, { message, error });
+  }
+  else {
+    const queryParams = url.parse(request.url, true).query;
 
-const handleReadResponse = (request, response, directory) => {
-  const queryParams = url.parse(request.url, true).query;
+    const data = queryParams.name
+      ? loadFile(`${FILE_DIRECTORY}/${queryParams.name}`)
+      : readDirectory(FILE_DIRECTORY);
 
-  const data =
-    queryParams.name
-      ? loadFile(directory + '/' + queryParams.name)
-      : readDirectory(directory);
-
-  send(response, { data });
+    send(response, { data });
+  }
 };
 
 const handleCommandResponse = (request, response) => {
-  const queryParams = url.parse(requestUrl, true).query;
+  const queryParams = url.parse(request.url, true).query;
 
-  exec(getCommand(queryParams), { encoding: UTF8 }, (error, stdout, stderr) => {
-    error
-      ? send(response, { message: JSON.stringify(error || stderr) })
-      : send(response, { message: stderr.concat(stdout) });
-  });
+  if(queryParams.name) {
+    exec(getExecCommand(queryParams), { encoding: UTF8 }, (error, stdout, stderr) => {
+      error
+        ? send(response, { message: JSON.stringify(error || stderr) })
+        : send(response, { message: stderr.concat(stdout) });
+    });
+  } else {
+    const data = readDirectory(COMMAND_DIRECTORY);
+
+    send(response, { data });
+  }
 };
 
-const handleDbResponse = (request, response) => {
+const handleDbResponse = async (request, response) => {
   if (request.method === METHOD_POST) {
-    handleWriteResponse(request, response, DB_DIRECTORY);
+    const payload = await resolvePostBody(request);
+
+    const content = payload.content;
+    const filename = payload.filename;
+
+    const { message, error } = writeToFile(`${DB_DIRECTORY}/${filename}`, content);
+
+    send(response, { message, error });
   } else {
-    handleReadResponse(request, response, DB_DIRECTORY);
+    const queryParams = url.parse(request.url, true).query;
+    const data = queryParams.name
+      ? loadFile(`${DB_DIRECTORY}/${queryParams.name}`)
+      : readDirectory(DB_DIRECTORY);
+
+    send(response, { data });
   }
 };
 
@@ -175,21 +192,6 @@ const handleMockServerResponse = (request, response) => {
   }
 };
 
-const handleStaticResponse = (request, response) => {
-  const filePath = ROOT_DIR + request.url;
-  const extname = String(path.extname(filePath)).toLowerCase();
-  const contentType = mimeTypes[extname] || TYPE_OCTET;
-
-  fs.readFile(filePath, (error, content) => {
-    if (error) {
-      send(response, { message: NOT_FOUND, error: true });
-    } else {
-      response.writeHead(STATUS_OK, { 'Content-Type': contentType });
-      response.end(content, UTF8);
-    }
-  });
-};
-
 const handleMockResponse = async ({ payload, reqUrl, method }, response) => {
   const matchedResponse = getMatchedMockResponse(reqUrl, method);
 
@@ -207,6 +209,20 @@ const handleMockResponse = async ({ payload, reqUrl, method }, response) => {
   } else {
     send(response, { message: NOT_FOUND, error: true });
   }
+};
+
+const handleStaticResponse = (request, response) => {
+  const filePath = ROOT_DIR + request.url;
+  const extname = String(path.extname(filePath)).toLowerCase();
+  const contentType = mimeTypes[extname] || TYPE_OCTET;
+
+  fs.readFile(filePath, (error, content) => {
+    if (error) {
+      send(response, { message: NOT_FOUND, error: true });
+    } else {
+      send(response, { data: content, error });
+    }
+  });
 };
 
 const handleDefaultResponse = async (request, response) => {
@@ -237,15 +253,13 @@ const handleDefaultResponse = async (request, response) => {
 http
   .createServer((request, response) => {
     cors(response);
-    if (request.url.includes('write')) {
-      handleWriteResponse(request, response, FILE_DIRECTORY);
-    } else if (request.url.includes('read')) {
-      handleReadResponse(request, response, FILE_DIRECTORY);
+    if (request.url.includes('file')) {
+      handleFileResponse(request, response);
     } else if (request.url.includes('command')) {
       handleCommandResponse(request, response);
     } else if (request.url.includes('db')) {
       handleDbResponse(request, response);
-    } else if (request.url.includes('api/mockserver')) {
+    } else if (request.url.includes('mockserver')) {
       handleMockServerResponse(request, response);
     } else if (path.extname(request.url)) {
       handleStaticResponse(request, response);

@@ -84,7 +84,7 @@ describe('List', () => {
     const commandBtn = screen.getByText(commandData.label);
     fireEvent.click(commandBtn);
 
-    expect(api.get).toHaveBeenCalledWith(`/command?file=${commandData.value.name}&args=${args}`);
+    expect(api.get).toHaveBeenCalledWith(`/command?name=${commandData.value.name}&args=${args}`);
     expect(screen.getByText(commandData.label)).toBeInTheDocument();
   });
 
