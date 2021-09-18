@@ -220,7 +220,8 @@ const handleStaticResponse = (request, response) => {
     if (error) {
       send(response, { message: NOT_FOUND, error: true });
     } else {
-      send(response, { data: content, error });
+      response.writeHead(STATUS_OK, { 'Content-Type': contentType });
+      response.end(content, UTF8);
     }
   });
 };
