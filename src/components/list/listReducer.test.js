@@ -1,5 +1,6 @@
 import {
   LOAD_COMMAND_RESULT,
+  EXECUTE_COMMAND_RESULT,
   ERROR_COMMAND_RESULT,
   CLEAR_COMMAND_RESULT
 } from './listActions';
@@ -15,6 +16,19 @@ describe('listReducer', () => {
   it('LOAD_COMMAND_RESULT', () => {
     const action = {
       type: LOAD_COMMAND_RESULT,
+      data: [1,2,3]
+    };
+    const result = listReducer(listInitialState, action);
+
+    expect(result).toEqual({
+      ...listInitialState,
+      commands: action.data
+    });
+  });
+
+  it('EXECUTE_COMMAND_RESULT', () => {
+    const action = {
+      type: EXECUTE_COMMAND_RESULT,
       data: 'test-message'
     };
     const result = listReducer(listInitialState, action);

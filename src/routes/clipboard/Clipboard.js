@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearCommand } from 'components/list/listActions';
+import { loadCommand, clearCommand } from 'components/list/listActions';
 import { loadClipboard } from './clipboardActions';
 import { openGlobalModal } from 'components/global/globalActions';
 import { copyToClipboard } from 'helper/copy';
@@ -28,7 +28,7 @@ const Clipboard = () => {
   const [filter, setFilter] = useState('');
   const dispatch = useDispatch();
   const { clipboard } = useSelector(state => state.clipboard);
-  const result = useSelector(state => state.list.commandResponse);
+  const { commandResponse } = useSelector(state => state.list);
   const TABS = Object.keys(clipboard).map(filename => {
     const name = filename.split('.')[ZERO];
 
@@ -50,21 +50,22 @@ const Clipboard = () => {
   }, [clipboard]);
 
   useEffect(() => {
+    dispatch(loadCommand());
     dispatch(loadClipboard());
   }, [dispatch]);
 
   useEffect(() => {
-    if(result) {
+    if(commandResponse) {
       dispatch(openGlobalModal({
         title: 'Command Results',
-        message: result,
+        message: commandResponse,
         beforeClose: () => { dispatch(clearCommand()); },
         buttonList: [
-          { label: 'Copy', classProps: { classColor: 'primary' }, action: () => { copyToClipboard(JSON.stringify(result)); }}
+          { label: 'Copy', classProps: { classColor: 'primary' }, action: () => { copyToClipboard(JSON.stringify(commandResponse)); }}
         ]
       }));
     }
-  }, [dispatch, result]);
+  }, [dispatch, commandResponse]);
 
   const handleFilterChange = ({ selected }) => {
     setFilter(selected);
