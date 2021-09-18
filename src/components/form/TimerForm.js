@@ -3,32 +3,34 @@ import Button from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
 import Switch from 'components/switch';
+import { convert12HourTo24HourClock, convert24HourTo12HourClock} from './helper';
 
 const ZERO = 0;
 const ONE = 1;
-const TWELVE = 12;
 
 const TimerForm = ({ onChange, value }) => {
   const today = new Date();
   const [name, setName] = useState('');
+  const parsedTodayHour = convert24HourTo12HourClock(today.getHours());
   const [month, setMonth] = useState(today.getMonth() + ONE);
   const [day, setDay] = useState(today.getDate());
   const [year, setYear] = useState(today.getFullYear());
-  const [hour, setHour] = useState(today.getHours() > TWELVE ? today.getHours() % TWELVE : today.getHours());
+  const [hour, setHour] = useState(parsedTodayHour.hour);
   const [minute, setMinute] = useState(today.getMinutes());
   const [second, setSecond] = useState(ZERO);
-  const [amOrPmMode, setAmOrPmMode] = useState(today.getHours() - TWELVE > ZERO ? ONE : ZERO);
+  const [isPm, setIsPm] = useState(parsedTodayHour.isPm);
 
   useEffect(() => {
     if(value) {
+      const parsedHour = convert24HourTo12HourClock(value.time.getHours());
       setName(value.name);
       setMonth(value.time.getMonth() + ONE);
       setDay(value.time.getDate());
       setYear(value.time.getFullYear());
-      setHour((value.time.getHours()) % TWELVE);
+      setHour(parsedHour.hour);
       setMinute(value.time.getMinutes());
       setSecond(ZERO);
-      setAmOrPmMode(value.time.getHours() - TWELVE > ZERO ? ONE : ZERO);
+      setIsPm(parsedHour.isPm);
     }
   }, [value]);
 
@@ -46,12 +48,12 @@ const TimerForm = ({ onChange, value }) => {
         <Text label='Hour' selected={hour} onChange={({selected}) => { setHour(selected); }} />
         <Text label='Minute' selected={minute} onChange={({selected}) => { setMinute(selected); }} />
         <Text label='Second' selected={second} onChange={({selected}) => { setSecond(selected); }} />
-        <Switch data={[{ label: 'am' }, { label: 'pm'}]} switchIndex={amOrPmMode} onToggleSwitch={(index) => { setAmOrPmMode(index);}} />
+        <Switch data={[{ label: 'am' }, { label: 'pm'}]} switchIndex={isPm ? ONE : ZERO} onToggleSwitch={(index) => { setIsPm(Boolean(index));}} />
       </div>
       <Button label='Save' classColor='primary' onClick={
         () => {
           if(name) {
-            const parsedHour = amOrPmMode ? Number(hour) + TWELVE : Number(hour) % TWELVE;
+            const parsedHour = convert12HourTo24HourClock(Number(hour),isPm);
             const timerContent = { month: Number(month), day: Number(day), year: Number(year), hour: parsedHour, minute: Number(minute), second: Number(second) };
             onChange({ name, content: timerContent});
             setName('');
