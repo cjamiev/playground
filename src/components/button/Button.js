@@ -1,5 +1,4 @@
 import React from 'react';
-import './btn.css';
 import { getColor, getSize } from './helper';
 
 const Button = ({ label, ariaLabel, className, classColor, isSmall = false, disabled = false, onClick}) => {
