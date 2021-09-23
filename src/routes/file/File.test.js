@@ -59,7 +59,7 @@ describe('File', () => {
   it('handle sort', () => {
     reduxTestWrapper(File, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByText('(|)');
+    const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
 
     const contentField = screen.getByLabelText('Content text area');
@@ -78,7 +78,7 @@ describe('File', () => {
   it('handle split/join', () => {
     reduxTestWrapper(File, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByText('(|)');
+    const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
 
     const contentField = screen.getByLabelText('Content text area');
@@ -99,7 +99,7 @@ describe('File', () => {
   it('handle trim', () => {
     reduxTestWrapper(File, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByText('(|)');
+    const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
 
     const contentField = screen.getByLabelText('Content text area');
@@ -114,7 +114,7 @@ describe('File', () => {
   it('handle find and replace', () => {
     reduxTestWrapper(File, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByText('(|)');
+    const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
 
     const contentField = screen.getByLabelText('Content text area');

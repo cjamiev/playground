@@ -15,7 +15,7 @@ describe('Home', () => {
 
     expect(screen.getByText('No tasks to display')).toBeInTheDocument();
 
-    const sidePanelBtn = screen.getByText('(|)');
+    const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
 
     // Add tasks
@@ -53,7 +53,7 @@ describe('Home', () => {
     const upBtn = screen.getAllByLabelText('up arrow')[TWO];
     fireEvent.click(upBtn);
 
-    const doneBtn = screen.getAllByText('Remove')[ONE];
+    const doneBtn = screen.getAllByLabelText('trash')[ONE];
     fireEvent.click(doneBtn);
 
     expect(screen.getByText('taskOne')).toBeInTheDocument();
@@ -70,7 +70,7 @@ describe('Home', () => {
 
     expect(screen.getByText('No timers to display')).toBeInTheDocument();
 
-    const sidePanelBtn = screen.getByText('(|)');
+    const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
 
     const timerField = screen.getByLabelText('Name text field');
@@ -89,7 +89,7 @@ describe('Home', () => {
     expect(screen.getByText('timerThree')).toBeInTheDocument();
 
     // Remove timer
-    const removeBtn = screen.getAllByText('Remove')[ONE];
+    const removeBtn = screen.getAllByLabelText('trash')[ONE];
     fireEvent.click(removeBtn);
 
     expect(screen.getByText('timerOne')).toBeInTheDocument();

@@ -10,6 +10,7 @@ import List, { DisplayContent } from 'components/list';
 import Table from 'components/table';
 import { updateClipboard } from 'routes/clipboard/clipboardActions';
 import { TYPE } from 'constants/type';
+import { ICON_TYPES } from 'constants/icon';
 import {
   decrementElementIndex,
   incrementElementIndex,
@@ -31,9 +32,9 @@ const renderCells = ({ entry, removeItem, moveItemUp, moveItemDown }) => {
     <tr className='flex--horizontal' key={`${label}-${index}`} data-testid={entry.label}>
       <td className='flex--two'><div className='horizontal-center'><DisplayContent key={`${type}-${label}-${value}`} type={type} label={label} value={value} /></div></td>
       <td className='flex--three'>
-        <Button classColor='primary' label='Remove' onClick={() => { removeItem(index); }} />
-        <IconButton type='up-arrow' onClick={() => { moveItemUp(index); }} />
-        <IconButton type='down-arrow' onClick={() => { moveItemDown(index);}} />
+        <IconButton type={ICON_TYPES.TRASH} onClick={() => { removeItem(index); }} />
+        <IconButton type={ICON_TYPES.UP_ARROW} onClick={() => { moveItemUp(index); }} />
+        <IconButton type={ICON_TYPES.DOWN_ARROW} onClick={() => { moveItemDown(index);}} />
       </td>
     </tr>
   ));

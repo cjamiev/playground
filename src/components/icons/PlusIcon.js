@@ -2,7 +2,7 @@ import React from 'react';
 
 const PlusIcon = () => {
   return (
-    <g>
+    <g aria-label="plus">
       <rect
         width="51.328522"
         height="15.165249"

@@ -22,7 +22,7 @@ describe('Page', () => {
   it('checks sidepanel does not show', () => {
     reduxTestWrapper(Page, { children: 'content'}, {}, pathname);
 
-    expect(screen.queryByText('(|)')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('triple bar')).not.toBeInTheDocument();
   });
 
   it('checks side panel', () => {
@@ -30,7 +30,7 @@ describe('Page', () => {
 
     expect(screen.queryByText(defaultProps.sidePanelContent)).not.toBeInTheDocument();
 
-    const sidePanelButton = screen.getByText('(|)');
+    const sidePanelButton = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelButton);
 
     expect(screen.getByText(defaultProps.sidePanelContent)).toBeInTheDocument();

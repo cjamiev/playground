@@ -54,7 +54,7 @@ describe('ClipboardForm', () => {
 
     fireEvent.click(screen.getAllByLabelText('up arrow')[TWO]);
     fireEvent.click(screen.getAllByLabelText('down arrow')[ZERO]);
-    fireEvent.click(screen.getAllByText('Remove')[ZERO]);
+    fireEvent.click(screen.getAllByLabelText('trash')[ZERO]);
     fireEvent.click(screen.getByText('Update'));
 
     expect(screen.getByText('test-title')).toBeInTheDocument();

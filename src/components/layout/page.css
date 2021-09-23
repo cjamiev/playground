@@ -35,6 +35,7 @@
 .pageheader__sidepanel_button,
 .sidepanel__button {
   display: inline-block;
+  margin-left: 10px;
 }
 
 .pageheader__title, 

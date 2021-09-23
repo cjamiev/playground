@@ -3,6 +3,7 @@ import React from 'react';
 const MinusIcon = () => {
   return (
     <rect
+      aria-label="minus"
       width="51.328522"
       height="15.165248"
       x="0.79407245"

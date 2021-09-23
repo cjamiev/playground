@@ -6,6 +6,7 @@ import {
   incrementElementIndex,
   swapArrayElementPositions
 } from 'arrayHelper';
+import { ICON_TYPES } from 'constants/icon';
 
 const ZERO = 0;
 
@@ -20,9 +21,9 @@ const renderCells = ({ tasks, removeItem, moveItemUp, moveItemDown }) => {
             {url && <a className="link home__task-link" href={url} target="_blank"><label className="home__task-link-label">{url}</label></a>}
           </td>
           <td className='flex--one'>
-            <Button classColor="primary" label="Remove" onClick={() => { removeItem(id); }} />
-            <IconButton type="up-arrow" onClick={() => { moveItemUp(id); }} />
-            <IconButton type="down-arrow" onClick={() => { moveItemDown(id);}} />
+            <IconButton type={ICON_TYPES.TRASH} onClick={() => { removeItem(id); }} />
+            <IconButton type={ICON_TYPES.UP_ARROW} onClick={() => { moveItemUp(id); }} />
+            <IconButton type={ICON_TYPES.DOWN_ARROW} onClick={() => { moveItemDown(id);}} />
           </td>
         </tr>
       ))}

@@ -110,7 +110,7 @@ describe('Generator', () => {
 
     expect(screen.queryByText('background-color: rgba(255,138,138);')).not.toBeInTheDocument();
 
-    const sidePanelBtn = screen.getByText('(|)');
+    const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
     const dropdownBtn = screen.getByText('Select an existing record');
     fireEvent.click(dropdownBtn);
@@ -141,7 +141,7 @@ describe('Generator', () => {
     });
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByText('(|)');
+    const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
     const dropdownBtn = screen.getByText('Select an existing record');
     fireEvent.click(dropdownBtn);
@@ -175,7 +175,7 @@ describe('Generator', () => {
     });
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByText('(|)');
+    const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
     const dropdownBtn = screen.getByText('Select an existing record');
     fireEvent.click(dropdownBtn);
