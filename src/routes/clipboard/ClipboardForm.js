@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Text from 'components/form/Text';
 import Dropdown from 'components/form/Dropdown';
-import Button from 'components/button';
+import Button, { IconButton } from 'components/button';
 import TimerForm from 'components/form/TimerForm';
 import ValueForm from 'components/form/ValueForm';
 import CommandForm from 'components/form/CommandForm';
@@ -32,8 +32,8 @@ const renderCells = ({ entry, removeItem, moveItemUp, moveItemDown }) => {
       <td className='flex--two'><div className='horizontal-center'><DisplayContent key={`${type}-${label}-${value}`} type={type} label={label} value={value} /></div></td>
       <td className='flex--three'>
         <Button classColor='primary' label='Remove' onClick={() => { removeItem(index); }} />
-        <Button classColor='secondary' label='Up' onClick={() => { moveItemUp(index); }} />
-        <Button classColor='secondary' label='Down' onClick={() => { moveItemDown(index);}} />
+        <IconButton type='up-arrow' onClick={() => { moveItemUp(index); }} />
+        <IconButton type='down-arrow' onClick={() => { moveItemDown(index);}} />
       </td>
     </tr>
   ));

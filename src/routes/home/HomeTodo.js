@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from 'components/button';
+import Button, { IconButton } from 'components/button';
 import Table from 'components/table';
 import {
   decrementElementIndex,
@@ -21,8 +21,8 @@ const renderCells = ({ tasks, removeItem, moveItemUp, moveItemDown }) => {
           </td>
           <td className='flex--one'>
             <Button classColor="primary" label="Remove" onClick={() => { removeItem(id); }} />
-            <Button classColor="secondary" label="Up" onClick={() => { moveItemUp(id); }} />
-            <Button classColor="secondary" label="Down" onClick={() => { moveItemDown(id);}} />
+            <IconButton type="up-arrow" onClick={() => { moveItemUp(id); }} />
+            <IconButton type="down-arrow" onClick={() => { moveItemDown(id);}} />
           </td>
         </tr>
       ))}

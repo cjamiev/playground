@@ -48,9 +48,9 @@ describe('Home', () => {
     expect(screen.getByText('urlThree')).toBeInTheDocument();
 
     // Remove task
-    const downBtn = screen.getAllByText('Down')[ZERO];
+    const downBtn = screen.getAllByLabelText('down arrow')[ZERO];
     fireEvent.click(downBtn);
-    const upBtn = screen.getAllByText('Up')[TWO];
+    const upBtn = screen.getAllByLabelText('up arrow')[TWO];
     fireEvent.click(upBtn);
 
     const doneBtn = screen.getAllByText('Remove')[ONE];

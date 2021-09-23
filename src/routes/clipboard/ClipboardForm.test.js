@@ -52,8 +52,8 @@ describe('ClipboardForm', () => {
 
     fireEvent.click(screen.getByText('test-value3'));
 
-    fireEvent.click(screen.getAllByText('Up')[TWO]);
-    fireEvent.click(screen.getAllByText('Down')[ZERO]);
+    fireEvent.click(screen.getAllByLabelText('up arrow')[TWO]);
+    fireEvent.click(screen.getAllByLabelText('down arrow')[ZERO]);
     fireEvent.click(screen.getAllByText('Remove')[ZERO]);
     fireEvent.click(screen.getByText('Update'));
 
