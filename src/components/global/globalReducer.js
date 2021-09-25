@@ -21,6 +21,8 @@ export const globalInitialState = {
 const globalReducer = (state = globalInitialState, action) => {
   const globalCases = {
     [UPDATE_GLOBAL_TIMER]: () => {
+      localStorage.setItem('globaltimers', JSON.stringify(action.data));
+
       return {
         ...state,
         timers: action.data

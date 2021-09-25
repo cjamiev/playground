@@ -58,19 +58,6 @@ describe('globalReducer', () => {
     });
   });
 
-  it('UPDATE_GLOBAL_TIMER', () => {
-    const action = {
-      type: UPDATE_GLOBAL_TIMER,
-      data: [1,2,3]
-    };
-    const result = globalReducer(globalInitialState, action);
-
-    expect(result).toEqual({
-      ...globalInitialState,
-      timers: action.data
-    });
-  });
-
   it('INITIALIZE_TIMER', () => {
     const action = {
       type: INITIALIZE_TIMER
@@ -81,6 +68,19 @@ describe('globalReducer', () => {
       ...globalInitialState,
       initialized: true,
       timers: timerOne
+    });
+  });
+
+  it('UPDATE_GLOBAL_TIMER', () => {
+    const action = {
+      type: UPDATE_GLOBAL_TIMER,
+      data: timerOne
+    };
+    const result = globalReducer(globalInitialState, action);
+
+    expect(result).toEqual({
+      ...globalInitialState,
+      timers: action.data
     });
   });
 

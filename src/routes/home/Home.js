@@ -20,8 +20,6 @@ const Home = () => {
   const [timers, setTimers] = useState([]);
   const [selectedTask, setSelectedTask] = useState({ text: '', note: '', url: ''});
   const [selectedTimer, setSelectedTimer] = useState({ id: -1, name: '', time: new Date()});
-  const [globalTimers, setGlobalTimers] = useLocalStorage('globaltimers', []);
-  const [isGlobalTimer, setIsGlobalTimer] = useState(true);
   const records = useSelector(state => state.home);
 
   useEffect(() => {
@@ -50,53 +48,38 @@ const Home = () => {
     dispatch(updateHome({ todos: updatedTasks, timers }));
   };
 
-  const handleGlobalChange = (index) => {
-    setIsGlobalTimer(!index);
-  };
-
   const handleTimeItemChange = (newTimer) => {
-    const timersToUpdate = newTimer.isGlobalTimer ? globalTimers : timers;
-    const matched = timersToUpdate.find(item => item.name === newTimer.name);
+    const matched = timers.find(item => item.name === newTimer.name);
     const updatedTimers = matched
-      ? timersToUpdate.map(item => {
+      ? timers.map(item => {
         return item.name === newTimer.name ? newTimer: item;
       })
-      : timersToUpdate.concat(newTimer);
-    if(newTimer.isGlobalTimer) {
-      setGlobalTimers(updatedTimers);
-      dispatch(updateGlobal(updatedTimers));
-    } else {
-      setTimers(updatedTimers);
-      dispatch(updateHome({ todos: tasks, timers: updatedTimers }));
-    }
+      : timers.concat(newTimer);
+    setTimers(updatedTimers);
+    dispatch(updateGlobal(updatedTimers));
+    dispatch(updateHome({ todos: tasks, timers: updatedTimers }));
     setSelectedTimer({ name: '', time: new Date()});
   };
 
   const handleRemoveTimer = (timerToRemove) => {
-    const timersToUpdate = timerToRemove.isGlobalTimer ? globalTimers : timers;
-    const updatedTimers = timersToUpdate.filter(item => item.name !== timerToRemove.name);
-    if(timerToRemove.isGlobalTimer) {
-      setGlobalTimers(updatedTimers);
-      dispatch(updateGlobal(updatedTimers));
-    } else {
-      setTimers(updatedTimers);
-      dispatch(updateHome({ todos: tasks, timers: updatedTimers }));
-    }
+    const updatedTimers = timers.filter(item => item.name !== timerToRemove.name);
+    setTimers(updatedTimers);
+    dispatch(updateGlobal(updatedTimers));
+    dispatch(updateHome({ todos: tasks, timers: updatedTimers }));
   };
 
   const handleEditTask = (item) => {
     setSelectedTask(item);
   };
 
-  const handleEditTimer = (name, time, isGlobal) => {
+  const handleEditTimer = (name, time) => {
     setSelectedTimer({ name, time });
-    setIsGlobalTimer(isGlobal);
     dispatch(openSidePanel());
   };
 
   const TABS = [
     { title: 'To do', component: ComponentWrapper(HomeTodo, { tasks, onChange: handleTasksChange, onEditTask: handleEditTask })},
-    { title: 'Timers', component: ComponentWrapper(HomeTimer, { globalTimers, timers, onRemoveTimer: handleRemoveTimer, onEditTimer: handleEditTimer })}
+    { title: 'Timers', component: ComponentWrapper(HomeTimer, { timers, onRemoveTimer: handleRemoveTimer, onEditTimer: handleEditTimer })}
   ];
 
   return (
@@ -107,8 +90,6 @@ const Home = () => {
           onChangeItem={handleTaskItemChange}
           onChangeTimer={handleTimeItemChange}
           selectedTimer={selectedTimer}
-          isGlobalTimer={isGlobalTimer}
-          onChangeGlobal={handleGlobalChange}
         />
       }
     >

@@ -23,7 +23,7 @@ const renderCells = ({ timers, onRemoveTimer, onEditTimer }) => {
         </td>
         <td className='flex--one'>
           <IconButton type={ICON_TYPES.TRASH} onClick={() => { onRemoveTimer(item); }} />
-          <Button classColor="primary" label="Edit" onClick={() => { onEditTimer(item.name, newDate, item.isGlobalTimer); }} />
+          <Button classColor="primary" label="Edit" onClick={() => { onEditTimer(item.name, newDate); }} />
         </td>
       </tr>
     );
@@ -32,13 +32,11 @@ const renderCells = ({ timers, onRemoveTimer, onEditTimer }) => {
   return (<>{cells}</>);
 };
 
-const HomeTimer = ({globalTimers, timers, onRemoveTimer, onEditTimer}) => {
-  const allTimers = globalTimers.concat(timers);
-
+const HomeTimer = ({timers, onRemoveTimer, onEditTimer}) => {
   return (
     <>
-      {allTimers.length > ZERO
-        ? <Table headers={[{label:'Timer', className:'flex--three'}, {label:'Actions', className:'flex--one'}]} body={renderCells({ timers: allTimers, onRemoveTimer, onEditTimer })} />
+      {timers.length > ZERO
+        ? <Table headers={[{label:'Timer', className:'flex--three'}, {label:'Actions', className:'flex--one'}]} body={renderCells({ timers, onRemoveTimer, onEditTimer })} />
         : <p> No timers to display </p>
       }
     </>
