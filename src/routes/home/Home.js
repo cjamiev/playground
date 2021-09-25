@@ -18,8 +18,9 @@ const Home = () => {
   const dispatch = useDispatch();
   const [tasks, setTasks] = useState([]);
   const [timers, setTimers] = useState([]);
+  const [selectedTask, setSelectedTask] = useState({ text: '', note: '', url: ''});
+  const [selectedTimer, setSelectedTimer] = useState({ id: -1, name: '', time: new Date()});
   const [globalTimers, setGlobalTimers] = useLocalStorage('globaltimers', []);
-  const [selectedTimer, setSelectedTimer] = useState({ name: '', time: new Date()});
   const [isGlobalTimer, setIsGlobalTimer] = useState(true);
   const records = useSelector(state => state.home);
 
@@ -33,7 +34,13 @@ const Home = () => {
   }, [records]);
 
   const handleTaskItemChange = (newItem) => {
-    const updatedTasks = tasks.concat(newItem);
+    const matched = tasks.find(item => item.text === newItem.text);
+    const updatedTasks = matched
+      ? tasks.map(item => {
+        return item.text === newItem.text ? newItem: item;
+      })
+      : tasks.concat(newItem);
+
     setTasks(updatedTasks);
     dispatch(updateHome({ todos: updatedTasks, timers }));
   };
@@ -77,6 +84,10 @@ const Home = () => {
     }
   };
 
+  const handleEditTask = (item) => {
+    setSelectedTask(item);
+  };
+
   const handleEditTimer = (name, time, isGlobal) => {
     setSelectedTimer({ name, time });
     setIsGlobalTimer(isGlobal);
@@ -84,7 +95,7 @@ const Home = () => {
   };
 
   const TABS = [
-    { title: 'To do', component: ComponentWrapper(HomeTodo, { tasks, onChange: handleTasksChange })},
+    { title: 'To do', component: ComponentWrapper(HomeTodo, { tasks, onChange: handleTasksChange, onEditTask: handleEditTask })},
     { title: 'Timers', component: ComponentWrapper(HomeTimer, { globalTimers, timers, onRemoveTimer: handleRemoveTimer, onEditTimer: handleEditTimer })}
   ];
 
@@ -92,6 +103,7 @@ const Home = () => {
     <Page
       sidePanelContent={
         <HomeSidePanel
+          selectedTask={selectedTask}
           onChangeItem={handleTaskItemChange}
           onChangeTimer={handleTimeItemChange}
           selectedTimer={selectedTimer}

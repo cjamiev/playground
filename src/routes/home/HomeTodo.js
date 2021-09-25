@@ -10,7 +10,7 @@ import { ICON_TYPES } from 'constants/icon';
 
 const ZERO = 0;
 
-const renderCells = ({ tasks, removeItem, moveItemUp, moveItemDown }) => {
+const renderCells = ({ tasks, removeItem, moveItemUp, moveItemDown, onEditTask }) => {
   return (
     <>
       {tasks.map(({ id, text, note, url }) => (
@@ -24,13 +24,14 @@ const renderCells = ({ tasks, removeItem, moveItemUp, moveItemDown }) => {
             <IconButton type={ICON_TYPES.TRASH} onClick={() => { removeItem(id); }} />
             <IconButton type={ICON_TYPES.UP_ARROW} onClick={() => { moveItemUp(id); }} />
             <IconButton type={ICON_TYPES.DOWN_ARROW} onClick={() => { moveItemDown(id);}} />
+            <Button classColor="primary" label="Edit" onClick={() => { onEditTask({ id, text, note, url});}} />
           </td>
         </tr>
       ))}
     </>);
 };
 
-const HomeTodo = ({tasks, onChange}) => {
+const HomeTodo = ({tasks, onChange, onEditTask}) => {
   const removeItem = id => {
     const updatedItems = tasks.filter(item => item.id !== id);
 
@@ -54,7 +55,7 @@ const HomeTodo = ({tasks, onChange}) => {
   return (
     <>
       {tasks.length > ZERO
-        ? <Table headers={[{label:'To Do', className:'flex--three'}, {label:'Actions', className:'flex--one'}]} body={renderCells({ tasks, removeItem, moveItemUp, moveItemDown})} />
+        ? <Table headers={[{label:'To Do', className:'flex--three'}, {label:'Actions', className:'flex--one'}]} body={renderCells({ tasks, removeItem, moveItemUp, moveItemDown, onEditTask})} />
         : <p> No tasks to display </p>
       }
     </>

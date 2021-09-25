@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'components/button';
 import Text from 'components/form/Text';
 import TimerForm from 'components/form/TimerForm';
@@ -7,10 +7,18 @@ import Switch from 'components/switch';
 const ZERO = 0;
 const ONE = 1;
 
-const HomeSidePanel = ({onChangeItem, onChangeTimer, selectedTimer, isGlobalTimer, onChangeGlobal}) => {
+const HomeSidePanel = ({selectedTask, onChangeItem, onChangeTimer, selectedTimer, isGlobalTimer, onChangeGlobal}) => {
   const [text, setText] = useState('');
   const [note, setNote] = useState('');
   const [url, setUrl] = useState('');
+
+  useEffect(() => {
+    if(selectedTask.text) {
+      setText(selectedTask.text);
+      setNote(selectedTask.note);
+      setUrl(selectedTask.url);
+    }
+  }, [selectedTask]);
 
   const handleTextChange = ({selected}) => {
     setText(selected);
