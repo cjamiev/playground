@@ -11,6 +11,7 @@ import alertReducer from 'components/alert/alertReducer';
 import clipboardReducer from 'routes/clipboard/clipboardReducer';
 import experimentReducer from 'routes/experiment/experimentReducer';
 import fileReducer from 'routes/file/fileReducer';
+import homeReducer from 'routes/home/homeReducer';
 import generatorReducer from 'routes/generator/generatorReducer';
 import globalReducer from 'components/global/globalReducer';
 import listReducer from 'components/list/listReducer';
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   clipboard: clipboardReducer,
   experiment: experimentReducer,
   file: fileReducer,
+  home: homeReducer,
   generator: generatorReducer,
   global: globalReducer,
   list: listReducer,

@@ -12,7 +12,7 @@ import { ICON_TYPES } from 'constants/icon';
 const ZERO = 0;
 const ONE = 1;
 
-const renderCells = ({ timers, removeTimer, editTimer }) => {
+const renderCells = ({ timers, onRemoveTimer, onEditTimer }) => {
   const cells = timers.map(item => {
     const newDate = new Date(item.value.year,item.value.month-ONE,item.value.day,item.value.hour,item.value.minute,item.value.second);
 
@@ -22,8 +22,8 @@ const renderCells = ({ timers, removeTimer, editTimer }) => {
           <DisplayTimer label={item.name} value={newDate.toString()} />
         </td>
         <td className='flex--one'>
-          <IconButton type={ICON_TYPES.TRASH} onClick={() => { removeTimer(item.name); }} />
-          <Button classColor="primary" label="Edit" onClick={() => { editTimer(item.name, newDate); }} />
+          <IconButton type={ICON_TYPES.TRASH} onClick={() => { onRemoveTimer(item); }} />
+          <Button classColor="primary" label="Edit" onClick={() => { onEditTimer(item.name, newDate, item.isGlobalTimer); }} />
         </td>
       </tr>
     );
@@ -32,17 +32,13 @@ const renderCells = ({ timers, removeTimer, editTimer }) => {
   return (<>{cells}</>);
 };
 
-const HomeTimer = ({timers, onChange, editTimer}) => {
-  const removeTimer = name => {
-    const updatedTimers = timers.filter(item => item.name !== name);
-
-    onChange(updatedTimers);
-  };
+const HomeTimer = ({globalTimers, timers, onRemoveTimer, onEditTimer}) => {
+  const allTimers = globalTimers.concat(timers);
 
   return (
     <>
-      {timers.length > ZERO
-        ? <Table headers={[{label:'Timer', className:'flex--three'}, {label:'Actions', className:'flex--one'}]} body={renderCells({ timers, removeTimer, editTimer })} />
+      {allTimers.length > ZERO
+        ? <Table headers={[{label:'Timer', className:'flex--three'}, {label:'Actions', className:'flex--one'}]} body={renderCells({ timers: allTimers, onRemoveTimer, onEditTimer })} />
         : <p> No timers to display </p>
       }
     </>

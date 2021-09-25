@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import Button from 'components/button';
 import Text from 'components/form/Text';
 import TimerForm from 'components/form/TimerForm';
+import Switch from 'components/switch';
 
-const HomeSidePanel = ({onChangeItem, onChangeTimer, selectedTimer}) => {
+const ZERO = 0;
+const ONE = 1;
+
+const HomeSidePanel = ({onChangeItem, onChangeTimer, selectedTimer, isGlobalTimer, onChangeGlobal}) => {
   const [text, setText] = useState('');
   const [note, setNote] = useState('');
   const [url, setUrl] = useState('');
@@ -44,10 +48,11 @@ const HomeSidePanel = ({onChangeItem, onChangeTimer, selectedTimer}) => {
         onChangeItem(newItem);
       }}
       />
-      <h3> Add Global Timer </h3>
+      <h3> Add Timer </h3>
+      <Switch data={[{ label: 'Global' }, { label: 'Regular'}]} switchIndex={isGlobalTimer ? ZERO : ONE} onToggleSwitch={onChangeGlobal} />
       <TimerForm
         onChange={({ name, content}) => {
-          const newTimer = { name, value: content, type: 'timer' };
+          const newTimer = { name, value: content, type: 'timer', isGlobalTimer };
 
           onChangeTimer(newTimer);
         }}
