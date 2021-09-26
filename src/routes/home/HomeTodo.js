@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button, { IconButton } from 'components/button';
+import { IconButton } from 'components/button';
 import Table from 'components/table';
 import {
   decrementElementIndex,
@@ -24,7 +24,7 @@ const renderCells = ({ tasks, removeItem, moveItemUp, moveItemDown, onEditTask }
             <IconButton type={ICON_TYPES.TRASH} onClick={() => { removeItem(id); }} />
             <IconButton type={ICON_TYPES.UP_ARROW} onClick={() => { moveItemUp(id); }} />
             <IconButton type={ICON_TYPES.DOWN_ARROW} onClick={() => { moveItemDown(id);}} />
-            <Button classColor="primary" label="Edit" onClick={() => { onEditTask({ id, text, note, url});}} />
+            <IconButton type={ICON_TYPES.EDIT} onClick={() => { onEditTask({ id, text, note, url});}} />
           </td>
         </tr>
       ))}

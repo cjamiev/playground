@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button, { IconButton } from 'components/button';
+import { IconButton } from 'components/button';
 import Table from 'components/table';
 import { DisplayTimer } from 'components/list/List';
 import {
@@ -23,7 +23,7 @@ const renderCells = ({ timers, onRemoveTimer, onEditTimer }) => {
         </td>
         <td className='flex--one'>
           <IconButton type={ICON_TYPES.TRASH} onClick={() => { onRemoveTimer(item); }} />
-          <Button classColor="primary" label="Edit" onClick={() => { onEditTimer(item.name, newDate); }} />
+          <IconButton type={ICON_TYPES.EDIT} onClick={() => { onEditTimer(item.name, newDate); }} />
         </td>
       </tr>
     );

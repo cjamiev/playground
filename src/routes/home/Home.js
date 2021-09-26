@@ -70,6 +70,7 @@ const Home = () => {
 
   const handleEditTask = (item) => {
     setSelectedTask(item);
+    dispatch(openSidePanel());
   };
 
   const handleEditTimer = (name, time) => {

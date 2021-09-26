@@ -4,6 +4,7 @@ import {
   PlusIcon,
   ArrowIcon,
   CloseIcon,
+  EditIcon,
   TrashIcon,
   TripleBarIcon
 } from 'components/icons';
@@ -17,6 +18,7 @@ const iconMap = {
   [ICON_TYPES.MINUS]: MinusIcon,
   [ICON_TYPES.CLOSE]: CloseIcon,
   [ICON_TYPES.PLUS]: PlusIcon,
+  [ICON_TYPES.EDIT]: EditIcon,
   [ICON_TYPES.UP_ARROW]: ComponentWrapper(ArrowIcon, { up: true}),
   [ICON_TYPES.DOWN_ARROW]: ComponentWrapper(ArrowIcon, { down: true}),
   [ICON_TYPES.LEFT_ARROW]: ComponentWrapper(ArrowIcon, { left: true}),

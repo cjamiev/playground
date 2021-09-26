@@ -102,7 +102,7 @@ describe('Home', () => {
 
     expect(screen.queryByLabelText('Name text field')).not.toBeInTheDocument();
 
-    const editBtn = screen.getAllByText('Edit')[ZERO];
+    const editBtn = screen.getAllByLabelText('edit')[ZERO];
     fireEvent.click(editBtn);
 
     expect(screen.queryByLabelText('Name text field')).toBeInTheDocument();

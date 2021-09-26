@@ -11,6 +11,7 @@ export const ICON_TYPES = {
   CLOSE: 'close',
   DOWN_ARROW: 'down-arrow',
   DOWN_CARET: 'down-caret',
+  EDIT: 'edit',
   EYE: 'eye',
   FILE: 'file',
   FLASK: 'flask',

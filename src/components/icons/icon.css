@@ -1,3 +1,8 @@
+.icon--white {
+  fill:#ffffff;
+  stroke:#ffffff;
+}
+
 .icon--hollow {
   fill:#ffffff;
   stroke:#000000;
