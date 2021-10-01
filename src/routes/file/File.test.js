@@ -118,17 +118,17 @@ describe('File', () => {
     fireEvent.click(sidePanelBtn);
 
     const contentField = screen.getByLabelText('Content text area');
-    const findField = screen.getByPlaceholderText('Text to search');
-    const replaceField = screen.getByPlaceholderText('Text to replace');
-    const replaceAllBtn = screen.getByText('Replace All');
+    const findField = screen.getByLabelText('Regex text field');
+    const replaceField = screen.getByLabelText('Replace text field');
+    const convertBtn = screen.getByText('Convert');
 
     fireEvent.change(contentField, { target: { value: '1 2 1 2 1' } });
     fireEvent.change(findField, { target: { value: '1' } });
     fireEvent.change(replaceField, { target: { value: '3' } });
 
-    fireEvent.click(replaceAllBtn);
+    fireEvent.click(convertBtn);
 
-    expect(screen.getByText('3 2 3 2 3')).toBeInTheDocument();
+    expect(screen.getByText('3 2 1 2 1')).toBeInTheDocument();
   });
 
   it('handle save', () => {
