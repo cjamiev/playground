@@ -40,3 +40,9 @@
   height: 600px;
   width: 95%;
 }
+
+.number-range__field {
+  line-height: 20px;
+  margin-right: 10px;
+  width: 80px;
+}
