@@ -15,7 +15,7 @@ const Checkbox = ({ id, label, horizontal, values, onChange }) => {
 
     onChange({ id, values: updatedValues });
   };
-  const className = horizontal ? 'input__flex': '';
+  const className = horizontal ? 'input--horizontal': '';
 
   const checkboxes = values.map(item => {
     const ariaLabel = item.selected ? `${item.label} checkbox option is selected`: `${item.label} checkbox option is not selected`;

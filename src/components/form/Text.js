@@ -18,7 +18,7 @@ const Text = ({ id, label, horizontal = false, placeholder, selected = '', regex
 
     onChange({ id, selected: value, error: hasError });
   };
-  const className = horizontal ? 'input__flex': '';
+  const className = horizontal ? 'input--horizontal': '';
 
   return (
     <div>

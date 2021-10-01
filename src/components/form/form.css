@@ -1,3 +1,9 @@
+.input--horizontal {
+  display: inline-flex;
+  white-space: nowrap;
+  gap: 10px;
+}
+
 .input__label {
   flex: 1;
   margin: auto 0;
@@ -7,7 +13,7 @@
 .input__item-container {
   flex: 1;
   display: flex;
-  margin: 5px 0px;
+  margin: 10px 0px;
 }
 
 .input__item-field {

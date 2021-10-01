@@ -5,7 +5,7 @@ const Range = ({ id, label, horizontal = false, min, max, selected, onChange }) 
 
     onChange({ id, selected: value });
   };
-  const className = horizontal ? 'input__flex': '';
+  const className = horizontal ? 'input--horizontal': '';
 
   return (
     <div>

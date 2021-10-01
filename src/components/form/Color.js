@@ -26,7 +26,7 @@ const Color = ({ id, label, horizontal = false, selected, onChange }) => {
   };
 
   const ariaLabel = selected ? `${label} color field has value ${selected}` : `${label} color field`;
-  const className = horizontal ? 'input__flex': '';
+  const className = horizontal ? 'input--horizontal': '';
 
 
   return (

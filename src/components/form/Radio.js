@@ -18,7 +18,7 @@ const Radio = ({ id, label, horizontal = false, values, onChange }) => {
 
     onChange({ id, values: updatedValues });
   };
-  const className = horizontal ? 'input__flex': '';
+  const className = horizontal ? 'input--horizontal': '';
 
   const radios = values.map(item => {
     const ariaLabel = item.selected ? `${item.label} radio option is selected`: `${item.label} radio option is not selected`;
