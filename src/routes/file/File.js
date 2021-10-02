@@ -29,6 +29,30 @@ const MODIFIER_TYPES = [
   { label: 'Multiline', value: 'm', selected: false }
 ];
 
+const formRegex = (expression, modifiers) => {
+  try {
+    return { regex: new RegExp(expression,modifiers), isValid: true };
+  } catch (e) {
+    return { regex: '', isValid: false };
+  }
+};
+
+const parsedContent = ({content, replace, range, shouldConvert, searchExp}) => {
+  if(!shouldConvert || !searchExp.isValid) {
+    return content;
+  }
+
+  return content.replace(searchExp.regex, (matchedKey) => {
+    const startIndex = isNumber(Number(range.start)) ? Number(range.start) : ZERO;
+    const endIndex = isNumber(Number(range.end)) ? Number(range.end) : content.length;
+    if(endIndex && endIndex !== content.length) {
+      return matchedKey.substr(startIndex,endIndex) + replace;
+    }
+
+    return replace || '';
+  });
+};
+
 const File = () => {
   const today = new Date();
   const [name, setName] = useState('');
@@ -69,7 +93,7 @@ const File = () => {
 
   const selectedModifiers = modifier.filter(item => item.selected).map(item => item.value ).join('');
   const searchExpDisplay = `/${find}/${selectedModifiers}`;
-  const searchExp = new RegExp(find,selectedModifiers);
+  const searchExp = formRegex(find,selectedModifiers);
 
   return (
     <Page
@@ -81,7 +105,7 @@ const File = () => {
           <Button label='Split' classColor='secondary' onClick={() => { setContent(content.split(selectedDelimiter.value).join('\n')); }} />
           <Button label='Join' classColor='secondary' onClick={() => { setContent(content.split('\n').join(selectedDelimiter.value)); }} />
           <Button label='Trim' classColor='secondary' onClick={() => { setContent(content.replace(/\n|\t|\r/gm, '').replace(/[ ]{2,}/gm, ' ')); }} />
-          <Text label='Regex' selected={find} onChange={({selected}) => { setFind(selected); }} />
+          <Text label='Regex' error={!searchExp.isValid} errorMessage='Not valid regex expression' selected={find} onChange={({selected}) => { setFind(selected); }} />
           <Text label='Replace' selected={replace} onChange={({selected}) => { setReplace(selected); }} />
           <NumberRange label='Substring' selected={ {start, end} } min={ZERO} max={content.length}
             onChange={({selected}) => {
@@ -128,15 +152,7 @@ const File = () => {
         }} />
       <TextArea
         ariaLabel='Content text area'
-        selected={!mode ? content : content.replace(searchExp, (matchedKey) => {
-          const startIndex = isNumber(Number(start)) ? Number(start) : ZERO;
-          const endIndex = isNumber(Number(end)) ? Number(end) : content.length;
-          if(endIndex && endIndex !== content.length) {
-            return matchedKey.substr(startIndex,endIndex) + replace;
-          }
-
-          return replace || '';
-        })}
+        selected={parsedContent({content, replace, range: { start, end}, shouldConvert:mode, searchExp})}
         onChange={({ selected }) => { setContent(selected); }}
       />
     </Page>
