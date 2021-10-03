@@ -68,7 +68,7 @@ const File = () => {
           }
         }} />
       <IconButton type={ICON_TYPES.COPY} onClick={() => { copyToClipboard(content); }} />
-      <Button label='Reset' classColor='secondary' onClick={() => {setContent(previous);}} />
+      <IconButton type={ICON_TYPES.UNDO} onClick={() => {setContent(previous);}} />
       <TextArea
         ariaLabel='Content text area'
         selected={content}

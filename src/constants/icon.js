@@ -36,6 +36,7 @@ export const ICON_TYPES = {
   TRASH: 'trash',
   TRIPLE_BAR: 'triple-bar',
   TRIPLE_CIRCLE: 'triple-circle',
+  UNDO: 'undo',
   UP_ARROW: 'up-arrow',
   UP_CARET: 'up-caret'
 };

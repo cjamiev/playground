@@ -8,7 +8,8 @@ import {
   EditIcon,
   SaveIcon,
   TrashIcon,
-  TripleBarIcon
+  TripleBarIcon,
+  UndoIcon
 } from 'components/icons';
 import { ICON_TYPES } from 'constants/icon';
 import ComponentWrapper from 'components/ComponentWrapper';
@@ -28,7 +29,8 @@ const iconMap = {
   [ICON_TYPES.RIGHT_ARROW]: ComponentWrapper(ArrowIcon, { right: true}),
   [ICON_TYPES.SAVE]: SaveIcon,
   [ICON_TYPES.TRASH]: TrashIcon,
-  [ICON_TYPES.TRIPLE_BAR]: TripleBarIcon
+  [ICON_TYPES.TRIPLE_BAR]: TripleBarIcon,
+  [ICON_TYPES.UNDO]: UndoIcon
 };
 
 const IconButton = ({ type, onClick}) => {

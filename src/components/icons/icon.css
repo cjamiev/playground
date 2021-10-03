@@ -6,9 +6,9 @@
   stroke-width:10;
 }
 
-.icon--white {
-  fill:#ffffff;
-  stroke:#ffffff;
+.icon--grey {
+  fill:#010202;
+  stroke:#f6f8fa;
 }
 
 .icon--black {
@@ -17,11 +17,11 @@
 }
 
 .icon--hollow {
-  fill:#ffffff;
+  fill:#f6f8fa;
   stroke:#000000;
 }
 
 .icon--filled {
   fill:#000000;
-  stroke:#ffffff;
+  stroke:#f6f8fa;
 }

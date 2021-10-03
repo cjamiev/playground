@@ -8,4 +8,5 @@ export { default as PlusIcon } from './PlusIcon';
 export { default as SaveIcon } from './SaveIcon';
 export { default as TrashIcon } from './TrashIcon';
 export { default as TripleBarIcon } from './TripleBarIcon';
+export { default as UndoIcon } from './UndoIcon';
 import './icon.css';
