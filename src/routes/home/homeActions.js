@@ -8,7 +8,6 @@ const loadHome = () => {
     api
       .get('/db/?name=home.json')
       .then((response) => {
-        console.log(JSON.parse(response.data.data));
         dispatch({ type: LOAD_HOME, data: JSON.parse(response.data.data) });
       })
       .catch((error) => {

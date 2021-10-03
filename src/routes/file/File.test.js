@@ -46,6 +46,8 @@ describe('File', () => {
 
     const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
+    const jsonOp = screen.getByText('JSON');
+    fireEvent.click(jsonOp);
 
     const contentField = screen.getByLabelText('Content text area');
     const validateBtn = screen.getByText('Validate');
@@ -119,6 +121,8 @@ describe('File', () => {
 
     const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
+    const regexOp = screen.getByText('Regex');
+    fireEvent.click(regexOp);
 
     const contentField = screen.getByLabelText('Content text area');
     const findField = screen.getByLabelText('Search text field');
