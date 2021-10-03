@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadDirectory, loadFile, writeFile } from './fileActions';
-import { createAlert, dismissAlert } from 'components/alert/alertActions';
+import { dismissAlert } from 'components/alert/alertActions';
 import FileSidePanel from './FileSidePanel';
 import Page from 'components/layout';
-import Button, { IconButton, InfoButton } from 'components/button';
+import Button, { IconButton } from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
 import Dropdown from 'components/form/Dropdown';
-import Switch from 'components/switch';
-import Checkbox from 'components/form/Checkbox';
-import NumberRange from 'components/form/NumberRange';
 import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
-import { sortByDelimiter, sortDescendingByDelimiter } from 'sort';
-import { isJSONString, isNumber } from 'type-check';
 import './file.css';
 
 const ZERO = 0;

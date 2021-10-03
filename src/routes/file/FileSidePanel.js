@@ -1,85 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadDirectory, loadFileSidePanel, writeFileSidePanel } from './fileActions';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { createAlert, dismissAlert } from 'components/alert/alertActions';
-import Page from 'components/layout';
-import Button, { IconButton, InfoButton } from 'components/button';
+import Button, { InfoButton } from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
 import Dropdown from 'components/form/Dropdown';
-import Switch from 'components/switch';
 import Checkbox from 'components/form/Checkbox';
 import NumberRange from 'components/form/NumberRange';
-import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
 import { sortByDelimiter, sortDescendingByDelimiter } from 'sort';
-import { parseObject, isJSONString, isNumber } from 'type-check';
-import './file.css';
+import { parseObject, isJSONString } from 'type-check';
+import {
+  DELIMITER_TYPES,
+  MODIFIER_TYPES,
+  regexInfo,
+  formRegex,
+  parsedContent
+} from './helper';
 
-const REGEX_INFO = () => {
-  return (<>
-    <p>group: [abc]</p>
-    <p>group negate: [^abc]</p>
-    <p>group range: [a-z]</p>
-    <p>or: a|b</p>
-    <p>any except \n: .</p>
-    <p>at least one: a+</p>
-    <p>zero or more: a* </p>
-    <p>zero or one: a?</p>
-    <p>exactly n of a: a&#123;n&#125;</p>
-    <p>n or more of a: a&#123;n,&#125;</p>
-    <p>n to m of a: a&#123;n,m&#125;</p>
-    <p>start of: ^</p>
-    <p>end of: $</p>
-    <p>newline: \n</p>
-    <p>carriage: \r</p>
-    <p>tab: \t</p>
-    <p>null: \0</p>
-    <p>\d = digit</p>
-    <p>\w = alphanumeric</p>
-    <p>\s = space, tab, newline, etc</p>
-    <p>\D = not \d</p>
-    <p>\W = not \w</p>
-    <p>\S = not \s</p>
-  </>);
-};
 const ZERO = 0;
 const ONE = 1;
 const TWO = 2;
-const DELIMITER_TYPES = [
-  { label:'comma', value: ',', selected: true },
-  { label:'space', value: ' ', selected: false },
-  { label:'new line', value: '\n', selected: false }
-];
-const MODIFIER_TYPES = [
-  { label: 'Global', value: 'g', selected: false },
-  { label: 'Case Insensitive', value: 'i', selected: false },
-  { label: 'Multiline', value: 'm', selected: false }
-];
-
-const formRegex = (expression, modifiers) => {
-  try {
-    return { regex: new RegExp(expression,modifiers), isValid: true };
-  } catch (e) {
-    return { regex: '', isValid: false };
-  }
-};
-
-const parsedContent = ({content, replace, range, searchExp}) => {
-  if(!searchExp.isValid) {
-    return content;
-  }
-
-  return content.replace(searchExp.regex, (matchedKey) => {
-    const startIndex = isNumber(Number(range.start)) ? Number(range.start) : ZERO;
-    const endIndex = isNumber(Number(range.end)) ? Number(range.end) : content.length;
-    if(endIndex && endIndex !== content.length) {
-      return matchedKey.substr(startIndex,endIndex) + replace;
-    }
-
-    return replace || '';
-  });
-};
 
 const FileSidePanel = ({ content, onChange }) => {
   const dispatch = useDispatch();
@@ -151,7 +92,7 @@ const FileSidePanel = ({ content, onChange }) => {
             });
           onChange(result);
         }} />
-      <h2> Regex <InfoButton content={REGEX_INFO()} /></h2>
+      <h2> Regex <InfoButton content={regexInfo()} /></h2>
       <Text label='Search' error={!searchExp.isValid} errorMessage='Not valid regex expression' selected={find} onChange={({selected}) => { setFind(selected); }} />
       <Text label='Replace' selected={replace} onChange={({selected}) => { setReplace(selected); }} />
       <NumberRange label='Substring' selected={ {start, end} } min={ZERO} max={content.length}

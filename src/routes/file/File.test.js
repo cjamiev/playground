@@ -69,13 +69,13 @@ describe('File', () => {
     const sortAscBtn = screen.getByText('Sort Asc');
     const sortDescBtn = screen.getByText('Sort Desc');
 
-    fireEvent.change(contentField, { target: { value: '1,3,2,5,4' } });
+    fireEvent.change(contentField, { target: { value: '1 3 2 5 4' } });
 
     fireEvent.click(sortAscBtn);
-    expect(screen.getByText('1,2,3,4,5')).toBeInTheDocument();
+    expect(screen.getByText('1 2 3 4 5')).toBeInTheDocument();
 
     fireEvent.click(sortDescBtn);
-    expect(screen.getByText('5,4,3,2,1')).toBeInTheDocument();
+    expect(screen.getByText('5 4 3 2 1')).toBeInTheDocument();
   });
 
   it('handle split/join', () => {
@@ -87,16 +87,16 @@ describe('File', () => {
     const contentField = screen.getByLabelText('Content text area');
     const splitBtn = screen.getByText('Split');
     const joinBtn = screen.getByText('Join');
-    const delimiterDropdown = screen.getByText('Delimiter comma');
+    const delimiterDropdown = screen.getByText('Delimiter space');
 
-    fireEvent.change(contentField, { target: { value: '1,3,2,5,4' } });
+    fireEvent.change(contentField, { target: { value: '1 3 2 5 4' } });
 
     fireEvent.click(splitBtn);
     fireEvent.click(delimiterDropdown);
-    fireEvent.click(screen.getByText('space'));
+    fireEvent.click(screen.getByText('comma'));
 
     fireEvent.click(joinBtn);
-    expect(screen.getByText('1 3 2 5 4')).toBeInTheDocument();
+    expect(screen.getByText('1,3,2,5,4')).toBeInTheDocument();
   });
 
   it('handle trim', () => {
