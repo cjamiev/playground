@@ -13,7 +13,7 @@ import NumberRange from 'components/form/NumberRange';
 import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
 import { sortByDelimiter, sortDescendingByDelimiter } from 'sort';
-import { isJSONString, isNumber } from 'type-check';
+import { parseObject, isJSONString, isNumber } from 'type-check';
 import './file.css';
 
 const REGEX_INFO = () => {
@@ -120,12 +120,36 @@ const FileSidePanel = ({ content, onChange }) => {
       <Button label='Stringify'
         classColor='secondary'
         onClick={() => {
-          onChange(JSON.stringify(content).replace(/\\n/g,'').replace(/\\"/g,'\''));
+          onChange(
+            JSON.stringify(content)
+              .replace(/\\n/g,'')
+              .replace(/"/g,'\'')
+              .replace(/\\'/g,'\"')
+              .replace(/\w+:/g, matched => {
+                return `"${matched.replace(':','')}":`;
+              })
+          );
         }} />
       <Button label='Parse'
         classColor='secondary'
         onClick={() => {
-          onChange(JSON.parse(content.replace(/\'/g,'\\"')));
+          const parsed = parseObject(content
+            .replace(/\"/g,'\\"')
+            .replace(/\'/g,'\"'));
+          if(parsed) {
+            onChange(parsed);
+          }
+        }} />
+      <Button label='Object'
+        classColor='secondary'
+        onClick={() => {
+          const result = content
+            .replace(/['|"]{/g,'{')
+            .replace(/}['|"]/g,'}')
+            .replace(/["]\w+["]:/g, matched => {
+              return matched.replace(/["]/g,'');
+            });
+          onChange(result);
         }} />
       <h2> Regex <InfoButton content={REGEX_INFO()} /></h2>
       <Text label='Search' error={!searchExp.isValid} errorMessage='Not valid regex expression' selected={find} onChange={({selected}) => { setFind(selected); }} />

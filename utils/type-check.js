@@ -21,5 +21,6 @@ export {
   isNumber,
   isObject,
   isObjectLike,
-  isString
+  isString,
+  parseObject
 };
