@@ -35,14 +35,14 @@ const Modal = (props) => {
   };
 
   const renderBody = editable ? <div className="modal__body"><TextArea ariaLabel='Modal text area' selected={content} jsonType={true} onChange={handleChange}/></div>: (<div className="modal__body">{content}</div>);
-  const renderTitle = title ?
+  const renderTitle =
     (<div className="modal__header">
       <h2 className="modal__title">{title}</h2>
-    </div>): null;
-  const renderFooter = renderButtons.length ?
+    </div>);
+  const renderFooter =
     (<div className="modal__footer">
       {renderButtons}
-    </div>): null;
+    </div>);
 
   return (
     <div className="modal">

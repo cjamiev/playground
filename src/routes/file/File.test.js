@@ -44,8 +44,11 @@ describe('File', () => {
   it('handle validate', () => {
     reduxTestWrapper(File, {}, {}, pathname);
 
+    const sidePanelBtn = screen.getByLabelText('triple bar');
+    fireEvent.click(sidePanelBtn);
+
     const contentField = screen.getByLabelText('Content text area');
-    const validateBtn = screen.getByText('Is valid JSON?');
+    const validateBtn = screen.getByText('Validate');
 
     fireEvent.change(contentField, { target: { value: '1 2 3 4 5' } });
     fireEvent.click(validateBtn);

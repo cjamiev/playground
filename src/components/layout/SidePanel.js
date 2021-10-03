@@ -12,14 +12,14 @@ const SidePanel = ({ showSidePanel, sidePanelContent, isSidePanelWide, toggleSid
 
   return (
     <div className={sidePanelClassName}>
-      <header className={sidePanelHeaderClassName}>
+      {title && <header className={sidePanelHeaderClassName}>
         {isSidePanelWide
           ? <h1 className="sidepanel__title">{title}</h1>
           : <h2 className="sidepanel__title">{title}</h2>}
         {isSidePanelWide && <div className="sidepanel__button">
           <IconButton type={ICON_TYPES.CLOSE} onClick={toggleSidePanel} />
         </div>}
-      </header>
+      </header>}
       {sidePanelContent}
     </div>
   );
