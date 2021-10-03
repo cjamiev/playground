@@ -35,7 +35,7 @@ describe('File', () => {
     document.execCommand = jest.fn();
     reduxTestWrapper(File, {}, {}, pathname);
 
-    const copyBtn = screen.getByText('Copy');
+    const copyBtn = screen.getByLabelText('copy');
 
     fireEvent.click(copyBtn);
     expect(document.execCommand).toHaveBeenCalledWith('copy');
@@ -136,7 +136,7 @@ describe('File', () => {
 
     const nameField = screen.getByPlaceholderText('Enter File Name');
     const contentField = screen.getByLabelText('Content text area');
-    const saveBtn = screen.getByText('Save');
+    const saveBtn = screen.getByLabelText('save');
 
     fireEvent.change(nameField, { target: { value: 'test2.txt' } });
     fireEvent.change(contentField, { target: { value: '1 2 3 4 5' } });

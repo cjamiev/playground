@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadDirectory, loadFile, writeFile } from './fileActions';
 import { createAlert, dismissAlert } from 'components/alert/alertActions';
 import Page from 'components/layout';
-import Button, { InfoButton } from 'components/button';
+import Button, { IconButton, InfoButton } from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
 import Dropdown from 'components/form/Dropdown';
 import Switch from 'components/switch';
 import Checkbox from 'components/form/Checkbox';
 import NumberRange from 'components/form/NumberRange';
+import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
 import { sortByDelimiter, sortDescendingByDelimiter } from 'sort';
 import { isJSONString, isNumber } from 'type-check';
@@ -17,16 +18,29 @@ import './file.css';
 
 const REGEX_INFO = () => {
   return (<>
+    <p>group: [abc]</p>
+    <p>group negate: [^abc]</p>
+    <p>group range: [a-z]</p>
+    <p>or: a|b</p>
+    <p>any except \n: .</p>
+    <p>at least one: a+</p>
+    <p>zero or more: a* </p>
+    <p>zero or one: a?</p>
+    <p>exactly n of a: a&#123;n&#125;</p>
+    <p>n or more of a: a&#123;n,&#125;</p>
+    <p>n to m of a: a&#123;n,m&#125;</p>
+    <p>start of: ^</p>
+    <p>end of: $</p>
+    <p>newline: \n</p>
+    <p>carriage: \r</p>
+    <p>tab: \t</p>
+    <p>null: \0</p>
     <p>\d = digit</p>
     <p>\w = alphanumeric</p>
     <p>\s = space, tab, newline, etc</p>
     <p>\D = not \d</p>
     <p>\W = not \w</p>
     <p>\S = not \s</p>
-    <p>. all character except new line</p>
-    <p>+ at least one</p>
-    <p>* zero or more</p>
-    <p>? zero or one</p>
   </>);
 };
 const ZERO = 0;
@@ -145,14 +159,13 @@ const File = () => {
         }}
       />
       <Text placeholder='Enter File Name' selected={name} onChange={handleNameChange} />
-      <Button label='Save'
-        classColor='primary'
+      <IconButton type={ICON_TYPES.SAVE}
         onClick={() => {
           if(name && content) {
             dispatch(writeFile(name, content));
           }
         }} />
-      <Button label='Copy' classColor='primary' onClick={() => { copyToClipboard(content); }} />
+      <IconButton type={ICON_TYPES.COPY} onClick={() => { copyToClipboard(content); }} />
       <Button label='Is valid JSON?'
         classColor='secondary'
         onClick={() => {

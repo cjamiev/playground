@@ -4,7 +4,9 @@ import {
   PlusIcon,
   ArrowIcon,
   CloseIcon,
+  CopyIcon,
   EditIcon,
+  SaveIcon,
   TrashIcon,
   TripleBarIcon
 } from 'components/icons';
@@ -16,13 +18,15 @@ const ICON_WIDTH = '53px';
 const ICON_VIEWBOX = '0 0 53 53';
 const iconMap = {
   [ICON_TYPES.MINUS]: MinusIcon,
-  [ICON_TYPES.CLOSE]: CloseIcon,
   [ICON_TYPES.PLUS]: PlusIcon,
+  [ICON_TYPES.COPY]: CopyIcon,
+  [ICON_TYPES.CLOSE]: CloseIcon,
   [ICON_TYPES.EDIT]: EditIcon,
   [ICON_TYPES.UP_ARROW]: ComponentWrapper(ArrowIcon, { up: true}),
   [ICON_TYPES.DOWN_ARROW]: ComponentWrapper(ArrowIcon, { down: true}),
   [ICON_TYPES.LEFT_ARROW]: ComponentWrapper(ArrowIcon, { left: true}),
   [ICON_TYPES.RIGHT_ARROW]: ComponentWrapper(ArrowIcon, { right: true}),
+  [ICON_TYPES.SAVE]: SaveIcon,
   [ICON_TYPES.TRASH]: TrashIcon,
   [ICON_TYPES.TRIPLE_BAR]: TripleBarIcon
 };
@@ -31,7 +35,7 @@ const IconButton = ({ type, onClick}) => {
   const IconSVG = iconMap.hasOwnProperty(type) ? iconMap[type] : null;
 
   return (
-    <button className="btn btn--icon" onClick={onClick}>
+    <button className="btn--icon" onClick={onClick}>
       <svg
         height={ICON_HEIGHT}
         width={ICON_WIDTH}

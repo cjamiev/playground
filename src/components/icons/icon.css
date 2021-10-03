@@ -1,6 +1,19 @@
+.icon--stroke-six {
+  stroke-width:6;
+}
+
+.icon--stroke-ten {
+  stroke-width:10;
+}
+
 .icon--white {
   fill:#ffffff;
   stroke:#ffffff;
+}
+
+.icon--black {
+  fill:#000000;
+  stroke:#000000;
 }
 
 .icon--hollow {
@@ -10,5 +23,5 @@
 
 .icon--filled {
   fill:#000000;
-  stroke:#000000;
+  stroke:#ffffff;
 }
