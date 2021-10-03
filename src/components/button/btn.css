@@ -10,8 +10,8 @@
 .btn__close {
   position: absolute;
   margin-top: 0.1em;
-  left: 91%;
-  width: 1em;
+  left: 94.5%;
+  width: 50px;
   height: 40px;
   border-radius: 3em;
   border: none;
@@ -90,5 +90,12 @@
 
 .btn--icon {
   width: 80px;
+  padding-top: 5px;
+}
+
+.btn__info-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 15px;
   padding-top: 5px;
 }

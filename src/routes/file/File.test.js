@@ -118,7 +118,7 @@ describe('File', () => {
     fireEvent.click(sidePanelBtn);
 
     const contentField = screen.getByLabelText('Content text area');
-    const findField = screen.getByLabelText('Regex text field');
+    const findField = screen.getByLabelText('Search text field');
     const replaceField = screen.getByLabelText('Replace text field');
     const convertBtn = screen.getByText('Convert');
 

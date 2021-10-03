@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadDirectory, loadFile, writeFile } from './fileActions';
 import { createAlert, dismissAlert } from 'components/alert/alertActions';
 import Page from 'components/layout';
-import Button from 'components/button';
+import Button, { InfoButton } from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
 import Dropdown from 'components/form/Dropdown';
@@ -15,6 +15,20 @@ import { sortByDelimiter, sortDescendingByDelimiter } from 'sort';
 import { isJSONString, isNumber } from 'type-check';
 import './file.css';
 
+const REGEX_INFO = () => {
+  return (<>
+    <p>\d = digit</p>
+    <p>\w = alphanumeric</p>
+    <p>\s = space, tab, newline, etc</p>
+    <p>\D = not \d</p>
+    <p>\W = not \w</p>
+    <p>\S = not \s</p>
+    <p>. all character except new line</p>
+    <p>+ at least one</p>
+    <p>* zero or more</p>
+    <p>? zero or one</p>
+  </>);
+};
 const ZERO = 0;
 const ONE = 1;
 const TWO = 2;
@@ -105,7 +119,8 @@ const File = () => {
           <Button label='Split' classColor='secondary' onClick={() => { setContent(content.split(selectedDelimiter.value).join('\n')); }} />
           <Button label='Join' classColor='secondary' onClick={() => { setContent(content.split('\n').join(selectedDelimiter.value)); }} />
           <Button label='Trim' classColor='secondary' onClick={() => { setContent(content.replace(/\n|\t|\r/gm, '').replace(/[ ]{2,}/gm, ' ')); }} />
-          <Text label='Regex' error={!searchExp.isValid} errorMessage='Not valid regex expression' selected={find} onChange={({selected}) => { setFind(selected); }} />
+          <h2> Regex <InfoButton content={REGEX_INFO()} /></h2>
+          <Text label='Search' error={!searchExp.isValid} errorMessage='Not valid regex expression' selected={find} onChange={({selected}) => { setFind(selected); }} />
           <Text label='Replace' selected={replace} onChange={({selected}) => { setReplace(selected); }} />
           <NumberRange label='Substring' selected={ {start, end} } min={ZERO} max={content.length}
             onChange={({selected}) => {

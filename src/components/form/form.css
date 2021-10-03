@@ -39,6 +39,7 @@
 .textarea__field {
   height: 600px;
   width: 95%;
+  font-family: system-ui;
 }
 
 .number-range__field {
