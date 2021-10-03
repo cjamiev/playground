@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { InfoIcon } from 'components/icons';
 import { openGlobalModal } from 'components/global/globalActions';
 
-const INFO_HEIGHT = '53px';
-const INFO_WIDTH = '53px';
+const INFO_HEIGHT = '39px';
+const INFO_WIDTH = '39px';
 const INFO_VIEWBOX = '0 0 106 106';
 
 const InfoButton = ({ title = 'Info', content }) => {
