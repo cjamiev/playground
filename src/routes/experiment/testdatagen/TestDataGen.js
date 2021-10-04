@@ -2,7 +2,10 @@
 import React, { useState } from 'react';
 import TextArea from 'components/form/TextArea';
 import Pagination from 'components/pagination';
+import { IconButton } from 'components/button';
 import TableRenderer from '../TableRenderer';
+import { ICON_TYPES } from 'constants/icon';
+import { copyToClipboard } from 'helper/copy';
 import { dataGenerator } from 'randomHelper';
 import { parseObject } from 'type-check';
 
@@ -40,6 +43,7 @@ const TestDataGen = () => {
       selected={sample}
       onChange={({ selected }) => { setSample(selected); }}
     />
+    <IconButton type={ICON_TYPES.COPY} onClick={() => { copyToClipboard(JSON.stringify(result)); }} />
     <Pagination content={content} />
   </div>;
 };
