@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const ZERO = 0;
 const ONE = 1;
+const TWO = 2;
 const THREE = 3;
 
 const Pagination = ({content}) => {
@@ -12,28 +13,41 @@ const Pagination = ({content}) => {
   const prevBtn = () => {
     const isEnabled = pageNumber > ZERO;
 
-    return <button disabled={!isEnabled} onClick={() => {setPageNumber(pageNumber-ONE);}}>Previous</button>;
+    return <button key="previous" disabled={!isEnabled} onClick={() => {setPageNumber(pageNumber-ONE);}}>Previous</button>;
   };
 
-  const previousLength = pageNumber - THREE < ZERO ? pageNumber : THREE;
-  const renderPreviousPageBtns = previousLength > ZERO ? Array.from({length: previousLength }).map((_, index) => {
-    return <button key={index} onClick={() => {setPageNumber(pageNumber - previousLength + index);}}>{pageNumber - previousLength + index + ONE}</button>;
-  }):[];
+  const renderPreviousPageBtns = Array
+    .from({length: THREE })
+    .map((_,index) => {
+      return pageNumber - index;
+    }).reverse()
+    .filter(item => item > ZERO)
+    .map(num => {
+      return <button key={num} onClick={() => {setPageNumber(num-ONE);}}>{num}</button>;
+    });
 
-  const nextLength = pageNumber + THREE > size ? size - pageNumber : THREE;
-  const renderNextPageBtns = nextLength > ZERO ? Array.from({length: nextLength }).map((_, index) => {
-    return <button key={index} onClick={() => {setPageNumber(pageNumber + index);}}>{pageNumber + index + ONE}</button>;
-  }):[];
+  const currentBtn = () => {
+    return <button key="current" disabled onClick={() => {setPageNumber(pageNumber);}}>{pageNumber+ONE}</button>;
+  };
+
+  const renderNextPageBtns = Array
+    .from({length: THREE })
+    .map((_,index) => {
+      return pageNumber + index + TWO;
+    }).filter(item => item <= size)
+    .map(num => {
+      return <button key={num} onClick={() => {setPageNumber(num-ONE);}}>{num}</button>;
+    });
 
   const nextBtn = () => {
     const isEnabled = pageNumber + ONE < size;
 
-    return <button disabled={!isEnabled} onClick={() => {setPageNumber(pageNumber+ONE);}}>Next</button>;
+    return <button key="next" disabled={!isEnabled} onClick={() => {setPageNumber(pageNumber+ONE);}}>Next</button>;
   };
 
   return <div>
     {currentItem}
-    {[prevBtn(),renderPreviousPageBtns,renderNextPageBtns, nextBtn()]}
+    {[prevBtn(),renderPreviousPageBtns,currentBtn(),renderNextPageBtns, nextBtn()]}
   </div>;
 };
 
