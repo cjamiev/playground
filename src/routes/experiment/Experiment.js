@@ -6,6 +6,7 @@ import Page from 'components/layout';
 import Tabs from 'components/tabs';
 import TextArea from 'components/form/TextArea';
 import TestNew from './testnew';
+import TestDataGen from './testdatagen';
 import TestDynamicForm from './testdynamicform';
 import TestDynamicWizard from './testwizard';
 import TestGlobalModal from './testglobalmodal';
@@ -14,6 +15,7 @@ import { noop } from 'helper/noop';
 
 const TABS = [
   { title: 'New', component: TestNew},
+  { title: 'Data Generator', component: TestDataGen},
   { title: 'Global Modal', component: TestGlobalModal},
   { title: 'Dynamic Form', component: TestDynamicForm},
   { title: 'Wizard', component: TestDynamicWizard}
