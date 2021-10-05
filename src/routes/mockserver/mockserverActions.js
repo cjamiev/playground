@@ -10,6 +10,8 @@ const LOAD_MOCKSERVER_LOG = 'LOAD_MOCKSERVER_LOG';
 const CLEAR_MOCKSERVER_LOG = 'CLEAR_MOCKSERVER_LOG';
 const CLEAR_MOCK_RESPONSE = 'CLEAR_MOCK_RESPONSE';
 
+const ONE_SECOND = 1000;
+
 const loadMockServerConfig = () => {
   return (dispatch) => {
     api
@@ -30,7 +32,7 @@ const updateMockServerConfig = (payload) => {
       .then((response) => {
         const { message, error } = response.data;
         dispatch({ type: UPDATE_MOCKSERVER_CONFIG, payload });
-        dispatch(createAlert({ content: error ? message: 'Updated', status: error ? 'error': 'success' }));
+        dispatch(createAlert({ content: error ? message: 'Updated', timer: error ? undefined: ONE_SECOND, status: error ? 'error': 'success' }));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -57,7 +59,7 @@ const updateMockRequests = () => {
       .post('/mockserver/mockRequests')
       .then((response) => {
         const { message, error } = response.data;
-        dispatch(createAlert({ content: error ? message: 'Updated', status: error ? 'error': 'success' }));
+        dispatch(createAlert({ content: error ? message: 'Updated', timer: error ? undefined: ONE_SECOND, status: error ? 'error': 'success' }));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -72,7 +74,7 @@ const deleteMockEndpoint = (endpoint) => {
       .then((response) => {
         const { message, error } = response.data;
         dispatch({ type: DELETE_MOCK_ENDPOINT, endpoint });
-        dispatch(createAlert({ content: error ? message: 'Updated', status: error ? 'error': 'success' }));
+        dispatch(createAlert({ content: error ? message: 'Updated', timer: error ? undefined: ONE_SECOND, status: error ? 'error': 'success' }));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -99,7 +101,7 @@ const updateMockResponse = (payload) => {
       .post('mockserver/updateMockEndpoint', payload)
       .then((response) => {
         const { message, error } = response.data;
-        dispatch(createAlert({ content: error ? message: 'Updated', status: error ? 'error': 'success' }));
+        dispatch(createAlert({ content: error ? message: 'Updated', timer: error ? undefined: ONE_SECOND, status: error ? 'error': 'success' }));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -115,7 +117,7 @@ const createMockEndpoint = (payload) => {
       .post('/mockserver/createMockEndpoint', JSON.stringify(payload))
       .then((response) => {
         const { message, error } = response.data;
-        dispatch(createAlert({ content: error ? message: 'Updated', status: error ? 'error': 'success' }));
+        dispatch(createAlert({ content: error ? message: 'Updated', timer: error ? undefined: ONE_SECOND, status: error ? 'error': 'success' }));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -129,7 +131,7 @@ const updateMockEndpoint = () => {
       .post('/mockserver/updateMockEndpoint')
       .then((response) => {
         const { message, error } = response.data;
-        dispatch(createAlert({ content: error ? message: 'Updated', status: error ? 'error': 'success' }));
+        dispatch(createAlert({ content: error ? message: 'Updated', timer: error ? undefined: ONE_SECOND, status: error ? 'error': 'success' }));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -157,7 +159,7 @@ const clearMockServerLog = () => {
       .then((response) => {
         const { message, error } = response.data;
         dispatch({ type: CLEAR_MOCKSERVER_LOG });
-        dispatch(createAlert({ content: error ? message: 'Updated', status: error ? 'error': 'success' }));
+        dispatch(createAlert({ content: error ? message: 'Updated', timer: error ? undefined: ONE_SECOND, status: error ? 'error': 'success' }));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));

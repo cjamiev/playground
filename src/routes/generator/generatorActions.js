@@ -2,6 +2,7 @@ import api from 'api';
 import { createAlert } from 'components/alert/alertActions';
 import { filterOutEmptyKeys } from 'objectHelper';
 
+const ONE_SECOND = 1000;
 const ZERO = 0;
 const LOAD_GENERATOR_RECORDS = 'LOAD_GENERATOR_RECORDS';
 
@@ -34,7 +35,7 @@ const updatedGeneratorRecords = (content) => {
     api
       .post('/db', { filename: 'generator.json', content: JSON.stringify(filteredContent) })
       .then((response) => {
-        dispatch(createAlert({ content: 'Updated', status: 'success' }));
+        dispatch(createAlert({ content: 'Updated', timer: ONE_SECOND, status: 'success' }));
         dispatch({ type: LOAD_GENERATOR_RECORDS, data: filteredContent });
       })
       .catch((error) => {

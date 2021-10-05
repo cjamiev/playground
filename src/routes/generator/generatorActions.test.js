@@ -18,7 +18,8 @@ const errorObject = {
 };
 const successObject = {
   content: 'Updated',
-  status: 'success'
+  status: 'success',
+  timer: 1000
 };
 
 const content = [{ name: 'test', value: { parentBackgroundColor: {}, hoverStyle: {}, normalStyle: {}, activeStyle: {}}}];

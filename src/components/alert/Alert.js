@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dismissAlert } from 'components/alert/alertActions';
 import { CloseButton } from 'components/button';
@@ -18,8 +18,10 @@ const Alert = () => {
   const [isSticky, setIsSticky] = useState(false);
   const dispatch = useDispatch();
   const { queue } = useSelector(state => state.alert);
-  const { id, content, status } = queue[ZERO] || {};
+  const { id, content, status, timer } = queue[ZERO] || {};
   const sizeMessage = queue.length > ONE ? `${queue.length - ONE} more item(s)`: '';
+
+  const close = useCallback(() => { dispatch(dismissAlert(id));},[dispatch, id]);
 
   useEffect(() => {
     window.onscroll = () => {
@@ -32,6 +34,12 @@ const Alert = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if(timer) {
+      setTimeout(close,timer);
+    }
+  }, [close, timer]);
+
   if(!content) {
     return null;
   }
@@ -42,7 +50,7 @@ const Alert = () => {
     <div className={className}>
       {content}
       <div className='alert__counter'>{sizeMessage}</div>
-      <CloseButton classColor={status} onClick={() => { dispatch(dismissAlert(id));}} />
+      <CloseButton classColor={status} onClick={close} />
     </div>
   );
 };

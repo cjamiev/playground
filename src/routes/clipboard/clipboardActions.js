@@ -3,6 +3,7 @@ import { createAlert } from 'components/alert/alertActions';
 
 const LOAD_CLIPBOARD = 'LOAD_CLIPBOARD';
 
+const ONE_SECOND = 1000;
 const ZERO = 0;
 
 const loadClipboard = () => {
@@ -23,7 +24,7 @@ const updateClipboard = (content) => {
     api
       .post('/db', { filename: 'clipboard.json', content: JSON.stringify(content) })
       .then((response) => {
-        dispatch(createAlert({ content: 'Updated', status: 'success' }));
+        dispatch(createAlert({ content: 'Updated', timer: ONE_SECOND, status: 'success' }));
         dispatch({ type: LOAD_CLIPBOARD, data: content });
       })
       .catch((error) => {
