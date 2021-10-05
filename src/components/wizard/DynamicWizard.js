@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DynamicForm, { hasError, updateData } from 'components/form/DynamicForm';
 import Button from 'components/button';
-import Modal from 'components/modal';
+import WizardSection from './WizardSection';
 import { noop } from 'helper/noop';
 
 const ZERO = 0;
@@ -52,7 +52,7 @@ const DynamicWizard = ({ sectionTitles, data, onSubmit = noop }) => {
   const content = <DynamicForm data={formData[sectionIndex]} onChange={handleChange} />;
 
   return (
-    <Modal title={title} message={content} buttonList={buttonList} />
+    <WizardSection title={title} content={content} buttonList={buttonList} />
   );
 };
 
