@@ -12,10 +12,8 @@
     "jest-reset": "jest --clearCache",
     "e2e": "cypress run",
     "e": "cypress open",
-    "test": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json",
-    "testout": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json > output.txt 2>&1",
-    "t": "jest --env=jsdom App.test.js --watch",
-    "w": "jest --env=jsdom --watchAll=true"
+    "test": "jest --env=jsdom --coverage --json --outputFile=./coverage/outputfile.json > test.log 2>&1",
+    "t": "jest --env=jsdom App.test.js --watch"
   },
   "keywords": [],
   "author": "CJV",

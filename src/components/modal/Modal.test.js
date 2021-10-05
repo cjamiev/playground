@@ -30,7 +30,7 @@ const baseProps = {
   message: 'test-message',
   children: null,
   editable: true,
-  dispatchAction: { label: 'dispatchAction', action: mockAction, parse: x => x },
+  dispatchAction: { label: 'dispatchAction', action: mockAction, parse: (x) => x },
   beforeClose: jest.fn(),
   close: jest.fn(),
   buttonList: [

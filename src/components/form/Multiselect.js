@@ -16,9 +16,9 @@ const multiselectStyle = {
 
 const Multiselect = ({ id, label, values, onChange }) => {
   const handleChange = (e) => {
-    const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
-    const updatedValues = values.map(item => {
-      if(selectedOptions.find(option => option === item.label)) {
+    const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+    const updatedValues = values.map((item) => {
+      if (selectedOptions.find((option) => option === item.label)) {
         return {
           ...item,
           selected: true
@@ -40,7 +40,7 @@ const Multiselect = ({ id, label, values, onChange }) => {
     </option>
   ));
 
-  const selected = values.filter(item => item.selected).map(item => item.label);
+  const selected = values.filter((item) => item.selected).map((item) => item.label);
 
   return (
     <div style={divStyle}>

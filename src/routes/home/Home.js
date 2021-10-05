@@ -18,9 +18,9 @@ const Home = () => {
   const dispatch = useDispatch();
   const [tasks, setTasks] = useState([]);
   const [timers, setTimers] = useState([]);
-  const [selectedTask, setSelectedTask] = useState({ text: '', note: '', url: ''});
-  const [selectedTimer, setSelectedTimer] = useState({ id: -1, name: '', time: new Date()});
-  const records = useSelector(state => state.home);
+  const [selectedTask, setSelectedTask] = useState({ text: '', note: '', url: '' });
+  const [selectedTimer, setSelectedTimer] = useState({ id: -1, name: '', time: new Date() });
+  const records = useSelector((state) => state.home);
 
   useEffect(() => {
     dispatch(loadHome());
@@ -32,10 +32,10 @@ const Home = () => {
   }, [records]);
 
   const handleTaskItemChange = (newItem) => {
-    const matched = tasks.find(item => item.text === newItem.text);
+    const matched = tasks.find((item) => item.text === newItem.text);
     const updatedTasks = matched
-      ? tasks.map(item => {
-        return item.text === newItem.text ? newItem: item;
+      ? tasks.map((item) => {
+        return item.text === newItem.text ? newItem : item;
       })
       : tasks.concat(newItem);
 
@@ -49,20 +49,20 @@ const Home = () => {
   };
 
   const handleTimeItemChange = (newTimer) => {
-    const matched = timers.find(item => item.name === newTimer.name);
+    const matched = timers.find((item) => item.name === newTimer.name);
     const updatedTimers = matched
-      ? timers.map(item => {
-        return item.name === newTimer.name ? newTimer: item;
+      ? timers.map((item) => {
+        return item.name === newTimer.name ? newTimer : item;
       })
       : timers.concat(newTimer);
     setTimers(updatedTimers);
     dispatch(updateGlobal(updatedTimers));
     dispatch(updateHome({ todos: tasks, timers: updatedTimers }));
-    setSelectedTimer({ name: '', time: new Date()});
+    setSelectedTimer({ name: '', time: new Date() });
   };
 
   const handleRemoveTimer = (timerToRemove) => {
-    const updatedTimers = timers.filter(item => item.name !== timerToRemove.name);
+    const updatedTimers = timers.filter((item) => item.name !== timerToRemove.name);
     setTimers(updatedTimers);
     dispatch(updateGlobal(updatedTimers));
     dispatch(updateHome({ todos: tasks, timers: updatedTimers }));
@@ -79,8 +79,14 @@ const Home = () => {
   };
 
   const TABS = [
-    { title: 'To do', component: ComponentWrapper(HomeTodo, { tasks, onChange: handleTasksChange, onEditTask: handleEditTask })},
-    { title: 'Timers', component: ComponentWrapper(HomeTimer, { timers, onRemoveTimer: handleRemoveTimer, onEditTimer: handleEditTimer })}
+    {
+      title: 'To do',
+      component: ComponentWrapper(HomeTodo, { tasks, onChange: handleTasksChange, onEditTask: handleEditTask })
+    },
+    {
+      title: 'Timers',
+      component: ComponentWrapper(HomeTimer, { timers, onRemoveTimer: handleRemoveTimer, onEditTimer: handleEditTimer })
+    }
   ];
 
   return (

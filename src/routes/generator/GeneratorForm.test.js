@@ -25,6 +25,8 @@ describe('GeneratorForm', () => {
 
     const transitionLabel = screen.getByText('Transition');
     fireEvent.click(transitionLabel);
-    expect(screen.getByText(`Transition Timing Function ${generatorFormProps.style.transitionTimingFunction}`)).toBeInTheDocument();
+    expect(
+      screen.getByText(`Transition Timing Function ${generatorFormProps.style.transitionTimingFunction}`)
+    ).toBeInTheDocument();
   });
 });

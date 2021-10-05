@@ -1,9 +1,7 @@
-import {
-  CREATE_ALERT,
-  DISMISS_ALERT
-} from './alertActions';
+import { CREATE_ALERT, DISMISS_ALERT } from './alertActions';
 import alertReducer from './alertReducer';
 
+const ONE = 1;
 const initialState = {
   queue: [
     {
@@ -39,7 +37,7 @@ describe('alertReducer', () => {
     const result = alertReducer(initialState, action);
 
     expect(result).toEqual({
-      queue: [...initialState.queue, { id: 2, ...action.data}]
+      queue: [...initialState.queue, { id: 2, ...action.data }]
     });
   });
 
@@ -51,7 +49,7 @@ describe('alertReducer', () => {
     const result = alertReducer(initialState, action);
 
     expect(result).toEqual({
-      queue: [initialState.queue[1]]
+      queue: [initialState.queue[ONE]]
     });
   });
 

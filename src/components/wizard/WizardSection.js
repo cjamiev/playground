@@ -4,10 +4,17 @@ import Button from 'components/button';
 import { noop } from 'helper/noop';
 
 const WizardSection = ({ title, content, buttonList = [] }) => {
-  const renderButtons = buttonList.map(item => {
-    if(item.label) {
+  const renderButtons = buttonList.map((item) => {
+    if (item.label) {
       return (
-        <Button key={item.label} label={item.label} {...item.classProps} onClick={() => { item.action(); } } />
+        <Button
+          key={item.label}
+          label={item.label}
+          {...item.classProps}
+          onClick={() => {
+            item.action();
+          }}
+        />
       );
     }
 
@@ -20,9 +27,7 @@ const WizardSection = ({ title, content, buttonList = [] }) => {
         <h2>{title}</h2>
       </div>
       <div>{content}</div>
-      <div>
-        {renderButtons}
-      </div>
+      <div>{renderButtons}</div>
     </div>
   );
 };

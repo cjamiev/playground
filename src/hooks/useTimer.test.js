@@ -4,14 +4,15 @@ import { render, screen } from '@testing-library/react';
 import { TIME, MONTHS, DAYS_OF_THE_WEEK } from 'constants/time';
 import useTimer from './useTimer';
 
-const TestComponent = ({date}) => {
+const TestComponent = ({ date }) => {
   const clock = useTimer(date);
 
-  return <div>{`Weeks ${clock.weeks} Days ${clock.days} Hours ${clock.hours} Minutes ${clock.minutes} Seconds ${clock.seconds}`}</div>;
+  return (
+    <div>{`Weeks ${clock.weeks} Days ${clock.days} Hours ${clock.hours} Minutes ${clock.minutes} Seconds ${clock.seconds}`}</div>
+  );
 };
 
 describe('useTimer', () => {
-
   it('Wait one second one day from now', () => {
     jest.useFakeTimers();
     act(() => {

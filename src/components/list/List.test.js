@@ -73,13 +73,13 @@ describe('List', () => {
     const commandData = {
       type: 'command',
       label: 'test-command',
-      value: { name: 'test-filename', showArgs: true}
+      value: { name: 'test-filename', showArgs: true }
     };
     const args = '12345';
     reduxTestWrapper(List, getProps(commandData));
 
     const commandInput = screen.getByLabelText(`args for ${commandData.label}`);
-    fireEvent.change(commandInput, { target: { value: args }});
+    fireEvent.change(commandInput, { target: { value: args } });
 
     const commandBtn = screen.getByText(commandData.label);
     fireEvent.click(commandBtn);
@@ -92,7 +92,7 @@ describe('List', () => {
     const timerOneHourData = {
       type: 'timer',
       label: 'One hour from now',
-      value: incrementDate(today, { hours: 1})
+      value: incrementDate(today, { hours: 1 })
     };
     simpleTestWrapper(List, getProps(timerOneHourData));
 
@@ -103,7 +103,7 @@ describe('List', () => {
     const timerTwoDaysData = {
       type: 'timer',
       label: 'Two days from now',
-      value: incrementDate(today, { days: 2})
+      value: incrementDate(today, { days: 2 })
     };
     simpleTestWrapper(List, getProps(timerTwoDaysData));
 
@@ -114,7 +114,7 @@ describe('List', () => {
     const timerTwoWeeksData = {
       type: 'timer',
       label: 'Two weeks from now',
-      value: incrementDate(today, { weeks: 2})
+      value: incrementDate(today, { weeks: 2 })
     };
     simpleTestWrapper(List, getProps(timerTwoWeeksData));
 

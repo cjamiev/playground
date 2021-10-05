@@ -4,19 +4,19 @@ import { simpleTestWrapper } from 'testHelper';
 import Tabs from './Tabs';
 
 const Component = () => {
-  return (<div>component1</div>);
+  return <div>component1</div>;
 };
 
 const ComponentTwo = () => {
-  return (<div>component2</div>);
+  return <div>component2</div>;
 };
 
 const ZERO = 0;
 const defaultProps = {
   handleError: jest.fn(),
   data: [
-    { title:'item1', component: Component},
-    { title:'item2', component: ComponentTwo}
+    { title: 'item1', component: Component },
+    { title: 'item2', component: ComponentTwo }
   ]
 };
 

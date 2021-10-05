@@ -8,7 +8,7 @@ axios.get.mockImplementation(mockGet);
 axios.post.mockImplementation(mockPost);
 
 const url = '/test';
-const payload = { key: 'value'};
+const payload = { key: 'value' };
 
 describe('api', () => {
   it('get', () => {

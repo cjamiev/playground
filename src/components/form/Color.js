@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  INDEX_ONE,
-  INDEX_TWO,
-  INDEX_THREE,
-  INDEX_FOUR,
-  INDEX_FIVE,
-  INDEX_SIX
-} from 'constants/array';
+import { INDEX_ONE, INDEX_TWO, INDEX_THREE, INDEX_FOUR, INDEX_FIVE, INDEX_SIX } from 'constants/array';
 
 const HEX_CODE = '0x';
 
@@ -18,22 +11,26 @@ export const hexToRGB = (hex) => {
   return { red, green, blue };
 };
 
-
 const Color = ({ id, label, horizontal = false, selected, onChange }) => {
   const handleSelectedChange = ({ target: { value } }) => {
-
     onChange({ id, selected: value });
   };
 
   const ariaLabel = selected ? `${label} color field has value ${selected}` : `${label} color field`;
-  const className = horizontal ? 'input--horizontal': '';
-
+  const className = horizontal ? 'input--horizontal' : '';
 
   return (
     <div>
       <div className={className}>
-        <label className='input__label'>{label}</label>
-        <input className='input__item-field' type="color" name={label} aria-label={ariaLabel} value={selected} onChange={handleSelectedChange} />
+        <label className="input__label">{label}</label>
+        <input
+          className="input__item-field"
+          type="color"
+          name={label}
+          aria-label={ariaLabel}
+          value={selected}
+          onChange={handleSelectedChange}
+        />
       </div>
     </div>
   );

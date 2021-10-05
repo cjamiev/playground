@@ -1,7 +1,4 @@
-import {
-  LOAD_DIRECTORY,
-  LOAD_FILE
-} from './fileActions';
+import { LOAD_DIRECTORY, LOAD_FILE } from './fileActions';
 
 export const fileInitialState = {
   directory: [],

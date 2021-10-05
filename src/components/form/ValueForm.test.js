@@ -18,11 +18,11 @@ describe('ValueForm', () => {
     fireEvent.change(valueField, { target: { value: 'Value1' } });
     fireEvent.click(saveBtn);
 
-    expect(defaultProps.onChange).toHaveBeenCalledWith({ name: 'Name1', content: 'Value1'});
+    expect(defaultProps.onChange).toHaveBeenCalledWith({ name: 'Name1', content: 'Value1' });
   });
 
   it('Handle link form', () => {
-    simpleTestWrapper(ValueForm, {...defaultProps, type: 'link'});
+    simpleTestWrapper(ValueForm, { ...defaultProps, type: 'link' });
     const nameField = screen.getByLabelText('Name text field');
     const valueField = screen.getByLabelText('Value text field');
     const saveBtn = screen.getByText('Save');
@@ -31,6 +31,6 @@ describe('ValueForm', () => {
     fireEvent.change(valueField, { target: { value: 'http://www.link1.com' } });
     fireEvent.click(saveBtn);
 
-    expect(defaultProps.onChange).toHaveBeenCalledWith({ name: 'Link1', content: 'http://www.link1.com'});
+    expect(defaultProps.onChange).toHaveBeenCalledWith({ name: 'Link1', content: 'http://www.link1.com' });
   });
 });

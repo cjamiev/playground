@@ -12,19 +12,19 @@ const DynamicWizard = ({ sectionTitles, data, onSubmit = noop }) => {
   const [formData, setFormData] = useState(data);
 
   const onPrev = () => {
-    setSectionIndex(s => s - ONE);
+    setSectionIndex((s) => s - ONE);
   };
 
   const onNext = () => {
-    if(!hasError(formData[sectionIndex])) {
-      setSectionIndex(s => s + ONE);
+    if (!hasError(formData[sectionIndex])) {
+      setSectionIndex((s) => s + ONE);
     }
   };
 
   const handleChange = (changedData) => {
     const updatedFields = updateData(formData[sectionIndex], changedData);
     const updatedFormData = formData.map((entry, index) => {
-      if(index === sectionIndex) {
+      if (index === sectionIndex) {
         return updatedFields;
       }
 
@@ -39,21 +39,18 @@ const DynamicWizard = ({ sectionTitles, data, onSubmit = noop }) => {
   };
 
   const isLastPage = sectionIndex === data.length - ONE;
-  const prevButton = sectionIndex > ZERO ? { label: 'Previous', classProps: { classColor: 'secondary' }, action: onPrev } : {};
+  const prevButton =
+    sectionIndex > ZERO ? { label: 'Previous', classProps: { classColor: 'secondary' }, action: onPrev } : {};
   const nextButton = isLastPage ? {} : { label: 'Next', classProps: { classColor: 'primary' }, action: onNext };
-  const submitButton = isLastPage ? { label: 'Submit', classProps: { classColor: 'primary' }, action: handleSubmit } : {};
-  const buttonList = [
-    prevButton,
-    nextButton,
-    submitButton
-  ];
+  const submitButton = isLastPage
+    ? { label: 'Submit', classProps: { classColor: 'primary' }, action: handleSubmit }
+    : {};
+  const buttonList = [prevButton, nextButton, submitButton];
 
   const title = sectionTitles[sectionIndex];
   const content = <DynamicForm data={formData[sectionIndex]} onChange={handleChange} />;
 
-  return (
-    <WizardSection title={title} content={content} buttonList={buttonList} />
-  );
+  return <WizardSection title={title} content={content} buttonList={buttonList} />;
 };
 
 export default DynamicWizard;

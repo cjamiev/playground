@@ -16,10 +16,13 @@ const Navigation = React.memo(() => {
   const [currentUrl, setCurrentUrl] = useState(history.location.pathname);
   const [clock, setClock] = useState(getFormattedClock());
 
-  const renderNavItems = NAV_ITEMS.map(item => {
-    const navItemClass = (currentUrl === item.url) || (history.location.pathname === '/' && item.url === ROUTES.HOME.url) ? 'navigation__links-item navigation__links-item--active': 'navigation__links-item';
+  const renderNavItems = NAV_ITEMS.map((item) => {
+    const navItemClass =
+      currentUrl === item.url || (history.location.pathname === '/' && item.url === ROUTES.HOME.url)
+        ? 'navigation__links-item navigation__links-item--active'
+        : 'navigation__links-item';
     const handleClick = () => {
-      if(currentUrl !== item.url){
+      if (currentUrl !== item.url) {
         history.push(item.url);
         setCurrentUrl(item.url);
         dispatch(closeGlobalModal());
@@ -36,7 +39,9 @@ const Navigation = React.memo(() => {
     );
   });
 
-  setInterval(() => { setClock(getFormattedClock()); }, ONE_SECOND);
+  setInterval(() => {
+    setClock(getFormattedClock());
+  }, ONE_SECOND);
 
   return (
     <nav className="navigation">
@@ -45,9 +50,7 @@ const Navigation = React.memo(() => {
         <span className="navigation__time_label">{getFormattedDate().date}</span>
         <span className="navigation__time_label">{getFormattedDate().week}</span>
       </div>
-      <div className="navigation__links">
-        {renderNavItems}
-      </div>
+      <div className="navigation__links">{renderNavItems}</div>
     </nav>
   );
 });

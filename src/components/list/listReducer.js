@@ -1,9 +1,4 @@
-import {
-  LOAD_COMMAND_RESULT,
-  EXECUTE_COMMAND_RESULT,
-  ERROR_COMMAND_RESULT,
-  CLEAR_COMMAND_RESULT
-} from './listActions';
+import { LOAD_COMMAND_RESULT, EXECUTE_COMMAND_RESULT, ERROR_COMMAND_RESULT, CLEAR_COMMAND_RESULT } from './listActions';
 
 export const listInitialState = {
   commandResponse: '',

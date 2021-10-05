@@ -1,6 +1,4 @@
-import {
-  LOAD_CLIPBOARD
-} from './clipboardActions';
+import { LOAD_CLIPBOARD } from './clipboardActions';
 
 export const clipboardInitialState = {
   clipboard: {}

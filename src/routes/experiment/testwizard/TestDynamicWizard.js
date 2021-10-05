@@ -16,13 +16,17 @@ const TestDynamicForm = () => {
 
   return (
     <>
-      <DynamicWizard sectionTitles={titles} data={testData} onSubmit={(d) => { setPayload(d);}} />
+      <DynamicWizard
+        sectionTitles={titles}
+        data={testData}
+        onSubmit={(d) => {
+          setPayload(d);
+        }}
+      />
       <div className="container--center">
-        {
-          payload.map((entry,index) => {
-            return <TableRenderer key={titles[index]} label={titles[index]} source={entry} />;
-          })
-        }
+        {payload.map((entry, index) => {
+          return <TableRenderer key={titles[index]} label={titles[index]} source={entry} />;
+        })}
       </div>
     </>
   );

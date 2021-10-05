@@ -8,8 +8,8 @@ const Dropdown = React.memo(({ id, label, values, onChange }) => {
   useOnClickOutside(ref, () => setShow(false));
 
   const handleChange = (selected) => {
-    const updatedValues = values.map(item => {
-      if(item.label === selected) {
+    const updatedValues = values.map((item) => {
+      if (item.label === selected) {
         return {
           ...item,
           selected: true
@@ -25,21 +25,42 @@ const Dropdown = React.memo(({ id, label, values, onChange }) => {
     onChange({ id, values: updatedValues });
   };
 
-  const renderContent = values.map(item => {
+  const renderContent = values.map((item) => {
     const className = item.selected ? 'dropdown__item dropdown__item--active' : 'dropdown__item';
-    const ariaLabel = item.selected ? `${item.label} dropdown option is selected`: `${item.label} dropdown option is not selected`;
+    const ariaLabel = item.selected
+      ? `${item.label} dropdown option is selected`
+      : `${item.label} dropdown option is not selected`;
 
     return (
-      <span key={item.label} aria-label={ariaLabel} className={className} onClick={() => { handleChange(item.label);}}> {item.label} </span>
+      <span
+        key={item.label}
+        aria-label={ariaLabel}
+        className={className}
+        onClick={() => {
+          handleChange(item.label);
+        }}
+      >
+        {' '}
+        {item.label}{' '}
+      </span>
     );
   });
 
-  const selectedValue = values.find(item => item.selected) || {};
+  const selectedValue = values.find((item) => item.selected) || {};
 
   return (
-    <div ref={ref} role="button" className="dropdown" onClick={() => { setShow(!show);}}>
-      <label className="dropdown__label">{label} {selectedValue.label}</label>
-      {show && (<div className='dropdown__content'>{renderContent}</div>)}
+    <div
+      ref={ref}
+      role="button"
+      className="dropdown"
+      onClick={() => {
+        setShow(!show);
+      }}
+    >
+      <label className="dropdown__label">
+        {label} {selectedValue.label}
+      </label>
+      {show && <div className="dropdown__content">{renderContent}</div>}
     </div>
   );
 });

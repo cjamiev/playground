@@ -1,7 +1,12 @@
-import {
-  LOAD_HOME
-} from './homeActions';
+import { LOAD_HOME } from './homeActions';
 import homeReducer, { homeInitialState } from './homeReducer';
+
+const ONE = 1;
+const TWO = 2;
+const THREE = 3;
+const FOUR = 4;
+const FIVE = 5;
+const SIX = 6;
 
 describe('homeReducer', () => {
   it('default', () => {
@@ -14,8 +19,8 @@ describe('homeReducer', () => {
     const action = {
       type: LOAD_HOME,
       data: {
-        timers: [1,2,3],
-        todos: [4,5,6]
+        timers: [ONE, TWO, THREE],
+        todos: [FOUR, FIVE, SIX]
       }
     };
     const result = homeReducer(homeInitialState, action);

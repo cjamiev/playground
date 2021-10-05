@@ -20,7 +20,7 @@ describe('Page', () => {
   });
 
   it('checks sidepanel does not show', () => {
-    reduxTestWrapper(Page, { children: 'content'}, {}, pathname);
+    reduxTestWrapper(Page, { children: 'content' }, {}, pathname);
 
     expect(screen.queryByLabelText('triple bar')).not.toBeInTheDocument();
   });

@@ -6,7 +6,10 @@ const defaultProps = {
   id: 1,
   labelOne: 'test-label-one',
   labelTwo: 'test-label-two',
-  listOne: [{ label: '1', selected: false}, { label: '2', selected: false }],
+  listOne: [
+    { label: '1', selected: false },
+    { label: '2', selected: false }
+  ],
   listTwo: [],
   onChange: jest.fn()
 };
@@ -20,14 +23,21 @@ describe('SwapSelect', () => {
     });
     fireEvent.click(getByText('>>'));
 
-    expect(defaultProps.onChange).toHaveBeenCalledWith({ id: defaultProps.id, listOne: [{ label: '2', selected: false }], listTwo: [{ label: '1', selected: true }]});
+    expect(defaultProps.onChange).toHaveBeenCalledWith({
+      id: defaultProps.id,
+      listOne: [{ label: '2', selected: false }],
+      listTwo: [{ label: '1', selected: true }]
+    });
   });
 
   it('swapLeft', () => {
     const updatedProps = {
       ...defaultProps,
       listOne: [],
-      listTwo: [{ label: '1', selected: false}, { label: '2', selected: false }]
+      listTwo: [
+        { label: '1', selected: false },
+        { label: '2', selected: false }
+      ]
     };
     const { getByTestId, getByText } = simpleTestWrapper(SwapSelect, updatedProps);
 
@@ -36,6 +46,10 @@ describe('SwapSelect', () => {
     });
     fireEvent.click(getByText('<<'));
 
-    expect(defaultProps.onChange).toHaveBeenCalledWith({ id: defaultProps.id, listOne: [{ label: '2', selected: true }], listTwo: [{ label: '1', selected: false }]});
+    expect(defaultProps.onChange).toHaveBeenCalledWith({
+      id: defaultProps.id,
+      listOne: [{ label: '2', selected: true }],
+      listTwo: [{ label: '1', selected: false }]
+    });
   });
 });

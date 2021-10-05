@@ -1,13 +1,5 @@
 import { HTTP_STATUS } from 'constants/httpstatus';
-import {
-  INDEX_ONE,
-  INDEX_TWO,
-  INDEX_THREE,
-  INDEX_FOUR,
-  INDEX_FIVE,
-  INDEX_SIX,
-  INDEX_SEVEN
-} from 'constants/array';
+import { INDEX_ONE, INDEX_TWO, INDEX_THREE, INDEX_FOUR, INDEX_FIVE, INDEX_SIX, INDEX_SEVEN } from 'constants/array';
 
 export const getNewMockFields = () => {
   return [
@@ -46,7 +38,7 @@ export const getNewMockFields = () => {
       type: 'textarea',
       label: 'Headers',
       selected: JSON.stringify({
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       }),
       jsonType: true,
@@ -57,7 +49,7 @@ export const getNewMockFields = () => {
       id: 5,
       type: 'dropdown',
       label: 'Status Code',
-      values: Object.keys(HTTP_STATUS).map(item => {
+      values: Object.keys(HTTP_STATUS).map((item) => {
         return {
           label: String(HTTP_STATUS[item]),
           selected: Boolean(HTTP_STATUS.OK === HTTP_STATUS[item])
@@ -70,7 +62,7 @@ export const getNewMockFields = () => {
       type: 'textarea',
       label: 'Body',
       selected: JSON.stringify({
-        'test': 'testing get'
+        test: 'testing get'
       }),
       jsonType: true,
       errorMessage: 'Please enter valid json',
@@ -82,11 +74,11 @@ export const getNewMockFields = () => {
       label: 'Conditional Response',
       selected: JSON.stringify([
         {
-          'payload': {
-            'key': 'condition'
+          payload: {
+            key: 'condition'
           },
-          'body': {
-            'test': 'testing conditional post'
+          body: {
+            test: 'testing conditional post'
           }
         }
       ]),
@@ -98,10 +90,10 @@ export const getNewMockFields = () => {
 };
 
 export const mapFieldsToNewMockPayload = (fields) => {
-  const optionalFileName = fields.find(item => item.id === INDEX_ONE).selected;
-  const url = fields.find(item => item.id === INDEX_TWO).selected;
+  const optionalFileName = fields.find((item) => item.id === INDEX_ONE).selected;
+  const url = fields.find((item) => item.id === INDEX_TWO).selected;
   const filename = optionalFileName ? optionalFileName : url.replace(/\//gm, '-');
-  const method = fields.find(item => item.id === INDEX_THREE).values.find(item => item.selected).label;
+  const method = fields.find((item) => item.id === INDEX_THREE).values.find((item) => item.selected).label;
 
   return {
     filename,
@@ -111,10 +103,11 @@ export const mapFieldsToNewMockPayload = (fields) => {
         method
       },
       response: {
-        headers: JSON.parse(fields.find(item => item.id === INDEX_FOUR).selected),
-        status: Number(fields.find(item => item.id === INDEX_FIVE).values.find(item => item.selected).label),
-        body: JSON.parse(fields.find(item => item.id === INDEX_SIX).selected),
-        conditionalResponse: method !== 'GET' ? JSON.parse(fields.find(item => item.id === INDEX_SEVEN).selected) : undefined
+        headers: JSON.parse(fields.find((item) => item.id === INDEX_FOUR).selected),
+        status: Number(fields.find((item) => item.id === INDEX_FIVE).values.find((item) => item.selected).label),
+        body: JSON.parse(fields.find((item) => item.id === INDEX_SIX).selected),
+        conditionalResponse:
+          method !== 'GET' ? JSON.parse(fields.find((item) => item.id === INDEX_SEVEN).selected) : undefined
       }
     }
   };
@@ -181,7 +174,7 @@ export const mapConfigPayloadToFields = (config) => {
       id: 6,
       type: 'dropdown',
       label: 'Status Code',
-      values: Object.keys(HTTP_STATUS).map(item => {
+      values: Object.keys(HTTP_STATUS).map((item) => {
         return {
           label: String(HTTP_STATUS[item]),
           selected: Boolean(config.overrideStatusCode === HTTP_STATUS[item])
@@ -202,16 +195,16 @@ export const mapConfigPayloadToFields = (config) => {
 };
 
 export const mapFieldsToConfigPayload = (fields) => {
-  const delayUrlsField = fields.find(item => item.id === INDEX_FOUR).selected.replace(/[ ]{2,}/g, '');
-  const overrideUrlsField = fields.find(item => item.id === INDEX_FIVE).selected.replace(/[ ]{2,}/g, '');
+  const delayUrlsField = fields.find((item) => item.id === INDEX_FOUR).selected.replace(/[ ]{2,}/g, '');
+  const overrideUrlsField = fields.find((item) => item.id === INDEX_FIVE).selected.replace(/[ ]{2,}/g, '');
 
   return {
-    delay: Number(fields.find(item => item.id === INDEX_THREE).selected),
-    delayUrls: delayUrlsField ? delayUrlsField.split(','): [],
-    log: fields.find(item => item.id === INDEX_ONE).values.find(item => item.label === 'Yes').selected,
-    error: fields.find(item => item.id === INDEX_TWO).values.find(item => item.label === 'Yes').selected,
+    delay: Number(fields.find((item) => item.id === INDEX_THREE).selected),
+    delayUrls: delayUrlsField ? delayUrlsField.split(',') : [],
+    log: fields.find((item) => item.id === INDEX_ONE).values.find((item) => item.label === 'Yes').selected,
+    error: fields.find((item) => item.id === INDEX_TWO).values.find((item) => item.label === 'Yes').selected,
     overrideUrls: overrideUrlsField ? overrideUrlsField.split(',') : [],
-    overrideStatusCode: Number(fields.find(item => item.id === INDEX_SIX).values.find(item => item.selected).label),
-    overrideResponse: JSON.parse(fields.find(item => item.id === INDEX_SEVEN).selected)
+    overrideStatusCode: Number(fields.find((item) => item.id === INDEX_SIX).values.find((item) => item.selected).label),
+    overrideResponse: JSON.parse(fields.find((item) => item.id === INDEX_SEVEN).selected)
   };
 };

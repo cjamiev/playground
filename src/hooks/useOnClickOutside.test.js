@@ -9,7 +9,14 @@ const TestComponent = () => {
 
   return (
     <div>
-      <div ref={ref} onClick={() => { setShow(!show);}}>button</div>
+      <div
+        ref={ref}
+        onClick={() => {
+          setShow(!show);
+        }}
+      >
+        button
+      </div>
       {show && <span> toggle </span>}
       <div>outside</div>
     </div>

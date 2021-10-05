@@ -11,14 +11,14 @@ import { mapConfigPayloadToFields, mapFieldsToConfigPayload } from './helper';
 const MockConfig = () => {
   const [fields, setFields] = useState([]);
   const dispatch = useDispatch();
-  const { config } = useSelector(state => state.mockserver);
+  const { config } = useSelector((state) => state.mockserver);
 
   useEffect(() => {
     dispatch(loadMockServerConfig());
   }, [dispatch]);
 
   useEffect(() => {
-    if(!isEmpty(config)) {
+    if (!isEmpty(config)) {
       const mappedData = mapConfigPayloadToFields(config);
 
       setFields(mappedData);

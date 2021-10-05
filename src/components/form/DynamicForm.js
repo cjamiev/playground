@@ -30,12 +30,12 @@ const typeMap = {
 };
 
 export const hasError = (data) => {
-  return data.some(entry => {
-    if(entry.error) {
+  return data.some((entry) => {
+    if (entry.error) {
       return true;
-    } else if(entry.required && !entry.values && !entry.selected) {
+    } else if (entry.required && !entry.values && !entry.selected) {
       return true;
-    } else if(entry.required && entry.values && !entry.values.some(item => Boolean(item.selected))) {
+    } else if (entry.required && entry.values && !entry.values.some((item) => Boolean(item.selected))) {
       return true;
     }
 
@@ -44,23 +44,19 @@ export const hasError = (data) => {
 };
 
 export const updateData = (data, changedItem) => {
-  return data.map(item => (item.id === changedItem.id ? { ...item, ...changedItem } : item));
+  return data.map((item) => (item.id === changedItem.id ? { ...item, ...changedItem } : item));
 };
 
 const DynamicForm = ({ data, onChange }) => {
   const form = data
     .sort((item1, item2) => item1.orderSeq - item2.orderSeq)
-    .map(entry => {
+    .map((entry) => {
       const Component = typeMap.hasOwnProperty(entry.type) ? typeMap[entry.type] : null;
 
       return <Component key={entry.label || `${entry.labelOne}  ${entry.labelTwo}`} {...entry} onChange={onChange} />;
     });
 
-  return (
-    <div className="container--center">
-      {form}
-    </div>
-  );
+  return <div className="container--center">{form}</div>;
 };
 
 export default DynamicForm;

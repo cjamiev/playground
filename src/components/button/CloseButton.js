@@ -6,7 +6,9 @@ const CloseButton = ({ classColor, onClick }) => {
   const className = `btn btn__close${color}`;
 
   return (
-    <button className={className} aria-label="Close button" onClick={onClick}>X</button>
+    <button className={className} aria-label="Close button" onClick={onClick}>
+      X
+    </button>
   );
 };
 

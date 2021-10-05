@@ -31,8 +31,4 @@ const updateHome = (content) => {
   };
 };
 
-export {
-  LOAD_HOME,
-  loadHome,
-  updateHome
-};
+export { LOAD_HOME, loadHome, updateHome };

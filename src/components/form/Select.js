@@ -2,8 +2,8 @@ import React from 'react';
 
 const Select = ({ id, label, values, onChange }) => {
   const handleChange = (event) => {
-    const updatedValues = values.map(item => {
-      if(item.label === event.target.value) {
+    const updatedValues = values.map((item) => {
+      if (item.label === event.target.value) {
         return {
           ...item,
           selected: true
@@ -20,11 +20,11 @@ const Select = ({ id, label, values, onChange }) => {
   };
 
   const getOptions = values.map((item) => (
-    <option key={item.label} value={item.label} >
+    <option key={item.label} value={item.label}>
       {item.label}
     </option>
   ));
-  const selected = values.find(item => item.selected);
+  const selected = values.find((item) => item.selected);
 
   return (
     <>

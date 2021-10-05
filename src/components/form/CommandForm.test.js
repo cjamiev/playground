@@ -28,6 +28,9 @@ describe('CommandForm', () => {
     fireEvent.click(argsYesOption);
     fireEvent.click(saveBtn);
 
-    expect(defaultProps.onChange).toHaveBeenCalledWith({ name: 'Name1', content: { name:defaultStoreProps.list.commands[ONE], showArgs: true}});
+    expect(defaultProps.onChange).toHaveBeenCalledWith({
+      name: 'Name1',
+      content: { name: defaultStoreProps.list.commands[ONE], showArgs: true }
+    });
   });
 });

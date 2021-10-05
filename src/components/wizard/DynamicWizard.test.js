@@ -8,7 +8,7 @@ const ONE = 1;
 const TWO = 2;
 
 const defaultProps = {
-  sectionTitles: ['section1','section2','section3'],
+  sectionTitles: ['section1', 'section2', 'section3'],
   data: [
     [
       {
@@ -73,7 +73,6 @@ describe('DynamicWizard', () => {
     const inputSectionTwo = screen.getByLabelText('Text2 text field');
     fireEvent.change(inputSectionTwo, { target: { value: 'abc' } });
     fireEvent.click(nextButton);
-
 
     expect(screen.getByText(defaultProps.sectionTitles[TWO])).toBeInTheDocument();
 

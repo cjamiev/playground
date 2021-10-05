@@ -1,9 +1,4 @@
-import {
-  applyMiddleware,
-  createStore,
-  compose,
-  combineReducers
-} from 'redux';
+import { applyMiddleware, createStore, compose, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
@@ -17,9 +12,12 @@ import globalReducer from 'components/global/globalReducer';
 import listReducer from 'components/list/listReducer';
 import mockserverReducer from 'routes/mockserver/mockserverReducer';
 
-const customMiddleware = ({ dispatch, getState }) => (next) => (action) => {
-  return next(action);
-};
+const customMiddleware =
+  ({ dispatch, getState }) =>
+    (next) =>
+      (action) => {
+        return next(action);
+      };
 
 const middlewares = [thunk, customMiddleware];
 if (process.env.NODE_ENV === 'development') {

@@ -8,23 +8,23 @@ describe('hasError', () => {
   });
 
   it('no error', () => {
-    expect(hasError([{required: true, selected: '123' }])).toBeFalsy();
+    expect(hasError([{ required: true, selected: '123' }])).toBeFalsy();
   });
 
   it('no error', () => {
-    expect(hasError([{required: true, values: [{ selected: '123'}] }])).toBeFalsy();
+    expect(hasError([{ required: true, values: [{ selected: '123' }] }])).toBeFalsy();
   });
 
   it('error', () => {
-    expect(hasError([{error: true}])).toBeTruthy();
+    expect(hasError([{ error: true }])).toBeTruthy();
   });
 
   it('error - required selected', () => {
-    expect(hasError([{required: true, selected: ''}])).toBeTruthy();
+    expect(hasError([{ required: true, selected: '' }])).toBeTruthy();
   });
 
   it('error - required values', () => {
-    expect(hasError([{required: true, values: [{ selected: ''}] }])).toBeTruthy();
+    expect(hasError([{ required: true, values: [{ selected: '' }] }])).toBeTruthy();
   });
 });
 

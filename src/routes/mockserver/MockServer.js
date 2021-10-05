@@ -22,7 +22,12 @@ const MockServer = () => {
 
   return (
     <Page>
-      <Tabs data={TABS} onTabSwitch={() => { dispatch(dismissAlert());} }/>
+      <Tabs
+        data={TABS}
+        onTabSwitch={() => {
+          dispatch(dismissAlert());
+        }}
+      />
     </Page>
   );
 };

@@ -8,39 +8,40 @@ const ZERO = 0;
 const ONE = 1;
 const OFF_SET = 150;
 const statusClass = {
-  'success': 'alert--success',
-  'info': 'alert--info',
-  'warning': 'alert--warning',
-  'error': 'alert--error'
+  success: 'alert--success',
+  info: 'alert--info',
+  warning: 'alert--warning',
+  error: 'alert--error'
 };
 
 const Alert = () => {
   const [isSticky, setIsSticky] = useState(false);
   const dispatch = useDispatch();
-  const { queue } = useSelector(state => state.alert);
+  const { queue } = useSelector((state) => state.alert);
   const { id, content, status, timer } = queue[ZERO] || {};
-  const sizeMessage = queue.length > ONE ? `${queue.length - ONE} more item(s)`: '';
+  const sizeMessage = queue.length > ONE ? `${queue.length - ONE} more item(s)` : '';
 
-  const close = useCallback(() => { dispatch(dismissAlert(id));},[dispatch, id]);
+  const close = useCallback(() => {
+    dispatch(dismissAlert(id));
+  }, [dispatch, id]);
 
   useEffect(() => {
     window.onscroll = () => {
-      if(window.pageYOffset > OFF_SET) {
+      if (window.pageYOffset > OFF_SET) {
         setIsSticky(true);
-      }
-      else {
+      } else {
         setIsSticky(false);
       }
     };
   }, []);
 
   useEffect(() => {
-    if(timer) {
-      setTimeout(close,timer);
+    if (timer) {
+      setTimeout(close, timer);
     }
   }, [close, timer]);
 
-  if(!content) {
+  if (!content) {
     return null;
   }
 
@@ -49,7 +50,7 @@ const Alert = () => {
   return (
     <div className={className}>
       {content}
-      <div className='alert__counter'>{sizeMessage}</div>
+      <div className="alert__counter">{sizeMessage}</div>
       <CloseButton classColor={status} onClick={close} />
     </div>
   );

@@ -40,14 +40,17 @@ const globalReducer = (state = globalInitialState, action) => {
     [OPEN_GLOBAL_MODAL]: () => {
       return {
         ...state,
-        modalQueue: [...state.modalQueue, {
-          id: state.modalQueue.length,
-          ...action.data
-        }]
+        modalQueue: [
+          ...state.modalQueue,
+          {
+            id: state.modalQueue.length,
+            ...action.data
+          }
+        ]
       };
     },
     [CLOSE_GLOBAL_MODAL]: () => {
-      const filteredModalQueue = isNumber(action.id) ? state.modalQueue.filter(item => action.id !== item.id) : [];
+      const filteredModalQueue = isNumber(action.id) ? state.modalQueue.filter((item) => action.id !== item.id) : [];
 
       return {
         ...state,

@@ -46,10 +46,4 @@ const writeFile = (filename, content) => {
   };
 };
 
-export {
-  LOAD_DIRECTORY,
-  loadDirectory,
-  LOAD_FILE,
-  loadFile,
-  writeFile
-};
+export { LOAD_DIRECTORY, loadDirectory, LOAD_FILE, loadFile, writeFile };

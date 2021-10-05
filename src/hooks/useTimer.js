@@ -7,7 +7,9 @@ const useTimer = (date) => {
   const [clock, setClock] = useState(clockBetweenDates(date, new Date()));
 
   useEffect(() => {
-    const timerId = setInterval(() => { setClock(clockBetweenDates(date, new Date())); }, ONE_SECOND);
+    const timerId = setInterval(() => {
+      setClock(clockBetweenDates(date, new Date()));
+    }, ONE_SECOND);
 
     return () => {
       clearInterval(timerId);

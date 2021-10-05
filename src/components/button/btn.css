@@ -94,6 +94,7 @@
   padding-top: 5px;
   border: none;
   background-color: #f6f8fa;
+  cursor: pointer;
 }
 
 .btn--icon:hover {

@@ -1,6 +1,13 @@
 import { LOAD_CLIPBOARD } from './clipboardActions';
 import clipboardReducer, { clipboardInitialState } from './clipboardReducer';
 
+const ONE = 1;
+const TWO = 2;
+const THREE = 3;
+const FOUR = 4;
+const FIVE = 5;
+const SIX = 6;
+
 describe('clipboardReducer', () => {
   it('default', () => {
     const result = clipboardReducer(undefined, {});
@@ -12,8 +19,8 @@ describe('clipboardReducer', () => {
     const action = {
       type: LOAD_CLIPBOARD,
       data: {
-        one: [1,2,3],
-        two: [4,5,6]
+        one: [ONE, TWO, THREE],
+        two: [FOUR, FIVE, SIX]
       }
     };
     const result = clipboardReducer(clipboardInitialState, action);
@@ -23,5 +30,4 @@ describe('clipboardReducer', () => {
       clipboard: action.data
     });
   });
-
 });

@@ -19,12 +19,8 @@ const ZERO = 0;
 const ONE = 1;
 const TWO = 2;
 const clipboard = {
-  keyOne: [
-    { title: 'test-title', data: [[{ type: 'copy', label: 'copy1', value: 'value1' }]] }
-  ],
-  keyTwo: [
-    { title: 'test-title2', data: [[{ type: 'copy', label: 'copy2', value: 'value2' }]] }
-  ]
+  keyOne: [{ title: 'test-title', data: [[{ type: 'copy', label: 'copy1', value: 'value1' }]] }],
+  keyTwo: [{ title: 'test-title2', data: [[{ type: 'copy', label: 'copy2', value: 'value2' }]] }]
 };
 
 describe('ClipboardForm', () => {

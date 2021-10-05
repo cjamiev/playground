@@ -3,13 +3,7 @@ import React from 'react';
 const PlusIcon = () => {
   return (
     <g aria-label="plus">
-      <rect
-        width="51.328522"
-        height="15.165249"
-        x="0.79407263"
-        y="18.87571"
-        ry="4.5476584"
-        rx="4.5476584" />
+      <rect width="51.328522" height="15.165249" x="0.79407263" y="18.87571" ry="4.5476584" rx="4.5476584" />
       <rect
         width="51.328522"
         height="15.165249"
@@ -17,7 +11,8 @@ const PlusIcon = () => {
         y="-34.040958"
         ry="4.5476584"
         rx="4.5476584"
-        transform="rotate(90)" />
+        transform="rotate(90)"
+      />
     </g>
   );
 };

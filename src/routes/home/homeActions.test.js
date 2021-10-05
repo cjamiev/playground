@@ -1,10 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
-import {
-  LOAD_HOME,
-  loadHome,
-  updateHome
-} from './homeActions';
+import { LOAD_HOME, loadHome, updateHome } from './homeActions';
 import { CREATE_ALERT } from 'components/alert/alertActions';
 
 const error = new Error('Test Message');
@@ -22,7 +18,9 @@ const successObject = {
   timer: 1000
 };
 
-const content = [{ name: 'test', value: { parentBackgroundColor: {}, hoverStyle: {}, normalStyle: {}, activeStyle: {}}}];
+const content = [
+  { name: 'test', value: { parentBackgroundColor: {}, hoverStyle: {}, normalStyle: {}, activeStyle: {} } }
+];
 
 describe('homeActions', () => {
   it('loadHome', async () => {
@@ -34,7 +32,7 @@ describe('homeActions', () => {
     loadHome()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_HOME, data: content});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_HOME, data: content });
     });
   });
 

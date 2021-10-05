@@ -14,15 +14,9 @@ const CopyIcon = () => {
         x="850.42725"
         y="774.26263"
         rx="16.531063"
-        ry="20.193493" />
-      <rect
-        className="icon--hollow"
-        width="50.612587"
-        height="24.864819"
-        x="864.87854"
-        y="763.33545"
-        rx="0"
-        ry="0" />
+        ry="20.193493"
+      />
+      <rect className="icon--hollow" width="50.612587" height="24.864819" x="864.87854" y="763.33545" rx="0" ry="0" />
     </g>
   );
 };

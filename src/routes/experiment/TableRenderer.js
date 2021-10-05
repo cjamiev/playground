@@ -8,9 +8,7 @@ const getUniqueHeaders = (source) => {
     return [...acc, ...Object.keys(entry)];
   }, []);
 
-  return headers
-    .filter((item, pos) => headers.indexOf(item) === pos)
-    .map(item => ({ label: item }));
+  return headers.filter((item, pos) => headers.indexOf(item) === pos).map((item) => ({ label: item }));
 };
 
 const getTableData = (source) => {
@@ -37,7 +35,7 @@ const renderRows = (values) =>
     return <tr key={JSON.stringify(entry)}>{rows}</tr>;
   });
 
-const TableRenderer = ({label, source}) => {
+const TableRenderer = ({ label, source }) => {
   const { headers, rows } = getTableData(source);
 
   return (

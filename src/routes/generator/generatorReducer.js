@@ -1,6 +1,4 @@
-import {
-  LOAD_GENERATOR_RECORDS
-} from './generatorActions';
+import { LOAD_GENERATOR_RECORDS } from './generatorActions';
 
 export const generatorInitialState = {
   generatorRecords: []

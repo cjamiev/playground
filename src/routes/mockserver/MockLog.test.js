@@ -7,13 +7,15 @@ const mockGet = jest.fn();
 jest.mock('api');
 api.get.mockResolvedValue({
   data: {
-    data: [{
-      timestamp: '7/10/2021 13:48:20',
-      url: '/api/test',
-      payload: {
-        testing: 123
+    data: [
+      {
+        timestamp: '7/10/2021 13:48:20',
+        url: '/api/test',
+        payload: {
+          testing: 123
+        }
       }
-    }],
+    ],
     message: {
       error: false,
       message: 'Successfully did stuff'
@@ -24,13 +26,15 @@ api.get.mockResolvedValue({
 const ZERO = 0;
 const mockLogProps = {
   mockserver: {
-    log: [{
-      timestamp: '7/10/2021 13:48:20',
-      url: '/api/test',
-      payload: {
-        testing: 123
+    log: [
+      {
+        timestamp: '7/10/2021 13:48:20',
+        url: '/api/test',
+        payload: {
+          testing: 123
+        }
       }
-    }],
+    ],
     message: {
       error: false,
       message: 'Successfully did stuff'
@@ -60,7 +64,9 @@ describe('MockLog', () => {
 
     const clearBtn = screen.getByText('Clear Log');
 
-    await waitFor(() => expect(screen.queryByText(mockLogProps.mockserver.log[ZERO].timestamp)).not.toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.queryByText(mockLogProps.mockserver.log[ZERO].timestamp)).not.toBeInTheDocument()
+    );
     fireEvent.click(clearBtn);
   });
 

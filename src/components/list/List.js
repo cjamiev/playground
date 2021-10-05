@@ -11,14 +11,13 @@ import './list.css';
 const ONE = 1;
 
 const getFormattedTime = ({ weeks, days, hours, minutes, seconds }) => {
-  if(weeks > ONE) {
+  if (weeks > ONE) {
     return `${weeks} Weeks`;
-  }
-  else if (days > ONE) {
+  } else if (days > ONE) {
     return `${days} Days`;
   }
 
-  return formattedTimerClock(hours,minutes,seconds);
+  return formattedTimerClock(hours, minutes, seconds);
 };
 
 export const DisplayTimer = ({ label, value }) => {
@@ -26,8 +25,10 @@ export const DisplayTimer = ({ label, value }) => {
 
   return (
     <span className="list__item">
-      <label className="list__timer-label" title={value}>{ label }</label>
-      <span data-testid={`${label} time`}>{ getFormattedTime(time) }</span>
+      <label className="list__timer-label" title={value}>
+        {label}
+      </label>
+      <span data-testid={`${label} time`}>{getFormattedTime(time)}</span>
     </span>
   );
 };
@@ -42,19 +43,37 @@ const DisplayCommand = ({ label, name, showArgs }) => {
 
   return (
     <span className="list__item">
-      <Button classColor={'secondary'} label={label} onClick={() => { dispatch(executeCommand(name, arg)); }} />
-      {showArgs &&<input type="text" aria-label={`args for ${label}`} onChange={handleChange} />}
+      <Button
+        classColor={'secondary'}
+        label={label}
+        onClick={() => {
+          dispatch(executeCommand(name, arg));
+        }}
+      />
+      {showArgs && <input type="text" aria-label={`args for ${label}`} onChange={handleChange} />}
     </span>
   );
 };
 
 export const DisplayContent = ({ type, label, value }) => {
-  if(type === TYPE.TEXT) {
-    return (<span className="list__item">{value}</span>);
+  if (type === TYPE.TEXT) {
+    return <span className="list__item">{value}</span>;
   } else if (type === TYPE.LINK) {
-    return (<a className="link list__item" href={value} target="_blank">{label}</a>);
+    return (
+      <a className="link list__item" href={value} target="_blank">
+        {label}
+      </a>
+    );
   } else if (type === TYPE.COPY) {
-    return (<Button label={label} classColor='primary' onClick={() => { copyToClipboard(value); }} />);
+    return (
+      <Button
+        label={label}
+        classColor="primary"
+        onClick={() => {
+          copyToClipboard(value);
+        }}
+      />
+    );
   } else if (type === TYPE.COMMAND) {
     return <DisplayCommand label={label} name={value.name} showArgs={value.showArgs} />;
   } else if (type === TYPE.TIMER) {
@@ -73,7 +92,7 @@ const List = React.memo(({ header, data, handleClick }) => {
     const className = handleClick ? 'list__content clickable' : 'list__content';
 
     return (
-      <div key={index} className={className} onClick={() => (handleClick && handleClick(index, entry))}>
+      <div key={index} className={className} onClick={() => handleClick && handleClick(index, entry)}>
         {renderEntry}
       </div>
     );

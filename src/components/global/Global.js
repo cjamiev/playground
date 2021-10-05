@@ -11,19 +11,29 @@ const ONE = 1;
 
 const Global = () => {
   const dispatch = useDispatch();
-  const { timers, initialized, isLoading, modalQueue } = useSelector(state => state.global);
+  const { timers, initialized, isLoading, modalQueue } = useSelector((state) => state.global);
   const props = modalQueue[ZERO] || {};
 
   useEffect(() => {
-    if(!initialized) {
+    if (!initialized) {
       dispatch(initializeTimer());
     }
   }, [dispatch, initialized]);
 
-  if(timers.length > ZERO) {
+  if (timers.length > ZERO) {
     const sortedTimers = timers
-      .map(item => {
-        return { name: item.name, date: new Date(item.value.year,item.value.month-ONE,item.value.day,item.value.hour,item.value.minute,item.value.second)};
+      .map((item) => {
+        return {
+          name: item.name,
+          date: new Date(
+            item.value.year,
+            item.value.month - ONE,
+            item.value.day,
+            item.value.hour,
+            item.value.minute,
+            item.value.second
+          )
+        };
       })
       .sort((item1, item2) => item1.date.getTime() - item2.date.getTime());
     const now = new Date();
@@ -32,12 +42,17 @@ const Global = () => {
     const absoluteTime = timeInMilliseconds > ZERO ? timeInMilliseconds : ZERO;
     const isTimeTooLarge = timeInMilliseconds > TIME.A_DAY;
 
-    !isTimeTooLarge && setTimeout(() => { dispatch(createAlert({ content: `Time's up for "${shortestTimer.name}"`, status: 'success' })); }, absoluteTime);
+    !isTimeTooLarge &&
+      setTimeout(() => {
+        dispatch(createAlert({ content: `Time's up for "${shortestTimer.name}"`, status: 'success' }));
+      }, absoluteTime);
   }
 
-  const close = () => { dispatch(closeGlobalModal(props.id)); };
+  const close = () => {
+    dispatch(closeGlobalModal(props.id));
+  };
 
-  if(isLoading) {
+  if (isLoading) {
     const message = <div className="modal__loading">Loading...</div>;
 
     return (

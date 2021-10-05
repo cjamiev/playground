@@ -1,10 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
-import {
-  LOAD_GENERATOR_RECORDS,
-  loadGeneratorRecords,
-  updatedGeneratorRecords
-} from './generatorActions';
+import { LOAD_GENERATOR_RECORDS, loadGeneratorRecords, updatedGeneratorRecords } from './generatorActions';
 import { CREATE_ALERT } from 'components/alert/alertActions';
 
 const error = new Error('Test Message');
@@ -22,7 +18,9 @@ const successObject = {
   timer: 1000
 };
 
-const content = [{ name: 'test', value: { parentBackgroundColor: {}, hoverStyle: {}, normalStyle: {}, activeStyle: {}}}];
+const content = [
+  { name: 'test', value: { parentBackgroundColor: {}, hoverStyle: {}, normalStyle: {}, activeStyle: {} } }
+];
 
 describe('generatorActions', () => {
   it('loadGeneratorRecords', async () => {
@@ -34,7 +32,7 @@ describe('generatorActions', () => {
     loadGeneratorRecords()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_GENERATOR_RECORDS, data: content});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_GENERATOR_RECORDS, data: content });
     });
   });
 

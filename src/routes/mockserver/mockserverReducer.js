@@ -39,7 +39,9 @@ const mockserverReducer = (state = mockserverInitialState, action) => {
     [DELETE_MOCK_ENDPOINT]: () => {
       return {
         ...state,
-        mocks: state.mocks.filter(item => !(item.method === action.endpoint.method && item.url === action.endpoint.url))
+        mocks: state.mocks.filter(
+          (item) => !(item.method === action.endpoint.method && item.url === action.endpoint.url)
+        )
       };
     },
     [LOAD_MOCK_RESPONSE]: () => {

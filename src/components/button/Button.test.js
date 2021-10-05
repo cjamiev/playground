@@ -16,14 +16,14 @@ describe('Button', () => {
   });
 
   it('should be disabled', async () => {
-    simpleTestWrapper(Button, { ...defaultProps, disabled: true});
+    simpleTestWrapper(Button, { ...defaultProps, disabled: true });
 
     fireEvent.click(screen.getByText(defaultProps.label));
     expect(defaultProps.onClick).not.toHaveBeenCalled();
   });
 
   it('should render className', () => {
-    simpleTestWrapper(Button, { ...defaultProps, className: 'test--class'});
+    simpleTestWrapper(Button, { ...defaultProps, className: 'test--class' });
 
     expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
   });

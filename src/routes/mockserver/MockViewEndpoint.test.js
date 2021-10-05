@@ -19,7 +19,7 @@ const mockViewEndpointProps = {
 
 describe('MockViewEndpoint', () => {
   it('handles filter', () => {
-    reduxTestWrapper(MockViewEndpoint, {}, mockViewEndpointProps );
+    reduxTestWrapper(MockViewEndpoint, {}, mockViewEndpointProps);
 
     expect(screen.queryByText(mockViewEndpointProps.mockserver.mocks[ZERO].url)).toBeInTheDocument();
 
@@ -38,8 +38,7 @@ describe('MockViewEndpoint', () => {
         body: {
           testing: 123
         },
-        headers: {
-        }
+        headers: {}
       },
       request: {
         url: '/test',
@@ -47,7 +46,11 @@ describe('MockViewEndpoint', () => {
         responsePath: 'filename'
       }
     };
-    fullTestWrapper(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
+    fullTestWrapper(
+      MockViewEndpoint,
+      {},
+      { ...mockViewEndpointProps, mockserver: { ...mockViewEndpointProps.mockserver, mockResponse } }
+    );
 
     const loadBtn = screen.getAllByText('Load')[ZERO];
     fireEvent.click(loadBtn);
@@ -66,8 +69,7 @@ describe('MockViewEndpoint', () => {
         body: {
           testing: 123
         },
-        headers: {
-        }
+        headers: {}
       },
       request: {
         url: '/test',
@@ -75,7 +77,11 @@ describe('MockViewEndpoint', () => {
         responsePath: 'filename'
       }
     };
-    fullTestWrapper(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
+    fullTestWrapper(
+      MockViewEndpoint,
+      {},
+      { ...mockViewEndpointProps, mockserver: { ...mockViewEndpointProps.mockserver, mockResponse } }
+    );
 
     const loadBtn = screen.getAllByText('Load')[ZERO];
     fireEvent.click(loadBtn);
@@ -94,8 +100,7 @@ describe('MockViewEndpoint', () => {
         body: {
           testing: 123
         },
-        headers: {
-        }
+        headers: {}
       },
       request: {
         url: '/test',
@@ -103,7 +108,11 @@ describe('MockViewEndpoint', () => {
         responsePath: 'filename'
       }
     };
-    fullTestWrapper(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
+    fullTestWrapper(
+      MockViewEndpoint,
+      {},
+      { ...mockViewEndpointProps, mockserver: { ...mockViewEndpointProps.mockserver, mockResponse } }
+    );
 
     const loadBtn = screen.getAllByText('Load')[ZERO];
     fireEvent.click(loadBtn);
@@ -121,8 +130,7 @@ describe('MockViewEndpoint', () => {
         body: {
           testing: 123
         },
-        headers: {
-        }
+        headers: {}
       },
       request: {
         url: '/test',
@@ -130,7 +138,11 @@ describe('MockViewEndpoint', () => {
         responsePath: 'filename'
       }
     };
-    fullTestWrapper(MockViewEndpoint, {}, {...mockViewEndpointProps, mockserver: {...mockViewEndpointProps.mockserver, mockResponse} });
+    fullTestWrapper(
+      MockViewEndpoint,
+      {},
+      { ...mockViewEndpointProps, mockserver: { ...mockViewEndpointProps.mockserver, mockResponse } }
+    );
 
     const loadBtn = screen.getAllByText('Load')[ZERO];
     fireEvent.click(loadBtn);

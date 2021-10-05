@@ -2,9 +2,7 @@ import React from 'react';
 
 const EditIcon = () => {
   return (
-    <g
-      aria-label="edit"
-      transform="matrix(1.2250929,0,0,1.2250929,-16.809232,8.7760734)">
+    <g aria-label="edit" transform="matrix(1.2250929,0,0,1.2250929,-16.809232,8.7760734)">
       <path
         className="icon--hollow"
         transform="rotate(32.583831)"
@@ -18,10 +16,7 @@ const EditIcon = () => {
         className="icon--black"
         d="M 40.739671,0.61431653 46.025244,4.2272404 28.928512,30.668964 23.710772,27.334153 Z"
       />
-      <path
-        className="icon--grey"
-        d="M 40.678846,0.40143599 46.29895,4.1481718"
-      />
+      <path className="icon--grey" d="M 40.678846,0.40143599 46.29895,4.1481718" />
     </g>
   );
 };

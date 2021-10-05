@@ -10,7 +10,9 @@ const Accordion = React.memo(({ label, content }) => {
 
   return (
     <div className="accordion">
-      <div className={'accordion__label'} onClick={toggle}>{label}</div>
+      <div className={'accordion__label'} onClick={toggle}>
+        {label}
+      </div>
       {!isCollapsed && <div className={'accordion__content'}>{content}</div>}
     </div>
   );

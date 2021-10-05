@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { fireEvent, screen } from '@testing-library/react';
 import { reduxTestWrapper, fullTestWrapper } from 'testHelper';
@@ -26,9 +25,7 @@ const alertStoreProps2 = {
 };
 
 const TestComponent = () => {
-  return (
-    <span>dummy</span>
-  );
+  return <span>dummy</span>;
 };
 
 describe('Alert', () => {

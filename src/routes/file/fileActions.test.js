@@ -1,15 +1,11 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
-import {
-  LOAD_DIRECTORY,
-  loadDirectory,
-  LOAD_FILE,
-  loadFile,
-  WRITE_FILE,
-  writeFile
-} from './fileActions';
+import { LOAD_DIRECTORY, loadDirectory, LOAD_FILE, loadFile, WRITE_FILE, writeFile } from './fileActions';
 import { CREATE_ALERT } from 'components/alert/alertActions';
 
+const ONE = 1;
+const TWO = 2;
+const THREE = 3;
 const error = new Error('Test Message');
 const dispatch = jest.fn();
 
@@ -29,13 +25,13 @@ describe('fileActions', () => {
   it('loadDirectory', async () => {
     api.get.mockResolvedValueOnce({
       data: {
-        data: [1,2,3]
+        data: [ONE, TWO, THREE]
       }
     });
     loadDirectory()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_DIRECTORY, data: [1,2,3]});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_DIRECTORY, data: [ONE, TWO, THREE] });
     });
   });
 
@@ -57,7 +53,7 @@ describe('fileActions', () => {
     loadFile()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_FILE, data: 'test file'});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_FILE, data: 'test file' });
     });
   });
 

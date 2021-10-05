@@ -11,6 +11,7 @@ import {
 } from './globalActions';
 import globalReducer, { globalInitialState } from './globalReducer';
 
+const ONE = 1;
 const timerOne = [
   {
     name: 'item one',
@@ -97,7 +98,7 @@ describe('globalReducer', () => {
 
     expect(result).toEqual({
       ...initialState,
-      modalQueue: [...initialState.modalQueue, { id: 2, ...action.data}]
+      modalQueue: [...initialState.modalQueue, { id: 2, ...action.data }]
     });
   });
 
@@ -110,7 +111,7 @@ describe('globalReducer', () => {
 
     expect(result).toEqual({
       ...initialState,
-      modalQueue: [initialState.modalQueue[1]]
+      modalQueue: [initialState.modalQueue[ONE]]
     });
   });
 

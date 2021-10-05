@@ -1,8 +1,9 @@
-import {
-  LOAD_DIRECTORY,
-  LOAD_FILE
-} from './fileActions';
+import { LOAD_DIRECTORY, LOAD_FILE } from './fileActions';
 import fileReducer, { fileInitialState } from './fileReducer';
+
+const ONE = 1;
+const TWO = 2;
+const THREE = 3;
 
 describe('fileReducer', () => {
   it('default', () => {
@@ -14,7 +15,7 @@ describe('fileReducer', () => {
   it('LOAD_DIRECTORY', () => {
     const action = {
       type: LOAD_DIRECTORY,
-      data: [1,2,3]
+      data: [ONE, TWO, THREE]
     };
     const result = fileReducer(fileInitialState, action);
 

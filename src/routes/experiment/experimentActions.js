@@ -3,7 +3,6 @@ import api from 'api';
 const EXPERIMENT_GET = 'EXPERIMENT_GET';
 const EXPERIMENT_POST = 'EXPERIMENT_POST';
 
-
 const experimentGet = () => {
   return (dispatch) => {
     api

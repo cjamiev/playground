@@ -4,7 +4,12 @@ import { reduxTestWrapper } from 'testHelper';
 import api from 'api';
 import MockCreateEndpoint from './MockCreateEndpoint';
 import Page from 'components/layout/Page';
-import { getNewMockFields, mapFieldsToNewMockPayload, mapConfigPayloadToFields, mapFieldsToConfigPayload } from './helper';
+import {
+  getNewMockFields,
+  mapFieldsToNewMockPayload,
+  mapConfigPayloadToFields,
+  mapFieldsToConfigPayload
+} from './helper';
 
 const payload = JSON.stringify(mapFieldsToNewMockPayload(getNewMockFields()));
 
@@ -26,7 +31,7 @@ const mockCreateEndpointProps = {
 
 describe('MockCreateEndpoint', () => {
   it('checks page renders', () => {
-    reduxTestWrapper(MockCreateEndpoint, {}, mockCreateEndpointProps );
+    reduxTestWrapper(MockCreateEndpoint, {}, mockCreateEndpointProps);
 
     const submitBtn = screen.getByText('Submit');
     fireEvent.click(submitBtn);
@@ -35,7 +40,7 @@ describe('MockCreateEndpoint', () => {
   });
 
   it('handle onChange', () => {
-    reduxTestWrapper(MockCreateEndpoint, {}, mockCreateEndpointProps );
+    reduxTestWrapper(MockCreateEndpoint, {}, mockCreateEndpointProps);
 
     const methodBtn = screen.getByText('Method GET');
     fireEvent.click(methodBtn);

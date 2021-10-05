@@ -19,17 +19,19 @@ const defaultStore = {
 const storeWithPopulatedModalQueue = {
   global: {
     isLoading: false,
-    modalQueue: [{
-      id: 0,
-      title: 'test-title',
-      message: 'test-message',
-      buttonList: [
-        {
-          label: 'Save',
-          action: jest.fn()
-        }
-      ]
-    }],
+    modalQueue: [
+      {
+        id: 0,
+        title: 'test-title',
+        message: 'test-message',
+        buttonList: [
+          {
+            label: 'Save',
+            action: jest.fn()
+          }
+        ]
+      }
+    ],
     timers: [],
     initialized: false
   }
@@ -73,9 +75,7 @@ mockLocalStorage({
 });
 
 const TestComponent = () => {
-  return (
-    <span>dummy</span>
-  );
+  return <span>dummy</span>;
 };
 
 describe('Global', () => {

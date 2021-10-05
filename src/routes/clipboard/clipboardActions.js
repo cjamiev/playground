@@ -33,8 +33,4 @@ const updateClipboard = (content) => {
   };
 };
 
-export {
-  LOAD_CLIPBOARD,
-  loadClipboard,
-  updateClipboard
-};
+export { LOAD_CLIPBOARD, loadClipboard, updateClipboard };

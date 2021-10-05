@@ -4,7 +4,9 @@ import TimerForm from './TimerForm';
 
 const ZERO = 0;
 const ONE = 1;
+const FOUR = 4;
 const TWELVE = 12;
+const SIXTEEN = 16;
 
 const today = new Date();
 const isAmMode = today.getHours() - TWELVE <= ZERO;
@@ -38,7 +40,10 @@ describe('TimerForm', () => {
     fireEvent.change(secondField, { target: { value: '6' } });
     fireEvent.click(saveBtn);
 
-    expect(defaultProps.onChange).toHaveBeenCalledWith({ name: 'Timer1', content: { month: 1, day: 2, year: 3, hour: isAmMode ? 4 : 16, minute: 5, second: 6 }});
+    expect(defaultProps.onChange).toHaveBeenCalledWith({
+      name: 'Timer1',
+      content: { month: 1, day: 2, year: 3, hour: isAmMode ? FOUR : SIXTEEN, minute: 5, second: 6 }
+    });
   });
 
   it('Handle form with am/pm mode', () => {
@@ -64,6 +69,9 @@ describe('TimerForm', () => {
     fireEvent.click(ampmSwitch);
     fireEvent.click(saveBtn);
 
-    expect(defaultProps.onChange).toHaveBeenCalledWith({ name: 'Timer1', content: { month: 1, day: 2, year: 3, hour: isAmMode ? 16 : 4, minute: 5, second: 6 }});
+    expect(defaultProps.onChange).toHaveBeenCalledWith({
+      name: 'Timer1',
+      content: { month: 1, day: 2, year: 3, hour: isAmMode ? SIXTEEN : FOUR, minute: 5, second: 6 }
+    });
   });
 });

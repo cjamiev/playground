@@ -18,13 +18,21 @@ const Text = ({ id, label, horizontal = false, placeholder, selected = '', regex
 
     onChange({ id, selected: value, error: hasError });
   };
-  const className = horizontal ? 'input--horizontal': '';
+  const className = horizontal ? 'input--horizontal' : '';
 
   return (
     <div>
       <div className={className}>
-        {label && <label className='input__label'>{label}</label>}
-        <input className='input__item-field' type="text" name={label} aria-label={`${label || placeholder} text field`} placeholder={placeholder} value={selected} onChange={handleSelectedChange} />
+        {label && <label className="input__label">{label}</label>}
+        <input
+          className="input__item-field"
+          type="text"
+          name={label}
+          aria-label={`${label || placeholder} text field`}
+          placeholder={placeholder}
+          value={selected}
+          onChange={handleSelectedChange}
+        />
       </div>
       {error && <span className="input__error">{errorMessage}</span>}
     </div>

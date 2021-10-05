@@ -14,16 +14,16 @@ import { experimentGet, experimentPost } from './experimentActions';
 import { noop } from 'helper/noop';
 
 const TABS = [
-  { title: 'New', component: TestNew},
-  { title: 'Data Generator', component: TestDataGen},
-  { title: 'Global Modal', component: TestGlobalModal},
-  { title: 'Dynamic Form', component: TestDynamicForm},
-  { title: 'Wizard', component: TestDynamicWizard}
+  { title: 'Wizard', component: TestDynamicWizard },
+  { title: 'New', component: TestNew },
+  { title: 'Data Generator', component: TestDataGen },
+  { title: 'Global Modal', component: TestGlobalModal },
+  { title: 'Dynamic Form', component: TestDynamicForm }
 ];
 
 const TestApi = () => {
   const dispatch = useDispatch();
-  const experimentData = useSelector(state => state.experiment);
+  const experimentData = useSelector((state) => state.experiment);
 
   const runGet = () => {
     dispatch(experimentGet());
@@ -36,7 +36,7 @@ const TestApi = () => {
     <div className="container--center">
       <Button label="Get Api" onClick={runGet} />
       <Button label="Post Api" onClick={runPost} />
-      <TextArea selected={experimentData ? JSON.stringify(experimentData) : ''} jsonType={true} onChange={noop}/>
+      <TextArea selected={experimentData ? JSON.stringify(experimentData) : ''} jsonType={true} onChange={noop} />
     </div>
   );
 };
@@ -46,7 +46,12 @@ const Experiment = () => {
 
   return (
     <Page sidePanelContent={TestApi()}>
-      <Tabs data={TABS} onTabSwitch={() => { dispatch(dismissAlert());} }/>
+      <Tabs
+        data={TABS}
+        onTabSwitch={() => {
+          dispatch(dismissAlert());
+        }}
+      />
     </Page>
   );
 };

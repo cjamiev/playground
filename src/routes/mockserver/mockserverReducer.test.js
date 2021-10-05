@@ -56,9 +56,7 @@ describe('mockserverReducer', () => {
   it('LOAD_MOCKREQUESTS', () => {
     const action = {
       type: LOAD_MOCKREQUESTS,
-      data: [
-        {url: '/test', method: 'POST', responsePath: './storage/mock/responses/test.json'}
-      ]
+      data: [{ url: '/test', method: 'POST', responsePath: './storage/mock/responses/test.json' }]
     };
     const result = mockserverReducer(mockserverInitialState, action);
 
@@ -71,14 +69,23 @@ describe('mockserverReducer', () => {
   it('DELETE_MOCK_ENDPOINT', () => {
     const action = {
       type: DELETE_MOCK_ENDPOINT,
-      endpoint: { method: 'GET', url: '/test2'}
+      endpoint: { method: 'GET', url: '/test2' }
     };
-    const result = mockserverReducer({ ...mockserverInitialState, mocks: [{ method: 'GET', url: '/test'}, { method: 'GET', url: '/test2'}] }, action);
+    const result = mockserverReducer(
+      {
+        ...mockserverInitialState,
+        mocks: [
+          { method: 'GET', url: '/test' },
+          { method: 'GET', url: '/test2' }
+        ]
+      },
+      action
+    );
 
     expect(result).toEqual({
       ...mockserverInitialState,
       message: action.data,
-      mocks: [{ method: 'GET', url: '/test'}]
+      mocks: [{ method: 'GET', url: '/test' }]
     });
   });
 

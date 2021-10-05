@@ -20,16 +20,19 @@ const loadGeneratorRecords = () => {
 };
 
 const updatedGeneratorRecords = (content) => {
-  const filteredContent = content.length > ZERO ? content.map(item => {
-    const filteredValue = {
-      parentBackgroundColor: item.value.parentBackgroundColor,
-      normalStyle: filterOutEmptyKeys(item.value.normalStyle),
-      hoverStyle: filterOutEmptyKeys(item.value.hoverStyle),
-      activeStyle: filterOutEmptyKeys(item.value.activeStyle)
-    };
+  const filteredContent =
+    content.length > ZERO
+      ? content.map((item) => {
+        const filteredValue = {
+          parentBackgroundColor: item.value.parentBackgroundColor,
+          normalStyle: filterOutEmptyKeys(item.value.normalStyle),
+          hoverStyle: filterOutEmptyKeys(item.value.hoverStyle),
+          activeStyle: filterOutEmptyKeys(item.value.activeStyle)
+        };
 
-    return { name: item.name, value: filteredValue };
-  }) : [];
+        return { name: item.name, value: filteredValue };
+      })
+      : [];
 
   return (dispatch) => {
     api
@@ -44,8 +47,4 @@ const updatedGeneratorRecords = (content) => {
   };
 };
 
-export {
-  LOAD_GENERATOR_RECORDS,
-  loadGeneratorRecords,
-  updatedGeneratorRecords
-};
+export { LOAD_GENERATOR_RECORDS, loadGeneratorRecords, updatedGeneratorRecords };

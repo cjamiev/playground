@@ -74,151 +74,101 @@ const parsedHoverStyle = {
 const parsedActiveStyle = {
   backgroundColor: 'rgba(255,255,255,0.5)'
 };
-const parsedNormalCSS = 'height: 50px;\nwidth: 10em;\nmargin: 5px 6px 7px 8px;\ntransition: all 1s linear 3s;\ntransform: rotate(90deg) translateX(1px) translateY(1px) scaleX(2) scaleY(2) skewX(2deg) skewY(2deg) ;\ntext-shadow: 9px 10px 11px #111111;\nfilter: blur(0px) brightness(50%) contrast(50%)  grayscale(50%)  hue-rotate(50deg)  invert(50%)  saturate(50%)  ;\nfont-size: 14px;\nbackground-color: rgba(17,17,17);\nbox-shadow: 1px 2px 3px 4px #ffffff;\nborder: 1px solid #000000;';
+const parsedNormalCSS =
+  'height: 50px;\nwidth: 10em;\nmargin: 5px 6px 7px 8px;\ntransition: all 1s linear 3s;\ntransform: rotate(90deg) translateX(1px) translateY(1px) scaleX(2) scaleY(2) skewX(2deg) skewY(2deg) ;\ntext-shadow: 9px 10px 11px #111111;\nfilter: blur(0px) brightness(50%) contrast(50%)  grayscale(50%)  hue-rotate(50deg)  invert(50%)  saturate(50%)  ;\nfont-size: 14px;\nbackground-color: rgba(17,17,17);\nbox-shadow: 1px 2px 3px 4px #ffffff;\nborder: 1px solid #000000;';
 const parsedHoverCSS = 'filter: blur(5px) ;';
 const parsedActiveCSS = 'background-color: rgba(255,255,255,0.5);';
 
 describe('helper (generator)', () => {
   it('getCurrentStyles - isHoverMode', () => {
-    const {
-      currentInlineStyle,
-      currentStyle,
-      normalCSS,
-      hoverCSS,
-      activeCSS
-    } = getCurrentStyles({...defaultParams, isHoverMode: true});
+    const { currentInlineStyle, currentStyle, normalCSS, hoverCSS, activeCSS } = getCurrentStyles({
+      ...defaultParams,
+      isHoverMode: true
+    });
 
-    expect(currentInlineStyle)
-      .toEqual({
-        ...parsedNormalStyle,
-        ...parsedHoverStyle
-      });
-    expect(currentStyle)
-      .toEqual(defaultParams.hoverStyle);
-    expect(normalCSS)
-      .toEqual(parsedNormalCSS);
-    expect(hoverCSS)
-      .toEqual(parsedHoverCSS);
-    expect(activeCSS)
-      .toEqual(parsedActiveCSS);
+    expect(currentInlineStyle).toEqual({
+      ...parsedNormalStyle,
+      ...parsedHoverStyle
+    });
+    expect(currentStyle).toEqual(defaultParams.hoverStyle);
+    expect(normalCSS).toEqual(parsedNormalCSS);
+    expect(hoverCSS).toEqual(parsedHoverCSS);
+    expect(activeCSS).toEqual(parsedActiveCSS);
   });
 
   it('getCurrentStyles - isActiveMode', () => {
-    const {
-      currentInlineStyle,
-      currentStyle,
-      normalCSS,
-      hoverCSS,
-      activeCSS
-    } = getCurrentStyles({...defaultParams, isActiveMode: true});
+    const { currentInlineStyle, currentStyle, normalCSS, hoverCSS, activeCSS } = getCurrentStyles({
+      ...defaultParams,
+      isActiveMode: true
+    });
 
-    expect(currentInlineStyle)
-      .toEqual({
-        ...parsedNormalStyle,
-        ...parsedActiveStyle
-      });
-    expect(currentStyle)
-      .toEqual(defaultParams.activeStyle);
-    expect(normalCSS)
-      .toEqual(parsedNormalCSS);
-    expect(hoverCSS)
-      .toEqual(parsedHoverCSS);
-    expect(activeCSS)
-      .toEqual(parsedActiveCSS);
+    expect(currentInlineStyle).toEqual({
+      ...parsedNormalStyle,
+      ...parsedActiveStyle
+    });
+    expect(currentStyle).toEqual(defaultParams.activeStyle);
+    expect(normalCSS).toEqual(parsedNormalCSS);
+    expect(hoverCSS).toEqual(parsedHoverCSS);
+    expect(activeCSS).toEqual(parsedActiveCSS);
   });
 
-
   it('getCurrentStyles - isHovering and isActive', () => {
-    const {
-      currentInlineStyle,
-      currentStyle,
-      normalCSS,
-      hoverCSS,
-      activeCSS
-    } = getCurrentStyles({...defaultParams, isHovering: true, isActive: true});
+    const { currentInlineStyle, currentStyle, normalCSS, hoverCSS, activeCSS } = getCurrentStyles({
+      ...defaultParams,
+      isHovering: true,
+      isActive: true
+    });
 
-    expect(currentInlineStyle)
-      .toEqual({
-        ...parsedNormalStyle,
-        ...parsedActiveStyle,
-        ...parsedHoverStyle
-      });
-    expect(currentStyle)
-      .toEqual(defaultParams.normalStyle);
-    expect(normalCSS)
-      .toEqual(parsedNormalCSS);
-    expect(hoverCSS)
-      .toEqual(parsedHoverCSS);
-    expect(activeCSS)
-      .toEqual(parsedActiveCSS);
+    expect(currentInlineStyle).toEqual({
+      ...parsedNormalStyle,
+      ...parsedActiveStyle,
+      ...parsedHoverStyle
+    });
+    expect(currentStyle).toEqual(defaultParams.normalStyle);
+    expect(normalCSS).toEqual(parsedNormalCSS);
+    expect(hoverCSS).toEqual(parsedHoverCSS);
+    expect(activeCSS).toEqual(parsedActiveCSS);
   });
 
   it('getCurrentStyles - isHovering', () => {
-    const {
-      currentInlineStyle,
-      currentStyle,
-      normalCSS,
-      hoverCSS,
-      activeCSS
-    } = getCurrentStyles({...defaultParams, isHovering: true});
+    const { currentInlineStyle, currentStyle, normalCSS, hoverCSS, activeCSS } = getCurrentStyles({
+      ...defaultParams,
+      isHovering: true
+    });
 
-    expect(currentInlineStyle)
-      .toEqual({
-        ...parsedNormalStyle,
-        ...parsedHoverStyle
-      });
-    expect(currentStyle)
-      .toEqual(defaultParams.normalStyle);
-    expect(normalCSS)
-      .toEqual(parsedNormalCSS);
-    expect(hoverCSS)
-      .toEqual(parsedHoverCSS);
-    expect(activeCSS)
-      .toEqual(parsedActiveCSS);
+    expect(currentInlineStyle).toEqual({
+      ...parsedNormalStyle,
+      ...parsedHoverStyle
+    });
+    expect(currentStyle).toEqual(defaultParams.normalStyle);
+    expect(normalCSS).toEqual(parsedNormalCSS);
+    expect(hoverCSS).toEqual(parsedHoverCSS);
+    expect(activeCSS).toEqual(parsedActiveCSS);
   });
 
   it('getCurrentStyles - isActive', () => {
-    const {
-      currentInlineStyle,
-      currentStyle,
-      normalCSS,
-      hoverCSS,
-      activeCSS
-    } = getCurrentStyles({...defaultParams, isActive: true});
+    const { currentInlineStyle, currentStyle, normalCSS, hoverCSS, activeCSS } = getCurrentStyles({
+      ...defaultParams,
+      isActive: true
+    });
 
-    expect(currentInlineStyle)
-      .toEqual({
-        ...parsedNormalStyle,
-        ...parsedActiveStyle
-      });
-    expect(currentStyle)
-      .toEqual(defaultParams.normalStyle);
-    expect(normalCSS)
-      .toEqual(parsedNormalCSS);
-    expect(hoverCSS)
-      .toEqual(parsedHoverCSS);
-    expect(activeCSS)
-      .toEqual(parsedActiveCSS);
+    expect(currentInlineStyle).toEqual({
+      ...parsedNormalStyle,
+      ...parsedActiveStyle
+    });
+    expect(currentStyle).toEqual(defaultParams.normalStyle);
+    expect(normalCSS).toEqual(parsedNormalCSS);
+    expect(hoverCSS).toEqual(parsedHoverCSS);
+    expect(activeCSS).toEqual(parsedActiveCSS);
   });
 
   it('getCurrentStyles - normal mode', () => {
-    const {
-      currentInlineStyle,
-      currentStyle,
-      normalCSS,
-      hoverCSS,
-      activeCSS
-    } = getCurrentStyles(defaultParams);
+    const { currentInlineStyle, currentStyle, normalCSS, hoverCSS, activeCSS } = getCurrentStyles(defaultParams);
 
-    expect(currentInlineStyle)
-      .toEqual(parsedNormalStyle);
-    expect(currentStyle)
-      .toEqual(defaultParams.normalStyle);
-    expect(normalCSS)
-      .toEqual(parsedNormalCSS);
-    expect(hoverCSS)
-      .toEqual(parsedHoverCSS);
-    expect(activeCSS)
-      .toEqual(parsedActiveCSS);
+    expect(currentInlineStyle).toEqual(parsedNormalStyle);
+    expect(currentStyle).toEqual(defaultParams.normalStyle);
+    expect(normalCSS).toEqual(parsedNormalCSS);
+    expect(hoverCSS).toEqual(parsedHoverCSS);
+    expect(activeCSS).toEqual(parsedActiveCSS);
   });
 });

@@ -1,5 +1,10 @@
 import { HTTP_STATUS } from 'constants/httpstatus';
-import { getNewMockFields, mapFieldsToNewMockPayload, mapConfigPayloadToFields, mapFieldsToConfigPayload } from './helper';
+import {
+  getNewMockFields,
+  mapFieldsToNewMockPayload,
+  mapConfigPayloadToFields,
+  mapFieldsToConfigPayload
+} from './helper';
 
 const newmockFields = [
   {
@@ -37,7 +42,7 @@ const newmockFields = [
     type: 'textarea',
     label: 'Headers',
     selected: JSON.stringify({
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json'
     }),
     jsonType: true,
@@ -48,7 +53,7 @@ const newmockFields = [
     id: 5,
     type: 'dropdown',
     label: 'Status Code',
-    values: Object.keys(HTTP_STATUS).map(item => {
+    values: Object.keys(HTTP_STATUS).map((item) => {
       return {
         label: String(HTTP_STATUS[item]),
         selected: Boolean(HTTP_STATUS.OK === HTTP_STATUS[item])
@@ -61,7 +66,7 @@ const newmockFields = [
     type: 'textarea',
     label: 'Body',
     selected: JSON.stringify({
-      'test': 'testing get'
+      test: 'testing get'
     }),
     jsonType: true,
     errorMessage: 'Please enter valid json',
@@ -73,11 +78,11 @@ const newmockFields = [
     label: 'Conditional Response',
     selected: JSON.stringify([
       {
-        'payload': {
-          'key': 'condition'
+        payload: {
+          key: 'condition'
         },
-        'body': {
-          'test': 'testing conditional post'
+        body: {
+          test: 'testing conditional post'
         }
       }
     ]),
@@ -96,12 +101,12 @@ const newmockPayload = {
     },
     response: {
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       status: 200,
       body: {
-        'test': 'testing get'
+        test: 'testing get'
       }
     }
   }
@@ -167,7 +172,7 @@ const configFields = [
     id: 6,
     type: 'dropdown',
     label: 'Status Code',
-    values: Object.keys(HTTP_STATUS).map(item => {
+    values: Object.keys(HTTP_STATUS).map((item) => {
       return {
         label: String(HTTP_STATUS[item]),
         selected: Boolean(HTTP_STATUS[item] === HTTP_STATUS.OK)
@@ -179,7 +184,7 @@ const configFields = [
     id: 7,
     type: 'textarea',
     label: 'Response',
-    selected: '{\"testing\":123}',
+    selected: '{"testing":123}',
     jsonType: true,
     errorMessage: 'Please enter valid json',
     orderSeq: 7
@@ -193,7 +198,7 @@ const configPayload = {
   error: false,
   overrideUrls: ['api/test', 'api/test2'],
   overrideStatusCode: 200,
-  overrideResponse: { testing: 123}
+  overrideResponse: { testing: 123 }
 };
 
 describe('helper (mockserver)', () => {

@@ -14,12 +14,12 @@ const NAV_ITEMS = Object.values(ROUTES);
 
 const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) => {
   const dispatch = useDispatch();
-  const { isSidePanelOpen } = useSelector(state => state.global);
+  const { isSidePanelOpen } = useSelector((state) => state.global);
   const history = useHistory();
-  const currentPage = NAV_ITEMS.find(item => item.url === history.location.pathname);
+  const currentPage = NAV_ITEMS.find((item) => item.url === history.location.pathname);
 
   const toggleSidePanel = () => {
-    if(isSidePanelOpen) {
+    if (isSidePanelOpen) {
       dispatch(closeSidePanel());
     } else {
       dispatch(openSidePanel());

@@ -26,7 +26,7 @@ const TestGlobalModal = () => {
           {
             label: 'one',
             classProps: { classColor: 'primary' },
-            action: getAction('test modalIndex:'+ modalIndex)
+            action: getAction('test modalIndex:' + modalIndex)
           },
           {
             label: 'two',
@@ -40,7 +40,7 @@ const TestGlobalModal = () => {
         ]
       })
     );
-    setModalIndex(previousModalIndex => previousModalIndex + ONE);
+    setModalIndex((previousModalIndex) => previousModalIndex + ONE);
   };
 
   return (

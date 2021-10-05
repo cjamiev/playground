@@ -5,8 +5,11 @@ import Dropdown from './Dropdown';
 const ZERO = 0;
 const defaultProps = {
   id: 1,
-  label:'Dropdown',
-  values: [{ label:'item1', selected: false}, { label:'item2', selected: false}],
+  label: 'Dropdown',
+  values: [
+    { label: 'item1', selected: false },
+    { label: 'item2', selected: false }
+  ],
   onChange: jest.fn()
 };
 
@@ -21,6 +24,12 @@ describe('Dropdown', () => {
 
     const itemOne = screen.getByText(defaultProps.values[ZERO].label);
     fireEvent.click(itemOne);
-    expect(defaultProps.onChange).toHaveBeenCalledWith({id: defaultProps.id, values: [{ label:'item1', selected: true}, { label:'item2', selected: false}]});
+    expect(defaultProps.onChange).toHaveBeenCalledWith({
+      id: defaultProps.id,
+      values: [
+        { label: 'item1', selected: true },
+        { label: 'item2', selected: false }
+      ]
+    });
   });
 });

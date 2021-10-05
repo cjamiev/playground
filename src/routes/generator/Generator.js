@@ -37,7 +37,7 @@ const Generator = () => {
   const [activeStyle, setActiveStyle] = useState(ALL_CSS);
   const [parentBackgroundColor, setParentBackgroundColor] = useState('#ffffff');
   const dispatch = useDispatch();
-  const { generatorRecords } = useSelector(state => state.generator);
+  const { generatorRecords } = useSelector((state) => state.generator);
 
   useEffect(() => {
     dispatch(loadGeneratorRecords());
@@ -45,46 +45,45 @@ const Generator = () => {
 
   const isHoverMode = mode === ONE;
   const isActiveMode = mode === TWO;
-  const {
-    normalCSS,
-    hoverCSS,
-    activeCSS,
-    currentInlineStyle,
-    currentStyle,
-    ariaLabel
-  } = getCurrentStyles({ normalStyle, hoverStyle, activeStyle, isHoverMode, isHovering, isActiveMode, isActive });
+  const { normalCSS, hoverCSS, activeCSS, currentInlineStyle, currentStyle, ariaLabel } = getCurrentStyles({
+    normalStyle,
+    hoverStyle,
+    activeStyle,
+    isHoverMode,
+    isHovering,
+    isActiveMode,
+    isActive
+  });
   const copyCSS = `.name {\n${normalCSS}\n}\n\n.name:hover {\n${hoverCSS}\n}\n\n.name:active {\n${activeCSS}\n}`;
 
   const handleChange = ({ id, selected, values }) => {
-    if(isHoverMode) {
-      const updatedStyle = values ?
-        {
+    if (isHoverMode) {
+      const updatedStyle = values
+        ? {
           ...hoverStyle,
-          [id]: values.find(item => item.selected).label
+          [id]: values.find((item) => item.selected).label
         }
         : {
           ...hoverStyle,
           [id]: selected
         };
       setHoverStyle(updatedStyle);
-    }
-    else if(isActiveMode) {
-      const updatedStyle = values ?
-        {
+    } else if (isActiveMode) {
+      const updatedStyle = values
+        ? {
           ...activeStyle,
-          [id]: values.find(item => item.selected).label
+          [id]: values.find((item) => item.selected).label
         }
         : {
           ...activeStyle,
           [id]: selected
         };
       setActiveStyle(updatedStyle);
-    }
-    else {
-      const updatedStyle = values ?
-        {
+    } else {
+      const updatedStyle = values
+        ? {
           ...normalStyle,
-          [id]: values.find(item => item.selected).label
+          [id]: values.find((item) => item.selected).label
         }
         : {
           ...normalStyle,
@@ -103,9 +102,9 @@ const Generator = () => {
   };
 
   const handleSelectRecord = (selectedName) => {
-    const matched = generatorRecords.find(item => item.name === selectedName);
+    const matched = generatorRecords.find((item) => item.name === selectedName);
     setName(selectedName);
-    if(matched) {
+    if (matched) {
       setNormalStyle(matched.value.normalStyle);
       setHoverStyle(matched.value.hoverStyle);
       setActiveStyle(matched.value.activeStyle);
@@ -114,27 +113,44 @@ const Generator = () => {
   };
 
   const handleSubmit = (selectedName) => {
-    const filteredRecords = generatorRecords.filter(item => item.name !== selectedName);
-    const updatedRecords = [...filteredRecords, { name, value: { normalStyle, hoverStyle, activeStyle, parentBackgroundColor }}];
+    const filteredRecords = generatorRecords.filter((item) => item.name !== selectedName);
+    const updatedRecords = [
+      ...filteredRecords,
+      { name, value: { normalStyle, hoverStyle, activeStyle, parentBackgroundColor } }
+    ];
 
     dispatch(updatedGeneratorRecords(updatedRecords));
   };
 
   const handleDelete = (selectedName) => {
-    const filteredRecords = generatorRecords.filter(item => item.name !== selectedName);
+    const filteredRecords = generatorRecords.filter((item) => item.name !== selectedName);
 
     dispatch(updatedGeneratorRecords(filteredRecords));
   };
 
-  const records = generatorRecords.map(item => {
+  const records = generatorRecords.map((item) => {
     return { label: item.name, selected: false };
   });
 
   return (
-    <Page sidePanelContent={<GeneratorSidePanel records={records} selectedName={name} onSelectRecord={handleSelectRecord} onSubmit={handleSubmit} onDelete={handleDelete} />} >
+    <Page
+      sidePanelContent={
+        <GeneratorSidePanel
+          records={records}
+          selectedName={name}
+          onSelectRecord={handleSelectRecord}
+          onSubmit={handleSubmit}
+          onDelete={handleDelete}
+        />
+      }
+    >
       <div className="generator">
         <div className="generator__form_container">
-          <Switch data={[{ label: 'Normal'}, { label: 'Hover'}, { label: 'Active'}]} switchIndex={mode} onToggleSwitch={handleMode} />
+          <Switch
+            data={[{ label: 'Normal' }, { label: 'Hover' }, { label: 'Active' }]}
+            switchIndex={mode}
+            onToggleSwitch={handleMode}
+          />
           <GeneratorForm style={currentStyle} onChange={handleChange} />
         </div>
         <div className="generator__result_container">
@@ -143,13 +159,20 @@ const Generator = () => {
             <div
               style={currentInlineStyle}
               aria-label={ariaLabel}
-              onMouseOver={() => { !isHoverMode && setIsHovering(true);}}
+              onMouseOver={() => {
+                !isHoverMode && setIsHovering(true);
+              }}
               onMouseOut={() => {
                 !isHoverMode && setIsHovering(false);
                 !isActiveMode && setIsActive(false);
               }}
-              onMouseDown={() => { !isActiveMode && setIsActive(true);}}
-              onMouseUp={() => {!isActiveMode && setIsActive(false);}}>
+              onMouseDown={() => {
+                !isActiveMode && setIsActive(true);
+              }}
+              onMouseUp={() => {
+                !isActiveMode && setIsActive(false);
+              }}
+            >
               Test Area
             </div>
           </div>
@@ -158,9 +181,10 @@ const Generator = () => {
           <Button
             label="Copy"
             classColor="primary"
-            onClick={
-              () => { copyToClipboard(copyCSS); }
-            } />
+            onClick={() => {
+              copyToClipboard(copyCSS);
+            }}
+          />
           <h2>Normal CSS</h2>
           <pre className="generator__generated_css">{normalCSS}</pre>
           <h2>Hover CSS</h2>

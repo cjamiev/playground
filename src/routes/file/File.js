@@ -21,58 +21,79 @@ const File = () => {
   const [content, setContent] = useState('');
   const [previous, setPrevious] = useState('');
   const dispatch = useDispatch();
-  const { directory, file } = useSelector(state => state.file);
+  const { directory, file } = useSelector((state) => state.file);
 
   useEffect(() => {
     dispatch(loadDirectory());
   }, [dispatch]);
 
   useEffect(() => {
-    if(name) {
+    if (name) {
       setContent(file);
       setPrevious(file);
     }
   }, [name, file]);
 
-  const handleNameChange = ({selected}) => {
-    const selectedFile = directory.find(item => item === selected);
-    if(selectedFile) {
+  const handleNameChange = ({ selected }) => {
+    const selectedFile = directory.find((item) => item === selected);
+    if (selectedFile) {
       dispatch(loadFile(selected));
     }
     setName(selected);
   };
 
-  const files = directory.map(item => {
-    return { label:item, value: item, selected: false };
+  const files = directory.map((item) => {
+    return { label: item, value: item, selected: false };
   });
 
   return (
     <Page
-      sidePanelContent={<FileSidePanel content={content} onChange={(updated => { setContent(updated);})} />}
+      sidePanelContent={
+        <FileSidePanel
+          content={content}
+          onChange={(updated) => {
+            setContent(updated);
+          }}
+        />
+      }
     >
       <Dropdown
-        label='Select an existing file'
+        label="Select an existing file"
         values={files}
         onChange={({ values }) => {
-          const selectedFile = values.find(item => item.selected);
+          const selectedFile = values.find((item) => item.selected);
           setName(selectedFile.value);
           dispatch(loadFile(selectedFile.value));
           dispatch(dismissAlert());
         }}
       />
-      <Text placeholder='Enter File Name' selected={name} onChange={handleNameChange} />
-      <IconButton type={ICON_TYPES.SAVE}
+      <Text placeholder="Enter File Name" selected={name} onChange={handleNameChange} />
+      <IconButton
+        type={ICON_TYPES.SAVE}
         onClick={() => {
-          if(name && content) {
+          if (name && content) {
             dispatch(writeFile(name, content));
           }
-        }} />
-      <IconButton type={ICON_TYPES.COPY} onClick={() => { copyToClipboard(content); }} />
-      <IconButton type={ICON_TYPES.UNDO} onClick={() => {setContent(previous);}} />
+        }}
+      />
+      <IconButton
+        type={ICON_TYPES.COPY}
+        onClick={() => {
+          copyToClipboard(content);
+        }}
+      />
+      <IconButton
+        type={ICON_TYPES.UNDO}
+        onClick={() => {
+          setContent(previous);
+        }}
+      />
       <TextArea
-        ariaLabel='Content text area'
+        ariaLabel="Content text area"
         selected={content}
-        onChange={({ selected }) => { setContent(selected); }}
+        onChange={({ selected }) => {
+          setContent(selected);
+        }}
       />
     </Page>
   );

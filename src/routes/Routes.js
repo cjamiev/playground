@@ -16,7 +16,7 @@ const Routes = React.memo(() => {
     <Switch>
       <Route exact path="/">
         <Redirect to={ROUTES.HOME.url} />
-      </ Route>
+      </Route>
       <Route path={ROUTES.HOME.url} component={Home} />
       <Route path={ROUTES.CLIPBOARD.url} component={Clipboard} />
       <Route path={ROUTES.EXPERIMENT.url} component={Experiment} />

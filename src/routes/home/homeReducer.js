@@ -1,6 +1,4 @@
-import {
-  LOAD_HOME
-} from './homeActions';
+import { LOAD_HOME } from './homeActions';
 
 export const homeInitialState = {
   todos: [],

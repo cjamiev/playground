@@ -9,17 +9,18 @@ const Tabs = React.memo(({ data, onTabSwitch = noop }) => {
   const TabComponent = data[tabIndex].component;
 
   const renderTabs = data.map((item, itemIndex) => {
-    const tabClass = tabIndex === itemIndex ? 'tabs__item tabs__item--active': 'tabs__item';
+    const tabClass = tabIndex === itemIndex ? 'tabs__item tabs__item--active' : 'tabs__item';
 
     return (
       <li
         key={item.title}
         className={tabClass}
         aria-current="page"
-        onClick={ () => {
+        onClick={() => {
           setTabIndex(itemIndex);
           onTabSwitch();
-        }} >
+        }}
+      >
         {item.title}
       </li>
     );
@@ -27,9 +28,7 @@ const Tabs = React.memo(({ data, onTabSwitch = noop }) => {
 
   return (
     <>
-      <ul className="tabs">
-        {renderTabs}
-      </ul>
+      <ul className="tabs">{renderTabs}</ul>
       {<TabComponent />}
     </>
   );

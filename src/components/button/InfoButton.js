@@ -11,22 +11,19 @@ const InfoButton = ({ title = 'Info', content }) => {
   const dispatch = useDispatch();
 
   const showContent = () => {
-    dispatch(openGlobalModal({
-      title,
-      message: content
-    }));
+    dispatch(
+      openGlobalModal({
+        title,
+        message: content
+      })
+    );
   };
 
   return (
     <button className="btn btn__info-icon" onClick={showContent}>
-      <svg
-        height={INFO_HEIGHT}
-        width={INFO_WIDTH}
-        viewBox={INFO_VIEWBOX}
-      >
+      <svg height={INFO_HEIGHT} width={INFO_WIDTH} viewBox={INFO_VIEWBOX}>
         <InfoIcon />
       </svg>
-
     </button>
   );
 };

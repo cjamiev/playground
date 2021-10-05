@@ -1,9 +1,7 @@
 import { toDashCaseFromCamelCase } from 'stringHelper';
 import { filterOutEmptyKeys } from 'objectHelper';
 import { hexToRGB } from 'components/form/Color';
-import {
-  OPACITY_MAX
-} from 'constants/css';
+import { OPACITY_MAX } from 'constants/css';
 
 const ZERO = 0;
 const ONE = 1;
@@ -11,7 +9,7 @@ const ONE = 1;
 const toCssString = (style) => {
   const cssProperties = Object.keys(style);
   const mergedProperties = cssProperties
-    .map(key => {
+    .map((key) => {
       return `${toDashCaseFromCamelCase(key)}: ${style[key]};\n`;
     })
     .join('');
@@ -20,15 +18,21 @@ const toCssString = (style) => {
 };
 
 const getPixelProperties = ({ first, second, third, fourth }) => {
-  if(!first || !second || !third || !fourth) {
+  if (!first || !second || !third || !fourth) {
     return;
   }
 
   return `${first}px ${second}px ${third}px ${fourth}px`;
 };
 
-const getBoxShadowProperty = ({ horizontalBoxShadow, verticalBoxShadow, blurRadiusBoxShadow, spreadBoxShadow, colorBoxShadow }) => {
-  if(!horizontalBoxShadow || !verticalBoxShadow || !blurRadiusBoxShadow || !spreadBoxShadow || !colorBoxShadow) {
+const getBoxShadowProperty = ({
+  horizontalBoxShadow,
+  verticalBoxShadow,
+  blurRadiusBoxShadow,
+  spreadBoxShadow,
+  colorBoxShadow
+}) => {
+  if (!horizontalBoxShadow || !verticalBoxShadow || !blurRadiusBoxShadow || !spreadBoxShadow || !colorBoxShadow) {
     return;
   }
 
@@ -36,7 +40,7 @@ const getBoxShadowProperty = ({ horizontalBoxShadow, verticalBoxShadow, blurRadi
 };
 
 const getTextShadowProperty = ({ horizontalTextShadow, verticalTextShadow, blurRadiusTextShadow, colorTextShadow }) => {
-  if(!horizontalTextShadow || !verticalTextShadow || !blurRadiusTextShadow || !colorTextShadow) {
+  if (!horizontalTextShadow || !verticalTextShadow || !blurRadiusTextShadow || !colorTextShadow) {
     return;
   }
 
@@ -67,8 +71,13 @@ const getTransformProperty = ({ rotate, translateX, translateY, scaleX, scaleY, 
   return `${transformRotate}${transformTranslateX}${transformTranslateY}${transformScaleX}${transformScaleY}${transformSkewX}${transformSkewY}`;
 };
 
-const getTransitionProperty = ({ transitionProperty, transitionDuration, transitionTimingFunction, transitionDelay}) => {
-  if(!transitionProperty || !transitionDuration || !transitionTimingFunction || !transitionDelay) {
+const getTransitionProperty = ({
+  transitionProperty,
+  transitionDuration,
+  transitionTimingFunction,
+  transitionDelay
+}) => {
+  if (!transitionProperty || !transitionDuration || !transitionTimingFunction || !transitionDelay) {
     return;
   }
 
@@ -76,15 +85,15 @@ const getTransitionProperty = ({ transitionProperty, transitionDuration, transit
 };
 
 const getLengthProperty = (length) => {
-  if(!length) {
+  if (!length) {
     return;
   }
 
-  return !isNaN(length) ? `${length}px`: length;
+  return !isNaN(length) ? `${length}px` : length;
 };
 
-const getBorderProperty = ({borderThickness, borderStyle, borderColor}) => {
-  if(!borderThickness || !borderStyle || !borderColor) {
+const getBorderProperty = ({ borderThickness, borderStyle, borderColor }) => {
+  if (!borderThickness || !borderStyle || !borderColor) {
     return;
   }
 
@@ -92,9 +101,9 @@ const getBorderProperty = ({borderThickness, borderStyle, borderColor}) => {
 };
 
 const getColorProperty = (color, opacity) => {
-  if(!color.red) {
+  if (!color.red) {
     return;
-  } else if(opacity) {
+  } else if (opacity) {
     return `rgba(${color.red},${color.green},${color.blue},${opacity})`;
   } else {
     return `rgba(${color.red},${color.green},${color.blue})`;
@@ -156,17 +165,38 @@ const getInlineStyle = ({
   const normalizedOpacity = Number(opacity) / OPACITY_MAX;
 
   const style = {
-    border: getBorderProperty({borderThickness, borderStyle, borderColor}),
-    borderRadius: getPixelProperties({ first: topLeftRadius, second: topRightRadius, third: bottomRightRadius, fourth: bottomLeftRadius }),
-    boxShadow: getBoxShadowProperty({horizontalBoxShadow, verticalBoxShadow, blurRadiusBoxShadow, spreadBoxShadow, colorBoxShadow}),
+    border: getBorderProperty({ borderThickness, borderStyle, borderColor }),
+    borderRadius: getPixelProperties({
+      first: topLeftRadius,
+      second: topRightRadius,
+      third: bottomRightRadius,
+      fourth: bottomLeftRadius
+    }),
+    boxShadow: getBoxShadowProperty({
+      horizontalBoxShadow,
+      verticalBoxShadow,
+      blurRadiusBoxShadow,
+      spreadBoxShadow,
+      colorBoxShadow
+    }),
     backgroundColor: getColorProperty(rgbColor, normalizedOpacity),
     color: fontColor,
     fontSize: fontSize && `${fontSize}px`,
     textAlign,
     filter: getFilterProperty({ blur, brightness, contrast, grayscale, hueRotate, invert, saturate }),
-    textShadow: getTextShadowProperty({ horizontalTextShadow, verticalTextShadow, blurRadiusTextShadow, colorTextShadow }),
+    textShadow: getTextShadowProperty({
+      horizontalTextShadow,
+      verticalTextShadow,
+      blurRadiusTextShadow,
+      colorTextShadow
+    }),
     transform: getTransformProperty({ rotate, translateX, translateY, scaleX, scaleY, skewX, skewY }),
-    transition: getTransitionProperty({ transitionProperty, transitionDuration, transitionTimingFunction, transitionDelay}),
+    transition: getTransitionProperty({
+      transitionProperty,
+      transitionDuration,
+      transitionTimingFunction,
+      transitionDelay
+    }),
     margin: getPixelProperties({ first: marginTop, second: marginRight, third: marginBottom, fourth: marginLeft }),
     padding: getPixelProperties({ first: paddingTop, second: paddingRight, third: paddingBottom, fourth: paddingLeft }),
     width: getLengthProperty(width),
@@ -176,7 +206,15 @@ const getInlineStyle = ({
   return filterOutEmptyKeys(style);
 };
 
-export const getCurrentStyles = ({ normalStyle, hoverStyle, activeStyle, isHoverMode, isHovering, isActiveMode, isActive }) => {
+export const getCurrentStyles = ({
+  normalStyle,
+  hoverStyle,
+  activeStyle,
+  isHoverMode,
+  isHovering,
+  isActiveMode,
+  isActive
+}) => {
   const inlineNormalStyle = getInlineStyle(normalStyle);
   const inlineHoverStyle = getInlineStyle(hoverStyle);
   const inlineActiveStyle = getInlineStyle(activeStyle);
@@ -184,45 +222,45 @@ export const getCurrentStyles = ({ normalStyle, hoverStyle, activeStyle, isHover
   const hoverCSS = toCssString(inlineHoverStyle);
   const activeCSS = toCssString(inlineActiveStyle);
 
-  if(isHoverMode) {
+  if (isHoverMode) {
     return {
-      currentInlineStyle: { ...inlineNormalStyle, ...inlineHoverStyle},
+      currentInlineStyle: { ...inlineNormalStyle, ...inlineHoverStyle },
       currentStyle: hoverStyle,
       normalCSS,
       hoverCSS,
       activeCSS,
       ariaLabel: 'Hover Mode effect is on'
     };
-  } else if(isActiveMode) {
+  } else if (isActiveMode) {
     return {
-      currentInlineStyle: { ...inlineNormalStyle, ...inlineActiveStyle},
+      currentInlineStyle: { ...inlineNormalStyle, ...inlineActiveStyle },
       currentStyle: activeStyle,
       normalCSS,
       hoverCSS,
       activeCSS,
       ariaLabel: 'Active Mode effect is on'
     };
-  } else if(isHovering && isActive) {
+  } else if (isHovering && isActive) {
     return {
-      currentInlineStyle: { ...inlineNormalStyle, ...inlineHoverStyle, ...inlineActiveStyle},
+      currentInlineStyle: { ...inlineNormalStyle, ...inlineHoverStyle, ...inlineActiveStyle },
       currentStyle: normalStyle,
       normalCSS,
       hoverCSS,
       activeCSS,
       ariaLabel: 'isHovering and isActive effect is on'
     };
-  } else if(isHovering) {
+  } else if (isHovering) {
     return {
-      currentInlineStyle: { ...inlineNormalStyle, ...inlineHoverStyle},
+      currentInlineStyle: { ...inlineNormalStyle, ...inlineHoverStyle },
       currentStyle: normalStyle,
       normalCSS,
       hoverCSS,
       activeCSS,
       ariaLabel: 'isHovering effect is on'
     };
-  } else if(isActive) {
+  } else if (isActive) {
     return {
-      currentInlineStyle: { ...inlineNormalStyle, ...inlineActiveStyle},
+      currentInlineStyle: { ...inlineNormalStyle, ...inlineActiveStyle },
       currentStyle: normalStyle,
       normalCSS,
       hoverCSS,

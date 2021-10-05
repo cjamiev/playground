@@ -125,7 +125,11 @@ export const testData = [
     type: 'swapselect',
     labelOne: 'list1',
     labelTwo: 'list2',
-    listOne: [{ label: 'grocery', selected: false }, { label: 'shoes', selected: false }, { label: 'cars', selected: false }],
+    listOne: [
+      { label: 'grocery', selected: false },
+      { label: 'shoes', selected: false },
+      { label: 'cars', selected: false }
+    ],
     listTwo: [{ label: 'electronics', selected: false }],
     orderSeq: 11
   }

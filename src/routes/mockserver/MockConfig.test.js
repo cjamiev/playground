@@ -3,6 +3,7 @@ import { reduxTestWrapper } from 'testHelper';
 import api from 'api';
 import MockConfig from './MockConfig';
 
+const TWO = 2;
 const mockserverConfig = {
   delay: 1000,
   delayUrls: ['api/test', 'api/test2'],
@@ -10,7 +11,7 @@ const mockserverConfig = {
   error: false,
   overrideUrls: ['api/test', 'api/test2'],
   overrideStatusCode: 200,
-  overrideResponse: { testing: 123}
+  overrideResponse: { testing: 123 }
 };
 
 jest.mock('api');
@@ -37,7 +38,7 @@ const mockConfigProps = {
 
 describe('MockConfig', () => {
   it('checks page renders', () => {
-    reduxTestWrapper(MockConfig, {}, mockConfigProps );
+    reduxTestWrapper(MockConfig, {}, mockConfigProps);
 
     const submitBtn = screen.getByText('Submit');
     fireEvent.click(submitBtn);
@@ -50,6 +51,6 @@ describe('MockConfig', () => {
 
     fireEvent.click(screen.getByLabelText('Yes radio option is not selected'));
 
-    expect(screen.getAllByLabelText('Yes radio option is selected').length).toBe(2);
+    expect(screen.getAllByLabelText('Yes radio option is selected').length).toBe(TWO);
   });
 });

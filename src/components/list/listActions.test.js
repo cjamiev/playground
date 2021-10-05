@@ -11,6 +11,9 @@ import {
 } from './listActions';
 import { CREATE_ALERT } from 'components/alert/alertActions';
 
+const ONE = 1;
+const TWO = 2;
+const THREE = 3;
 const error = new Error('Test Message');
 const dispatch = jest.fn();
 const errorObject = {
@@ -21,7 +24,7 @@ const errorObject = {
 jest.mock('api');
 api.get.mockResolvedValue({
   data: {
-    data: [1,2,3],
+    data: [ONE, TWO, THREE],
     message: 'test message'
   }
 });
@@ -31,7 +34,7 @@ describe('listActions', () => {
     loadCommand()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_COMMAND_RESULT, data: [1,2,3]});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_COMMAND_RESULT, data: [ONE, TWO, THREE] });
     });
   });
 
@@ -48,7 +51,7 @@ describe('listActions', () => {
     executeCommand('file', 'args')(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: EXECUTE_COMMAND_RESULT, data: 'test message'});
+      expect(dispatch).toHaveBeenCalledWith({ type: EXECUTE_COMMAND_RESULT, data: 'test message' });
     });
   });
 
@@ -57,7 +60,7 @@ describe('listActions', () => {
     executeCommand('file', 'args')(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_COMMAND_RESULT, error:  error.message});
+      expect(dispatch).toHaveBeenCalledWith({ type: ERROR_COMMAND_RESULT, error: error.message });
     });
   });
 

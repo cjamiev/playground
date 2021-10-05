@@ -17,11 +17,14 @@ import {
   closeSidePanel
 } from './globalActions';
 
-const data = { key: 123};
+const ONE = 1;
+const TWO = 2;
+const THREE = 3;
+const data = { key: 123 };
 
 describe('globalActions', () => {
   it('updateGlobal', () => {
-    expect(updateGlobal([1,2,3])).toEqual({ type: UPDATE_GLOBAL_TIMER, data: [1,2,3] });
+    expect(updateGlobal([ONE, TWO, THREE])).toEqual({ type: UPDATE_GLOBAL_TIMER, data: [ONE, TWO, THREE] });
   });
 
   it('initializeTimer', () => {
@@ -35,7 +38,7 @@ describe('globalActions', () => {
   });
 
   it('closeGlobalModal', () => {
-    const result = closeGlobalModal(1);
+    const result = closeGlobalModal(ONE);
 
     expect(result).toEqual({ type: CLOSE_GLOBAL_MODAL, id: 1 });
   });

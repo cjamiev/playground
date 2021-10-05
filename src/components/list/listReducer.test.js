@@ -1,10 +1,9 @@
-import {
-  LOAD_COMMAND_RESULT,
-  EXECUTE_COMMAND_RESULT,
-  ERROR_COMMAND_RESULT,
-  CLEAR_COMMAND_RESULT
-} from './listActions';
+import { LOAD_COMMAND_RESULT, EXECUTE_COMMAND_RESULT, ERROR_COMMAND_RESULT, CLEAR_COMMAND_RESULT } from './listActions';
 import listReducer, { listInitialState } from './listReducer';
+
+const ONE = 1;
+const TWO = 2;
+const THREE = 3;
 
 describe('listReducer', () => {
   it('default', () => {
@@ -16,7 +15,7 @@ describe('listReducer', () => {
   it('LOAD_COMMAND_RESULT', () => {
     const action = {
       type: LOAD_COMMAND_RESULT,
-      data: [1,2,3]
+      data: [ONE, TWO, THREE]
     };
     const result = listReducer(listInitialState, action);
 

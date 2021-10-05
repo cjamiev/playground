@@ -7,16 +7,16 @@ const SwapSelect = ({ id, labelOne, labelTwo, listOne, listTwo, onChange }) => {
   const [listOneSelected, setListOne] = useState([]);
   const [listTwoSelected, setListTwo] = useState([]);
 
-  const onListOneChange = ({values}) => {
+  const onListOneChange = ({ values }) => {
     setListOne(values);
   };
-  const onListTwoChange = ({values}) => {
+  const onListTwoChange = ({ values }) => {
     setListTwo(values);
   };
 
   const onSwapRight = () => {
-    const updatedFilteredList = listOneSelected.filter(item => !item.selected);
-    const updatedAppendedList = listTwo.concat(listOneSelected.filter(item => item.selected));
+    const updatedFilteredList = listOneSelected.filter((item) => !item.selected);
+    const updatedAppendedList = listTwo.concat(listOneSelected.filter((item) => item.selected));
 
     setListOne([]);
     setListTwo([]);
@@ -24,8 +24,8 @@ const SwapSelect = ({ id, labelOne, labelTwo, listOne, listTwo, onChange }) => {
   };
 
   const onSwapLeft = () => {
-    const updatedFilteredList = listTwoSelected.filter(item => !item.selected);
-    const updatedAppendedList = listOne.concat(listTwoSelected.filter(item => item.selected));
+    const updatedFilteredList = listTwoSelected.filter((item) => !item.selected);
+    const updatedAppendedList = listOne.concat(listTwoSelected.filter((item) => item.selected));
 
     setListOne([]);
     setListTwo([]);
@@ -39,8 +39,18 @@ const SwapSelect = ({ id, labelOne, labelTwo, listOne, listTwo, onChange }) => {
       </div>
       <div className="swapselect-btn-grid">
         <div>
-          <Button label=">>" className="swapselect-swapright-btn" disabled={!listOneSelected.length} onClick={onSwapRight} />
-          <Button label="<<" className="swapselect-swapleft-btn" disabled={!listTwoSelected.length} onClick={onSwapLeft} />
+          <Button
+            label=">>"
+            className="swapselect-swapright-btn"
+            disabled={!listOneSelected.length}
+            onClick={onSwapRight}
+          />
+          <Button
+            label="<<"
+            className="swapselect-swapleft-btn"
+            disabled={!listTwoSelected.length}
+            onClick={onSwapLeft}
+          />
         </div>
       </div>
       <div className="swapselect-multiselect">

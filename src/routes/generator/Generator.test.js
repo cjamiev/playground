@@ -4,6 +4,7 @@ import { reduxTestWrapper, mockLocalStorage } from 'testHelper';
 import Generator from './Generator';
 import { ALL_CSS } from 'constants/css';
 
+const TWO = 2;
 const pathname = '/generator';
 const content = [
   {
@@ -95,7 +96,7 @@ describe('Generator', () => {
 
     fireEvent.click(activeSwitch);
     fireEvent.change(blurField, { target: { value: '5' } });
-    expect(screen.getAllByText(shownCSS)).toHaveLength(2);
+    expect(screen.getAllByText(shownCSS)).toHaveLength(TWO);
   });
 
   it('handle Load', async () => {
@@ -210,7 +211,6 @@ describe('Generator', () => {
         }
       }
     ];
-
 
     expect(api.post).toHaveBeenCalledWith('/db', { filename: 'generator.json', content: JSON.stringify(result) });
   });

@@ -3,14 +3,13 @@ import { reduxTestWrapper, mockApi } from 'testHelper';
 import File from './File';
 
 const mockGet = (url) => {
-  if(url === '/file') {
+  if (url === '/file') {
     return Promise.resolve({
       data: {
         data: ['test.txt']
       }
     });
-  }
-  else {
+  } else {
     return Promise.resolve({
       data: {
         data: 'test file contents'

@@ -5,7 +5,7 @@ import NumberRange from './NumberRange';
 const defaultProps = {
   id: 1,
   label: 'test-label',
-  selected: { start: '', end: ''},
+  selected: { start: '', end: '' },
   min: 0,
   max: 10,
   error: false,
@@ -16,7 +16,7 @@ describe('NumberRange', () => {
   it('handle start', () => {
     simpleTestWrapper(NumberRange, defaultProps);
     const startInput = screen.getByLabelText(`${defaultProps.label} number range start`);
-    const expectedStartResult = { id: 1, selected: { start: '1', end: ''}, error: true };
+    const expectedStartResult = { id: 1, selected: { start: '1', end: '' }, error: true };
 
     fireEvent.change(startInput, { target: { value: '1' } });
 
@@ -26,7 +26,7 @@ describe('NumberRange', () => {
   it('handle end', () => {
     simpleTestWrapper(NumberRange, defaultProps);
     const endInput = screen.getByLabelText(`${defaultProps.label} number range end`);
-    const expectedEndResult = { id: 1, selected: { start: '', end: '5'}, error: false };
+    const expectedEndResult = { id: 1, selected: { start: '', end: '5' }, error: false };
 
     fireEvent.change(endInput, { target: { value: '5' } });
 
@@ -34,9 +34,9 @@ describe('NumberRange', () => {
   });
 
   it('valid range', () => {
-    simpleTestWrapper(NumberRange, {...defaultProps, selected: { start: '1', end: ''}});
+    simpleTestWrapper(NumberRange, { ...defaultProps, selected: { start: '1', end: '' } });
     const endInput = screen.getByLabelText(`${defaultProps.label} number range end`);
-    const expectedEndResult = { id: 1, selected: { start: '1', end: '5'}, error: false };
+    const expectedEndResult = { id: 1, selected: { start: '1', end: '5' }, error: false };
 
     fireEvent.change(endInput, { target: { value: '5' } });
 
@@ -44,9 +44,9 @@ describe('NumberRange', () => {
   });
 
   it('invalid range', () => {
-    simpleTestWrapper(NumberRange, {...defaultProps, selected: { start: '1', end: ''}});
+    simpleTestWrapper(NumberRange, { ...defaultProps, selected: { start: '1', end: '' } });
     const endInput = screen.getByLabelText(`${defaultProps.label} number range end`);
-    const expectedEndResult = { id: 1, selected: { start: '1', end: '0'}, error: true };
+    const expectedEndResult = { id: 1, selected: { start: '1', end: '0' }, error: true };
 
     fireEvent.change(endInput, { target: { value: '0' } });
 
@@ -54,9 +54,9 @@ describe('NumberRange', () => {
   });
 
   it('invalid range with letter', () => {
-    simpleTestWrapper(NumberRange, {...defaultProps, selected: { start: '1', end: ''}});
+    simpleTestWrapper(NumberRange, { ...defaultProps, selected: { start: '1', end: '' } });
     const endInput = screen.getByLabelText(`${defaultProps.label} number range end`);
-    const expectedEndResult = { id: 1, selected: { start: '1', end: 'a'}, error: true };
+    const expectedEndResult = { id: 1, selected: { start: '1', end: 'a' }, error: true };
 
     fireEvent.change(endInput, { target: { value: 'a' } });
 

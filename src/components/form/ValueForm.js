@@ -10,20 +10,41 @@ const ValueForm = ({ type, onChange }) => {
 
   return (
     <div>
-      <Text label='Name' selected={name} onChange={({selected}) => { setName(selected); }} />
-      {type === TYPE.COPY
-        ? <TextArea label="Value" selected={content} onChange={({ selected }) => { setContent(selected); }}/>
-        : <Text label='Value' selected={content} onChange={({selected}) => { setContent(selected); }} />
-      }
-      <Button label='Save' classColor='primary' onClick={
-        () => {
-          if(name && content) {
+      <Text
+        label="Name"
+        selected={name}
+        onChange={({ selected }) => {
+          setName(selected);
+        }}
+      />
+      {type === TYPE.COPY ? (
+        <TextArea
+          label="Value"
+          selected={content}
+          onChange={({ selected }) => {
+            setContent(selected);
+          }}
+        />
+      ) : (
+        <Text
+          label="Value"
+          selected={content}
+          onChange={({ selected }) => {
+            setContent(selected);
+          }}
+        />
+      )}
+      <Button
+        label="Save"
+        classColor="primary"
+        onClick={() => {
+          if (name && content) {
             onChange({ name, content });
             setName('');
             setContent('');
           }
-        }
-      } />
+        }}
+      />
     </div>
   );
 };

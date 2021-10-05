@@ -15,18 +15,39 @@ const Modal = (props) => {
     setContent(message);
   }, [message]);
 
-  const renderButtons = buttonList.map(item => {
-    if(item.label) {
+  const renderButtons = buttonList.map((item) => {
+    if (item.label) {
       return (
-        <Button key={item.label} label={item.label} {...item.classProps} onClick={() => { item.action(); beforeClose(); close(); } } />
+        <Button
+          key={item.label}
+          label={item.label}
+          {...item.classProps}
+          onClick={() => {
+            item.action();
+            beforeClose();
+            close();
+          }}
+        />
       );
     }
 
     return null;
   });
 
-  if(dispatchAction) {
-    renderButtons.push(<Button key={dispatchAction.label} label={dispatchAction.label} disabled={err} classColor="secondary" onClick={() => { dispatch(dispatchAction.action(dispatchAction.parse(content))); beforeClose(); close();} } />);
+  if (dispatchAction) {
+    renderButtons.push(
+      <Button
+        key={dispatchAction.label}
+        label={dispatchAction.label}
+        disabled={err}
+        classColor="secondary"
+        onClick={() => {
+          dispatch(dispatchAction.action(dispatchAction.parse(content)));
+          beforeClose();
+          close();
+        }}
+      />
+    );
   }
 
   const handleChange = ({ selected, error }) => {
@@ -34,19 +55,28 @@ const Modal = (props) => {
     setErr(error);
   };
 
-  const renderBody = editable ? <div className="modal__body"><TextArea ariaLabel='Modal text area' selected={content} jsonType={true} onChange={handleChange}/></div>: (<div className="modal__body">{content}</div>);
-  const renderTitle =
-    (<div className="modal__header">
+  const renderBody = editable ? (
+    <div className="modal__body">
+      <TextArea ariaLabel="Modal text area" selected={content} jsonType={true} onChange={handleChange} />
+    </div>
+  ) : (
+    <div className="modal__body">{content}</div>
+  );
+  const renderTitle = (
+    <div className="modal__header">
       <h2 className="modal__title">{title}</h2>
-    </div>);
-  const renderFooter =
-    (<div className="modal__footer">
-      {renderButtons}
-    </div>);
+    </div>
+  );
+  const renderFooter = <div className="modal__footer">{renderButtons}</div>;
 
   return (
     <div className="modal">
-      <CloseButton onClick={() => { beforeClose(); close();} } />
+      <CloseButton
+        onClick={() => {
+          beforeClose();
+          close();
+        }}
+      />
       {renderTitle}
       {renderBody}
       {renderFooter}

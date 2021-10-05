@@ -1,13 +1,12 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
-import {
-  LOAD_CLIPBOARD,
-  ERROR_CLIPBOARD,
-  loadClipboard,
-  updateClipboard
-} from './clipboardActions';
+import { LOAD_CLIPBOARD, ERROR_CLIPBOARD, loadClipboard, updateClipboard } from './clipboardActions';
 import { CREATE_ALERT } from 'components/alert/alertActions';
 
+const ONE = 1;
+const TWO = 2;
+const THREE = 3;
+const FOUR = 4;
 const error = new Error('Test Message');
 const dispatch = jest.fn();
 
@@ -38,7 +37,7 @@ describe('clipboardActions', () => {
     loadClipboard()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_CLIPBOARD, data: { one: [1,2,3], two: [2,3,4]}});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_CLIPBOARD, data: { one: [ONE, TWO, THREE], two: [TWO, THREE, FOUR] } });
     });
   });
 
@@ -52,11 +51,11 @@ describe('clipboardActions', () => {
   });
 
   it('updateClipboard', async () => {
-    updateClipboard({ test : 123 })(dispatch);
+    updateClipboard({ test: 123 })(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_CLIPBOARD, data: { test : 123 } });
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_CLIPBOARD, data: { test: 123 } });
     });
   });
 

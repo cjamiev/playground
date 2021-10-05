@@ -3,7 +3,7 @@ import { IconButton } from 'components/button';
 import { ICON_TYPES } from 'constants/icon';
 
 const SidePanel = ({ showSidePanel, sidePanelContent, isSidePanelWide, toggleSidePanel, title }) => {
-  if(!showSidePanel) {
+  if (!showSidePanel) {
     return null;
   }
 
@@ -12,14 +12,20 @@ const SidePanel = ({ showSidePanel, sidePanelContent, isSidePanelWide, toggleSid
 
   return (
     <div className={sidePanelClassName}>
-      {title && <header className={sidePanelHeaderClassName}>
-        {isSidePanelWide
-          ? <h1 className="sidepanel__title">{title}</h1>
-          : <h2 className="sidepanel__title">{title}</h2>}
-        {isSidePanelWide && <div className="sidepanel__button">
-          <IconButton type={ICON_TYPES.CLOSE} onClick={toggleSidePanel} />
-        </div>}
-      </header>}
+      {title && (
+        <header className={sidePanelHeaderClassName}>
+          {isSidePanelWide ? (
+            <h1 className="sidepanel__title">{title}</h1>
+          ) : (
+            <h2 className="sidepanel__title">{title}</h2>
+          )}
+          {isSidePanelWide && (
+            <div className="sidepanel__button">
+              <IconButton type={ICON_TYPES.CLOSE} onClick={toggleSidePanel} />
+            </div>
+          )}
+        </header>
+      )}
       {sidePanelContent}
     </div>
   );

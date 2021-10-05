@@ -31,7 +31,7 @@ const mockGet = jest.fn();
 jest.mock('api');
 api.get.mockResolvedValue({
   data: {
-    data: [{test:123}],
+    data: [{ test: 123 }],
     message: 'testing 123'
   }
 });
@@ -56,7 +56,7 @@ describe('mockserverActions', () => {
     loadMockServerConfig()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCKSERVER_CONFIG, data: [{ test: 123 }]});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCKSERVER_CONFIG, data: [{ test: 123 }] });
     });
   });
 
@@ -91,7 +91,7 @@ describe('mockserverActions', () => {
     loadMockRequests()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCKREQUESTS, data: [{ test: 123 }]});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCKREQUESTS, data: [{ test: 123 }] });
     });
   });
 
@@ -141,13 +141,12 @@ describe('mockserverActions', () => {
     });
   });
 
-
   it('loadMockResponse', async () => {
     const payload = { method: 'GET', url: '/api/test', responsePath: './filename' };
     loadMockResponse(payload)(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCK_RESPONSE, data: 'testing 123', payload});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCK_RESPONSE, data: 'testing 123', payload });
     });
   });
 
@@ -170,10 +169,10 @@ describe('mockserverActions', () => {
           method: 'GET'
         },
         response: {
-          headers: { content: 'application/json'},
+          headers: { content: 'application/json' },
           status: 200,
-          body: { test: 123},
-          conditionalResponse: { test: 124}
+          body: { test: 123 },
+          conditionalResponse: { test: 124 }
         }
       }
     };
@@ -235,7 +234,7 @@ describe('mockserverActions', () => {
     loadMockServerLog()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCKSERVER_LOG, data: [{ test: 123 }]});
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCKSERVER_LOG, data: [{ test: 123 }] });
     });
   });
 

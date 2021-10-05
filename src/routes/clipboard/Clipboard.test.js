@@ -13,40 +13,40 @@ const defaultStoreProps = {
     clipboard: {
       passwords: [
         {
-          'title': 'listOne',
-          'data': [
+          title: 'listOne',
+          data: [
             [
               {
-                'label': 'label1',
-                'type': 'link',
-                'value': 'www.url1.com'
+                label: 'label1',
+                type: 'link',
+                value: 'www.url1.com'
               },
               {
-                'label': 'username',
-                'type': 'copy',
-                'value': 'user'
+                label: 'username',
+                type: 'copy',
+                value: 'user'
               },
               {
-                'label': 'password',
-                'type': 'copy',
-                'value': 'password'
+                label: 'password',
+                type: 'copy',
+                value: 'password'
               }
             ],
             [
               {
-                'label': 'label2',
-                'type': 'link',
-                'value': 'www.url1.com'
+                label: 'label2',
+                type: 'link',
+                value: 'www.url1.com'
               },
               {
-                'label': 'username2',
-                'type': 'copy',
-                'value': 'user'
+                label: 'username2',
+                type: 'copy',
+                value: 'user'
               },
               {
-                'label': 'password2',
-                'type': 'copy',
-                'value': 'password'
+                label: 'password2',
+                type: 'copy',
+                value: 'password'
               }
             ]
           ]
