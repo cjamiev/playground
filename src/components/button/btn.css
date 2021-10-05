@@ -101,6 +101,10 @@
   border:none;
 }
 
+.btn--icon:active {
+  transform: translateY(5px) ;
+}
+
 .btn__info-icon {
   width: 39px;
   height: 39px;
@@ -111,4 +115,8 @@
 .btn__info-icon:hover {
   transform: scale(1.1);
   border: none;
+}
+
+.btn__info-icon:active {
+  transform: translateY(5px) ;
 }
