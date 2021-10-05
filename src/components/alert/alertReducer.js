@@ -14,8 +14,7 @@ const alertReducer = (state = alertInitialState, action) => {
       return {
         queue: [...state.queue, {
           id: state.queue.length,
-          content: action.data.content,
-          status: action.data.status
+          ...action.data
         }]
       };
     },

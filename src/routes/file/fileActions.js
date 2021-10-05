@@ -35,7 +35,7 @@ const writeFile = (filename, content) => {
     api
       .post('/file', { filename, content })
       .then((response) => {
-        dispatch(createAlert({ content: response.data.message, status: 'success' }));
+        dispatch(createAlert({ content: 'Updated', status: 'success' }));
         dispatch(loadDirectory());
       })
       .catch((error) => {

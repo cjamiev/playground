@@ -62,7 +62,7 @@ const FileSidePanel = ({ content, onChange }) => {
             if(isValid) {
               onChange(JSON.stringify(JSON.parse(content), undefined, TWO));
             }
-            const message = isValid ? 'Is Valid JSON' : 'Is NOT Valid JSON';
+            const message = isValid ? 'Valid' : 'NOT Valid';
             const status = isValid ? 'success' : 'error';
             dispatch(createAlert({ content: message, status }));
           }} />

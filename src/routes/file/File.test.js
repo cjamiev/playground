@@ -54,11 +54,11 @@ describe('File', () => {
 
     fireEvent.change(contentField, { target: { value: '1 2 3 4 5' } });
     fireEvent.click(validateBtn);
-    expect(screen.getByText('Is NOT Valid JSON')).toBeInTheDocument();
+    expect(screen.getByText('NOT Valid')).toBeInTheDocument();
 
     fireEvent.change(contentField, { target: { value: '{ "test": 123 }' } });
     fireEvent.click(validateBtn);
-    expect(screen.getByText('Is Valid JSON')).toBeInTheDocument();
+    expect(screen.getByText('Valid')).toBeInTheDocument();
   });
 
   it('handle sort', () => {

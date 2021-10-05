@@ -46,7 +46,7 @@ const errorObject = {
   status: 'error'
 };
 const successObject = {
-  content: 'testing 123',
+  content: 'Updated',
   status: 'success'
 };
 

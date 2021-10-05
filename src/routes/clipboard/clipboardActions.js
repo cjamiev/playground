@@ -23,7 +23,7 @@ const updateClipboard = (content) => {
     api
       .post('/db', { filename: 'clipboard.json', content: JSON.stringify(content) })
       .then((response) => {
-        dispatch(createAlert({ content: response.data.message, status: 'success' }));
+        dispatch(createAlert({ content: 'Updated', status: 'success' }));
         dispatch({ type: LOAD_CLIPBOARD, data: content });
       })
       .catch((error) => {

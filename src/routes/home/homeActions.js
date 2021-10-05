@@ -21,7 +21,7 @@ const updateHome = (content) => {
     api
       .post('/db', { filename: 'home.json', content: JSON.stringify(content) })
       .then((response) => {
-        dispatch(createAlert({ content: response.data.message, status: 'success' }));
+        dispatch(createAlert({ content: 'Updated', status: 'success' }));
         dispatch({ type: LOAD_HOME, data: content });
       })
       .catch((error) => {

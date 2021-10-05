@@ -34,7 +34,7 @@ const updatedGeneratorRecords = (content) => {
     api
       .post('/db', { filename: 'generator.json', content: JSON.stringify(filteredContent) })
       .then((response) => {
-        dispatch(createAlert({ content: response.data.message, status: 'success' }));
+        dispatch(createAlert({ content: 'Updated', status: 'success' }));
         dispatch({ type: LOAD_GENERATOR_RECORDS, data: filteredContent });
       })
       .catch((error) => {
