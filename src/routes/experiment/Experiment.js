@@ -14,10 +14,10 @@ import { experimentGet, experimentPost } from './experimentActions';
 import { noop } from 'helper/noop';
 
 const TABS = [
-  { title: 'Wizard', component: TestDynamicWizard },
   { title: 'New', component: TestNew },
   { title: 'Data Generator', component: TestDataGen },
   { title: 'Global Modal', component: TestGlobalModal },
+  { title: 'Wizard', component: TestDynamicWizard },
   { title: 'Dynamic Form', component: TestDynamicForm }
 ];
 
