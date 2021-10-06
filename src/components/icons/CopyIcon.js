@@ -5,18 +5,18 @@ const CopyIcon = () => {
     <g
       aria-label="copy"
       className="icon--stroke-six"
-      transform="matrix(0.41281468,0,0,0.41281468,-341.02303,-313.42179)"
+      transform="matrix(0.412,0,0,0.412,-341.023,-313.421)"
     >
       <rect
         className="icon--hollow"
-        width="79.515167"
-        height="109.04937"
-        x="850.42725"
-        y="774.26263"
-        rx="16.531063"
-        ry="20.193493"
+        width="79.515"
+        height="109.049"
+        x="850.427"
+        y="774.262"
+        rx="16.531"
+        ry="20.193"
       />
-      <rect className="icon--hollow" width="50.612587" height="24.864819" x="864.87854" y="763.33545" rx="0" ry="0" />
+      <rect className="icon--hollow" width="50.612" height="24.864" x="864.878" y="763.335" rx="0" ry="0" />
     </g>
   );
 };

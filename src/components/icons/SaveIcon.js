@@ -5,34 +5,34 @@ const SaveIcon = () => {
     <g
       aria-label="save"
       className="icon--stroke-ten"
-      transform="matrix(0.40350631,0,0,0.40350631,-328.05747,-301.96186)"
+      transform="matrix(0.403,0,0,0.403,-328.057,-301.961)"
     >
       <rect
         className="icon--black"
-        width="115.99804"
-        height="112.4754"
-        x="820.74426"
-        y="755.99176"
-        rx="11.270353"
-        ry="11.270353"
+        width="115.998"
+        height="112.475"
+        x="820.744"
+        y="755.991"
+        rx="11.270"
+        ry="11.270"
       />
       <rect
         className="icon--filled"
-        width="67.556068"
-        height="33.42981"
-        x="855.0022"
-        y="821.61475"
-        rx="12.530714"
-        ry="29.089876"
+        width="67.556"
+        height="33.429"
+        x="855.002"
+        y="821.614"
+        rx="12.530"
+        ry="29.089"
       />
       <rect
         className="icon--hollow"
-        width="106.26141"
-        height="44.251942"
-        x="825.7702"
-        y="760.37451"
-        rx="17.49847"
-        ry="14.517817"
+        width="106.261"
+        height="44.251"
+        x="825.770"
+        y="760.374"
+        rx="17.498"
+        ry="14.517"
       />
     </g>
   );
