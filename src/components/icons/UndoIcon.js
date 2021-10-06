@@ -4,7 +4,7 @@ const UndoIcon = () => {
   return (
     <g aria-label="undo" transform="matrix(1.6291335,0,0,1.6291335,-14.640999,-18.33734)">
       <path
-        className="icon--hollow"
+        className="icon--hollow icon--stroke-three"
         type="arc"
         cx="25.95752"
         cy="27.497766"
