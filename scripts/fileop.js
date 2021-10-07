@@ -2,28 +2,33 @@ const fs = require('fs');
 const { resolve } = require('path');
 const { readdir, stat } = require('fs').promises;
 const child_process = require('child_process');
-const execSync = child_process.execSync;
+const { promisify } = require('util');
+const exec = promisify(require('child_process').exec);
 
 const UTF8 = 'utf-8';
 const TWO = 2;
 
-const updatePackageJSON = () => {
-  fs.readFile('./package.json', UTF8, (err, data) => {
+const updatePackageJSON = (rootDir = './') => {
+  fs.readFile(`${rootDir}/package.json`, UTF8, async (err, data) => {
     const packageJSON = JSON.parse(data);
-    const devDependencies = Object.keys(packageJSON.devDependencies);
     const dependencies = Object.keys(packageJSON.dependencies);
+    const devDependencies = Object.keys(packageJSON.devDependencies);
 
-    const updatedDevDependencies = devDependencies
-      .map(name => {
-        const version = execSync(`npm view ${name} version`, { encoding: UTF8 });
-        console.log(name, version);
-        return { [name]: version };
+    const dependenciesLatestVersions = await Promise.all(
+      dependencies.map(name => exec(`npm view ${name} version`, { encoding: UTF8 }))
+    );
+    const devDependenciesLatestVersions = await Promise.all(
+      devDependencies.map(name => exec(`npm view ${name} version`, { encoding: UTF8 }))
+    );
+    const updatedDependencies = dependenciesLatestVersions
+      .map((item, index) => {
+        const name = dependencies[index];
+        return { [name]: item.stdout.replace('\n','')};
       }).reduce((acc, item) => ({...acc,...item}));
-    const updatedDependencies = dependencies
-      .map(name => {
-        const version = execSync(`npm view ${name} version`, { encoding: UTF8 });
-        console.log(name, version);
-        return { [name]: version };
+    const updatedDevDependencies = devDependenciesLatestVersions
+      .map((item, index) => {
+        const name = devDependencies[index];
+        return { [name]: item.stdout.replace('\n','')};
       }).reduce((acc, item) => ({...acc,...item}));
 
     const updatedPackageJson = {
@@ -32,9 +37,9 @@ const updatePackageJSON = () => {
       devDependencies: updatedDevDependencies
     };
 
-    const writeStream = fs.createWriteStream('./package.json', { flag: 'w'});
+    const writeStream = fs.createWriteStream(`${rootDir}/package.json`, { flag: 'w'});
 
-    writeStream.write(JSON.stringify(updatedPackageJson).replace(/\\n/g,''));
+    writeStream.write(JSON.stringify(updatedPackageJson, undefined, TWO));
   });
 };
 
@@ -55,7 +60,7 @@ const updateFiles = async ({rootDir, fileRegex, lineRegex, lineMapper }) => {
     const matchedFile = filePath.match(fileRegex);
 
     if(matchedFile) {
-      fs.readFile(filePath, 'utf8', (err, data) => {
+      fs.readFile(filePath, UTF8, (err, data) => {
         const update = data.replace(lineRegex, lineMapper);
         const writeStream = fs.createWriteStream(filePath, { flag: 'a'});
 
