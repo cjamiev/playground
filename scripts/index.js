@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const exec = child_process.exec;
 const spawn = child_process.spawn;
-const { updateFiles } = require('./fileop');
+const { updateFiles, updatePackageJSON } = require('./fileop');
 
 const START_INDEX = 0;
 const END_INDEX = 5;
