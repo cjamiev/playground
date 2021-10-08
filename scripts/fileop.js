@@ -1,9 +1,9 @@
 const fs = require('fs');
-const { resolve } = require('path');
-const { readdir, stat } = require('fs').promises;
 const child_process = require('child_process');
+const { resolve } = require('path');
 const { promisify } = require('util');
-const exec = promisify(require('child_process').exec);
+const { readdir, stat } = fs.promises;
+const exec = promisify(child_process.exec);
 
 const UTF8 = 'utf-8';
 const ZERO = 0;

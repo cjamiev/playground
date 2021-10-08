@@ -8,6 +8,16 @@ const {
   updateFiles,
   updatePackageJSON
 } = require('./fileop');
+const {
+  getRemoteUrl,
+  deleteBranch,
+  selectBranch,
+  viewBranches,
+  stash,
+  selectStash,
+  viewStash,
+  reset
+} = require('./gitop');
 
 const START_INDEX = 0;
 const END_INDEX = 5;
@@ -17,3 +27,4 @@ const TRIM_DECIMALS = {
   lineRegex: /[.][0-9]{2,}/g,
   lineMapper: matchedKey => matchedKey.substr(START_INDEX,END_INDEX)
 };
+
