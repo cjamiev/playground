@@ -8,16 +8,6 @@ const {
   updateFiles,
   updatePackageJSON
 } = require('./fileop');
-const {
-  getRemoteUrl,
-  deleteBranch,
-  selectBranch,
-  viewBranches,
-  stash,
-  selectStash,
-  viewStash,
-  reset
-} = require('./gitop');
 
 const START_INDEX = 0;
 const END_INDEX = 5;

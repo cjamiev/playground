@@ -14,7 +14,7 @@ const {{Name}} = () => {
 
   return (
     <Page sidePanelContent={<p>fill</p>}>
-      <p>fill</p>
+      <p>{{name}}</p>
     </Page>
   );
 };

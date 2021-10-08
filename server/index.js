@@ -19,6 +19,16 @@ const {
   logEntry,
   clearLog
 } = require('./mockserver-util');
+const {
+  getRemoteUrl,
+  deleteBranch,
+  selectBranch,
+  viewBranches,
+  stash,
+  selectStash,
+  viewStash,
+  reset
+} = require('./gitop');
 
 const port = process.argv[2] || 999;
 const ROOT_DIR = './server/static/';
@@ -121,6 +131,46 @@ const handleCommandResponse = (request, response) => {
     const data = readDirectory(COMMAND_DIRECTORY);
 
     send(response, { data });
+  }
+};
+
+const handleGitResponse = (request, response) => {
+  const { type, root, name } = url.parse(request.url, true).query;
+
+  if(type === 'remoteurl') {
+    const data = getRemoteUrl(root);
+
+    send(response, { data });
+  } else if(type === 'delete') {
+    const message = deleteBranch(root,name);
+
+    send(response, { message });
+  } else if(type === 'select') {
+    const message = selectBranch(root,name);
+
+    send(response, { message });
+  } else if(type === 'view') {
+    const data = viewBranches(root);
+
+    send(response, { data });
+  } else if(type === 'stash') {
+    const message = stash(root, name);
+
+    send(response, { message });
+  } else if(type === 'selectstash') {
+    const message = selectStash(root, name);
+
+    send(response, { message });
+  } else if(type === 'viewstash') {
+    const data = viewStash(root);
+
+    send(response, { data });
+  } else if(type === 'reset') {
+    const message = reset(root);
+
+    send(response, { message });
+  } else {
+    send(response, { error: { message: 'git type not found'} });
   }
 };
 
@@ -258,6 +308,8 @@ http
       handleFileResponse(request, response);
     } else if (request.url.includes('command')) {
       handleCommandResponse(request, response);
+    } else if (request.url.includes('git')) {
+      handleGitResponse(request, response);
     } else if (request.url.includes('db')) {
       handleDbResponse(request, response);
     } else if (request.url.includes('mockserver')) {

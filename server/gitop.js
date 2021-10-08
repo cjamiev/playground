@@ -24,11 +24,17 @@ const viewBranches = (rootDir = DEFAULT_DIR) => {
 };
 
 const stash = (rootDir = DEFAULT_DIR, stashname) => {
-  return execSync(`cd ${rootDir} && git stash push -m ${stashname}`, { encoding: UTF8 });
+  if(stashname){
+    return execSync(`cd ${rootDir} && git stash push -m ${stashname}`, { encoding: UTF8 });
+  }
+  return execSync(`cd ${rootDir} && git stash`, { encoding: UTF8 });
 };
 
 const selectStash = (rootDir = DEFAULT_DIR, stashname) => {
-  return execSync(`cd ${rootDir} && git stash apply ${stashname}`, { encoding: UTF8 });
+  if(stashname) {
+    return execSync(`cd ${rootDir} && git stash apply ${stashname}`, { encoding: UTF8 });
+  }
+  return execSync(`cd ${rootDir} && git stash apply`, { encoding: UTF8 });
 };
 
 const viewStash = (rootDir = DEFAULT_DIR) => {
