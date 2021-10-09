@@ -6,19 +6,21 @@ import Page from 'components/layout';
 import Tabs from 'components/tabs';
 import TextArea from 'components/form/TextArea';
 import TestNew from './testnew';
-import TestDataGen from './testdatagen';
-import TestDynamicForm from './testdynamicform';
-import TestDynamicWizard from './testwizard';
-import TestGlobalModal from './testglobalmodal';
+import DataGenerator from './DataGenerator';
+import Form from './Form';
+import Wizard from './Wizard';
+import GlobalModal from './GlobalModal';
+import StyleGuide from './StyleGuide';
 import { experimentGet, experimentPost } from './experimentActions';
 import { noop } from 'helper/noop';
 
 const TABS = [
   { title: 'New', component: TestNew },
-  { title: 'Data Generator', component: TestDataGen },
-  { title: 'Global Modal', component: TestGlobalModal },
-  { title: 'Wizard', component: TestDynamicWizard },
-  { title: 'Dynamic Form', component: TestDynamicForm }
+  { title: 'Data Generator', component: DataGenerator },
+  { title: 'Global Modal', component: GlobalModal },
+  { title: 'Wizard', component: Wizard },
+  { title: 'Dynamic Form', component: Form },
+  { title: 'Style Guide', component: StyleGuide }
 ];
 
 const TestApi = () => {

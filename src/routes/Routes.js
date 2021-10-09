@@ -10,7 +10,6 @@ import Generator from './generator';
 import Git from './git';
 import Home from './home';
 import MockServer from './mockserver';
-import StyleGuide from './styleguide';
 
 const Routes = React.memo(() => {
   return (
@@ -25,7 +24,6 @@ const Routes = React.memo(() => {
       <Route path={ROUTES.GIT.url} component={Git} />
       <Route path={ROUTES.HOME.url} component={Home} />
       <Route path={ROUTES.MOCKSERVER.url} component={MockServer} />
-      <Route path={ROUTES.STYLE_GUIDE.url} component={StyleGuide} />
       <Route component={ErrorPage} />
     </Switch>
   );

@@ -13,7 +13,7 @@ const getAction = (message) => {
   };
 };
 
-const TestGlobalModal = () => {
+const GlobalModal = () => {
   const [modalIndex, setModalIndex] = useState(ZERO);
   const dispatch = useDispatch();
 
@@ -52,4 +52,4 @@ const TestGlobalModal = () => {
   );
 };
 
-export default TestGlobalModal;
+export default GlobalModal;

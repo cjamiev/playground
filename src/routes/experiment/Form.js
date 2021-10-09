@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Button from 'components/button';
 import DynamicForm, { hasError, updateData } from 'components/form/DynamicForm';
-import TableRenderer from '../TableRenderer';
-import { testData } from './data';
+import TableRenderer from './TableRenderer';
+import { formData } from './data';
 
-const TestDynamicForm = () => {
-  const [fields, setFields] = useState(testData);
+const Form = () => {
+  const [fields, setFields] = useState(formData);
 
   const handleChange = (changedData) => {
     const updatedFields = updateData(fields, changedData);
@@ -21,4 +21,4 @@ const TestDynamicForm = () => {
   );
 };
 
-export default TestDynamicForm;
+export default Form;

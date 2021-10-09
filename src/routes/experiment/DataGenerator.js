@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import TextArea from 'components/form/TextArea';
 import Pagination from 'components/pagination';
 import { IconButton } from 'components/button';
-import TableRenderer from '../TableRenderer';
+import TableRenderer from './TableRenderer';
 import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
 import { dataGenerator } from 'randomHelper';
@@ -24,7 +24,7 @@ const data = {
   }
 };
 
-const TestDataGen = () => {
+const DataGenerator = () => {
   const [sample, setSample] = useState(JSON.stringify(data, undefined, 2));
   const parsedSample = parseObject(sample);
   const result = parsedSample ? dataGenerator(parseObject(sample), 10) : [];
@@ -57,4 +57,4 @@ const TestDataGen = () => {
   );
 };
 
-export default TestDataGen;
+export default DataGenerator;
