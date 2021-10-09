@@ -18,6 +18,7 @@ import Dropdown from 'components/form/Dropdown';
 import Button, { IconButton } from 'components/button';
 import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
+import useLocalStorage from 'hooks/useLocalStorage';
 
 const ZERO = 0;
 const ONE = 1;
@@ -25,7 +26,7 @@ const DEFAULT_DIR = './';
 
 const Git = () => {
   const dispatch = useDispatch();
-  const [root, setRoot] = useState(DEFAULT_DIR);
+  const [root, setRoot] = useLocalStorage('rootDir', DEFAULT_DIR, false);
   const [name, setName] = useState('');
   const [localBranches, setLocalBranches] = useState([]);
   const [localStashes, setLocalStashes] = useState([]);
@@ -37,10 +38,10 @@ const Git = () => {
   } = useSelector((state) => state.git);
 
   useEffect(() => {
-    dispatch(getRemoteUrl());
-    dispatch(viewBranches());
-    dispatch(viewStash());
-  }, [dispatch]);
+    dispatch(getRemoteUrl(root));
+    dispatch(viewBranches(root));
+    dispatch(viewStash(root));
+  }, [dispatch, root]);
 
   useEffect(() => {
     if(message) {
