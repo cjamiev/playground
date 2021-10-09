@@ -9,7 +9,7 @@ const TWELVE = 12;
 const SIXTEEN = 16;
 
 const today = new Date();
-const isAmMode = today.getHours() - TWELVE <= ZERO;
+const isAmMode = today.getHours() - TWELVE < ZERO;
 const defaultProps = {
   onChange: jest.fn(),
   value: {
