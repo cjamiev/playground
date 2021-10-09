@@ -6,7 +6,7 @@ import {
   deleteBranch,
   selectBranch,
   viewBranches,
-  stash,
+  createStash,
   selectStash,
   viewStash,
   reset,
@@ -26,6 +26,7 @@ const DEFAULT_DIR = './';
 const Git = () => {
   const dispatch = useDispatch();
   const [root, setRoot] = useState(DEFAULT_DIR);
+  const [name, setName] = useState('');
   const [localBranches, setLocalBranches] = useState([]);
   const [localStashes, setLocalStashes] = useState([]);
   const {
@@ -99,6 +100,18 @@ const Git = () => {
           copyToClipboard(remoteUrl);
         }}
       />
+      <Text
+        label="Name"
+        selected={name}
+        onChange={({ selected }) => {
+          setName(selected);
+        }}
+      />
+      <Button
+        label={`Create Stash ${name}`}
+        disabled={!name}
+        onClick={() => { dispatch(createStash(root,name)); }}
+      />
       <Dropdown
         label="Branches"
         values={localBranches}
@@ -107,7 +120,7 @@ const Git = () => {
         }}
       />
       <Dropdown
-        label="Stash"
+        label="Stashes"
         values={localStashes}
         onChange={({ values }) => {
           setLocalStashes(values);
@@ -124,7 +137,7 @@ const Git = () => {
         onClick={() => { dispatch(deleteBranch(root,branchName)); }}
       />
       <Button
-        label={`Stash ${stashName}`}
+        label={`Switch Stash ${stashName}`}
         disabled={!stashName}
         onClick={() => { dispatch(selectStash(root,stashName)); }}
       />

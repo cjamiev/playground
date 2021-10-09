@@ -65,7 +65,7 @@ const viewBranches = (rootDir = DEFAULT_DIR) => {
   };
 };
 
-const stash = (rootDir = DEFAULT_DIR, name) => {
+const createStash = (rootDir = DEFAULT_DIR, name) => {
   return (dispatch) => {
     api
       .get(`/git/?type=stash&root=${rootDir}&name=${name}`)
@@ -129,7 +129,7 @@ export {
   LOAD_BRANCHES,
   viewBranches,
   LOAD_STASH,
-  stash,
+  createStash,
   LOAD_SELECT_STASH,
   selectStash,
   LOAD_VIEW_STASH,
