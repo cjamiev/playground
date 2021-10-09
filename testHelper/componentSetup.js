@@ -19,6 +19,7 @@ import { experimentInitialState } from '../src/routes/experiment/experimentReduc
 import { fileInitialState } from '../src/routes/file/fileReducer';
 import { homeInitialState } from '../src/routes/home/homeReducer';
 import { generatorInitialState } from '../src/routes/generator/generatorReducer';
+import { gitInitialState } from '../src/routes/git/gitReducer';
 import { globalInitialState } from '../src/components/global/globalReducer';
 import { listInitialState } from '../src/components/list/listReducer';
 import { mockserverInitialState } from '../src/routes/mockserver/mockserverReducer';
@@ -35,6 +36,7 @@ const defaultStore = {
   file: fileInitialState,
   home: homeInitialState,
   generator: generatorInitialState,
+  git: gitInitialState,
   global: globalInitialState,
   list: listInitialState,
   mockserver: mockserverInitialState
