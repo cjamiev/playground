@@ -8,14 +8,14 @@ const defaultProps = {
 };
 
 describe('Button', () => {
-  it('handle click', async () => {
+  it('handle click', () => {
     simpleTestWrapper(Button, defaultProps);
 
     fireEvent.click(screen.getByText(defaultProps.label));
     expect(defaultProps.onClick).toHaveBeenCalled();
   });
 
-  it('should be disabled', async () => {
+  it('should be disabled', () => {
     simpleTestWrapper(Button, { ...defaultProps, disabled: true });
 
     fireEvent.click(screen.getByText(defaultProps.label));

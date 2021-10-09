@@ -86,6 +86,19 @@ describe('gitReducer', () => {
     });
   });
 
+  it('LOAD_SELECT_STASH', () => {
+    const action = {
+      type: LOAD_SELECT_STASH,
+      message
+    };
+    const result = gitReducer(gitInitialState, action);
+
+    expect(result).toEqual({
+      ...gitInitialState,
+      message
+    });
+  });
+
   it('LOAD_VIEW_STASH', () => {
     const action = {
       type: LOAD_VIEW_STASH,

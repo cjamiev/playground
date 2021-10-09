@@ -15,13 +15,13 @@ const Pagination = ({ content }) => {
 
     return (
       <button
-        key="previous"
+        key="prev"
         disabled={!isEnabled}
         onClick={() => {
           setPageNumber(pageNumber - ONE);
         }}
       >
-        Previous
+        Prev
       </button>
     );
   };
@@ -50,9 +50,6 @@ const Pagination = ({ content }) => {
       <button
         key="current"
         disabled
-        onClick={() => {
-          setPageNumber(pageNumber);
-        }}
       >
         {pageNumber + ONE}
       </button>

@@ -11,10 +11,7 @@ const randomObject = (item) => {
     const value = item[key];
     const type = typeof item[key];
 
-    if(!value) {
-      return { [key]:undefined};
-    }
-    else if(type === 'number') {
+    if(type === 'number') {
       return { [key]: randomNumber()};
     }
     else if (type === 'boolean') {
@@ -23,7 +20,7 @@ const randomObject = (item) => {
       return { [key]:randomString()};
     } else if (Array.isArray(item[key])) {
       return { [key]:Object.values(randomObject(item[key]))};
-    } else if (type === 'object') {
+    } else if (type === 'object' && value) {
       return { [key]:randomObject(item[key])};
     } else {
       return { [key]:undefined};
