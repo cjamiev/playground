@@ -9,6 +9,7 @@ const LOAD_STASH = 'LOAD_STASH';
 const LOAD_SELECT_STASH = 'LOAD_SELECT_STASH';
 const LOAD_VIEW_STASH = 'LOAD_VIEW_STASH';
 const RESET = 'RESET';
+const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
 const ONE_SECOND = 1000;
 const DEFAULT_DIR = './';
 
@@ -116,6 +117,8 @@ const reset = (rootDir = DEFAULT_DIR) => {
   };
 };
 
+const clearMessage = () => ({ type: CLEAR_MESSAGE });
+
 export {
   LOAD_REMOTE_URL,
   getRemoteUrl,
@@ -132,5 +135,7 @@ export {
   LOAD_VIEW_STASH,
   viewStash,
   RESET,
-  reset
+  reset,
+  CLEAR_MESSAGE,
+  clearMessage
 };

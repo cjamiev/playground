@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { openGlobalModal } from 'components/global/globalActions';
 import {
   getRemoteUrl,
   deleteBranch,
@@ -8,16 +9,23 @@ import {
   stash,
   selectStash,
   viewStash,
-  reset
+  reset,
+  clearMessage
 } from './gitActions';
 import Page from 'components/layout';
+import Text from 'components/form/Text';
 import Dropdown from 'components/form/Dropdown';
 import Button, { IconButton } from 'components/button';
 import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
 
+const ZERO = 0;
+const ONE = 1;
+const DEFAULT_DIR = './';
+
 const Git = () => {
   const dispatch = useDispatch();
+  const [root, setRoot] = useState(DEFAULT_DIR);
   const [localBranches, setLocalBranches] = useState([]);
   const [localStashes, setLocalStashes] = useState([]);
   const {
@@ -32,6 +40,23 @@ const Git = () => {
     dispatch(viewBranches());
     dispatch(viewStash());
   }, [dispatch]);
+
+  useEffect(() => {
+    if(message) {
+      const parsedResult = message.replace(/\\r/g,'').split('\n');
+      const renderResult = parsedResult.map((item,index) => {
+        return <p key={index}>{item}</p>;
+      });
+      dispatch(openGlobalModal(
+        {
+          title: 'Git Response',
+          message: renderResult,
+          beforeClose: () => {
+            dispatch(clearMessage());
+          }
+        }));
+    }
+  }, [dispatch, message]);
 
   useEffect(() => {
     if(branches.length) {
@@ -56,10 +81,17 @@ const Git = () => {
   const selectedBranch = localBranches.find(item => item.selected);
   const branchName = selectedBranch ? selectedBranch.label : '';
   const selectedStash = localStashes.find(item => item.selected);
-  const stashName = selectedStash ? selectedStash.label : '';
+  const stashName = selectedStash ? selectedStash.label.split('{')[ONE].charAt(ZERO) : '';
 
   return (
     <Page>
+      <Text
+        label="Root"
+        selected={root}
+        onChange={({ selected }) => {
+          setRoot(selected);
+        }}
+      />
       <label>Remote Url: {remoteUrl}</label>
       <IconButton
         type={ICON_TYPES.COPY}
@@ -84,21 +116,21 @@ const Git = () => {
       <Button
         label={`Checkout ${branchName}`}
         disabled={!branchName}
-        onClick={() => { dispatch(selectBranch(branchName)); }}
+        onClick={() => { dispatch(selectBranch(root,branchName)); }}
       />
       <Button
         label={`Delete ${branchName}`}
         disabled={!branchName}
-        onClick={() => { dispatch(deleteBranch(branchName)); }}
+        onClick={() => { dispatch(deleteBranch(root,branchName)); }}
       />
       <Button
         label={`Stash ${stashName}`}
         disabled={!stashName}
-        onClick={() => { dispatch(selectStash(stashName)); }}
+        onClick={() => { dispatch(selectStash(root,stashName)); }}
       />
       <Button
         label={'Reset'}
-        onClick={() => { dispatch(reset()); }}
+        onClick={() => { dispatch(reset(root)); }}
       />
     </Page>
   );
