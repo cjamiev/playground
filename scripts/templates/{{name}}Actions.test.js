@@ -19,7 +19,7 @@ const successObject = {
 };
 
 const content = [
-  { name: 'test', value: { parentBackgroundColor: {}, hoverStyle: {}, normalStyle: {}, activeStyle: {} } }
+  { name: 'test' }
 ];
 
 describe('{{name}}Actions', () => {
@@ -32,6 +32,7 @@ describe('{{name}}Actions', () => {
     load{{Name}}()(dispatch);
 
     await waitFor(() => {
+      expect(api.get).toHaveBeenCalledWith(`/{{name}}`);
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_{{NAME}}, data: content });
     });
   });
@@ -54,6 +55,7 @@ describe('{{name}}Actions', () => {
     update{{Name}}(content)(dispatch);
 
     await waitFor(() => {
+      expect(api.post).toHaveBeenCalledWith('{{name}}', {});
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_{{NAME}}, data: content });
     });

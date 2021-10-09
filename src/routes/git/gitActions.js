@@ -5,7 +5,7 @@ const LOAD_REMOTE_URL = 'LOAD_REMOTE_URL';
 const LOAD_DELETE = 'LOAD_DELETE';
 const LOAD_SELECT_BRANCH = 'LOAD_SELECT_BRANCH';
 const LOAD_BRANCHES = 'LOAD_BRANCHES';
-const LOAD_STASH = 'LOAD_STASH';
+const LOAD_CREATE_STASH = 'LOAD_CREATE_STASH';
 const LOAD_SELECT_STASH = 'LOAD_SELECT_STASH';
 const LOAD_VIEW_STASH = 'LOAD_VIEW_STASH';
 const LOAD_RESET = 'LOAD_RESET';
@@ -70,7 +70,7 @@ const createStash = (rootDir = DEFAULT_DIR, name) => {
     api
       .get(`/git/?type=stash&root=${rootDir}&name=${name}`)
       .then((response) => {
-        dispatch({ type: LOAD_STASH, message: response.data.message });
+        dispatch({ type: LOAD_CREATE_STASH, message: response.data.message });
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -128,7 +128,7 @@ export {
   selectBranch,
   LOAD_BRANCHES,
   viewBranches,
-  LOAD_STASH,
+  LOAD_CREATE_STASH,
   createStash,
   LOAD_SELECT_STASH,
   selectStash,

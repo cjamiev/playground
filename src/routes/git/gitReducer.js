@@ -3,7 +3,7 @@ import {
   LOAD_DELETE,
   LOAD_SELECT_BRANCH,
   LOAD_BRANCHES,
-  LOAD_STASH,
+  LOAD_CREATE_STASH,
   LOAD_SELECT_STASH,
   LOAD_VIEW_STASH,
   LOAD_RESET,
@@ -46,7 +46,7 @@ const gitReducer = (state = gitInitialState, action) => {
           .map(item => item.replace(/[*]?[ ]*/g, ''))
       };
     },
-    [LOAD_STASH]: () => {
+    [LOAD_CREATE_STASH]: () => {
       return {
         ...state,
         message: action.message
@@ -61,7 +61,7 @@ const gitReducer = (state = gitInitialState, action) => {
     [LOAD_VIEW_STASH]: () => {
       return {
         ...state,
-        stashes: action.data .split('\n')
+        stashes: action.data.split('\n')
       };
     },
     [LOAD_RESET]: () => {
