@@ -8,7 +8,7 @@ const LOAD_BRANCHES = 'LOAD_BRANCHES';
 const LOAD_STASH = 'LOAD_STASH';
 const LOAD_SELECT_STASH = 'LOAD_SELECT_STASH';
 const LOAD_VIEW_STASH = 'LOAD_VIEW_STASH';
-const RESET = 'RESET';
+const LOAD_RESET = 'LOAD_RESET';
 const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
 const ONE_SECOND = 1000;
 const DEFAULT_DIR = './';
@@ -109,7 +109,7 @@ const reset = (rootDir = DEFAULT_DIR) => {
     api
       .get(`/git/?type=reset&root=${rootDir}`)
       .then((response) => {
-        dispatch({ type: LOAD_RESET, data: response.data.message });
+        dispatch({ type: LOAD_RESET, message: response.data.message });
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -134,7 +134,7 @@ export {
   selectStash,
   LOAD_VIEW_STASH,
   viewStash,
-  RESET,
+  LOAD_RESET,
   reset,
   CLEAR_MESSAGE,
   clearMessage

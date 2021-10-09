@@ -6,7 +6,7 @@ import {
   LOAD_STASH,
   LOAD_SELECT_STASH,
   LOAD_VIEW_STASH,
-  RESET,
+  LOAD_RESET,
   CLEAR_MESSAGE
 } from './gitActions';
 
@@ -64,7 +64,7 @@ const gitReducer = (state = gitInitialState, action) => {
         stashes: action.data .split('\n')
       };
     },
-    [RESET]: () => {
+    [LOAD_RESET]: () => {
       return {
         ...state,
         message: action.message
