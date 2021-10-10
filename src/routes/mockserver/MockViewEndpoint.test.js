@@ -3,6 +3,7 @@ import { reduxTestWrapper, fullTestWrapper } from 'testHelper';
 import MockViewEndpoint from './MockViewEndpoint';
 
 const ZERO = 0;
+const ONE = 1;
 
 const mockViewEndpointProps = {
   mockserver: {
@@ -58,7 +59,11 @@ describe('MockViewEndpoint', () => {
     await waitFor(() => expect(screen.getByText('View Endpoint Details')));
 
     const copyContentBtn = screen.getByText('Copy Content');
+    const appendChildSpy = jest.spyOn(document.body, 'appendChild');
     fireEvent.click(copyContentBtn);
+    const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
+
+    expect(copyEl.value).toEqual('{\"response\":{\"body\":{\"testing\":123},\"headers\":{}},\"request\":{\"url\":\"/test\",\"method\":\"GET\",\"responsePath\":\"filename\"}}');
     expect(document.execCommand).toHaveBeenCalled();
   });
 
@@ -89,7 +94,11 @@ describe('MockViewEndpoint', () => {
     await waitFor(() => expect(screen.getByText('View Endpoint Details')));
 
     const copyResponseBtn = screen.getByText('Copy Response');
+    const appendChildSpy = jest.spyOn(document.body, 'appendChild');
     fireEvent.click(copyResponseBtn);
+    const copyEl = appendChildSpy.mock.calls[ONE][ZERO];
+
+    expect(copyEl.value).toEqual('{\"body\":{\"testing\":123},\"headers\":{}}');
     expect(document.execCommand).toHaveBeenCalled();
   });
 

@@ -34,6 +34,7 @@ const apiMock = mockApi(mockGet, mockPost);
 
 const pathname = '/file';
 const ZERO = 0;
+const ONE = 1;
 
 describe('File', () => {
   describe(':String ops', () => {
@@ -194,7 +195,6 @@ describe('File', () => {
     });
 
     it('handle regex with substring', () => {
-      document.execCommand = jest.fn();
       reduxTestWrapper(File, {}, {}, pathname);
 
       const sidePanelBtn = screen.getByLabelText('triple bar');
@@ -219,7 +219,12 @@ describe('File', () => {
       fireEvent.click(convertBtn);
       expect(screen.getByText('1.12 M 2.12 5.12')).toBeInTheDocument();
 
+      document.execCommand = jest.fn();
+      const appendChildSpy = jest.spyOn(document.body, 'appendChild');
       fireEvent.click(copyBtn);
+      const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
+
+      expect(copyEl.value).toEqual('/[.][0-9]{2,}/g');
       expect(document.execCommand).toHaveBeenCalledWith('copy');
     });
 
@@ -250,9 +255,17 @@ describe('File', () => {
     document.execCommand = jest.fn();
     reduxTestWrapper(File, {}, {}, pathname);
 
+    const contentField = screen.getByLabelText('Content text area');
+
+    fireEvent.change(contentField, { target: { value: '1 2 3 4 5' } });
+
     const copyBtn = screen.getByLabelText('copy');
 
+    const appendChildSpy = jest.spyOn(document.body, 'appendChild');
     fireEvent.click(copyBtn);
+    const copyEl = appendChildSpy.mock.calls[ONE][ZERO];
+
+    expect(copyEl.value).toEqual('1 2 3 4 5');
     expect(document.execCommand).toHaveBeenCalledWith('copy');
   });
 

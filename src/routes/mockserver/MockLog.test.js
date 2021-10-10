@@ -80,7 +80,11 @@ describe('MockLog', () => {
     await waitFor(() => expect(screen.getByText('View Request Details')).toBeInTheDocument());
 
     const copyBtn = screen.getByText('Copy');
+    const appendChildSpy = jest.spyOn(document.body, 'appendChild');
     fireEvent.click(copyBtn);
+    const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
+
+    expect(copyEl.value).toEqual('{\"testing\":123}');
     expect(document.execCommand).toHaveBeenCalled();
   });
 });

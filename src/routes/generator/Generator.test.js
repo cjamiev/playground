@@ -4,6 +4,7 @@ import { reduxTestWrapper, mockLocalStorage } from 'testHelper';
 import Generator from './Generator';
 import { ALL_CSS } from 'constants/css';
 
+const ZERO = 0;
 const TWO = 2;
 const pathname = '/generator';
 const content = [
@@ -37,8 +38,11 @@ describe('Generator', () => {
     reduxTestWrapper(Generator, {}, {}, pathname);
 
     const copyBtn = screen.getByText('Copy');
+    const appendChildSpy = jest.spyOn(document.body, 'appendChild');
     fireEvent.click(copyBtn);
+    const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
 
+    expect(copyEl.value).toEqual('.name {\nheight: 50px;\nwidth: 100px;\nborder: 1px solid #000000;\n}\n\n.name:hover {\n\n}\n\n.name:active {\n\n}');
     expect(document.execCommand).toHaveBeenCalledWith('copy');
   });
 

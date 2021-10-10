@@ -29,15 +29,16 @@ const defaultStoreProps = {
 describe('Git', () => {
   it('should handle remote url', () => {
     document.execCommand = jest.fn();
-    const spy = jest.spyOn(document.body, 'appendChild');
     reduxTestWrapper(Git, {}, defaultStoreProps);
 
     const copyBtn = screen.getByLabelText('copy');
+    const appendChildSpy = jest.spyOn(document.body, 'appendChild');
     fireEvent.click(copyBtn);
-    const copyEl = spy.mock.calls[ONE][ZERO];
+    const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
 
     expect(screen.getByText(`Remote Url: ${defaultStoreProps.git.remoteUrl}`)).toBeInTheDocument();
     expect(copyEl.value).toEqual(defaultStoreProps.git.remoteUrl);
+    expect(document.execCommand).toHaveBeenCalledWith('copy');
   });
 
   it('handle create stash', () => {

@@ -53,9 +53,12 @@ describe('List', () => {
     simpleTestWrapper(List, getProps(copyData));
 
     const copyBtn = screen.getByText(copyData.label);
+    const appendChildSpy = jest.spyOn(document.body, 'appendChild');
     fireEvent.click(copyBtn);
+    const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
 
     expect(document.execCommand).toHaveBeenCalledWith('copy');
+    expect(copyEl.value).toEqual(copyData.value);
     expect(screen.getByText(copyData.label)).toBeInTheDocument();
   });
 

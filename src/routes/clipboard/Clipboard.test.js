@@ -93,7 +93,11 @@ describe('Clipboard', () => {
 
     expect(screen.getByText(defaultStorePropsTwo.list.commandResponse)).toBeInTheDocument();
     const copyBtn = screen.getByText('Copy');
+    const appendChildSpy = jest.spyOn(document.body, 'appendChild');
     fireEvent.click(copyBtn);
-    expect(document.execCommand).toHaveBeenCalled();
+
+    const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
+    expect(copyEl.value).toEqual('\"test-command-response\"');
+    expect(document.execCommand).toHaveBeenCalledWith('copy');
   });
 });
