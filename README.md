@@ -1,14 +1,14 @@
 # Playground
-Project to help with building other projects. Used for improving efficency by helping store information
-and easy way to test new features. 
+Project to help with building other projects. Used for improving efficency by helping store information and easy way to test new features. 
 
-# sections
+## sections
 - Home: To do list and global timers will alerts that fire on any page. 
-- File: Read files, write files, and perform string ops
+- File: Read and update files, perform string ops, regex, and json ops.
 - Clipboard: Store collections of copy buttons, text, timer, urls, or commands
-- Experiment: Test out new functionality and components
+- Git: Git operations given directory.  Switch/Delete Branches, Create/Select Stash.
 - MockServer: Create, delete, and view mock endpoints
 - Generator: Generate css
+- Experiment: Test out new functionality/components and demo existing.
 
 ## utils
 Re-usable pure functions will be saved stored here
@@ -33,5 +33,18 @@ post: (payload) => {
   }
 ```
 
+## scripts
+node script for creating files from template, updating files with regex, and update package.json file. 
+
 ## testing and q.js
 Folder for quick testing of html as testing javascript functions
+
+## ToDo
+Components:
+- Cards
+- Progress Item List (Wizard)
+- Flex/Grid (Generator)
+- Glassmorphism & Neomorphism
+
+CSS:
+- Wizard
