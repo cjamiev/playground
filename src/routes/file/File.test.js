@@ -51,10 +51,10 @@ describe('File', () => {
       fireEvent.change(contentField, { target: { value: '1 3 2 5 4' } });
 
       fireEvent.click(sortAscBtn);
-      expect(screen.getByText('1 2 3 4 5')).toBeInTheDocument();
+      expect(screen.queryByText('1 2 3 4 5')).toBeInTheDocument();
 
       fireEvent.click(sortDescBtn);
-      expect(screen.getByText('5 4 3 2 1')).toBeInTheDocument();
+      expect(screen.queryByText('5 4 3 2 1')).toBeInTheDocument();
     });
 
     it('handle split/join', () => {
@@ -75,7 +75,7 @@ describe('File', () => {
       fireEvent.click(screen.getByText('comma'));
 
       fireEvent.click(joinBtn);
-      expect(screen.getByText('1,3,2,5,4')).toBeInTheDocument();
+      expect(screen.queryByText('1,3,2,5,4')).toBeInTheDocument();
     });
 
     it('handle trim', () => {
@@ -90,7 +90,7 @@ describe('File', () => {
       fireEvent.change(contentField, { target: { value: '1    4' } });
       fireEvent.click(trimBtn);
 
-      expect(screen.getByText('1 4')).toBeInTheDocument();
+      expect(screen.queryByText('1 4')).toBeInTheDocument();
     });
   });
 
@@ -108,11 +108,11 @@ describe('File', () => {
 
       fireEvent.change(contentField, { target: { value: '1 2 3 4 5' } });
       fireEvent.click(validateBtn);
-      expect(screen.getByText('NOT Valid')).toBeInTheDocument();
+      expect(screen.queryByText('NOT Valid')).toBeInTheDocument();
 
       fireEvent.change(contentField, { target: { value: '{ "test": 123 }' } });
       fireEvent.click(validateBtn);
-      expect(screen.getByText('Valid')).toBeInTheDocument();
+      expect(screen.queryByText('Valid')).toBeInTheDocument();
     });
 
     it('handle stringify', () => {
@@ -129,7 +129,7 @@ describe('File', () => {
       fireEvent.change(contentField, { target: { value: '{ test: 123 }' } });
       fireEvent.click(stringifyBtn);
 
-      expect(screen.getByText('\'{ "test": 123 }\'')).toBeInTheDocument();
+      expect(screen.queryByText('\'{ "test": 123 }\'')).toBeInTheDocument();
     });
 
     it('handle parse', () => {
@@ -146,7 +146,7 @@ describe('File', () => {
       fireEvent.change(contentField, { target: { value: '\'{ "test": 123 }\'' } });
       fireEvent.click(parseBtn);
 
-      expect(screen.getByText('{ "test": 123 }')).toBeInTheDocument();
+      expect(screen.queryByText('{ "test": 123 }')).toBeInTheDocument();
     });
 
     it('handle objectify', () => {
@@ -163,7 +163,7 @@ describe('File', () => {
       fireEvent.change(contentField, { target: { value: '\'{ "test": 123 }\'' } });
       fireEvent.click(objectifyBtn);
 
-      expect(screen.getByText('{ test: 123 }')).toBeInTheDocument();
+      expect(screen.queryByText('{ test: 123 }')).toBeInTheDocument();
     });
   });
 
@@ -187,11 +187,11 @@ describe('File', () => {
       fireEvent.change(replaceField, { target: { value: '3' } });
 
       fireEvent.click(convertBtn);
-      expect(screen.getByText('3 2 1 2 1')).toBeInTheDocument();
+      expect(screen.queryByText('3 2 1 2 1')).toBeInTheDocument();
 
       fireEvent.click(globalBtn);
       fireEvent.click(convertBtn);
-      expect(screen.getByText('3 2 3 2 3')).toBeInTheDocument();
+      expect(screen.queryByText('3 2 3 2 3')).toBeInTheDocument();
     });
 
     it('handle regex with substring', () => {
@@ -217,7 +217,7 @@ describe('File', () => {
 
       fireEvent.click(globalBtn);
       fireEvent.click(convertBtn);
-      expect(screen.getByText('1.12 M 2.12 5.12')).toBeInTheDocument();
+      expect(screen.queryByText('1.12 M 2.12 5.12')).toBeInTheDocument();
 
       document.execCommand = jest.fn();
       const appendChildSpy = jest.spyOn(document.body, 'appendChild');
@@ -246,8 +246,8 @@ describe('File', () => {
       fireEvent.change(replaceField, { target: { value: '3' } });
 
       fireEvent.click(convertBtn);
-      expect(screen.getByText('Not valid regex expression')).toBeInTheDocument();
-      expect(screen.getByText('1 2 1 2 1')).toBeInTheDocument();
+      expect(screen.queryByText('Not valid regex expression')).toBeInTheDocument();
+      expect(screen.queryByText('1 2 1 2 1')).toBeInTheDocument();
     });
   });
 
@@ -290,7 +290,7 @@ describe('File', () => {
 
     fireEvent.change(contentField, { target: { value: '1 2 3 4 5' } });
 
-    expect(screen.getByText('1 2 3 4 5')).toBeInTheDocument();
+    expect(screen.queryByText('1 2 3 4 5')).toBeInTheDocument();
     fireEvent.click(undoBtn);
     expect(screen.queryByText('1 2 3 4 5')).not.toBeInTheDocument();
   });
@@ -302,20 +302,20 @@ describe('File', () => {
     fireEvent.click(fileDropdown);
 
     await waitFor(() => {
-      expect(screen.getByText('test.txt')).toBeInTheDocument();
+      expect(screen.queryByText('test.txt')).toBeInTheDocument();
     });
     const testBtn = screen.getByText('test.txt');
     fireEvent.click(testBtn);
 
     await waitFor(() => {
-      expect(screen.getByText('test file contents')).toBeInTheDocument();
+      expect(screen.queryByText('test file contents')).toBeInTheDocument();
     });
 
     const nameField = screen.getByPlaceholderText('Enter File Name');
 
     fireEvent.change(nameField, { target: { value: 'test2.txt' } });
     await waitFor(() => {
-      expect(screen.getByText('test2 file contents')).toBeInTheDocument();
+      expect(screen.queryByText('test2 file contents')).toBeInTheDocument();
     });
   });
 });

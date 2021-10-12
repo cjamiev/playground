@@ -17,7 +17,7 @@ const defaultStoreProps = {
 describe('CommandForm', () => {
   it('Handle form', () => {
     reduxTestWrapper(CommandForm, defaultProps, defaultStoreProps);
-    const nameField = screen.getByLabelText('Name text field');
+    const nameField = screen.queryByLabelText('Name text field');
     const dropdownField = screen.getByText('Commands');
     const argsYesOption = screen.getByText('Yes');
     const saveBtn = screen.getByText('Save');

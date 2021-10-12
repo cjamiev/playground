@@ -25,7 +25,7 @@ describe('useFilter', () => {
       render(<TestComponent data={data} dataKey={dataKey} filter={filter} />);
     });
 
-    expect(screen.getByText('222')).toBeInTheDocument();
+    expect(screen.queryByText('222')).toBeInTheDocument();
     expect(screen.queryByText('221')).not.toBeInTheDocument();
   });
 
@@ -36,9 +36,9 @@ describe('useFilter', () => {
       render(<TestComponent data={data} dataKey={dataKey} filter={filter} />);
     });
 
-    expect(screen.getByText('111')).toBeInTheDocument();
-    expect(screen.getByText('211')).toBeInTheDocument();
-    expect(screen.getByText('221')).toBeInTheDocument();
-    expect(screen.getByText('222')).toBeInTheDocument();
+    expect(screen.queryByText('111')).toBeInTheDocument();
+    expect(screen.queryByText('211')).toBeInTheDocument();
+    expect(screen.queryByText('221')).toBeInTheDocument();
+    expect(screen.queryByText('222')).toBeInTheDocument();
   });
 });

@@ -23,9 +23,9 @@ describe('ValueForm', () => {
 
   it('Handle link form', () => {
     simpleTestWrapper(ValueForm, { ...defaultProps, type: 'link' });
-    const nameField = screen.getByLabelText('Name text field');
-    const valueField = screen.getByLabelText('Value text field');
-    const saveBtn = screen.getByText('Save');
+    const nameField = screen.queryByLabelText('Name text field');
+    const valueField = screen.queryByLabelText('Value text field');
+    const saveBtn = screen.queryByText('Save');
 
     fireEvent.change(nameField, { target: { value: 'Link1' } });
     fireEvent.change(valueField, { target: { value: 'http://www.link1.com' } });

@@ -25,6 +25,6 @@ describe('Button', () => {
   it('should render className', () => {
     simpleTestWrapper(Button, { ...defaultProps, className: 'test--class' });
 
-    expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
+    expect(screen.queryByText(defaultProps.label)).toBeInTheDocument();
   });
 });

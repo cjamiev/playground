@@ -45,8 +45,8 @@ describe('Modal', () => {
   it('default', () => {
     reduxTestWrapper(Modal, baseProps);
 
-    expect(screen.getByText(baseProps.title)).toBeInTheDocument();
-    expect(screen.getByText(baseProps.message)).toBeInTheDocument();
+    expect(screen.queryByText(baseProps.title)).toBeInTheDocument();
+    expect(screen.queryByText(baseProps.message)).toBeInTheDocument();
   });
 
   it('handle close', () => {
@@ -76,7 +76,7 @@ describe('Modal', () => {
 
   it('handle dispatch action after text change', () => {
     reduxTestWrapper(Modal, baseProps);
-    const input = screen.getByLabelText('Modal text area');
+    const input = screen.queryByLabelText('Modal text area');
     const expectedResult = { id: 1, selected: '123', error: false };
 
     fireEvent.change(input, { target: { value: '123' } });

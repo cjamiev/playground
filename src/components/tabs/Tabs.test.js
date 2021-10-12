@@ -24,13 +24,13 @@ describe('Tabs', () => {
   it('checks tab behavior', () => {
     simpleTestWrapper(Tabs, defaultProps);
 
-    expect(screen.getByText('component1')).toBeInTheDocument();
+    expect(screen.queryByText('component1')).toBeInTheDocument();
     expect(screen.queryByText('component2')).not.toBeInTheDocument();
 
     const tab2 = screen.getByText('item2');
     fireEvent.click(tab2);
 
-    expect(screen.getByText('component2')).toBeInTheDocument();
+    expect(screen.queryByText('component2')).toBeInTheDocument();
     expect(screen.queryByText('component1')).not.toBeInTheDocument();
   });
 });

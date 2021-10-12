@@ -17,16 +17,16 @@ describe('GeneratorForm', () => {
 
     const borderLabel = screen.getByText('Border');
     fireEvent.click(borderLabel);
-    expect(screen.getByText(`Border Type ${generatorFormProps.style.borderStyle}`)).toBeInTheDocument();
+    expect(screen.queryByText(`Border Type ${generatorFormProps.style.borderStyle}`)).toBeInTheDocument();
 
     const textLabel = screen.getByText('Text');
     fireEvent.click(textLabel);
-    expect(screen.getByText(`Text Align ${generatorFormProps.style.textAlign}`)).toBeInTheDocument();
+    expect(screen.queryByText(`Text Align ${generatorFormProps.style.textAlign}`)).toBeInTheDocument();
 
     const transitionLabel = screen.getByText('Transition');
     fireEvent.click(transitionLabel);
     expect(
-      screen.getByText(`Transition Timing Function ${generatorFormProps.style.transitionTimingFunction}`)
+      screen.queryByText(`Transition Timing Function ${generatorFormProps.style.transitionTimingFunction}`)
     ).toBeInTheDocument();
   });
 });

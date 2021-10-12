@@ -11,6 +11,6 @@ describe('Card', () => {
   it('checks behavior', () => {
     simpleTestWrapper(Card, defaultProps);
 
-    expect(screen.getByText('content')).toBeInTheDocument();
+    expect(screen.queryByText('content')).toBeInTheDocument();
   });
 });

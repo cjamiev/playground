@@ -24,8 +24,8 @@ describe('Navigation', () => {
       jest.advanceTimersByTime(TIME.A_SECOND);
     });
 
-    expect(screen.getByText('5:00:00 AM')).toBeInTheDocument();
-    expect(screen.getByText('Fri, Jan 1')).toBeInTheDocument();
-    expect(screen.getByText('Week 1')).toBeInTheDocument();
+    expect(screen.queryByText('5:00:00 AM')).toBeInTheDocument();
+    expect(screen.queryByText('Fri, Jan 1')).toBeInTheDocument();
+    expect(screen.queryByText('Week 1')).toBeInTheDocument();
   });
 });

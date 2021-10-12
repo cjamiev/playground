@@ -24,7 +24,7 @@ describe('MockViewEndpoint', () => {
 
     expect(screen.queryByText(mockViewEndpointProps.mockserver.mocks[ZERO].url)).toBeInTheDocument();
 
-    const input = screen.getByLabelText('Filter URL: text field');
+    const input = screen.queryByLabelText('Filter URL: text field');
     fireEvent.change(input, { target: { value: 'apple' } });
     expect(screen.queryByText(mockViewEndpointProps.mockserver.mocks[ZERO].url)).not.toBeInTheDocument();
 
@@ -56,7 +56,7 @@ describe('MockViewEndpoint', () => {
     const loadBtn = screen.getAllByText('Load')[ZERO];
     fireEvent.click(loadBtn);
 
-    await waitFor(() => expect(screen.getByText('View Endpoint Details')));
+    await waitFor(() => expect(screen.queryByText('View Endpoint Details')));
 
     const copyContentBtn = screen.getByText('Copy Content');
     const appendChildSpy = jest.spyOn(document.body, 'appendChild');
@@ -91,7 +91,7 @@ describe('MockViewEndpoint', () => {
     const loadBtn = screen.getAllByText('Load')[ZERO];
     fireEvent.click(loadBtn);
 
-    await waitFor(() => expect(screen.getByText('View Endpoint Details')));
+    await waitFor(() => expect(screen.queryByText('View Endpoint Details')));
 
     const copyResponseBtn = screen.getByText('Copy Response');
     const appendChildSpy = jest.spyOn(document.body, 'appendChild');
@@ -126,7 +126,7 @@ describe('MockViewEndpoint', () => {
     const loadBtn = screen.getAllByText('Load')[ZERO];
     fireEvent.click(loadBtn);
 
-    await waitFor(() => expect(screen.getByText('View Endpoint Details')));
+    await waitFor(() => expect(screen.queryByText('View Endpoint Details')));
 
     const deleteBtn = screen.getByText('Delete');
     fireEvent.click(deleteBtn);
@@ -156,7 +156,7 @@ describe('MockViewEndpoint', () => {
     const loadBtn = screen.getAllByText('Load')[ZERO];
     fireEvent.click(loadBtn);
 
-    await waitFor(() => expect(screen.getByText('View Endpoint Details')));
+    await waitFor(() => expect(screen.queryByText('View Endpoint Details')));
 
     const uploadBtn = screen.getByText('Update');
     fireEvent.click(uploadBtn);

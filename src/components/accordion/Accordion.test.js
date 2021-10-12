@@ -17,6 +17,6 @@ describe('Accordion', () => {
     const accordionLabel = screen.getByText(defaultProps.label);
     fireEvent.click(accordionLabel);
 
-    expect(screen.getByText('content')).toBeInTheDocument();
+    expect(screen.queryByText('content')).toBeInTheDocument();
   });
 });

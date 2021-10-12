@@ -14,7 +14,7 @@ describe('MockServer', () => {
   it('checks page renders', () => {
     reduxTestWrapper(MockServer, {}, {}, pathname);
 
-    expect(screen.getAllByText('Mock Server')[ZERO]).toBeInTheDocument();
+    expect(screen.queryAllByText('Mock Server')[ZERO]).toBeInTheDocument();
   });
 
   it('tab switch', async () => {
@@ -22,8 +22,8 @@ describe('MockServer', () => {
 
     expect(screen.queryByText('Filter URL:')).not.toBeInTheDocument();
 
-    const viewTabBtn = screen.getByText('View Endpoints');
+    const viewTabBtn = screen.queryByText('View Endpoints');
     fireEvent.click(viewTabBtn);
-    expect(screen.getByText('Filter URL:')).toBeInTheDocument();
+    expect(screen.queryByText('Filter URL:')).toBeInTheDocument();
   });
 });

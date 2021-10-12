@@ -37,7 +37,7 @@ describe('Generator', () => {
     document.execCommand = jest.fn();
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const copyBtn = screen.getByText('Copy');
+    const copyBtn = screen.queryByText('Copy');
     const appendChildSpy = jest.spyOn(document.body, 'appendChild');
     fireEvent.click(copyBtn);
     const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
@@ -49,11 +49,11 @@ describe('Generator', () => {
   it('handleMode change', () => {
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    expect(screen.getByLabelText('Normal mode is on')).toBeInTheDocument();
+    expect(screen.queryByLabelText('Normal mode is on')).toBeInTheDocument();
 
     const hoverSwitch = screen.getByText('Hover');
     fireEvent.click(hoverSwitch);
-    expect(screen.getByLabelText('Hover mode is on')).toBeInTheDocument();
+    expect(screen.queryByLabelText('Hover mode is on')).toBeInTheDocument();
 
     const activeSwitch = screen.getByText('Active');
     fireEvent.click(activeSwitch);
@@ -76,12 +76,12 @@ describe('Generator', () => {
     fireEvent.mouseOver(testArea);
     fireEvent.mouseDown(testArea);
 
-    expect(screen.getByLabelText('isHovering and isActive effect is on')).toBeInTheDocument();
+    expect(screen.queryByLabelText('isHovering and isActive effect is on')).toBeInTheDocument();
 
     fireEvent.mouseOut(testArea);
     fireEvent.mouseUp(testArea);
 
-    expect(screen.getByLabelText('normal effect is on')).toBeInTheDocument();
+    expect(screen.queryByLabelText('normal effect is on')).toBeInTheDocument();
   });
 
   it('handle onChange for Hover and Active states', () => {
@@ -96,11 +96,11 @@ describe('Generator', () => {
     fireEvent.click(hoverSwitch);
     const blurField = screen.getByLabelText('blur text field');
     fireEvent.change(blurField, { target: { value: '5' } });
-    expect(screen.getByText(shownCSS)).toBeInTheDocument();
+    expect(screen.queryByText(shownCSS)).toBeInTheDocument();
 
     fireEvent.click(activeSwitch);
     fireEvent.change(blurField, { target: { value: '5' } });
-    expect(screen.getAllByText(shownCSS)).toHaveLength(TWO);
+    expect(screen.queryAllByText(shownCSS)).toHaveLength(TWO);
   });
 
   it('handle Load', async () => {
@@ -121,12 +121,12 @@ describe('Generator', () => {
     fireEvent.click(dropdownBtn);
 
     await waitFor(() => {
-      expect(screen.getByText('test')).toBeInTheDocument();
+      expect(screen.queryByText('test')).toBeInTheDocument();
     });
     const testBtn = screen.getByText('test');
     fireEvent.click(testBtn);
 
-    expect(screen.getByText('background-color: rgba(255,138,138);')).toBeInTheDocument();
+    expect(screen.queryByText('background-color: rgba(255,138,138);')).toBeInTheDocument();
   });
 
   it('handle Delete', async () => {
@@ -152,7 +152,7 @@ describe('Generator', () => {
     fireEvent.click(dropdownBtn);
 
     await waitFor(() => {
-      expect(screen.getByText('test')).toBeInTheDocument();
+      expect(screen.queryByText('test')).toBeInTheDocument();
     });
     const testBtn = screen.getByText('test');
     fireEvent.click(testBtn);
@@ -186,7 +186,7 @@ describe('Generator', () => {
     fireEvent.click(dropdownBtn);
 
     await waitFor(() => {
-      expect(screen.getByText('test')).toBeInTheDocument();
+      expect(screen.queryByText('test')).toBeInTheDocument();
     });
     const testBtn = screen.getByText('test');
     fireEvent.click(testBtn);

@@ -36,7 +36,7 @@ describe('Git', () => {
     fireEvent.click(copyBtn);
     const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
 
-    expect(screen.getByText(`Remote Url: ${defaultStoreProps.git.remoteUrl}`)).toBeInTheDocument();
+    expect(screen.queryByText(`Remote Url: ${defaultStoreProps.git.remoteUrl}`)).toBeInTheDocument();
     expect(copyEl.value).toEqual(defaultStoreProps.git.remoteUrl);
     expect(document.execCommand).toHaveBeenCalledWith('copy');
   });

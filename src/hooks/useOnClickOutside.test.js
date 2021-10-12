@@ -30,7 +30,7 @@ describe('useOnClickOutside', () => {
     expect(screen.queryByText('toggle')).not.toBeInTheDocument();
     fireEvent.click(screen.getByText('button'));
 
-    expect(screen.getByText('toggle')).toBeInTheDocument();
+    expect(screen.queryByText('toggle')).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('outside'));
     expect(screen.queryByText('toggle')).not.toBeInTheDocument();

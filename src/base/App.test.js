@@ -8,6 +8,6 @@ describe('App', () => {
   it('checks page renders', () => {
     reduxTestWrapper(App);
 
-    expect(screen.getAllByText('Home')[ZERO]).toBeInTheDocument();
+    expect(screen.queryAllByText('Home')[ZERO]).toBeInTheDocument();
   });
 });

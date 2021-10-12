@@ -85,7 +85,7 @@ describe('Global', () => {
     fullTestWrapper(TestComponent, {}, {}, ROUTES.HOME.url, true);
     jest.advanceTimersByTime(TIME.A_SECOND);
 
-    expect(screen.getByText('Time\'s up for "item one"')).toBeInTheDocument();
+    expect(screen.queryByText('Time\'s up for "item one"')).toBeInTheDocument();
   });
 
   it('empty modalQueue', () => {
@@ -105,7 +105,7 @@ describe('Global', () => {
   it('click close', () => {
     reduxTestWrapper(Global, {}, storeWithPopulatedModalQueue, '/home', false);
 
-    expect(screen.getByText(storeWithPopulatedModalQueue.global.modalQueue[ZERO].message)).toBeInTheDocument();
+    expect(screen.queryByText(storeWithPopulatedModalQueue.global.modalQueue[ZERO].message)).toBeInTheDocument();
     fireEvent.click(screen.getByText('X'));
 
     expect(screen.queryByText(storeWithPopulatedModalQueue.global.modalQueue[ZERO].message)).not.toBeInTheDocument();
@@ -114,6 +114,6 @@ describe('Global', () => {
   it('show loading', () => {
     reduxTestWrapper(Global, {}, storeWithLoading, '/home', false);
 
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    expect(screen.queryByText('Loading...')).toBeInTheDocument();
   });
 });

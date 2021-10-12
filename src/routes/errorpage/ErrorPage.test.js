@@ -9,6 +9,6 @@ describe('ErrorPage', () => {
   it('handles go back', () => {
     reduxTestWrapper(ErrorPage, {}, {}, pathname);
 
-    expect(screen.getByText('404 Page Not Found')).toBeInTheDocument();
+    expect(screen.queryByText('404 Page Not Found')).toBeInTheDocument();
   });
 });

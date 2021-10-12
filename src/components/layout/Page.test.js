@@ -15,8 +15,8 @@ describe('Page', () => {
   it('checks page renders', () => {
     reduxTestWrapper(Page, defaultProps, {}, pathname);
 
-    expect(screen.getByText('content')).toBeInTheDocument();
-    expect(screen.getByText('footer')).toBeInTheDocument();
+    expect(screen.queryByText('content')).toBeInTheDocument();
+    expect(screen.queryByText('footer')).toBeInTheDocument();
   });
 
   it('checks sidepanel does not show', () => {
@@ -33,7 +33,7 @@ describe('Page', () => {
     const sidePanelButton = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelButton);
 
-    expect(screen.getByText(defaultProps.sidePanelContent)).toBeInTheDocument();
+    expect(screen.queryByText(defaultProps.sidePanelContent)).toBeInTheDocument();
 
     fireEvent.click(sidePanelButton);
 

@@ -28,9 +28,9 @@ describe('Pagination', () => {
   it('checks behavior empty', () => {
     simpleTestWrapper(Pagination, defaultProps);
 
-    const prevBtn = screen.getByText(prev);
-    const oneBtn = screen.getByText('1');
-    const nextBtn = screen.getByText(next);
+    const prevBtn = screen.queryByText(prev);
+    const oneBtn = screen.queryByText('1');
+    const nextBtn = screen.queryByText(next);
 
     expect(prevBtn).toBeInTheDocument();
     expect(oneBtn).toBeInTheDocument();
@@ -40,10 +40,10 @@ describe('Pagination', () => {
   it('checks behavior one item', () => {
     simpleTestWrapper(Pagination, { content: oneItem});
 
-    const prevBtn = screen.getByText(prev);
-    const oneBtn = screen.getByText('1');
-    const nextBtn = screen.getByText(next);
-    const contentOne = screen.getByText('one');
+    const prevBtn = screen.queryByText(prev);
+    const oneBtn = screen.queryByText('1');
+    const nextBtn = screen.queryByText(next);
+    const contentOne = screen.queryByText('one');
 
     expect(prevBtn).toBeInTheDocument();
     expect(oneBtn).toBeInTheDocument();
@@ -66,13 +66,13 @@ describe('Pagination', () => {
 
     // Test page buttons
     fireEvent.click(screen.getByText('3'));
-    expect(screen.getByText('three')).toBeInTheDocument();
-    expect(screen.getByText('1')).toBeInTheDocument();
-    expect(screen.getByText('5')).toBeInTheDocument();
+    expect(screen.queryByText('three')).toBeInTheDocument();
+    expect(screen.queryByText('1')).toBeInTheDocument();
+    expect(screen.queryByText('5')).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('5'));
-    expect(screen.getByText('five')).toBeInTheDocument();
-    expect(screen.getByText('3')).toBeInTheDocument();
-    expect(screen.getByText('7')).toBeInTheDocument();
+    expect(screen.queryByText('five')).toBeInTheDocument();
+    expect(screen.queryByText('3')).toBeInTheDocument();
+    expect(screen.queryByText('7')).toBeInTheDocument();
   });
 });

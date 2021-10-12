@@ -56,7 +56,7 @@ describe('TimerForm', () => {
     const hourField = screen.getByLabelText('Hour text field');
     const minuteField = screen.getByLabelText('Minute text field');
     const secondField = screen.getByLabelText('Second text field');
-    const ampmSwitch = isAmMode ? screen.getByLabelText('pm mode is off') : screen.getByLabelText('am mode is off');
+    const ampmSwitch = isAmMode ? screen.getByLabelText('pm mode is off') : screen.queryByLabelText('am mode is off');
     const saveBtn = screen.getByText('Save');
 
     fireEvent.change(nameField, { target: { value: 'Timer1' } });

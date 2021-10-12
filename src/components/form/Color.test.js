@@ -12,7 +12,7 @@ const defaultProps = {
 describe('Color', () => {
   it('handle color change', () => {
     simpleTestWrapper(Color, defaultProps);
-    const input = screen.getByLabelText(`${defaultProps.label} color field has value ${defaultProps.selected}`);
+    const input = screen.queryByLabelText(`${defaultProps.label} color field has value ${defaultProps.selected}`);
     const expectedResult = { id: 1, selected: '#ffffff' };
 
     fireEvent.change(input, { target: { value: '#ffffff' } });

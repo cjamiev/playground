@@ -22,13 +22,13 @@ describe('AccordionGroup', () => {
     const accordionOneLabel = screen.getByText(defaultProps.data[ZERO].label);
     fireEvent.click(accordionOneLabel);
 
-    expect(screen.getByText('test-content1')).toBeInTheDocument();
+    expect(screen.queryByText('test-content1')).toBeInTheDocument();
     expect(screen.queryByText('test-content2')).not.toBeInTheDocument();
 
     const accordionTwoLabel = screen.getByText(defaultProps.data[ONE].label);
     fireEvent.click(accordionTwoLabel);
 
     expect(screen.queryByText('test-content1')).not.toBeInTheDocument();
-    expect(screen.getByText('test-content2')).toBeInTheDocument();
+    expect(screen.queryByText('test-content2')).toBeInTheDocument();
   });
 });

@@ -49,11 +49,11 @@ describe('useLocalStorage', () => {
       />
     );
 
-    expect(screen.getByText(localStorageProps.testStr)).toBeInTheDocument();
+    expect(screen.queryByText(localStorageProps.testStr)).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('update'));
     expect(
-      screen.getByText(
+      screen.queryByText(
         localStorageProps.testStr.slice(localStorageProps.testStr.length-ONE)
       )
     ).toBeInTheDocument();
@@ -68,12 +68,12 @@ describe('useLocalStorage', () => {
       />
     );
 
-    expect(screen.getByText(localStorageProps.testObj)).toBeInTheDocument();
+    expect(screen.queryByText(localStorageProps.testObj)).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('update'));
     // For some reason localStorageProps.testObj is updated to the correct value
     expect(
-      screen.getByText(localStorageProps.testObj)
+      screen.queryByText(localStorageProps.testObj)
     ).toBeInTheDocument();
   });
 });

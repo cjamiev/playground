@@ -46,9 +46,9 @@ describe('MockLog', () => {
   it('checks page renders', async () => {
     reduxTestWrapper(MockLog, {}, mockLogProps);
 
-    expect(screen.getByText('Run Log must be set to yes in configuration')).toBeInTheDocument();
+    expect(screen.queryByText('Run Log must be set to yes in configuration')).toBeInTheDocument();
 
-    await waitFor(() => expect(screen.getByText(mockLogProps.mockserver.log[ZERO].timestamp)).toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText(mockLogProps.mockserver.log[ZERO].timestamp)).toBeInTheDocument());
   });
 
   it('click clear log', async () => {
@@ -77,7 +77,7 @@ describe('MockLog', () => {
     const loadBtn = screen.getByText('Load');
     fireEvent.click(loadBtn);
 
-    await waitFor(() => expect(screen.getByText('View Request Details')).toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText('View Request Details')).toBeInTheDocument());
 
     const copyBtn = screen.getByText('Copy');
     const appendChildSpy = jest.spyOn(document.body, 'appendChild');

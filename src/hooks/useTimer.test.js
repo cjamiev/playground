@@ -23,6 +23,6 @@ describe('useTimer', () => {
       jest.advanceTimersByTime(TIME.A_SECOND);
     });
 
-    expect(screen.getByText('Weeks 0 Days 0 Hours 23 Minutes 59 Seconds 59')).toBeInTheDocument();
+    expect(screen.queryByText('Weeks 0 Days 0 Hours 23 Minutes 59 Seconds 59')).toBeInTheDocument();
   });
 });

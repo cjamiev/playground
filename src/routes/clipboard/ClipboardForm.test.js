@@ -26,22 +26,22 @@ const clipboard = {
 describe('ClipboardForm', () => {
   it('handle form', () => {
     reduxTestWrapper(ClipboardForm, { clipboard: {} });
-    fireEvent.change(screen.getByLabelText('Key text field'), { target: { value: 'test-key' } });
-    fireEvent.change(screen.getByLabelText('Title text field'), { target: { value: 'test-title' } });
+    fireEvent.change(screen.queryByLabelText('Key text field'), { target: { value: 'test-key' } });
+    fireEvent.change(screen.queryByLabelText('Title text field'), { target: { value: 'test-title' } });
 
-    fireEvent.change(screen.getByLabelText('Name text field'), { target: { value: 'test-name' } });
-    fireEvent.change(screen.getByLabelText('Value text field'), { target: { value: 'test-value' } });
+    fireEvent.change(screen.queryByLabelText('Name text field'), { target: { value: 'test-name' } });
+    fireEvent.change(screen.queryByLabelText('Value text field'), { target: { value: 'test-value' } });
     fireEvent.click(screen.getByText('Save'));
 
     fireEvent.click(screen.getByText('Type copy'));
     fireEvent.click(screen.getByText('timer'));
-    fireEvent.change(screen.getByLabelText('Name text field'), { target: { value: 'test-name2' } });
+    fireEvent.change(screen.queryByLabelText('Name text field'), { target: { value: 'test-name2' } });
     fireEvent.click(screen.getByText('Save'));
 
     fireEvent.click(screen.getByText('Type timer'));
     fireEvent.click(screen.getByText('text'));
-    fireEvent.change(screen.getByLabelText('Name text field'), { target: { value: 'test-name3' } });
-    fireEvent.change(screen.getByLabelText('Value text field'), { target: { value: 'test-value3' } });
+    fireEvent.change(screen.queryByLabelText('Name text field'), { target: { value: 'test-name3' } });
+    fireEvent.change(screen.queryByLabelText('Value text field'), { target: { value: 'test-value3' } });
     fireEvent.click(screen.getByText('Save'));
 
     fireEvent.click(screen.getByText('Add'));
@@ -53,9 +53,9 @@ describe('ClipboardForm', () => {
     fireEvent.click(screen.getAllByLabelText('trash')[ZERO]);
     fireEvent.click(screen.getByText('Update'));
 
-    expect(screen.getByText('test-title')).toBeInTheDocument();
-    expect(screen.getByText('test-name')).toBeInTheDocument();
-    expect(screen.getByText('test-name2')).toBeInTheDocument();
+    expect(screen.queryByText('test-title')).toBeInTheDocument();
+    expect(screen.queryByText('test-name')).toBeInTheDocument();
+    expect(screen.queryByText('test-name2')).toBeInTheDocument();
     expect(screen.queryByText('test-value3')).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByText('test-name'));
@@ -71,16 +71,16 @@ describe('ClipboardForm', () => {
     fireEvent.click(screen.getByText('Existing Title'));
     fireEvent.click(screen.getByText('test-title'));
 
-    expect(screen.getByText('test-title')).toBeInTheDocument();
-    expect(screen.getByText('copy1')).toBeInTheDocument();
+    expect(screen.queryByText('test-title')).toBeInTheDocument();
+    expect(screen.queryByText('copy1')).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('Existing Key keyOne'));
     fireEvent.click(screen.getByText('keyTwo'));
     fireEvent.click(screen.getByText('Existing Title'));
     fireEvent.click(screen.getByText('test-title2'));
 
-    expect(screen.getByText('test-title2')).toBeInTheDocument();
-    expect(screen.getByText('copy2')).toBeInTheDocument();
+    expect(screen.queryByText('test-title2')).toBeInTheDocument();
+    expect(screen.queryByText('copy2')).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('Submit'));
     expect(api.post).toHaveBeenCalledWith('/db', { filename: 'clipboard.json', content: JSON.stringify(clipboard) });

@@ -12,7 +12,7 @@ const defaultProps = {
 describe('Calendar', () => {
   it('handle date change', () => {
     simpleTestWrapper(Calendar, defaultProps);
-    const input = screen.getByLabelText(`${defaultProps.label} calendar field`);
+    const input = screen.queryByLabelText(`${defaultProps.label} calendar field`);
     const expectedResult = { id: 1, selected: '2021-01-02' };
 
     fireEvent.change(input, { target: { value: '2021-01-02' } });

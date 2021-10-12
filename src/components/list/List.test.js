@@ -40,7 +40,7 @@ describe('List', () => {
     };
     simpleTestWrapper(List, getProps(linkData));
 
-    expect(screen.getByText(linkData.label)).toBeInTheDocument();
+    expect(screen.queryByText(linkData.label)).toBeInTheDocument();
   });
 
   it('type copy', () => {
@@ -59,7 +59,7 @@ describe('List', () => {
 
     expect(document.execCommand).toHaveBeenCalledWith('copy');
     expect(copyEl.value).toEqual(copyData.value);
-    expect(screen.getByText(copyData.label)).toBeInTheDocument();
+    expect(screen.queryByText(copyData.label)).toBeInTheDocument();
   });
 
   it('type text', () => {
@@ -69,7 +69,7 @@ describe('List', () => {
     };
     simpleTestWrapper(List, getProps(textData));
 
-    expect(screen.getByText(textData.value)).toBeInTheDocument();
+    expect(screen.queryByText(textData.value)).toBeInTheDocument();
   });
 
   it('type command', () => {
@@ -81,14 +81,14 @@ describe('List', () => {
     const args = '12345';
     reduxTestWrapper(List, getProps(commandData));
 
-    const commandInput = screen.getByLabelText(`args for ${commandData.label}`);
+    const commandInput = screen.queryByLabelText(`args for ${commandData.label}`);
     fireEvent.change(commandInput, { target: { value: args } });
 
     const commandBtn = screen.getByText(commandData.label);
     fireEvent.click(commandBtn);
 
     expect(api.get).toHaveBeenCalledWith(`/command?name=${commandData.value.name}&args=${args}`);
-    expect(screen.getByText(commandData.label)).toBeInTheDocument();
+    expect(screen.queryByText(commandData.label)).toBeInTheDocument();
   });
 
   it('type timer - One hour from now', () => {
@@ -99,7 +99,7 @@ describe('List', () => {
     };
     simpleTestWrapper(List, getProps(timerOneHourData));
 
-    expect(screen.getByText(timerOneHourData.label)).toBeInTheDocument();
+    expect(screen.queryByText(timerOneHourData.label)).toBeInTheDocument();
   });
 
   it('type timer - Two days from now', () => {
@@ -110,7 +110,7 @@ describe('List', () => {
     };
     simpleTestWrapper(List, getProps(timerTwoDaysData));
 
-    expect(screen.getByText(timerTwoDaysData.label)).toBeInTheDocument();
+    expect(screen.queryByText(timerTwoDaysData.label)).toBeInTheDocument();
   });
 
   it('type timer - Two weeks from now', () => {
@@ -121,6 +121,6 @@ describe('List', () => {
     };
     simpleTestWrapper(List, getProps(timerTwoWeeksData));
 
-    expect(screen.getByText(timerTwoWeeksData.label)).toBeInTheDocument();
+    expect(screen.queryByText(timerTwoWeeksData.label)).toBeInTheDocument();
   });
 });

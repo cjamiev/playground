@@ -23,7 +23,7 @@ describe('Multiselect', () => {
       ]
     };
 
-    fireEvent.change(screen.getByTestId('multiselect-test-label'), {
+    fireEvent.change(screen.queryByTestId('multiselect-test-label'), {
       target: { value: ['ms2'] }
     });
 

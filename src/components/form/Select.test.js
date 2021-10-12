@@ -23,7 +23,7 @@ describe('Select', () => {
       ]
     };
 
-    fireEvent.change(screen.getByTestId('select-test-label'), {
+    fireEvent.change(screen.queryByTestId('select-test-label'), {
       target: { value: 's2' }
     });
 

@@ -51,6 +51,6 @@ describe('MockConfig', () => {
 
     fireEvent.click(screen.getByLabelText('Yes radio option is not selected'));
 
-    expect(screen.getAllByLabelText('Yes radio option is selected').length).toBe(TWO);
+    expect(screen.queryAllByLabelText('Yes radio option is selected').length).toBe(TWO);
   });
 });

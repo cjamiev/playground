@@ -12,6 +12,6 @@ describe('{{Name}}', () => {
   it('should render', () => {
     reduxTestWrapper({{Name}}, {}, defaultStoreProps);
 
-    expect(screen.getByText('{{name}}')).toBeInTheDocument();
+    expect(screen.queryByText('{{name}}')).toBeInTheDocument();
   });
 });

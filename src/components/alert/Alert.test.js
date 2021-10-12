@@ -32,14 +32,14 @@ describe('Alert', () => {
   it('check alert renders', () => {
     reduxTestWrapper(Alert, {}, alertStoreProps2);
 
-    expect(screen.getByText(data.content)).toBeInTheDocument();
-    expect(screen.getByText('1 more item(s)')).toBeInTheDocument();
+    expect(screen.queryByText(data.content)).toBeInTheDocument();
+    expect(screen.queryByText('1 more item(s)')).toBeInTheDocument();
   });
 
   it('handle dismiss', () => {
     reduxTestWrapper(Alert, {}, alertStoreProps);
 
-    expect(screen.getByText(data.content)).toBeInTheDocument();
+    expect(screen.queryByText(data.content)).toBeInTheDocument();
     fireEvent.click(screen.getByText('X'));
 
     expect(screen.queryByText(data.content)).not.toBeInTheDocument();
@@ -57,10 +57,10 @@ describe('Alert', () => {
 
     Object.defineProperty(global.window, 'pageYOffset', { value: 100 });
     fireEvent.scroll(window, { target: { scrollY: 100 } });
-    expect(screen.getByText(data.content)).toBeInTheDocument();
+    expect(screen.queryByText(data.content)).toBeInTheDocument();
 
     Object.defineProperty(global.window, 'pageYOffset', { value: 151 });
     fireEvent.scroll(window, { target: { scrollY: 151 } });
-    expect(screen.getByText(data.content)).toBeInTheDocument();
+    expect(screen.queryByText(data.content)).toBeInTheDocument();
   });
 });

@@ -47,6 +47,6 @@ describe('MockCreateEndpoint', () => {
     const postOption = screen.getByText('POST');
     fireEvent.click(postOption);
 
-    expect(screen.getByText('Method POST')).toBeInTheDocument();
+    expect(screen.queryByText('Method POST')).toBeInTheDocument();
   });
 });

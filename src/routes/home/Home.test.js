@@ -13,7 +13,7 @@ describe('Home', () => {
   it('handle tasks', () => {
     reduxTestWrapper(Home, {}, {}, pathname);
 
-    expect(screen.getByText('No tasks to display')).toBeInTheDocument();
+    expect(screen.queryByText('No tasks to display')).toBeInTheDocument();
 
     const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
@@ -37,15 +37,15 @@ describe('Home', () => {
     fireEvent.change(urlField, { target: { value: 'urlThree' } });
     fireEvent.click(addBtn);
 
-    expect(screen.getByText('taskOne')).toBeInTheDocument();
-    expect(screen.getByText('noteOne')).toBeInTheDocument();
-    expect(screen.getByText('urlOne')).toBeInTheDocument();
-    expect(screen.getByText('taskTwo')).toBeInTheDocument();
-    expect(screen.getByText('noteTwo')).toBeInTheDocument();
-    expect(screen.getByText('urlTwo')).toBeInTheDocument();
-    expect(screen.getByText('taskThree')).toBeInTheDocument();
-    expect(screen.getByText('noteThree')).toBeInTheDocument();
-    expect(screen.getByText('urlThree')).toBeInTheDocument();
+    expect(screen.queryByText('taskOne')).toBeInTheDocument();
+    expect(screen.queryByText('noteOne')).toBeInTheDocument();
+    expect(screen.queryByText('urlOne')).toBeInTheDocument();
+    expect(screen.queryByText('taskTwo')).toBeInTheDocument();
+    expect(screen.queryByText('noteTwo')).toBeInTheDocument();
+    expect(screen.queryByText('urlTwo')).toBeInTheDocument();
+    expect(screen.queryByText('taskThree')).toBeInTheDocument();
+    expect(screen.queryByText('noteThree')).toBeInTheDocument();
+    expect(screen.queryByText('urlThree')).toBeInTheDocument();
 
     // Remove task
     const downBtn = screen.getAllByLabelText('down arrow')[ZERO];
@@ -56,8 +56,8 @@ describe('Home', () => {
     const doneBtn = screen.getAllByLabelText('trash')[ONE];
     fireEvent.click(doneBtn);
 
-    expect(screen.getByText('taskOne')).toBeInTheDocument();
-    expect(screen.getByText('taskTwo')).toBeInTheDocument();
+    expect(screen.queryByText('taskOne')).toBeInTheDocument();
+    expect(screen.queryByText('taskTwo')).toBeInTheDocument();
     expect(screen.queryByText('taskThree')).not.toBeInTheDocument();
     expect(screen.queryByText('No items to display')).not.toBeInTheDocument();
   });
@@ -68,7 +68,7 @@ describe('Home', () => {
     const timersBtn = screen.getByText('Timers');
     fireEvent.click(timersBtn);
 
-    expect(screen.getByText('No timers to display')).toBeInTheDocument();
+    expect(screen.queryByText('No timers to display')).toBeInTheDocument();
 
     const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
@@ -84,16 +84,16 @@ describe('Home', () => {
     fireEvent.change(timerField, { target: { value: 'timerThree' } });
     fireEvent.click(saveBtn);
 
-    expect(screen.getByText('timerOne')).toBeInTheDocument();
-    expect(screen.getByText('timerTwo')).toBeInTheDocument();
-    expect(screen.getByText('timerThree')).toBeInTheDocument();
+    expect(screen.queryByText('timerOne')).toBeInTheDocument();
+    expect(screen.queryByText('timerTwo')).toBeInTheDocument();
+    expect(screen.queryByText('timerThree')).toBeInTheDocument();
 
     // Remove timer
     const removeBtn = screen.getAllByLabelText('trash')[ONE];
     fireEvent.click(removeBtn);
 
-    expect(screen.getByText('timerOne')).toBeInTheDocument();
-    expect(screen.getByText('timerThree')).toBeInTheDocument();
+    expect(screen.queryByText('timerOne')).toBeInTheDocument();
+    expect(screen.queryByText('timerThree')).toBeInTheDocument();
     expect(screen.queryByText('timerTwo')).not.toBeInTheDocument();
     expect(screen.queryByText('No timers to display')).not.toBeInTheDocument();
 
@@ -112,6 +112,6 @@ describe('Home', () => {
     fireEvent.change(minuteField, { target: { value: oneMinuteFromNow } });
     fireEvent.click(screen.getByText('Save'));
 
-    expect(screen.getByTestId('timerOne time')).toHaveTextContent('0:0');
+    expect(screen.queryByTestId('timerOne time')).toHaveTextContent('0:0');
   });
 });

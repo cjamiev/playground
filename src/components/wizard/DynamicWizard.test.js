@@ -45,36 +45,36 @@ describe('DynamicWizard', () => {
   it('checks behavior', () => {
     reduxTestWrapper(DynamicWizard, defaultProps);
 
-    expect(screen.getByText(defaultProps.sectionTitles[ZERO])).toBeInTheDocument();
+    expect(screen.queryByText(defaultProps.sectionTitles[ZERO])).toBeInTheDocument();
     expect(screen.queryByText('Previous')).not.toBeInTheDocument();
-    expect(screen.getByText('Next')).toBeInTheDocument();
+    expect(screen.queryByText('Next')).toBeInTheDocument();
     expect(screen.queryByText('Submit')).not.toBeInTheDocument();
     const nextButton = screen.getByText('Next');
     fireEvent.click(nextButton);
 
-    expect(screen.getByText(defaultProps.sectionTitles[ONE])).toBeInTheDocument();
+    expect(screen.queryByText(defaultProps.sectionTitles[ONE])).toBeInTheDocument();
     const prevButton = screen.getByText('Previous');
     fireEvent.click(prevButton);
 
-    expect(screen.getByText(defaultProps.sectionTitles[ZERO])).toBeInTheDocument();
+    expect(screen.queryByText(defaultProps.sectionTitles[ZERO])).toBeInTheDocument();
     const input = screen.getByLabelText('Text1 text field');
     fireEvent.change(input, { target: { value: 'abc' } });
 
-    expect(screen.getByText('Please enter a valid number')).toBeInTheDocument();
+    expect(screen.queryByText('Please enter a valid number')).toBeInTheDocument();
     fireEvent.click(nextButton);
-    expect(screen.getByText(defaultProps.sectionTitles[ZERO])).toBeInTheDocument();
+    expect(screen.queryByText(defaultProps.sectionTitles[ZERO])).toBeInTheDocument();
 
     fireEvent.change(input, { target: { value: '123' } });
     expect(screen.queryByText('Please enter a valid number')).not.toBeInTheDocument();
     fireEvent.click(nextButton);
 
-    expect(screen.getByText(defaultProps.sectionTitles[ONE])).toBeInTheDocument();
+    expect(screen.queryByText(defaultProps.sectionTitles[ONE])).toBeInTheDocument();
 
     const inputSectionTwo = screen.getByLabelText('Text2 text field');
     fireEvent.change(inputSectionTwo, { target: { value: 'abc' } });
     fireEvent.click(nextButton);
 
-    expect(screen.getByText(defaultProps.sectionTitles[TWO])).toBeInTheDocument();
+    expect(screen.queryByText(defaultProps.sectionTitles[TWO])).toBeInTheDocument();
 
     const inputSectionThree = screen.getByLabelText('Text3 text field');
     fireEvent.change(inputSectionThree, { target: { value: '123' } });
