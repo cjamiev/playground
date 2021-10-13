@@ -13,16 +13,15 @@ import ComponentWrapper from 'components/ComponentWrapper';
 import Git from './Git';
 import useLocalStorage from 'hooks/useLocalStorage';
 
-const ZERO = 0;
-const ONE = 1;
 const DEFAULT_DIR = './';
+const LS_DIR_KEY = 'rootDir';
 
 const Project = () => {
   const dispatch = useDispatch();
-  const [root, setRoot] = useLocalStorage('rootDir', DEFAULT_DIR, false);
+  const [root, setRoot] = useLocalStorage(LS_DIR_KEY, DEFAULT_DIR, false);
   const { message } = useSelector(state => state.project);
   const TABS = [
-    { title: 'Git', component: ComponentWrapper(Git,{root}) }
+    { title: 'Git', component: ComponentWrapper(Git, { root }) }
   ];
 
   useEffect(() => {

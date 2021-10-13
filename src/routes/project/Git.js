@@ -18,7 +18,6 @@ import useLocalStorage from 'hooks/useLocalStorage';
 
 const ZERO = 0;
 const ONE = 1;
-const DEFAULT_DIR = './';
 
 const Git = ({ root }) => {
   const dispatch = useDispatch();
