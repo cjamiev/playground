@@ -7,7 +7,7 @@ import Experiment from './experiment';
 import ErrorPage from './errorpage';
 import File from './file';
 import Generator from './generator';
-import Git from './git';
+import Project from './project';
 import Home from './home';
 import MockServer from './mockserver';
 
@@ -21,7 +21,7 @@ const Routes = React.memo(() => {
       <Route path={ROUTES.EXPERIMENT.url} component={Experiment} />
       <Route path={ROUTES.FILE.url} component={File} />
       <Route path={ROUTES.GENERATOR.url} component={Generator} />
-      <Route path={ROUTES.GIT.url} component={Git} />
+      <Route path={ROUTES.PROJECT.url} component={Project} />
       <Route path={ROUTES.HOME.url} component={Home} />
       <Route path={ROUTES.MOCKSERVER.url} component={MockServer} />
       <Route component={ErrorPage} />

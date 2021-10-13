@@ -8,7 +8,7 @@ import experimentReducer from 'routes/experiment/experimentReducer';
 import fileReducer from 'routes/file/fileReducer';
 import homeReducer from 'routes/home/homeReducer';
 import generatorReducer from 'routes/generator/generatorReducer';
-import gitReducer from 'routes/git/gitReducer';
+import projectReducer from 'routes/project/projectReducer';
 import globalReducer from 'components/global/globalReducer';
 import listReducer from 'components/list/listReducer';
 import mockserverReducer from 'routes/mockserver/mockserverReducer';
@@ -33,7 +33,7 @@ const rootReducer = combineReducers({
   file: fileReducer,
   home: homeReducer,
   generator: generatorReducer,
-  git: gitReducer,
+  project: projectReducer,
   global: globalReducer,
   list: listReducer,
   mockserver: mockserverReducer

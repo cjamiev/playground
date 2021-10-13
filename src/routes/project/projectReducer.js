@@ -1,37 +1,37 @@
 import {
   LOAD_REMOTE_URL,
-  LOAD_DELETE,
-  LOAD_SELECT_BRANCH,
+  DELETE_BRANCH,
+  SELECT_BRANCH,
   LOAD_BRANCHES,
-  LOAD_CREATE_STASH,
-  LOAD_SELECT_STASH,
+  CREATE_STASH,
+  SELECT_STASH,
   LOAD_VIEW_STASH,
-  LOAD_RESET,
+  RESET_BRANCH,
   CLEAR_MESSAGE
-} from './gitActions';
+} from './projectActions';
 
-export const gitInitialState = {
+export const projectInitialState = {
   remoteUrl: '',
   branches: [],
   stashes: [],
   message: ''
 };
 
-const gitReducer = (state = gitInitialState, action) => {
-  const gitCases = {
+const projectReducer = (state = projectInitialState, action) => {
+  const projectCases = {
     [LOAD_REMOTE_URL]: () => {
       return {
         ...state,
         remoteUrl: action.data.replace('\n','')
       };
     },
-    [LOAD_DELETE]: () => {
+    [DELETE_BRANCH]: () => {
       return {
         ...state,
         message: action.message
       };
     },
-    [LOAD_SELECT_BRANCH]: () => {
+    [SELECT_BRANCH]: () => {
       return {
         ...state,
         message: action.message
@@ -46,13 +46,13 @@ const gitReducer = (state = gitInitialState, action) => {
           .map(item => item.replace(/[*]?[ ]*/g, ''))
       };
     },
-    [LOAD_CREATE_STASH]: () => {
+    [CREATE_STASH]: () => {
       return {
         ...state,
         message: action.message
       };
     },
-    [LOAD_SELECT_STASH]: () => {
+    [SELECT_STASH]: () => {
       return {
         ...state,
         message: action.message
@@ -64,7 +64,7 @@ const gitReducer = (state = gitInitialState, action) => {
         stashes: action.data.split('\n')
       };
     },
-    [LOAD_RESET]: () => {
+    [RESET_BRANCH]: () => {
       return {
         ...state,
         message: action.message
@@ -78,7 +78,7 @@ const gitReducer = (state = gitInitialState, action) => {
     }
   };
 
-  return gitCases.hasOwnProperty(action.type) ? gitCases[action.type]() : state;
+  return projectCases.hasOwnProperty(action.type) ? projectCases[action.type]() : state;
 };
 
-export default gitReducer;
+export default projectReducer;

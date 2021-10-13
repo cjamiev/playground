@@ -24,10 +24,10 @@ const {
   deleteBranch,
   selectBranch,
   viewBranches,
-  stash,
+  createStash,
   selectStash,
   viewStash,
-  reset
+  resetBranch
 } = require('./gitop');
 
 const port = process.argv[2] || 999;
@@ -134,27 +134,27 @@ const handleCommandResponse = (request, response) => {
   }
 };
 
-const handleGitResponse = (request, response) => {
+const handleProjectResponse = (request, response) => {
   const { type, root, name } = url.parse(request.url, true).query;
 
   if(type === 'remoteurl') {
     const data = getRemoteUrl(root);
 
     send(response, { data });
-  } else if(type === 'delete') {
+  } else if(type === 'deletebranch') {
     const message = deleteBranch(root,name);
 
     send(response, { message });
-  } else if(type === 'select') {
+  } else if(type === 'selectbranch') {
     const message = selectBranch(root,name);
 
     send(response, { message });
-  } else if(type === 'view') {
+  } else if(type === 'viewbranches') {
     const data = viewBranches(root);
 
     send(response, { data });
-  } else if(type === 'stash') {
-    const message = stash(root, name);
+  } else if(type === 'createstash') {
+    const message = createStash(root, name);
 
     send(response, { message });
   } else if(type === 'selectstash') {
@@ -165,8 +165,8 @@ const handleGitResponse = (request, response) => {
     const data = viewStash(root);
 
     send(response, { data });
-  } else if(type === 'reset') {
-    const message = reset(root);
+  } else if(type === 'resetbranch') {
+    const message = resetBranch(root);
 
     send(response, { message });
   } else {
@@ -308,8 +308,8 @@ http
       handleFileResponse(request, response);
     } else if (request.url.includes('command')) {
       handleCommandResponse(request, response);
-    } else if (request.url.includes('git')) {
-      handleGitResponse(request, response);
+    } else if (request.url.includes('project')) {
+      handleProjectResponse(request, response);
     } else if (request.url.includes('db')) {
       handleDbResponse(request, response);
     } else if (request.url.includes('mockserver')) {

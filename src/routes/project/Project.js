@@ -9,9 +9,9 @@ import {
   createStash,
   selectStash,
   viewStash,
-  reset,
+  resetBranch,
   clearMessage
-} from './gitActions';
+} from './projectActions';
 import Page from 'components/layout';
 import Text from 'components/form/Text';
 import Dropdown from 'components/form/Dropdown';
@@ -24,7 +24,7 @@ const ZERO = 0;
 const ONE = 1;
 const DEFAULT_DIR = './';
 
-const Git = () => {
+const Project = () => {
   const dispatch = useDispatch();
   const [root, setRoot] = useLocalStorage('rootDir', DEFAULT_DIR, false);
   const [name, setName] = useState('');
@@ -35,7 +35,7 @@ const Git = () => {
     branches,
     stashes,
     message
-  } = useSelector((state) => state.git);
+  } = useSelector((state) => state.project);
 
   useEffect(() => {
     dispatch(getRemoteUrl(root));
@@ -51,7 +51,7 @@ const Git = () => {
       });
       dispatch(openGlobalModal(
         {
-          title: 'Git Response',
+          title: 'Project Response',
           message: renderResult,
           beforeClose: () => {
             dispatch(clearMessage());
@@ -144,10 +144,10 @@ const Git = () => {
       />
       <Button
         label={'Reset'}
-        onClick={() => { dispatch(reset(root)); }}
+        onClick={() => { dispatch(resetBranch(root)); }}
       />
     </Page>
   );
 };
 
-export default Git;
+export default Project;

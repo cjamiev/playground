@@ -3,23 +3,23 @@ import api from 'api';
 import {
   LOAD_REMOTE_URL,
   getRemoteUrl,
-  LOAD_DELETE,
+  DELETE_BRANCH,
   deleteBranch,
-  LOAD_SELECT_BRANCH,
+  SELECT_BRANCH,
   selectBranch,
   LOAD_BRANCHES,
   viewBranches,
-  LOAD_CREATE_STASH,
+  CREATE_STASH,
   createStash,
-  LOAD_SELECT_STASH,
+  SELECT_STASH,
   selectStash,
   LOAD_VIEW_STASH,
   viewStash,
-  LOAD_RESET,
-  reset,
+  RESET_BRANCH,
+  resetBranch,
   CLEAR_MESSAGE,
   clearMessage
-} from './gitActions';
+} from './projectActions';
 import { CREATE_ALERT } from 'components/alert/alertActions';
 
 const error = new Error('Test Message');
@@ -43,7 +43,7 @@ const message = 'test message';
 const rootDir = 'test-dir';
 const name = 'test-name';
 
-describe('gitActions', () => {
+describe('projectActions', () => {
   it('getRemoteUrl', async () => {
     api.get.mockResolvedValueOnce({
       data: {
@@ -53,7 +53,7 @@ describe('gitActions', () => {
     getRemoteUrl(rootDir)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/git/?type=remoteurl&root=${rootDir}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=remoteurl&root=${rootDir}`);
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_REMOTE_URL, data: remoteurl });
     });
   });
@@ -76,8 +76,8 @@ describe('gitActions', () => {
     deleteBranch(rootDir, name)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/git/?type=delete&root=${rootDir}&name=${name}`);
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_DELETE, message });
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=deletebranch&root=${rootDir}&name=${name}`);
+      expect(dispatch).toHaveBeenCalledWith({ type: DELETE_BRANCH, message });
     });
   });
 
@@ -99,8 +99,8 @@ describe('gitActions', () => {
     selectBranch(rootDir, name)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/git/?type=select&root=${rootDir}&name=${name}`);
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_SELECT_BRANCH, message });
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=selectbranch&root=${rootDir}&name=${name}`);
+      expect(dispatch).toHaveBeenCalledWith({ type: SELECT_BRANCH, message });
     });
   });
 
@@ -122,7 +122,7 @@ describe('gitActions', () => {
     viewBranches(rootDir)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/git/?type=view&root=${rootDir}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=viewbranches&root=${rootDir}`);
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_BRANCHES, data });
     });
   });
@@ -145,8 +145,8 @@ describe('gitActions', () => {
     createStash(rootDir, name)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/git/?type=stash&root=${rootDir}&name=${name}`);
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_CREATE_STASH, message });
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=createstash&root=${rootDir}&name=${name}`);
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_STASH, message });
     });
   });
 
@@ -168,8 +168,8 @@ describe('gitActions', () => {
     selectStash(rootDir, name)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/git/?type=selectstash&root=${rootDir}&name=${name}`);
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_SELECT_STASH, message });
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=selectstash&root=${rootDir}&name=${name}`);
+      expect(dispatch).toHaveBeenCalledWith({ type: SELECT_STASH, message });
     });
   });
 
@@ -191,7 +191,7 @@ describe('gitActions', () => {
     viewStash(rootDir)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/git/?type=viewstash&root=${rootDir}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=viewstash&root=${rootDir}`);
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_VIEW_STASH, data });
     });
   });
@@ -205,23 +205,23 @@ describe('gitActions', () => {
     });
   });
 
-  it('reset', async () => {
+  it('resetBranch', async () => {
     api.get.mockResolvedValueOnce({
       data: {
         message
       }
     });
-    reset(rootDir)(dispatch);
+    resetBranch(rootDir)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/git/?type=reset&root=${rootDir}`);
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_RESET, message });
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=resetbranch&root=${rootDir}`);
+      expect(dispatch).toHaveBeenCalledWith({ type: RESET_BRANCH, message });
     });
   });
 
-  it('reset - error', async () => {
+  it('resetBranch - error', async () => {
     api.get.mockRejectedValueOnce(error);
-    reset()(dispatch);
+    resetBranch()(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });

@@ -11,7 +11,7 @@ const getRemoteUrl = (rootDir = DEFAULT_DIR) => {
   }
 };
 
-const reset = (rootDir = DEFAULT_DIR) => {
+const resetBranch = (rootDir = DEFAULT_DIR) => {
   try {
     return execSync(`cd ${rootDir} && git reset --hard`, { encoding: UTF8 });
   } catch(e) {
@@ -49,7 +49,7 @@ const viewBranches = (rootDir = DEFAULT_DIR) => {
   }
 };
 
-const stash = (rootDir = DEFAULT_DIR, stashname) => {
+const createStash = (rootDir = DEFAULT_DIR, stashname) => {
   if(stashname){
     return execSync(`cd ${rootDir} && git stash push -m ${stashname}`, { encoding: UTF8 });
   }
@@ -80,8 +80,8 @@ module.exports = {
   deleteBranch,
   selectBranch,
   viewBranches,
-  stash,
+  createStash,
   selectStash,
   viewStash,
-  reset
+  resetBranch
 };
