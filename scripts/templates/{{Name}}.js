@@ -6,7 +6,7 @@ import Page from 'components/layout';
 const {{Name}} = () => {
   const dispatch = useDispatch();
   const [item, setItem] = useState([]);
-  const { data } = useSelector((state) => state.{{name}});
+  const { data } = useSelector(state => state.{{name}});
 
   useEffect(() => {
     dispatch(load{{Name}}());
