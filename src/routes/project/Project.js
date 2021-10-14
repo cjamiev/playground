@@ -12,6 +12,8 @@ import Text from 'components/form/Text';
 import ComponentWrapper from 'components/ComponentWrapper';
 import Git from './Git';
 import useLocalStorage from 'hooks/useLocalStorage';
+import useDebounce from 'hooks/useDebounce';
+import { TIME } from 'constants/time';
 
 const DEFAULT_DIR = './';
 const LS_DIR_KEY = 'rootDir';
@@ -23,12 +25,13 @@ const Project = () => {
   const TABS = [
     { title: 'Git', component: ComponentWrapper(Git, { root }) }
   ];
+  const debouncedRoot = useDebounce(root, TIME.A_SECOND);
 
   useEffect(() => {
-    dispatch(getRemoteUrl(root));
-    dispatch(viewBranches(root));
-    dispatch(viewStash(root));
-  }, [dispatch, root]);
+    dispatch(getRemoteUrl(debouncedRoot));
+    dispatch(viewBranches(debouncedRoot));
+    dispatch(viewStash(debouncedRoot));
+  }, [dispatch, debouncedRoot]);
 
   useEffect(() => {
     if(message) {
