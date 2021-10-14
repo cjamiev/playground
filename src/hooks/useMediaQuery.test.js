@@ -24,6 +24,6 @@ describe('useSize', () => {
   it('Should display size params', () => {
     render(<TestComponent />);
 
-    expect(screen.getByText(SIZE_1600)).toBeInTheDocument();
+    expect(screen.queryByText(SIZE_1600)).toBeInTheDocument();
   });
 });

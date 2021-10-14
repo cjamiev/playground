@@ -50,6 +50,6 @@ describe('useSize', () => {
   it('Should display size params', () => {
     render(<TestComponent />);
 
-    expect(screen.getByText(JSON.stringify(contentRect))).toBeInTheDocument();
+    expect(screen.queryByText(JSON.stringify(contentRect))).toBeInTheDocument();
   });
 });
