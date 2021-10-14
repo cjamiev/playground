@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { act } from 'react-dom/test-utils';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { TIME } from 'constants/time';
 import useDebounce from './useDebounce';
@@ -7,7 +8,7 @@ const TWO = 2;
 
 const TestComponent = () => {
   const [str, setStr] = useState('Test');
-  const debouncedStr = useDebounce(str, TIME.A_SECOND*TWO);
+  const debouncedStr = useDebounce(str, TIME.A_SECOND);
 
   return (
     <>
@@ -20,15 +21,16 @@ const TestComponent = () => {
 describe('useDebounce', () => {
   it('Should update debouncedValue after delayed time', () => {
     jest.useFakeTimers();
-    render(<TestComponent />);
+    act(() => {
+      render(<TestComponent />);
 
-    expect(screen.queryByText('Test')).toBeInTheDocument();
+      expect(screen.queryByText('Test')).toBeInTheDocument();
+      fireEvent.click(screen.getByText('Update'));
+      expect(screen.queryByText('Test')).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText('Update'));
-    jest.advanceTimersByTime(TIME.A_SECOND);
-    expect(screen.queryByText('Test')).toBeInTheDocument();
+      jest.advanceTimersByTime(TIME.A_SECOND);
+    });
 
-    jest.advanceTimersByTime(TIME.A_SECOND);
-    expect(screen.queryByText('Test123')).toBeInTheDocument();
+    expect(screen.getByText('Test123')).toBeInTheDocument();
   });
 });
