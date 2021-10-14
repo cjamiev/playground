@@ -5,7 +5,7 @@ import { createAlert, dismissAlert } from 'components/alert/alertActions';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
 import TextArea from 'components/form/TextArea';
-import TestNew from './testnew';
+import TestNew from './TestNew';
 import DataGenerator from './DataGenerator';
 import Form from './Form';
 import Wizard from './Wizard';
