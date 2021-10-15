@@ -20,6 +20,9 @@ const GeneratorForm = ({ style, onChange }) => {
   const borderValues = BORDER_TYPES.map((item) =>
     (item.label === style.borderStyle ? { ...item, selected: true } : item)
   );
+  const outlineValues = BORDER_TYPES.map((item) =>
+    (item.label === style.outlineStyle ? { ...item, selected: true } : item)
+  );
   const textAlignValues = TEXT_ALIGN_TYPES.map((item) =>
     (item.label === style.textAlign ? { ...item, selected: true } : item)
   );
@@ -60,6 +63,29 @@ const GeneratorForm = ({ style, onChange }) => {
                 onChange={onChange}
               />
               <Text id="bottomLeftRadius" label="Bottom Left" selected={style.bottomLeftRadius} onChange={onChange} />
+            </>
+          )
+        },
+        {
+          label: 'Outline',
+          content: (
+            <>
+              <Range
+                id="outlineThickness"
+                label="Outline Thickness"
+                min="0"
+                max={THICKNESS_MAX}
+                selected={style.outlineThickness}
+                onChange={onChange}
+              />
+              <Dropdown id="outlineStyle" label="Outline Type" values={outlineValues} onChange={onChange} />
+              <Color id="outlineColor" label="Outline Color" selected={style.outlineColor} onChange={onChange} />
+              <Text
+                id="outlineOffset"
+                label="Offset"
+                selected={style.outlineOffset}
+                onChange={onChange}
+              />
             </>
           )
         },
@@ -148,6 +174,20 @@ const GeneratorForm = ({ style, onChange }) => {
               <Text id="hueRotate" label="hue rotate" selected={style.hueRotate} onChange={onChange} />
               <Text id="invert" label="invert" selected={style.invert} onChange={onChange} />
               <Text id="saturate" label="saturate" selected={style.saturate} onChange={onChange} />
+            </>
+          )
+        },
+        {
+          label: 'Backdrop Filter',
+          content: (
+            <>
+              <Text id="backdropBlur" label="blur" selected={style.backdropBlur} onChange={onChange} />
+              <Text id="backdropBrightness" label="brightness" selected={style.backdropBrightness} onChange={onChange} />
+              <Text id="backdropContrast" label="contrast" selected={style.backdropContrast} onChange={onChange} />
+              <Text id="backdropGrayscale" label="grayscale" selected={style.backdropGrayscale} onChange={onChange} />
+              <Text id="backdropHueRotate" label="hue rotate" selected={style.backdropHueRotate} onChange={onChange} />
+              <Text id="backdropInvert" label="invert" selected={style.backdropInvert} onChange={onChange} />
+              <Text id="backdropSaturate" label="saturate" selected={style.backdropSaturate} onChange={onChange} />
             </>
           )
         },

@@ -100,6 +100,14 @@ const getBorderProperty = ({ borderThickness, borderStyle, borderColor }) => {
   return `${borderThickness}px ${borderStyle} ${borderColor}`;
 };
 
+const getOutlineProperty = ({ outlineThickness, outlineStyle, outlineColor }) => {
+  if (!outlineThickness || !outlineStyle || !outlineColor) {
+    return;
+  }
+
+  return `${outlineThickness}px ${outlineStyle} ${outlineColor}`;
+};
+
 const getColorProperty = (color, opacity) => {
   if (!color.red) {
     return;
@@ -114,6 +122,10 @@ const getInlineStyle = ({
   borderThickness,
   borderStyle,
   borderColor,
+  outlineThickness,
+  outlineStyle,
+  outlineColor,
+  outlineOffset,
   topLeftRadius,
   topRightRadius,
   bottomRightRadius,
@@ -139,6 +151,13 @@ const getInlineStyle = ({
   hueRotate,
   invert,
   saturate,
+  backdropBlur,
+  backdropBrightness,
+  backdropContrast,
+  backdropGrayscale,
+  backdropHueRotate,
+  backdropInvert,
+  backdropSaturate,
   rotate,
   translateX,
   translateY,
@@ -172,6 +191,8 @@ const getInlineStyle = ({
       third: bottomRightRadius,
       fourth: bottomLeftRadius
     }),
+    outline: getOutlineProperty({ outlineThickness, outlineStyle, outlineColor }),
+    outlineOffset: outlineOffset && `${outlineOffset}px`,
     boxShadow: getBoxShadowProperty({
       horizontalBoxShadow,
       verticalBoxShadow,
@@ -183,7 +204,24 @@ const getInlineStyle = ({
     color: fontColor,
     fontSize: fontSize && `${fontSize}px`,
     textAlign,
-    filter: getFilterProperty({ blur, brightness, contrast, grayscale, hueRotate, invert, saturate }),
+    filter: getFilterProperty({
+      blur,
+      brightness,
+      contrast,
+      grayscale,
+      hueRotate,
+      invert,
+      saturate
+    }),
+    backdropFilter: getFilterProperty({
+      blur: backdropBlur,
+      brightness: backdropBrightness,
+      contrast: backdropContrast,
+      grayscale: backdropGrayscale,
+      hueRotate: backdropHueRotate,
+      invert: backdropInvert,
+      saturate: backdropSaturate
+    }),
     textShadow: getTextShadowProperty({
       horizontalTextShadow,
       verticalTextShadow,
