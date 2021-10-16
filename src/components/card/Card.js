@@ -1,8 +1,8 @@
 import React from 'react';
 import './card.css';
 
-const Card = ({ content }) => {
-  return <div className="card">{content}</div>;
+const Card = ({ children }) => {
+  return <div className="card">{children}</div>;
 };
 
 export default Card;

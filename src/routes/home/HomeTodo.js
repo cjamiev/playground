@@ -1,56 +1,10 @@
 import React, { useState } from 'react';
 import { IconButton } from 'components/button';
-import Table from 'components/table';
-import { decrementElementIndex, incrementElementIndex, swapArrayElementPositions } from 'arrayHelper';
+import Card from 'components/card';
+import { decrementElementIndex, incrementElementIndex } from 'arrayHelper';
 import { ICON_TYPES } from 'constants/icon';
 
 const ZERO = 0;
-
-const renderCells = ({ tasks, removeItem, moveItemUp, moveItemDown, onEditTask }) => {
-  return (
-    <>
-      {tasks.map(({ id, text, note, url }) => (
-        <tr className="flex--horizontal" key={id} data-testid={text}>
-          <td className="flex--three flex--vertical">
-            {<span className="home__task-text">{text}</span>}
-            {note && <span className="home__task-note">{note}</span>}
-            {url && (
-              <a className="link home__task-link" href={url} target="_blank">
-                <label className="home__task-link-label">{url}</label>
-              </a>
-            )}
-          </td>
-          <td className="flex--one">
-            <IconButton
-              type={ICON_TYPES.TRASH}
-              onClick={() => {
-                removeItem(id);
-              }}
-            />
-            <IconButton
-              type={ICON_TYPES.UP_ARROW}
-              onClick={() => {
-                moveItemUp(id);
-              }}
-            />
-            <IconButton
-              type={ICON_TYPES.DOWN_ARROW}
-              onClick={() => {
-                moveItemDown(id);
-              }}
-            />
-            <IconButton
-              type={ICON_TYPES.EDIT}
-              onClick={() => {
-                onEditTask({ id, text, note, url });
-              }}
-            />
-          </td>
-        </tr>
-      ))}
-    </>
-  );
-};
 
 const HomeTodo = ({ tasks, onChange, onEditTask }) => {
   const removeItem = (id) => {
@@ -74,19 +28,52 @@ const HomeTodo = ({ tasks, onChange, onEditTask }) => {
   };
 
   return (
-    <>
+    <div className="flex--horizontal">
       {tasks.length > ZERO ? (
-        <Table
-          headers={[
-            { label: 'To Do', className: 'flex--three' },
-            { label: 'Actions', className: 'flex--one' }
-          ]}
-          body={renderCells({ tasks, removeItem, moveItemUp, moveItemDown, onEditTask })}
-        />
+        tasks.map(({ id, text, note, url }) => (
+          <Card key={id}>
+            <div className="home__card">
+              <div className="flex--vertical home__card-data">
+                <span className="home__card-title">{text}</span>
+                {note && <span className="home__task-note">{note}</span>}
+                {url && (
+                  <a className="link home__task-link" href={url} target="_blank">
+                    <label className="home__task-link-label">{url}</label>
+                  </a>
+                )}
+              </div>
+              <div className="home__card-btns">
+                <IconButton
+                  type={ICON_TYPES.TRASH}
+                  onClick={() => {
+                    removeItem(id);
+                  }}
+                />
+                <IconButton
+                  type={ICON_TYPES.EDIT}
+                  onClick={() => {
+                    onEditTask({ id, text, note, url });
+                  }}
+                />
+                <IconButton
+                  type={ICON_TYPES.UP_ARROW}
+                  onClick={() => {
+                    moveItemUp(id);
+                  }}
+                />
+                <IconButton
+                  type={ICON_TYPES.DOWN_ARROW}
+                  onClick={() => {
+                    moveItemDown(id);
+                  }}
+                />
+              </div>
+            </div>
+          </Card>))
       ) : (
         <p> No tasks to display </p>
       )}
-    </>
+    </div>
   );
 };
 

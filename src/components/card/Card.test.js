@@ -4,7 +4,7 @@ import { simpleTestWrapper } from 'testHelper';
 import Card from './Card';
 
 const defaultProps = {
-  content: <div>content</div>
+  children: <div>content</div>
 };
 
 describe('Card', () => {
