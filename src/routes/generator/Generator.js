@@ -12,6 +12,7 @@ import GeneratorForm from './GeneratorForm';
 import GeneratorSidePanel from './GeneratorSidePanel';
 import { loadGeneratorRecords, updatedGeneratorRecords } from './generatorActions';
 import { copyToClipboard } from 'helper/copy';
+import { filterOutEmptyKeys } from 'objectHelper';
 import { getCurrentStyles } from './helper';
 import { ALL_CSS } from 'constants/css';
 import './generator.css';
@@ -23,6 +24,7 @@ const TWO = 2;
 const Generator = () => {
   const [name, setName] = useState('');
   const [mode, setMode] = useState(ZERO);
+  const [backgroundMode, setBackgroundMode] = useState(ZERO);
   const [isHovering, setIsHovering] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [normalStyle, setNormalStyle] = useState({
@@ -35,9 +37,11 @@ const Generator = () => {
   });
   const [hoverStyle, setHoverStyle] = useState(ALL_CSS);
   const [activeStyle, setActiveStyle] = useState(ALL_CSS);
-  const [parentBackgroundColor, setParentBackgroundColor] = useState('#ffffff');
+  const [backgroundStyle, setBackgroundStyle] = useState({
+    backgroundColor: '#ffffff'
+  });
   const dispatch = useDispatch();
-  const { generatorRecords } = useSelector((state) => state.generator);
+  const { generatorRecords } = useSelector(state => state.generator);
 
   useEffect(() => {
     dispatch(loadGeneratorRecords());
@@ -94,11 +98,21 @@ const Generator = () => {
   };
 
   const handleParentBackgroundColorChange = ({ selected }) => {
-    setParentBackgroundColor(selected);
+    setBackgroundStyle({ backgroundColor: selected });
   };
 
   const handleMode = (index) => {
     setMode(index);
+  };
+
+  const handleBackgroundMode = (index) => {
+    setBackgroundMode(index);
+    if(index) {
+      setBackgroundStyle({ backgroundImage: 'url("img/background.jpg")' });
+    }
+    if(!index) {
+      setBackgroundStyle({ backgroundColor: '#ffffff' });
+    }
   };
 
   const handleSelectRecord = (selectedName) => {
@@ -108,7 +122,8 @@ const Generator = () => {
       setNormalStyle(matched.value.normalStyle);
       setHoverStyle(matched.value.hoverStyle);
       setActiveStyle(matched.value.activeStyle);
-      setParentBackgroundColor(matched.value.parentBackgroundColor);
+      setBackgroundStyle(matched.value.backgroundStyle);
+      setBackgroundMode(matched.value.backgroundStyle.backgroundColor ? ZERO : ONE );
     }
   };
 
@@ -116,8 +131,17 @@ const Generator = () => {
     const filteredRecords = generatorRecords.filter((item) => item.name !== selectedName);
     const updatedRecords = [
       ...filteredRecords,
-      { name, value: { normalStyle, hoverStyle, activeStyle, parentBackgroundColor } }
-    ];
+      { name, value: { normalStyle, hoverStyle, activeStyle, backgroundStyle } }
+    ].map((item) => {
+      const filteredValue = {
+        backgroundStyle: item.value.backgroundStyle,
+        normalStyle: filterOutEmptyKeys(item.value.normalStyle),
+        hoverStyle: filterOutEmptyKeys(item.value.hoverStyle),
+        activeStyle: filterOutEmptyKeys(item.value.activeStyle)
+      };
+
+      return { name: item.name, value: filteredValue };
+    });
 
     dispatch(updatedGeneratorRecords(updatedRecords));
   };
@@ -154,8 +178,15 @@ const Generator = () => {
           <GeneratorForm style={currentStyle} onChange={handleChange} />
         </div>
         <div className="generator__result_container">
-          <Color label="Parent Color" selected={parentBackgroundColor} onChange={handleParentBackgroundColorChange} />
-          <div style={{ backgroundColor: parentBackgroundColor }} className="generator__box_parent">
+          <div className="flex--horizontal">
+            <Switch
+              data={[{ label: 'Color' }, { label: 'Image' }]}
+              switchIndex={backgroundMode}
+              onToggleSwitch={handleBackgroundMode}
+            />
+            {backgroundMode === ZERO && <Color label="Parent Color" selected={backgroundStyle.backgroundColor} onChange={handleParentBackgroundColorChange} />}
+          </div>
+          <div style={backgroundStyle} className="generator__box_parent">
             <div
               style={currentInlineStyle}
               aria-label={ariaLabel}

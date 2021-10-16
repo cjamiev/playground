@@ -27,7 +27,9 @@ const content = [
         ...ALL_CSS,
         blur: '5'
       },
-      parentBackgroundColor: '#ffffff'
+      backgroundStyle: {
+        backgroundColor: '#ffffff'
+      }
     }
   }
 ];
@@ -198,7 +200,9 @@ describe('Generator', () => {
       {
         name: 'test',
         value: {
-          parentBackgroundColor: '#ffffff',
+          backgroundStyle: {
+            backgroundColor: '#ffffff'
+          },
           normalStyle: {
             height: '50',
             width: '100',

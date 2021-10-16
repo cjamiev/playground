@@ -1,6 +1,5 @@
 import api from 'api';
 import { createAlert } from 'components/alert/alertActions';
-import { filterOutEmptyKeys } from 'objectHelper';
 
 const ONE_SECOND = 1000;
 const ZERO = 0;
@@ -20,26 +19,12 @@ const loadGeneratorRecords = () => {
 };
 
 const updatedGeneratorRecords = (content) => {
-  const filteredContent =
-    content.length > ZERO
-      ? content.map((item) => {
-        const filteredValue = {
-          parentBackgroundColor: item.value.parentBackgroundColor,
-          normalStyle: filterOutEmptyKeys(item.value.normalStyle),
-          hoverStyle: filterOutEmptyKeys(item.value.hoverStyle),
-          activeStyle: filterOutEmptyKeys(item.value.activeStyle)
-        };
-
-        return { name: item.name, value: filteredValue };
-      })
-      : [];
-
   return (dispatch) => {
     api
-      .post('/db', { filename: 'generator.json', content: JSON.stringify(filteredContent) })
+      .post('/db', { filename: 'generator.json', content: JSON.stringify(content) })
       .then((response) => {
         dispatch(createAlert({ content: 'Updated', timer: ONE_SECOND, status: 'success' }));
-        dispatch({ type: LOAD_GENERATOR_RECORDS, data: filteredContent });
+        dispatch({ type: LOAD_GENERATOR_RECORDS, data: content });
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));

@@ -14,8 +14,9 @@
 .generator__box_parent {
   display: grid;
   place-items: center;
-  width: 100%;
-  height: 750px;
+  width : 1280px; 
+  height: 600px;
+  background-repeat: no-repeat;
 }
 
 .generator__output_container {

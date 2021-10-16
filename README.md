@@ -44,7 +44,7 @@ Components:
 - Cards
 - Progress Item List (Wizard)
 - Flex/Grid (Generator)
-- Glassmorphism & Neomorphism
+- Neomorphism
 
 Hook:
 - Form Validation
