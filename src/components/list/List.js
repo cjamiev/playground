@@ -20,7 +20,7 @@ const getFormattedTime = ({ weeks, days, hours, minutes, seconds }) => {
   return formattedTimerClock(hours, minutes, seconds);
 };
 
-export const DisplayTimer = ({ label, value }) => {
+const DisplayTimer = ({ label, value }) => {
   const time = useTimer(new Date(value));
 
   return (
