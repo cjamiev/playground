@@ -4,13 +4,17 @@ import { simpleTestWrapper } from 'testHelper';
 import Card from './Card';
 
 const defaultProps = {
-  children: <div>content</div>
+  title: <div>title</div>,
+  body: <div>body</div>,
+  footer: <div>footer</div>
 };
 
 describe('Card', () => {
   it('checks behavior', () => {
     simpleTestWrapper(Card, defaultProps);
 
-    expect(screen.queryByText('content')).toBeInTheDocument();
+    expect(screen.queryByText('title')).toBeInTheDocument();
+    expect(screen.queryByText('body')).toBeInTheDocument();
+    expect(screen.queryByText('footer')).toBeInTheDocument();
   });
 });

@@ -31,24 +31,21 @@ const HomeTodo = ({ tasks, onChange, onEditTask }) => {
     <div className="flex--horizontal">
       {tasks.length > ZERO ? (
         tasks.map(({ id, text, note, url }) => (
-          <Card key={id}>
-            <div className="home__card">
-              <div className="flex--vertical home__card-data">
-                <span className="home__card-title">{text}</span>
+          <Card
+            key={id}
+            title={text}
+            body={
+              <>
                 {note && <span className="home__task-note">{note}</span>}
                 {url && (
                   <a className="link home__task-link" href={url} target="_blank">
                     <label className="home__task-link-label">{url}</label>
                   </a>
                 )}
-              </div>
-              <div className="home__card-btns">
-                <IconButton
-                  type={ICON_TYPES.TRASH}
-                  onClick={() => {
-                    removeItem(id);
-                  }}
-                />
+              </>
+            }
+            footer={
+              <>
                 <IconButton
                   type={ICON_TYPES.EDIT}
                   onClick={() => {
@@ -67,9 +64,15 @@ const HomeTodo = ({ tasks, onChange, onEditTask }) => {
                     moveItemDown(id);
                   }}
                 />
-              </div>
-            </div>
-          </Card>))
+                <IconButton
+                  type={ICON_TYPES.TRASH}
+                  onClick={() => {
+                    removeItem(id);
+                  }}
+                />
+              </>
+            }
+          />))
       ) : (
         <p> No tasks to display </p>
       )}

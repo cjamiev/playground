@@ -9,62 +9,52 @@ import { ICON_TYPES } from 'constants/icon';
 const ZERO = 0;
 const ONE = 1;
 
-const getFormattedTime = ({ weeks, days, hours, minutes, seconds }) => {
-  if (weeks > ONE) {
-    return `${weeks} Weeks`;
-  } else if (days > ONE) {
-    return `${days} Days`;
-  }
-
-  return formattedTimerClock(hours, minutes, seconds);
+const getFormattedTime = ({ weeks, days, hours, minutes, seconds }, label) => {
+  return (
+    <>
+      <p>{weeks} Weeks</p>
+      <p>{days} Days</p>
+      <p data-testid={`${label} time`}>{formattedTimerClock(hours, minutes, seconds)}</p>
+    </>
+  );
 };
 
-const Time = ({ label, value }) => {
-  const time = useTimer(value);
+const TimerCard = ({ item, onRemoveTimer, onEditTimer }) => {
+  const { year, month, day, hour, minute, second } = item.value;
+  const newDate = new Date(year, month - ONE, day, hour, minute, second);
+  const time = useTimer(newDate);
 
-  return <div data-testid={`${label} time`}>{getFormattedTime(time)}</div>;
+  return (
+    <Card
+      title={item.name}
+      body={getFormattedTime(time, item.name)}
+      footer={<>
+        <IconButton
+          type={ICON_TYPES.EDIT}
+          onClick={() => {
+            onEditTimer(item.name, newDate);
+          }}
+        />
+        <IconButton
+          type={ICON_TYPES.TRASH}
+          onClick={() => {
+            onRemoveTimer(item);
+          }}
+        />
+      </>}
+    />
+  );
 };
 
-const Timers = ({ timers, onRemoveTimer, onEditTimer }) => {
-  return timers.map((item) => {
-    const { year, month, day, hour, minute, second } = item.value;
-    const newDate = new Date(year, month - ONE, day, hour, minute, second);
-
-    return (
-      <Card key={item.name}>
-        <div className="home__card">
-          <div className="home__card-data">
-            <div className="home__card-title">{item.name}</div>
-            <Time label={item.name} value={newDate} />
-          </div>
-          <div className="home__card-btns">
-            <IconButton
-              type={ICON_TYPES.TRASH}
-              onClick={() => {
-                onRemoveTimer(item);
-              }}
-            />
-            <IconButton
-              type={ICON_TYPES.EDIT}
-              onClick={() => {
-                onEditTimer(item.name, newDate);
-              }}
-            />
-          </div>
-        </div>
-      </Card>
-    );
-  });
-};
 
 const HomeTimer = ({ timers, onRemoveTimer, onEditTimer }) => {
+  const renderTimers = timers.length > ZERO
+    ? timers.map(item => <TimerCard key={item.name} item={item} onRemoveTimer={onRemoveTimer} onEditTimer={onEditTimer} />)
+    : (<p> No timers to display </p>);
+
   return (
     <div className="flex--horizontal">
-      {timers.length > ZERO ? (
-        <Timers timers={timers} onRemoveTimer={onRemoveTimer} onEditTimer={onEditTimer} />
-      ) : (
-        <p> No timers to display </p>
-      )}
+      {renderTimers}
     </div>
   );
 };
