@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconButton } from 'components/button';
-import { ICON_TYPES } from 'constants/icon';
+import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
 
 const SidePanel = ({ showSidePanel, sidePanelContent, isSidePanelWide, toggleSidePanel, title }) => {
   if (!showSidePanel) {
@@ -21,7 +21,7 @@ const SidePanel = ({ showSidePanel, sidePanelContent, isSidePanelWide, toggleSid
           )}
           {isSidePanelWide && (
             <div className="sidepanel__button">
-              <IconButton type={ICON_TYPES.CLOSE} onClick={toggleSidePanel} />
+              <IconButton type={ICON_TYPES.CLOSE} size={ICON_SIZES.SMALL} onClick={toggleSidePanel} />
             </div>
           )}
         </header>

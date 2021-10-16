@@ -40,3 +40,11 @@ export const ICON_TYPES = {
   UP_ARROW: 'up-arrow',
   UP_CARET: 'up-caret'
 };
+
+export const ICON_SIZES = {
+  EXTRA_SMALL: 'xs',
+  SMALL: 's',
+  MEDIUM: 'm',
+  LARGE: 'l',
+  EXTRA_LARGE: 'xl'
+};

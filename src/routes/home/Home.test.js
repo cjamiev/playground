@@ -22,7 +22,7 @@ describe('Home', () => {
     const taskField = screen.getByLabelText('Task text field');
     const notesField = screen.getByLabelText('Notes text field');
     const urlField = screen.getByLabelText('URL text field');
-    const addBtn = screen.getByText('Add Item');
+    const addBtn = screen.getByText('Save Task');
 
     fireEvent.change(taskField, { target: { value: 'taskOne' } });
     fireEvent.change(notesField, { target: { value: 'noteOne' } });

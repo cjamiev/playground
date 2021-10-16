@@ -5,7 +5,7 @@
   margin-bottom: 20px;
 	padding: 5px 0px 0px 5px;
 	transition: transform 250ms ease-out 0s;
-	box-shadow: 0px 0px 10px 1px #000000;
+	box-shadow: 0px 0px 10px 1px #aaaaaa;
 	border-radius: 5px 5px 5px 5px;
   display: flex;
   flex-direction: column;

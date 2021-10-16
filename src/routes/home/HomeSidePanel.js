@@ -40,7 +40,7 @@ const HomeSidePanel = ({ selectedTask, onChangeItem, onChangeTimer, selectedTime
       <Button
         data-testid="todo-add-btn"
         classColor="primary"
-        label="Add Item"
+        label="Save Task"
         onClick={() => {
           if (!text.length) {
             return;

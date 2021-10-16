@@ -11,7 +11,7 @@ import {
   TripleBarIcon,
   UndoIcon
 } from 'components/icons';
-import { ICON_TYPES } from 'constants/icon';
+import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
 import ComponentWrapper from 'components/ComponentWrapper';
 
 const ICON_HEIGHT = '53px';
@@ -33,13 +33,23 @@ const iconMap = {
   [ICON_TYPES.UNDO]: UndoIcon
 };
 
-const IconButton = ({ type, onClick }) => {
+const SCALE_SIZES = {
+  [ICON_SIZES.EXTRA_SMALL]: 'scale(0.5)',
+  [ICON_SIZES.SMALL]: 'scale(0.8)',
+  [ICON_SIZES.MEDIUM]: 'scale(1)',
+  [ICON_SIZES.LARGE]: 'scale(1.2)',
+  [ICON_SIZES.EXTRA_LARGE]: 'scale(1.5)'
+};
+
+const IconButton = ({ type, size = 'm', onClick }) => {
   const IconSVG = iconMap.hasOwnProperty(type) ? iconMap[type] : null;
 
   return (
     <button className="btn--icon" onClick={onClick}>
       <svg height={ICON_HEIGHT} width={ICON_WIDTH} viewBox={ICON_VIEWBOX}>
-        <IconSVG />
+        <g transform={SCALE_SIZES[size]}>
+          <IconSVG />
+        </g>
       </svg>
     </button>
   );
