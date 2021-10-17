@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react';
 import Button from 'components/button';
 import Text from 'components/form/Text';
 import TimerForm from 'components/form/TimerForm';
+import ItemCreator from 'components/form/ItemCreator';
 
 const ZERO = 0;
 const ONE = 1;
 
 const HomeSidePanel = ({ selectedTask, onChangeItem, onChangeTimer, selectedTimer }) => {
   const [text, setText] = useState('');
-  const [note, setNote] = useState('');
-  const [url, setUrl] = useState('');
+  const [notes, setNotes] = useState([]);
+  const [urls, setUrls] = useState([]);
 
   useEffect(() => {
     if (selectedTask.text) {
       setText(selectedTask.text);
-      setNote(selectedTask.note);
-      setUrl(selectedTask.url);
+      setNotes(selectedTask.notes);
+      setUrls(selectedTask.urls);
     }
   }, [selectedTask]);
 
@@ -23,20 +24,20 @@ const HomeSidePanel = ({ selectedTask, onChangeItem, onChangeTimer, selectedTime
     setText(selected);
   };
 
-  const handleNoteChange = ({ selected }) => {
-    setNote(selected);
+  const handleNotesChange = (updatedNotes) => {
+    setNotes(updatedNotes);
   };
 
-  const handleUrlChange = ({ selected }) => {
-    setUrl(selected);
+  const handleUrlsChange = (updatedUrls) => {
+    setUrls(updatedUrls);
   };
 
   return (
     <div className="container--center">
       <h3> Add Tasks </h3>
       <Text data-testid="todo-task" placeholder="Task" selected={text} onChange={handleTextChange} />
-      <Text data-testid="todo-notes" placeholder="Notes" selected={note} onChange={handleNoteChange} />
-      <Text data-testid="todo-url" placeholder="URL" selected={url} onChange={handleUrlChange} />
+      <ItemCreator placeholder="Note" data={notes} onChange={handleNotesChange} />
+      <ItemCreator placeholder="Url" data={urls} onChange={handleUrlsChange} />
       <Button
         data-testid="todo-add-btn"
         classColor="primary"
@@ -48,13 +49,13 @@ const HomeSidePanel = ({ selectedTask, onChangeItem, onChangeTimer, selectedTime
 
           const newItem = {
             text,
-            note,
-            url,
+            notes,
+            urls,
             id: Date.now()
           };
           setText('');
-          setNote('');
-          setUrl('');
+          setNotes([]);
+          setUrls([]);
 
           onChangeItem(newItem);
         }}

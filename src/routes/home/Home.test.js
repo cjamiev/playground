@@ -20,29 +20,39 @@ describe('Home', () => {
 
     // Add tasks
     const taskField = screen.getByLabelText('Task text field');
-    const notesField = screen.getByLabelText('Notes text field');
-    const urlField = screen.getByLabelText('URL text field');
+    const noteField = screen.getByLabelText('Note text field');
+    const urlField = screen.getByLabelText('Url text field');
     const addBtn = screen.getByText('Save Task');
 
     fireEvent.change(taskField, { target: { value: 'taskOne' } });
-    fireEvent.change(notesField, { target: { value: 'noteOne' } });
+    fireEvent.change(noteField, { target: { value: 'noteOne' } });
+    fireEvent.click(screen.getByLabelText('plus'));
     fireEvent.change(urlField, { target: { value: 'urlOne' } });
+    fireEvent.click(screen.getByLabelText('plus'));
     fireEvent.click(addBtn);
+
     fireEvent.change(taskField, { target: { value: 'taskTwo' } });
-    fireEvent.change(notesField, { target: { value: 'noteTwo' } });
+    fireEvent.change(noteField, { target: { value: 'noteTwo' } });
+    fireEvent.click(screen.getByLabelText('plus'));
     fireEvent.change(urlField, { target: { value: 'urlTwo' } });
+    fireEvent.click(screen.getByLabelText('plus'));
     fireEvent.click(addBtn);
+
     fireEvent.change(taskField, { target: { value: 'taskThree' } });
-    fireEvent.change(notesField, { target: { value: 'noteThree' } });
+    fireEvent.change(noteField, { target: { value: 'noteThree' } });
+    fireEvent.click(screen.getByLabelText('plus'));
     fireEvent.change(urlField, { target: { value: 'urlThree' } });
+    fireEvent.click(screen.getByLabelText('plus'));
     fireEvent.click(addBtn);
 
     expect(screen.queryByText('taskOne')).toBeInTheDocument();
     expect(screen.queryByText('noteOne')).toBeInTheDocument();
     expect(screen.queryByText('urlOne')).toBeInTheDocument();
+
     expect(screen.queryByText('taskTwo')).toBeInTheDocument();
     expect(screen.queryByText('noteTwo')).toBeInTheDocument();
     expect(screen.queryByText('urlTwo')).toBeInTheDocument();
+
     expect(screen.queryByText('taskThree')).toBeInTheDocument();
     expect(screen.queryByText('noteThree')).toBeInTheDocument();
     expect(screen.queryByText('urlThree')).toBeInTheDocument();

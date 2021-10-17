@@ -18,7 +18,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const [tasks, setTasks] = useState([]);
   const [timers, setTimers] = useState([]);
-  const [selectedTask, setSelectedTask] = useState({ text: '', note: '', url: '' });
+  const [selectedTask, setSelectedTask] = useState({ text: '', notes: [], urls: [] });
   const [selectedTimer, setSelectedTimer] = useState({ id: -1, name: '', time: new Date() });
   const records = useSelector((state) => state.home);
 

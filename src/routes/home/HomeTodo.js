@@ -3,8 +3,10 @@ import { IconButton } from 'components/button';
 import Card from 'components/card';
 import { decrementElementIndex, incrementElementIndex } from 'arrayHelper';
 import { ICON_TYPES } from 'constants/icon';
+import { getEllipsisForLongText } from 'stringHelper';
 
 const ZERO = 0;
+const MAX_LENGTH = 18;
 
 const HomeTodo = ({ tasks, onChange, onEditTask }) => {
   const removeItem = (id) => {
@@ -30,26 +32,26 @@ const HomeTodo = ({ tasks, onChange, onEditTask }) => {
   return (
     <div className="flex--horizontal">
       {tasks.length > ZERO ? (
-        tasks.map(({ id, text, note, url }) => (
+        tasks.map(({ id, text, notes, urls }) => (
           <Card
             key={id}
             title={text}
             body={
-              <>
-                {note && <span className="home__task-note">{note}</span>}
-                {url && (
-                  <a className="link home__task-link" href={url} target="_blank">
-                    <label className="home__task-link-label">{url}</label>
+              <div className="flex--vertical">
+                {notes.map(note => (<span key={note} className="home__task-note">{note}</span>))}
+                {urls.map(url =>
+                  <a key={url} className="link home__task-link" href={url} target="_blank">
+                    <label className="home__task-link-label">{getEllipsisForLongText(url, MAX_LENGTH)}</label>
                   </a>
                 )}
-              </>
+              </div>
             }
             footer={
               <>
                 <IconButton
                   type={ICON_TYPES.EDIT}
                   onClick={() => {
-                    onEditTask({ id, text, note, url });
+                    onEditTask({ id, text, notes, urls });
                   }}
                 />
                 <IconButton
