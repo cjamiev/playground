@@ -47,3 +47,7 @@
   margin-right: 10px;
   width: 80px;
 }
+
+.item-creator__label {
+  padding-top: 8px;
+}
