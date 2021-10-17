@@ -15,7 +15,6 @@ import { copyToClipboard } from 'helper/copy';
 import { filterOutEmptyKeys } from 'objectHelper';
 import { getCurrentStyles } from './helper';
 import { ALL_CSS } from 'constants/css';
-import './generator.css';
 
 const ZERO = 0;
 const ONE = 1;

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TextArea from 'components/form/TextArea';
 import Button, { CloseButton } from 'components/button';
-import './modal.css';
 import { noop } from 'helper/noop';
 
 const Modal = (props) => {

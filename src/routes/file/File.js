@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadDirectory, loadFile, writeFile } from './fileActions';
 import { dismissAlert } from 'components/alert/alertActions';
-import FileSidePanel from './FileSidePanel';
+import FileOperations from './FileOperations';
+import RegexOperations from './RegexOperations';
+import StringOperations from './StringOperations';
+import JsonOperations from './JsonOperations';
 import Page from 'components/layout';
 import Button, { IconButton } from 'components/button';
 import Text from 'components/form/Text';
@@ -10,7 +13,6 @@ import TextArea from 'components/form/TextArea';
 import Dropdown from 'components/form/Dropdown';
 import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
-import './file.css';
 
 const ZERO = 0;
 const ONE = 1;
@@ -47,54 +49,58 @@ const File = () => {
   });
 
   return (
-    <Page
-      sidePanelContent={
-        <FileSidePanel
-          content={content}
-          onChange={(updated) => {
-            setContent(updated);
-          }}
-        />
-      }
-    >
-      <Dropdown
-        label="Select an existing file"
-        values={files}
-        onChange={({ values }) => {
-          const selectedFile = values.find((item) => item.selected);
-          setName(selectedFile.value);
-          dispatch(loadFile(selectedFile.value));
-          dispatch(dismissAlert());
-        }}
-      />
-      <Text placeholder="Enter File Name" selected={name} onChange={handleNameChange} />
-      <IconButton
-        type={ICON_TYPES.SAVE}
-        onClick={() => {
-          if (name && content) {
-            dispatch(writeFile(name, content));
-          }
-        }}
-      />
-      <IconButton
-        type={ICON_TYPES.COPY}
-        onClick={() => {
-          copyToClipboard(content);
-        }}
-      />
-      <IconButton
-        type={ICON_TYPES.UNDO}
-        onClick={() => {
-          setContent(previous);
-        }}
-      />
-      <TextArea
-        ariaLabel="Content text area"
-        selected={content}
-        onChange={({ selected }) => {
-          setContent(selected);
-        }}
-      />
+    <Page>
+      <div className="flex--horizontal">
+        <div className="flex--one">
+          <Dropdown
+            label="Select an existing file"
+            values={files}
+            onChange={({ values }) => {
+              const selectedFile = values.find((item) => item.selected);
+              setName(selectedFile.value);
+              dispatch(loadFile(selectedFile.value));
+              dispatch(dismissAlert());
+            }}
+          />
+          <Text placeholder="Enter File Name" selected={name} onChange={handleNameChange} />
+          <IconButton
+            type={ICON_TYPES.SAVE}
+            onClick={() => {
+              if (name && content) {
+                dispatch(writeFile(name, content));
+              }
+            }}
+          />
+          <IconButton
+            type={ICON_TYPES.COPY}
+            onClick={() => {
+              copyToClipboard(content);
+            }}
+          />
+          <IconButton
+            type={ICON_TYPES.UNDO}
+            onClick={() => {
+              setContent(previous);
+            }}
+          />
+        </div>
+        <div className="flex--two">
+          <TextArea
+            ariaLabel="Content text area"
+            selected={content}
+            onChange={({ selected }) => {
+              setContent(selected);
+            }}
+          />
+        </div>
+        <div className="flex--three">
+          <FileOperations content={content}
+            onChange={(updated) => {
+              setContent(updated);
+            }}
+          />
+        </div>
+      </div>
     </Page>
   );
 };

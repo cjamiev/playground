@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './tabs.css';
 import { noop } from 'helper/noop';
 
 const ZERO = 0;

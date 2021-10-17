@@ -8,7 +8,6 @@ import PageContent from './PageContent';
 import PageFooter from './PageFooter';
 import SidePanel from './SidePanel';
 import { openSidePanel, closeSidePanel } from 'components/global/globalActions';
-import './page.css';
 
 const NAV_ITEMS = Object.values(ROUTES);
 

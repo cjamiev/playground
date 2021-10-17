@@ -5,7 +5,6 @@ import { closeSidePanel, closeGlobalModal, hideLoadingModal } from 'components/g
 import { dismissAlert } from 'components/alert/alertActions';
 import { ROUTES } from 'constants/routes';
 import { getFormattedClock, getFormattedDate } from 'clock';
-import './navigation.css';
 
 const NAV_ITEMS = Object.values(ROUTES);
 const ONE_SECOND = 1000;

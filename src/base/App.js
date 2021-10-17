@@ -5,7 +5,6 @@ import { configureStore } from 'store';
 import Routes from 'routes/Routes';
 import Navigation from 'components/navigation';
 import Global from 'components/global';
-import 'assets/main.css';
 
 const store = configureStore();
 

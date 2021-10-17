@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from 'components/button';
-import './switch.css';
 import { noop } from 'helper/noop';
 
 const ZERO = 0;

@@ -64,18 +64,6 @@ const Git = ({ root }) => {
           copyToClipboard(remoteUrl);
         }}
       />
-      <Text
-        label="Name"
-        selected={name}
-        onChange={({ selected }) => {
-          setName(selected);
-        }}
-      />
-      <Button
-        label={`Create Stash ${name}`}
-        disabled={!name}
-        onClick={() => { dispatch(createStash(root,name)); }}
-      />
       <Dropdown
         label="Branches"
         values={localBranches}
@@ -90,6 +78,13 @@ const Git = ({ root }) => {
           setLocalStashes(values);
         }}
       />
+      <Text
+        placeholder="Stash Name"
+        selected={name}
+        onChange={({ selected }) => {
+          setName(selected);
+        }}
+      />
       <Button
         label={`Checkout ${branchName}`}
         disabled={!branchName}
@@ -99,6 +94,11 @@ const Git = ({ root }) => {
         label={`Delete ${branchName}`}
         disabled={!branchName}
         onClick={() => { dispatch(deleteBranch(root,branchName)); }}
+      />
+      <Button
+        label={`Create Stash ${name}`}
+        disabled={!name}
+        onClick={() => { dispatch(createStash(root,name)); }}
       />
       <Button
         label={`Switch Stash ${stashName}`}

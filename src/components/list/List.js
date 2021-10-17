@@ -6,7 +6,6 @@ import useTimer from 'hooks/useTimer';
 import { copyToClipboard } from 'helper/copy';
 import Button from 'components/button';
 import { TYPE } from 'constants/type';
-import './list.css';
 
 const ONE = 1;
 

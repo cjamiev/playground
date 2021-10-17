@@ -44,7 +44,7 @@ describe('Project', () => {
   it('handle create stash', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
-    const nameField = screen.getByLabelText('Name text field');
+    const nameField = screen.getByLabelText('Stash Name text field');
 
     fireEvent.change(nameField, { target: { value: name } });
     const createStashBtn = screen.getByText(`Create Stash ${name}`);

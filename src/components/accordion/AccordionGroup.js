@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './accordion.css';
 
 const ZERO = 0;
 const ONE = 1;

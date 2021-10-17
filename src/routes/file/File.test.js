@@ -41,9 +41,6 @@ describe('File', () => {
     it('handle sort', () => {
       reduxTestWrapper(File, {}, {}, pathname);
 
-      const sidePanelBtn = screen.getByLabelText('triple bar');
-      fireEvent.click(sidePanelBtn);
-
       const contentField = screen.getByLabelText('Content text area');
       const sortAscBtn = screen.getByText('Sort Asc');
       const sortDescBtn = screen.getByText('Sort Desc');
@@ -59,9 +56,6 @@ describe('File', () => {
 
     it('handle split/join', () => {
       reduxTestWrapper(File, {}, {}, pathname);
-
-      const sidePanelBtn = screen.getByLabelText('triple bar');
-      fireEvent.click(sidePanelBtn);
 
       const contentField = screen.getByLabelText('Content text area');
       const splitBtn = screen.getByText('Split');
@@ -81,9 +75,6 @@ describe('File', () => {
     it('handle trim', () => {
       reduxTestWrapper(File, {}, {}, pathname);
 
-      const sidePanelBtn = screen.getByLabelText('triple bar');
-      fireEvent.click(sidePanelBtn);
-
       const contentField = screen.getByLabelText('Content text area');
       const trimBtn = screen.getByText('Trim');
 
@@ -98,8 +89,6 @@ describe('File', () => {
     it('handle validate', () => {
       reduxTestWrapper(File, {}, {}, pathname);
 
-      const sidePanelBtn = screen.getByLabelText('triple bar');
-      fireEvent.click(sidePanelBtn);
       const jsonOp = screen.getByText('JSON');
       fireEvent.click(jsonOp);
 
@@ -118,8 +107,6 @@ describe('File', () => {
     it('handle stringify', () => {
       reduxTestWrapper(File, {}, {}, pathname);
 
-      const sidePanelBtn = screen.getByLabelText('triple bar');
-      fireEvent.click(sidePanelBtn);
       const jsonOp = screen.getByText('JSON');
       fireEvent.click(jsonOp);
 
@@ -135,8 +122,6 @@ describe('File', () => {
     it('handle parse', () => {
       reduxTestWrapper(File, {}, {}, pathname);
 
-      const sidePanelBtn = screen.getByLabelText('triple bar');
-      fireEvent.click(sidePanelBtn);
       const jsonOp = screen.getByText('JSON');
       fireEvent.click(jsonOp);
 
@@ -152,8 +137,6 @@ describe('File', () => {
     it('handle objectify', () => {
       reduxTestWrapper(File, {}, {}, pathname);
 
-      const sidePanelBtn = screen.getByLabelText('triple bar');
-      fireEvent.click(sidePanelBtn);
       const jsonOp = screen.getByText('JSON');
       fireEvent.click(jsonOp);
 
@@ -171,8 +154,6 @@ describe('File', () => {
     it('handle find and replace', () => {
       reduxTestWrapper(File, {}, {}, pathname);
 
-      const sidePanelBtn = screen.getByLabelText('triple bar');
-      fireEvent.click(sidePanelBtn);
       const regexOp = screen.getByText('Regex');
       fireEvent.click(regexOp);
 
@@ -197,8 +178,6 @@ describe('File', () => {
     it('handle regex with substring', () => {
       reduxTestWrapper(File, {}, {}, pathname);
 
-      const sidePanelBtn = screen.getByLabelText('triple bar');
-      fireEvent.click(sidePanelBtn);
       const regexOp = screen.getByText('Regex');
       fireEvent.click(regexOp);
 
@@ -231,8 +210,6 @@ describe('File', () => {
     it('handle invalid regex', () => {
       reduxTestWrapper(File, {}, {}, pathname);
 
-      const sidePanelBtn = screen.getByLabelText('triple bar');
-      fireEvent.click(sidePanelBtn);
       const regexOp = screen.getByText('Regex');
       fireEvent.click(regexOp);
 

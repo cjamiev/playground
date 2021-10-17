@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dismissAlert } from 'components/alert/alertActions';
 import { CloseButton } from 'components/button';
-import './alert.css';
 
 const ZERO = 0;
 const ONE = 1;

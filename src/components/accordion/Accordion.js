@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './accordion.css';
 
 const Accordion = React.memo(({ label, content }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);

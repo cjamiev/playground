@@ -12,7 +12,6 @@ import ComponentWrapper from 'components/ComponentWrapper';
 import HomeTodo from './HomeTodo';
 import HomeTimer from './HomeTimer';
 import HomeSidePanel from './HomeSidePanel';
-import './home.css';
 
 const Home = () => {
   const dispatch = useDispatch();
