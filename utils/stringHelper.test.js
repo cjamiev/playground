@@ -1,13 +1,15 @@
 import {
   reverseStringTestData,
-  toDashCaseFromCamelCaseData,
-  toCamelCaseFromDashCaseData
+  toDashCaseFromCamelCaseTestData,
+  toCamelCaseFromDashCaseTestData,
+  getEllipsisForLongTextTestData
 } from './testData/stringHelper-data';
 import { testFunctionHelper } from 'testHelper';
 import {
   reverseString,
   toDashCaseFromCamelCase,
-  toCamelCaseFromDashCase
+  toCamelCaseFromDashCase,
+  getEllipsisForLongText
 } from './stringHelper';
 
 describe(':reverseString', () => {
@@ -15,9 +17,13 @@ describe(':reverseString', () => {
 });
 
 describe(':toDashCaseFromCamelCase', () => {
-  toDashCaseFromCamelCaseData.forEach(data => testFunctionHelper(data, toDashCaseFromCamelCase));
+  toDashCaseFromCamelCaseTestData.forEach(data => testFunctionHelper(data, toDashCaseFromCamelCase));
 });
 
 describe(':toCamelCaseFromDashCase', () => {
-  toCamelCaseFromDashCaseData.forEach(data => testFunctionHelper(data, toCamelCaseFromDashCase));
+  toCamelCaseFromDashCaseTestData.forEach(data => testFunctionHelper(data, toCamelCaseFromDashCase));
+});
+
+describe(':getEllipsisForLongText', () => {
+  getEllipsisForLongTextTestData.forEach(data => testFunctionHelper(data, getEllipsisForLongText));
 });

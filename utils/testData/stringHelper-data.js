@@ -31,23 +31,29 @@ const reverseStringTestData = [
   }
 ];
 
-
-const toDashCaseFromCamelCaseData = [
+const toDashCaseFromCamelCaseTestData = [
   { testMessage: 'empty', args: [''], expectedResult: '' },
   { testMessage: 'numbers and symbol', args: ['a$$l3'], expectedResult: 'a$$l3' },
   { testMessage: 'css property with one dash', args: ['borderRadius'], expectedResult: 'border-radius' },
   { testMessage: 'css property with two dashes', args: ['borderRightRadius'], expectedResult: 'border-right-radius' }
 ];
 
-const toCamelCaseFromDashCaseData = [
+const toCamelCaseFromDashCaseTestData = [
   { testMessage: 'empty', args: [''], expectedResult: '' },
   { testMessage: 'numbers and symbol', args: ['a$$l3'], expectedResult: 'a$$l3' },
   { testMessage: 'css property with one dash', args: ['border-radius'], expectedResult: 'borderRadius' },
   { testMessage: 'css property with two dashes', args: ['border-right-radius'], expectedResult: 'borderRightRadius' }
 ];
 
+const getEllipsisForLongTextTestData = [
+  { testMessage: 'empty', args: ['', 5], expectedResult: '' },
+  { testMessage: 'max less than string', args: ['12345', 3], expectedResult: '123...' },
+  { testMessage: 'max greater than string', args: ['12345', 8], expectedResult: '12345' }
+];
+
 export {
   reverseStringTestData,
-  toDashCaseFromCamelCaseData,
-  toCamelCaseFromDashCaseData
+  toDashCaseFromCamelCaseTestData,
+  toCamelCaseFromDashCaseTestData,
+  getEllipsisForLongTextTestData
 };

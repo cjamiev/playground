@@ -1,3 +1,4 @@
+const ZERO = 0;
 const ONE = 1;
 
 const reverseString = (str = '') =>
@@ -37,8 +38,13 @@ const toCamelCaseFromDashCase = text => {
     .join('');
 };
 
+const getEllipsisForLongText = (text, maxLength) => {
+  return text.length > maxLength ? `${text.substring(ZERO, maxLength)}...` : text;
+};
+
 export {
   reverseString,
   toDashCaseFromCamelCase,
-  toCamelCaseFromDashCase
+  toCamelCaseFromDashCase,
+  getEllipsisForLongText
 };

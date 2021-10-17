@@ -1,6 +1,6 @@
 const testArray = [1, 2, 3, 4, 5, 6];
 
-const decrementElementIndexData = [
+const decrementElementIndexTestData = [
   {
     testMessage: 'empty arguments',
     args: [[], 0],
@@ -150,7 +150,7 @@ const flattenDeepTestData = [
   }
 ];
 
-const incrementElementIndexData = [
+const incrementElementIndexTestData = [
   {
     testMessage: 'empty arguments',
     args: [[], 0],
@@ -173,7 +173,7 @@ const incrementElementIndexData = [
   }
 ];
 
-const swapArrayElementPositionsData = [
+const swapArrayElementPositionsTestData = [
   {
     testMessage: 'empty arguments',
     args: [[], []],
@@ -240,12 +240,12 @@ const unqiueTestData = [
 ];
 
 export {
-  decrementElementIndexData,
+  decrementElementIndexTestData,
   differenceTestData,
   dropTestData,
   flattenTestData,
   flattenDeepTestData,
-  incrementElementIndexData,
-  swapArrayElementPositionsData,
+  incrementElementIndexTestData,
+  swapArrayElementPositionsTestData,
   unqiueTestData
 };
