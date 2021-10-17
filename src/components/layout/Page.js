@@ -30,7 +30,7 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
   const mainClassName = isSidePanelWide && isSidePanelOpen ? 'page__main page__main--hide' : 'page__main';
 
   return (
-    <div className="page">
+    <div className="page scrollbar">
       <SidePanel
         showSidePanel={isSidePanelOpen}
         sidePanelContent={sidePanelContent}

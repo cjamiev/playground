@@ -1,8 +1,6 @@
 .page {
   height: 100%;
   display: flex;
-  min-height: 945px;
-  overflow: auto;
 }
 
 .sidepanel {

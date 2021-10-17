@@ -2,13 +2,17 @@
 @import './default.css';
 @import './link.css';
 @import './tooltip.css';
+@import './scroll.css';
+
+html {
+  background-color: #f6f8fa;
+}
 
 .root {
   height: 100%;
   width: 100%;
   overflow: hidden;
   position: relative;
-  background-color: #f6f8fa;
 }
 
 .container--center {

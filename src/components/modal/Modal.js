@@ -56,11 +56,11 @@ const Modal = (props) => {
   };
 
   const renderBody = editable ? (
-    <div className="modal__body">
+    <div className="modal__body scrollbar">
       <TextArea ariaLabel="Modal text area" selected={content} jsonType={true} onChange={handleChange} />
     </div>
   ) : (
-    <div className="modal__body">{content}</div>
+    <div className="modal__body scrollbar">{content}</div>
   );
   const renderTitle = (
     <div className="modal__header">
