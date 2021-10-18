@@ -5,7 +5,7 @@ Project to help with building other projects. Used for improving efficency by he
 - Home: To do list and global timers will alerts that fire on any page. 
 - File: Read and update files, perform string ops, regex, and json ops.
 - Clipboard: Store collections of copy buttons, text, timer, urls, or commands
-- Git: Git operations given directory.  Switch/Delete Branches, Create/Select Stash.
+- Project: Git operations given directory.  Switch/Delete Branches, Create/Select Stash.
 - MockServer: Create, delete, and view mock endpoints
 - Generator: Generate css
 - Experiment: Test out new functionality/components and demo existing.
@@ -41,13 +41,21 @@ Folder for quick testing of html as testing javascript functions
 
 ## ToDo
 Components:
-- Cards
-- Progress Item List (Wizard)
-- Flex/Grid (Generator)
-- Neomorphism
+- Wizard: css & Progress Item List
+- Generator: Flex/Grid, Neomorphism
+- Table: Sort, Config (add/remove entries)
 
 Hook:
 - Form Validation
 
-CSS:
-- Wizard
+Project Page: 
+- Package Tab
+	- View dependencies with installed version and latest version
+	- Ability to select which packages to update
+	- View all package scripts
+	- Execute package scripts (plus npm install)
+- Regex Tab
+  - Enter Rootdir, FileRegex, LineRegex, Replace/StartIndex/EndIndex and run script
+- Template Tab
+	- View all template file names
+	- Select which templates to create from and execute
