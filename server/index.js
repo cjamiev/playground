@@ -23,6 +23,7 @@ const {
   getRemoteUrl,
   deleteBranch,
   createBranch,
+  mergeBranch,
   selectBranch,
   viewBranches,
   createStash,
@@ -56,6 +57,20 @@ const METHOD_POST = 'POST';
 const FILE_DIRECTORY = './storage/io/file';
 const DB_DIRECTORY = './storage/io/db';
 const COMMAND_DIRECTORY = './storage/io/command';
+const gitMapDataOps = {
+  'remoteurl':getRemoteUrl,
+  'viewbranches':viewBranches,
+  'viewstash':viewStas
+};
+const gitMapMessageOps = {
+  'deletebranch':deleteBranch,
+  'createbranch':createBranch,
+  'mergebranch':mergeBranch,
+  'selectbranch':selectBranch,
+  'createstash':createStash,
+  'selectstash':selectStash,
+  'resetbranch':resetBranch
+};
 
 const cors = (res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -137,43 +152,11 @@ const handleCommandResponse = (request, response) => {
 
 const handleProjectResponse = (request, response) => {
   const { type, root, name } = url.parse(request.url, true).query;
+  const gitDataOperation = gitMapDataOps.hasOwnProperty(type) ? gitMapDataOps[type](root) : false;
+  const gitMessageOperation = gitMapMessageOps.hasOwnProperty(type) ? gitMapMessageOps[type](root,name) : false;
 
-  if(type === 'remoteurl') {
-    const data = getRemoteUrl(root);
-
-    send(response, { data });
-  } else if(type === 'deletebranch') {
-    const message = deleteBranch(root,name);
-
-    send(response, { message });
-  } else if(type === 'createbranch') {
-    const message = createBranch(root,name);
-
-    send(response, { message });
-  } else if(type === 'selectbranch') {
-    const message = selectBranch(root,name);
-
-    send(response, { message });
-  } else if(type === 'viewbranches') {
-    const data = viewBranches(root);
-
-    send(response, { data });
-  } else if(type === 'createstash') {
-    const message = createStash(root, name);
-
-    send(response, { message });
-  } else if(type === 'selectstash') {
-    const message = selectStash(root, name);
-
-    send(response, { message });
-  } else if(type === 'viewstash') {
-    const data = viewStash(root);
-
-    send(response, { data });
-  } else if(type === 'resetbranch') {
-    const message = resetBranch(root);
-
-    send(response, { message });
+  if(gitDataOperation || gitMapMessageOps) {
+    send(response, { data: gitDataOperation, message: gitMessageOperation });
   } else {
     send(response, { error: { message: 'git type not found'} });
   }

@@ -41,6 +41,17 @@ const createBranch = (rootDir = DEFAULT_DIR, branchname) => {
   }
 };
 
+const mergeBranch = (rootDir = DEFAULT_DIR, branchname) => {
+  try {
+    if(branchname) {
+      return execSync(`cd ${rootDir} && git merge ${branchname}`, { encoding: UTF8 });
+    }
+    return 'Missing branchname';
+  } catch(e) {
+    return e.stderr;
+  }
+};
+
 const selectBranch = (rootDir = DEFAULT_DIR, branchname) => {
   try {
     if(branchname) {
@@ -90,6 +101,7 @@ module.exports = {
   getRemoteUrl,
   deleteBranch,
   createBranch,
+  mergeBranch,
   selectBranch,
   viewBranches,
   createStash,
