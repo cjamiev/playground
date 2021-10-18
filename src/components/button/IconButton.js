@@ -9,7 +9,7 @@ import {
   SaveIcon,
   TrashIcon,
   TripleBarIcon,
-  UndoIcon
+  SemicircleArrowIcon
 } from 'components/icons';
 import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
 import ComponentWrapper from 'components/ComponentWrapper';
@@ -30,7 +30,8 @@ const iconMap = {
   [ICON_TYPES.SAVE]: SaveIcon,
   [ICON_TYPES.TRASH]: TrashIcon,
   [ICON_TYPES.TRIPLE_BAR]: TripleBarIcon,
-  [ICON_TYPES.UNDO]: UndoIcon
+  [ICON_TYPES.REDO]: ComponentWrapper(SemicircleArrowIcon, { redo: true }),
+  [ICON_TYPES.UNDO]: ComponentWrapper(SemicircleArrowIcon, { undo: true })
 };
 
 const SCALE_SIZES = {

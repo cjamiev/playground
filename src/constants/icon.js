@@ -25,6 +25,7 @@ export const ICON_TYPES = {
   PAUSE: 'pause',
   PLAY: 'play',
   PLUS: 'plus',
+  REDO: 'redo',
   RIGHT_ARROW: 'right-arrow',
   RIGHT_CARET: 'right-caret',
   SAVE: 'save',

@@ -1,8 +1,12 @@
 import React from 'react';
 
-const UndoIcon = () => {
+const SemicircleArrowIcon = ({ redo }) => {
+  const transform = redo
+    ? 'matrix(-1.6291335,0,0,1.6291335,67.557666,-18.33734)'
+    : 'matrix(1.6291335,0,0,1.6291335,-14.640999,-18.33734)';
+
   return (
-    <g aria-label="undo" transform="matrix(1.6291335,0,0,1.6291335,-14.640999,-18.33734)">
+    <g aria-label="undo" transform={transform}>
       <path
         className="icon--hollow icon--stroke-three"
         type="arc"
@@ -24,4 +28,4 @@ const UndoIcon = () => {
   );
 };
 
-export default UndoIcon;
+export default SemicircleArrowIcon;
