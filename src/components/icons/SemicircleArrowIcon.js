@@ -4,9 +4,10 @@ const SemicircleArrowIcon = ({ redo }) => {
   const transform = redo
     ? 'matrix(-1.6291335,0,0,1.6291335,67.557666,-18.33734)'
     : 'matrix(1.6291335,0,0,1.6291335,-14.640999,-18.33734)';
+  const ariaLabel = redo ? 'redo' : 'undo';
 
   return (
-    <g aria-label="undo" transform={transform}>
+    <g aria-label={ariaLabel} transform={transform}>
       <path
         className="icon--hollow icon--stroke-three"
         type="arc"
