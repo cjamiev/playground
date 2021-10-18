@@ -30,6 +30,17 @@ const deleteBranch = (rootDir = DEFAULT_DIR, branchname) => {
   }
 };
 
+const createBranch = (rootDir = DEFAULT_DIR, branchname) => {
+  try {
+    if(branchname) {
+      return execSync(`cd ${rootDir} && git checkout -b ${branchname}`, { encoding: UTF8 });
+    }
+    return 'Missing branchname';
+  } catch(e) {
+    return e.stderr;
+  }
+};
+
 const selectBranch = (rootDir = DEFAULT_DIR, branchname) => {
   try {
     if(branchname) {
@@ -78,6 +89,7 @@ const viewStash = (rootDir = DEFAULT_DIR) => {
 module.exports = {
   getRemoteUrl,
   deleteBranch,
+  createBranch,
   selectBranch,
   viewBranches,
   createStash,

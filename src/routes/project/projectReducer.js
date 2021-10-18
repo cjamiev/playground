@@ -1,6 +1,7 @@
 import {
   LOAD_REMOTE_URL,
   DELETE_BRANCH,
+  CREATE_BRANCH,
   SELECT_BRANCH,
   LOAD_BRANCHES,
   CREATE_STASH,
@@ -26,6 +27,12 @@ const projectReducer = (state = projectInitialState, action) => {
       };
     },
     [DELETE_BRANCH]: () => {
+      return {
+        ...state,
+        message: action.message
+      };
+    },
+    [CREATE_BRANCH]: () => {
       return {
         ...state,
         message: action.message

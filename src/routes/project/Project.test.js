@@ -41,18 +41,6 @@ describe('Project', () => {
     expect(document.execCommand).toHaveBeenCalledWith('copy');
   });
 
-  it('handle create stash', () => {
-    reduxTestWrapper(Project, {}, defaultStoreProps);
-
-    const nameField = screen.getByLabelText('Stash Name text field');
-
-    fireEvent.change(nameField, { target: { value: name } });
-    const createStashBtn = screen.getByText(`Create Stash ${name}`);
-    fireEvent.click(createStashBtn);
-
-    expect(api.get).toHaveBeenCalledWith(`/project/?type=createstash&root=${rootDir}&name=${name}`);
-  });
-
   it('switch branch', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
@@ -73,6 +61,29 @@ describe('Project', () => {
     fireEvent.click(screen.getByText('Delete branch1'));
 
     expect(api.get).toHaveBeenCalledWith(`/project/?type=deletebranch&root=${rootDir}&name=branch1`);
+  });
+
+  it('create branch', () => {
+    reduxTestWrapper(Project, {}, defaultStoreProps);
+
+    const nameField = screen.getByLabelText('Name text field');
+
+    fireEvent.change(nameField, { target: { value: name } });
+    fireEvent.click(screen.getByText(`Create ${name}`));
+
+    expect(api.get).toHaveBeenCalledWith(`/project/?type=createbranch&root=${rootDir}&name=${name}`);
+  });
+
+  it('handle create stash', () => {
+    reduxTestWrapper(Project, {}, defaultStoreProps);
+
+    const nameField = screen.getByLabelText('Name text field');
+
+    fireEvent.change(nameField, { target: { value: name } });
+    const createStashBtn = screen.getByText(`Create Stash ${name}`);
+    fireEvent.click(createStashBtn);
+
+    expect(api.get).toHaveBeenCalledWith(`/project/?type=createstash&root=${rootDir}&name=${name}`);
   });
 
   it('select stash', () => {

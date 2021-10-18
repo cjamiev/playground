@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { openGlobalModal } from 'components/global/globalActions';
 import {
   deleteBranch,
+  createBranch,
   selectBranch,
   createStash,
   selectStash,
-  resetBranch,
-  clearMessage
+  resetBranch
 } from './projectActions';
 import Text from 'components/form/Text';
 import Dropdown from 'components/form/Dropdown';
@@ -30,6 +30,11 @@ const Git = ({ root }) => {
     stashes
   } = useSelector((state) => state.project);
 
+  const selectedBranch = localBranches.find(item => item.selected);
+  const branchName = selectedBranch ? selectedBranch.label : '';
+  const selectedStash = localStashes.find(item => item.selected);
+  const stashName = selectedStash ? selectedStash.label.split('{')[ONE].charAt(ZERO) : '';
+
   useEffect(() => {
     if(branches.length) {
       const dropdownContent = branches.map(item => {
@@ -50,10 +55,11 @@ const Git = ({ root }) => {
     }
   }, [stashes]);
 
-  const selectedBranch = localBranches.find(item => item.selected);
-  const branchName = selectedBranch ? selectedBranch.label : '';
-  const selectedStash = localStashes.find(item => item.selected);
-  const stashName = selectedStash ? selectedStash.label.split('{')[ONE].charAt(ZERO) : '';
+  useEffect(() => {
+    if(branchName) {
+      setName(branchName);
+    }
+  }, [branchName]);
 
   return (
     <div>
@@ -79,36 +85,49 @@ const Git = ({ root }) => {
         }}
       />
       <Text
-        placeholder="Stash Name"
+        placeholder="Name"
         selected={name}
         onChange={({ selected }) => {
           setName(selected);
         }}
       />
-      <Button
-        label={`Checkout ${branchName}`}
-        disabled={!branchName}
-        onClick={() => { dispatch(selectBranch(root,branchName)); }}
-      />
-      <Button
-        label={`Delete ${branchName}`}
-        disabled={!branchName}
-        onClick={() => { dispatch(deleteBranch(root,branchName)); }}
-      />
-      <Button
-        label={`Create Stash ${name}`}
-        disabled={!name}
-        onClick={() => { dispatch(createStash(root,name)); }}
-      />
-      <Button
-        label={`Switch Stash ${stashName}`}
-        disabled={!stashName}
-        onClick={() => { dispatch(selectStash(root,stashName)); }}
-      />
-      <Button
-        label={'Reset'}
-        onClick={() => { dispatch(resetBranch(root)); }}
-      />
+      <div className="flex--horizontal">
+        <div className="flex--vertical">
+          <Button
+            label={`Checkout ${branchName}`}
+            disabled={!branchName}
+            onClick={() => { dispatch(selectBranch(root,branchName)); }}
+          />
+          <Button
+            label={`Delete ${branchName}`}
+            disabled={!branchName}
+            onClick={() => { dispatch(deleteBranch(root,branchName)); }}
+          />
+          <Button
+            label={`Create ${name}`}
+            disabled={!name}
+            onClick={() => { dispatch(createBranch(root,name)); }}
+          />
+        </div>
+        <div className="flex--vertical">
+          <Button
+            label={`Create Stash ${name}`}
+            disabled={!name}
+            onClick={() => { dispatch(createStash(root,name)); }}
+          />
+          <Button
+            label={`Switch Stash ${stashName}`}
+            disabled={!stashName}
+            onClick={() => { dispatch(selectStash(root,stashName)); }}
+          />
+        </div>
+        <div className="flex--vertical">
+          <Button
+            label={'Reset'}
+            onClick={() => { dispatch(resetBranch(root)); }}
+          />
+        </div>
+      </div>
     </div>
   );
 };

@@ -5,6 +5,8 @@ import {
   getRemoteUrl,
   DELETE_BRANCH,
   deleteBranch,
+  CREATE_BRANCH,
+  createBranch,
   SELECT_BRANCH,
   selectBranch,
   LOAD_BRANCHES,
@@ -84,6 +86,29 @@ describe('projectActions', () => {
   it('deleteBranch - error', async () => {
     api.get.mockRejectedValueOnce(error);
     deleteBranch()(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+    });
+  });
+
+  it('createBranch', async () => {
+    api.get.mockResolvedValueOnce({
+      data: {
+        message
+      }
+    });
+    createBranch(rootDir, name)(dispatch);
+
+    await waitFor(() => {
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=createbranch&root=${rootDir}&name=${name}`);
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_BRANCH, message });
+    });
+  });
+
+  it('createBranch - error', async () => {
+    api.get.mockRejectedValueOnce(error);
+    createBranch()(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });

@@ -4,7 +4,8 @@ import { openGlobalModal } from 'components/global/globalActions';
 import {
   getRemoteUrl,
   viewBranches,
-  viewStash
+  viewStash,
+  clearMessage
 } from './projectActions';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';

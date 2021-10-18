@@ -22,6 +22,7 @@ const {
 const {
   getRemoteUrl,
   deleteBranch,
+  createBranch,
   selectBranch,
   viewBranches,
   createStash,
@@ -143,6 +144,10 @@ const handleProjectResponse = (request, response) => {
     send(response, { data });
   } else if(type === 'deletebranch') {
     const message = deleteBranch(root,name);
+
+    send(response, { message });
+  } else if(type === 'createbranch') {
+    const message = createBranch(root,name);
 
     send(response, { message });
   } else if(type === 'selectbranch') {
