@@ -260,16 +260,23 @@ describe('File', () => {
     expect(apiMock.post).toHaveBeenCalledWith('/file', { filename: 'test2.txt', content: '1 2 3 4 5' });
   });
 
-  it('handle undo', () => {
+  it('handle undo/redo', () => {
     reduxTestWrapper(File, {}, {}, pathname);
     const contentField = screen.getByLabelText('Content text area');
     const undoBtn = screen.getByLabelText('undo');
+    const redoBtn = screen.getByLabelText('redo');
+
+    fireEvent.change(contentField, { target: { value: '1 2 3 4' } });
+    expect(screen.queryByText('1 2 3 4')).toBeInTheDocument();
 
     fireEvent.change(contentField, { target: { value: '1 2 3 4 5' } });
-
     expect(screen.queryByText('1 2 3 4 5')).toBeInTheDocument();
+
     fireEvent.click(undoBtn);
-    expect(screen.queryByText('1 2 3 4 5')).not.toBeInTheDocument();
+    expect(screen.queryByText('1 2 3 4')).toBeInTheDocument();
+
+    fireEvent.click(redoBtn);
+    expect(screen.queryByText('1 2 3 4 5')).toBeInTheDocument();
   });
 
   it('handle loading existing file', async () => {

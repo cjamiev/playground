@@ -4,52 +4,37 @@ const ZERO = 0;
 const ONE = 1;
 const DEFAULT_MAX_CAPACITY = 3;
 
-const useStateHistory = (initialValue, capacity = DEFAULT_MAX_CAPACITY) => {
-  const [value, setValue] = useState(initialValue);
-  const historyRef = useRef([value]);
-  const pointerRef = useRef(ZERO);
+const useStateHistory = (handler, capacity = DEFAULT_MAX_CAPACITY) => {
+  const [history, setHistory] = useState(Array.from({ length: capacity }));
+  const [currentIndex, setCurrentIndex] = useState(ZERO);
 
-  const set = useCallback(
-    updateValue => {
-      const resolvedValue = updateValue(value);
-      if (historyRef.current[pointerRef.current] !== resolvedValue) {
-        if (pointerRef.current < historyRef.current.length - ONE) {
-          historyRef.current.splice(pointerRef.current + ONE);
-        }
-        historyRef.current.push(resolvedValue);
-
-        while (historyRef.current.length > capacity) {
-          historyRef.current.shift();
-        }
-        pointerRef.current = historyRef.current.length - ONE;
-      }
-      setValue(resolvedValue);
-    },
-    [capacity, value]
-  );
-
-  const back = useCallback(() => {
-    if (pointerRef.current > ZERO) {
-      pointerRef.current--;
-      setValue(historyRef.current[pointerRef.current]);
+  const set = (newValue) => {
+    const updatedHistory = [...history.slice(ONE), newValue];
+    setHistory(updatedHistory);
+    if(currentIndex < capacity - ONE) {
+      setCurrentIndex(currentIndex + ONE);
     }
-  }, []);
+  };
 
-  const forward = useCallback(() => {
-    if (pointerRef.current < historyRef.current.length - ONE) {
-      pointerRef.current++;
-      setValue(historyRef.current[pointerRef.current]);
+  const back = () => {
+    if (currentIndex > ZERO) {
+      handler(history[currentIndex - ONE]);
+      setCurrentIndex(currentIndex - ONE);
     }
-  }, []);
+  };
 
-  return [
-    value,
+  const forward = () => {
+    if (currentIndex < capacity - ONE) {
+      setCurrentIndex(currentIndex + ONE);
+      handler(history[currentIndex + ONE]);
+    }
+  };
+
+  return {
     set,
-    {
-      back,
-      forward
-    }
-  ];
+    back,
+    forward
+  };
 };
 
 export default useStateHistory;

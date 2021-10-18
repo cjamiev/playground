@@ -7,12 +7,16 @@ const ZERO = 0;
 const ONE = 1;
 
 const TestComponent = () => {
-  const [count, setCount, { back, forward }] = useStateHistory(ONE);
+  const [count, setCount] = useState(ZERO);
+  const { set, back, forward } = useStateHistory((value) => { setCount(value);});
 
   return (
     <div>
       <div>{count}</div>
-      <button onClick={() => setCount(currentCount => currentCount + ONE)}>
+      <button onClick={() => {
+        setCount(count + ONE);
+        set(count + ONE);
+      }}>
         Increment
       </button>
       <button onClick={back}>Back</button>
@@ -29,6 +33,8 @@ describe('useDebug', () => {
     const backBtn = screen.getByText('Back');
     const forwardBtn = screen.getByText('Forward');
 
+    expect(screen.queryByText('0')).toBeInTheDocument();
+    fireEvent.click(incrementBtn);
     expect(screen.queryByText('1')).toBeInTheDocument();
     fireEvent.click(incrementBtn);
     expect(screen.queryByText('2')).toBeInTheDocument();
@@ -38,7 +44,7 @@ describe('useDebug', () => {
     fireEvent.click(backBtn);
     expect(screen.queryByText('2')).toBeInTheDocument();
     fireEvent.click(backBtn);
-    expect(screen.queryByText('1')).toBeInTheDocument();
+    expect(screen.getByText('1')).toBeInTheDocument();
 
     fireEvent.click(forwardBtn);
     expect(screen.queryByText('2')).toBeInTheDocument();

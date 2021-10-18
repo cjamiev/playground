@@ -13,6 +13,7 @@ import TextArea from 'components/form/TextArea';
 import Dropdown from 'components/form/Dropdown';
 import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
+import useStateHistory from 'hooks/useStateHistory';
 
 const ZERO = 0;
 const ONE = 1;
@@ -21,7 +22,7 @@ const TWO = 2;
 const File = () => {
   const [name, setName] = useState('');
   const [content, setContent] = useState('');
-  const [previous, setPrevious] = useState('');
+  const { set, back, forward } = useStateHistory((value) => { setContent(value); });
   const dispatch = useDispatch();
   const { directory, file } = useSelector((state) => state.file);
 
@@ -32,9 +33,8 @@ const File = () => {
   useEffect(() => {
     if (name) {
       setContent(file);
-      setPrevious(file);
     }
-  }, [name, file]);
+  }, [name, file, setContent]);
 
   const handleNameChange = ({ selected }) => {
     const selectedFile = directory.find((item) => item === selected);
@@ -79,9 +79,11 @@ const File = () => {
           />
           <IconButton
             type={ICON_TYPES.UNDO}
-            onClick={() => {
-              setContent(previous);
-            }}
+            onClick={back}
+          />
+          <IconButton
+            type={ICON_TYPES.REDO}
+            onClick={forward}
           />
         </div>
         <div className="flex--two">
@@ -90,6 +92,7 @@ const File = () => {
             selected={content}
             onChange={({ selected }) => {
               setContent(selected);
+              set(selected);
             }}
           />
         </div>
@@ -97,6 +100,7 @@ const File = () => {
           <FileOperations content={content}
             onChange={(updated) => {
               setContent(updated);
+              set(updated);
             }}
           />
         </div>
