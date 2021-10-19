@@ -155,7 +155,7 @@ const handleProjectResponse = (request, response) => {
   const gitDataOperation = gitMapDataOps.hasOwnProperty(type) ? gitMapDataOps[type](root) : false;
   const gitMessageOperation = gitMapMessageOps.hasOwnProperty(type) ? gitMapMessageOps[type](root,name) : false;
 
-  if(gitDataOperation || gitMapMessageOps) {
+  if(gitDataOperation || gitMessageOperation) {
     send(response, { data: gitDataOperation, message: gitMessageOperation });
   } else {
     send(response, { error: { message: 'git type not found'} });
