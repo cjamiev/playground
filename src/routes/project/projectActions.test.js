@@ -7,6 +7,8 @@ import {
   deleteBranch,
   CREATE_BRANCH,
   createBranch,
+  MERGE_BRANCH,
+  mergeBranch,
   SELECT_BRANCH,
   selectBranch,
   LOAD_BRANCHES,
@@ -109,6 +111,29 @@ describe('projectActions', () => {
   it('createBranch - error', async () => {
     api.get.mockRejectedValueOnce(error);
     createBranch()(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+    });
+  });
+
+  it('mergeBranch', async () => {
+    api.get.mockResolvedValueOnce({
+      data: {
+        message
+      }
+    });
+    mergeBranch(rootDir, name)(dispatch);
+
+    await waitFor(() => {
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=mergebranch&root=${rootDir}&name=${name}`);
+      expect(dispatch).toHaveBeenCalledWith({ type: MERGE_BRANCH, message });
+    });
+  });
+
+  it('mergeBranch - error', async () => {
+    api.get.mockRejectedValueOnce(error);
+    mergeBranch()(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });

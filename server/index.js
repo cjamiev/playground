@@ -60,7 +60,7 @@ const COMMAND_DIRECTORY = './storage/io/command';
 const gitMapDataOps = {
   'remoteurl':getRemoteUrl,
   'viewbranches':viewBranches,
-  'viewstash':viewStas
+  'viewstash':viewStash
 };
 const gitMapMessageOps = {
   'deletebranch':deleteBranch,

@@ -63,6 +63,17 @@ describe('Project', () => {
     expect(api.get).toHaveBeenCalledWith(`/project/?type=deletebranch&root=${rootDir}&name=branch1`);
   });
 
+  it('merge branch', () => {
+    reduxTestWrapper(Project, {}, defaultStoreProps);
+
+    const nameField = screen.getByLabelText('Name text field');
+
+    fireEvent.change(nameField, { target: { value: name } });
+    fireEvent.click(screen.getByText(`Merge ${name}`));
+
+    expect(api.get).toHaveBeenCalledWith(`/project/?type=mergebranch&root=${rootDir}&name=${name}`);
+  });
+
   it('create branch', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 

@@ -2,6 +2,7 @@ import {
   LOAD_REMOTE_URL,
   DELETE_BRANCH,
   CREATE_BRANCH,
+  MERGE_BRANCH,
   SELECT_BRANCH,
   LOAD_BRANCHES,
   CREATE_STASH,
@@ -51,6 +52,19 @@ describe('projectReducer', () => {
   it('CREATE_BRANCH', () => {
     const action = {
       type: CREATE_BRANCH,
+      message
+    };
+    const result = projectReducer(projectInitialState, action);
+
+    expect(result).toEqual({
+      ...projectInitialState,
+      message
+    });
+  });
+
+  it('MERGE_BRANCH', () => {
+    const action = {
+      type: MERGE_BRANCH,
       message
     };
     const result = projectReducer(projectInitialState, action);

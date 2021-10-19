@@ -4,6 +4,7 @@ import { openGlobalModal } from 'components/global/globalActions';
 import {
   deleteBranch,
   createBranch,
+  mergeBranch,
   selectBranch,
   createStash,
   selectStash,
@@ -102,6 +103,11 @@ const Git = ({ root }) => {
             label={`Delete ${branchName}`}
             disabled={!branchName}
             onClick={() => { dispatch(deleteBranch(root,branchName)); }}
+          />
+          <Button
+            label={`Merge ${name}`}
+            disabled={!name}
+            onClick={() => { dispatch(mergeBranch(root,name)); }}
           />
           <Button
             label={`Create ${name}`}
