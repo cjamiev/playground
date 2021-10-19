@@ -92,8 +92,8 @@ const Git = ({ root }) => {
           setName(selected);
         }}
       />
-      <div className="flex--horizontal">
-        <div className="flex--vertical">
+      <div className="flex--vertical">
+        <div className="flex--horizontal">
           <Button
             label={`Checkout ${branchName}`}
             disabled={!branchName}
@@ -115,7 +115,7 @@ const Git = ({ root }) => {
             onClick={() => { dispatch(createBranch(root,name)); }}
           />
         </div>
-        <div className="flex--vertical">
+        <div className="flex--horizontal">
           <Button
             label={`Create Stash ${name}`}
             disabled={!name}
@@ -127,7 +127,7 @@ const Git = ({ root }) => {
             onClick={() => { dispatch(selectStash(root,stashName)); }}
           />
         </div>
-        <div className="flex--vertical">
+        <div className="flex--horizontal">
           <Button
             label={'Reset'}
             onClick={() => { dispatch(resetBranch(root)); }}
