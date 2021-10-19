@@ -65,6 +65,12 @@ const Git = ({ root }) => {
     }
   }, [branchName]);
 
+  useEffect(() => {
+    if(stashName) {
+      setName(stashName);
+    }
+  }, [stashName]);
+
   return (
     <div>
       <label>Remote Url: {remoteUrl}</label>
