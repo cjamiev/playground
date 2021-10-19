@@ -15,6 +15,8 @@ import {
   viewBranches,
   CREATE_STASH,
   createStash,
+  DELETE_STASH,
+  deleteStash,
   SELECT_STASH,
   selectStash,
   LOAD_VIEW_STASH,
@@ -203,6 +205,29 @@ describe('projectActions', () => {
   it('createStash - error', async () => {
     api.get.mockRejectedValueOnce(error);
     createStash()(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+    });
+  });
+
+  it('deleteStash', async () => {
+    api.get.mockResolvedValueOnce({
+      data: {
+        message
+      }
+    });
+    deleteStash(rootDir, name)(dispatch);
+
+    await waitFor(() => {
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=deletestash&root=${rootDir}&name=${name}`);
+      expect(dispatch).toHaveBeenCalledWith({ type: DELETE_STASH, message });
+    });
+  });
+
+  it('deleteStash - error', async () => {
+    api.get.mockRejectedValueOnce(error);
+    deleteStash()(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });

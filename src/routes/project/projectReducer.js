@@ -6,6 +6,7 @@ import {
   SELECT_BRANCH,
   LOAD_BRANCHES,
   CREATE_STASH,
+  DELETE_STASH,
   SELECT_STASH,
   LOAD_VIEW_STASH,
   RESET_BRANCH,
@@ -61,6 +62,12 @@ const projectReducer = (state = projectInitialState, action) => {
       };
     },
     [CREATE_STASH]: () => {
+      return {
+        ...state,
+        message: action.message
+      };
+    },
+    [DELETE_STASH]: () => {
       return {
         ...state,
         message: action.message

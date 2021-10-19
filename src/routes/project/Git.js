@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openGlobalModal } from 'components/global/globalActions';
 import {
+  viewBranches,
+  viewStash,
   deleteBranch,
   createBranch,
   mergeBranch,
   selectBranch,
   createStash,
+  deleteStash,
   selectStash,
   resetBranch
 } from './projectActions';
@@ -102,7 +105,10 @@ const Git = ({ root }) => {
           <Button
             label={`Delete ${branchName}`}
             disabled={!branchName}
-            onClick={() => { dispatch(deleteBranch(root,branchName)); }}
+            onClick={() => {
+              dispatch(deleteBranch(root,branchName));
+              dispatch(viewBranches(root));
+            }}
           />
           <Button
             label={`Merge ${name}`}
@@ -112,14 +118,28 @@ const Git = ({ root }) => {
           <Button
             label={`Create ${name}`}
             disabled={!name}
-            onClick={() => { dispatch(createBranch(root,name)); }}
+            onClick={() => {
+              dispatch(createBranch(root,name));
+              dispatch(viewBranches(root));
+            }}
           />
         </div>
         <div className="flex--horizontal">
           <Button
             label={`Create Stash ${name}`}
             disabled={!name}
-            onClick={() => { dispatch(createStash(root,name)); }}
+            onClick={() => {
+              dispatch(createStash(root,name));
+              dispatch(viewStash(root));
+            }}
+          />
+          <Button
+            label={`Delete Stash ${name}`}
+            disabled={!name}
+            onClick={() => {
+              dispatch(deleteStash(root,name));
+              dispatch(viewStash(root));
+            }}
           />
           <Button
             label={`Switch Stash ${stashName}`}

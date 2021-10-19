@@ -8,6 +8,7 @@ const MERGE_BRANCH = 'MERGE_BRANCH';
 const SELECT_BRANCH = 'SELECT_BRANCH';
 const LOAD_BRANCHES = 'LOAD_BRANCHES';
 const CREATE_STASH = 'CREATE_STASH';
+const DELETE_STASH = 'DELETE_STASH';
 const SELECT_STASH = 'SELECT_STASH';
 const LOAD_VIEW_STASH = 'LOAD_VIEW_STASH';
 const RESET_BRANCH = 'RESET_BRANCH';
@@ -106,6 +107,19 @@ const createStash = (rootDir = DEFAULT_DIR, name) => {
   };
 };
 
+const deleteStash = (rootDir = DEFAULT_DIR, name) => {
+  return (dispatch) => {
+    api
+      .get(`/project/?type=deletestash&root=${rootDir}&name=${name}`)
+      .then((response) => {
+        dispatch({ type: DELETE_STASH, message: response.data.message });
+      })
+      .catch((error) => {
+        dispatch(createAlert({ content: error.message, status: 'error' }));
+      });
+  };
+};
+
 const selectStash = (rootDir = DEFAULT_DIR, name) => {
   return (dispatch) => {
     api
@@ -162,6 +176,8 @@ export {
   viewBranches,
   CREATE_STASH,
   createStash,
+  DELETE_STASH,
+  deleteStash,
   SELECT_STASH,
   selectStash,
   LOAD_VIEW_STASH,

@@ -78,6 +78,13 @@ const createStash = (rootDir = DEFAULT_DIR, stashname) => {
   return execSync(`cd ${rootDir} && git stash`, { encoding: UTF8 });
 };
 
+const deleteStash = (rootDir = DEFAULT_DIR, stashname) => {
+  if(stashname){
+    return execSync(`cd ${rootDir} && git stash drop stash@{${stashname}}`, { encoding: UTF8 });
+  }
+  return execSync(`cd ${rootDir} && git stash`, { encoding: UTF8 });
+};
+
 const selectStash = (rootDir = DEFAULT_DIR, stashname) => {
   try {
     if(stashname) {
@@ -105,6 +112,7 @@ module.exports = {
   selectBranch,
   viewBranches,
   createStash,
+  deleteStash,
   selectStash,
   viewStash,
   resetBranch

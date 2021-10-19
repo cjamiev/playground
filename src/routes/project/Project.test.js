@@ -97,6 +97,18 @@ describe('Project', () => {
     expect(api.get).toHaveBeenCalledWith(`/project/?type=createstash&root=${rootDir}&name=${name}`);
   });
 
+  it('handle delete stash', () => {
+    reduxTestWrapper(Project, {}, defaultStoreProps);
+
+    const nameField = screen.getByLabelText('Name text field');
+
+    fireEvent.change(nameField, { target: { value: name } });
+    const deleteStashBtn = screen.getByText(`Delete Stash ${name}`);
+    fireEvent.click(deleteStashBtn);
+
+    expect(api.get).toHaveBeenCalledWith(`/project/?type=deletestash&root=${rootDir}&name=${name}`);
+  });
+
   it('select stash', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 

@@ -27,6 +27,7 @@ const {
   selectBranch,
   viewBranches,
   createStash,
+  deleteStash,
   selectStash,
   viewStash,
   resetBranch
@@ -68,6 +69,7 @@ const gitMapMessageOps = {
   'mergebranch':mergeBranch,
   'selectbranch':selectBranch,
   'createstash':createStash,
+  'deletestash':deleteStash,
   'selectstash':selectStash,
   'resetbranch':resetBranch
 };
@@ -152,11 +154,15 @@ const handleCommandResponse = (request, response) => {
 
 const handleProjectResponse = (request, response) => {
   const { type, root, name } = url.parse(request.url, true).query;
-  const gitDataOperation = gitMapDataOps.hasOwnProperty(type) ? gitMapDataOps[type](root) : false;
-  const gitMessageOperation = gitMapMessageOps.hasOwnProperty(type) ? gitMapMessageOps[type](root,name) : false;
 
-  if(gitDataOperation || gitMessageOperation) {
-    send(response, { data: gitDataOperation, message: gitMessageOperation });
+  if(gitMapMessageOps.hasOwnProperty(type)) {
+    const message = gitMapMessageOps[type](root);
+
+    send(response, { message });
+  } else if(gitMapDataOps.hasOwnProperty(type)) {
+    const data = gitMapDataOps[type](root);
+
+    send(response, { data });
   } else {
     send(response, { error: { message: 'git type not found'} });
   }
