@@ -5,6 +5,7 @@ import {
   getRemoteUrl,
   viewBranches,
   viewStash,
+  getPackageJson,
   clearMessage
 } from './projectActions';
 import Page from 'components/layout';
@@ -12,6 +13,7 @@ import Tabs from 'components/tabs';
 import Text from 'components/form/Text';
 import ComponentWrapper from 'components/ComponentWrapper';
 import Git from './Git';
+import Package from './Package';
 import useLocalStorage from 'hooks/useLocalStorage';
 import useDebounce from 'hooks/useDebounce';
 import { TIME } from 'constants/time';
@@ -22,9 +24,10 @@ const LS_DIR_KEY = 'rootDir';
 const Project = () => {
   const dispatch = useDispatch();
   const [root, setRoot] = useLocalStorage(LS_DIR_KEY, DEFAULT_DIR, false);
-  const { message } = useSelector(state => state.project);
+  const { packageJson, message } = useSelector(state => state.project);
   const TABS = [
-    { title: 'Git', component: ComponentWrapper(Git, { root }) }
+    { title: 'Git', component: ComponentWrapper(Git, { root }) },
+    { title: 'Package', component: ComponentWrapper(Package, { root }) }
   ];
   const debouncedRoot = useDebounce(root, TIME.A_SECOND);
 
@@ -32,6 +35,7 @@ const Project = () => {
     dispatch(getRemoteUrl(debouncedRoot));
     dispatch(viewBranches(debouncedRoot));
     dispatch(viewStash(debouncedRoot));
+    dispatch(getPackageJson(debouncedRoot));
   }, [dispatch, debouncedRoot]);
 
   useEffect(() => {

@@ -10,12 +10,16 @@ import {
   SELECT_STASH,
   LOAD_VIEW_STASH,
   RESET_BRANCH,
+  LOAD_PACKAGE,
+  LOAD_VERSIONS,
   CLEAR_MESSAGE
 } from './projectActions';
 import projectReducer, { projectInitialState } from './projectReducer';
 
 const remoteUrl = 'test-url';
 const message = 'test-message';
+const packageJson = { one: 1, two: 2, three: 3 };
+const versions = { one: 2, two: 3, three: 4 };
 
 describe('projectReducer', () => {
   it('default', () => {
@@ -164,6 +168,32 @@ describe('projectReducer', () => {
     expect(result).toEqual({
       ...projectInitialState,
       message
+    });
+  });
+
+  it('LOAD_PACKAGE', () => {
+    const action = {
+      type: LOAD_PACKAGE,
+      data: packageJson
+    };
+    const result = projectReducer(projectInitialState, action);
+
+    expect(result).toEqual({
+      ...projectInitialState,
+      packageJson
+    });
+  });
+
+  it('LOAD_VERSIONS', () => {
+    const action = {
+      type: LOAD_VERSIONS,
+      data: versions
+    };
+    const result = projectReducer(projectInitialState, action);
+
+    expect(result).toEqual({
+      ...projectInitialState,
+      versions
     });
   });
 

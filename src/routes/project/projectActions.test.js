@@ -23,6 +23,10 @@ import {
   viewStash,
   RESET_BRANCH,
   resetBranch,
+  LOAD_PACKAGE,
+  getPackageJson,
+  LOAD_VERSIONS,
+  getDependencyVersions,
   CLEAR_MESSAGE,
   clearMessage
 } from './projectActions';
@@ -48,6 +52,7 @@ const data = 'test data';
 const message = 'test message';
 const rootDir = 'test-dir';
 const name = 'test-name';
+const packageJson = { one: 1, two: 2, three: 3 };
 
 describe('projectActions', () => {
   it('getRemoteUrl', async () => {
@@ -297,6 +302,52 @@ describe('projectActions', () => {
   it('resetBranch - error', async () => {
     api.get.mockRejectedValueOnce(error);
     resetBranch()(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+    });
+  });
+
+  it('getPackageJson', async () => {
+    api.get.mockResolvedValueOnce({
+      data: {
+        data
+      }
+    });
+    getPackageJson(rootDir)(dispatch);
+
+    await waitFor(() => {
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=package&op=read&root=${rootDir}`);
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_PACKAGE, data });
+    });
+  });
+
+  it('getPackageJson - error', async () => {
+    api.get.mockRejectedValueOnce(error);
+    getPackageJson()(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+    });
+  });
+
+  it('getDependencyVersions', async () => {
+    api.get.mockResolvedValueOnce({
+      data: {
+        data
+      }
+    });
+    getDependencyVersions(rootDir)(dispatch);
+
+    await waitFor(() => {
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=package&op=getversions&root=${rootDir}`);
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_VERSIONS, data });
+    });
+  });
+
+  it('getDependencyVersions - error', async () => {
+    api.get.mockRejectedValueOnce(error);
+    getDependencyVersions()(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });

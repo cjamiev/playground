@@ -128,7 +128,7 @@ const handleCommandResponse = (request, response) => {
   }
 };
 
-const handleProjectResponse = (request, response) => {
+const handleProjectResponse = async (request, response) => {
   const { type, op, root, name, content } = url.parse(request.url, true).query;
 
   if(type === 'git') {
@@ -136,7 +136,7 @@ const handleProjectResponse = (request, response) => {
 
     send(response, { data, message });
   } else if(type === 'package') {
-    const { data, message } = runPackageOperation(op, root, content);
+    const { data, message } = await runPackageOperation(op, root, content);
 
     send(response, { data, message });
   } else if(type === 'template') {

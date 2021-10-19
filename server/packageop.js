@@ -42,13 +42,14 @@ const updatePackageFile = (rootDir = DEFAULT_DIR, packageJSON) => {
   return writeToFile(`${rootDir}/package.json`, packageJSON);
 };
 
-const runPackageOperation = (op, root, content) => {
-  if(op === 'getversions') {
-    const data = getLatestDependencyVersions(content);
+const runPackageOperation = async (op, root, content) => {
+  if(op === 'read') {
+    const data = getPackageFile(root);
 
     return { data };
-  } else if(op === 'read') {
-    const data = getPackageFile(root);
+  } else if(op === 'getversions') {
+    const packageJson = getPackageFile(root);
+    const data = await getLatestDependencyVersions(packageJson);
 
     return { data };
   } else if(op === 'update') {

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { openGlobalModal } from 'components/global/globalActions';
 import {
   viewBranches,
   viewStash,
@@ -18,7 +17,6 @@ import Dropdown from 'components/form/Dropdown';
 import Button, { IconButton } from 'components/button';
 import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
-import useLocalStorage from 'hooks/useLocalStorage';
 
 const ZERO = 0;
 const ONE = 1;

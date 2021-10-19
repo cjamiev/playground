@@ -12,6 +12,8 @@ const DELETE_STASH = 'DELETE_STASH';
 const SELECT_STASH = 'SELECT_STASH';
 const LOAD_VIEW_STASH = 'LOAD_VIEW_STASH';
 const RESET_BRANCH = 'RESET_BRANCH';
+const LOAD_PACKAGE = 'LOAD_PACKAGE';
+const LOAD_VERSIONS = 'LOAD_VERSIONS';
 const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
 const ONE_SECOND = 1000;
 const DEFAULT_DIR = './';
@@ -159,6 +161,32 @@ const resetBranch = (rootDir = DEFAULT_DIR) => {
   };
 };
 
+const getPackageJson = (rootDir = DEFAULT_DIR) => {
+  return (dispatch) => {
+    api
+      .get(`/project/?type=package&op=read&root=${rootDir}`)
+      .then((response) => {
+        dispatch({ type: LOAD_PACKAGE, data: response.data.data });
+      })
+      .catch((error) => {
+        dispatch(createAlert({ content: error.message, status: 'error' }));
+      });
+  };
+};
+
+const getDependencyVersions = (rootDir) => {
+  return (dispatch) => {
+    api
+      .get(`/project/?type=package&op=getversions&root=${rootDir}`)
+      .then((response) => {
+        dispatch({ type: LOAD_VERSIONS, data: response.data.data });
+      })
+      .catch((error) => {
+        dispatch(createAlert({ content: error.message, status: 'error' }));
+      });
+  };
+};
+
 const clearMessage = () => ({ type: CLEAR_MESSAGE });
 
 export {
@@ -185,5 +213,9 @@ export {
   RESET_BRANCH,
   resetBranch,
   CLEAR_MESSAGE,
+  LOAD_PACKAGE,
+  getPackageJson,
+  LOAD_VERSIONS,
+  getDependencyVersions,
   clearMessage
 };

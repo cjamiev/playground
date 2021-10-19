@@ -10,6 +10,8 @@ import {
   SELECT_STASH,
   LOAD_VIEW_STASH,
   RESET_BRANCH,
+  LOAD_PACKAGE,
+  LOAD_VERSIONS,
   CLEAR_MESSAGE
 } from './projectActions';
 
@@ -17,6 +19,8 @@ export const projectInitialState = {
   remoteUrl: '',
   branches: [],
   stashes: [],
+  packageJson: {},
+  versions: {},
   message: ''
 };
 
@@ -89,6 +93,18 @@ const projectReducer = (state = projectInitialState, action) => {
       return {
         ...state,
         message: action.message
+      };
+    },
+    [LOAD_PACKAGE]: () => {
+      return {
+        ...state,
+        packageJson: action.data
+      };
+    },
+    [LOAD_VERSIONS]: () => {
+      return {
+        ...state,
+        versions: action.data
       };
     },
     [CLEAR_MESSAGE]: () => {
