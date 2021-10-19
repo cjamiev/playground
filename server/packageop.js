@@ -42,8 +42,22 @@ const updatePackageFile = (rootDir = DEFAULT_DIR, packageJSON) => {
   return writeToFile(`${rootDir}/package.json`, packageJSON);
 };
 
-module.exports = {
-  getLatestDependencyVersions,
-  getPackageFile,
-  updatePackageFile
+const runPackageOperation = (op, root, content) => {
+  if(op === 'getversions') {
+    const data = getLatestDependencyVersions(content);
+
+    return { data };
+  } else if(op === 'read') {
+    const data = getPackageFile(root);
+
+    return { data };
+  } else if(op === 'update') {
+    const message = updatePackageFile(root, content);
+
+    return { message };
+  } else {
+    return { message: 'package operation not found' };
+  }
 };
+
+module.exports = { runPackageOperation };

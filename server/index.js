@@ -19,19 +19,10 @@ const {
   logEntry,
   clearLog
 } = require('./mockserver-util');
-const {
-  getRemoteUrl,
-  deleteBranch,
-  createBranch,
-  mergeBranch,
-  selectBranch,
-  viewBranches,
-  createStash,
-  deleteStash,
-  selectStash,
-  viewStash,
-  resetBranch
-} = require('./gitop');
+const { runGitOperation } = require('./gitop');
+const { runPackageOperation } = require('./packageop');
+const { runTemplateOperation } = require('./templateop');
+const { runRegexOperation } = require('./regexop');
 
 const port = process.argv[2] || 999;
 const ROOT_DIR = './server/static/';
@@ -58,21 +49,6 @@ const METHOD_POST = 'POST';
 const FILE_DIRECTORY = './storage/io/file';
 const DB_DIRECTORY = './storage/io/db';
 const COMMAND_DIRECTORY = './storage/io/command';
-const gitMapDataOps = {
-  'remoteurl':getRemoteUrl,
-  'viewbranches':viewBranches,
-  'viewstash':viewStash
-};
-const gitMapMessageOps = {
-  'deletebranch':deleteBranch,
-  'createbranch':createBranch,
-  'mergebranch':mergeBranch,
-  'selectbranch':selectBranch,
-  'createstash':createStash,
-  'deletestash':deleteStash,
-  'selectstash':selectStash,
-  'resetbranch':resetBranch
-};
 
 const cors = (res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -153,18 +129,26 @@ const handleCommandResponse = (request, response) => {
 };
 
 const handleProjectResponse = (request, response) => {
-  const { type, op, root, name } = url.parse(request.url, true).query;
+  const { type, op, root, name, content } = url.parse(request.url, true).query;
 
-  if(type === 'git' && gitMapMessageOps.hasOwnProperty(op)) {
-    const message = gitMapMessageOps[op](root, name);
+  if(type === 'git') {
+    const { data, message } = runGitOperation(op, root, name);
 
-    send(response, { message });
-  } else if(type === 'git' && gitMapDataOps.hasOwnProperty(op)) {
-    const data = gitMapDataOps[op](root);
+    send(response, { data, message });
+  } else if(type === 'package') {
+    const { data, message } = runPackageOperation(op, root, content);
 
-    send(response, { data });
+    send(response, { data, message });
+  } else if(type === 'template') {
+    const { data, message } = runTemplateOperation(op, root, content);
+
+    send(response, { data, message });
+  } else if(type === 'regex') {
+    const message = runRegexOperation(root, content);
+
+    send(response, message);
   } else {
-    send(response, { error: { message: 'git operation not found'} });
+    send(response, { error: { message: 'project type not found'} });
   }
 };
 

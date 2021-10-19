@@ -16,7 +16,7 @@ async function* getFiles(rootPath) {
   }
 }
 
-const updateFiles = async ({rootDir, fileRegex, lineRegex, lineMapper }) => {
+const updateFiles = async ({ rootDir, fileRegex, lineRegex, lineMapper }) => {
   for await (const filePath of getFiles(rootDir)) {
     const matchedFile = filePath.match(fileRegex);
 
@@ -31,6 +31,19 @@ const updateFiles = async ({rootDir, fileRegex, lineRegex, lineMapper }) => {
   }
 };
 
-module.exports = {
-  updateFiles
+const runRegexOperation = (root, content) => {
+  try {
+    updateFiles({
+      rootDir: root,
+      fileRegex: content.fileRegex,
+      lineRegex: content.lineRegex,
+      lineMapper: matchedKey => matchedKey.substr(content.start,content.end)
+    });
+    return { message: 'Regex Operation Executing' };
+  } catch (e) {
+    return { message: e.stderr };
+  }
+
 };
+
+module.exports = { runRegexOperation };

@@ -104,16 +104,34 @@ const viewStash = (rootDir = DEFAULT_DIR) => {
   }
 };
 
+const gitMapDataOps = {
+  'remoteurl':getRemoteUrl,
+  'viewbranches':viewBranches,
+  'viewstash':viewStash
+};
+const gitMapMessageOps = {
+  'deletebranch':deleteBranch,
+  'createbranch':createBranch,
+  'mergebranch':mergeBranch,
+  'selectbranch':selectBranch,
+  'createstash':createStash,
+  'deletestash':deleteStash,
+  'selectstash':selectStash,
+  'resetbranch':resetBranch
+};
+
+const runGitOperation = (op, root, name) => {
+  if(gitMapMessageOps.hasOwnProperty(op)) {
+    const message = gitMapMessageOps[op](root, name);
+    return { message };
+  } else if(gitMapDataOps.hasOwnProperty(op)) {
+    const data = gitMapDataOps[op](root);
+    return { data };
+  } else {
+    return { message: 'git operation not found' };
+  }
+};
+
 module.exports = {
-  getRemoteUrl,
-  deleteBranch,
-  createBranch,
-  mergeBranch,
-  selectBranch,
-  viewBranches,
-  createStash,
-  deleteStash,
-  selectStash,
-  viewStash,
-  resetBranch
+  runGitOperation
 };
