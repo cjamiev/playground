@@ -156,7 +156,7 @@ const handleProjectResponse = (request, response) => {
   const { type, root, name } = url.parse(request.url, true).query;
 
   if(gitMapMessageOps.hasOwnProperty(type)) {
-    const message = gitMapMessageOps[type](root);
+    const message = gitMapMessageOps[type](root, name);
 
     send(response, { message });
   } else if(gitMapDataOps.hasOwnProperty(type)) {
