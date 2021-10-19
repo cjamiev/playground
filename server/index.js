@@ -153,18 +153,18 @@ const handleCommandResponse = (request, response) => {
 };
 
 const handleProjectResponse = (request, response) => {
-  const { type, root, name } = url.parse(request.url, true).query;
+  const { type, op, root, name } = url.parse(request.url, true).query;
 
-  if(gitMapMessageOps.hasOwnProperty(type)) {
-    const message = gitMapMessageOps[type](root, name);
+  if(type === 'git' && gitMapMessageOps.hasOwnProperty(op)) {
+    const message = gitMapMessageOps[op](root, name);
 
     send(response, { message });
-  } else if(gitMapDataOps.hasOwnProperty(type)) {
-    const data = gitMapDataOps[type](root);
+  } else if(type === 'git' && gitMapDataOps.hasOwnProperty(op)) {
+    const data = gitMapDataOps[op](root);
 
     send(response, { data });
   } else {
-    send(response, { error: { message: 'git type not found'} });
+    send(response, { error: { message: 'git operation not found'} });
   }
 };
 

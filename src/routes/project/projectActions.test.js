@@ -59,7 +59,7 @@ describe('projectActions', () => {
     getRemoteUrl(rootDir)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/project/?type=remoteurl&root=${rootDir}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=remoteurl&root=${rootDir}`);
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_REMOTE_URL, data: remoteurl });
     });
   });
@@ -82,7 +82,7 @@ describe('projectActions', () => {
     deleteBranch(rootDir, name)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/project/?type=deletebranch&root=${rootDir}&name=${name}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=deletebranch&root=${rootDir}&name=${name}`);
       expect(dispatch).toHaveBeenCalledWith({ type: DELETE_BRANCH, message });
     });
   });
@@ -105,7 +105,7 @@ describe('projectActions', () => {
     createBranch(rootDir, name)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/project/?type=createbranch&root=${rootDir}&name=${name}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=createbranch&root=${rootDir}&name=${name}`);
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_BRANCH, message });
     });
   });
@@ -128,7 +128,7 @@ describe('projectActions', () => {
     mergeBranch(rootDir, name)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/project/?type=mergebranch&root=${rootDir}&name=${name}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=mergebranch&root=${rootDir}&name=${name}`);
       expect(dispatch).toHaveBeenCalledWith({ type: MERGE_BRANCH, message });
     });
   });
@@ -151,7 +151,7 @@ describe('projectActions', () => {
     selectBranch(rootDir, name)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/project/?type=selectbranch&root=${rootDir}&name=${name}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=selectbranch&root=${rootDir}&name=${name}`);
       expect(dispatch).toHaveBeenCalledWith({ type: SELECT_BRANCH, message });
     });
   });
@@ -174,7 +174,7 @@ describe('projectActions', () => {
     viewBranches(rootDir)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/project/?type=viewbranches&root=${rootDir}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=viewbranches&root=${rootDir}`);
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_BRANCHES, data });
     });
   });
@@ -197,7 +197,7 @@ describe('projectActions', () => {
     createStash(rootDir, name)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/project/?type=createstash&root=${rootDir}&name=${name}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=createstash&root=${rootDir}&name=${name}`);
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_STASH, message });
     });
   });
@@ -220,7 +220,7 @@ describe('projectActions', () => {
     deleteStash(rootDir, name)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/project/?type=deletestash&root=${rootDir}&name=${name}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=deletestash&root=${rootDir}&name=${name}`);
       expect(dispatch).toHaveBeenCalledWith({ type: DELETE_STASH, message });
     });
   });
@@ -243,7 +243,7 @@ describe('projectActions', () => {
     selectStash(rootDir, name)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/project/?type=selectstash&root=${rootDir}&name=${name}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=selectstash&root=${rootDir}&name=${name}`);
       expect(dispatch).toHaveBeenCalledWith({ type: SELECT_STASH, message });
     });
   });
@@ -266,7 +266,7 @@ describe('projectActions', () => {
     viewStash(rootDir)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/project/?type=viewstash&root=${rootDir}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=viewstash&root=${rootDir}`);
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_VIEW_STASH, data });
     });
   });
@@ -289,7 +289,7 @@ describe('projectActions', () => {
     resetBranch(rootDir)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`/project/?type=resetbranch&root=${rootDir}`);
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=resetbranch&root=${rootDir}`);
       expect(dispatch).toHaveBeenCalledWith({ type: RESET_BRANCH, message });
     });
   });

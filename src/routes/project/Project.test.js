@@ -49,7 +49,7 @@ describe('Project', () => {
     fireEvent.click(screen.getByText('branch1'));
     fireEvent.click(screen.getByText('Checkout branch1'));
 
-    expect(api.get).toHaveBeenCalledWith(`/project/?type=selectbranch&root=${rootDir}&name=branch1`);
+    expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=selectbranch&root=${rootDir}&name=branch1`);
   });
 
   it('delete branch', () => {
@@ -60,7 +60,7 @@ describe('Project', () => {
     fireEvent.click(screen.getByText('branch1'));
     fireEvent.click(screen.getByText('Delete branch1'));
 
-    expect(api.get).toHaveBeenCalledWith(`/project/?type=deletebranch&root=${rootDir}&name=branch1`);
+    expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=deletebranch&root=${rootDir}&name=branch1`);
   });
 
   it('merge branch', () => {
@@ -71,7 +71,7 @@ describe('Project', () => {
     fireEvent.change(nameField, { target: { value: name } });
     fireEvent.click(screen.getByText(`Merge ${name}`));
 
-    expect(api.get).toHaveBeenCalledWith(`/project/?type=mergebranch&root=${rootDir}&name=${name}`);
+    expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=mergebranch&root=${rootDir}&name=${name}`);
   });
 
   it('create branch', () => {
@@ -82,7 +82,7 @@ describe('Project', () => {
     fireEvent.change(nameField, { target: { value: name } });
     fireEvent.click(screen.getByText(`Create ${name}`));
 
-    expect(api.get).toHaveBeenCalledWith(`/project/?type=createbranch&root=${rootDir}&name=${name}`);
+    expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=createbranch&root=${rootDir}&name=${name}`);
   });
 
   it('handle create stash', () => {
@@ -94,7 +94,7 @@ describe('Project', () => {
     const createStashBtn = screen.getByText(`Create Stash ${name}`);
     fireEvent.click(createStashBtn);
 
-    expect(api.get).toHaveBeenCalledWith(`/project/?type=createstash&root=${rootDir}&name=${name}`);
+    expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=createstash&root=${rootDir}&name=${name}`);
   });
 
   it('handle delete stash', () => {
@@ -106,7 +106,7 @@ describe('Project', () => {
     const deleteStashBtn = screen.getByText(`Delete Stash ${name}`);
     fireEvent.click(deleteStashBtn);
 
-    expect(api.get).toHaveBeenCalledWith(`/project/?type=deletestash&root=${rootDir}&name=${name}`);
+    expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=deletestash&root=${rootDir}&name=${name}`);
   });
 
   it('select stash', () => {
@@ -117,7 +117,7 @@ describe('Project', () => {
     fireEvent.click(screen.getByText('stash{1}'));
     fireEvent.click(screen.getByText('Switch Stash 1'));
 
-    expect(api.get).toHaveBeenCalledWith(`/project/?type=selectstash&root=${rootDir}&name=1`);
+    expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=selectstash&root=${rootDir}&name=1`);
   });
 
   it('handle reset', () => {
@@ -126,6 +126,6 @@ describe('Project', () => {
     const resetBtn = screen.getByText('Reset');
     fireEvent.click(resetBtn);
 
-    expect(api.get).toHaveBeenCalledWith(`/project/?type=resetbranch&root=${rootDir}`);
+    expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=resetbranch&root=${rootDir}`);
   });
 });

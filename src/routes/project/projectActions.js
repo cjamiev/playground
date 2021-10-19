@@ -19,7 +19,7 @@ const DEFAULT_DIR = './';
 const getRemoteUrl = (rootDir = DEFAULT_DIR) => {
   return (dispatch) => {
     api
-      .get(`/project/?type=remoteurl&root=${rootDir}`)
+      .get(`/project/?type=git&op=remoteurl&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: LOAD_REMOTE_URL, data: response.data.data });
       })
@@ -32,7 +32,7 @@ const getRemoteUrl = (rootDir = DEFAULT_DIR) => {
 const deleteBranch = (rootDir = DEFAULT_DIR, name) => {
   return (dispatch) => {
     api
-      .get(`/project/?type=deletebranch&root=${rootDir}&name=${name}`)
+      .get(`/project/?type=git&op=deletebranch&root=${rootDir}&name=${name}`)
       .then((response) => {
         dispatch({ type: DELETE_BRANCH, message: response.data.message });
       })
@@ -45,7 +45,7 @@ const deleteBranch = (rootDir = DEFAULT_DIR, name) => {
 const createBranch = (rootDir = DEFAULT_DIR, name) => {
   return (dispatch) => {
     api
-      .get(`/project/?type=createbranch&root=${rootDir}&name=${name}`)
+      .get(`/project/?type=git&op=createbranch&root=${rootDir}&name=${name}`)
       .then((response) => {
         dispatch({ type: CREATE_BRANCH, message: response.data.message });
       })
@@ -58,7 +58,7 @@ const createBranch = (rootDir = DEFAULT_DIR, name) => {
 const mergeBranch = (rootDir = DEFAULT_DIR, name) => {
   return (dispatch) => {
     api
-      .get(`/project/?type=mergebranch&root=${rootDir}&name=${name}`)
+      .get(`/project/?type=git&op=mergebranch&root=${rootDir}&name=${name}`)
       .then((response) => {
         dispatch({ type: MERGE_BRANCH, message: response.data.message });
       })
@@ -71,7 +71,7 @@ const mergeBranch = (rootDir = DEFAULT_DIR, name) => {
 const selectBranch = (rootDir = DEFAULT_DIR, name) => {
   return (dispatch) => {
     api
-      .get(`/project/?type=selectbranch&root=${rootDir}&name=${name}`)
+      .get(`/project/?type=git&op=selectbranch&root=${rootDir}&name=${name}`)
       .then((response) => {
         dispatch({ type: SELECT_BRANCH, message: response.data.message });
       })
@@ -84,7 +84,7 @@ const selectBranch = (rootDir = DEFAULT_DIR, name) => {
 const viewBranches = (rootDir = DEFAULT_DIR) => {
   return (dispatch) => {
     api
-      .get(`/project/?type=viewbranches&root=${rootDir}`)
+      .get(`/project/?type=git&op=viewbranches&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: LOAD_BRANCHES, data: response.data.data });
       })
@@ -97,7 +97,7 @@ const viewBranches = (rootDir = DEFAULT_DIR) => {
 const createStash = (rootDir = DEFAULT_DIR, name) => {
   return (dispatch) => {
     api
-      .get(`/project/?type=createstash&root=${rootDir}&name=${name}`)
+      .get(`/project/?type=git&op=createstash&root=${rootDir}&name=${name}`)
       .then((response) => {
         dispatch({ type: CREATE_STASH, message: response.data.message });
       })
@@ -110,7 +110,7 @@ const createStash = (rootDir = DEFAULT_DIR, name) => {
 const deleteStash = (rootDir = DEFAULT_DIR, name) => {
   return (dispatch) => {
     api
-      .get(`/project/?type=deletestash&root=${rootDir}&name=${name}`)
+      .get(`/project/?type=git&op=deletestash&root=${rootDir}&name=${name}`)
       .then((response) => {
         dispatch({ type: DELETE_STASH, message: response.data.message });
       })
@@ -123,7 +123,7 @@ const deleteStash = (rootDir = DEFAULT_DIR, name) => {
 const selectStash = (rootDir = DEFAULT_DIR, name) => {
   return (dispatch) => {
     api
-      .get(`/project/?type=selectstash&root=${rootDir}&name=${name}`)
+      .get(`/project/?type=git&op=selectstash&root=${rootDir}&name=${name}`)
       .then((response) => {
         dispatch({ type: SELECT_STASH, message: response.data.message });
       })
@@ -136,7 +136,7 @@ const selectStash = (rootDir = DEFAULT_DIR, name) => {
 const viewStash = (rootDir = DEFAULT_DIR) => {
   return (dispatch) => {
     api
-      .get(`/project/?type=viewstash&root=${rootDir}`)
+      .get(`/project/?type=git&op=viewstash&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: LOAD_VIEW_STASH, data: response.data.data });
       })
@@ -149,7 +149,7 @@ const viewStash = (rootDir = DEFAULT_DIR) => {
 const resetBranch = (rootDir = DEFAULT_DIR) => {
   return (dispatch) => {
     api
-      .get(`/project/?type=resetbranch&root=${rootDir}`)
+      .get(`/project/?type=git&op=resetbranch&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: RESET_BRANCH, message: response.data.message });
       })
