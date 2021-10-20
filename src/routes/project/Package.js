@@ -35,12 +35,14 @@ const Package = ({ root }) => {
 
   const renderCells = (entry, v) => {
     return Object.keys(entry).map(key => {
-      const latestVersion = v ? v[key] : '-';
+      const depVersion = v ? v[key] : '-';
+      const latestVersion = depVersion === entry[key] ? '-': depVersion;
+      const hasUpdate = latestVersion !== '-';
       const matched = selectedDeps.find(item => !!item[key]);
-      const isClickable = v ? ' clickable' : '';
+      const isClickable = hasUpdate ? ' clickable' : '';
       const isSelected = matched ? ' table--selected' : '';
       const className = `flex--one${isClickable}${isSelected}`;
-      const handleClick = v ? () => {
+      const handleClick = hasUpdate ? () => {
         const updatedSelection = matched
           ? selectedDeps.filter(item => !item[key])
           : selectedDeps.concat({ [key]: latestVersion});

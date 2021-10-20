@@ -50,7 +50,6 @@ Hook:
 
 Project Page: 
 - Package Tab
-	- Ability to select which packages to update
   - Notified when a script finished
 - Regex Tab
   - Enter Rootdir, FileRegex, LineRegex, Replace/StartIndex/EndIndex and run script
