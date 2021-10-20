@@ -12,6 +12,7 @@ import {
   RESET_BRANCH,
   LOAD_PACKAGE,
   LOAD_VERSIONS,
+  RUN_SCRIPT,
   CLEAR_MESSAGE
 } from './projectActions';
 
@@ -105,6 +106,12 @@ const projectReducer = (state = projectInitialState, action) => {
       return {
         ...state,
         versions: action.data
+      };
+    },
+    [RUN_SCRIPT]: () => {
+      return {
+        ...state,
+        message: action.message
       };
     },
     [CLEAR_MESSAGE]: () => {

@@ -50,10 +50,8 @@ Hook:
 
 Project Page: 
 - Package Tab
-	- View dependencies with installed version and latest version
 	- Ability to select which packages to update
-	- View all package scripts
-	- Execute package scripts (plus npm install)
+  - Notified when a script finished
 - Regex Tab
   - Enter Rootdir, FileRegex, LineRegex, Replace/StartIndex/EndIndex and run script
 - Template Tab

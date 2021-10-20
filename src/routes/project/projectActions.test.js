@@ -27,6 +27,8 @@ import {
   getPackageJson,
   LOAD_VERSIONS,
   getDependencyVersions,
+  RUN_SCRIPT,
+  runNpmScript,
   CLEAR_MESSAGE,
   clearMessage
 } from './projectActions';
@@ -348,6 +350,29 @@ describe('projectActions', () => {
   it('getDependencyVersions - error', async () => {
     api.get.mockRejectedValueOnce(error);
     getDependencyVersions()(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+    });
+  });
+
+  it('runNpmScript', async () => {
+    api.get.mockResolvedValueOnce({
+      data: {
+        message
+      }
+    });
+    runNpmScript(rootDir, 'script-name')(dispatch);
+
+    await waitFor(() => {
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=package&op=runscript&root=${rootDir}&content=script-name`);
+      expect(dispatch).toHaveBeenCalledWith({ type: RUN_SCRIPT, message });
+    });
+  });
+
+  it('runNpmScript - error', async () => {
+    api.get.mockRejectedValueOnce(error);
+    runNpmScript()(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });

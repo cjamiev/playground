@@ -31,6 +31,10 @@ html {
   flex-direction: column;
 }
 
+.flex--center {
+  place-items: center;
+}
+
 .flex--one {
   flex: 1;
 }

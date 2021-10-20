@@ -14,6 +14,7 @@ const LOAD_VIEW_STASH = 'LOAD_VIEW_STASH';
 const RESET_BRANCH = 'RESET_BRANCH';
 const LOAD_PACKAGE = 'LOAD_PACKAGE';
 const LOAD_VERSIONS = 'LOAD_VERSIONS';
+const RUN_SCRIPT = 'RUN_SCRIPT';
 const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
 const ONE_SECOND = 1000;
 const DEFAULT_DIR = './';
@@ -187,6 +188,19 @@ const getDependencyVersions = (rootDir) => {
   };
 };
 
+const runNpmScript = (rootDir, content) => {
+  return (dispatch) => {
+    api
+      .get(`/project/?type=package&op=runscript&root=${rootDir}&content=${content}`)
+      .then((response) => {
+        dispatch({ type: RUN_SCRIPT, message: response.data.message });
+      })
+      .catch((error) => {
+        dispatch(createAlert({ content: error.message, status: 'error' }));
+      });
+  };
+};
+
 const clearMessage = () => ({ type: CLEAR_MESSAGE });
 
 export {
@@ -217,5 +231,7 @@ export {
   getPackageJson,
   LOAD_VERSIONS,
   getDependencyVersions,
+  RUN_SCRIPT,
+  runNpmScript,
   clearMessage
 };

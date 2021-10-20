@@ -12,6 +12,7 @@ import {
   RESET_BRANCH,
   LOAD_PACKAGE,
   LOAD_VERSIONS,
+  RUN_SCRIPT,
   CLEAR_MESSAGE
 } from './projectActions';
 import projectReducer, { projectInitialState } from './projectReducer';
@@ -194,6 +195,19 @@ describe('projectReducer', () => {
     expect(result).toEqual({
       ...projectInitialState,
       versions
+    });
+  });
+
+  it('RUN_SCRIPT', () => {
+    const action = {
+      type: RUN_SCRIPT,
+      message
+    };
+    const result = projectReducer(projectInitialState, action);
+
+    expect(result).toEqual({
+      ...projectInitialState,
+      message
     });
   });
 

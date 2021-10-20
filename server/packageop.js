@@ -1,6 +1,7 @@
 const child_process = require('child_process');
 const { promisify } = require('util');
-const exec = promisify(child_process.exec);
+const exec = child_process.exec;
+const execPromisify = promisify(exec);
 const { loadJSONFromFile, writeToFile } = require('./file');
 
 const UTF8 = 'utf-8';
@@ -11,10 +12,10 @@ const getLatestDependencyVersions = async (packageJSON) => {
   const devDependencies = Object.keys(packageJSON.devDependencies);
 
   const dependenciesLatestVersions = await Promise.all(
-    dependencies.map(name => exec(`npm view ${name} version`, { encoding: UTF8 }))
+    dependencies.map(name => execPromisify(`npm view ${name} version`, { encoding: UTF8 }))
   );
   const devDependenciesLatestVersions = await Promise.all(
-    devDependencies.map(name => exec(`npm view ${name} version`, { encoding: UTF8 }))
+    devDependencies.map(name => execPromisify(`npm view ${name} version`, { encoding: UTF8 }))
   );
 
   const updatedDependencies = dependenciesLatestVersions
@@ -42,6 +43,10 @@ const updatePackageFile = (rootDir = DEFAULT_DIR, packageJSON) => {
   return writeToFile(`${rootDir}/package.json`, packageJSON);
 };
 
+const runNpmScript = (rootDir = DEFAULT_DIR, script) => {
+  exec(`cd ${rootDir} && npm run ${script}`, { encoding: UTF8 });
+};
+
 const runPackageOperation = async (op, root, content) => {
   if(op === 'read') {
     const data = getPackageFile(root);
@@ -56,6 +61,10 @@ const runPackageOperation = async (op, root, content) => {
     const message = updatePackageFile(root, content);
 
     return { message };
+  } else if(op === 'runscript') {
+    runNpmScript(root, content);
+
+    return { message: `Running Script ${content}` };
   } else {
     return { message: 'package operation not found' };
   }
