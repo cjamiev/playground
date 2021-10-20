@@ -54,6 +54,7 @@ const Global = () => {
 
   if (isLoading) {
     const message = <div className="modal__loading">Loading...</div>;
+    window.scrollTo({ top: ZERO, behavior: 'smooth' });
 
     return (
       <div className="global__modal">
@@ -61,6 +62,8 @@ const Global = () => {
       </div>
     );
   } else if (props.message) {
+    window.scrollTo({ top: ZERO, behavior: 'smooth' });
+
     return (
       <div className="global__modal">
         <Modal close={close} {...props} />

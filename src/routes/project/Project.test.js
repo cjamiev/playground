@@ -3,6 +3,8 @@ import { reduxTestWrapper, mockApi } from 'testHelper';
 import Project from './Project';
 import api from 'api';
 
+const branches = ['branch1', 'branch2'];
+const stashes = ['stash{1}', 'stash{2}'];
 const packageJson = {
   'name': 'test-name',
   'description': 'test-description',
@@ -15,7 +17,8 @@ const packageJson = {
     'test-dev-dep2': '2.0.0'
   },
   'dependencies': {
-    'test-dep': '3.0.0'
+    'test-dep': '3.0.0',
+    'test-dep2': '4.0.0'
   }
 };
 const versions = {
@@ -24,7 +27,8 @@ const versions = {
     'test-dev-dep2': '2.0.1'
   },
   'dependencies': {
-    'test-dep': '3.0.1'
+    'test-dep': '3.0.1',
+    'test-dep2': '4.0.0'
   }
 };
 
@@ -41,6 +45,24 @@ const mockGet = (url) => {
         data: versions
       }
     });
+  } else if (url === '/project/?type=git&op=remoteurl&root=./') {
+    return Promise.resolve({
+      data: {
+        data: 'test-url'
+      }
+    });
+  } else if (url === '/project/?type=git&op=viewbranches&root=./') {
+    return Promise.resolve({
+      data: {
+        data: 'branch1\nbranch2\n'
+      }
+    });
+  } else if (url === '/project/?type=git&op=viewstash&root=./') {
+    return Promise.resolve({
+      data: {
+        data: 'stash@{1}: On master: stash1\nstash@{2}: On master: stash2\n'
+      }
+    });
   } else {
     return Promise.resolve({
       data: {
@@ -49,7 +71,7 @@ const mockGet = (url) => {
     });
   }
 };
-const mockPost = () => {return Promise.resolve({});};
+const mockPost = () => { return Promise.resolve({});};
 const apiMock = mockApi(mockGet, mockPost);
 
 const ZERO = 0;
@@ -59,8 +81,8 @@ const name = 'test-stash';
 const defaultStoreProps = {
   project: {
     remoteUrl: 'test-url',
-    branches: ['branch1', 'branch2'],
-    stashes: ['stash{1}', 'stash{2}'],
+    branches,
+    stashes,
     packageJson,
     versions,
     message: ''
@@ -189,13 +211,14 @@ describe('Project', () => {
       });
     });
 
-    it('handle load versions', () => {
+    it('handle load versions and update versions', () => {
       reduxTestWrapper(Project, {}, defaultStoreProps);
 
       const packageTab = screen.getByText('Package');
       fireEvent.click(packageTab);
 
       const versionBtn = screen.getByText('Load Versions');
+      const updateBtn = screen.getByText('Update Versions');
       fireEvent.click(versionBtn);
 
       Object.keys(versions.devDependencies).forEach(depName => {
@@ -208,6 +231,20 @@ describe('Project', () => {
       });
 
       expect(apiMock.get).toHaveBeenCalledWith('/project/?type=package&op=getversions&root=./');
+
+      // Select and deselect test-dev-dep 1.0.1 and select test-dep 3.0.1
+      fireEvent.click(screen.getByText('1.0.1'));
+      fireEvent.click(screen.getByText('3.0.1'));
+      fireEvent.click(screen.getByText('1.0.1'));
+      fireEvent.click(updateBtn);
+
+      expect(apiMock.post).toHaveBeenCalledWith('/project/?type=package&op=update&root=./', JSON.stringify({
+        ...packageJson,
+        dependencies: {
+          'test-dep': '3.0.1',
+          'test-dep2': '4.0.0'
+        }
+      }));
     });
 
     it('handle install', () => {
