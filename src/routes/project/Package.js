@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { runNpmScript, getDependencyVersions } from './projectActions';
+import { runNpmScript, getDependencyVersions, updatePackage } from './projectActions';
 import Button from 'components/button';
 import Table from 'components/table';
+import { noop } from 'helper/noop';
+import { updateDependencyVersions } from './helper';
 
 const ZERO = 0;
 const ONE = 1;
@@ -14,6 +16,7 @@ const headers = [
 
 const Package = ({ root }) => {
   const dispatch = useDispatch();
+  const [selectedDeps, setSelectedDeps] = useState([]);
   const { packageJson, versions } = useSelector((state) => state.project);
 
   const { name, description, scripts, dependencies, devDependencies } = packageJson;
@@ -33,12 +36,23 @@ const Package = ({ root }) => {
   const renderCells = (entry, v) => {
     return Object.keys(entry).map(key => {
       const latestVersion = v ? v[key] : '-';
+      const matched = selectedDeps.find(item => !!item[key]);
+      const isClickable = v ? ' clickable' : '';
+      const isSelected = matched ? ' table--selected' : '';
+      const className = `flex--one${isClickable}${isSelected}`;
+      const handleClick = v ? () => {
+        const updatedSelection = matched
+          ? selectedDeps.filter(item => !item[key])
+          : selectedDeps.concat({ [key]: latestVersion});
+
+        setSelectedDeps(updatedSelection);
+      } : noop;
 
       return (
         <tr key={key} className="flex--horizontal">
           <td className="flex--three">{key}</td>
           <td className="flex--one">{entry[key]}</td>
-          <td className="flex--one">{latestVersion}</td>
+          <td className={className} onClick={handleClick}>{latestVersion}</td>
         </tr>
       );
     });
@@ -51,6 +65,11 @@ const Package = ({ root }) => {
           label='Load Versions'
           classColor="secondary"
           onClick={() => { dispatch(getDependencyVersions(root)); }}
+        />
+        <Button
+          label='Update Versions'
+          classColor="secondary"
+          onClick={() => { dispatch(updatePackage(root, updateDependencyVersions(packageJson, selectedDeps))); }}
         />
         <Button
           label='install'

@@ -15,6 +15,7 @@ const RESET_BRANCH = 'RESET_BRANCH';
 const LOAD_PACKAGE = 'LOAD_PACKAGE';
 const LOAD_VERSIONS = 'LOAD_VERSIONS';
 const RUN_SCRIPT = 'RUN_SCRIPT';
+const UPDATE_PACKAGE = 'UPDATE_PACKAGE';
 const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
 const ONE_SECOND = 1000;
 const DEFAULT_DIR = './';
@@ -201,6 +202,19 @@ const runNpmScript = (rootDir, content) => {
   };
 };
 
+const updatePackage = (rootDir, content) => {
+  return (dispatch) => {
+    api
+      .post(`/project/?type=package&op=update&root=${rootDir}`, JSON.stringify(content))
+      .then((response) => {
+        dispatch({ type: UPDATE_PACKAGE, message: response.data.message });
+      })
+      .catch((error) => {
+        dispatch(createAlert({ content: error.message, status: 'error' }));
+      });
+  };
+};
+
 const clearMessage = () => ({ type: CLEAR_MESSAGE });
 
 export {
@@ -233,5 +247,7 @@ export {
   getDependencyVersions,
   RUN_SCRIPT,
   runNpmScript,
+  UPDATE_PACKAGE,
+  updatePackage,
   clearMessage
 };

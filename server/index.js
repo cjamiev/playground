@@ -136,7 +136,8 @@ const handleProjectResponse = async (request, response) => {
 
     send(response, { data, message });
   } else if(type === 'package') {
-    const { data, message } = await runPackageOperation(op, root, content);
+    const payload = (request.method === METHOD_POST) ? await resolvePostBody(request): content;
+    const { data, message } = await runPackageOperation(op, root, payload);
 
     send(response, { data, message });
   } else if(type === 'template') {

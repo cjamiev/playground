@@ -6,6 +6,7 @@ const { loadJSONFromFile, writeToFile } = require('./file');
 
 const UTF8 = 'utf-8';
 const DEFAULT_DIR = './';
+const TWO = 2;
 
 const getLatestDependencyVersions = async (packageJSON) => {
   const dependencies = Object.keys(packageJSON.dependencies);
@@ -40,7 +41,7 @@ const getPackageFile = (rootDir = DEFAULT_DIR) => {
 };
 
 const updatePackageFile = (rootDir = DEFAULT_DIR, packageJSON) => {
-  return writeToFile(`${rootDir}/package.json`, packageJSON);
+  return writeToFile(`${rootDir}/package.json`, JSON.stringify(packageJSON, undefined, TWO));
 };
 
 const runNpmScript = (rootDir = DEFAULT_DIR, script) => {
@@ -58,9 +59,9 @@ const runPackageOperation = async (op, root, content) => {
 
     return { data };
   } else if(op === 'update') {
-    const message = updatePackageFile(root, content);
+    const { error, message } = updatePackageFile(root, content);
 
-    return { message };
+    return { error, message };
   } else if(op === 'runscript') {
     runNpmScript(root, content);
 

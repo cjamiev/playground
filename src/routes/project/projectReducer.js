@@ -13,6 +13,7 @@ import {
   LOAD_PACKAGE,
   LOAD_VERSIONS,
   RUN_SCRIPT,
+  UPDATE_PACKAGE,
   CLEAR_MESSAGE
 } from './projectActions';
 
@@ -109,6 +110,12 @@ const projectReducer = (state = projectInitialState, action) => {
       };
     },
     [RUN_SCRIPT]: () => {
+      return {
+        ...state,
+        message: action.message
+      };
+    },
+    [UPDATE_PACKAGE]: () => {
       return {
         ...state,
         message: action.message

@@ -13,6 +13,7 @@ import {
   LOAD_PACKAGE,
   LOAD_VERSIONS,
   RUN_SCRIPT,
+  UPDATE_PACKAGE,
   CLEAR_MESSAGE
 } from './projectActions';
 import projectReducer, { projectInitialState } from './projectReducer';
@@ -201,6 +202,19 @@ describe('projectReducer', () => {
   it('RUN_SCRIPT', () => {
     const action = {
       type: RUN_SCRIPT,
+      message
+    };
+    const result = projectReducer(projectInitialState, action);
+
+    expect(result).toEqual({
+      ...projectInitialState,
+      message
+    });
+  });
+
+  it('UPDATE_PACKAGE', () => {
+    const action = {
+      type: UPDATE_PACKAGE,
       message
     };
     const result = projectReducer(projectInitialState, action);

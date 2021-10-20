@@ -12,6 +12,9 @@ module.exports = (env) => {
       path: path.resolve(__dirname, '../build'),
       filename: '[name].bundle.js'
     },
+    watchOptions: {
+      ignored: ['**/*package.json']
+    },
     devServer: {
       historyApiFallback: true,
       port: 3000,
