@@ -62,13 +62,25 @@ describe('Generator', () => {
     expect(screen.getByLabelText('Active mode is on')).toBeInTheDocument();
   });
 
+  it('handle background mode change', () => {
+    reduxTestWrapper(Generator, {}, {}, pathname);
+
+    expect(screen.queryByLabelText('Background Image')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('BG Image'));
+    expect(screen.queryByLabelText('Background Image')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('BG Color'));
+    expect(screen.queryByLabelText('Background Image')).not.toBeInTheDocument();
+  });
+
   it('handleParentBackgroundColorChange change', () => {
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const parentColorField = screen.getByLabelText('Parent Color color field has value #ffffff');
+    const parentColorField = screen.getByLabelText('Background Color color field has value #ffffff');
     fireEvent.change(parentColorField, { target: { value: '#000000' } });
 
-    expect(screen.getByLabelText('Parent Color color field has value #000000')).toBeInTheDocument();
+    expect(screen.getByLabelText('Background Color color field has value #000000')).toBeInTheDocument();
   });
 
   it('handle onMouseOver & onMouseDown then onMouseOut & onMouseUp', () => {

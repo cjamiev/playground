@@ -179,13 +179,13 @@ const Generator = () => {
         <div className="generator__result_container">
           <div className="flex--horizontal">
             <Switch
-              data={[{ label: 'Color' }, { label: 'Image' }]}
+              data={[{ label: 'BG Color' }, { label: 'BG Image' }]}
               switchIndex={backgroundMode}
               onToggleSwitch={handleBackgroundMode}
             />
-            {backgroundMode === ZERO && <Color label="Parent Color" selected={backgroundStyle.backgroundColor} onChange={handleParentBackgroundColorChange} />}
+            {backgroundMode === ZERO && <Color label="Background Color" selected={backgroundStyle.backgroundColor} onChange={handleParentBackgroundColorChange} />}
           </div>
-          <div style={backgroundStyle} className="generator__box_parent">
+          <div style={backgroundStyle} role={backgroundMode === ONE ? 'img' : undefined} aria-label={backgroundMode === ONE ? 'Background Image' : undefined} className="generator__box_parent">
             <div
               style={currentInlineStyle}
               aria-label={ariaLabel}

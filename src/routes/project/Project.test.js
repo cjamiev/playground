@@ -1,7 +1,9 @@
-import { fireEvent, screen } from '@testing-library/react';
-import { reduxTestWrapper, mockApi } from 'testHelper';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+import { fullTestWrapper, reduxTestWrapper, mockApi } from 'testHelper';
 import Project from './Project';
 import api from 'api';
+import { ROUTES } from 'constants/routes';
+import { TIME } from 'constants/time';
 
 const branches = ['branch1', 'branch2'];
 const stashes = ['stash{1}', 'stash{2}'];
@@ -31,6 +33,7 @@ const versions = {
     'test-dep2': '4.0.0'
   }
 };
+const incorrectDirData = 'The system cannot find the path specified.';
 
 const mockGet = (url) => {
   if(url === '/project/?type=package&op=read&root=./') {
@@ -61,6 +64,12 @@ const mockGet = (url) => {
     return Promise.resolve({
       data: {
         data: 'stash@{1}: On master: stash1\nstash@{2}: On master: stash2\n'
+      }
+    });
+  } else if (url.includes('testdir')) {
+    return Promise.resolve({
+      data: {
+        data: incorrectDirData
       }
     });
   } else {
@@ -259,8 +268,8 @@ describe('Project', () => {
       expect(apiMock.get).toHaveBeenCalledWith('/project/?type=package&op=runscript&root=./&content=install');
     });
 
-    it('handle script', () => {
-      reduxTestWrapper(Project, {}, defaultStoreProps);
+    it('handle script and modal message', async () => {
+      fullTestWrapper(Project, {}, defaultStoreProps, ROUTES.PROJECT.url);
 
       const packageTab = screen.getByText('Package');
       fireEvent.click(packageTab);
@@ -269,6 +278,34 @@ describe('Project', () => {
       fireEvent.click(scriptBtn);
 
       expect(apiMock.get).toHaveBeenCalledWith('/project/?type=package&op=runscript&root=./&content=test-script');
+
+      await waitFor(() => {
+        expect(screen.queryByText('test message')).toBeInTheDocument();
+        fireEvent.click(screen.getByLabelText('Close button'));
+      });
+
+      expect(screen.queryByText('test message')).not.toBeInTheDocument();
+    });
+  });
+
+  it('updating root dir', async () => {
+    jest.useFakeTimers();
+    reduxTestWrapper(Project, {}, defaultStoreProps);
+
+    const rootField = screen.getByLabelText('Root text field');
+
+    fireEvent.change(rootField, { target: { value: 'testdir' } });
+    act(() => jest.advanceTimersByTime(TIME.A_SECOND));
+
+    await waitFor(() => {
+      expect(screen.getByText(`Remote Url: ${incorrectDirData}`)).toBeInTheDocument();
+    });
+
+    fireEvent.change(rootField, { target: { value: './' } });
+    act(() => jest.advanceTimersByTime(TIME.A_SECOND));
+
+    await waitFor(() => {
+      expect(screen.getByText('Remote Url: test-url')).toBeInTheDocument();
     });
   });
 });
