@@ -283,18 +283,6 @@ describe('Project', () => {
       }));
     });
 
-    it('handle install', () => {
-      reduxTestWrapper(Project, {}, defaultStoreProps);
-
-      const packageTab = screen.getByText('Package');
-      fireEvent.click(packageTab);
-
-      const installBtn = screen.getByText('install');
-      fireEvent.click(installBtn);
-
-      expect(apiMock.get).toHaveBeenCalledWith('/project/?type=package&op=runscript&root=./&content=install');
-    });
-
     it('handle script and modal message', async () => {
       fullTestWrapper(Project, {}, defaultStoreProps, ROUTES.PROJECT.url);
 

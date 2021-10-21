@@ -33,11 +33,8 @@ post: (payload) => {
   }
 ```
 
-## scripts
-node script for creating files from template, updating files with regex, and update package.json file. 
-
-## testing and q.js
-Folder for quick testing of html as testing javascript functions
+## testing, q.js, script.js
+Folder for quick testing of html as testing javascript functions. Node script for creating files from template, updating files with regex. 
 
 ## ToDo
 Components:
@@ -49,7 +46,7 @@ Components:
 Hook:
 - Form Validation
 
-Project Page: 
+Page: 
 - Package Tab
   - Notified when a script finished
 - Template Tab
@@ -62,3 +59,6 @@ Test:
 - Generator on change name
 - Project directories dropdown
 - Regex existing dropdown/Save/Delete
+
+CleanUp:
+- Split Project.test.js into smaller files

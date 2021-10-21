@@ -73,13 +73,6 @@ const Package = ({ root }) => {
           classColor="secondary"
           onClick={() => { dispatch(updatePackage(root, updateDependencyVersions(packageJson, selectedDeps))); }}
         />
-        <Button
-          label='install'
-          classColor="primary"
-          onClick={() => {
-            dispatch(runNpmScript(root, 'install'));
-          }}
-        />
         {packageCommands}
       </div>
       <div className="container--center flex--five">
