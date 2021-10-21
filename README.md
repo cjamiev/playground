@@ -44,6 +44,7 @@ Components:
 - Wizard: css & Progress Item List
 - Generator: Flex/Grid, Neomorphism
 - Table: Sort, Config (add/remove entries)
+- Dropdown: css
 
 Hook:
 - Form Validation
@@ -59,3 +60,5 @@ Test:
 - Home edit Todo
 - ClipboardForm command form & Delete
 - Generator on change name
+- Project directories dropdown
+- Regex existing dropdown/Save/Delete

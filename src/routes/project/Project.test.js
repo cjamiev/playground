@@ -33,10 +33,35 @@ const versions = {
     'test-dep2': '4.0.0'
   }
 };
+const projectDb = {
+  directories: [
+    './',
+    'C:/doc'
+  ],
+  regexes: [
+    {
+      description: 'reduce svg icon numbers to three decimals',
+      fileRegex: 'Icon.js$',
+      lineRegex: '[.][0-9]{2,}',
+      modifiers: 'g',
+      lineRange: {
+        start: 0,
+        end: 3
+      },
+      replace: ''
+    }
+  ]
+};
 const incorrectDirData = 'The system cannot find the path specified.';
 
 const mockGet = (url) => {
-  if(url === '/project/?type=package&op=read&root=./') {
+  if(url === '/db/?name=project.json') {
+    return Promise.resolve({
+      data: {
+        data: JSON.stringify(projectDb)
+      }
+    });
+  } else if(url === '/project/?type=package&op=read&root=./') {
     return Promise.resolve({
       data: {
         data: packageJson
@@ -89,6 +114,8 @@ const rootDir = './';
 const name = 'test-stash';
 const defaultStoreProps = {
   project: {
+    directories: [],
+    regexes: [],
     remoteUrl: 'test-url',
     branches,
     stashes,

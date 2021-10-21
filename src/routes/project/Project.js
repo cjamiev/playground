@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openGlobalModal } from 'components/global/globalActions';
 import {
+  loadProject,
   getRemoteUrl,
   viewBranches,
   viewStash,
@@ -11,6 +12,7 @@ import {
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
 import Text from 'components/form/Text';
+import Dropdown from 'components/form/Dropdown';
 import ComponentWrapper from 'components/ComponentWrapper';
 import Git from './Git';
 import Package from './Package';
@@ -21,19 +23,31 @@ import { TIME } from 'constants/time';
 
 const DEFAULT_DIR = './';
 const LS_DIR_KEY = 'rootDir';
+const TWELVE = 12;
 
 const Project = () => {
   const dispatch = useDispatch();
   const [root, setRoot] = useLocalStorage(LS_DIR_KEY, DEFAULT_DIR, false);
-  const { packageJson, message } = useSelector(state => state.project);
+  const { directories, regexes, packageJson, message } = useSelector(state => state.project);
+  const [dirKeys, setDirKeys] = useState([]);
   const TABS = [
     { title: 'Git', component: ComponentWrapper(Git, { root }) },
     { title: 'Package', component: ComponentWrapper(Package, { root }) },
-    { title: 'Regex', component: ComponentWrapper(Regex, { root }) }
+    { title: 'Regex', component: ComponentWrapper(Regex, { root, directories, regexes }) }
   ];
   const debouncedRoot = useDebounce(root, TIME.A_SECOND);
 
   useEffect(() => {
+    const DIR_KEYS = directories.map(filepath => {
+      const name = filepath.length > TWELVE ? `...${filepath.substring(filepath.length - TWELVE)}` : filepath;
+
+      return { label: name, value: filepath, selected: false };
+    });
+    setDirKeys(DIR_KEYS);
+  }, [directories, root]);
+
+  useEffect(() => {
+    dispatch(loadProject());
     dispatch(getRemoteUrl(debouncedRoot));
     dispatch(viewBranches(debouncedRoot));
     dispatch(viewStash(debouncedRoot));
@@ -59,13 +73,22 @@ const Project = () => {
 
   return (
     <Page>
-      <Text
-        label="Root"
-        selected={root}
-        onChange={({ selected }) => {
-          setRoot(selected);
-        }}
-      />
+      <div className="flex--horizontal flex--center">
+        <Text
+          placeholder="Root"
+          selected={root}
+          onChange={({ selected }) => {
+            setRoot(selected);
+          }}
+        />
+        <Dropdown
+          label="Directories"
+          values={dirKeys}
+          onChange={({ values }) => {
+            setRoot(values.find(item => item.selected).value);
+          }}
+        />
+      </div>
       <Tabs data={TABS} />
     </Page>
   );

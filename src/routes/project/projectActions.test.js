@@ -1,6 +1,9 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
 import {
+  LOAD_PROJECT,
+  loadProject,
+  updateProject,
   LOAD_REMOTE_URL,
   getRemoteUrl,
   DELETE_BRANCH,
@@ -69,7 +72,72 @@ const regexContent = {
   replace: '123'
 };
 
+const projectDb = {
+  directories: [
+    './',
+    'C:/doc'
+  ],
+  regexes: [
+    {
+      description: 'reduce svg icon numbers to three decimals',
+      fileRegex: 'Icon.js$',
+      lineRegex: '[.][0-9]{2,}',
+      modifiers: 'g',
+      lineRange: {
+        start: 0,
+        end: 3
+      },
+      replace: ''
+    }
+  ]
+};
+
 describe('projectActions', () => {
+  it('loadProject', async () => {
+    api.get.mockResolvedValueOnce({
+      data: {
+        data: JSON.stringify(projectDb)
+      }
+    });
+    loadProject()(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_PROJECT, data: projectDb });
+    });
+  });
+
+  it('loadProject - error', async () => {
+    api.get.mockRejectedValueOnce(error);
+    loadProject()(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+    });
+  });
+
+  it('updateProject', async () => {
+    api.post.mockResolvedValue({
+      data: {
+        message: 'testing 123'
+      }
+    });
+    updateProject(projectDb)(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_PROJECT, data: projectDb });
+    });
+  });
+
+  it('updateProject - error', async () => {
+    api.post.mockRejectedValueOnce(new Error('Test Message'));
+    updateProject(projectDb)(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+    });
+  });
+
   it('getRemoteUrl', async () => {
     api.get.mockResolvedValueOnce({
       data: {

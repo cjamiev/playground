@@ -1,4 +1,5 @@
 import {
+  LOAD_PROJECT,
   LOAD_REMOTE_URL,
   DELETE_BRANCH,
   CREATE_BRANCH,
@@ -23,12 +24,45 @@ const remoteUrl = 'test-url';
 const message = 'test-message';
 const packageJson = { one: 1, two: 2, three: 3 };
 const versions = { one: 2, two: 3, three: 4 };
+const projectDb = {
+  directories: [
+    './',
+    'C:/doc'
+  ],
+  regexes: [
+    {
+      description: 'reduce svg icon numbers to three decimals',
+      fileRegex: 'Icon.js$',
+      lineRegex: '[.][0-9]{2,}',
+      modifiers: 'g',
+      lineRange: {
+        start: 0,
+        end: 3
+      },
+      replace: ''
+    }
+  ]
+};
 
 describe('projectReducer', () => {
   it('default', () => {
     const result = projectReducer(undefined, {});
 
     expect(result).toEqual(projectInitialState);
+  });
+
+  it('LOAD_PROJECT', () => {
+    const action = {
+      type: LOAD_PROJECT,
+      data: projectDb
+    };
+    const result = projectReducer(projectInitialState, action);
+
+    expect(result).toEqual({
+      ...projectInitialState,
+      directories: projectDb.directories,
+      regexes: projectDb.regexes
+    });
   });
 
   it('LOAD_REMOTE_URL', () => {

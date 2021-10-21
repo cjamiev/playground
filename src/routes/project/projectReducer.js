@@ -1,4 +1,5 @@
 import {
+  LOAD_PROJECT,
   LOAD_REMOTE_URL,
   DELETE_BRANCH,
   CREATE_BRANCH,
@@ -19,6 +20,8 @@ import {
 } from './projectActions';
 
 export const projectInitialState = {
+  directories: [],
+  regexes: [],
   remoteUrl: '',
   branches: [],
   stashes: [],
@@ -29,6 +32,13 @@ export const projectInitialState = {
 
 const projectReducer = (state = projectInitialState, action) => {
   const projectCases = {
+    [LOAD_PROJECT]: () => {
+      return {
+        ...state,
+        directories: action.data.directories,
+        regexes: action.data.regexes
+      };
+    },
     [LOAD_REMOTE_URL]: () => {
       return {
         ...state,

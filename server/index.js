@@ -288,10 +288,10 @@ http
       handleFileResponse(request, response);
     } else if (request.url.includes('command')) {
       handleCommandResponse(request, response);
-    } else if (request.url.includes('project')) {
-      handleProjectResponse(request, response);
     } else if (request.url.includes('db')) {
       handleDbResponse(request, response);
+    } else if (request.url.includes('project')) {
+      handleProjectResponse(request, response);
     } else if (request.url.includes('mockserver')) {
       handleMockServerResponse(request, response);
     } else if (path.extname(request.url)) {
