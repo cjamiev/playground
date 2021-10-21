@@ -16,6 +16,7 @@ const LOAD_PACKAGE = 'LOAD_PACKAGE';
 const LOAD_VERSIONS = 'LOAD_VERSIONS';
 const RUN_SCRIPT = 'RUN_SCRIPT';
 const UPDATE_PACKAGE = 'UPDATE_PACKAGE';
+const UPDATE_FILES_BY_REGEX = 'UPDATE_FILES_BY_REGEX';
 const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
 const ONE_SECOND = 1000;
 const DEFAULT_DIR = './';
@@ -215,6 +216,19 @@ const updatePackage = (rootDir, content) => {
   };
 };
 
+const updateFilesByRegex = (rootDir, content) => {
+  return (dispatch) => {
+    api
+      .post(`/project/?type=regex&root=${rootDir}`, JSON.stringify(content))
+      .then((response) => {
+        dispatch({ type: UPDATE_FILES_BY_REGEX, message: response.data.message });
+      })
+      .catch((error) => {
+        dispatch(createAlert({ content: error.message, status: 'error' }));
+      });
+  };
+};
+
 const clearMessage = () => ({ type: CLEAR_MESSAGE });
 
 export {
@@ -249,5 +263,7 @@ export {
   runNpmScript,
   UPDATE_PACKAGE,
   updatePackage,
+  UPDATE_FILES_BY_REGEX,
+  updateFilesByRegex,
   clearMessage
 };

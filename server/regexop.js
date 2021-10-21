@@ -16,13 +16,13 @@ async function* getFiles(rootPath) {
   }
 }
 
-const updateFiles = async ({ rootDir, fileRegex, lineRegex, lineMapper }) => {
+const updateFiles = async ({ rootDir, fileRegex, lineRegex, lineReplacer }) => {
   for await (const filePath of getFiles(rootDir)) {
     const matchedFile = filePath.match(fileRegex);
 
     if(matchedFile) {
       fs.readFile(filePath, UTF8, (err, data) => {
-        const update = data.replace(lineRegex, lineMapper);
+        const update = data.replace(lineRegex, lineReplacer);
         const writeStream = fs.createWriteStream(filePath, { flag: 'a'});
 
         writeStream.write(update);
@@ -32,13 +32,21 @@ const updateFiles = async ({ rootDir, fileRegex, lineRegex, lineMapper }) => {
 };
 
 const runRegexOperation = (root, content) => {
+  const { fileRegex, lineRegex, modifiers, lineRange, replace = '' } = content;
+  const { start, end } = lineRange;
+  const lineReplacer = start && end
+    ? matchedKey => matchedKey.substr(start,end) + replace
+    : replace;
+
+
   try {
     updateFiles({
       rootDir: root,
-      fileRegex: content.fileRegex,
-      lineRegex: content.lineRegex,
-      lineMapper: matchedKey => matchedKey.substr(content.start,content.end)
+      fileRegex: new RegExp(fileRegex),
+      lineRegex: new RegExp(lineRegex, modifiers),
+      lineReplacer
     });
+
     return { message: 'Regex Operation Executing' };
   } catch (e) {
     return { message: e.stderr };

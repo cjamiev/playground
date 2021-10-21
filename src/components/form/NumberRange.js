@@ -50,7 +50,7 @@ const NumberRange = ({ id, label, selected = {}, min = ZERO, max = ZERO, error, 
       </div>
       {error && (
         <span className="input__error">
-          Please enter values ranging at mininum {min} to maximum {max}{' '}
+          Please enter values ranging at mininum {min} to maximum {max}
         </span>
       )}
     </div>

@@ -14,6 +14,7 @@ import Text from 'components/form/Text';
 import ComponentWrapper from 'components/ComponentWrapper';
 import Git from './Git';
 import Package from './Package';
+import Regex from './Regex';
 import useLocalStorage from 'hooks/useLocalStorage';
 import useDebounce from 'hooks/useDebounce';
 import { TIME } from 'constants/time';
@@ -27,7 +28,8 @@ const Project = () => {
   const { packageJson, message } = useSelector(state => state.project);
   const TABS = [
     { title: 'Git', component: ComponentWrapper(Git, { root }) },
-    { title: 'Package', component: ComponentWrapper(Package, { root }) }
+    { title: 'Package', component: ComponentWrapper(Package, { root }) },
+    { title: 'Regex', component: ComponentWrapper(Regex, { root }) }
   ];
   const debouncedRoot = useDebounce(root, TIME.A_SECOND);
 

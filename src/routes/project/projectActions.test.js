@@ -31,6 +31,8 @@ import {
   runNpmScript,
   UPDATE_PACKAGE,
   updatePackage,
+  UPDATE_FILES_BY_REGEX,
+  updateFilesByRegex,
   CLEAR_MESSAGE,
   clearMessage
 } from './projectActions';
@@ -57,6 +59,15 @@ const message = 'test message';
 const rootDir = 'test-dir';
 const name = 'test-name';
 const packageJson = { one: 1, two: 2, three: 3 };
+const regexContent = {
+  fileRegex: /Icon.js$/,
+  lineRegex: /[.][0-9]{2,}/g,
+  lineRange: {
+    start: 0,
+    end: 3
+  },
+  replace: '123'
+};
 
 describe('projectActions', () => {
   it('getRemoteUrl', async () => {
@@ -398,6 +409,29 @@ describe('projectActions', () => {
   it('updatePackage - error', async () => {
     api.post.mockRejectedValueOnce(error);
     updatePackage()(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+    });
+  });
+
+  it('updateFilesByRegex', async () => {
+    api.post.mockResolvedValueOnce({
+      data: {
+        message
+      }
+    });
+    updateFilesByRegex(rootDir, regexContent)(dispatch);
+
+    await waitFor(() => {
+      expect(api.post).toHaveBeenCalledWith(`/project/?type=regex&root=${rootDir}`, JSON.stringify(regexContent));
+      expect(dispatch).toHaveBeenCalledWith({ type: UPDATE_FILES_BY_REGEX, message });
+    });
+  });
+
+  it('updateFilesByRegex - error', async () => {
+    api.post.mockRejectedValueOnce(error);
+    updateFilesByRegex()(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });

@@ -14,6 +14,7 @@ import {
   LOAD_VERSIONS,
   RUN_SCRIPT,
   UPDATE_PACKAGE,
+  UPDATE_FILES_BY_REGEX,
   CLEAR_MESSAGE
 } from './projectActions';
 import projectReducer, { projectInitialState } from './projectReducer';
@@ -215,6 +216,19 @@ describe('projectReducer', () => {
   it('UPDATE_PACKAGE', () => {
     const action = {
       type: UPDATE_PACKAGE,
+      message
+    };
+    const result = projectReducer(projectInitialState, action);
+
+    expect(result).toEqual({
+      ...projectInitialState,
+      message
+    });
+  });
+
+  it('UPDATE_FILES_BY_REGEX', () => {
+    const action = {
+      type: UPDATE_FILES_BY_REGEX,
       message
     };
     const result = projectReducer(projectInitialState, action);

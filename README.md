@@ -51,8 +51,11 @@ Hook:
 Project Page: 
 - Package Tab
   - Notified when a script finished
-- Regex Tab
-  - Enter Rootdir, FileRegex, LineRegex, Replace/StartIndex/EndIndex and run script
 - Template Tab
 	- View all template file names
 	- Select which templates to create from and execute
+
+Test:
+- Home edit Todo
+- ClipboardForm command form & Delete
+- Generator on change name

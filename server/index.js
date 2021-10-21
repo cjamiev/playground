@@ -145,7 +145,8 @@ const handleProjectResponse = async (request, response) => {
 
     send(response, { data, message });
   } else if(type === 'regex') {
-    const message = runRegexOperation(root, content);
+    const payload = await resolvePostBody(request);
+    const { message } = runRegexOperation(root, payload);
 
     send(response, message);
   } else {
