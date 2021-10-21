@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { readDirectory } = require('./file');
 
+const TEMPLATE_DIR = './storage/io/templates';
 const UTF8 = 'utf-8';
 const ZERO = 0;
 const ONE = 1;
@@ -10,12 +11,12 @@ const capitalizeFirstLetter = (string) => {
 };
 
 const readTemplateDirectory = () => {
-  return readDirectory('./storage/io/templates');
+  return readDirectory(TEMPLATE_DIR);
 };
 
-const createFilesFromTemplates = (targetDir, filePaths) => {
+const createFilesFromTemplates = (targetDir, filePaths, name) => {
   filePaths.forEach(filePath => {
-    fs.readFile(filePath, UTF8, (err, data) => {
+    fs.readFile(`${TEMPLATE_DIR}/${filePath}`, UTF8, (err, data) => {
       const content = data
         .replace(/{{name}}/g, name)
         .replace(/{{Name}}/g, capitalizeFirstLetter(name))
@@ -32,9 +33,9 @@ const createFilesFromTemplates = (targetDir, filePaths) => {
   });
 };
 
-const runTemplateOperation = (op, root, content) => {
+const runTemplateOperation = (op, root, content, name) => {
   if(op === 'create') {
-    const data = createFilesFromTemplates(root, content);
+    const data = createFilesFromTemplates(root, content, name);
 
     return { data };
   } else if(op === 'read') {

@@ -38,7 +38,6 @@ const runRegexOperation = (root, content) => {
     ? matchedKey => matchedKey.substr(start,end) + replace
     : replace;
 
-
   try {
     updateFiles({
       rootDir: root,
