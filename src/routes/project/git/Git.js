@@ -11,7 +11,7 @@ import {
   deleteStash,
   selectStash,
   resetBranch
-} from './projectActions';
+} from './gitActions';
 import Text from 'components/form/Text';
 import Dropdown from 'components/form/Dropdown';
 import Button, { IconButton } from 'components/button';

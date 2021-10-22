@@ -1,5 +1,8 @@
 import {
   LOAD_PROJECT,
+  CLEAR_MESSAGE
+} from './projectActions';
+import {
   LOAD_REMOTE_URL,
   DELETE_BRANCH,
   CREATE_BRANCH,
@@ -10,14 +13,17 @@ import {
   DELETE_STASH,
   SELECT_STASH,
   LOAD_VIEW_STASH,
-  RESET_BRANCH,
+  RESET_BRANCH
+} from './git/gitActions';
+import {
   LOAD_PACKAGE,
   LOAD_VERSIONS,
   RUN_SCRIPT,
-  UPDATE_PACKAGE,
-  UPDATE_FILES_BY_REGEX,
-  CLEAR_MESSAGE
-} from './projectActions';
+  UPDATE_PACKAGE
+} from './package/packageActions';
+import {
+  UPDATE_FILES_BY_REGEX
+} from './regex/regexActions';
 
 export const projectInitialState = {
   directories: [],

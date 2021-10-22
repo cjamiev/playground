@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateProject, updateFilesByRegex } from './projectActions';
+import { updateProject } from '../projectActions';
+import { updateFilesByRegex } from './regexActions';
 import Button from 'components/button';
 import Text from 'components/form/Text';
 import Checkbox from 'components/form/Checkbox';

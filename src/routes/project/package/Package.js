@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { runNpmScript, getDependencyVersions, updatePackage } from './projectActions';
+import { runNpmScript, getDependencyVersions, updatePackage } from './packageActions';
 import Button from 'components/button';
 import Table from 'components/table';
 import { noop } from 'helper/noop';

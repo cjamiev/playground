@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openGlobalModal } from 'components/global/globalActions';
-import {
-  loadProject,
-  getRemoteUrl,
-  viewBranches,
-  viewStash,
-  getPackageJson,
-  clearMessage
-} from './projectActions';
+import { loadProject, clearMessage } from './projectActions';
+import { getPackageJson } from './package/packageActions';
+import { getRemoteUrl, viewBranches, viewStash } from './git/gitActions';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
 import Text from 'components/form/Text';
 import Dropdown from 'components/form/Dropdown';
 import ComponentWrapper from 'components/ComponentWrapper';
-import Git from './Git';
-import Package from './Package';
-import Regex from './Regex';
+import Git from './git';
+import Package from './package';
+import Regex from './regex';
 import useLocalStorage from 'hooks/useLocalStorage';
 import useDebounce from 'hooks/useDebounce';
 import { TIME } from 'constants/time';
