@@ -35,8 +35,16 @@ export const projectInitialState = {
   remoteUrl: '',
   branches: [],
   stashes: [],
-  packageJson: {},
-  versions: {},
+  packageJson: {
+    name: 'N/A',
+    description: 'File Not Found',
+    dependencies: {},
+    devDependencies: {}
+  },
+  versions: {
+    dependencies: {},
+    devDependencies: {}
+  },
   templates: [],
   message: ''
 };

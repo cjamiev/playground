@@ -37,7 +37,7 @@ const getLatestDependencyVersions = async (packageJSON) => {
 };
 
 const getPackageFile = (rootDir = DEFAULT_DIR) => {
-  return loadJSONFromFile(`${rootDir}/package.json`, { error: 'file not found'});
+  return loadJSONFromFile(`${rootDir}/package.json`, { error: true, message: 'file not found'});
 };
 
 const updatePackageFile = (rootDir = DEFAULT_DIR, packageJSON) => {
@@ -51,6 +51,9 @@ const runNpmScript = (rootDir = DEFAULT_DIR, script) => {
 const runPackageOperation = async (op, root, content) => {
   if(op === 'read') {
     const data = getPackageFile(root);
+    if(data.error) {
+      return { error: data.error, message: data.message };
+    }
 
     return { data };
   } else if(op === 'getversions') {
