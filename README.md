@@ -57,4 +57,3 @@ Test:
 - ClipboardForm command form & Delete
 - Generator on change name
 - Project directories dropdown
-- Regex existing dropdown/Save/Delete

@@ -14,7 +14,6 @@ const Template = ({ root }) => {
   const { templates } = useSelector(state => state.project);
 
   useEffect(() => {
-    console.log('EYE_CATCHER', templates);
     setSelectedTemplates(templates.map(item => {
       return { label: item, value: item, selected: false};
     }));
