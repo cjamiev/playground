@@ -55,9 +55,9 @@ const renderCells = ({ entry, removeItem, moveItemUp, moveItemDown }) => {
   ));
 };
 
-const ClipboardForm = ({ clipboard }) => {
+const ClipboardForm = ({ records }) => {
   const dispatch = useDispatch();
-  const CLIPBOARD_KEYS = Object.keys(clipboard).map((filename) => {
+  const CLIPBOARD_KEYS = Object.keys(records).map((filename) => {
     return { label: filename, selected: false };
   });
   const [existingKeys, setExistingKeys] = useState(CLIPBOARD_KEYS);
@@ -72,24 +72,24 @@ const ClipboardForm = ({ clipboard }) => {
   useEffect(() => {
     const selectedKey = existingKeys.find((item) => item.selected);
     if (selectedKey) {
-      const titleList = clipboard[selectedKey.label].map((item) => {
+      const titleList = records[selectedKey.label].map((item) => {
         return { label: item.title, selected: false };
       });
       setKey(selectedKey.label);
       setExistingTitles(titleList);
     }
-  }, [clipboard, title, existingKeys]);
+  }, [records, title, existingKeys]);
 
   useEffect(() => {
     const selectedKey = existingKeys.find((item) => item.selected);
     const selectedTitle = existingTitles.find((item) => item.selected);
     if (selectedTitle) {
-      const selectedData = clipboard[selectedKey.label].find((item) => item.title === selectedTitle.label).data;
+      const selectedData = records[selectedKey.label].find((item) => item.title === selectedTitle.label).data;
       setTitle(selectedTitle.label);
       setData(selectedData);
       setCurrentIndex(selectedData.length);
     }
-  }, [clipboard, title, existingKeys, existingTitles]);
+  }, [records, title, existingKeys, existingTitles]);
 
   const removeItem = (selectedIndex) => {
     const updatedItems = entry.filter((_, index) => index !== selectedIndex);
@@ -256,24 +256,24 @@ const ClipboardForm = ({ clipboard }) => {
             label="Submit"
             classColor="primary"
             onClick={() => {
-              const section = clipboard[key] || [];
+              const section = records[key] || [];
               const filteredSection = section.filter((item) => item.title !== title);
               const updatedSection = [...filteredSection, { title, data }];
 
-              const content = { ...clipboard, [key]: updatedSection };
+              const content = { ...records, [key]: updatedSection };
 
               dispatch(updateClipboard(content));
             }}
           />
         )}
-        {clipboard.hasOwnProperty(key) && title && (
+        {records.hasOwnProperty(key) && title && (
           <Button
             label="Delete"
             classColor="primary"
             onClick={() => {
-              const updatedSection = clipboard[key].filter((item) => item.title !== title);
+              const updatedSection = records[key].filter((item) => item.title !== title);
 
-              const content = { ...clipboard, [key]: updatedSection };
+              const content = { ...records, [key]: updatedSection };
 
               dispatch(updateClipboard(content));
               setEntry([]);

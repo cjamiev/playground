@@ -10,7 +10,7 @@ const defaultProps = {};
 const defaultStoreProps = {
   clipboard: {
     error: {},
-    clipboard: {
+    records: {
       passwords: [
         {
           title: 'listOne',

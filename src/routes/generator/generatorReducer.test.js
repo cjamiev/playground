@@ -21,7 +21,7 @@ describe('generatorReducer', () => {
 
     expect(result).toEqual({
       ...generatorInitialState,
-      generatorRecords: action.data
+      records: action.data
     });
   });
 });

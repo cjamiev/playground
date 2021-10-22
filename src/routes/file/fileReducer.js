@@ -2,7 +2,7 @@ import { LOAD_DIRECTORY, LOAD_FILE } from './fileActions';
 
 export const fileInitialState = {
   directory: [],
-  file: ''
+  fileContent: ''
 };
 
 const fileReducer = (state = fileInitialState, action) => {
@@ -16,7 +16,7 @@ const fileReducer = (state = fileInitialState, action) => {
     [LOAD_FILE]: () => {
       return {
         ...state,
-        file: action.data
+        fileContent: action.data
       };
     }
   };

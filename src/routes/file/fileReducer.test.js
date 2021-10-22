@@ -34,7 +34,7 @@ describe('fileReducer', () => {
 
     expect(result).toEqual({
       ...fileInitialState,
-      file: action.data
+      fileContent: action.data
     });
   });
 });

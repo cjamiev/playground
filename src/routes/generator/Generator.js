@@ -40,7 +40,7 @@ const Generator = () => {
     backgroundColor: '#ffffff'
   });
   const dispatch = useDispatch();
-  const { generatorRecords } = useSelector(state => state.generator);
+  const { records } = useSelector(state => state.generator);
 
   useEffect(() => {
     dispatch(loadGeneratorRecords());
@@ -115,7 +115,7 @@ const Generator = () => {
   };
 
   const handleSelectRecord = (selectedName) => {
-    const matched = generatorRecords.find((item) => item.name === selectedName);
+    const matched = records.find((item) => item.name === selectedName);
     setName(selectedName);
     if (matched) {
       setNormalStyle(matched.value.normalStyle);
@@ -127,7 +127,7 @@ const Generator = () => {
   };
 
   const handleSubmit = (selectedName) => {
-    const filteredRecords = generatorRecords.filter((item) => item.name !== selectedName);
+    const filteredRecords = records.filter((item) => item.name !== selectedName);
     const updatedRecords = [
       ...filteredRecords,
       { name, value: { normalStyle, hoverStyle, activeStyle, backgroundStyle } }
@@ -146,12 +146,12 @@ const Generator = () => {
   };
 
   const handleDelete = (selectedName) => {
-    const filteredRecords = generatorRecords.filter((item) => item.name !== selectedName);
+    const filteredRecords = records.filter((item) => item.name !== selectedName);
 
     dispatch(updatedGeneratorRecords(filteredRecords));
   };
 
-  const records = generatorRecords.map((item) => {
+  const generatorRecords = records.map((item) => {
     return { label: item.name, selected: false };
   });
 
@@ -159,7 +159,7 @@ const Generator = () => {
     <Page
       sidePanelContent={
         <GeneratorSidePanel
-          records={records}
+          generatorRecords={generatorRecords}
           selectedName={name}
           onSelectRecord={handleSelectRecord}
           onSubmit={handleSubmit}

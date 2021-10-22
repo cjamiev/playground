@@ -26,19 +26,19 @@ const ClipboardTab = (props) => {
 const Clipboard = () => {
   const [filter, setFilter] = useState('');
   const dispatch = useDispatch();
-  const { clipboard } = useSelector((state) => state.clipboard);
+  const { records } = useSelector((state) => state.clipboard);
   const { commandResponse } = useSelector((state) => state.list);
-  const TABS = Object.keys(clipboard).map((filename) => {
+  const TABS = Object.keys(records).map((filename) => {
     const name = filename.split('.')[ZERO];
 
-    return { title: name, component: ComponentWrapper(ClipboardTab, { clip: clipboard[name] }) };
+    return { title: name, component: ComponentWrapper(ClipboardTab, { clip: records[name] }) };
   });
   const memoizedData = useMemo(() => {
     const data = [];
 
-    Object.keys(clipboard).forEach((filename) => {
+    Object.keys(records).forEach((filename) => {
       const name = filename.split('.')[ZERO];
-      const tab = clipboard[name];
+      const tab = records[name];
       const sectionData = tab.map((item) => item.data);
       sectionData.forEach((entry) => {
         entry.forEach((item) => data.push(item));
@@ -46,7 +46,7 @@ const Clipboard = () => {
     });
 
     return data;
-  }, [clipboard]);
+  }, [records]);
 
   useEffect(() => {
     dispatch(loadCommand());
@@ -93,7 +93,7 @@ const Clipboard = () => {
     });
 
   return (
-    <Page sidePanelContent={<ClipboardForm clipboard={clipboard} />} isSidePanelWide={true}>
+    <Page sidePanelContent={<ClipboardForm records={records} />} isSidePanelWide={true}>
       <Text placeholder="Filter by label" selected={filter} onChange={handleFilterChange} />
       {TABS.length > ZERO && !filter && <Tabs data={TABS} />}
       {filter && <List header={`filtered by ${filter}`} data={filteredData || []} />}

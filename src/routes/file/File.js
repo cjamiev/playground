@@ -24,7 +24,7 @@ const File = () => {
   const [content, setContent] = useState('');
   const { set, back, forward } = useStateHistory((value) => { setContent(value); });
   const dispatch = useDispatch();
-  const { directory, file } = useSelector((state) => state.file);
+  const { directory, fileContent } = useSelector((state) => state.file);
 
   useEffect(() => {
     dispatch(loadDirectory());
@@ -32,9 +32,9 @@ const File = () => {
 
   useEffect(() => {
     if (name) {
-      setContent(file);
+      setContent(fileContent);
     }
-  }, [name, file, setContent]);
+  }, [name, fileContent, setContent]);
 
   const handleNameChange = ({ selected }) => {
     const selectedFile = directory.find((item) => item === selected);

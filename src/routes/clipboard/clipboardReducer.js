@@ -1,7 +1,7 @@
 import { LOAD_CLIPBOARD } from './clipboardActions';
 
 export const clipboardInitialState = {
-  clipboard: {}
+  records: {}
 };
 
 const clipboardReducer = (state = clipboardInitialState, action) => {
@@ -9,7 +9,7 @@ const clipboardReducer = (state = clipboardInitialState, action) => {
     [LOAD_CLIPBOARD]: () => {
       return {
         ...state,
-        clipboard: action.data
+        records: action.data
       };
     }
   };

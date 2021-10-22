@@ -1,7 +1,7 @@
 import { LOAD_GENERATOR_RECORDS } from './generatorActions';
 
 export const generatorInitialState = {
-  generatorRecords: []
+  records: []
 };
 
 const generatorReducer = (state = generatorInitialState, action) => {
@@ -9,7 +9,7 @@ const generatorReducer = (state = generatorInitialState, action) => {
     [LOAD_GENERATOR_RECORDS]: () => {
       return {
         ...state,
-        generatorRecords: action.data
+        records: action.data
       };
     }
   };

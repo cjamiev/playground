@@ -3,12 +3,12 @@ import Dropdown from 'components/form/Dropdown';
 import Button from 'components/button';
 import Text from 'components/form/Text';
 
-const GeneratorSidePanel = ({ records, selectedName, onSelectRecord, onSubmit, onDelete }) => {
+const GeneratorSidePanel = ({ generatorRecords, selectedName, onSelectRecord, onSubmit, onDelete }) => {
   return (
     <div className="container--center">
       <Dropdown
         label="Select an existing record"
-        values={records}
+        values={generatorRecords}
         onChange={({ values }) => {
           const selectedRecord = values.find((item) => item.selected);
           onSelectRecord(selectedRecord.label);

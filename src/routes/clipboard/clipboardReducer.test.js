@@ -27,7 +27,7 @@ describe('clipboardReducer', () => {
 
     expect(result).toEqual({
       ...clipboardInitialState,
-      clipboard: action.data
+      records: action.data
     });
   });
 });
