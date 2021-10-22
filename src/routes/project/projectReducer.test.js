@@ -24,12 +24,17 @@ import {
 import {
   UPDATE_FILES_BY_REGEX
 } from './regex/regexActions';
+import {
+  LOAD_TEMPLATES,
+  CREATE_FILES_FROM_TEMPLATES
+} from './template/templateActions';
 import projectReducer, { projectInitialState } from './projectReducer';
 
 const remoteUrl = 'test-url';
 const message = 'test-message';
 const packageJson = { one: 1, two: 2, three: 3 };
 const versions = { one: 2, two: 3, three: 4 };
+const templates = ['template/one', 'template/two'];
 const projectDb = {
   directories: [
     './',
@@ -269,6 +274,32 @@ describe('projectReducer', () => {
   it('UPDATE_FILES_BY_REGEX', () => {
     const action = {
       type: UPDATE_FILES_BY_REGEX,
+      message
+    };
+    const result = projectReducer(projectInitialState, action);
+
+    expect(result).toEqual({
+      ...projectInitialState,
+      message
+    });
+  });
+
+  it('LOAD_TEMPLATES', () => {
+    const action = {
+      type: LOAD_TEMPLATES,
+      data: templates
+    };
+    const result = projectReducer(projectInitialState, action);
+
+    expect(result).toEqual({
+      ...projectInitialState,
+      templates
+    });
+  });
+
+  it('CREATE_FILES_FROM_TEMPLATES', () => {
+    const action = {
+      type: CREATE_FILES_FROM_TEMPLATES,
       message
     };
     const result = projectReducer(projectInitialState, action);

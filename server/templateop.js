@@ -33,11 +33,12 @@ const createFilesFromTemplates = (targetDir, filePaths, name) => {
   });
 };
 
-const runTemplateOperation = (op, root, content, name) => {
+// eslint-disable-next-line max-params
+const runTemplateOperation = (op, root, name, content) => {
   if(op === 'create') {
-    const data = createFilesFromTemplates(root, content, name);
+    createFilesFromTemplates(root, content, name);
 
-    return { data };
+    return { message: 'Creating templates' };
   } else if(op === 'read') {
     const data = readTemplateDirectory();
 

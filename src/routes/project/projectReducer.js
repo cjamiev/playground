@@ -24,6 +24,10 @@ import {
 import {
   UPDATE_FILES_BY_REGEX
 } from './regex/regexActions';
+import {
+  LOAD_TEMPLATES,
+  CREATE_FILES_FROM_TEMPLATES
+} from './template/templateActions';
 
 export const projectInitialState = {
   directories: [],
@@ -33,6 +37,7 @@ export const projectInitialState = {
   stashes: [],
   packageJson: {},
   versions: {},
+  templates: [],
   message: ''
 };
 
@@ -139,6 +144,18 @@ const projectReducer = (state = projectInitialState, action) => {
       };
     },
     [UPDATE_FILES_BY_REGEX]: () => {
+      return {
+        ...state,
+        message: action.message
+      };
+    },
+    [LOAD_TEMPLATES]: () => {
+      return {
+        ...state,
+        templates: action.data
+      };
+    },
+    [CREATE_FILES_FROM_TEMPLATES]: () => {
       return {
         ...state,
         message: action.message

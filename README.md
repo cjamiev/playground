@@ -50,8 +50,7 @@ Page:
 - Package Tab
   - Notified when a script finished
 - Template Tab
-	- View all template file names
-	- Select which templates to create from and execute
+  - View a template & Flexible edit of templates
 
 Test:
 - Home edit Todo
@@ -59,6 +58,3 @@ Test:
 - Generator on change name
 - Project directories dropdown
 - Regex existing dropdown/Save/Delete
-
-CleanUp:
-- Split Project.test.js into smaller files

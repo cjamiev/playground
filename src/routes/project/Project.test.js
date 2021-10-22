@@ -23,6 +23,7 @@ const projectDb = {
     }
   ]
 };
+const templates = ['template/one', 'template/two'];
 const incorrectDirData = 'The system cannot find the path specified.';
 
 const mockGet = (url) => {
@@ -30,6 +31,12 @@ const mockGet = (url) => {
     return Promise.resolve({
       data: {
         data: JSON.stringify(projectDb)
+      }
+    });
+  } else if (url === '/project/?type=template&op=read') {
+    return Promise.resolve({
+      data: {
+        data: templates
       }
     });
   } else if (url === '/project/?type=git&op=remoteurl&root=./') {

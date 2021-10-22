@@ -141,7 +141,8 @@ const handleProjectResponse = async (request, response) => {
 
     send(response, { data, message });
   } else if(type === 'template') {
-    const { data, message } = runTemplateOperation(op, root, content);
+    const payload = await resolvePostBody(request);
+    const { data, message } = runTemplateOperation(op, root, name, payload);
 
     send(response, { data, message });
   } else if(type === 'regex') {
