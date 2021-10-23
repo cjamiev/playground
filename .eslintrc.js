@@ -14,6 +14,7 @@ module.exports = {
       experimentalObjectRestSpread: true
     }
   },
+  ignorePatterns: ['**/bundle.js', '.eslintrc.js'],
   plugins: ['react', 'react-hooks'],
   settings: {
     react: {
