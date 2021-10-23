@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/modal';
 import { createAlert } from 'components/alert/alertActions';
-import { closeGlobalModal } from 'components/global/globalActions';
+import { closeGlobalModal, hideLoadingModal } from 'components/global/globalActions';
 import { initializeTimer } from './globalActions';
 import { TIME } from 'constants/time';
 
@@ -58,7 +58,7 @@ const Global = () => {
 
     return (
       <div className="global__modal">
-        <Modal message={message} />
+        <Modal message={message} close={() => { dispatch(hideLoadingModal());}}/>
       </div>
     );
   } else if (props.message) {

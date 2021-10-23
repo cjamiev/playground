@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { showLoadingModal } from 'components/global/globalActions';
 import { runNpmScript, getDependencyVersions, updatePackage } from './packageActions';
 import Button from 'components/button';
 import Table from 'components/table';
@@ -66,7 +67,10 @@ const Package = ({ root }) => {
         <Button
           label='Load Versions'
           classColor="secondary"
-          onClick={() => { dispatch(getDependencyVersions(root)); }}
+          onClick={() => {
+            dispatch(showLoadingModal());
+            dispatch(getDependencyVersions(root));
+          }}
         />
         <Button
           label='Update Versions'

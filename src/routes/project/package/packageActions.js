@@ -1,5 +1,6 @@
 import api from 'api';
 import { createAlert } from 'components/alert/alertActions';
+import { hideLoadingModal } from 'components/global/globalActions';
 
 const LOAD_PACKAGE = 'LOAD_PACKAGE';
 const LOAD_VERSIONS = 'LOAD_VERSIONS';
@@ -26,6 +27,7 @@ const getDependencyVersions = (rootDir) => {
       .get(`/project/?type=package&op=getversions&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: LOAD_VERSIONS, data: response.data.data });
+        dispatch(hideLoadingModal());
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));

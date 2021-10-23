@@ -24,7 +24,9 @@
 
 .modal__loading {
   margin: 1em auto;
-  font-size: 8em;
+  font-size: 100px;
+  display: flex;
+  place-content: center;
 }
 
 .modal__header {
