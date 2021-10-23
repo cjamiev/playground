@@ -1,5 +1,5 @@
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
-import { reduxTestWrapper, mockApi } from 'testHelper';
+import { reduxTestWrapper, mockApi, mockGet, mockPost } from 'testHelper';
 import Project from './Project';
 import api from 'api';
 import { TIME } from 'constants/time';
@@ -25,59 +25,12 @@ const projectDb = {
 };
 const templates = ['template/one', 'template/two'];
 const incorrectDirData = 'The system cannot find the path specified.';
-
-const mockGet = (url) => {
-  if(url === '/db/?name=project.json') {
-    return Promise.resolve({
-      data: {
-        data: JSON.stringify(projectDb)
-      }
-    });
-  } else if (url === '/project/?type=template&op=read') {
-    return Promise.resolve({
-      data: {
-        data: templates
-      }
-    });
-  } else if (url === '/project/?type=git&op=remoteurl&root=./') {
-    return Promise.resolve({
-      data: {
-        data: 'test-url'
-      }
-    });
-  } else if (url === '/project/?type=git&op=viewbranches&root=./') {
-    return Promise.resolve({
-      data: {
-        data: 'branch1\nbranch2\n'
-      }
-    });
-  } else if (url === '/project/?type=git&op=viewstash&root=./') {
-    return Promise.resolve({
-      data: {
-        data: 'stash@{1}: On master: stash1\nstash@{2}: On master: stash2\n'
-      }
-    });
-  } else if (url.includes('testdir')) {
-    return Promise.resolve({
-      data: {
-        data: incorrectDirData
-      }
-    });
-  } else {
-    return Promise.resolve({
-      data: {
-        message: 'test message'
-      }
-    });
-  }
-};
-const mockPost = () => { return Promise.resolve({});};
 const apiMock = mockApi(mockGet, mockPost);
 
 const rootDir = './';
 const defaultStoreProps = {
   project: {
-    directories: [],
+    directories: ['dir1', 'dir2'],
     regexes: [],
     remoteUrl: 'test-url',
     branches: [],
@@ -95,7 +48,7 @@ describe('Project', () => {
 
     const rootField = screen.getByLabelText('Root text field');
 
-    fireEvent.change(rootField, { target: { value: 'testdir' } });
+    fireEvent.change(rootField, { target: { value: 'incorrectdir' } });
     act(() => jest.advanceTimersByTime(TIME.A_SECOND));
 
     await waitFor(() => {
@@ -107,6 +60,21 @@ describe('Project', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Remote Url: test-url')).toBeInTheDocument();
+    });
+  });
+
+  it('updating root dir by using dropdown', async () => {
+    jest.useFakeTimers();
+    reduxTestWrapper(Project, {}, defaultStoreProps);
+
+    const dirDropdown = screen.getByText('Directories');
+
+    fireEvent.click(dirDropdown);
+    fireEvent.click(screen.getByText('dir1'));
+    act(() => jest.advanceTimersByTime(TIME.A_SECOND));
+
+    await waitFor(() => {
+      expect(screen.getByText('Remote Url: dir1-url')).toBeInTheDocument();
     });
   });
 });

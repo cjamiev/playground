@@ -1,42 +1,8 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { reduxTestWrapper, mockApi } from 'testHelper';
+import { reduxTestWrapper, mockApi, mockGet, mockPost } from 'testHelper';
 import Project from '../Project';
 import api from 'api';
 
-const mockGet = (url) => {
-  if (url === '/project/?type=git&op=remoteurl&root=./') {
-    return Promise.resolve({
-      data: {
-        data: 'test-url'
-      }
-    });
-  } else if (url === '/project/?type=git&op=viewbranches&root=./') {
-    return Promise.resolve({
-      data: {
-        data: 'branch1\nbranch2\n'
-      }
-    });
-  } else if (url === '/project/?type=git&op=viewstash&root=./') {
-    return Promise.resolve({
-      data: {
-        data: 'stash@{1}: On master: stash1\nstash@{2}: On master: stash2\n'
-      }
-    });
-  } else if (url.includes('testdir')) {
-    return Promise.resolve({
-      data: {
-        data: incorrectDirData
-      }
-    });
-  } else {
-    return Promise.resolve({
-      data: {
-        message: 'test message'
-      }
-    });
-  }
-};
-const mockPost = () => { return Promise.resolve({});};
 const apiMock = mockApi(mockGet, mockPost);
 
 const ZERO = 0;

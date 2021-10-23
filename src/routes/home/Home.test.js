@@ -1,5 +1,5 @@
-import { fireEvent, screen } from '@testing-library/react';
-import { reduxTestWrapper } from 'testHelper';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { reduxTestWrapper, mockGet, mockPost, mockApi } from 'testHelper';
 import Home from './Home';
 import { incrementDate } from 'clock';
 const pathname = '/home';
@@ -8,6 +8,8 @@ const ONE = 1;
 const TWO = 2;
 const TWELVE = 12;
 const today = new Date();
+
+mockApi(mockGet, mockPost);
 
 describe('Home', () => {
   it('handle tasks', () => {
@@ -123,5 +125,27 @@ describe('Home', () => {
     fireEvent.click(screen.getByText('Save'));
 
     expect(screen.queryByTestId('timerOne time')).toHaveTextContent('0:0');
+  });
+
+  it('handle edit tasks', async () => {
+    reduxTestWrapper(Home, {}, {}, pathname);
+
+    await waitFor(() => {
+      expect(screen.queryByText('todoOne')).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getAllByLabelText('edit')[ZERO]);
+
+    expect(screen.getAllByText('noteOne')).toHaveLength(TWO);
+    expect(screen.getAllByText('noteTwo')).toHaveLength(TWO);
+    expect(screen.getAllByText('urlOne')).toHaveLength(TWO);
+    expect(screen.getAllByText('urlTwo')).toHaveLength(TWO);
+
+    fireEvent.click(screen.getAllByLabelText('minus')[ZERO]);
+
+    fireEvent.click(screen.getByText('Save Task'));
+
+    expect(screen.queryByText('noteOne')).not.toBeInTheDocument();
+    expect(screen.getAllByText('noteTwo')).toHaveLength(ONE);
   });
 });

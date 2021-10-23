@@ -10,3 +10,9 @@ export {
   mockLocalStorage,
   mockApi
 } from './helper';
+
+export {
+  mockGet,
+  mockPost,
+  mockStore
+} from './mockData';

@@ -1,35 +1,7 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { reduxTestWrapper, mockApi } from 'testHelper';
+import { reduxTestWrapper, mockApi, mockGet, mockPost } from 'testHelper';
 import File from './File';
 
-const mockGet = (url) => {
-  if (url === '/file') {
-    return Promise.resolve({
-      data: {
-        data: ['test.txt', 'test2.txt']
-      }
-    });
-  } else if (url === '/file/?name=test2.txt') {
-    return Promise.resolve({
-      data: {
-        data: 'test2 file contents'
-      }
-    });
-  } else {
-    return Promise.resolve({
-      data: {
-        data: 'test file contents'
-      }
-    });
-  }
-};
-const mockPost = () => {
-  return Promise.resolve({
-    data: {
-      message: 'successful'
-    }
-  });
-};
 const apiMock = mockApi(mockGet, mockPost);
 
 const pathname = '/file';
@@ -286,20 +258,20 @@ describe('File', () => {
     fireEvent.click(fileDropdown);
 
     await waitFor(() => {
-      expect(screen.queryByText('test.txt')).toBeInTheDocument();
+      expect(screen.queryByText('fileOne')).toBeInTheDocument();
     });
-    const testBtn = screen.getByText('test.txt');
+    const testBtn = screen.getByText('fileOne');
     fireEvent.click(testBtn);
 
     await waitFor(() => {
-      expect(screen.queryByText('test file contents')).toBeInTheDocument();
+      expect(screen.queryByText('fileOne contents')).toBeInTheDocument();
     });
 
     const nameField = screen.getByPlaceholderText('Enter File Name');
 
-    fireEvent.change(nameField, { target: { value: 'test2.txt' } });
+    fireEvent.change(nameField, { target: { value: 'fileOne' } });
     await waitFor(() => {
-      expect(screen.queryByText('test2 file contents')).toBeInTheDocument();
+      expect(screen.queryByText('fileOne contents')).toBeInTheDocument();
     });
   });
 });

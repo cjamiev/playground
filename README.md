@@ -53,7 +53,4 @@ Page:
   - View a template & Flexible edit of templates
 
 Test:
-- Home edit Todo
 - ClipboardForm command form & Delete
-- Generator on change name
-- Project directories dropdown

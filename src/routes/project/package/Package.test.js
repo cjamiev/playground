@@ -1,109 +1,18 @@
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
-import { fullTestWrapper, reduxTestWrapper, mockApi } from 'testHelper';
+import { fullTestWrapper, reduxTestWrapper, mockApi, mockGet, mockPost, mockStore } from 'testHelper';
 import Project from '../Project';
 import api from 'api';
 import { ROUTES } from 'constants/routes';
 import { TIME } from 'constants/time';
 
-const packageJson = {
-  'name': 'test-name',
-  'description': 'test-description',
-  'scripts': {
-    'test-script': 'test-script',
-    'test-script2': 'test-script2'
-  },
-  'devDependencies': {
-    'test-dev-dep': '1.0.0',
-    'test-dev-dep2': '2.0.0'
-  },
-  'dependencies': {
-    'test-dep': '3.0.0',
-    'test-dep2': '4.0.0'
-  }
-};
-const versions = {
-  'devDependencies': {
-    'test-dev-dep': '1.0.1',
-    'test-dev-dep2': '2.0.1'
-  },
-  'dependencies': {
-    'test-dep': '3.0.1',
-    'test-dep2': '4.0.0'
-  }
-};
+const packageJson = mockStore.project.packageJson;
+const versions = mockStore.project.versions;
 const projectDb = {
-  directories: [
-    './',
-    'C:/doc'
-  ],
-  regexes: [
-    {
-      description: 'reduce svg icon numbers to three decimals',
-      fileRegex: 'Icon.js$',
-      lineRegex: '[.][0-9]{2,}',
-      modifiers: 'g',
-      lineRange: {
-        start: 0,
-        end: 3
-      },
-      replace: ''
-    }
-  ]
+  directories: mockStore.project.directories,
+  regexes: mockStore.project.regexes
 };
 const incorrectDirData = 'The system cannot find the path specified.';
 
-const mockGet = (url) => {
-  if(url === '/db/?name=project.json') {
-    return Promise.resolve({
-      data: {
-        data: JSON.stringify(projectDb)
-      }
-    });
-  } else if(url === '/project/?type=package&op=read&root=./') {
-    return Promise.resolve({
-      data: {
-        data: packageJson
-      }
-    });
-  } else if(url === '/project/?type=package&op=getversions&root=./') {
-    return Promise.resolve({
-      data: {
-        data: versions
-      }
-    });
-  } else if (url === '/project/?type=git&op=remoteurl&root=./') {
-    return Promise.resolve({
-      data: {
-        data: 'test-url'
-      }
-    });
-  } else if (url === '/project/?type=git&op=viewbranches&root=./') {
-    return Promise.resolve({
-      data: {
-        data: 'branch1\nbranch2\n'
-      }
-    });
-  } else if (url === '/project/?type=git&op=viewstash&root=./') {
-    return Promise.resolve({
-      data: {
-        data: 'stash@{1}: On master: stash1\nstash@{2}: On master: stash2\n'
-      }
-    });
-  } else if (url.includes('testdir')) {
-    return Promise.resolve({
-      data: {
-        data: incorrectDirData
-      }
-    });
-  } else {
-    return Promise.resolve({
-      data: {
-        message: 'test message'
-      }
-    });
-  }
-};
-const mockPost = () => { return Promise.resolve({});};
 const apiMock = mockApi(mockGet, mockPost);
 
 const ZERO = 0;
@@ -188,7 +97,7 @@ describe('Package', () => {
     expect(apiMock.get).toHaveBeenCalledWith('/project/?type=package&op=runscript&root=./&content=test-script');
 
     await waitFor(() => {
-      expect(screen.queryByText('test message')).toBeInTheDocument();
+      expect(screen.queryByText('running script')).toBeInTheDocument();
       fireEvent.click(screen.getByLabelText('Close button'));
     });
 

@@ -234,4 +234,52 @@ describe('Generator', () => {
 
     expect(api.post).toHaveBeenCalledWith('/db', { filename: 'generator.json', content: JSON.stringify(result) });
   });
+
+  it('handle change name', async () => {
+    jest.mock('api');
+    const mockPost = jest.fn();
+    const mockGet = jest.fn();
+    mockPost.mockResolvedValue({
+      data: {
+        message: 'successful'
+      }
+    });
+    api.post = mockPost;
+    api.get = mockGet.mockResolvedValueOnce({
+      data: {
+        data: JSON.stringify(content)
+      }
+    });
+    reduxTestWrapper(Generator, {}, {}, pathname);
+
+    const sidePanelBtn = screen.getByLabelText('triple bar');
+    fireEvent.click(sidePanelBtn);
+    const nameField = screen.getByLabelText('Name text field');
+    fireEvent.change(nameField, { target: { value: 'test' } });
+
+    const saveBtn = screen.getByText('Save');
+    fireEvent.click(saveBtn);
+
+    const result = [
+      {
+        name: 'test',
+        value: {
+          backgroundStyle: {
+            backgroundColor: '#ffffff'
+          },
+          normalStyle: {
+            height: '50',
+            width: '100',
+            borderColor: '#000000',
+            borderStyle: 'solid',
+            borderThickness: '1'
+          },
+          hoverStyle: { },
+          activeStyle: { }
+        }
+      }
+    ];
+
+    expect(api.post).toHaveBeenCalledWith('/db', { filename: 'generator.json', content: JSON.stringify(result) });
+  });
 });

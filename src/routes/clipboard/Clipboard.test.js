@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { reduxTestWrapper, fullTestWrapper } from 'testHelper';
+import { reduxTestWrapper, fullTestWrapper, mockStore } from 'testHelper';
 import { loadPassword } from './clipboardActions';
 import Clipboard from './Clipboard';
 
@@ -10,49 +10,7 @@ const defaultProps = {};
 const defaultStoreProps = {
   clipboard: {
     error: {},
-    records: {
-      passwords: [
-        {
-          title: 'listOne',
-          data: [
-            [
-              {
-                label: 'label1',
-                type: 'link',
-                value: 'www.url1.com'
-              },
-              {
-                label: 'username',
-                type: 'copy',
-                value: 'user'
-              },
-              {
-                label: 'password',
-                type: 'copy',
-                value: 'password'
-              }
-            ],
-            [
-              {
-                label: 'label2',
-                type: 'link',
-                value: 'www.url1.com'
-              },
-              {
-                label: 'username2',
-                type: 'copy',
-                value: 'user'
-              },
-              {
-                label: 'password2',
-                type: 'copy',
-                value: 'password'
-              }
-            ]
-          ]
-        }
-      ]
-    }
+    records: mockStore.clipboard.records
   }
 };
 
