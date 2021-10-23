@@ -155,26 +155,6 @@ const createMockEndpoint = (payload) => {
   };
 };
 
-const updateMockEndpoint = () => {
-  return (dispatch) => {
-    api
-      .post('/mockserver/updateMockEndpoint')
-      .then((response) => {
-        const { message, error } = response.data;
-        dispatch(
-          createAlert({
-            content: error ? message : 'Updated',
-            timer: error ? undefined : ONE_SECOND,
-            status: error ? 'error' : 'success'
-          })
-        );
-      })
-      .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
-      });
-  };
-};
-
 const loadMockServerLog = () => {
   return (dispatch) => {
     api
@@ -226,7 +206,6 @@ export {
   loadMockResponse,
   updateMockResponse,
   createMockEndpoint,
-  updateMockEndpoint,
   loadMockServerLog,
   clearMockServerLog,
   clearMockResponse

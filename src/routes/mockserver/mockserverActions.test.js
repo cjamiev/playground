@@ -17,7 +17,6 @@ import {
   loadMockResponse,
   updateMockResponse,
   createMockEndpoint,
-  updateMockEndpoint,
   loadMockServerLog,
   clearMockServerLog,
   clearMockResponse
@@ -207,23 +206,6 @@ describe('mockserverActions', () => {
   it('createMockEndpoint - error', async () => {
     api.post.mockRejectedValueOnce(error);
     createMockEndpoint()(dispatch);
-
-    await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
-    });
-  });
-
-  it('updateMockEndpoint', async () => {
-    updateMockEndpoint()(dispatch);
-
-    await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
-    });
-  });
-
-  it('updateMockEndpoint - error', async () => {
-    api.post.mockRejectedValueOnce(error);
-    updateMockEndpoint()(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
