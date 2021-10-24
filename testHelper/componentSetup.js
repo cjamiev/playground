@@ -36,10 +36,10 @@ const defaultStore = {
   file: fileInitialState,
   home: homeInitialState,
   generator: generatorInitialState,
-  project: projectInitialState,
   global: globalInitialState,
   list: listInitialState,
-  mockserver: mockserverInitialState
+  mockserver: mockserverInitialState,
+  project: projectInitialState
 };
 
 const simpleTestWrapper = (Component, props = {}) => {
