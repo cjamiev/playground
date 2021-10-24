@@ -1,3 +1,4 @@
+const TWO_SECONDS = 2000;
 const DELIMITERS = [',', '\n', ' '];
 const sortByDelimiter = (content, delimiter = ' ') => content.split(delimiter).sort().join(delimiter);
 const sortDecendingByDelimiter = (content, delimiter = ' ') =>
@@ -42,7 +43,7 @@ const setOutput = (data) => {
   const alertField = document.getElementById('alert-field');
   alertField.textContent = data.message;
 
-  setTimeout(removeOutput, 2000);
+  setTimeout(removeOutput, TWO_SECONDS);
 };
 
 const removeOutput = () => {

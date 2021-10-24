@@ -14,7 +14,7 @@ const readTemplateDirectory = () => {
   return readDirectory(TEMPLATE_DIR);
 };
 
-const createFilesFromTemplates = (targetDir, filePaths, name) => {
+const createFilesFromTemplates = ({targetDir, filePaths, name}) => {
   filePaths.forEach(filePath => {
     fs.readFile(`${TEMPLATE_DIR}/${filePath}`, UTF8, (err, data) => {
       const content = data
@@ -33,10 +33,9 @@ const createFilesFromTemplates = (targetDir, filePaths, name) => {
   });
 };
 
-// eslint-disable-next-line max-params
-const runTemplateOperation = (op, root, name, content) => {
+const runTemplateOperation = (op, {targetDir, filePaths, name}) => {
   if(op === 'create') {
-    createFilesFromTemplates(root, content, name);
+    createFilesFromTemplates({targetDir, name, filePaths});
 
     return { message: 'Creating templates' };
   } else if(op === 'read') {

@@ -1,3 +1,5 @@
+/* eslint-disable max-params */
+/* eslint-disable no-magic-numbers */
 const log = console.log;
 
 const DEFAULT_ITERATIONS = 100;

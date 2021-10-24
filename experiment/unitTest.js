@@ -1,3 +1,5 @@
+/* eslint-disable max-params */
+/* eslint-disable no-magic-numbers */
 const { isEqual } = require('../server/util');
 
 const getFormatedMessage = (testMessage, args, expectedResult, receivedResult) => {

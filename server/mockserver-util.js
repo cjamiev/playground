@@ -1,6 +1,7 @@
 const { isBoolean, isNumber, isObject } = require('./util');
 const { loadJSONFromFile, writeToFile, deleteFile } = require('./file');
 
+const ONE = 1;
 const ENTRY_ALREADY_EXISTS_MESSAGE = 'A mock with the specified method and url already exists.';
 const CONFIG_SUCCESS_MESSAGE = 'Updated configuration';
 const CONFIG_OVERRIDE_PATH = './storage/io/mockserver/config.json';
@@ -143,7 +144,7 @@ const loadLog = () => {
 const logEntry = (url, payload) => {
   const date = new Date();
   const timestamp = `${
-    date.getMonth() + 1
+    date.getMonth() + ONE
   }/${date.getDate()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
   const currentLog = loadLog();

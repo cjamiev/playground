@@ -24,7 +24,9 @@ const { runPackageOperation } = require('./packageop');
 const { runTemplateOperation } = require('./templateop');
 const { runRegexOperation } = require('./regexop');
 
-const port = process.argv[2] || 999;
+const DEFAULT_PORT = 1000;
+const SECOND_ARGUMENT = 2;
+const port = process.argv[SECOND_ARGUMENT] || DEFAULT_PORT;
 const ROOT_DIR = './server/static/';
 const UTF8 = 'utf-8';
 const TYPE_OCTET = 'application/octet-stream';
@@ -95,7 +97,7 @@ const handleFileResponse = async (request, response) => {
     const payload = await resolvePostBody(request);
 
     const content = payload.content || '';
-    const filename = payload.filename || new Date().toString().slice(4, 24).replace(/ /g, '.').replace(/:/g, '.');
+    const filename = payload.filename || 'no-name.txt';
 
     const { message, error } = writeToFile(`${FILE_DIRECTORY}/${filename}`, content);
 
@@ -142,7 +144,7 @@ const handleProjectResponse = async (request, response) => {
     send(response, { data, error, message });
   } else if(type === 'template') {
     const payload = await resolvePostBody(request);
-    const { data, message } = runTemplateOperation(op, root, name, payload);
+    const { data, message } = runTemplateOperation(op, {targetDir:root, name, filePaths:payload});
 
     send(response, { data, message });
   } else if(type === 'regex') {
