@@ -44,3 +44,9 @@ const day = d.getDay();
 // milliseconds since January 1, 1970
 const time = d.getTime();
 */
+
+/*
+Quick performance testing
+console.time(label)
+console.timeEnd(label)
+*/

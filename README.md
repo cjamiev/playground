@@ -37,20 +37,37 @@ post: (payload) => {
 Folder for quick testing of html as testing javascript functions. Node script for creating files from template, updating files with regex. 
 
 ## ToDo
-Components:
-- Wizard: css & Progress Item List
-- Generator: Flex/Grid, Neomorphism
-- Table: Sort, Config (add/remove entries)
-- Dropdown: css
+Config Page
+	- Set theme
+	- Edit db directly or something equivalent (project directories)
+	- Set which commands are visible/archived
+	
+Command Dropdown
 
-Hook:
-- Form Validation
+Generator
+	- Flex/Grid
+	- Neomorphism, Glassmorphism, Aurora
+	- Add ability to change width of generator div
+	- SVG Animator
 
-Page: 
-- Package Tab
-  - Notified when a script finished
-- Template Tab
+Dropdown:
+	- CSS for different sizes and appearance
+
+Template Tab:
   - View a template & Flexible edit of templates
+	
+Table:
+	- Sort
+	- Config (add/remove entries)
+	
+Wizard
+ - CSS for header, footer 
+ - Progress Item List
 
-Test:
-- ClipboardForm command form & Delete
+Form Validation Hook
+
+Package Tab:
+ - Notified when a script finished
+
+Unit Test:
+ - ClipboardForm command form & Delete
