@@ -10,7 +10,7 @@ import { TYPE } from 'constants/type';
 const ZERO = 0;
 
 const CommandForm = ({ onChange }) => {
-  const { commands } = useSelector((state) => state.list);
+  const { commands } = useSelector((state) => state.global);
   const COMMAND_KEYS = commands.map((name) => {
     return { label: name, selected: false };
   });

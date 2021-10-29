@@ -21,7 +21,6 @@ import { homeInitialState } from '../src/routes/home/homeReducer';
 import { generatorInitialState } from '../src/routes/generator/generatorReducer';
 import { projectInitialState } from '../src/routes/project/projectReducer';
 import { globalInitialState } from '../src/components/global/globalReducer';
-import { listInitialState } from '../src/components/list/listReducer';
 import { mockserverInitialState } from '../src/routes/mockserver/mockserverReducer';
 import { isEmpty } from 'booleanHelper';
 import { ROUTES } from 'constants/routes';
@@ -37,7 +36,6 @@ const defaultStore = {
   home: homeInitialState,
   generator: generatorInitialState,
   global: globalInitialState,
-  list: listInitialState,
   mockserver: mockserverInitialState,
   project: projectInitialState
 };

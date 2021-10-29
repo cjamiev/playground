@@ -16,7 +16,8 @@ const defaultStoreProps = {
 
 const defaultStorePropsTwo = {
   ...defaultStoreProps,
-  list: {
+  global: {
+    ...mockStore.global,
     commandResponse: 'test-command-response'
   },
   clipboard: defaultStoreProps.clipboard
@@ -49,7 +50,7 @@ describe('Clipboard', () => {
     document.execCommand = jest.fn();
     fullTestWrapper(Clipboard, defaultProps, defaultStorePropsTwo, pathname);
 
-    expect(screen.queryByText(defaultStorePropsTwo.list.commandResponse)).toBeInTheDocument();
+    expect(screen.queryByText(defaultStorePropsTwo.global.commandResponse)).toBeInTheDocument();
     const copyBtn = screen.getByText('Copy');
     const appendChildSpy = jest.spyOn(document.body, 'appendChild');
     fireEvent.click(copyBtn);

@@ -1,5 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { reduxTestWrapper } from 'testHelper';
+import { reduxTestWrapper, mockStore } from 'testHelper';
 import CommandForm from './CommandForm';
 
 const ONE = 1;
@@ -8,8 +8,8 @@ const defaultProps = {
 };
 
 const defaultStoreProps = {
-  list: {
-    commandResponse: '',
+  global: {
+    ...mockStore.global,
     commands: ['cmd.bat', 'cmd2.bat']
   }
 };
@@ -24,13 +24,13 @@ describe('CommandForm', () => {
 
     fireEvent.change(nameField, { target: { value: 'Name1' } });
     fireEvent.click(dropdownField);
-    fireEvent.click(screen.getByText(defaultStoreProps.list.commands[ONE]));
+    fireEvent.click(screen.getByText(defaultStoreProps.global.commands[ONE]));
     fireEvent.click(argsYesOption);
     fireEvent.click(saveBtn);
 
     expect(defaultProps.onChange).toHaveBeenCalledWith({
       name: 'Name1',
-      content: { name: defaultStoreProps.list.commands[ONE], showArgs: true }
+      content: { name: defaultStoreProps.global.commands[ONE], showArgs: true }
     });
   });
 });

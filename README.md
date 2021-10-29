@@ -49,6 +49,7 @@ Generator
 	- Neomorphism, Glassmorphism, Aurora
 	- Add ability to change width of generator div
 	- SVG Animator
+  - Edit generated CSS directly
 
 Dropdown:
 	- CSS for different sizes and appearance

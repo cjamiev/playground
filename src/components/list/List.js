@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { formattedTimerClock } from 'clock';
 import { useDispatch } from 'react-redux';
-import { executeCommand } from './listActions';
+import { executeCommand } from 'components/global/globalActions';
 import useTimer from 'hooks/useTimer';
 import { copyToClipboard } from 'helper/copy';
 import Button from 'components/button';

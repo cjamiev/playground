@@ -1,6 +1,5 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper, reduxTestWrapper } from 'testHelper';
-import { executeCommand } from './listActions';
 import { incrementDate } from 'clock';
 import api from 'api';
 import List from './List';

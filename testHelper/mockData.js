@@ -192,10 +192,15 @@ export const mockStore = {
     templates: ['templateOne', 'templateTwo'],
     message: ''
   },
-  global: {},
-  list: {
+  global: {
+    timers: [],
+    initialized: false,
+    modalQueue: [],
+    isLoading: false,
+    isSidePanelOpen: false,
     commandResponse: '',
     commands: ['commandOne', 'commandTwo']
+
   },
   mockserver: {
     config: {
@@ -238,7 +243,7 @@ const HTTP_GET = {
       regexes: mockStore.project.regex
     })
   },
-  '/command': { data: mockStore.list.commands},
+  '/command': { data: mockStore.global.commands},
   '/file/?name=fileOne': { data: 'fileOne contents'},
   '/file/?name=fileTwo': { data: 'fileTwo contents'},
   '/file/?name=': { data: 'file contents'},

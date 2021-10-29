@@ -7,11 +7,18 @@ import {
   SHOW_LOADING_MODAL,
   HIDE_LOADING_MODAL,
   OPEN_SIDE_PANEL,
-  CLOSE_SIDE_PANEL
+  CLOSE_SIDE_PANEL,
+  LOAD_COMMAND_RESULT,
+  EXECUTE_COMMAND_RESULT,
+  ERROR_COMMAND_RESULT,
+  CLEAR_COMMAND_RESULT
 } from './globalActions';
 import globalReducer, { globalInitialState } from './globalReducer';
 
+
 const ONE = 1;
+const TWO = 2;
+const THREE = 3;
 const timerOne = [
   {
     name: 'item one',
@@ -173,6 +180,59 @@ describe('globalReducer', () => {
     expect(result).toEqual({
       ...initialState,
       isSidePanelOpen: false
+    });
+  });
+
+  it('LOAD_COMMAND_RESULT', () => {
+    const action = {
+      type: LOAD_COMMAND_RESULT,
+      data: [ONE, TWO, THREE]
+    };
+    const result = globalReducer(globalInitialState, action);
+
+    expect(result).toEqual({
+      ...globalInitialState,
+      commands: action.data
+    });
+  });
+
+  it('EXECUTE_COMMAND_RESULT', () => {
+    const action = {
+      type: EXECUTE_COMMAND_RESULT,
+      data: 'test-message'
+    };
+    const result = globalReducer(globalInitialState, action);
+
+    expect(result).toEqual({
+      ...globalInitialState,
+      commandResponse: action.data
+    });
+  });
+
+  it('ERROR_COMMAND_RESULT', () => {
+    const action = {
+      type: ERROR_COMMAND_RESULT,
+      error: {
+        message: 'test-error'
+      }
+    };
+    const result = globalReducer(globalInitialState, action);
+
+    expect(result).toEqual({
+      ...globalInitialState,
+      commandResponse: action.error
+    });
+  });
+
+  it('CLEAR_COMMAND_RESULT', () => {
+    const action = {
+      type: CLEAR_COMMAND_RESULT
+    };
+    const result = globalReducer(globalInitialState, action);
+
+    expect(result).toEqual({
+      ...globalInitialState,
+      commandResponse: ''
     });
   });
 });

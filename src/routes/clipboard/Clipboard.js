@@ -1,8 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadCommand, clearCommand } from 'components/list/listActions';
 import { loadClipboard } from './clipboardActions';
-import { openGlobalModal } from 'components/global/globalActions';
+import { openGlobalModal, clearCommand } from 'components/global/globalActions';
 import { copyToClipboard } from 'helper/copy';
 import Page from 'components/layout';
 import List from 'components/list';
@@ -27,7 +26,7 @@ const Clipboard = () => {
   const [filter, setFilter] = useState('');
   const dispatch = useDispatch();
   const { records } = useSelector((state) => state.clipboard);
-  const { commandResponse } = useSelector((state) => state.list);
+  const { commandResponse } = useSelector((state) => state.global);
   const TABS = Object.keys(records).map((filename) => {
     const name = filename.split('.')[ZERO];
 
@@ -49,7 +48,6 @@ const Clipboard = () => {
   }, [records]);
 
   useEffect(() => {
-    dispatch(loadCommand());
     dispatch(loadClipboard());
   }, [dispatch]);
 

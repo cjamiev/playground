@@ -4,7 +4,7 @@ module.exports = {
   env: {
     jest: true,
     node: true,
-    es6: true
+    es2021: true
   },
   parserOptions: {
     ecmaVersion: 2021,

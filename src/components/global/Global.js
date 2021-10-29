@@ -2,8 +2,13 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/modal';
 import { createAlert } from 'components/alert/alertActions';
-import { closeGlobalModal, hideLoadingModal } from 'components/global/globalActions';
-import { initializeTimer } from './globalActions';
+import {
+  closeGlobalModal,
+  hideLoadingModal,
+  loadCommand,
+  clearCommand,
+  initializeTimer
+} from './globalActions';
 import { TIME } from 'constants/time';
 
 const ZERO = 0;
@@ -17,6 +22,7 @@ const Global = () => {
   useEffect(() => {
     if (!initialized) {
       dispatch(initializeTimer());
+      dispatch(loadCommand());
     }
   }, [dispatch, initialized]);
 

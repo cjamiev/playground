@@ -6,7 +6,11 @@ import {
   SHOW_LOADING_MODAL,
   HIDE_LOADING_MODAL,
   OPEN_SIDE_PANEL,
-  CLOSE_SIDE_PANEL
+  CLOSE_SIDE_PANEL,
+  LOAD_COMMAND_RESULT,
+  EXECUTE_COMMAND_RESULT,
+  ERROR_COMMAND_RESULT,
+  CLEAR_COMMAND_RESULT
 } from './globalActions';
 import { isNumber } from 'type-check';
 
@@ -15,7 +19,9 @@ export const globalInitialState = {
   initialized: false,
   modalQueue: [],
   isLoading: false,
-  isSidePanelOpen: false
+  isSidePanelOpen: false,
+  commandResponse: '',
+  commands: []
 };
 
 const globalReducer = (state = globalInitialState, action) => {
@@ -68,6 +74,30 @@ const globalReducer = (state = globalInitialState, action) => {
     },
     [CLOSE_SIDE_PANEL]: () => {
       return { ...state, isSidePanelOpen: false };
+    },
+    [LOAD_COMMAND_RESULT]: () => {
+      return {
+        ...state,
+        commands: action.data
+      };
+    },
+    [EXECUTE_COMMAND_RESULT]: () => {
+      return {
+        ...state,
+        commandResponse: action.data
+      };
+    },
+    [ERROR_COMMAND_RESULT]: () => {
+      return {
+        ...state,
+        commandResponse: action.error
+      };
+    },
+    [CLEAR_COMMAND_RESULT]: () => {
+      return {
+        ...state,
+        commandResponse: ''
+      };
     }
   };
 
