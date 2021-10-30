@@ -6,7 +6,8 @@ import Config from './Config';
 const ZERO = 0;
 const defaultStoreProps = {
   global: mockStore.global,
-  config: mockStore.config
+  config: mockStore.config,
+  project: mockStore.project
 };
 
 const apiMock = mockApi(mockGet, mockPost);
@@ -35,5 +36,34 @@ describe('Config', () => {
         {label:'commandLabelTwo',value:'commandTwo'}
       ]
     }), filename: 'config.json'});
+  });
+
+  it('handle delete directory', () => {
+    reduxTestWrapper(Config, {}, defaultStoreProps);
+
+    expect(screen.getByText('dir1')).toBeInTheDocument();
+    expect(screen.getByText('dir2')).toBeInTheDocument();
+
+    fireEvent.click(screen.getAllByLabelText('trash')[ZERO]);
+
+    expect(api.post).toHaveBeenCalledWith('/db', { content: JSON.stringify({
+      directories:['dir2'],
+      regexes: mockStore.project.regexes
+    }), filename: 'project.json'});
+  });
+
+  it('handle add directory', () => {
+    reduxTestWrapper(Config, {}, defaultStoreProps);
+
+    fireEvent.change(
+      screen.getByLabelText('New Directory text field'),
+      { target: { value: 'dir3'}}
+    );
+    fireEvent.click(screen.getByText('Add Directory'));
+
+    expect(api.post).toHaveBeenCalledWith('/db', { content: JSON.stringify({
+      directories: ['dir3','dir1', 'dir2'],
+      regexes: mockStore.project.regexes
+    }), filename: 'project.json'});
   });
 });
