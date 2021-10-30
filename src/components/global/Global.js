@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/modal';
+import { loadConfig, updateConfig } from 'routes/config/configActions';
 import { createAlert } from 'components/alert/alertActions';
 import {
   closeGlobalModal,
@@ -23,6 +24,7 @@ const Global = () => {
     if (!initialized) {
       dispatch(initializeTimer());
       dispatch(loadCommand());
+      dispatch(loadConfig());
     }
   }, [dispatch, initialized]);
 

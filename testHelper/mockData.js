@@ -47,6 +47,15 @@ export const mockStore = {
       ]
     }
   },
+  config: {
+    commands: [{
+      label:'commandLabelOne',
+      value: 'commandOne'
+    },{
+      label:'commandLabelTwo',
+      value: 'commandTwo'
+    }]
+  },
   experiment: {},
   file: {
     directory: ['fileOne', 'fileTwo'],
@@ -199,8 +208,7 @@ export const mockStore = {
     isLoading: false,
     isSidePanelOpen: false,
     commandResponse: '',
-    commands: ['commandOne', 'commandTwo']
-
+    commands: ['commandOne', 'commandTwo', 'commandThree']
   },
   mockserver: {
     config: {
@@ -235,6 +243,7 @@ export const mockStore = {
 
 const HTTP_GET = {
   '/db/?name=clipboard.json':{ data: JSON.stringify(mockStore.clipboard.records)},
+  '/db/?name=config.json':{ data: JSON.stringify(mockStore.config)},
   '/db/?name=generator.json':{ data: JSON.stringify(mockStore.generator.records)},
   '/db/?name=home.json':{ data: JSON.stringify(mockStore.home)},
   '/db/?name=project.json': {

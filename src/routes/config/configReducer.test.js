@@ -15,13 +15,15 @@ describe('configReducer', () => {
   it('LOAD_CONFIG', () => {
     const action = {
       type: LOAD_CONFIG,
-      data: [ONE, TWO, THREE]
+      data: {
+        commands: [ONE, TWO, THREE]
+      }
     };
     const result = configReducer(configInitialState, action);
 
     expect(result).toEqual({
       ...configInitialState,
-      data: action.data
+      commands: action.data.commands
     });
   });
 });
