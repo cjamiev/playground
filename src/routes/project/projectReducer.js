@@ -118,7 +118,7 @@ const projectReducer = (state = projectInitialState, action) => {
     [LOAD_VIEW_STASH]: () => {
       return {
         ...state,
-        stashes: action.data.split('\n')
+        stashes: action.data.split('\n').filter(Boolean)
       };
     },
     [RESET_BRANCH]: () => {

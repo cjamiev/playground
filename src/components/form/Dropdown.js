@@ -40,8 +40,7 @@ const Dropdown = React.memo(({ id, label, values, onChange }) => {
           handleChange(item.label);
         }}
       >
-        {' '}
-        {item.label}{' '}
+        {item.label}
       </span>
     );
   });
