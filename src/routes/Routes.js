@@ -3,13 +3,14 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
 
 import Clipboard from './clipboard';
+import Config from './config';
 import Experiment from './experiment';
 import ErrorPage from './errorpage';
 import File from './file';
 import Generator from './generator';
-import Project from './project';
 import Home from './home';
 import MockServer from './mockserver';
+import Project from './project';
 
 const Routes = React.memo(() => {
   return (
@@ -24,6 +25,7 @@ const Routes = React.memo(() => {
       <Route path={ROUTES.PROJECT.url} component={Project} />
       <Route path={ROUTES.HOME.url} component={Home} />
       <Route path={ROUTES.MOCKSERVER.url} component={MockServer} />
+      <Route path={ROUTES.CONFIG.url} component={Config} />
       <Route component={ErrorPage} />
     </Switch>
   );

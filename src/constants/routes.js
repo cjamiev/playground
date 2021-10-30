@@ -5,5 +5,6 @@ export const ROUTES = {
   PROJECT: { label: 'Project', url: '/project' },
   MOCKSERVER: { label: 'Mock Server', url: '/mockserver' },
   GENERATOR: { label: 'Generator', sidePanelLabel: 'Records', url: '/generator' },
-  EXPERIMENT: { label: 'Experiment', sidePanelLabel: 'Test Api', url: '/experiment' }
+  EXPERIMENT: { label: 'Experiment', sidePanelLabel: 'Test Api', url: '/experiment' },
+  CONFIG: { label: 'Config', url: '/config' }
 };

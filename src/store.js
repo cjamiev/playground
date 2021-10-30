@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 
 import alertReducer from 'components/alert/alertReducer';
 import clipboardReducer from 'routes/clipboard/clipboardReducer';
+import configReducer from 'routes/config/configReducer';
 import experimentReducer from 'routes/experiment/experimentReducer';
 import fileReducer from 'routes/file/fileReducer';
 import homeReducer from 'routes/home/homeReducer';
@@ -28,13 +29,14 @@ const appliedMiddlewares = applyMiddleware(...middlewares);
 const rootReducer = combineReducers({
   alert: alertReducer,
   clipboard: clipboardReducer,
+  config: configReducer,
   experiment: experimentReducer,
   file: fileReducer,
   home: homeReducer,
   generator: generatorReducer,
-  project: projectReducer,
   global: globalReducer,
-  mockserver: mockserverReducer
+  mockserver: mockserverReducer,
+  project: projectReducer
 });
 
 const configureStore = (initialState) => {

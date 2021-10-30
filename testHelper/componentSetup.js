@@ -15,6 +15,7 @@ import { rootReducer } from '../src/store';
 import Global from 'components/global';
 import { alertInitialState } from '../src/components/alert/alertReducer';
 import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer';
+import { configInitialState } from '../src/routes/config/configReducer';
 import { experimentInitialState } from '../src/routes/experiment/experimentReducer';
 import { fileInitialState } from '../src/routes/file/fileReducer';
 import { homeInitialState } from '../src/routes/home/homeReducer';
@@ -31,6 +32,7 @@ const appliedMiddlewares = applyMiddleware(...middlewares);
 const defaultStore = {
   alert: alertInitialState,
   clipboard: clipboardInitialState,
+  config: configInitialState,
   experiment: experimentInitialState,
   file: fileInitialState,
   home: homeInitialState,
