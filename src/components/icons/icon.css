@@ -12,7 +12,7 @@
 
 .icon--grey {
   fill:#010202;
-  stroke:#f6f8fa;
+  stroke:var(--primary-bg-color);
 }
 
 .icon--black {
@@ -21,11 +21,11 @@
 }
 
 .icon--hollow {
-  fill:#f6f8fa;
+  fill:var(--primary-bg-color);
   stroke:#000000;
 }
 
 .icon--filled {
   fill:#000000;
-  stroke:#f6f8fa;
+  stroke:var(--primary-bg-color);
 }

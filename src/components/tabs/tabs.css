@@ -20,5 +20,5 @@
   border-top: 1px solid #777;
   border-left: 1px solid #777;
   border-right: 1px solid #777;
-  background-color: #f6f8fa;
+  background-color: var(--primary-bg-color);
 }

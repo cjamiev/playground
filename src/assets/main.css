@@ -3,9 +3,10 @@
 @import './link.css';
 @import './tooltip.css';
 @import './scroll.css';
+@import './variables.css';
 
 html {
-  background-color: #f6f8fa;
+  background-color: var(--primary-bg-color);
 }
 
 .root {

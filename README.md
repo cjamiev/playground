@@ -9,6 +9,9 @@ Project to help with building other projects. Used for improving efficency by he
 - MockServer: Create, delete, and view mock endpoints
 - Generator: Generate css
 - Experiment: Test out new functionality/components and demo existing.
+- Config: Sets what appears in Commands & Links dropdown.  Add and delete project directories
+- Commands: list of commands to execute
+- Links: list of favorite external links
 
 ## utils
 Re-usable pure functions will be saved stored here
