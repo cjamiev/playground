@@ -29,7 +29,7 @@ describe('Config', () => {
     expect(screen.queryByDisplayValue('commandLabelOne')).not.toBeInTheDocument();
 
     fireEvent.change(screen.getByLabelText('commandThree text field'), { target: { value: 'commandLabelThree'}});
-    fireEvent.click(screen.getByText('Save'));
+    fireEvent.click(screen.getByText('Update Commands'));
 
     expect(api.post).toHaveBeenCalledWith('/db', { content: JSON.stringify({
       commands:[
@@ -47,7 +47,7 @@ describe('Config', () => {
     expect(screen.getByText('linkTwo')).toBeInTheDocument();
 
     fireEvent.change(screen.getByLabelText('linkLabelOne text field'), { target: { value: 'linkLabelOneUpdated'}});
-    fireEvent.click(screen.getByText('Save'));
+    fireEvent.click(screen.getByText('Update Links'));
 
     expect(api.post).toHaveBeenCalledWith('/db', { content: JSON.stringify({
       commands: mockStore.config.commands,

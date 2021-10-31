@@ -37,7 +37,7 @@ post: (payload) => {
 Folder for quick testing of html as testing javascript functions. Node script for creating files from template, updating files with regex. 
 
 ## ToDo
-Generator
+Generator: https://webcode.tools/generators/css
 	- Flex/Grid
 	- Neomorphism, Glassmorphism, Aurora
 	- Add ability to change width of generator div
@@ -49,9 +49,9 @@ Template Tab:
 
 Dropdown:
   - Pass different content
+  - Show on hover
 
 Config Page
-  - Fix appearance
 	- Set theme and update app with theme
 	
 Table:
