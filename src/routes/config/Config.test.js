@@ -4,6 +4,7 @@ import api from 'api';
 import Config from './Config';
 
 const ZERO = 0;
+const TWO = 2;
 const defaultStoreProps = {
   global: mockStore.global,
   config: mockStore.config,
@@ -13,7 +14,7 @@ const defaultStoreProps = {
 const apiMock = mockApi(mockGet, mockPost);
 
 describe('Config', () => {
-  it('handle save', () => {
+  it('handle save on change directory table', () => {
     reduxTestWrapper(Config, {}, defaultStoreProps);
 
     expect(screen.getByDisplayValue('commandLabelOne')).toBeInTheDocument();
@@ -34,6 +35,25 @@ describe('Config', () => {
       commands:[
         {label:'commandLabelThree',value:'commandThree'},
         {label:'commandLabelTwo',value:'commandTwo'}
+      ],
+      links: mockStore.config.links
+    }), filename: 'config.json'});
+  });
+
+  it('handle save on change link table', () => {
+    reduxTestWrapper(Config, {}, defaultStoreProps);
+
+    expect(screen.getByText('linkOne')).toBeInTheDocument();
+    expect(screen.getByText('linkTwo')).toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText('linkLabelOne text field'), { target: { value: 'linkLabelOneUpdated'}});
+    fireEvent.click(screen.getByText('Save'));
+
+    expect(api.post).toHaveBeenCalledWith('/db', { content: JSON.stringify({
+      commands: mockStore.config.commands,
+      links:[
+        {label:'linkLabelOneUpdated',value:'linkOne'},
+        {label:'linkLabelTwo',value:'linkTwo'}
       ]
     }), filename: 'config.json'});
   });
@@ -44,7 +64,7 @@ describe('Config', () => {
     expect(screen.getByText('dir1')).toBeInTheDocument();
     expect(screen.getByText('dir2')).toBeInTheDocument();
 
-    fireEvent.click(screen.getAllByLabelText('trash')[ZERO]);
+    fireEvent.click(screen.getAllByLabelText('trash')[TWO]);
 
     expect(api.post).toHaveBeenCalledWith('/db', { content: JSON.stringify({
       directories:['dir2'],
@@ -65,5 +85,39 @@ describe('Config', () => {
       directories: ['dir3','dir1', 'dir2'],
       regexes: mockStore.project.regexes
     }), filename: 'project.json'});
+  });
+
+  it('handle delete link', () => {
+    reduxTestWrapper(Config, {}, defaultStoreProps);
+
+    fireEvent.click(screen.getAllByLabelText('trash')[ZERO]);
+
+    expect(api.post).toHaveBeenCalledWith('/db', { content: JSON.stringify({
+      commands: mockStore.config.commands,
+      links: [{label:'linkLabelTwo',value:'linkTwo'}]
+    }), filename: 'config.json'});
+  });
+
+  it('handle add link', () => {
+    reduxTestWrapper(Config, {}, defaultStoreProps);
+
+    fireEvent.change(
+      screen.getByLabelText('New Link Value text field'),
+      { target: { value: 'linkThree'}}
+    );
+    fireEvent.change(
+      screen.getByLabelText('New Link Label text field'),
+      { target: { value: 'linkLabelThree'}}
+    );
+    fireEvent.click(screen.getByText('Add Link'));
+
+    expect(api.post).toHaveBeenCalledWith('/db', { content: JSON.stringify({
+      commands: mockStore.config.commands,
+      links:[
+        {label:'linkLabelThree',value:'linkThree'},
+        {label:'linkLabelOne',value:'linkOne'},
+        {label:'linkLabelTwo',value:'linkTwo'}
+      ]
+    }), filename: 'config.json'});
   });
 });

@@ -54,6 +54,13 @@ export const mockStore = {
     },{
       label:'commandLabelTwo',
       value: 'commandTwo'
+    }],
+    links: [{
+      label: 'linkLabelOne',
+      value: 'linkOne'
+    },{
+      label: 'linkLabelTwo',
+      value: 'linkTwo'
     }]
   },
   experiment: {},

@@ -14,6 +14,12 @@ const commandTableHeaders = [
   { label: 'Should Show?', className: 'flex--one' }
 ];
 
+const linkTableHeaders = [
+  { label: 'Link', className: 'flex--four' },
+  { label: 'Description', className: 'flex--two' },
+  { label: 'Action', className: 'flex--one'}
+];
+
 const directoriesTableHeaders = [
   { label: 'Directory', className: 'flex--four' },
   { label: 'Remove', className: 'flex--one' }
@@ -22,7 +28,8 @@ const directoriesTableHeaders = [
 const Config = () => {
   const dispatch = useDispatch();
   const [newDir, setNewDir] = useState('');
-  const [commandConfig, setCommandConfig] = useState([]);
+  const [newLink, setNewLink] = useState({ label: '', value: ''});
+  const [configuration, setConfiguration] = useState({ commands: [], links: []});
   const { directories, regexes } = useSelector(state => state.project);
   const config = useSelector(state => state.config);
   const global = useSelector(state => state.global);
@@ -32,33 +39,30 @@ const Config = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if(config.commands) {
-      setCommandConfig(config.commands);
-    }
+    setConfiguration(config);
   }, [config]);
 
-  const renderCommandCells = (globalCommands, configCommands) => {
-    return Object.keys(globalCommands).map(key => {
-      const matched = commandConfig.find(item => item.value === globalCommands[key]);
-      const isShown = commandConfig.find(item => item.value === globalCommands[key]);
+  const renderCommandCells = (globalCommands) => {
+    return globalCommands.map(commandname => {
+      const matched = configuration.commands.find(item => item.value === commandname);
       const label = matched ? matched.label : '';
       const handleClick = () => {
-        const updatedCommandConfig = isShown
-          ? commandConfig.filter(item => item.value !== globalCommands[key])
-          : [{ label: globalCommands[key], value: globalCommands[key] }].concat(commandConfig);
-        setCommandConfig(updatedCommandConfig);
+        const updatedCommandConfig = matched
+          ? configuration.commands.filter(item => item.value !== commandname)
+          : [{ label: commandname, value: commandname }].concat(configuration.commands);
+        setConfiguration({ ...configuration, commands: updatedCommandConfig});
       };
 
       return (
-        <tr key={key} className="flex--horizontal">
-          <td className="flex--two">{globalCommands[key]}</td>
+        <tr key={commandname} className="flex--horizontal">
+          <td className="flex--two">{commandname}</td>
           <td className="flex--three">
-            {isShown ? <Text
-              placeholder={globalCommands[key]}
+            {matched ? <Text
+              placeholder={commandname}
               selected={label}
               onChange={({ selected }) => {
-                const updatedCommandConfig = commandConfig.map(item => {
-                  if(item.value === globalCommands[key]) {
+                const updatedCommandConfig = configuration.commands.map(item => {
+                  if(item.value === commandname) {
                     return {
                       ...item,
                       label: selected
@@ -67,25 +71,61 @@ const Config = () => {
 
                   return item;
                 });
-                setCommandConfig(updatedCommandConfig);
+                setConfiguration({ ...configuration, commands: updatedCommandConfig });
               }}
             />: 'N/A'}</td>
-          <td className="flex--one clickable" onClick={handleClick}>{isShown ? 'Yes' : 'No'}</td>
+          <td className="flex--one clickable" onClick={handleClick}>{matched ? 'Yes' : 'No'}</td>
         </tr>
       );
     });
   };
 
-  const renderDirectoriesCells = (dirs) => {
-    return Object.keys(dirs).map(key => {
+  const renderLinkCells = () => {
+    return configuration.links.map(linkItem => {
       return (
-        <tr key={key} className="flex--horizontal">
-          <td className="flex--four">{dirs[key]}</td>
+        <tr key={linkItem.value} className="flex--horizontal">
+          <td className="flex--four">{linkItem.value}</td>
+          <td className="flex--two">
+            <Text
+              placeholder={linkItem.label}
+              selected={linkItem.label}
+              onChange={({ selected }) => {
+                const updatedLinkConfig = configuration.links.map(item => {
+                  if(item.value === linkItem.value) {
+                    return {
+                      ...item,
+                      label: selected
+                    };
+                  }
+
+                  return item;
+                });
+                setConfiguration({ ...configuration, links: updatedLinkConfig});
+              }}
+            />
+          </td>
+          <td className="flex--one">
+            <IconButton type={ICON_TYPES.TRASH} onClick={() => {
+              const updatedLinkConfig = configuration.links.filter(item => item.value !== linkItem.value);
+              const updatedConfiguration = { ...configuration, links: updatedLinkConfig};
+              dispatch(updateConfig(updatedConfiguration));
+            }} />
+          </td>
+        </tr>
+      );
+    });
+  };
+
+  const renderDirectoryCells = (dirs) => {
+    return dirs.map(filepath => {
+      return (
+        <tr key={filepath} className="flex--horizontal">
+          <td className="flex--four">{filepath}</td>
           <td className="flex--one">
             <IconButton
               type={ICON_TYPES.TRASH}
               onClick={() => {
-                const updatedDirectories = directories.filter(item => item !== dirs[key]);
+                const updatedDirectories = directories.filter(item => item !== filepath);
 
                 dispatch(updateProject({ directories: updatedDirectories, regexes }));
               }}
@@ -101,15 +141,46 @@ const Config = () => {
       <div className="container--center">
         <Table
           headers={commandTableHeaders}
-          body={renderCommandCells(global.commands, config.commands)}
+          body={renderCommandCells(global.commands)}
+        />
+        <Table
+          headers={linkTableHeaders}
+          body={renderLinkCells()}
         />
         <Button
-          classColor="secondary"
+          classColor="primary"
           label="Save"
           onClick={() => {
-            dispatch(updateConfig({ commands: commandConfig }));
+            dispatch(updateConfig({ ...config, ...configuration }));
           }}
         />
+        <div>
+          <Text
+            placeholder='New Link Value'
+            selected={newLink.value}
+            onChange={({ selected }) => {
+              setNewLink({ label: newLink.label, value: selected});
+            }}
+          />
+          <Text
+            placeholder='New Link Label'
+            selected={newLink.label}
+            onChange={({ selected }) => {
+              setNewLink({ label: selected, value: newLink.value});
+            }}
+          />
+          <Button
+            classColor="primary"
+            label="Add Link"
+            onClick={() => {
+              if(newLink.label && newLink.value) {
+                const updatedLinks = [newLink].concat(configuration.links);
+
+                dispatch(updateConfig({ commands: configuration.commands, links: updatedLinks }));
+              }
+            }}
+          />
+        </div>
       </div>
       <div className="container--center">
         <div>
@@ -121,7 +192,7 @@ const Config = () => {
             }}
           />
           <Button
-            classColor="secondary"
+            classColor="primary"
             label="Add Directory"
             onClick={() => {
               const updatedDirectories = [newDir].concat(directories);
@@ -132,7 +203,7 @@ const Config = () => {
         </div>
         <Table
           headers={directoriesTableHeaders}
-          body={renderDirectoriesCells(directories)}
+          body={renderDirectoryCells(directories)}
         />
       </div>
     </Page>

@@ -16,14 +16,16 @@ describe('configReducer', () => {
     const action = {
       type: LOAD_CONFIG,
       data: {
-        commands: [ONE, TWO, THREE]
+        commands: [ONE, TWO, THREE],
+        links: [THREE, TWO, ONE]
       }
     };
     const result = configReducer(configInitialState, action);
 
     expect(result).toEqual({
       ...configInitialState,
-      commands: action.data.commands
+      commands: action.data.commands,
+      links: action.data.links
     });
   });
 });
