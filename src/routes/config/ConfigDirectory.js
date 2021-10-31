@@ -41,7 +41,7 @@ const Config = ({ directories, onChange }) => {
 
   return (
     <div>
-      <h2> Link Configuration </h2>
+      <h2> Directory Configuration </h2>
       <div className="container--center">
         <Table
           headers={directoriesTableHeaders}
