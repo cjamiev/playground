@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import useOnClickOutside from 'hooks/useOnClickOutside';
 import './dropdown.css';
 
-const Dropdown = React.memo(({ id, label, values, onChange }) => {
+const Dropdown = React.memo(({ id, classNames = { container: '', label: '', content: '', item: ''}, label, values, onChange }) => {
   const ref = useRef();
   const [show, setShow] = useState(false);
   useOnClickOutside(ref, () => setShow(false));
@@ -26,7 +26,7 @@ const Dropdown = React.memo(({ id, label, values, onChange }) => {
   };
 
   const renderContent = values.map((item) => {
-    const className = item.selected ? 'dropdown__item dropdown__item--active' : 'dropdown__item';
+    const itemClassName = item.selected ? `dropdown__item ${classNames.item} dropdown__item--active` : `dropdown__item ${classNames.item}`;
     const ariaLabel = item.selected
       ? `${item.label} dropdown option is selected`
       : `${item.label} dropdown option is not selected`;
@@ -35,7 +35,7 @@ const Dropdown = React.memo(({ id, label, values, onChange }) => {
       <span
         key={item.label}
         aria-label={ariaLabel}
-        className={className}
+        className={itemClassName}
         onClick={() => {
           handleChange(item.label);
         }}
@@ -46,20 +46,23 @@ const Dropdown = React.memo(({ id, label, values, onChange }) => {
   });
 
   const selectedValue = values.find((item) => item.selected) || {};
+  const containerClassName = `dropdown ${classNames.container}`;
+  const labelClassName = `dropdown__label ${classNames.label}`;
+  const contentClassName = `dropdown__content ${classNames.content}`;
 
   return (
     <div
       ref={ref}
       role="button"
-      className="dropdown"
+      className={containerClassName}
       onClick={() => {
         setShow(!show);
       }}
     >
-      <label className="dropdown__label">
+      <label className={labelClassName}>
         {label} {selectedValue.label}
       </label>
-      {show && <div className="dropdown__content">{renderContent}</div>}
+      {show && <div className={contentClassName}>{renderContent}</div>}
     </div>
   );
 });

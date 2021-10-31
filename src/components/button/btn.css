@@ -91,7 +91,7 @@
 .btn--icon {
   padding-top: 5px;
   border: none;
-  background-color: #f6f8fa;
+  background-color: inherit;
   cursor: pointer;
 }
 
@@ -107,7 +107,7 @@
 .btn__info-icon {
   width: 39px;
   height: 39px;
-  background-color: #f6f8fa;
+  background-color: inherit;
   border: none;
 }
 

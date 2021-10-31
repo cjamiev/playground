@@ -47,3 +47,21 @@
 .navigation__links-item--active {
   border-bottom: 1px solid #fff;
 }
+
+.navigation__dropdown-container {
+  margin-top: 0.2em;
+}
+
+.navigation__dropdown-label {
+  background-color: #24292e;
+  font-size: 1.4em;
+}
+
+.navigation__dropdown-content {
+  background-color: #24292e;
+  margin-top: 35px;
+}
+
+.navigation__dropdown-item {
+  border: 1px solid #2e353b;
+}

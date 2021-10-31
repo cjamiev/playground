@@ -37,13 +37,6 @@ post: (payload) => {
 Folder for quick testing of html as testing javascript functions. Node script for creating files from template, updating files with regex. 
 
 ## ToDo
-Config Page
-	- Set theme
-	- Edit db directly or something equivalent (project directories)
-	- Set which commands are visible/archived
-	
-Command Dropdown
-
 Generator
 	- Flex/Grid
 	- Neomorphism, Glassmorphism, Aurora
@@ -51,16 +44,21 @@ Generator
 	- SVG Animator
   - Edit generated CSS directly
 
-Dropdown:
-	- CSS for different sizes and appearance
-
 Template Tab:
   - View a template & Flexible edit of templates
+
+Dropdown:
+  - Pass different content
+
+Config Page
+  - Fix appearance
+	- Set theme and update app with theme
 	
 Table:
 	- Sort
-	- Config (add/remove entries)
-	
+	- Config (add/remove columns)
+  - Export to csv
+
 Wizard
  - CSS for header, footer 
  - Progress Item List

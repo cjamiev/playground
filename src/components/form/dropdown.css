@@ -12,6 +12,7 @@
   white-space: nowrap;
   background-color: #0e6d90;
   color: #fff;
+  font-size: 1.4em;
 }
 
 .dropdown__content {
@@ -28,7 +29,7 @@
 }
 
 .dropdown__item {
-  border-bottom: 1px solid white;
+  border: 1px solid #0d5e7c;
   flex: 1;
   cursor: pointer;
   padding: 15px 0 15px 20px;
