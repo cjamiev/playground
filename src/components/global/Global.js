@@ -61,7 +61,12 @@ const Global = () => {
   };
 
   if (loadingQueue.length) {
-    const message = <div className="modal__loading">Loading...{loadingQueue[ZERO]}</div>;
+    const message = (
+      <div>
+        <div className="modal__loading">Loading...</div>
+        <div className="modal__loading-name">{loadingQueue[ZERO]}</div>
+      </div>
+    );
     window.scrollTo({ top: ZERO, behavior: 'smooth' });
 
     return (

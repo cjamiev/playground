@@ -23,8 +23,14 @@
 }
 
 .modal__loading {
-  margin: 1em auto;
+  margin-top: 80px;
   font-size: 100px;
+  display: flex;
+  place-content: center;
+}
+
+.modal__loading-name {
+  font-size: 50px;
   display: flex;
   place-content: center;
 }
