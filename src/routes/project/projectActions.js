@@ -1,5 +1,6 @@
 import api from 'api';
 import { createAlert } from 'components/alert/alertActions';
+import { showLoadingModal, hideLoadingModal } from 'components/global/globalActions';
 
 const LOAD_PROJECT = 'LOAD_PROJECT';
 const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
@@ -8,10 +9,12 @@ const DEFAULT_DIR = './';
 
 const loadProject = () => {
   return (dispatch) => {
+    dispatch(showLoadingModal('Project'));
     api
       .get('/db/?name=project.json')
       .then((response) => {
         dispatch({ type: LOAD_PROJECT, data: JSON.parse(response.data.data) });
+        dispatch(hideLoadingModal('Project'));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));

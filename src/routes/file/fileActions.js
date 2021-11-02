@@ -1,5 +1,6 @@
 import api from 'api';
 import { createAlert } from 'components/alert/alertActions';
+import { showLoadingModal, hideLoadingModal } from 'components/global/globalActions';
 
 const LOAD_DIRECTORY = 'LOAD_DIRECTORY';
 const LOAD_FILE = 'LOAD_FILE';
@@ -21,10 +22,12 @@ const loadDirectory = () => {
 
 const loadFile = (filename) => {
   return (dispatch) => {
+    dispatch(showLoadingModal(`File ${filename}`));
     api
       .get(`/file/?name=${filename}`)
       .then((response) => {
         dispatch({ type: LOAD_FILE, data: response.data.data });
+        dispatch(hideLoadingModal(`File ${filename}`));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));

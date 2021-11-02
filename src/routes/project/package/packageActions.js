@@ -10,10 +10,12 @@ const DEFAULT_DIR = './';
 
 const getPackageJson = (rootDir = DEFAULT_DIR) => {
   return (dispatch) => {
+    dispatch(showLoadingModal('Package JSON'));
     api
       .get(`/project/?type=package&op=read&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: LOAD_PACKAGE, data: response.data.data });
+        dispatch(hideLoadingModal('Package JSON'));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));

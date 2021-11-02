@@ -1,5 +1,6 @@
 import api from 'api';
 import { createAlert } from 'components/alert/alertActions';
+import { showLoadingModal, hideLoadingModal } from 'components/global/globalActions';
 
 const LOAD_REMOTE_URL = 'LOAD_REMOTE_URL';
 const DELETE_BRANCH = 'DELETE_BRANCH';
@@ -17,10 +18,12 @@ const DEFAULT_DIR = './';
 
 const getRemoteUrl = (rootDir = DEFAULT_DIR) => {
   return (dispatch) => {
+    dispatch(showLoadingModal('Git Remote Url'));
     api
       .get(`/project/?type=git&op=remoteurl&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: LOAD_REMOTE_URL, data: response.data.data });
+        dispatch(hideLoadingModal('Git Remote Url'));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -82,10 +85,12 @@ const selectBranch = (rootDir = DEFAULT_DIR, name) => {
 
 const viewBranches = (rootDir = DEFAULT_DIR) => {
   return (dispatch) => {
+    dispatch(showLoadingModal('Git Branches'));
     api
       .get(`/project/?type=git&op=viewbranches&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: LOAD_BRANCHES, data: response.data.data });
+        dispatch(hideLoadingModal('Git Branches'));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -134,10 +139,12 @@ const selectStash = (rootDir = DEFAULT_DIR, name) => {
 
 const viewStash = (rootDir = DEFAULT_DIR) => {
   return (dispatch) => {
+    dispatch(showLoadingModal('Git Stashes'));
     api
       .get(`/project/?type=git&op=viewstash&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: LOAD_VIEW_STASH, data: response.data.data });
+        dispatch(hideLoadingModal('Git Stashes'));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));

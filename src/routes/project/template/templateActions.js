@@ -1,15 +1,18 @@
 import api from 'api';
 import { createAlert } from 'components/alert/alertActions';
+import { showLoadingModal, hideLoadingModal } from 'components/global/globalActions';
 
 const CREATE_FILES_FROM_TEMPLATES = 'CREATE_FILES_FROM_TEMPLATES';
 const LOAD_TEMPLATES = 'LOAD_TEMPLATES';
 
 const loadTemplates = () => {
   return (dispatch) => {
+    dispatch(showLoadingModal('Templates'));
     api
       .get('/project/?type=template&op=read')
       .then((response) => {
         dispatch({ type: LOAD_TEMPLATES, data: response.data.data });
+        dispatch(hideLoadingModal('Templates'));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
