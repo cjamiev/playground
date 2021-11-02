@@ -86,7 +86,7 @@ const File = () => {
             onClick={forward}
           />
         </div>
-        <div className="flex--two">
+        <div className="flex--three">
           <TextArea
             ariaLabel="Content text area"
             selected={content}
