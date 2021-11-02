@@ -11,7 +11,7 @@ module.exports = env => {
     mode: 'production',
     entry: './src/index.js',
     output: {
-      path: path.resolve(__dirname, '../build'),
+      path: path.resolve(__dirname, '../server/static'),
       filename: 'bundle.js'
     },
     resolve: {
@@ -55,7 +55,7 @@ module.exports = env => {
       new ESLintPlugin(),
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
-        reportFilename: '../coverage/webpack-analyzer-report.html'
+        reportFilename: '../../coverage/webpack-analyzer-report.html'
       })
     ]
   };
