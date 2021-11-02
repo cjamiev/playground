@@ -35,19 +35,6 @@ const content = [
 ];
 
 describe('Generator', () => {
-  it('handle copy', () => {
-    document.execCommand = jest.fn();
-    reduxTestWrapper(Generator, {}, {}, pathname);
-
-    const copyBtn = screen.queryByText('Copy');
-    const appendChildSpy = jest.spyOn(document.body, 'appendChild');
-    fireEvent.click(copyBtn);
-    const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
-
-    expect(copyEl.value).toEqual('.name {\nheight: 50px;\nwidth: 100px;\nborder: 1px solid #000000;\n}\n\n.name:hover {\n\n}\n\n.name:active {\n\n}');
-    expect(document.execCommand).toHaveBeenCalledWith('copy');
-  });
-
   it('handleMode change', () => {
     reduxTestWrapper(Generator, {}, {}, pathname);
 
@@ -100,6 +87,10 @@ describe('Generator', () => {
 
   it('handle onChange for Hover and Active states', () => {
     reduxTestWrapper(Generator, {}, {}, pathname);
+
+    const sidePanelBtn = screen.getByLabelText('triple bar');
+    fireEvent.click(sidePanelBtn);
+
     const shownCSS = 'filter: blur(5px) ;';
 
     const hoverSwitch = screen.getByText('Hover');
@@ -115,6 +106,22 @@ describe('Generator', () => {
     fireEvent.click(activeSwitch);
     fireEvent.change(blurField, { target: { value: '5' } });
     expect(screen.queryAllByText(shownCSS)).toHaveLength(TWO);
+  });
+
+  it('handle copy', () => {
+    document.execCommand = jest.fn();
+    reduxTestWrapper(Generator, {}, {}, pathname);
+
+    const sidePanelBtn = screen.getByLabelText('triple bar');
+    fireEvent.click(sidePanelBtn);
+
+    const copyBtn = screen.queryByText('Copy');
+    const appendChildSpy = jest.spyOn(document.body, 'appendChild');
+    fireEvent.click(copyBtn);
+    const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
+
+    expect(copyEl.value).toEqual('.name {\nheight: 50px;\nwidth: 100px;\nborder: 1px solid #000000;\n}\n\n.name:hover {\n\n}\n\n.name:active {\n\n}');
+    expect(document.execCommand).toHaveBeenCalledWith('copy');
   });
 
   it('handle Load', async () => {

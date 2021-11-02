@@ -11,7 +11,6 @@ import Switch from 'components/switch';
 import GeneratorForm from './GeneratorForm';
 import GeneratorSidePanel from './GeneratorSidePanel';
 import { loadGeneratorRecords, updatedGeneratorRecords } from './generatorActions';
-import { copyToClipboard } from 'helper/copy';
 import { filterOutEmptyKeys } from 'objectHelper';
 import { getCurrentStyles } from './helper';
 import { ALL_CSS } from 'constants/css';
@@ -164,6 +163,10 @@ const Generator = () => {
           onSelectRecord={handleSelectRecord}
           onSubmit={handleSubmit}
           onDelete={handleDelete}
+          normalCSS={normalCSS}
+          hoverCSS={hoverCSS}
+          activeCSS={activeCSS}
+          copyCSS={copyCSS}
         />
       }
     >
@@ -206,21 +209,6 @@ const Generator = () => {
               Test Area
             </div>
           </div>
-        </div>
-        <div className="generator__output_container">
-          <Button
-            label="Copy"
-            classColor="primary"
-            onClick={() => {
-              copyToClipboard(copyCSS);
-            }}
-          />
-          <h2>Normal CSS</h2>
-          <pre className="generator__generated_css">{normalCSS}</pre>
-          <h2>Hover CSS</h2>
-          <pre className="generator__generated_css">{hoverCSS}</pre>
-          <h2>Active CSS</h2>
-          <pre className="generator__generated_css">{activeCSS}</pre>
         </div>
       </div>
     </Page>
