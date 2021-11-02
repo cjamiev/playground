@@ -18,7 +18,7 @@ export const globalInitialState = {
   timers: [],
   initialized: false,
   modalQueue: [],
-  isLoading: false,
+  loadingQueue: [],
   isSidePanelOpen: false,
   commandResponse: '',
   commands: []
@@ -64,10 +64,21 @@ const globalReducer = (state = globalInitialState, action) => {
       };
     },
     [SHOW_LOADING_MODAL]: () => {
-      return { ...state, isLoading: true };
+      return {
+        ...state,
+        loadingQueue: [
+          ...state.loadingQueue,
+          action.data
+        ]
+      };
     },
     [HIDE_LOADING_MODAL]: () => {
-      return { ...state, isLoading: false };
+      const filteredLoadingQueue = action.data ? state.loadingQueue.filter((item) => action.data !== item) : [];
+
+      return {
+        ...state,
+        loadingQueue: filteredLoadingQueue
+      };
     },
     [OPEN_SIDE_PANEL]: () => {
       return { ...state, isSidePanelOpen: true };

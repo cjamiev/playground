@@ -70,15 +70,15 @@ describe('globalActions', () => {
   });
 
   it('showLoadingModal', () => {
-    const result = showLoadingModal();
+    const result = showLoadingModal('Loading Name');
 
-    expect(result).toEqual({ type: SHOW_LOADING_MODAL });
+    expect(result).toEqual({ type: SHOW_LOADING_MODAL, data: 'Loading Name' });
   });
 
   it('hideLoadingModal', () => {
-    const result = hideLoadingModal();
+    const result = hideLoadingModal('Loading Name');
 
-    expect(result).toEqual({ type: HIDE_LOADING_MODAL });
+    expect(result).toEqual({ type: HIDE_LOADING_MODAL, data: 'Loading Name' });
   });
 
   it('openSidePanel', () => {

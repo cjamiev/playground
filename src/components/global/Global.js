@@ -17,7 +17,7 @@ const ONE = 1;
 
 const Global = () => {
   const dispatch = useDispatch();
-  const { timers, initialized, isLoading, modalQueue } = useSelector((state) => state.global);
+  const { timers, initialized, loadingQueue, modalQueue } = useSelector((state) => state.global);
   const props = modalQueue[ZERO] || {};
 
   useEffect(() => {
@@ -60,13 +60,13 @@ const Global = () => {
     dispatch(closeGlobalModal(props.id));
   };
 
-  if (isLoading) {
-    const message = <div className="modal__loading">Loading...</div>;
+  if (loadingQueue.length) {
+    const message = <div className="modal__loading">Loading...{loadingQueue[ZERO]}</div>;
     window.scrollTo({ top: ZERO, behavior: 'smooth' });
 
     return (
       <div className="global__modal">
-        <Modal message={message} close={() => { dispatch(hideLoadingModal());}}/>
+        <Modal message={message} close={() => { dispatch(hideLoadingModal(loadingQueue[ZERO]));}}/>
       </div>
     );
   } else if (props.message) {

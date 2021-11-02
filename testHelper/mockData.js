@@ -212,7 +212,7 @@ export const mockStore = {
     timers: [],
     initialized: false,
     modalQueue: [],
-    isLoading: false,
+    loadingQueue: [],
     isSidePanelOpen: false,
     commandResponse: '',
     commands: ['commandOne', 'commandTwo', 'commandThree']

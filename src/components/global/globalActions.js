@@ -22,8 +22,8 @@ const initializeTimer = () => ({ type: INITIALIZE_TIMER });
 
 const openGlobalModal = (data) => ({ type: OPEN_GLOBAL_MODAL, data });
 const closeGlobalModal = (id) => ({ type: CLOSE_GLOBAL_MODAL, id });
-const showLoadingModal = () => ({ type: SHOW_LOADING_MODAL });
-const hideLoadingModal = () => ({ type: HIDE_LOADING_MODAL });
+const showLoadingModal = (data) => ({ type: SHOW_LOADING_MODAL, data });
+const hideLoadingModal = (data) => ({ type: HIDE_LOADING_MODAL, data });
 
 const openSidePanel = () => ({ type: OPEN_SIDE_PANEL });
 const closeSidePanel = () => ({ type: CLOSE_SIDE_PANEL });

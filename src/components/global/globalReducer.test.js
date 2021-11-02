@@ -52,7 +52,7 @@ const initialState = {
       action: jest.fn()
     }
   ],
-  isLoading: false
+  loadingQueue: ['Loading One']
 };
 
 describe('globalReducer', () => {
@@ -62,7 +62,7 @@ describe('globalReducer', () => {
     expect(result).toEqual({
       ...globalInitialState,
       modalQueue: [],
-      isLoading: false
+      loadingQueue: []
     });
   });
 
@@ -137,25 +137,27 @@ describe('globalReducer', () => {
 
   it('SHOW_LOADING_MODAL', () => {
     const action = {
-      type: SHOW_LOADING_MODAL
+      type: SHOW_LOADING_MODAL,
+      data: 'Loading Two'
     };
     const result = globalReducer(initialState, action);
 
     expect(result).toEqual({
       ...initialState,
-      isLoading: true
+      loadingQueue: ['Loading One','Loading Two']
     });
   });
 
   it('HIDE_LOADING_MODAL', () => {
     const action = {
-      type: HIDE_LOADING_MODAL
+      type: HIDE_LOADING_MODAL,
+      data: 'Loading One'
     };
     const result = globalReducer(initialState, action);
 
     expect(result).toEqual({
       ...initialState,
-      isLoading: false
+      loadingQueue: []
     });
   });
 

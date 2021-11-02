@@ -10,7 +10,7 @@ const ZERO = 0;
 
 const defaultStore = {
   global: {
-    isLoading: false,
+    loadingQueue: [],
     modalQueue: [],
     timers: [],
     initialized: false
@@ -18,7 +18,7 @@ const defaultStore = {
 };
 const storeWithPopulatedModalQueue = {
   global: {
-    isLoading: false,
+    loadingQueue: [],
     modalQueue: [
       {
         id: 0,
@@ -38,7 +38,7 @@ const storeWithPopulatedModalQueue = {
 };
 const storeWithLoading = {
   global: {
-    isLoading: true,
+    loadingQueue: ['Loading One'],
     modalQueue: [],
     timers: [],
     initialized: false
@@ -114,6 +114,9 @@ describe('Global', () => {
   it('show loading', () => {
     reduxTestWrapper(Global, {}, storeWithLoading, '/home', false);
 
-    expect(screen.queryByText('Loading...')).toBeInTheDocument();
+    expect(screen.queryByText(`Loading...${storeWithLoading.global.loadingQueue[ZERO]}`)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByLabelText('Close button'));
+    expect(screen.queryByText(`Loading...${storeWithLoading.global.loadingQueue[ZERO]}`)).not.toBeInTheDocument();
   });
 });
