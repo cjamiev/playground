@@ -114,9 +114,11 @@ describe('Global', () => {
   it('show loading', () => {
     reduxTestWrapper(Global, {}, storeWithLoading, '/home', false);
 
-    expect(screen.queryByText(`Loading...${storeWithLoading.global.loadingQueue[ZERO]}`)).toBeInTheDocument();
+    expect(screen.queryByText('Loading...')).toBeInTheDocument();
+    expect(screen.queryByText(storeWithLoading.global.loadingQueue[ZERO])).toBeInTheDocument();
 
     fireEvent.click(screen.getByLabelText('Close button'));
-    expect(screen.queryByText(`Loading...${storeWithLoading.global.loadingQueue[ZERO]}`)).not.toBeInTheDocument();
+    expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+    expect(screen.queryByText(storeWithLoading.global.loadingQueue[ZERO])).not.toBeInTheDocument();
   });
 });
