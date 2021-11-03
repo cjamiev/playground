@@ -2,16 +2,11 @@
   display: flex;
 }
 
-.generator__form_container {
-  flex: 3;
-  margin-right: 30px;
-}
-
-.generator__result_container {
+.generator__result-container {
   flex: 4;
 }
 
-.generator__box_parent {
+.generator__result-parent-box {
   display: grid;
   place-items: center;
   width : 1280px; 
@@ -19,7 +14,23 @@
   background-repeat: no-repeat;
 }
 
-.generator__generated_css {
+.generator__form-container {
+  flex: 3;
+}
+
+.generator__form-title {
+  font-size: 30px;
+  margin-top: 30px;
+}
+
+.generator__form-selected-option {
+  border-radius: 5px;
+  border: 1px solid #070722;
+  padding: 10px 15px;
+  background-color: #eeeef3;
+}
+
+.generator__printed-css {
   border: 1px solid black;
   padding: 10px;
   white-space: pre-line;

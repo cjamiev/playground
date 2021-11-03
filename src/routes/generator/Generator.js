@@ -166,7 +166,7 @@ const Generator = () => {
       }
     >
       <div className="generator">
-        <div className="generator__form_container">
+        <div className="generator__form-container">
           <Switch
             data={[{ label: 'Normal' }, { label: 'Hover' }, { label: 'Active' }]}
             switchIndex={mode}
@@ -174,7 +174,7 @@ const Generator = () => {
           />
           <GeneratorForm style={currentStyle} onChange={handleChange} />
         </div>
-        <div className="generator__result_container">
+        <div className="generator__result-container">
           <div className="flex--horizontal">
             <Switch
               data={[{ label: 'BG Color' }, { label: 'BG Image' }]}
@@ -183,7 +183,12 @@ const Generator = () => {
             />
             {backgroundMode === ZERO && <Color label="Background Color" selected={backgroundStyle.backgroundColor} onChange={handleParentBackgroundColorChange} />}
           </div>
-          <div style={backgroundStyle} role={backgroundMode === ONE ? 'img' : undefined} aria-label={backgroundMode === ONE ? 'Background Image' : undefined} className="generator__box_parent">
+          <div
+            style={backgroundStyle}
+            role={backgroundMode === ONE ? 'img' : undefined}
+            aria-label={backgroundMode === ONE ? 'Background Image' : undefined}
+            className="generator__result-parent-box"
+          >
             <div
               style={currentInlineStyle}
               aria-label={ariaLabel}

@@ -54,11 +54,11 @@ const GeneratorSidePanel = ({
         }}
       />
       <h2>Normal CSS</h2>
-      <pre className="generator__generated_css">{normalCSS}</pre>
+      <pre className="generator__printed-css">{normalCSS}</pre>
       <h2>Hover CSS</h2>
-      <pre className="generator__generated_css">{hoverCSS}</pre>
+      <pre className="generator__printed-css">{hoverCSS}</pre>
       <h2>Active CSS</h2>
-      <pre className="generator__generated_css">{activeCSS}</pre>
+      <pre className="generator__printed-css">{activeCSS}</pre>
     </div>
   );
 };
