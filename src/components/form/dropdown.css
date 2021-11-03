@@ -17,6 +17,8 @@
 
 .dropdown__content {
   min-width: 300px;
+  max-height: 450px;
+  overflow: auto;
   background-color: #0e6d90;
   color: #fff;
  

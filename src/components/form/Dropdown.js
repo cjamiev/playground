@@ -48,7 +48,7 @@ const Dropdown = React.memo(({ id, classNames = { container: '', label: '', cont
   const selectedValue = values.find((item) => item.selected) || {};
   const containerClassName = `dropdown ${classNames.container}`;
   const labelClassName = `dropdown__label ${classNames.label}`;
-  const contentClassName = `dropdown__content ${classNames.content}`;
+  const contentClassName = `dropdown__content scrollbar ${classNames.content}`;
 
   return (
     <div
