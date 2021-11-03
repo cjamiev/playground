@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Dropdown from 'components/form/Dropdown';
 import Button from 'components/button';
 import {
   BackdropFilterForm,
@@ -36,24 +37,19 @@ const GeneratorForm = ({ style, onChange }) => {
   const [type, setType] = useState('Border');
 
   const CSSForm = formMapper[type];
-  const btns = Object.keys(formMapper).map(t => {
-    return (
-      <div
-        key={t}
-        onClick={() => { setType(t);}}>
-        {t}
-      </div>
-    );
-  });
+  const attributeValues = Object.keys(formMapper).map(label => ({ label, selected: false }));
 
   return (
-    <div className="flex--horizontal">
-      <div className="flex--vertical flex--one">
-        {btns}
-      </div>
-      <div className="container--center flex--vertical flex--three">
-        <CSSForm type="Border" style={style} onChange={onChange} />
-      </div>
+    <div className="container--center flex--vertical flex--three">
+      <Dropdown
+        label="Select CSS Attributes"
+        values={attributeValues}
+        onChange={({ values}) => {
+          const matched = values.find(item => item.selected);
+          setType(matched.label);
+        }}
+      />
+      <CSSForm type="Border" style={style} onChange={onChange} />
     </div>
   );
 };

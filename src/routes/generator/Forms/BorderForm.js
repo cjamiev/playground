@@ -11,6 +11,7 @@ const BorderForm = ({ style, onChange }) => {
 
   return (
     <>
+      <Dropdown id="borderStyle" label="Border Type" values={borderValues} onChange={onChange} />
       <Range
         id="borderThickness"
         label="Thickness"
@@ -19,7 +20,6 @@ const BorderForm = ({ style, onChange }) => {
         selected={style.borderThickness}
         onChange={onChange}
       />
-      <Dropdown id="borderStyle" label="Border Type" values={borderValues} onChange={onChange} />
       <Color id="borderColor" label="Color" selected={style.borderColor} onChange={onChange} />
     </>
   );
