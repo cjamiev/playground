@@ -94,10 +94,10 @@ describe('Generator', () => {
     const shownCSS = 'filter: blur(5px) ;';
 
     const hoverSwitch = screen.getByText('Hover');
-    const filterAccordion = screen.getByText('Filter');
     const activeSwitch = screen.getByText('Active');
-    fireEvent.click(filterAccordion);
 
+    fireEvent.click(screen.getByText('Select CSS Attributes'));
+    fireEvent.click(screen.getByText('Filter'));
     fireEvent.click(hoverSwitch);
     const blurField = screen.getByLabelText('blur text field');
     fireEvent.change(blurField, { target: { value: '5' } });

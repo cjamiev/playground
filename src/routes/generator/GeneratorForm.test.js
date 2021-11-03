@@ -15,16 +15,18 @@ describe('GeneratorForm', () => {
   it('renders selection', () => {
     simpleTestWrapper(GeneratorForm, generatorFormProps);
 
-    const borderLabel = screen.getByText('Border');
-    fireEvent.click(borderLabel);
+    const attributeDropdown = screen.getByText('Select CSS Attributes');
+
+    fireEvent.click(attributeDropdown);
+    fireEvent.click(screen.getByText('Border'));
     expect(screen.queryByText(`Border Type ${generatorFormProps.style.borderStyle}`)).toBeInTheDocument();
 
-    const textLabel = screen.getByText('Text');
-    fireEvent.click(textLabel);
+    fireEvent.click(attributeDropdown);
+    fireEvent.click(screen.getByText('Text'));
     expect(screen.queryByText(`Text Align ${generatorFormProps.style.textAlign}`)).toBeInTheDocument();
 
-    const transitionLabel = screen.getByText('Transition');
-    fireEvent.click(transitionLabel);
+    fireEvent.click(attributeDropdown);
+    fireEvent.click(screen.getByText('Transition'));
     expect(
       screen.queryByText(`Transition Timing Function ${generatorFormProps.style.transitionTimingFunction}`)
     ).toBeInTheDocument();
