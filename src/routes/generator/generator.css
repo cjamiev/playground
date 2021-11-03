@@ -3,12 +3,12 @@
 }
 
 .generator__form_container {
-  flex: 1;
+  flex: 3;
   margin-right: 30px;
 }
 
 .generator__result_container {
-  flex: 5;
+  flex: 4;
 }
 
 .generator__box_parent {

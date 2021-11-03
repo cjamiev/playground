@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Page from 'components/layout';
-import Text from 'components/form/Text';
-import Button from 'components/button';
-import Dropdown from 'components/form/Dropdown';
 import Color from 'components/form/Color';
-import { AccordionGroup } from 'components/accordion';
-import Range from 'components/form/Range';
 import Switch from 'components/switch';
 import GeneratorForm from './GeneratorForm';
 import GeneratorSidePanel from './GeneratorSidePanel';
