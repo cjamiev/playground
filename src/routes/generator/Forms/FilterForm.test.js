@@ -11,26 +11,29 @@ describe('FilterForm', () => {
   it('update filter', () => {
     simpleTestWrapper(FilterForm, defaultProps);
 
-    fireEvent.change(screen.getByLabelText('Blur text field'), { target: { value: '1'}});
-    fireEvent.change(screen.getByLabelText('Brightness text field'), { target: { value: '2'}});
-    fireEvent.change(screen.getByLabelText('Contrast text field'), { target: { value: '3'}});
-    fireEvent.change(screen.getByLabelText('Grayscale text field'), { target: { value: '4'}});
-    fireEvent.change(screen.getByLabelText('Hue Rotate text field'), { target: { value: '5'}});
-    fireEvent.change(screen.getByLabelText('Invert text field'), { target: { value: '6'}});
-    fireEvent.change(screen.getByLabelText('Opacity text field'), { target: { value: '7'}});
-    fireEvent.change(screen.getByLabelText('Saturate text field'), { target: { value: '8'}});
-    fireEvent.change(screen.getByLabelText('Sepia text field'), { target: { value: '9'}});
+    fireEvent.change(screen.getByLabelText('Blur range field'), { target: { value: '1'}});
+    fireEvent.change(screen.getByLabelText('Brightness range field'), { target: { value: '2'}});
+    fireEvent.change(screen.getByLabelText('Contrast range field'), { target: { value: '3'}});
+    fireEvent.change(screen.getByLabelText('Grayscale range field'), { target: { value: '4'}});
+    fireEvent.change(screen.getByLabelText('Hue Rotate range field'), { target: { value: '5'}});
+    fireEvent.change(screen.getByLabelText('Invert range field'), { target: { value: '6'}});
+    fireEvent.change(screen.getByLabelText('Opacity range field'), { target: { value: '7'}});
+    fireEvent.change(screen.getByLabelText('Saturate range field'), { target: { value: '8'}});
+    fireEvent.change(screen.getByLabelText('Sepia range field'), { target: { value: '9'}});
+    fireEvent.click(screen.getByText('Remove Attribute'));
+    fireEvent.click(screen.getByLabelText('Opacity dropdown option is not selected'));
 
     expect(defaultProps.onChange.mock.calls).toEqual([
-      [{ error: false, id: 'blur', selected: '1'}],
-      [{ error: false, id: 'brightness', selected: '2'}],
-      [{ error: false, id: 'contrast', selected: '3'}],
-      [{ error: false, id: 'grayscale', selected: '4'}],
-      [{ error: false, id: 'hueRotate', selected: '5'}],
-      [{ error: false, id: 'invert', selected: '6'}],
-      [{ error: false, id: 'filterOpacity', selected: '7'}],
-      [{ error: false, id: 'saturate', selected: '8'}],
-      [{ error: false, id: 'sepia', selected: '9'}]
+      [{ id: 'blur', selected: '1'}],
+      [{ id: 'brightness', selected: '2'}],
+      [{ id: 'contrast', selected: '3'}],
+      [{ id: 'grayscale', selected: '4'}],
+      [{ id: 'hueRotate', selected: '5'}],
+      [{ id: 'invert', selected: '6'}],
+      [{ id: 'filterOpacity', selected: '7'}],
+      [{ id: 'saturate', selected: '8'}],
+      [{ id: 'sepia', selected: '9'}],
+      [{ id: 'filterOpacity', selected: ''}]
     ]);
   });
 });

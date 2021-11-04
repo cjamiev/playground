@@ -99,7 +99,7 @@ describe('Generator', () => {
     fireEvent.click(screen.getByText('Select CSS Attributes'));
     fireEvent.click(screen.getByText('Filter'));
     fireEvent.click(hoverSwitch);
-    const blurField = screen.getByLabelText('Blur text field');
+    const blurField = screen.getByLabelText('Blur range field');
     fireEvent.change(blurField, { target: { value: '5' } });
     expect(screen.queryByText(shownCSS)).toBeInTheDocument();
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Range = ({ id, label, horizontal = false, min, max, selected, onChange }) => {
+const Range = ({ id, label, horizontal = false, min, max, selected = '', onChange }) => {
   const handleSelectedChange = ({ target: { value } }) => {
     onChange({ id, selected: value });
   };

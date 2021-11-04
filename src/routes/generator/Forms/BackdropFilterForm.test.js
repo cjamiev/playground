@@ -11,26 +11,29 @@ describe('BackdropFilterForm', () => {
   it('update backdrop filter', () => {
     simpleTestWrapper(BackdropFilterForm, defaultProps);
 
-    fireEvent.change(screen.getByLabelText('Blur text field'), { target: { value: '1'}});
-    fireEvent.change(screen.getByLabelText('Brightness text field'), { target: { value: '2'}});
-    fireEvent.change(screen.getByLabelText('Contrast text field'), { target: { value: '3'}});
-    fireEvent.change(screen.getByLabelText('Grayscale text field'), { target: { value: '4'}});
-    fireEvent.change(screen.getByLabelText('Hue Rotate text field'), { target: { value: '5'}});
-    fireEvent.change(screen.getByLabelText('Invert text field'), { target: { value: '6'}});
-    fireEvent.change(screen.getByLabelText('Opacity text field'), { target: { value: '7'}});
-    fireEvent.change(screen.getByLabelText('Saturate text field'), { target: { value: '8'}});
-    fireEvent.change(screen.getByLabelText('Sepia text field'), { target: { value: '9'}});
+    fireEvent.change(screen.getByLabelText('Blur range field'), { target: { value: '1'}});
+    fireEvent.change(screen.getByLabelText('Brightness range field'), { target: { value: '2'}});
+    fireEvent.change(screen.getByLabelText('Contrast range field'), { target: { value: '3'}});
+    fireEvent.change(screen.getByLabelText('Grayscale range field'), { target: { value: '4'}});
+    fireEvent.change(screen.getByLabelText('Hue Rotate range field'), { target: { value: '5'}});
+    fireEvent.change(screen.getByLabelText('Invert range field'), { target: { value: '6'}});
+    fireEvent.change(screen.getByLabelText('Opacity range field'), { target: { value: '7'}});
+    fireEvent.change(screen.getByLabelText('Saturate range field'), { target: { value: '8'}});
+    fireEvent.change(screen.getByLabelText('Sepia range field'), { target: { value: '9'}});
+    fireEvent.click(screen.getByText('Remove Attribute'));
+    fireEvent.click(screen.getByLabelText('Opacity dropdown option is not selected'));
 
     expect(defaultProps.onChange.mock.calls).toEqual([
-      [{ error: false, id: 'backdropBlur', selected: '1'}],
-      [{ error: false, id: 'backdropBrightness', selected: '2'}],
-      [{ error: false, id: 'backdropContrast', selected: '3'}],
-      [{ error: false, id: 'backdropGrayscale', selected: '4'}],
-      [{ error: false, id: 'backdropHueRotate', selected: '5'}],
-      [{ error: false, id: 'backdropInvert', selected: '6'}],
-      [{ error: false, id: 'backdropOpacity', selected: '7'}],
-      [{ error: false, id: 'backdropSaturate', selected: '8'}],
-      [{ error: false, id: 'backdropSepia', selected: '9'}]
+      [{ id: 'backdropBlur', selected: '1'}],
+      [{ id: 'backdropBrightness', selected: '2'}],
+      [{ id: 'backdropContrast', selected: '3'}],
+      [{ id: 'backdropGrayscale', selected: '4'}],
+      [{ id: 'backdropHueRotate', selected: '5'}],
+      [{ id: 'backdropInvert', selected: '6'}],
+      [{ id: 'backdropOpacity', selected: '7'}],
+      [{ id: 'backdropSaturate', selected: '8'}],
+      [{ id: 'backdropSepia', selected: '9'}],
+      [{ id: 'backdropOpacity', selected: ''}]
     ]);
   });
 });
