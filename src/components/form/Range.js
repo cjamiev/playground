@@ -4,6 +4,8 @@ const Range = ({ id, label, horizontal = false, min, max, selected, onChange }) 
   const handleSelectedChange = ({ target: { value } }) => {
     onChange({ id, selected: value });
   };
+
+  const ariaLabel = selected ? `${label} range field has value ${selected}` : `${label} range field`;
   const className = horizontal ? 'input--horizontal' : '';
 
   return (
@@ -14,7 +16,7 @@ const Range = ({ id, label, horizontal = false, min, max, selected, onChange }) 
           className="input__item-field"
           type="range"
           name={label}
-          aria-label={`${label} range field has value ${selected}`}
+          aria-label={ariaLabel}
           min={min}
           max={max}
           value={selected}
