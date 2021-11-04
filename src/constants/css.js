@@ -2,7 +2,7 @@ export const THICKNESS_MAX = 10;
 export const OPACITY_MAX = 100;
 export const FONT_SIZE_MAX = 100;
 export const WIDTH_MAX = 1000;
-export const HEIGHT_MAX = 1000;
+export const HEIGHT_MAX = 500;
 export const BORDER_TYPES = [
   { label: 'solid', selected: false },
   { label: 'dotted', selected: false },
