@@ -47,16 +47,28 @@ const getTextShadowProperty = ({ horizontalTextShadow, verticalTextShadow, blurR
   return `${horizontalTextShadow}px ${verticalTextShadow}px ${blurRadiusTextShadow}px ${colorTextShadow}`;
 };
 
-const getFilterProperty = ({ blur, brightness, contrast, grayscale, hueRotate, invert, saturate }) => {
+const getFilterProperty = ({
+  blur,
+  brightness,
+  contrast,
+  grayscale,
+  hueRotate,
+  invert,
+  opacity,
+  saturate,
+  sepia
+}) => {
   const filterBlur = blur ? `blur(${blur}px) ` : '';
   const filterBrightness = brightness ? `brightness(${brightness}%) ` : '';
   const filterContrast = contrast ? `contrast(${contrast}%)  ` : '';
   const filterGrayscale = grayscale ? `grayscale(${grayscale}%)  ` : '';
   const filterHueRotate = hueRotate ? `hue-rotate(${hueRotate}deg)  ` : '';
   const filterInvert = invert ? `invert(${invert}%)  ` : '';
+  const filterOpacity = opacity ? `opacity(${opacity}%)  ` : '';
   const filterSaturate = saturate ? `saturate(${saturate}%)  ` : '';
+  const filterSepia = sepia ? `sepia(${sepia}%)  ` : '';
 
-  return `${filterBlur}${filterBrightness}${filterContrast}${filterGrayscale}${filterHueRotate}${filterInvert}${filterSaturate}`;
+  return `${filterBlur}${filterBrightness}${filterContrast}${filterGrayscale}${filterHueRotate}${filterInvert}${filterOpacity}${filterSaturate}${filterSepia}`;
 };
 
 const getTransformProperty = ({ rotate, translateX, translateY, scaleX, scaleY, skewX, skewY }) => {
@@ -126,6 +138,7 @@ const getInlineStyle = ({
   outlineStyle,
   outlineColor,
   outlineOffset,
+  borderRadius,
   topLeftRadius,
   topRightRadius,
   bottomRightRadius,
@@ -155,9 +168,11 @@ const getInlineStyle = ({
   backdropBrightness,
   backdropContrast,
   backdropGrayscale,
+  backdropOpacity,
   backdropHueRotate,
   backdropInvert,
   backdropSaturate,
+  backdropSepia,
   rotate,
   translateX,
   translateY,
@@ -185,7 +200,7 @@ const getInlineStyle = ({
 
   const style = {
     border: getBorderProperty({ borderThickness, borderStyle, borderColor }),
-    borderRadius: getPixelProperties({
+    borderRadius: borderRadius ? `${borderRadius}px` : getPixelProperties({
       first: topLeftRadius,
       second: topRightRadius,
       third: bottomRightRadius,
@@ -219,8 +234,10 @@ const getInlineStyle = ({
       contrast: backdropContrast,
       grayscale: backdropGrayscale,
       hueRotate: backdropHueRotate,
+      opacity: backdropOpacity,
       invert: backdropInvert,
-      saturate: backdropSaturate
+      saturate: backdropSaturate,
+      sepia: backdropSepia
     }),
     textShadow: getTextShadowProperty({
       horizontalTextShadow,
