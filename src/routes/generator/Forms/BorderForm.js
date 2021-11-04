@@ -9,7 +9,6 @@ const BorderForm = ({ style, onChange }) => {
   const borderValues = BORDER_TYPES.map((item) =>
     (item.label === style.borderStyle ? { ...item, selected: true } : item)
   );
-  const borderColor = style.borderColor ? style.borderColor : '#000000';
 
   return (
     <>
@@ -22,7 +21,7 @@ const BorderForm = ({ style, onChange }) => {
         selected={style.borderThickness}
         onChange={onChange}
       />
-      <Color id="borderColor" label="Color" selected={borderColor} onChange={onChange} />
+      <Color id="borderColor" label="Color" selected={style.borderColor} onChange={onChange} />
       <Button
         label="Remove"
         classColor="secondary"

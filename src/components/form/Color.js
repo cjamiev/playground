@@ -28,7 +28,7 @@ const Color = ({ id, label, horizontal = false, selected, onChange }) => {
           type="color"
           name={label}
           aria-label={ariaLabel}
-          value={selected}
+          value={selected ? selected : '#000000'}
           onChange={handleSelectedChange}
         />
       </div>
