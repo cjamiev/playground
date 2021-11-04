@@ -11,7 +11,7 @@ const BorderRadiusForm = ({ style, onChange }) => {
   return (
     <>
       <Radio
-        label="Is Same on All Sides?"
+        label="Is same on all sides?"
         values={[{ label: 'Yes', selected: isSame }, { label: 'No', selected: !isSame }]}
         onChange={({ values }) => {
           const isSameRadius = values.find(item => item.selected).label === 'Yes';

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import Radio from 'components/form/Radio';
-import Text from 'components/form/Text';
+import Range from 'components/form/Range';
+
+const PIXEL_MIN = 0;
+const PIXEL_MAX = 100;
 
 const PaddingForm = ({ style, onChange }) => {
   const [isSame, setIsSame] = useState(true);
 
   return (<>
     <Radio
-      label="Is Same on All Sides?"
+      label="Is same on all sides?"
       values={[{ label: 'Yes', selected: isSame }, { label: 'No', selected: !isSame }]}
       onChange={({ values }) => {
         const isSameRadius = values.find(item => item.selected).label === 'Yes';
@@ -27,18 +30,48 @@ const PaddingForm = ({ style, onChange }) => {
       }}
     />
     { isSame
-      ? (<Text
+      ? (<Range
         id="padding"
         label="Padding"
+        min={PIXEL_MIN}
+        max={PIXEL_MAX}
         selected={style.padding}
         onChange={onChange}
       />)
       :
       (<>
-        <Text id="paddingTop" label="Top" selected={style.paddingTop} onChange={onChange} />
-        <Text id="paddingRight" label="Right" selected={style.paddingRight} onChange={onChange} />
-        <Text id="paddingBottom" label="Bottom" selected={style.paddingBottom} onChange={onChange} />
-        <Text id="paddingLeft" label="Left" selected={style.paddingLeft} onChange={onChange} />
+        <Range
+          id="paddingTop"
+          label="Top"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
+          selected={style.paddingTop}
+          onChange={onChange}
+        />
+        <Range
+          id="paddingRight"
+          label="Right"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
+          selected={style.paddingRight}
+          onChange={onChange}
+        />
+        <Range
+          id="paddingBottom"
+          label="Bottom"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
+          selected={style.paddingBottom}
+          onChange={onChange}
+        />
+        <Range
+          id="paddingLeft"
+          label="Left"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
+          selected={style.paddingLeft}
+          onChange={onChange}
+        />
       </>)}
   </>);
 };
