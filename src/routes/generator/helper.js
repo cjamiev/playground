@@ -26,6 +26,7 @@ const getPixelProperties = ({ first, second, third, fourth }) => {
 };
 
 const getBoxShadowProperty = ({
+  insetBoxShadow,
   horizontalBoxShadow,
   verticalBoxShadow,
   blurRadiusBoxShadow,
@@ -35,8 +36,9 @@ const getBoxShadowProperty = ({
   if (!horizontalBoxShadow || !verticalBoxShadow || !blurRadiusBoxShadow || !spreadBoxShadow || !colorBoxShadow) {
     return;
   }
+  const inset = insetBoxShadow ? 'inset ': '';
 
-  return `${horizontalBoxShadow}px ${verticalBoxShadow}px ${blurRadiusBoxShadow}px ${spreadBoxShadow}px ${colorBoxShadow}`;
+  return `${inset}${horizontalBoxShadow}px ${verticalBoxShadow}px ${blurRadiusBoxShadow}px ${spreadBoxShadow}px ${colorBoxShadow}`;
 };
 
 const getTextShadowProperty = ({ horizontalTextShadow, verticalTextShadow, blurRadiusTextShadow, colorTextShadow }) => {
@@ -143,11 +145,18 @@ const getInlineStyle = ({
   topRightRadius,
   bottomRightRadius,
   bottomLeftRadius,
+  insetBoxShadow,
   horizontalBoxShadow,
   verticalBoxShadow,
   blurRadiusBoxShadow,
   spreadBoxShadow,
   colorBoxShadow,
+  secondaryInsetBoxShadow,
+  secondaryHorizontalBoxShadow,
+  secondaryVerticalBoxShadow,
+  secondaryBlurRadiusBoxShadow,
+  secondarySpreadBoxShadow,
+  secondaryColorBoxShadow,
   backgroundColor,
   opacity,
   fontColor,
@@ -197,6 +206,22 @@ const getInlineStyle = ({
 }) => {
   const rgbColor = backgroundColor ? hexToRGB(backgroundColor) : {};
   const normalizedOpacity = Number(opacity) / OPACITY_MAX;
+  const firstBoxShadow = getBoxShadowProperty({
+    insetBoxShadow,
+    horizontalBoxShadow,
+    verticalBoxShadow,
+    blurRadiusBoxShadow,
+    spreadBoxShadow,
+    colorBoxShadow
+  });
+  const secondBoxShadow = getBoxShadowProperty({
+    insetBoxShadow: secondaryInsetBoxShadow,
+    horizontalBoxShadow: secondaryHorizontalBoxShadow,
+    verticalBoxShadow: secondaryVerticalBoxShadow,
+    blurRadiusBoxShadow: secondaryBlurRadiusBoxShadow,
+    spreadBoxShadow: secondarySpreadBoxShadow,
+    colorBoxShadow: secondaryColorBoxShadow
+  });
 
   const style = {
     border: getBorderProperty({ borderThickness, borderStyle, borderColor }),
@@ -208,13 +233,7 @@ const getInlineStyle = ({
     }),
     outline: getOutlineProperty({ outlineThickness, outlineStyle, outlineColor }),
     outlineOffset: outlineOffset && `${outlineOffset}px`,
-    boxShadow: getBoxShadowProperty({
-      horizontalBoxShadow,
-      verticalBoxShadow,
-      blurRadiusBoxShadow,
-      spreadBoxShadow,
-      colorBoxShadow
-    }),
+    boxShadow: secondBoxShadow ? `${firstBoxShadow}, ${secondBoxShadow}`: firstBoxShadow,
     backgroundColor: getColorProperty(rgbColor, normalizedOpacity),
     color: fontColor,
     fontSize: fontSize && `${fontSize}px`,
