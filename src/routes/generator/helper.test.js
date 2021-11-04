@@ -46,7 +46,7 @@ const defaultParams = {
   },
   activeStyle: {
     backgroundColor: '#ffffff',
-    opacity: '50',
+    backgroundColorOpacity: '50',
     blur: undefined
   },
   isHoverMode: false,

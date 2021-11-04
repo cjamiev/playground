@@ -3,15 +3,17 @@ import Text from 'components/form/Text';
 
 const FilterForm = ({ style, onChange }) => {
   return (
-    <>
-      <Text id="blur" label="blur" selected={style.blur} onChange={onChange} />
-      <Text id="brightness" label="brightness" selected={style.brightness} onChange={onChange} />
-      <Text id="contrast" label="contrast" selected={style.contrast} onChange={onChange} />
-      <Text id="grayscale" label="grayscale" selected={style.grayscale} onChange={onChange} />
-      <Text id="hueRotate" label="hue rotate" selected={style.hueRotate} onChange={onChange} />
-      <Text id="invert" label="invert" selected={style.invert} onChange={onChange} />
-      <Text id="saturate" label="saturate" selected={style.saturate} onChange={onChange} />
-    </>
+    <div className="flex--horizontal">
+      <Text id="blur" label="Blur" selected={style.blur} onChange={onChange} />
+      <Text id="brightness" label="Brightness" selected={style.brightness} onChange={onChange} />
+      <Text id="contrast" label="Contrast" selected={style.contrast} onChange={onChange} />
+      <Text id="grayscale" label="Grayscale" selected={style.grayscale} onChange={onChange} />
+      <Text id="hueRotate" label="Hue Rotate" selected={style.hueRotate} onChange={onChange} />
+      <Text id="invert" label="Invert" selected={style.invert} onChange={onChange} />
+      <Text id="filterOpacity" label="Opacity" selected={style.filterOpacity} onChange={onChange} />
+      <Text id="saturate" label="Saturate" selected={style.saturate} onChange={onChange} />
+      <Text id="sepia" label="Sepia" selected={style.sepia} onChange={onChange} />
+    </div>
   );
 };
 

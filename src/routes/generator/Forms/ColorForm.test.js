@@ -10,7 +10,7 @@ const defaultProps = {
 };
 
 describe('ColorForm', () => {
-  it('update box shadow', () => {
+  it('update background color', () => {
     simpleTestWrapper(ColorForm, defaultProps);
 
     fireEvent.change(screen.getByLabelText('BG Color color field has value #ffffff'), { target: { value: '#555555'}});
@@ -19,7 +19,7 @@ describe('ColorForm', () => {
 
     expect(defaultProps.onChange.mock.calls).toEqual([
       [{ id: 'backgroundColor', selected: '#555555'}],
-      [{ id: 'opacity', selected: '50'}],
+      [{ id: 'backgroundColorOpacity', selected: '50'}],
       [{ id: 'backgroundColor', selected: ''}]
     ]);
   });

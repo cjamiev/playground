@@ -158,7 +158,7 @@ const getInlineStyle = ({
   secondarySpreadBoxShadow,
   secondaryColorBoxShadow,
   backgroundColor,
-  opacity,
+  backgroundColorOpacity,
   fontColor,
   fontSize,
   textAlign,
@@ -172,14 +172,16 @@ const getInlineStyle = ({
   grayscale,
   hueRotate,
   invert,
+  filterOpacity,
   saturate,
+  sepia,
   backdropBlur,
   backdropBrightness,
   backdropContrast,
   backdropGrayscale,
-  backdropOpacity,
   backdropHueRotate,
   backdropInvert,
+  backdropOpacity,
   backdropSaturate,
   backdropSepia,
   rotate,
@@ -205,7 +207,7 @@ const getInlineStyle = ({
   height
 }) => {
   const rgbColor = backgroundColor ? hexToRGB(backgroundColor) : {};
-  const normalizedOpacity = Number(opacity) / OPACITY_MAX;
+  const normalizedOpacity = Number(backgroundColorOpacity) / OPACITY_MAX;
   const firstBoxShadow = getBoxShadowProperty({
     insetBoxShadow,
     horizontalBoxShadow,
@@ -245,7 +247,9 @@ const getInlineStyle = ({
       grayscale,
       hueRotate,
       invert,
-      saturate
+      opacity: filterOpacity,
+      saturate,
+      sepia
     }),
     backdropFilter: getFilterProperty({
       blur: backdropBlur,

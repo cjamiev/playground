@@ -1,15 +1,15 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
-import BackdropFilterForm from './BackdropFilterForm';
+import FilterForm from './FilterForm';
 
 const defaultProps = {
   style : {},
   onChange: jest.fn()
 };
 
-describe('BackdropFilterForm', () => {
-  it('update backdrop filter', () => {
-    simpleTestWrapper(BackdropFilterForm, defaultProps);
+describe('FilterForm', () => {
+  it('update filter', () => {
+    simpleTestWrapper(FilterForm, defaultProps);
 
     fireEvent.change(screen.getByLabelText('Blur text field'), { target: { value: '1'}});
     fireEvent.change(screen.getByLabelText('Brightness text field'), { target: { value: '2'}});
@@ -22,15 +22,15 @@ describe('BackdropFilterForm', () => {
     fireEvent.change(screen.getByLabelText('Sepia text field'), { target: { value: '9'}});
 
     expect(defaultProps.onChange.mock.calls).toEqual([
-      [{ error: false, id: 'backdropBlur', selected: '1'}],
-      [{ error: false, id: 'backdropBrightness', selected: '2'}],
-      [{ error: false, id: 'backdropContrast', selected: '3'}],
-      [{ error: false, id: 'backdropGrayscale', selected: '4'}],
-      [{ error: false, id: 'backdropHueRotate', selected: '5'}],
-      [{ error: false, id: 'backdropInvert', selected: '6'}],
-      [{ error: false, id: 'backdropOpacity', selected: '7'}],
-      [{ error: false, id: 'backdropSaturate', selected: '8'}],
-      [{ error: false, id: 'backdropSepia', selected: '9'}]
+      [{ error: false, id: 'blur', selected: '1'}],
+      [{ error: false, id: 'brightness', selected: '2'}],
+      [{ error: false, id: 'contrast', selected: '3'}],
+      [{ error: false, id: 'grayscale', selected: '4'}],
+      [{ error: false, id: 'hueRotate', selected: '5'}],
+      [{ error: false, id: 'invert', selected: '6'}],
+      [{ error: false, id: 'filterOpacity', selected: '7'}],
+      [{ error: false, id: 'saturate', selected: '8'}],
+      [{ error: false, id: 'sepia', selected: '9'}]
     ]);
   });
 });

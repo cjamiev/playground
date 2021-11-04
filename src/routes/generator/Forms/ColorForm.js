@@ -11,11 +11,11 @@ const ColorForm = ({ style, onChange }) => {
     <>
       <Color id="backgroundColor" label="BG Color" selected={backgroundColor} onChange={onChange} />
       <Range
-        id="opacity"
+        id="backgroundColorOpacity"
         label="Opacity"
         min="0"
         max={OPACITY_MAX}
-        selected={style.opacity}
+        selected={style.backgroundColorOpacity}
         onChange={onChange}
       />
       <Button
