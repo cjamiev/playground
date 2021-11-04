@@ -1,7 +1,11 @@
 import React from 'react';
+import Button from 'components/button';
 import Radio from 'components/form/Radio';
-import Text from 'components/form/Text';
+import Range from 'components/form/Range';
 import Color from 'components/form/Color';
+
+const PIXEL_MIN = 0;
+const PIXEL_MAX = 50;
 
 const BoxShadowForm = ({ style, onChange }) => {
   const firstBoxShadowColor = style.colorBoxShadow ? style.colorBoxShadow: '#ffffff';
@@ -19,35 +23,52 @@ const BoxShadowForm = ({ style, onChange }) => {
             onChange({ id: 'insetBoxShadow', selected: isInset ? 'inset' : ''});
           }}
         />
-        <Text
+        <Range
           id="horizontalBoxShadow"
           label="Horizontal"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
           selected={style.horizontalBoxShadow}
           onChange={onChange}
         />
-        <Text
+        <Range
           id="verticalBoxShadow"
           label="Vertical"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
           selected={style.verticalBoxShadow}
           onChange={onChange}
         />
-        <Text
+        <Range
           id="blurRadiusBoxShadow"
           label="Blur Radius"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
           selected={style.blurRadiusBoxShadow}
           onChange={onChange}
         />
-        <Text
+        <Range
           id="spreadBoxShadow"
           label="Spread"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
           selected={style.spreadBoxShadow}
           onChange={onChange}
         />
         <Color
           id="colorBoxShadow"
           label="Color"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
           selected={firstBoxShadowColor}
           onChange={onChange}
+        />
+        <Button
+          label="Remove Both Shadows"
+          classColor="secondary"
+          onClick={() => {
+            onChange({ id: 'horizontalBoxShadow', selected: '' });
+          }}
         />
       </div>
       <div className="flex--vertical">
@@ -60,35 +81,52 @@ const BoxShadowForm = ({ style, onChange }) => {
             onChange({ id: 'secondaryInsetBoxShadow', selected: isInset ? 'inset' : ''});
           }}
         />
-        <Text
+        <Range
           id="secondaryHorizontalBoxShadow"
           label="Secondary Horizontal"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
           selected={style.secondaryHorizontalBoxShadow}
           onChange={onChange}
         />
-        <Text
+        <Range
           id="secondaryVerticalBoxShadow"
           label="Secondary Vertical"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
           selected={style.secondaryVerticalBoxShadow}
           onChange={onChange}
         />
-        <Text
+        <Range
           id="secondaryBlurRadiusBoxShadow"
           label="Secondary Blur Radius"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
           selected={style.secondaryBlurRadiusBoxShadow}
           onChange={onChange}
         />
-        <Text
+        <Range
           id="secondarySpreadBoxShadow"
           label="Secondary Spread"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
           selected={style.secondarySpreadBoxShadow}
           onChange={onChange}
         />
         <Color
           id="secondaryColorBoxShadow"
           label="Secondary Color"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
           selected={secondBoxShadowColor}
           onChange={onChange}
+        />
+        <Button
+          label="Remove Second Shadow"
+          classColor="secondary"
+          onClick={() => {
+            onChange({ id: 'secondaryHorizontalBoxShadow', selected: '' });
+          }}
         />
       </div>
     </div>

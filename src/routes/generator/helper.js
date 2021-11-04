@@ -237,7 +237,7 @@ const getInlineStyle = ({
     }),
     outline: getOutlineProperty({ outlineThickness, outlineStyle, outlineColor }),
     outlineOffset: outlineOffset && `${outlineOffset}px`,
-    boxShadow: secondBoxShadow ? `${firstBoxShadow}, ${secondBoxShadow}`: firstBoxShadow,
+    boxShadow: firstBoxShadow && secondBoxShadow ? `${firstBoxShadow}, ${secondBoxShadow}`: firstBoxShadow,
     backgroundColor: getColorProperty(rgbColor, normalizedOpacity),
     color: fontColor,
     fontSize: fontSize && `${fontSize}px`,
