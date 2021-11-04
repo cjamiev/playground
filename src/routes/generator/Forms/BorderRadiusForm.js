@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Radio from 'components/form/Radio';
-import Text from 'components/form/Text';
+import Range from 'components/form/Range';
+
+const PIXEL_MIN = 0;
+const PIXEL_MAX = 100;
 
 const BorderRadiusForm = ({ style, onChange }) => {
   const [isSame, setIsSame] = useState(true);
@@ -28,34 +31,44 @@ const BorderRadiusForm = ({ style, onChange }) => {
         }}
       />
       { isSame
-        ? (<Text
+        ? (<Range
           id="borderRadius"
           label="Radius"
+          min={PIXEL_MIN}
+          max={PIXEL_MAX}
           selected={style.borderRadius}
           onChange={onChange}
         />)
         : (<>
-          <Text
+          <Range
             id="topLeftRadius"
             label="Top Left"
+            min={PIXEL_MIN}
+            max={PIXEL_MAX}
             selected={style.topLeftRadius}
             onChange={onChange}
           />
-          <Text
+          <Range
             id="topRightRadius"
             label="Top Right"
+            min={PIXEL_MIN}
+            max={PIXEL_MAX}
             selected={style.topRightRadius}
             onChange={onChange}
           />
-          <Text
+          <Range
             id="bottomRightRadius"
             label="Bottom Right"
+            min={PIXEL_MIN}
+            max={PIXEL_MAX}
             selected={style.bottomRightRadius}
             onChange={onChange}
           />
-          <Text
+          <Range
             id="bottomLeftRadius"
             label="Bottom Left"
+            min={PIXEL_MIN}
+            max={PIXEL_MAX}
             selected={style.bottomLeftRadius}
             onChange={onChange}
           />
