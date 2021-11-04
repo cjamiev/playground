@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from 'components/button';
 import Dropdown from 'components/form/Dropdown';
 import Color from 'components/form/Color';
 import Range from 'components/form/Range';
@@ -45,16 +44,6 @@ const OutlineForm = ({ style, onChange }) => {
         onChange={onChange}
       />
       <Color id="outlineColor" label="Color" selected={style.outlineColor} onChange={onChange} />
-      <Button
-        label="Remove"
-        classColor="secondary"
-        onClick={() => {
-          onChange({ id: 'outlineStyle', selected: '' });
-          onChange({ id: 'outlineThickness', selected: '' });
-          onChange({ id: 'outlineColor', selected: '' });
-          onChange({ id: 'outlineOffset', selected: '' });
-        }}
-      />
     </>
   );
 };

@@ -8,6 +8,7 @@ export { default as MarginForm } from './MarginForm';
 export { default as OutlineForm } from './OutlineForm';
 export { default as PaddingForm } from './PaddingForm';
 export { default as SizeForm } from './SizeForm';
-export { default as TextForm } from './TextForm';
+export { default as FontForm } from './FontForm';
+export { default as TextShadowForm } from './TextShadowForm';
 export { default as TransformForm } from './TransformForm';
 export { default as TransitionForm } from './TransitionForm';

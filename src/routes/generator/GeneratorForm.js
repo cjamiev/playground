@@ -12,7 +12,8 @@ import {
   OutlineForm,
   PaddingForm,
   SizeForm,
-  TextForm,
+  FontForm,
+  TextShadowForm,
   TransformForm,
   TransitionForm
 } from './Forms';
@@ -24,11 +25,12 @@ const formMapper = {
   'Border Radius': BorderRadiusForm,
   'Box Shadow': BoxShadowForm,
   Filter: FilterForm,
+  Font: FontForm,
   Margin: MarginForm,
   Outline: OutlineForm,
   Padding: PaddingForm,
   Size: SizeForm,
-  Text: TextForm,
+  'Text Shadow': TextShadowForm,
   Transform: TransformForm,
   Transition: TransitionForm
 };

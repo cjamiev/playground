@@ -22,8 +22,8 @@ describe('GeneratorForm', () => {
     expect(screen.queryByText(`Border Type ${generatorFormProps.style.borderStyle}`)).toBeInTheDocument();
 
     fireEvent.click(attributeDropdown);
-    fireEvent.click(screen.getByText('Text'));
-    expect(screen.queryByText(`Text Align ${generatorFormProps.style.textAlign}`)).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Font'));
+    expect(screen.queryByText(`Alignment ${generatorFormProps.style.textAlign}`)).toBeInTheDocument();
 
     fireEvent.click(attributeDropdown);
     fireEvent.click(screen.getByText('Transition'));
