@@ -45,7 +45,6 @@ Generator: https://webcode.tools/generators/css
 	- Neomorphism, Glassmorphism, Aurora
 	- Add ability to change width of generator div
 	- SVG Animator
-  - Edit generated CSS directly
 
 Template Tab:
   - View a template & Flexible edit of templates

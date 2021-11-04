@@ -195,10 +195,12 @@ const getInlineStyle = ({
   transitionDuration,
   transitionTimingFunction,
   transitionDelay,
+  margin,
   marginTop,
   marginRight,
   marginBottom,
   marginLeft,
+  padding,
   paddingTop,
   paddingRight,
   paddingBottom,
@@ -275,8 +277,8 @@ const getInlineStyle = ({
       transitionTimingFunction,
       transitionDelay
     }),
-    margin: getPixelProperties({ first: marginTop, second: marginRight, third: marginBottom, fourth: marginLeft }),
-    padding: getPixelProperties({ first: paddingTop, second: paddingRight, third: paddingBottom, fourth: paddingLeft }),
+    margin: margin ? `${margin}px`: getPixelProperties({ first: marginTop, second: marginRight, third: marginBottom, fourth: marginLeft }),
+    padding: padding ? `${padding}px`:getPixelProperties({ first: paddingTop, second: paddingRight, third: paddingBottom, fourth: paddingLeft }),
     width: getLengthProperty(width),
     height: getLengthProperty(height)
   };
