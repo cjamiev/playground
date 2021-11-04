@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
-import ColorForm from './ColorForm';
+import BackgroundColorForm from './BackgroundColorForm';
 
 const ZERO = 0;
 const ONE = 1;
@@ -9,11 +9,11 @@ const defaultProps = {
   onChange: jest.fn()
 };
 
-describe('ColorForm', () => {
+describe('BackgroundColorForm', () => {
   it('update background color', () => {
-    simpleTestWrapper(ColorForm, defaultProps);
+    simpleTestWrapper(BackgroundColorForm, defaultProps);
 
-    fireEvent.change(screen.getByLabelText('BG Color color field has value #ffffff'), { target: { value: '#555555'}});
+    fireEvent.change(screen.getByLabelText('Background Color color field'), { target: { value: '#555555'}});
     fireEvent.change(screen.getByLabelText('Opacity range field'), { target: { value: '50'}});
     fireEvent.click(screen.getByText('Remove'));
 

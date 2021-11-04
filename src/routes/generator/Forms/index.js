@@ -1,8 +1,8 @@
 export { default as BackdropFilterForm } from './BackdropFilterForm';
+export { default as BackgroundColorForm } from './BackgroundColorForm';
 export { default as BorderForm } from './BorderForm';
 export { default as BorderRadiusForm } from './BorderRadiusForm';
 export { default as BoxShadowForm } from './BoxShadowForm';
-export { default as ColorForm } from './ColorForm';
 export { default as FilterForm } from './FilterForm';
 export { default as MarginForm } from './MarginForm';
 export { default as OutlineForm } from './OutlineForm';

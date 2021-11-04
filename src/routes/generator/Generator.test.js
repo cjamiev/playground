@@ -54,20 +54,20 @@ describe('Generator', () => {
 
     expect(screen.queryByLabelText('Background Image')).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByText('BG Image'));
+    fireEvent.click(screen.getByText('Use Image'));
     expect(screen.queryByLabelText('Background Image')).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText('BG Color'));
+    fireEvent.click(screen.getByText('Use Color'));
     expect(screen.queryByLabelText('Background Image')).not.toBeInTheDocument();
   });
 
   it('handleParentBackgroundColorChange change', () => {
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const parentColorField = screen.getByLabelText('Background Color color field has value #ffffff');
+    const parentColorField = screen.getByLabelText('Parent Background Color color field has value #ffffff');
     fireEvent.change(parentColorField, { target: { value: '#000000' } });
 
-    expect(screen.getByLabelText('Background Color color field has value #000000')).toBeInTheDocument();
+    expect(screen.getByLabelText('Parent Background Color color field has value #000000')).toBeInTheDocument();
   });
 
   it('handle onMouseOver & onMouseDown then onMouseOut & onMouseUp', () => {

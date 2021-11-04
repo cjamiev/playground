@@ -4,12 +4,11 @@ import Color from 'components/form/Color';
 import Range from 'components/form/Range';
 import { OPACITY_MAX } from 'constants/css';
 
-const ColorForm = ({ style, onChange }) => {
-  const backgroundColor = style.backgroundColor ? style.backgroundColor : '#ffffff';
+const BackgroundColorForm = ({ style, onChange }) => {
 
   return (
     <>
-      <Color id="backgroundColor" label="BG Color" selected={backgroundColor} onChange={onChange} />
+      <Color id="backgroundColor" label="Background Color" selected={style.backgroundColor} onChange={onChange} />
       <Range
         id="backgroundColorOpacity"
         label="Opacity"
@@ -29,4 +28,4 @@ const ColorForm = ({ style, onChange }) => {
   );
 };
 
-export default ColorForm;
+export default BackgroundColorForm;

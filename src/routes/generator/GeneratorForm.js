@@ -6,7 +6,7 @@ import {
   BorderForm,
   BorderRadiusForm,
   BoxShadowForm,
-  ColorForm,
+  BackgroundColorForm,
   FilterForm,
   MarginForm,
   OutlineForm,
@@ -18,11 +18,11 @@ import {
 } from './Forms';
 
 const formMapper = {
-  BackdropFilter: BackdropFilterForm,
+  'Backdrop Filter': BackdropFilterForm,
+  'Background Color': BackgroundColorForm,
   Border: BorderForm,
-  BorderRadius: BorderRadiusForm,
-  BoxShadow: BoxShadowForm,
-  Color: ColorForm,
+  'Border Radius': BorderRadiusForm,
+  'Box Shadow': BoxShadowForm,
   Filter: FilterForm,
   Margin: MarginForm,
   Outline: OutlineForm,
