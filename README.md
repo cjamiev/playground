@@ -45,6 +45,9 @@ Generator: https://webcode.tools/generators/css
 	- Neomorphism, Glassmorphism, Aurora
 	- Add ability to change width of generator div
 	- SVG Animator
+  - Animation
+  - Background Image Gradient Form
+  - Default Values on Form load
 
 Template Tab:
   - View a template & Flexible edit of templates

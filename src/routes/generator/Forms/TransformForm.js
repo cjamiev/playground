@@ -23,6 +23,7 @@ const TransformForm = ({ style, onChange }) => {
     { label: 'Translate Y', value: 'translateY'},
     { label: 'Scale X', value: 'scaleX'},
     { label: 'Scale Y', value: 'scaleY'},
+    { label: 'Skew X', value: 'skewX'},
     { label: 'Skew Y', value: 'skewY'}
   ];
 
