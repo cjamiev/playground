@@ -115,7 +115,7 @@ describe('Generator', () => {
     const sidePanelBtn = screen.getByLabelText('triple bar');
     fireEvent.click(sidePanelBtn);
 
-    const copyBtn = screen.queryByText('Copy');
+    const copyBtn = screen.getByLabelText('copy');
     const appendChildSpy = jest.spyOn(document.body, 'appendChild');
     fireEvent.click(copyBtn);
     const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
@@ -178,7 +178,7 @@ describe('Generator', () => {
     const testBtn = screen.getByText('test');
     fireEvent.click(testBtn);
 
-    const deleteBtn = screen.getByText('Delete');
+    const deleteBtn = screen.getByLabelText('trash');
     fireEvent.click(deleteBtn);
 
     expect(api.post).toHaveBeenCalledWith('/db', { filename: 'generator.json', content: JSON.stringify([]) });
@@ -212,7 +212,7 @@ describe('Generator', () => {
     const testBtn = screen.getByText('test');
     fireEvent.click(testBtn);
 
-    const saveBtn = screen.getByText('Save');
+    const saveBtn = screen.getByLabelText('save');
     fireEvent.click(saveBtn);
 
     const result = [
@@ -264,7 +264,7 @@ describe('Generator', () => {
     const nameField = screen.getByLabelText('Name text field');
     fireEvent.change(nameField, { target: { value: 'test' } });
 
-    const saveBtn = screen.getByText('Save');
+    const saveBtn = screen.getByLabelText('save');
     fireEvent.click(saveBtn);
 
     const result = [

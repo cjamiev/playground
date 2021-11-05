@@ -1,8 +1,9 @@
 import React from 'react';
 import Dropdown from 'components/form/Dropdown';
-import Button from 'components/button';
+import { IconButton} from 'components/button';
 import Text from 'components/form/Text';
 import { copyToClipboard } from 'helper/copy';
+import { ICON_TYPES } from 'constants/icon';
 
 const GeneratorSidePanel = ({
   generatorRecords,
@@ -32,23 +33,20 @@ const GeneratorSidePanel = ({
           onSelectRecord(selected);
         }}
       />
-      <Button
-        classColor="primary"
-        label="Save"
+      <IconButton
+        type={ICON_TYPES.SAVE}
         onClick={() => {
           onSubmit(selectedName);
         }}
       />
-      <Button
-        classColor="primary"
-        label="Delete"
+      <IconButton
+        type={ICON_TYPES.TRASH}
         onClick={() => {
           onDelete(selectedName);
         }}
       />
-      <Button
-        label="Copy"
-        classColor="primary"
+      <IconButton
+        type={ICON_TYPES.COPY}
         onClick={() => {
           copyToClipboard(copyCSS);
         }}
