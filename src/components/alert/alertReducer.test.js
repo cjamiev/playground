@@ -41,6 +41,21 @@ describe('alertReducer', () => {
     });
   });
 
+  it('CREATE_ALERT with duplicate', () => {
+    const action = {
+      type: CREATE_ALERT,
+      data: {
+        content: 'test-content2',
+        status: 'info'
+      }
+    };
+    const result = alertReducer(initialState, action);
+
+    expect(result).toEqual({
+      queue: initialState.queue
+    });
+  });
+
   it('DISMISS_ALERT', () => {
     const action = {
       type: DISMISS_ALERT,

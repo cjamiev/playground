@@ -8,15 +8,20 @@ export const alertInitialState = {
 const alertReducer = (state = alertInitialState, action) => {
   const alertCases = {
     [CREATE_ALERT]: () => {
-      return {
-        queue: [
-          ...state.queue,
-          {
-            id: state.queue.length,
-            ...action.data
-          }
-        ]
-      };
+      const matched = state.queue.find(item => item.content === action.data.content);
+      if(!matched) {
+        return {
+          queue: [
+            ...state.queue,
+            {
+              id: state.queue.length,
+              ...action.data
+            }
+          ]
+        };
+      } else {
+        return state;
+      }
     },
     [DISMISS_ALERT]: () => {
       const filteredQueue = isNumber(action.id) ? state.queue.filter((item) => action.id !== item.id) : [];
