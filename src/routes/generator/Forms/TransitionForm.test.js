@@ -13,7 +13,7 @@ describe('TransitionForm', () => {
   it('update transition', () => {
     simpleTestWrapper(TransitionForm, defaultProps);
 
-    fireEvent.click(screen.getByText('Select existing transition'));
+    fireEvent.click(screen.getByText('Edit'));
     fireEvent.click(screen.getByText('transform'));
 
     expect(screen.getByDisplayValue('250ms'));
@@ -26,7 +26,7 @@ describe('TransitionForm', () => {
     fireEvent.change(screen.getByLabelText('Delay text field'), { target: { value: '100ms'}});
     fireEvent.click(screen.getByText('Add'));
 
-    fireEvent.click(screen.getByText('Remove existing transition'));
+    fireEvent.click(screen.getByText('Remove'));
     fireEvent.click(screen.getByText('transform'));
 
     expect(defaultProps.onChange.mock.calls).toEqual([

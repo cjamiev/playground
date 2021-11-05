@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent, screen } from '@testing-library/react';
 import { reduxTestWrapper } from 'testHelper';
 import Page from './Page';
+import { TIME } from 'constants/time';
 
 const pathname = '/home';
 const ZERO = 0;
@@ -26,6 +27,7 @@ describe('Page', () => {
   });
 
   it('checks side panel', () => {
+    jest.useFakeTimers();
     reduxTestWrapper(Page, defaultProps, {}, pathname);
 
     expect(screen.queryByText(defaultProps.sidePanelContent)).not.toBeInTheDocument();
@@ -36,6 +38,7 @@ describe('Page', () => {
     expect(screen.queryByText(defaultProps.sidePanelContent)).toBeInTheDocument();
 
     fireEvent.click(sidePanelButton);
+    jest.advanceTimersByTime(TIME.A_SECOND);
 
     expect(screen.queryByText(defaultProps.sidePanelContent)).not.toBeInTheDocument();
   });

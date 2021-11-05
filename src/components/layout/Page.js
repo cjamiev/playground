@@ -8,9 +8,9 @@ import PageContent from './PageContent';
 import PageFooter from './PageFooter';
 import SidePanel from './SidePanel';
 import { openSidePanel, closeSidePanel } from 'components/global/globalActions';
+import { TIME } from 'constants/time';
 
 const NAV_ITEMS = Object.values(ROUTES);
-const ONE_SECOND = 1000;
 
 const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
   const toggleSidePanel = () => {
     if (isSidePanelOpen) {
       setSidePanelAnimation('sidepanel--animate-out');
-      setTimeout(() => { dispatch(closeSidePanel()); }, ONE_SECOND);
+      setTimeout(() => { dispatch(closeSidePanel()); }, TIME.A_SECOND);
     } else {
       setSidePanelAnimation('sidepanel--animate-in');
       dispatch(openSidePanel());
