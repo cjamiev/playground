@@ -5,6 +5,7 @@ import { OPACITY_MAX } from 'constants/css';
 
 const ZERO = 0;
 const ONE = 1;
+const HUNDRED = 100;
 
 const toCssString = (style) => {
   const cssProperties = Object.keys(style);
@@ -73,16 +74,28 @@ const getFilterProperty = ({
   return `${filterBlur}${filterBrightness}${filterContrast}${filterGrayscale}${filterHueRotate}${filterInvert}${filterOpacity}${filterSaturate}${filterSepia}`;
 };
 
-const getTransformProperty = ({ rotate, translateX, translateY, scaleX, scaleY, skewX, skewY }) => {
-  const transformRotate = rotate ? `rotate(${rotate}deg) ` : '';
+const getTransformProperty = ({
+  rotateX,
+  rotateY,
+  rotateZ,
+  translateX,
+  translateY,
+  scaleX,
+  scaleY,
+  skewX,
+  skewY
+}) => {
+  const transformRotateX = rotateX ? `rotateX(${rotateX}deg) ` : '';
+  const transformRotateY = rotateY ? `rotateY(${rotateY}deg) ` : '';
+  const transformRotateZ = rotateZ ? `rotateZ(${rotateZ}deg) ` : '';
   const transformTranslateX = translateX ? `translateX(${translateX}px) ` : '';
   const transformTranslateY = translateY ? `translateY(${translateY}px) ` : '';
-  const transformScaleX = scaleX ? `scaleX(${scaleX}) ` : '';
-  const transformScaleY = scaleY ? `scaleY(${scaleY}) ` : '';
+  const transformScaleX = scaleX ? `scaleX(${scaleX/HUNDRED}) ` : '';
+  const transformScaleY = scaleY ? `scaleY(${scaleY/HUNDRED}) ` : '';
   const transformSkewX = skewX ? `skewX(${skewX}deg) ` : '';
   const transformSkewY = skewY ? `skewY(${skewY}deg) ` : '';
 
-  return `${transformRotate}${transformTranslateX}${transformTranslateY}${transformScaleX}${transformScaleY}${transformSkewX}${transformSkewY}`;
+  return `${transformRotateX}${transformRotateY}${transformRotateZ}${transformTranslateX}${transformTranslateY}${transformScaleX}${transformScaleY}${transformSkewX}${transformSkewY}`;
 };
 
 const getTransitionProperty = ({
@@ -184,7 +197,9 @@ const getInlineStyle = ({
   backdropOpacity,
   backdropSaturate,
   backdropSepia,
-  rotate,
+  rotateX,
+  rotateY,
+  rotateZ,
   translateX,
   translateY,
   scaleX,
@@ -270,7 +285,17 @@ const getInlineStyle = ({
       blurRadiusTextShadow,
       colorTextShadow
     }),
-    transform: getTransformProperty({ rotate, translateX, translateY, scaleX, scaleY, skewX, skewY }),
+    transform: getTransformProperty({
+      rotateX,
+      rotateY,
+      rotateZ,
+      translateX,
+      translateY,
+      scaleX,
+      scaleY,
+      skewX,
+      skewY
+    }),
     transition: getTransitionProperty({
       transitionProperty,
       transitionDuration,

@@ -25,11 +25,13 @@ const defaultParams = {
     transitionDuration: '1',
     transitionTimingFunction: 'linear',
     transitionDelay: '3',
-    rotate: '90',
+    rotateX: '1',
+    rotateY: '2',
+    rotateZ: '3',
     translateX: '1',
     translateY: '1',
-    scaleX: '2',
-    scaleY: '2',
+    scaleX: '200',
+    scaleY: '200',
     skewX: '2',
     skewY: '2',
     blur: '0',
@@ -64,7 +66,7 @@ const parsedNormalStyle = {
   boxShadow: '1px 2px 3px 4px #ffffff',
   transition: 'all 1s linear 3s',
   textShadow: '9px 10px 11px #111111',
-  transform: 'rotate(90deg) translateX(1px) translateY(1px) scaleX(2) scaleY(2) skewX(2deg) skewY(2deg) ',
+  transform: 'rotateX(1deg) rotateY(2deg) rotateZ(3deg) translateX(1px) translateY(1px) scaleX(2) scaleY(2) skewX(2deg) skewY(2deg) ',
   filter: 'blur(0px) brightness(50%) contrast(50%)  grayscale(50%)  hue-rotate(50deg)  invert(50%)  saturate(50%)  ',
   fontSize: '14px'
 };
@@ -75,7 +77,7 @@ const parsedActiveStyle = {
   backgroundColor: 'rgba(255,255,255,0.5)'
 };
 const parsedNormalCSS =
-  'height: 50px;\nwidth: 10em;\nmargin: 5px 6px 7px 8px;\ntransition: all 1s linear 3s;\ntransform: rotate(90deg) translateX(1px) translateY(1px) scaleX(2) scaleY(2) skewX(2deg) skewY(2deg) ;\ntext-shadow: 9px 10px 11px #111111;\nfilter: blur(0px) brightness(50%) contrast(50%)  grayscale(50%)  hue-rotate(50deg)  invert(50%)  saturate(50%)  ;\nfont-size: 14px;\nbackground-color: rgba(17,17,17);\nbox-shadow: 1px 2px 3px 4px #ffffff;\nborder: 1px solid #000000;';
+  'height: 50px;\nwidth: 10em;\nmargin: 5px 6px 7px 8px;\ntransition: all 1s linear 3s;\ntransform: rotateX(1deg) rotateY(2deg) rotateZ(3deg) translateX(1px) translateY(1px) scaleX(2) scaleY(2) skewX(2deg) skewY(2deg) ;\ntext-shadow: 9px 10px 11px #111111;\nfilter: blur(0px) brightness(50%) contrast(50%)  grayscale(50%)  hue-rotate(50deg)  invert(50%)  saturate(50%)  ;\nfont-size: 14px;\nbackground-color: rgba(17,17,17);\nbox-shadow: 1px 2px 3px 4px #ffffff;\nborder: 1px solid #000000;';
 const parsedHoverCSS = 'filter: blur(5px) ;';
 const parsedActiveCSS = 'background-color: rgba(255,255,255,0.5);';
 
