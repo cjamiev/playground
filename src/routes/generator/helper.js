@@ -98,19 +98,6 @@ const getTransformProperty = ({
   return `${transformRotateX}${transformRotateY}${transformRotateZ}${transformTranslateX}${transformTranslateY}${transformScaleX}${transformScaleY}${transformSkewX}${transformSkewY}`;
 };
 
-const getTransitionProperty = ({
-  transitionProperty,
-  transitionDuration,
-  transitionTimingFunction,
-  transitionDelay
-}) => {
-  if (!transitionProperty || !transitionDuration || !transitionTimingFunction || !transitionDelay) {
-    return;
-  }
-
-  return `${transitionProperty} ${transitionDuration}s ${transitionTimingFunction} ${transitionDelay}s`;
-};
-
 const getLengthProperty = (length) => {
   if (!length) {
     return;
@@ -206,10 +193,7 @@ const getInlineStyle = ({
   scaleY,
   skewX,
   skewY,
-  transitionProperty,
-  transitionDuration,
-  transitionTimingFunction,
-  transitionDelay,
+  transition,
   margin,
   marginTop,
   marginRight,
@@ -296,12 +280,7 @@ const getInlineStyle = ({
       skewX,
       skewY
     }),
-    transition: getTransitionProperty({
-      transitionProperty,
-      transitionDuration,
-      transitionTimingFunction,
-      transitionDelay
-    }),
+    transition,
     margin: margin ? `${margin}px`: getPixelProperties({ first: marginTop, second: marginRight, third: marginBottom, fourth: marginLeft }),
     padding: padding ? `${padding}px`:getPixelProperties({ first: paddingTop, second: paddingRight, third: paddingBottom, fourth: paddingLeft }),
     width: getLengthProperty(width),

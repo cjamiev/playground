@@ -28,7 +28,7 @@ describe('GeneratorForm', () => {
     fireEvent.click(attributeDropdown);
     fireEvent.click(screen.getByText('Transition'));
     expect(
-      screen.queryByText(`Transition Timing Function ${generatorFormProps.style.transitionTimingFunction}`)
+      screen.queryByText('Timing Function')
     ).toBeInTheDocument();
   });
 });
