@@ -2,12 +2,8 @@ import React from 'react';
 import { IconButton } from 'components/button';
 import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
 
-const SidePanel = ({ showSidePanel, sidePanelContent, isSidePanelWide, toggleSidePanel, title }) => {
-  if (!showSidePanel) {
-    return null;
-  }
-
-  const sidePanelClassName = isSidePanelWide ? 'sidepanel sidepanel--full' : 'sidepanel';
+const SidePanel = ({ animation, sidePanelContent, isSidePanelWide, toggleSidePanel, title }) => {
+  const sidePanelClassName = isSidePanelWide ? `sidepanel sidepanel--full ${animation}` : `sidepanel ${animation}`;
   const sidePanelHeaderClassName = isSidePanelWide ? 'sidepanel__header--full' : 'sidepanel__header';
 
   return (

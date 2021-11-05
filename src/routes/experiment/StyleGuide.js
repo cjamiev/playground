@@ -1,5 +1,4 @@
 import React from 'react';
-import Page from 'components/layout';
 import Dropdown from 'components/form/Dropdown';
 import List from 'components/list';
 import Radio from 'components/form/Radio';
@@ -38,7 +37,7 @@ const testData = [
 
 const StyleGuide = () => {
   return (
-    <Page>
+    <>
       <div>
         <h2> Buttons </h2>
         <Button label="Default Button" onClick={noop} />
@@ -102,7 +101,7 @@ const StyleGuide = () => {
           ]}
         />
       </div>
-    </Page>
+    </>
   );
 };
 

@@ -10,17 +10,21 @@ import SidePanel from './SidePanel';
 import { openSidePanel, closeSidePanel } from 'components/global/globalActions';
 
 const NAV_ITEMS = Object.values(ROUTES);
+const ONE_SECOND = 1000;
 
 const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) => {
   const dispatch = useDispatch();
+  const [sidePanelAnimation, setSidePanelAnimation] = useState('sidepanel--animate-in');
   const { isSidePanelOpen } = useSelector((state) => state.global);
   const history = useHistory();
   const currentPage = NAV_ITEMS.find((item) => item.url === history.location.pathname);
 
   const toggleSidePanel = () => {
     if (isSidePanelOpen) {
-      dispatch(closeSidePanel());
+      setSidePanelAnimation('sidepanel--animate-out');
+      setTimeout(() => { dispatch(closeSidePanel()); }, ONE_SECOND);
     } else {
+      setSidePanelAnimation('sidepanel--animate-in');
       dispatch(openSidePanel());
     }
   };
@@ -30,13 +34,15 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
 
   return (
     <div className="page scrollbar">
-      <SidePanel
-        showSidePanel={isSidePanelOpen}
-        sidePanelContent={sidePanelContent}
-        isSidePanelWide={isSidePanelWide}
-        toggleSidePanel={toggleSidePanel}
-        title={currentPage.sidePanelLabel}
-      />
+      {isSidePanelOpen &&
+        <SidePanel
+          animation={sidePanelAnimation}
+          sidePanelContent={sidePanelContent}
+          isSidePanelWide={isSidePanelWide}
+          toggleSidePanel={toggleSidePanel}
+          title={currentPage.sidePanelLabel}
+        />
+      }
       <div className={mainClassName}>
         <PageHeader
           toggleSidePanel={toggleSidePanel}
