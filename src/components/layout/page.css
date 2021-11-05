@@ -2,7 +2,7 @@
   height: 100%;
   display: flex;
   min-height: 830px;
-  animation: fadeIn 1s ease 0s 1 normal forwards;
+  animation: fadeIn 500ms ease 0s 1 normal forwards;
 }
 
 .sidepanel {
@@ -15,11 +15,11 @@
 }
 
 .sidepanel--animate-in {
-  animation: slideIn 1s ease-out 0s 1 normal forwards;
+  animation: slideIn 500ms ease-out 0s 1 normal forwards;
 }
 
 .sidepanel--animate-out {
-  animation: slideOut 1s ease-out 0s 1 normal forwards;
+  animation: slideOut 500ms ease-out 0s 1 normal forwards;
 }
 
 .page__main {

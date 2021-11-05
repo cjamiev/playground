@@ -32,61 +32,65 @@ const TransitionForm = ({ style, onChange }) => {
 
   return (
     <>
-      <Dropdown
-        label="Select existing transition"
-        values={transitionValues}
-        onChange={({ values }) => {
-          const matched = values.find(item => item.selected).value;
+      <div className="flex--horizontal">
+        <Dropdown
+          label="Edit"
+          values={transitionValues}
+          onChange={({ values }) => {
+            const matched = values.find(item => item.selected).value;
 
-          setCurrentTransition(matched);
-        }}
-      />
-      <Dropdown
-        label="Remove existing transition"
-        values={transitionValues}
-        onChange={({ values }) => {
-          const updatedTransition = values
-            .filter(item => !item.selected)
-            .map(item => {
-              return `${item.value.property} ${item.value.duration} ${item.value.timingFunction} ${item.value.delay}`;
-            })
-            .join(', ');
+            setCurrentTransition(matched);
+          }}
+        />
+        <Dropdown
+          label="Remove"
+          values={transitionValues}
+          onChange={({ values }) => {
+            const updatedTransition = values
+              .filter(item => !item.selected)
+              .map(item => {
+                return `${item.value.property} ${item.value.duration} ${item.value.timingFunction} ${item.value.delay}`;
+              })
+              .join(', ');
 
-          onChange({ id: 'transition', selected: updatedTransition });
-        }}
-      />
-      <Dropdown
-        label="Timing Function"
-        values={TRANSITION_TIMING_FUNCTION.map((item) =>
-          (item.label === currentTransition.timingFunction ? { ...item, selected: true } : item)
-        )}
-        onChange={({ values }) => {
-          const matched = values.find(item => item.selected);
+            onChange({ id: 'transition', selected: updatedTransition });
+          }}
+        />
+      </div>
+      <div className="form-grid">
+        <Text
+          label="Property"
+          selected={currentTransition.property}
+          onChange={({selected}) => {
+            setCurrentTransition({ ...currentTransition, property: selected});
+          }}
+        />
+        <Text
+          label="Duration"
+          selected={currentTransition.duration}
+          onChange={({selected}) => {
+            setCurrentTransition({ ...currentTransition, duration: selected});
+          }}
+        />
+        <Dropdown
+          label="Timing Function"
+          values={TRANSITION_TIMING_FUNCTION.map((item) =>
+            (item.label === currentTransition.timingFunction ? { ...item, selected: true } : item)
+          )}
+          onChange={({ values }) => {
+            const matched = values.find(item => item.selected);
 
-          setCurrentTransition({ ...currentTransition, timingFunction: matched.label });
-        }}
-      />
-      <Text
-        label="Property"
-        selected={currentTransition.property}
-        onChange={({selected}) => {
-          setCurrentTransition({ ...currentTransition, property: selected});
-        }}
-      />
-      <Text
-        label="Duration"
-        selected={currentTransition.duration}
-        onChange={({selected}) => {
-          setCurrentTransition({ ...currentTransition, duration: selected});
-        }}
-      />
-      <Text
-        label="Delay"
-        selected={currentTransition.delay}
-        onChange={({selected}) => {
-          setCurrentTransition({ ...currentTransition, delay: selected});
-        }}
-      />
+            setCurrentTransition({ ...currentTransition, timingFunction: matched.label });
+          }}
+        />
+        <Text
+          label="Delay"
+          selected={currentTransition.delay}
+          onChange={({selected}) => {
+            setCurrentTransition({ ...currentTransition, delay: selected});
+          }}
+        />
+      </div>
       <Button
         label="Add"
         classColor="primary"

@@ -36,7 +36,7 @@ const formMapper = {
 };
 
 const GeneratorForm = ({ style, onChange }) => {
-  const [type, setType] = useState('Border');
+  const [type, setType] = useState('Transition');
 
   const CSSForm = formMapper[type];
   const attributeValues = Object.keys(formMapper).map(label => ({ label, selected: false }));
