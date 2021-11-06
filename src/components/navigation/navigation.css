@@ -69,3 +69,88 @@
 .navigation__dropdown-item {
   border: 1px solid #2e353b;
 }
+
+.navigation__icon {
+  fill:#ffffff;
+  stroke:#ffffff;
+  cursor: pointer;
+  margin-right: 1em;
+}
+
+.navigation__icon:hover {
+  fill:#cccccc;
+  stroke:#cccccc;
+}
+
+.navigation__icon--active {
+  border-bottom: 1px solid white;
+}
+
+.home-icon__roof {
+  stroke-width:6;
+}
+
+.home-icon__chimney {
+  stroke-width:5;
+}
+
+.home-icon__ceiling {
+  stroke-width:15;
+}
+
+.settings-icon {
+  stroke:var(--primary-color);
+}
+
+.file-icon {
+  stroke:var(--primary-color);
+  stroke-width:3;
+}
+
+.clipboard-icon__line {
+  fill:var(--primary-color);
+  stroke:var(--primary-color);
+  stroke-width:1.00548;
+}
+
+.clipboard-icon__board {
+  stroke:var(--primary-color);
+  stroke-width:5;
+}
+
+.clipboard-icon__top {
+  stroke:var(--primary-color);
+  stroke-width:4;
+}
+
+.code-icon__arrow {
+  stroke-width:0;
+  stroke-dashoffset:0;
+}
+
+.code-icon__slash {
+  stroke-width:0.713821
+}
+
+.data-icon__rect {
+  stroke:var(--primary-color);
+  stroke-width:5.32149
+}
+
+.data-icon__ellipse {
+  stroke:var(--primary-color);
+  stroke-width:9.34794
+}
+
+.flask-icon__bubble {
+  fill:var(--primary-color);
+  stroke:var(--primary-color);
+}
+
+.flask-icon__liquid {
+  fill:var(--primary-color);
+}
+
+.flask-icon__outline {
+  stroke-width:5;
+}

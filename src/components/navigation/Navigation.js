@@ -11,9 +11,23 @@ import { dismissAlert } from 'components/alert/alertActions';
 import { ROUTES } from 'constants/routes';
 import { getFormattedClock, getFormattedDate } from 'clock';
 import Dropdown from 'components/form/Dropdown';
+import HomeIcon from './HomeIcon';
+import FileIcon from './FileIcon';
+import FlaskIcon from './FlaskIcon';
+import DataIcon from './DataIcon';
+import CodeIcon from './CodeIcon';
+import SettingsIcon from './SettingsIcon';
 
 const NAV_ITEMS = Object.values(ROUTES);
 const ONE_SECOND = 1000;
+const iconMap = {
+  'Home': HomeIcon,
+  'File': FileIcon,
+  'Clipboard': DataIcon,
+  'Generator': CodeIcon,
+  'Experiment': FlaskIcon,
+  'Config': SettingsIcon
+};
 const DROPDOWN_CLASSNAMES = {
   container: 'navigation__dropdown-container',
   label: 'navigation__dropdown-label',
@@ -29,10 +43,9 @@ const Navigation = React.memo(() => {
   const { commands, links } = useSelector(state => state.config);
 
   const renderNavItems = NAV_ITEMS.map((item) => {
-    const navItemClass =
-      currentUrl === item.url || (history.location.pathname === '/' && item.url === ROUTES.HOME.url)
-        ? 'navigation__links-item navigation__links-item--active'
-        : 'navigation__links-item';
+    const isActiveItem = currentUrl === item.url || (history.location.pathname === '/' && item.url === ROUTES.HOME.url);
+    const navItemClass = isActiveItem ? 'navigation__links-item navigation__links-item--active' : 'navigation__links-item';
+    const iconClass = isActiveItem ? 'navigation__icon--active navigation__icon' : 'navigation__icon';
     const handleClick = () => {
       if (currentUrl !== item.url) {
         history.push(item.url);
@@ -43,6 +56,22 @@ const Navigation = React.memo(() => {
         dispatch(closeSidePanel());
       }
     };
+
+    const IconSVG = iconMap.hasOwnProperty(item.label) ? iconMap[item.label] : null;
+
+    if(IconSVG) {
+      return (
+        <div key={item.url} onClick={handleClick}>
+          <svg
+            className={iconClass}
+            width="53"
+            height="53"
+            viewBox="0 0 53 53">
+            <IconSVG />
+          </svg>
+        </div>
+      );
+    }
 
     return (
       <div key={item.url} className={navItemClass} onClick={handleClick}>
