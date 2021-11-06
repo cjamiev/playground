@@ -52,14 +52,16 @@ const Dropdown = React.memo(({ id, classNames = { container: '', label: '', cont
 
   return (
     <div
-      ref={ref}
       role="button"
       className={containerClassName}
-      onClick={() => {
-        setShow(!show);
-      }}
     >
-      <label className={labelClassName}>
+      <label
+        ref={ref}
+        className={labelClassName}
+        onClick={() => {
+          setShow(!show);
+        }}
+      >
         {label} {selectedValue.label}
       </label>
       {show && <div className={contentClassName}>{renderContent}</div>}
