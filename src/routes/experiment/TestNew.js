@@ -1,8 +1,10 @@
 /* eslint-disable no-magic-numbers */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const TestNew = () => {
-  return <div>Test New</div>;
+  const [item, setItem] = useState('Test New');
+
+  return <div>{item}</div>;
 };
 
 export default TestNew;

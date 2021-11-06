@@ -32,8 +32,6 @@ export const ICON_TYPES = {
   SEARCH: 'search',
   SETTINGS: 'settings',
   SOUND: 'sound',
-  TOGGLE_ON: 'toggle-on',
-  TOGGLE_OFF: 'toggle-off',
   TRASH: 'trash',
   TRIPLE_BAR: 'triple-bar',
   TRIPLE_CIRCLE: 'triple-circle',

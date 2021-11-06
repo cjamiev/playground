@@ -5,6 +5,7 @@ import { createAlert, dismissAlert } from 'components/alert/alertActions';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
 import TextArea from 'components/form/TextArea';
+import Animation from './Animation';
 import TestNew from './TestNew';
 import DataGenerator from './DataGenerator';
 import Form from './Form';
@@ -16,6 +17,7 @@ import { noop } from 'helper/noop';
 
 const TABS = [
   { title: 'New', component: TestNew },
+  { title: 'Animation', component: Animation },
   { title: 'Data Generator', component: DataGenerator },
   { title: 'Global Modal', component: GlobalModal },
   { title: 'Wizard', component: Wizard },

@@ -119,3 +119,43 @@
 .btn__info-icon:active {
   transform: translateY(5px) ;
 }
+
+.toggle-icon__border {
+  fill:#e6e6e6;
+  stroke:#000000;
+  stroke-width:0;
+}
+
+.toggle-icon__circle {
+  fill:#000000;
+  stroke:#000000;
+  stroke-width:0
+}
+
+.toggle-icon--on {
+  animation: translateRight 250ms ease-out 0s 1 normal forwards;
+}
+
+.toggle-icon--off {
+  animation: translateLeft 250ms ease-out 0s 1 normal forwards;
+}
+
+@keyframes translateRight {
+  0% {
+    transform: translateX(0);
+  }
+  
+  100% {
+    transform: translateX(26px);
+  }
+}
+
+@keyframes translateLeft {
+  0% {
+    transform: translateX(26px);
+  }
+  
+  100% {
+    transform: translateX(0);
+  }
+}

@@ -3,9 +3,10 @@ import Dropdown from 'components/form/Dropdown';
 import List from 'components/list';
 import Radio from 'components/form/Radio';
 import Checkbox from 'components/form/Checkbox';
-import Button from 'components/button';
+import Button, { IconButton } from 'components/button';
 import Accordion, { AccordionGroup } from 'components/accordion';
 import { noop } from 'helper/noop';
+import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
 
 const testData = [
   [
@@ -43,6 +44,7 @@ const StyleGuide = () => {
         <Button label="Default Button" onClick={noop} />
         <Button label="Primary Button" classColor="primary" onClick={noop} />
         <Button label="Secondary Button" classColor="secondary" classSize="wide" onClick={noop} />
+        <IconButton type={ICON_TYPES.TOGGLE} onClick={noop} />
       </div>
 
       <Checkbox
