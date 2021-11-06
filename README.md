@@ -74,4 +74,4 @@ Package Tab:
  - Notified when a script finished
 
 Unit Test:
- - ClipboardForm command form & Delete
+ - InfoButton needs test

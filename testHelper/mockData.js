@@ -152,6 +152,44 @@ export const mockStore = {
       }
     ]
   },
+  global: {
+    timers: [],
+    initialized: false,
+    modalQueue: [],
+    loadingQueue: [],
+    isSidePanelOpen: false,
+    commandResponse: '',
+    commands: ['commandOne', 'commandTwo', 'commandThree']
+  },
+  mockserver: {
+    config: {
+      delay: 1000,
+      delayUrls: ['delayUrlOne', 'delayUrlTwo'],
+      log: true,
+      error: false,
+      overrideUrls: ['overrideUrlOne', 'overrideUrlOne'],
+      overrideStatusCode: 200,
+      overrideResponse: { testing: 123 }
+    },
+    mocks: [
+      { method: 'GET', url: '/test', responsePath: 'filename' },
+      { method: 'POST', url: '/test2', responsePath: 'filename2' }
+    ],
+    log: [{
+      timestamp: '7/10/2021 13:48:20',
+      url: 'urlOne',
+      payload: {
+        testing: 1
+      }
+    }, {
+      timestamp: '8/10/2021 13:48:20',
+      url: 'urlTwo',
+      payload: {
+        testing: 2
+      }
+    }],
+    mockResponse: undefined
+  },
   project: {
     directories: ['dir1', 'dir2'],
     regexes: [{
@@ -207,44 +245,6 @@ export const mockStore = {
     },
     templates: ['templateOne', 'templateTwo'],
     message: ''
-  },
-  global: {
-    timers: [],
-    initialized: false,
-    modalQueue: [],
-    loadingQueue: [],
-    isSidePanelOpen: false,
-    commandResponse: '',
-    commands: ['commandOne', 'commandTwo', 'commandThree']
-  },
-  mockserver: {
-    config: {
-      delay: 1000,
-      delayUrls: ['delayUrlOne', 'delayUrlTwo'],
-      log: true,
-      error: false,
-      overrideUrls: ['overrideUrlOne', 'overrideUrlOne'],
-      overrideStatusCode: 200,
-      overrideResponse: { testing: 123 }
-    },
-    mocks: [
-      { method: 'GET', url: '/test', responsePath: 'filename' },
-      { method: 'POST', url: '/test2', responsePath: 'filename2' }
-    ],
-    log: [{
-      timestamp: '7/10/2021 13:48:20',
-      url: 'urlOne',
-      payload: {
-        testing: 1
-      }
-    }, {
-      timestamp: '8/10/2021 13:48:20',
-      url: 'urlTwo',
-      payload: {
-        testing: 2
-      }
-    }],
-    mockResponse: undefined
   }
 };
 

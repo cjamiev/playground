@@ -227,7 +227,7 @@ const ClipboardForm = ({ records }) => {
           }}
         />
         <Button
-          label="Delete"
+          label="Remove"
           classColor="primary"
           onClick={() => {
             setEntry([]);
