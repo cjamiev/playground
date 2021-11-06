@@ -23,10 +23,12 @@ const getRemoteUrl = (rootDir = DEFAULT_DIR) => {
       .get(`/project/?type=git&op=remoteurl&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: LOAD_REMOTE_URL, data: response.data.data });
-        dispatch(hideLoadingModal('Git Remote Url'));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
+      })
+      .finally(() => {
+        dispatch(hideLoadingModal('Git Remote Url'));
       });
   };
 };
@@ -90,10 +92,12 @@ const viewBranches = (rootDir = DEFAULT_DIR) => {
       .get(`/project/?type=git&op=viewbranches&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: LOAD_BRANCHES, data: response.data.data });
-        dispatch(hideLoadingModal('Git Branches'));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
+      })
+      .finally(() => {
+        dispatch(hideLoadingModal('Git Branches'));
       });
   };
 };
@@ -144,10 +148,12 @@ const viewStash = (rootDir = DEFAULT_DIR) => {
       .get(`/project/?type=git&op=viewstash&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: LOAD_VIEW_STASH, data: response.data.data });
-        dispatch(hideLoadingModal('Git Stashes'));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
+      })
+      .finally(() => {
+        dispatch(hideLoadingModal('Git Stashes'));
       });
   };
 };

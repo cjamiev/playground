@@ -27,10 +27,12 @@ const loadFile = (filename) => {
       .get(`/file/?name=${filename}`)
       .then((response) => {
         dispatch({ type: LOAD_FILE, data: response.data.data });
-        dispatch(hideLoadingModal(`File ${filename}`));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
+      })
+      .finally(() => {
+        dispatch(hideLoadingModal(`File ${filename}`));
       });
   };
 };

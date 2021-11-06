@@ -14,10 +14,12 @@ const loadProject = () => {
       .get('/db/?name=project.json')
       .then((response) => {
         dispatch({ type: LOAD_PROJECT, data: JSON.parse(response.data.data) });
-        dispatch(hideLoadingModal('Project'));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
+      })
+      .finally(() => {
+        dispatch(hideLoadingModal('Project'));
       });
   };
 };

@@ -15,10 +15,12 @@ const getPackageJson = (rootDir = DEFAULT_DIR) => {
       .get(`/project/?type=package&op=read&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: LOAD_PACKAGE, data: response.data.data });
-        dispatch(hideLoadingModal('Package JSON'));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
+      })
+      .finally(() => {
+        dispatch(hideLoadingModal('Package JSON'));
       });
   };
 };
@@ -30,10 +32,12 @@ const getDependencyVersions = (rootDir) => {
       .get(`/project/?type=package&op=getversions&root=${rootDir}`)
       .then((response) => {
         dispatch({ type: LOAD_VERSIONS, data: response.data.data });
-        dispatch(hideLoadingModal('Latest Package Versions'));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
+      })
+      .finally(() => {
+        dispatch(hideLoadingModal('Latest Package Versions'));
       });
   };
 };

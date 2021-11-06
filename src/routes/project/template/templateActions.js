@@ -12,10 +12,12 @@ const loadTemplates = () => {
       .get('/project/?type=template&op=read')
       .then((response) => {
         dispatch({ type: LOAD_TEMPLATES, data: response.data.data });
-        dispatch(hideLoadingModal('Templates'));
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
+      })
+      .finally(() => {
+        dispatch(hideLoadingModal('Templates'));
       });
   };
 };
