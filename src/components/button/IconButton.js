@@ -45,6 +45,10 @@ const SCALE_SIZES = {
 const IconButton = ({ type, size = 'm', onClick }) => {
   const IconSVG = iconMap.hasOwnProperty(type) ? iconMap[type] : null;
 
+  if(!IconSVG) {
+    return null;
+  }
+
   return (
     <button className="btn--icon" onClick={onClick}>
       <svg height={ICON_HEIGHT} width={ICON_WIDTH} viewBox={ICON_VIEWBOX}>
