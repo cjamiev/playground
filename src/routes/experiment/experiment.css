@@ -5,33 +5,50 @@
   transition: border 250ms ease-out 0ms, box-shadow 250ms ease-out 0ms, transform 250ms ease 0s;
   text-align: center;
   font-size: 46px;
-  color: #0c0066;
+  background-color: #0c0066;
+  color: #ffffff;
   box-shadow: 0px 0px 0px 0px #000000;
   border: 1px solid #dedede;
-  }
+}
   
-  .animate-box:hover {
+.animate-box:hover {
   transform: scaleX(1.05) scaleY(1.05) ;
   box-shadow: 1px 1px 15px 3px #ababab;
   border: 1px none #000000;
-  }
+}
   
-  .animate-box:active {
+.animate-box:active {
   box-shadow: 1px 1px 10px 5px #000000;
-  }
+}
 
-.animate--slideRight {
-  animation: slideRight 500ms ease-out 0s 1 normal forwards;  
+.animate--slide {
+  animation: slide 500ms ease-out 0s 1 normal forwards;  
 }
 
 .animate--fadeIn {
   animation: fadeIn 500ms ease-out 0s 1 normal forwards;  
 }
 
-@keyframes slideRight {
+.animate--bounce {
+  animation: bounce 1s ease-out 0s 1 normal forwards;  
+}
+
+.animate--shake {
+  animation: shake 500ms ease-in 0s 2 normal forwards;  
+}
+
+.animate--rotate {
+  animation: rotate 1500ms linear 0s 1 normal forwards;  
+}
+
+.animate--zoom {
+  animation: zoom 500ms linear 0s 1 normal forwards;  
+}
+
+@keyframes slide {
   0% {
     opacity: 0;
-    transform: translateX(-600px);
+    transform: translateX(600px);
   }
   
   100% {
@@ -47,5 +64,78 @@
 
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(200px);
+  }
+
+  50% {
+    transform: translateY(0px);
+  }
+
+  60% {
+    transform: translateY(15px);
+  }
+
+  75% {
+    transform: translateY(0px);
+  }
+
+  90% {
+    transform: translateY(5px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(-10px);
+  }
+
+  25% {
+    transform: translateX(10px);
+  }
+
+  50% {
+    transform: translateX(-10px);
+    box-shadow: 1px 1px 15px 3px #ababab;
+  }
+
+  75% {
+    transform: translateX(10px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  50% {
+    transform: perspective(300px) rotateY(180deg);
+  }
+
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(0.5);
+  }
+  
+  100% {
+    transform: scale(1);
   }
 }

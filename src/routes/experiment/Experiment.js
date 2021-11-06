@@ -16,8 +16,8 @@ import { experimentGet, experimentPost } from './experimentActions';
 import { noop } from 'helper/noop';
 
 const TABS = [
-  { title: 'New', component: TestNew },
   { title: 'Animation', component: Animation },
+  { title: 'New', component: TestNew },
   { title: 'Data Generator', component: DataGenerator },
   { title: 'Global Modal', component: GlobalModal },
   { title: 'Wizard', component: Wizard },

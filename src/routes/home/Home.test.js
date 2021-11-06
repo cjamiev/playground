@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { reduxTestWrapper, mockGet, mockPost, mockApi } from 'testHelper';
 import Home from './Home';
 import { incrementDate } from 'clock';
@@ -136,7 +136,7 @@ describe('Home', () => {
 
     // Edit timer to be one minute from now (this test is hard design in a useful way)
     fireEvent.click(sidePanelBtn);
-    jest.advanceTimersByTime(TIME.A_SECOND);
+    act(() => jest.advanceTimersByTime(TIME.A_SECOND));
 
     expect(screen.queryByLabelText('Name text field')).not.toBeInTheDocument();
 
