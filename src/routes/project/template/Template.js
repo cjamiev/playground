@@ -5,6 +5,7 @@ import Button from 'components/button';
 import Text from 'components/form/Text';
 import Checkbox from 'components/form/Checkbox';
 
+const ZERO = 0;
 const ONE = 1;
 
 const Template = ({ root }) => {
@@ -28,6 +29,17 @@ const Template = ({ root }) => {
           setName(selected);
         }}
       />
+      <Button
+        classColor="secondary"
+        label={selectedTemplates.some(entry => !entry.selected) ? 'Select All': 'Unselect All'}
+        onClick={() => {
+          if(selectedTemplates.some(entry => !entry.selected)) {
+            setSelectedTemplates(selectedTemplates.map(entry => ({ ...entry, selected: true })));
+          } else {
+            setSelectedTemplates(selectedTemplates.map(entry => ({ ...entry, selected: false })));
+          }
+        }}
+      />
       <Checkbox
         label='Templates'
         values={selectedTemplates}
@@ -36,7 +48,7 @@ const Template = ({ root }) => {
         }}
       />
       <Button
-        classColor="secondary"
+        classColor="primary"
         label="Create"
         onClick={() => {
           if(name) {

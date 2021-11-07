@@ -27,6 +27,7 @@
   font-size: 100px;
   display: flex;
   place-content: center;
+  animation: fadeIn 1200ms linear 0s infinite normal forwards;  
 }
 
 .modal__loading-name {

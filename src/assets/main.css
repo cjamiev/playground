@@ -4,6 +4,7 @@
 @import './tooltip.css';
 @import './scroll.css';
 @import './variables.css';
+@import './keyframes.css';
 
 html {
   background-color: var(--primary-bg-color);

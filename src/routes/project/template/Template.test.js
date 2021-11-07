@@ -61,4 +61,20 @@ describe('Template', () => {
 
     expect(api.post).toHaveBeenCalledWith(`/project/?type=template&op=create&root=${rootDir}&name=TestOne`, JSON.stringify(['templateOne']));
   });
+
+  it('handle select all button', () => {
+    reduxTestWrapper(Project, {}, defaultStoreProps);
+
+    const templateTab = screen.getByText('Template');
+    fireEvent.click(templateTab);
+    fireEvent.click(screen.getByText('Select All'));
+
+    expect(screen.queryByLabelText('templateOne checkbox option is selected')).toBeInTheDocument();
+    expect(screen.queryByLabelText('templateTwo checkbox option is selected')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Unselect All'));
+
+    expect(screen.queryByLabelText('templateOne checkbox option is not selected')).toBeInTheDocument();
+    expect(screen.queryByLabelText('templateTwo checkbox option is not selected')).toBeInTheDocument();
+  });
 });

@@ -26,7 +26,7 @@ const Package = ({ root }) => {
       <Button
         key={scriptName}
         label={scriptName}
-        classColor="primary"
+        classColor="secondary"
         onClick={() => {
           dispatch(runNpmScript(root, scriptName));
         }}
@@ -65,14 +65,14 @@ const Package = ({ root }) => {
       <div className="flex--vertical flex--center flex--one">
         <Button
           label='Load Versions'
-          classColor="secondary"
+          classColor="primary"
           onClick={() => {
             dispatch(getDependencyVersions(root));
           }}
         />
         <Button
           label='Update Versions'
-          classColor="secondary"
+          classColor="primary"
           onClick={() => { dispatch(updatePackage(root, updateDependencyVersions(packageJson, selectedDeps))); }}
         />
         {packageCommands}
