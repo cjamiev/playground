@@ -1,17 +1,19 @@
 # Playground
 Project to help with building other projects. Used for improving efficency by helping store information and easy way to test new features. 
 
-## sections
+![Feature](./documentation/generator-screenshot.jpg)
+
+## Sections
 - Home: To do list and global timers will alerts that fire on any page. 
 - File: Read and update files, perform string ops, regex, and json ops.
 - Clipboard: Store collections of copy buttons, text, timer, urls, or commands
-- Project: Git operations given directory.  Switch/Delete Branches, Create/Select Stash.
-- MockServer: Create, delete, and view mock endpoints
 - Generator: Generate css
 - Experiment: Test out new functionality/components and demo existing.
-- Config: Sets what appears in Commands & Links dropdown.  Add and delete project directories
+- Project: Git operations given directory.  Switch/Delete Branches, Create/Select Stash.
 - Commands: list of commands to execute
 - Links: list of favorite external links
+- MockServer: Create, delete, and view mock endpoints
+- Config: Sets what appears in Commands & Links dropdown.  Add and delete project directories
 
 ## utils
 Re-usable pure functions will be saved stored here
@@ -40,11 +42,11 @@ post: (payload) => {
 Folder for quick testing of html as testing javascript functions. Node script for creating files from template, updating files with regex. 
 
 ## ToDo
-Generator: https://webcode.tools/generators/css
-	- Flex/Grid
-	- Neomorphism, Glassmorphism, Aurora
-	- Add ability to change width of generator div
-	- SVG Animator
+Generator:
+  - Flex/Grid
+  - Neomorphism, Glassmorphism, Aurora
+  - Add ability to change width of generator div
+  - SVG Animator
   - Animation
   - Background Image Gradient Form
   - Default Values on Form load
@@ -56,7 +58,7 @@ Dropdown:
   - Pass different content
   - Show on hover
 
-Config Page
+Config Page:
 	- Set theme and update app with theme
 	
 Table:
@@ -64,7 +66,7 @@ Table:
 	- Config (add/remove columns)
   - Export to csv
 
-Wizard
+Wizard:
  - CSS for header, footer 
  - Progress Item List
 
