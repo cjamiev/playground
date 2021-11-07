@@ -28,6 +28,10 @@ import {
   LOAD_TEMPLATES,
   CREATE_FILES_FROM_TEMPLATES
 } from './template/templateActions';
+import {
+  LOAD_SNIPPET_DIRECTORY,
+  LOAD_SNIPPET
+} from './snippet/snippetActions';
 
 export const projectInitialState = {
   directories: [],
@@ -46,6 +50,8 @@ export const projectInitialState = {
     devDependencies: {}
   },
   templates: [],
+  snippets: [],
+  snippetFile: '',
   message: ''
 };
 
@@ -167,6 +173,18 @@ const projectReducer = (state = projectInitialState, action) => {
       return {
         ...state,
         message: action.message
+      };
+    },
+    [LOAD_SNIPPET_DIRECTORY]: () => {
+      return {
+        ...state,
+        snippets: action.data
+      };
+    },
+    [LOAD_SNIPPET]: () => {
+      return {
+        ...state,
+        snippetFile: action.data
       };
     },
     [CLEAR_MESSAGE]: () => {

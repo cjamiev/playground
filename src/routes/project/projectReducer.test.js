@@ -28,6 +28,10 @@ import {
   LOAD_TEMPLATES,
   CREATE_FILES_FROM_TEMPLATES
 } from './template/templateActions';
+import {
+  LOAD_SNIPPET_DIRECTORY,
+  LOAD_SNIPPET
+} from './snippet/snippetActions';
 import projectReducer, { projectInitialState } from './projectReducer';
 
 const remoteUrl = 'test-url';
@@ -35,6 +39,7 @@ const message = 'test-message';
 const packageJson = { one: 1, two: 2, three: 3 };
 const versions = { one: 2, two: 3, three: 4 };
 const templates = ['template/one', 'template/two'];
+const snippets = ['snippetOne', 'snippetTwo'];
 const projectDb = {
   directories: [
     './',
@@ -307,6 +312,32 @@ describe('projectReducer', () => {
     expect(result).toEqual({
       ...projectInitialState,
       message
+    });
+  });
+
+  it('LOAD_SNIPPET_DIRECTORY', () => {
+    const action = {
+      type: LOAD_SNIPPET_DIRECTORY,
+      data: snippets
+    };
+    const result = projectReducer(projectInitialState, action);
+
+    expect(result).toEqual({
+      ...projectInitialState,
+      snippets
+    });
+  });
+
+  it('LOAD_SNIPPET', () => {
+    const action = {
+      type: LOAD_SNIPPET,
+      data: 'content'
+    };
+    const result = projectReducer(projectInitialState, action);
+
+    expect(result).toEqual({
+      ...projectInitialState,
+      snippetFile: action.data
     });
   });
 

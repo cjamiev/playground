@@ -23,6 +23,7 @@ const { runGitOperation } = require('./gitop');
 const { runPackageOperation } = require('./packageop');
 const { runTemplateOperation } = require('./templateop');
 const { runRegexOperation } = require('./regexop');
+const { runSnippetOperation } = require('./snippetop');
 
 const DEFAULT_PORT = 1000;
 const SECOND_ARGUMENT = 2;
@@ -152,6 +153,10 @@ const handleProjectResponse = async (request, response) => {
     const { message } = runRegexOperation(root, payload);
 
     send(response, message);
+  } else if(type === 'snippet') {
+    const { data } = runSnippetOperation(op, name);
+
+    send(response, { data });
   } else {
     send(response, { error: { message: 'project type not found'} });
   }

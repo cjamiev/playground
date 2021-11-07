@@ -14,6 +14,7 @@ import Git from './git';
 import Package from './package';
 import Regex from './regex';
 import Template from './template';
+import Snippet from './snippet';
 import useLocalStorage from 'hooks/useLocalStorage';
 import useDebounce from 'hooks/useDebounce';
 import { TIME } from 'constants/time';
@@ -31,7 +32,8 @@ const Project = () => {
     { title: 'Git', component: ComponentWrapper(Git, { root }) },
     { title: 'Package', component: ComponentWrapper(Package, { root }) },
     { title: 'Regex', component: ComponentWrapper(Regex, { root, directories, regexes }) },
-    { title: 'Template', component: ComponentWrapper(Template, { root }) }
+    { title: 'Template', component: ComponentWrapper(Template, { root }) },
+    { title: 'Snippet', component: ComponentWrapper(Snippet, {}) }
   ];
   const debouncedRoot = useDebounce(root, TIME.A_SECOND);
 
