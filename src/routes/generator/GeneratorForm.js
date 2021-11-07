@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Dropdown from 'components/form/Dropdown';
 import Button from 'components/button';
 import {
   BackdropFilterForm,
@@ -36,26 +35,30 @@ const formMapper = {
 };
 
 const GeneratorForm = ({ style, onChange }) => {
-  const [type, setType] = useState('Transition');
+  const [type, setType] = useState('Border');
 
   const CSSForm = formMapper[type];
-  const attributeValues = Object.keys(formMapper).map(label => ({ label, selected: false }));
+  const attributeButtons = Object.keys(formMapper).map(label => {
+    return <Button
+      key={label}
+      label={label}
+      className="generator__attribute-btns"
+      onClick={() => {
+        setType(label);
+      }}
+    />;
+  });
 
   return (
-    <div className="container--center flex--vertical">
-      <div className="flex--horizontal">
-        <Dropdown
-          label="Select CSS Attributes"
-          values={attributeValues}
-          onChange={({ values}) => {
-            const matched = values.find(item => item.selected);
-            setType(matched.label);
-          }}
-        />
-        <label className="generator__form-title">Option {type}</label>
+    <div className="generator__form-options">
+      <div className="flex--vertical">
+        {attributeButtons}
       </div>
-      <div className="generator__form-selected-option">
-        <CSSForm type="Border" style={style} onChange={onChange} />
+      <div className="generator__form-fields">
+        <div className="container--center generator__form-selected-option">
+          <label className="generator__form-title">Option {type}</label>
+          <CSSForm type="Border" style={style} onChange={onChange} />
+        </div>
       </div>
     </div>
   );

@@ -96,7 +96,6 @@ describe('Generator', () => {
     const hoverSwitch = screen.getByText('Hover');
     const activeSwitch = screen.getByText('Active');
 
-    fireEvent.click(screen.getByText('Select CSS Attributes'));
     fireEvent.click(screen.getByText('Filter'));
     fireEvent.click(hoverSwitch);
     const blurField = screen.getByLabelText('Blur range field');
