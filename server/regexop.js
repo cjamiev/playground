@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { resolve } = require('path');
 const { readdir, stat } = fs.promises;
+const { isNumber } = require('./util');
 
 const UTF8 = 'utf-8';
 
@@ -34,7 +35,7 @@ const updateFiles = async ({ rootDir, fileRegex, lineRegex, lineReplacer }) => {
 const runRegexOperation = (root, content) => {
   const { fileRegex, lineRegex, modifiers, lineRange, replace = '' } = content;
   const { start, end } = lineRange;
-  const lineReplacer = start && end
+  const lineReplacer = isNumber(start) && isNumber(end)
     ? matchedKey => matchedKey.substr(start,end) + replace
     : replace;
 

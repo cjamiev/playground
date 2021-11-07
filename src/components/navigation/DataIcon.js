@@ -2,39 +2,39 @@ import React from 'react';
 
 const DataIcon = () => {
   return (
-    <g transform="matrix(0.31277673,0,0,0.41539384,-8.7566416,-9.079652)">
+    <g transform="matrix(0.31,0,0,0.41,-8.75,-9.07)">
       <rect
         className="data-icon__rect"
-        width="127.71969"
-        height="61.195881"
-        x="48.777061"
-        y="55.580627"
+        width="127.71"
+        height="61.19"
+        x="48.77"
+        y="55.58"
         rx="0"
         ry="0" />
       <ellipse
         className="data-icon__ellipse"
-        cx="112.51894"
-        cy="115.18587"
-        rx="61.826031"
-        ry="27.396507" />
+        cx="112.51"
+        cy="115.18"
+        rx="61.82"
+        ry="27.39" />
       <ellipse
         className="data-icon__ellipse"
-        cx="112.51894"
-        cy="96.135857"
-        rx="61.826031"
-        ry="27.396507" />
+        cx="112.51"
+        cy="96.13"
+        rx="61.82"
+        ry="27.39" />
       <ellipse
         className="data-icon__ellipse"
-        cx="112.51894"
-        cy="74.96917"
-        rx="61.826031"
-        ry="27.396507" />
+        cx="112.51"
+        cy="74.96"
+        rx="61.82"
+        ry="27.39" />
       <ellipse
         className="data-icon__ellipse"
-        cx="112.51894"
-        cy="55.919151"
-        rx="61.826031"
-        ry="27.396507" />
+        cx="112.51"
+        cy="55.91"
+        rx="61.82"
+        ry="27.39" />
     </g>
   );
 };
