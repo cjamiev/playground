@@ -21,7 +21,7 @@ describe('Navigation', () => {
 
     expect(history.location.pathname).toEqual('/home');
 
-    const navLink = screen.getByText('Experiment');
+    const navLink = screen.getByLabelText('Experiment Page');
     fireEvent.click(navLink);
 
     expect(history.location.pathname).toEqual('/experiment');

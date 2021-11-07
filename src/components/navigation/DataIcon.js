@@ -2,8 +2,7 @@ import React from 'react';
 
 const DataIcon = () => {
   return (
-    <g
-      transform="matrix(0.31277673,0,0,0.41539384,-8.7566416,-9.079652)">
+    <g transform="matrix(0.31277673,0,0,0.41539384,-8.7566416,-9.079652)">
       <rect
         className="data-icon__rect"
         width="127.71969"

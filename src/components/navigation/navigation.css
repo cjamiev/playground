@@ -35,7 +35,7 @@
   display: flex;
 }
 
-@media only screen and (min-width: 1900px) {
+@media only screen and (min-width: 2300px) {
   .navigation__quick-ops {
     position: absolute;
     left: 20%;
@@ -43,19 +43,19 @@
   }
 }
 
-@media only screen and (max-width: 1900px) {
+@media only screen and (max-width: 2300px) {
   .navigation__quick-ops {
     left: 30%;
   }
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1600px) {
   .navigation__quick-ops {
     left: 40%;
   }
 }
 
-@media only screen and (max-width: 950px) {
+@media only screen and (max-width: 1200px) {
   .navigation__quick-ops {
     margin-top: 20px;
     left: 48%;
@@ -96,6 +96,7 @@
   fill:#ffffff;
   stroke:#ffffff;
   cursor: pointer;
+  margin-right: 1em;
 }
 
 .navigation__icon:hover {

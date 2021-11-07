@@ -65,6 +65,7 @@ const Navigation = React.memo(() => {
     return (
       <div key={item.url} onClick={handleClick} className="navigation__links-item">
         <svg
+          aria-label={`${item.label} Page`}
           className={iconClass}
           width="53"
           height="53"
