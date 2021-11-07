@@ -15,7 +15,9 @@ import HomeIcon from './HomeIcon';
 import FileIcon from './FileIcon';
 import FlaskIcon from './FlaskIcon';
 import DataIcon from './DataIcon';
+import DirectoryIcon from './DirectoryIcon';
 import CodeIcon from './CodeIcon';
+import ConnectionIcon from './ConnectionIcon';
 import SettingsIcon from './SettingsIcon';
 
 const NAV_ITEMS = Object.values(ROUTES);
@@ -26,6 +28,8 @@ const iconMap = {
   'Clipboard': DataIcon,
   'Generator': CodeIcon,
   'Experiment': FlaskIcon,
+  'Project': DirectoryIcon,
+  'Mock Server': ConnectionIcon,
   'Config': SettingsIcon
 };
 const DROPDOWN_CLASSNAMES = {
@@ -44,7 +48,6 @@ const Navigation = React.memo(() => {
 
   const renderNavItems = NAV_ITEMS.map((item) => {
     const isActiveItem = currentUrl === item.url || (history.location.pathname === '/' && item.url === ROUTES.HOME.url);
-    const navItemClass = isActiveItem ? 'navigation__links-item navigation__links-item--active' : 'navigation__links-item';
     const iconClass = isActiveItem ? 'navigation__icon--active navigation__icon' : 'navigation__icon';
     const handleClick = () => {
       if (currentUrl !== item.url) {
@@ -57,25 +60,17 @@ const Navigation = React.memo(() => {
       }
     };
 
-    const IconSVG = iconMap.hasOwnProperty(item.label) ? iconMap[item.label] : null;
-
-    if(IconSVG) {
-      return (
-        <div key={item.url} onClick={handleClick}>
-          <svg
-            className={iconClass}
-            width="53"
-            height="53"
-            viewBox="0 0 53 53">
-            <IconSVG />
-          </svg>
-        </div>
-      );
-    }
+    const IconSVG = iconMap[item.label];
 
     return (
-      <div key={item.url} className={navItemClass} onClick={handleClick}>
-        {item.label}
+      <div key={item.url} onClick={handleClick} className="navigation__links-item">
+        <svg
+          className={iconClass}
+          width="53"
+          height="53"
+          viewBox="0 0 53 53">
+          <IconSVG />
+        </svg>
       </div>
     );
   });
@@ -91,31 +86,33 @@ const Navigation = React.memo(() => {
         <span className="navigation__time_label">{getFormattedDate().date}</span>
         <span className="navigation__time_label">{getFormattedDate().week}</span>
       </div>
+      <div className="navigation__quick-ops">
+        <div>
+          <Dropdown
+            classNames={DROPDOWN_CLASSNAMES}
+            label="Commands"
+            values={commands.map(item => ({ label: item.label, value: item.value, selected: false }))}
+            onChange={({ values }) => {
+              const selected = values.find(item => item.selected);
+
+              dispatch(executeCommand(selected.value));
+            }}
+          />
+        </div>
+        <div>
+          <Dropdown
+            classNames={DROPDOWN_CLASSNAMES}
+            label="Links"
+            values={links.map(item => ({ label: item.label, value: item.value, selected: false }))}
+            onChange={({ values }) => {
+              const selected = values.find(item => item.selected);
+
+              window.open(selected.value, '_blank');
+            }}
+          />
+        </div>
+      </div>
       <div className="navigation__links">{renderNavItems}</div>
-      <div>
-        <Dropdown
-          classNames={DROPDOWN_CLASSNAMES}
-          label="Commands"
-          values={commands.map(item => ({ label: item.label, value: item.value, selected: false }))}
-          onChange={({ values }) => {
-            const selected = values.find(item => item.selected);
-
-            dispatch(executeCommand(selected.value));
-          }}
-        />
-      </div>
-      <div>
-        <Dropdown
-          classNames={DROPDOWN_CLASSNAMES}
-          label="Links"
-          values={links.map(item => ({ label: item.label, value: item.value, selected: false }))}
-          onChange={({ values }) => {
-            const selected = values.find(item => item.selected);
-
-            window.open(selected.value, '_blank');
-          }}
-        />
-      </div>
     </nav>
   );
 });

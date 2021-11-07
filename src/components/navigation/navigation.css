@@ -8,46 +8,6 @@
   position: relative;
 }
 
-.navigation__time {
-  position: relative;
-  bottom: 0.3em;
-  padding-top: 0.1em;
-  display: flex;
-  flex-direction: column;
-  color: white;
-  border-right: 1px solid white;
-  height: 3.5em;
-  width: 5em;
-}
-
-.navigation__time_label {
-  font-size: 16px;
-  white-space: nowrap;
-}
-
-.navigation__links {
-  display: flex;
-  padding-left: 1em;
-  margin-top: 0.2em;
-}
-
-.navigation__links-item {
-  font-size: 1.4em;
-  color: #fff;
-  margin-right: 1em;
-  cursor: pointer;
-  height: 1.4em;
-  white-space: nowrap;
-}
-
-.navigation__links-item:hover {
-  color: hsla(0, 0%, 100%, .7);
-}
-
-.navigation__links-item--active {
-  border-bottom: 1px solid #fff;
-}
-
 .navigation__dropdown-container {
   margin-top: 0.2em;
 }
@@ -70,11 +30,72 @@
   border: 1px solid #2e353b;
 }
 
+.navigation__quick-ops {
+  position: absolute;
+  display: flex;
+}
+
+@media only screen and (min-width: 1900px) {
+  .navigation__quick-ops {
+    position: absolute;
+    left: 20%;
+    display: flex;
+  }
+}
+
+@media only screen and (max-width: 1900px) {
+  .navigation__quick-ops {
+    left: 30%;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .navigation__quick-ops {
+    left: 40%;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .navigation__quick-ops {
+    margin-top: 20px;
+    left: 48%;
+    font-size: 12px;
+  }
+}
+
+.navigation__time {
+  position: relative;
+  bottom: 0.3em;
+  padding-top: 0.1em;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  border-right: 1px solid white;
+  height: 3.5em;
+  width: 5em;
+}
+
+.navigation__time_label {
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.navigation__links {
+  display: flex;
+  padding-left: 1em;
+  margin-top: 0.2em;
+  width: 100%;
+  margin-right: 1.5em;
+}
+
+.navigation__links-item:nth-of-type(6) {
+  margin-left: auto;
+}
+
 .navigation__icon {
   fill:#ffffff;
   stroke:#ffffff;
   cursor: pointer;
-  margin-right: 1em;
 }
 
 .navigation__icon:hover {
@@ -153,4 +174,8 @@
 
 .flask-icon__outline {
   stroke-width:5;
+}
+
+.directory-icon {
+  fill: none;
 }
