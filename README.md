@@ -59,21 +59,21 @@ Dropdown:
   - Show on hover
 
 Config Page:
-	- Set theme and update app with theme
+  - Set theme and update app with theme
 	
 Table:
-	- Sort
-	- Config (add/remove columns)
+  - Sort
+  - Config (add/remove columns)
   - Export to csv
 
 Wizard:
- - CSS for header, footer 
- - Progress Item List
+  - CSS for header, footer  
+  - Progress Item List
 
 Form Validation Hook
 
 Package Tab:
- - Notified when a script finished
+  - Notified when a script finished
 
 Unit Test:
- - InfoButton needs test
+  - InfoButton needs test
