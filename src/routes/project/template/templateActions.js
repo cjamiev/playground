@@ -3,22 +3,36 @@ import { createAlert } from 'components/alert/alertActions';
 import { showLoadingModal, hideLoadingModal } from 'components/global/globalActions';
 
 const CREATE_FILES_FROM_TEMPLATES = 'CREATE_FILES_FROM_TEMPLATES';
-const LOAD_TEMPLATES = 'LOAD_TEMPLATES';
+const LOAD_TEMPLATE_DIRECTORY = 'LOAD_TEMPLATE_DIRECTORY';
+const LOAD_TEMPLATE = 'LOAD_TEMPLATE';
 const ONE_SECOND = 1000;
 
-const loadTemplates = () => {
+const loadTemplateDirectory = () => {
   return (dispatch) => {
     dispatch(showLoadingModal('Templates'));
     api
       .get('/project/?type=template&op=read')
       .then((response) => {
-        dispatch({ type: LOAD_TEMPLATES, data: response.data.data });
+        dispatch({ type: LOAD_TEMPLATE_DIRECTORY, data: response.data.data });
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
       })
       .finally(() => {
         dispatch(hideLoadingModal('Templates'));
+      });
+  };
+};
+
+const loadTemplate = (name) => {
+  return (dispatch) => {
+    api
+      .get(`/project/?type=template&op=read&name=${name}`)
+      .then((response) => {
+        dispatch({ type: LOAD_TEMPLATE, data: response.data.data });
+      })
+      .catch((error) => {
+        dispatch(createAlert({ content: error.message, status: 'error' }));
       });
   };
 };
@@ -51,8 +65,10 @@ const createTemplate = (filename, content) => {
 };
 
 export {
-  LOAD_TEMPLATES,
-  loadTemplates,
+  LOAD_TEMPLATE_DIRECTORY,
+  loadTemplateDirectory,
+  LOAD_TEMPLATE,
+  loadTemplate,
   CREATE_FILES_FROM_TEMPLATES,
   createFilesFromTemplates,
   createTemplate

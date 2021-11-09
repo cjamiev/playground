@@ -25,7 +25,8 @@ import {
   UPDATE_FILES_BY_REGEX
 } from './regex/regexActions';
 import {
-  LOAD_TEMPLATES,
+  LOAD_TEMPLATE_DIRECTORY,
+  LOAD_TEMPLATE,
   CREATE_FILES_FROM_TEMPLATES
 } from './template/templateActions';
 import {
@@ -50,6 +51,7 @@ export const projectInitialState = {
     devDependencies: {}
   },
   templates: [],
+  tempateFile: '',
   snippets: [],
   snippetFile: '',
   message: ''
@@ -163,10 +165,16 @@ const projectReducer = (state = projectInitialState, action) => {
         message: action.message
       };
     },
-    [LOAD_TEMPLATES]: () => {
+    [LOAD_TEMPLATE_DIRECTORY]: () => {
       return {
         ...state,
         templates: action.data
+      };
+    },
+    [LOAD_TEMPLATE]: () => {
+      return {
+        ...state,
+        templateFile: action.data
       };
     },
     [CREATE_FILES_FROM_TEMPLATES]: () => {

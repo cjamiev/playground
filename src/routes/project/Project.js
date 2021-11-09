@@ -4,7 +4,7 @@ import { openGlobalModal } from 'components/global/globalActions';
 import { loadProject, clearMessage } from './projectActions';
 import { getPackageJson } from './package/packageActions';
 import { getRemoteUrl, viewBranches, viewStash } from './git/gitActions';
-import { loadTemplates } from './template/templateActions';
+import { loadTemplateDirectory } from './template/templateActions';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
 import Text from 'components/form/Text';
@@ -52,7 +52,7 @@ const Project = () => {
     dispatch(viewBranches(debouncedRoot));
     dispatch(viewStash(debouncedRoot));
     dispatch(getPackageJson(debouncedRoot));
-    dispatch(loadTemplates());
+    dispatch(loadTemplateDirectory());
   }, [dispatch, debouncedRoot]);
 
   useEffect(() => {

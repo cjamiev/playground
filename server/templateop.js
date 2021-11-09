@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { writeToFile, readDirectory } = require('./file');
+const { writeToFile, loadFile, readDirectory } = require('./file');
 
 const TEMPLATE_DIR = './storage/io/templates';
 const UTF8 = 'utf-8';
@@ -12,10 +12,6 @@ const lowerCaseFirstLetter = (string) => {
 
 const capitalizeFirstLetter = (string) => {
   return string.charAt(ZERO).toUpperCase() + string.slice(ONE);
-};
-
-const readTemplateDirectory = () => {
-  return readDirectory(TEMPLATE_DIR);
 };
 
 const createFilesFromTemplates = ({targetDir, filePaths, name}) => {
@@ -43,7 +39,9 @@ const runTemplateOperation = (op, {targetDir, content, name}) => {
 
     return { message: 'Creating templates' };
   } else if(op === 'read') {
-    const data = readTemplateDirectory();
+    const data = name
+      ? loadFile(`${TEMPLATE_DIR}/${name}`)
+      : readDirectory(TEMPLATE_DIR);
 
     return { data };
   } else if (op === 'write') {
