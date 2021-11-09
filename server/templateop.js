@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { readDirectory } = require('./file');
+const { writeToFile, readDirectory } = require('./file');
 
 const TEMPLATE_DIR = './storage/io/templates';
 const UTF8 = 'utf-8';
@@ -37,15 +37,19 @@ const createFilesFromTemplates = ({targetDir, filePaths, name}) => {
   });
 };
 
-const runTemplateOperation = (op, {targetDir, filePaths, name}) => {
+const runTemplateOperation = (op, {targetDir, content, name}) => {
   if(op === 'create') {
-    createFilesFromTemplates({targetDir, name, filePaths});
+    createFilesFromTemplates({targetDir, name, filePaths: content});
 
     return { message: 'Creating templates' };
   } else if(op === 'read') {
     const data = readTemplateDirectory();
 
     return { data };
+  } else if (op === 'write') {
+    const { message, error } = writeToFile(`${TEMPLATE_DIR}/${name}`, content);
+
+    return { message, error };
   } else {
     return { message: 'template operation not found' };
   }

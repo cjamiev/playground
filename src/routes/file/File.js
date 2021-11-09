@@ -34,7 +34,7 @@ const File = () => {
     if (name) {
       setContent(fileContent);
     }
-  }, [name, fileContent, setContent]);
+  }, [name, fileContent]);
 
   const handleNameChange = ({ selected }) => {
     const selectedFile = directory.find((item) => item === selected);

@@ -31,9 +31,24 @@ const loadSnippet = (name) => {
   };
 };
 
+const createSnippet = (filename, content) => {
+  return (dispatch) => {
+    api
+      .post(`/project/?type=snippet&op=write&name=${filename}`, JSON.stringify(content))
+      .then((response) => {
+        dispatch(createAlert({ content: `Created ${filename}`, timer: ONE_SECOND, status: 'success' }));
+        dispatch(loadSnippetDirectory());
+      })
+      .catch((error) => {
+        dispatch(createAlert({ content: error.message, status: 'error' }));
+      });
+  };
+};
+
 export {
   LOAD_SNIPPET_DIRECTORY,
   loadSnippetDirectory,
   LOAD_SNIPPET,
-  loadSnippet
+  loadSnippet,
+  createSnippet
 };

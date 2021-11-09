@@ -145,7 +145,7 @@ const handleProjectResponse = async (request, response) => {
     send(response, { data, error, message });
   } else if(type === 'template') {
     const payload = await resolvePostBody(request);
-    const { data, message } = runTemplateOperation(op, {targetDir:root, name, filePaths:payload});
+    const { data, message } = runTemplateOperation(op, {targetDir:root, name, content:payload});
 
     send(response, { data, message });
   } else if(type === 'regex') {
@@ -154,7 +154,8 @@ const handleProjectResponse = async (request, response) => {
 
     send(response, message);
   } else if(type === 'snippet') {
-    const { data } = runSnippetOperation(op, name);
+    const payload = await resolvePostBody(request);
+    const { data } = runSnippetOperation(op, name, payload);
 
     send(response, { data });
   } else {

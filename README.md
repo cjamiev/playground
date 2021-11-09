@@ -50,6 +50,7 @@ Generator:
   - Animation
   - Background Image Gradient Form
   - Default Values on Form load
+  - Visibility: visible/hidden, cursor: pointer, overflow: auto/hidden
 
 Template Tab:
   - View a template & Flexible edit of templates

@@ -4,6 +4,7 @@ import { showLoadingModal, hideLoadingModal } from 'components/global/globalActi
 
 const CREATE_FILES_FROM_TEMPLATES = 'CREATE_FILES_FROM_TEMPLATES';
 const LOAD_TEMPLATES = 'LOAD_TEMPLATES';
+const ONE_SECOND = 1000;
 
 const loadTemplates = () => {
   return (dispatch) => {
@@ -35,9 +36,24 @@ const createFilesFromTemplates = (rootDir, name, content) => {
   };
 };
 
+const createTemplate = (filename, content) => {
+  return (dispatch) => {
+    api
+      .post(`/project/?type=template&op=write&name=${filename}`, JSON.stringify(content))
+      .then((response) => {
+        dispatch(createAlert({ content: `Created ${filename}`, timer: ONE_SECOND, status: 'success' }));
+        dispatch(loadTemplates());
+      })
+      .catch((error) => {
+        dispatch(createAlert({ content: error.message, status: 'error' }));
+      });
+  };
+};
+
 export {
   LOAD_TEMPLATES,
   loadTemplates,
   CREATE_FILES_FROM_TEMPLATES,
-  createFilesFromTemplates
+  createFilesFromTemplates,
+  createTemplate
 };
