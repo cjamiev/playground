@@ -92,7 +92,7 @@ const Template = ({ root }) => {
         </div>
         <div className="project__file-area">
           <TextArea
-            ariaLabel="Enter File"
+            ariaLabel="Enter Content"
             selected={content}
             onChange={({ selected }) => { setContent(selected); }}
           />

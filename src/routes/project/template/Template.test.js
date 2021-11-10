@@ -1,47 +1,15 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { reduxTestWrapper, mockApi } from 'testHelper';
+import { reduxTestWrapper, mockApi, mockGet, mockPost, mockStore } from 'testHelper';
 import Project from '../Project';
 import api from 'api';
 
-const templates = ['templateOne', 'templateTwo'];
-
-const mockGet = (url) => {
-  if(url === '/db/?name=project.json') {
-    return Promise.resolve({
-      data: {
-        data: JSON.stringify({ directories: ['./'], regexes: []})
-      }
-    });
-  } else if (url === '/project/?type=template&op=read') {
-    return Promise.resolve({
-      data: {
-        data: templates
-      }
-    });
-  } else {
-    return Promise.resolve({
-      data: {
-        message: 'test message'
-      }
-    });
-  }
-};
-const mockPost = () => { return Promise.resolve({});};
 const apiMock = mockApi(mockGet, mockPost);
 
+const ZERO = 0;
+const ONE = 1;
 const rootDir = './';
 const defaultStoreProps = {
-  project: {
-    directories: [],
-    regexes: [],
-    remoteUrl: '',
-    branches: [],
-    stashes: [],
-    packageJson: {},
-    versions: {},
-    templates,
-    message: ''
-  }
+  project: mockStore.project
 };
 
 describe('Template', () => {
@@ -76,5 +44,35 @@ describe('Template', () => {
 
     expect(screen.queryByLabelText('templateOne checkbox option is not selected')).toBeInTheDocument();
     expect(screen.queryByLabelText('templateTwo checkbox option is not selected')).toBeInTheDocument();
+  });
+
+  it('Load template file', () => {
+    reduxTestWrapper(Project, {}, defaultStoreProps);
+
+    const templateTab = screen.getByText('Template');
+    fireEvent.click(templateTab);
+
+    const loadTemplateBtn = screen.getAllByText('templateOne')[ONE];
+    fireEvent.click(loadTemplateBtn);
+
+    const lastCallIndex = api.get.mock.calls.length - ONE;
+    expect(api.get.mock.calls[lastCallIndex]).toEqual(['/project/?type=template&op=read&name=templateOne']);
+  });
+
+  it('Create new template file', () => {
+    reduxTestWrapper(Project, {}, defaultStoreProps);
+
+    const templateTab = screen.getByText('Template');
+    fireEvent.click(templateTab);
+
+    const templateNameField = screen.getByLabelText('Template Name text field');
+    const templateTextField = screen.getByLabelText('Enter Content');
+    const createNewBtn = screen.getByText('Create New');
+
+    fireEvent.change(templateNameField, { target: { value: 'TestOne' } });
+    fireEvent.change(templateTextField, { target: { value: 'TestOne Contents' } });
+    fireEvent.click(createNewBtn);
+
+    expect(api.post).toHaveBeenCalledWith('/project/?type=template&op=write&name=TestOne', JSON.stringify('TestOne Contents'));
   });
 });

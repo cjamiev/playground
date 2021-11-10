@@ -48,7 +48,7 @@ const Snippet = () => {
       />
       <div className="project__file-area flex--three">
         <TextArea
-          ariaLabel="Enter Contents"
+          ariaLabel="Enter Content"
           selected={content}
           onChange={({ selected }) => { setContent(selected); }}
         />

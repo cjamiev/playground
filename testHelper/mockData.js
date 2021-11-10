@@ -244,6 +244,9 @@ export const mockStore = {
       }
     },
     templates: ['templateOne', 'templateTwo'],
+    templateFile: 'template contents',
+    snippets: ['snippetOne', 'snippetTwo'],
+    snippetFile: 'snippet contents',
     message: ''
   }
 };
@@ -270,6 +273,9 @@ const HTTP_GET = {
   'mockserver/loadLog': { data: mockStore.mockserver.log},
   'mockserver/clearLog': { message: 'Clearing log'},
   '/project/?type=template&op=read': { data: mockStore.project.templates},
+  '/project/?type=template&op=read&name=': { data: mockStore.project.templateFile},
+  '/project/?type=snippet&op=read': { data: mockStore.project.snippets},
+  '/project/?type=snippet&op=read&name=': { data: mockStore.project.snippetFile},
   '/project/?type=package&op=read&root=': { data: mockStore.project.packageJson},
   '/project/?type=package&op=getversions&root=': { data: mockStore.project.versions},
   '/project/?type=package&op=runscript&root=': { message: 'running script'},
