@@ -42,22 +42,12 @@ const Template = ({ root }) => {
   return (
     <div className="flex--horizontal">
       <div className="flex--vertical flex--one">
+        <h2>Generate Files</h2>
         <Text
           label="Generated Name"
           selected={generatedName}
           onChange={({ selected }) => {
             setGeneratedName(selected);
-          }}
-        />
-        <Button
-          classColor="secondary"
-          label={selectedTemplates.some(entry => !entry.selected) ? 'Select All': 'Unselect All'}
-          onClick={() => {
-            if(selectedTemplates.some(entry => !entry.selected)) {
-              setSelectedTemplates(selectedTemplates.map(entry => ({ ...entry, selected: true })));
-            } else {
-              setSelectedTemplates(selectedTemplates.map(entry => ({ ...entry, selected: false })));
-            }
           }}
         />
         <Checkbox
@@ -67,22 +57,37 @@ const Template = ({ root }) => {
             setSelectedTemplates(values);
           }}
         />
-        <Button
-          classColor="primary"
-          label="Create"
-          onClick={() => {
-            if(name) {
-              dispatch(createFilesFromTemplates(
-                root,
-                name,
-                selectedTemplates.filter(item => item.selected).map(item => item.label)
-              ));
-            }
-          }}
-        />
+        <div className="flex--horizontal">
+          <Button
+            classColor="primary"
+            label="Create"
+            onClick={() => {
+              const generatedList = selectedTemplates.filter(item => item.selected).map(item => item.label);
+              if(generatedName && generatedList.length) {
+                dispatch(createFilesFromTemplates(
+                  root,
+                  generatedName,
+                  generatedList
+                ));
+              }
+            }}
+          />
+          <Button
+            classColor="secondary"
+            label={selectedTemplates.some(entry => !entry.selected) ? 'Select All': 'Unselect All'}
+            onClick={() => {
+              if(selectedTemplates.some(entry => !entry.selected)) {
+                setSelectedTemplates(selectedTemplates.map(entry => ({ ...entry, selected: true })));
+              } else {
+                setSelectedTemplates(selectedTemplates.map(entry => ({ ...entry, selected: false })));
+              }
+            }}
+          />
+        </div>
       </div>
       <div className="flex--horizontal flex--three">
         <div className="flex--vertical">
+          <h2 className="horizontal-center">Load File</h2>
           {fileButtons}
         </div>
         <div className="project__file-area">
@@ -93,6 +98,7 @@ const Template = ({ root }) => {
           />
         </div>
         <div className="flex--vertical">
+          <h2>Create Template</h2>
           <Text
             label="Template Name"
             selected={templateName}

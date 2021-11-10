@@ -56,7 +56,7 @@ const createTemplate = (filename, content) => {
       .post(`/project/?type=template&op=write&name=${filename}`, JSON.stringify(content))
       .then((response) => {
         dispatch(createAlert({ content: `Created ${filename}`, timer: ONE_SECOND, status: 'success' }));
-        dispatch(loadTemplates());
+        dispatch(loadTemplateDirectory());
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));

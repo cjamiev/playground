@@ -37,6 +37,7 @@ const Snippet = () => {
   return (
     <div className="flex--horizontal container--center">
       <div className="flex--vertical flex--one">
+        <h2 className="horizontal-center">Load File</h2>
         {fileButtons}
       </div>
       <IconButton
@@ -53,6 +54,7 @@ const Snippet = () => {
         />
       </div>
       <div className="flex--vertical flex--one">
+        <h2>Create Snippet</h2>
         <Text
           placeholder="Snippet Name"
           selected={name}
