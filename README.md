@@ -9,7 +9,9 @@ Project to help with building other projects. Used for improving efficency by he
 - Clipboard: Store collections of copy buttons, text, timer, urls, or commands
 - Generator: Generate css
 - Experiment: Test out new functionality/components and demo existing.
-- Project: Git operations given directory.  Switch/Delete Branches, Create/Select Stash.
+- Project: Git & Regex operations on a directory.
+  Updating package.json and running package scripts.  
+  Creating files from templates or copying saved snippets.
 - Commands: list of commands to execute
 - Links: list of favorite external links
 - MockServer: Create, delete, and view mock endpoints

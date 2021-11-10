@@ -313,6 +313,8 @@ const HTTP_POST = {
   '/mockserver/updateMockEndpoint': { message: 'Updated Mock Endpoint'},
   '/mockserver/createMockEndpoint': { message: 'Created Mock Endpoint'},
   '/project/?type=template&op=create&root=': { message: 'Creating Template files'},
+  '/project/?type=template&op=write&name=': { message: 'Creating New Template'},
+  '/project/?type=snippet&op=write&name=': { message: 'Creating New Snippet'},
   '/project/?type=regex&root=': { message: 'Updating files using regex'},
   '/project/?type=package&op=update&root=': { message: 'Updating package version'}
 };

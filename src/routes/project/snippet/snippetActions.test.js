@@ -4,7 +4,8 @@ import {
   LOAD_SNIPPET_DIRECTORY,
   loadSnippetDirectory,
   LOAD_SNIPPET,
-  loadSnippet
+  loadSnippet,
+  createSnippet
 } from './snippetActions';
 import { CREATE_ALERT } from 'components/alert/alertActions';
 
@@ -23,21 +24,23 @@ const successObject = {
   timer: 1000
 };
 
-const dirContent = ['fileOne', 'fileTwo'];
+const ONE_SECOND = 1000;
+const snippets = ['snippetOne', 'snippetTwo'];
 const fileContent = 'test contents';
+const message = 'test message';
 
 describe('snippetActions', () => {
   it('loadSnippetDirectory', async () => {
     api.get.mockResolvedValueOnce({
       data: {
-        data: dirContent
+        data: snippets
       }
     });
     loadSnippetDirectory()(dispatch);
 
     await waitFor(() => {
       expect(api.get).toHaveBeenCalledWith('/project/?type=snippet&op=read');
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_SNIPPET_DIRECTORY, data: dirContent });
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_SNIPPET_DIRECTORY, data: snippets });
     });
   });
 
@@ -67,6 +70,34 @@ describe('snippetActions', () => {
   it('loadSnippet - error', async () => {
     api.get.mockRejectedValueOnce(error);
     loadSnippet()(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+    });
+  });
+
+  it('createSnippet', async () => {
+    api.post.mockResolvedValueOnce({
+      data: {
+        message
+      }
+    });
+    api.get.mockResolvedValueOnce({
+      data: {
+        data: snippets
+      }
+    });
+    createSnippet(name, fileContent)(dispatch);
+
+    await waitFor(() => {
+      expect(api.post).toHaveBeenCalledWith(`/project/?type=snippet&op=write&name=${name}`, JSON.stringify(fileContent));
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: { content: `Created ${name}`, timer: ONE_SECOND, status: 'success' } });
+    });
+  });
+
+  it('createSnippet - error', async () => {
+    api.post.mockRejectedValueOnce(error);
+    createSnippet(name, fileContent)(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });

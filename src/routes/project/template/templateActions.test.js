@@ -6,7 +6,8 @@ import {
   LOAD_TEMPLATE,
   loadTemplate,
   CREATE_FILES_FROM_TEMPLATES,
-  createFilesFromTemplates
+  createFilesFromTemplates,
+  createTemplate
 } from './templateActions';
 import { CREATE_ALERT } from 'components/alert/alertActions';
 
@@ -25,7 +26,8 @@ const successObject = {
   timer: 1000
 };
 
-const data = 'test data';
+const ONE_SECOND = 1000;
+const fileContent = 'test contents';
 const message = 'test message';
 const rootDir = 'test-dir';
 const templates = ['template/one', 'template/two'];
@@ -95,6 +97,34 @@ describe('projectActions', () => {
   it('createFilesFromTemplates - error', async () => {
     api.post.mockRejectedValueOnce(error);
     createFilesFromTemplates()(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+    });
+  });
+
+  it('createTemplate', async () => {
+    api.post.mockResolvedValueOnce({
+      data: {
+        message
+      }
+    });
+    api.get.mockResolvedValueOnce({
+      data: {
+        data: templates
+      }
+    });
+    createTemplate(name, fileContent)(dispatch);
+
+    await waitFor(() => {
+      expect(api.post).toHaveBeenCalledWith(`/project/?type=template&op=write&name=${name}`, JSON.stringify(fileContent));
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: { content: `Created ${name}`, timer: ONE_SECOND, status: 'success' } });
+    });
+  });
+
+  it('createTemplate - error', async () => {
+    api.post.mockRejectedValueOnce(error);
+    createTemplate(name, fileContent)(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
