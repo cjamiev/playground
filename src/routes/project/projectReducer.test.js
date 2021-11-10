@@ -25,7 +25,8 @@ import {
   UPDATE_FILES_BY_REGEX
 } from './regex/regexActions';
 import {
-  LOAD_TEMPLATES,
+  LOAD_TEMPLATE_DIRECTORY,
+  LOAD_TEMPLATE,
   CREATE_FILES_FROM_TEMPLATES
 } from './template/templateActions';
 import {
@@ -289,9 +290,9 @@ describe('projectReducer', () => {
     });
   });
 
-  it('LOAD_TEMPLATES', () => {
+  it('LOAD_TEMPLATE_DIRECTORY', () => {
     const action = {
-      type: LOAD_TEMPLATES,
+      type: LOAD_TEMPLATE_DIRECTORY,
       data: templates
     };
     const result = projectReducer(projectInitialState, action);
@@ -299,6 +300,19 @@ describe('projectReducer', () => {
     expect(result).toEqual({
       ...projectInitialState,
       templates
+    });
+  });
+
+  it('LOAD_TEMPLATE', () => {
+    const action = {
+      type: LOAD_TEMPLATE,
+      data: 'template content'
+    };
+    const result = projectReducer(projectInitialState, action);
+
+    expect(result).toEqual({
+      ...projectInitialState,
+      templateFile: 'template content'
     });
   });
 

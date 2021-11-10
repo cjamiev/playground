@@ -51,12 +51,12 @@ describe('Template', () => {
     const templateTab = screen.getByText('Template');
     fireEvent.click(templateTab);
 
-    const nameField = screen.getByLabelText('Name text field');
-    const templateOneBtn = screen.getByText('templateOne');
+    const generatedNameField = screen.getByLabelText('Generated Name text field');
+    const templateOneOption = screen.getByLabelText('templateOne checkbox option is not selected');
     const createBtn = screen.getByText('Create');
 
-    fireEvent.change(nameField, { target: { value: 'TestOne' } });
-    fireEvent.click(templateOneBtn);
+    fireEvent.change(generatedNameField, { target: { value: 'TestOne' } });
+    fireEvent.click(templateOneOption);
     fireEvent.click(createBtn);
 
     expect(api.post).toHaveBeenCalledWith(`/project/?type=template&op=create&root=${rootDir}&name=TestOne`, JSON.stringify(['templateOne']));

@@ -46,27 +46,8 @@ describe('Project', () => {
     jest.useFakeTimers();
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
-    const rootField = screen.getByLabelText('Root text field');
-
-    fireEvent.change(rootField, { target: { value: 'incorrectdir' } });
-    act(() => jest.advanceTimersByTime(TIME.A_SECOND));
-
-    await waitFor(() => {
-      expect(screen.getByText(`Remote Url: ${incorrectDirData}`)).toBeInTheDocument();
-    });
-
-    fireEvent.change(rootField, { target: { value: './' } });
-    act(() => jest.advanceTimersByTime(TIME.A_SECOND));
-
-    await waitFor(() => {
-      expect(screen.getByText('Remote Url: test-url')).toBeInTheDocument();
-    });
-  });
-
-  it('updating root dir by using dropdown', async () => {
-    jest.useFakeTimers();
-    reduxTestWrapper(Project, {}, defaultStoreProps);
-
+    const sidePanelBtn = screen.getByLabelText('triple bar');
+    fireEvent.click(sidePanelBtn);
     const dirDropdown = screen.getByText('Directories');
 
     fireEvent.click(dirDropdown);

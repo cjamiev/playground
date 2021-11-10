@@ -1,8 +1,10 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
 import {
-  LOAD_TEMPLATES,
-  loadTemplates,
+  LOAD_TEMPLATE_DIRECTORY,
+  loadTemplateDirectory,
+  LOAD_TEMPLATE,
+  loadTemplate,
   CREATE_FILES_FROM_TEMPLATES,
   createFilesFromTemplates
 } from './templateActions';
@@ -27,25 +29,49 @@ const data = 'test data';
 const message = 'test message';
 const rootDir = 'test-dir';
 const templates = ['template/one', 'template/two'];
+const templateFile = 'template content';
 
 describe('projectActions', () => {
-  it('loadTemplates', async () => {
+  it('loadTemplateDirectory', async () => {
     api.get.mockResolvedValueOnce({
       data: {
         data: templates
       }
     });
-    loadTemplates()(dispatch);
+    loadTemplateDirectory()(dispatch);
 
     await waitFor(() => {
       expect(api.get).toHaveBeenCalledWith('/project/?type=template&op=read');
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_TEMPLATES, data: templates });
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_TEMPLATE_DIRECTORY, data: templates });
     });
   });
 
-  it('loadTemplates - error', async () => {
+  it('loadTemplateDirectory - error', async () => {
     api.get.mockRejectedValueOnce(error);
-    loadTemplates()(dispatch);
+    loadTemplateDirectory()(dispatch);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+    });
+  });
+
+  it('loadTemplate', async () => {
+    api.get.mockResolvedValueOnce({
+      data: {
+        data: templateFile
+      }
+    });
+    loadTemplate('templateName')(dispatch);
+
+    await waitFor(() => {
+      expect(api.get).toHaveBeenCalledWith('/project/?type=template&op=read&name=templateName');
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_TEMPLATE, data: templateFile });
+    });
+  });
+
+  it('loadTemplate - error', async () => {
+    api.get.mockRejectedValueOnce(error);
+    loadTemplate()(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
