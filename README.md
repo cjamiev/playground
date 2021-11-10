@@ -52,10 +52,12 @@ Generator:
   - Animation
   - Background Image Gradient Form
   - Default Values on Form load
-  - Visibility: visible/hidden, cursor: pointer, overflow: auto/hidden
+  - Visibility: visible/hidden, cursor: pointer/text, overflow: auto/hidden
+  - font-weight (normal, bolder, bolder, lighter), text-decoration, font family
+  - Move Remove Attribute to it's own section
 
 Project:
-  - Delete Snippet/Template
+  - Delete operation for Snippet/Template
 
 Dropdown:
   - Pass different content

@@ -78,12 +78,13 @@ const Package = ({ root }) => {
         {packageCommands}
       </div>
       <div className="container--center flex--five">
-        <h2> Dependencies </h2>
+        <h2 className="project__title"> {name} - {description} </h2>
+        <h3> Dependencies </h3>
         <Table
           headers={headers}
           body={renderCells(dependencies, versions.dependencies)}
         />
-        <h2> Dev Dependencies </h2>
+        <h3> Dev Dependencies </h3>
         <Table
           headers={headers}
           body={renderCells(devDependencies, versions.devDependencies)}
