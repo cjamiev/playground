@@ -42,7 +42,7 @@ const GeneratorForm = ({ style, onChange }) => {
     return <Button
       key={label}
       label={label}
-      className="generator__attribute-btns"
+      className="load-file__btns"
       onClick={() => {
         setType(label);
       }}

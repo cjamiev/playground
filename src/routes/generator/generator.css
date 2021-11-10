@@ -48,21 +48,6 @@
   max-width: 800px;
 }
 
-.generator__attribute-btns {
-  background-color: #053759;
-  border: 1px solid #001f33;
-  color: #fff;
-  margin: 0px 10px;
-  border-radius: 0;
-  font-size: 16px;
-  height: 50px;
-  cursor: pointer;
-}
-
-.generator__attribute-btns:hover {
-  background-color: #006bb3;
-}
-
 @media only screen and (min-width: 2500px) {
   .form-grid {
     display: grid;

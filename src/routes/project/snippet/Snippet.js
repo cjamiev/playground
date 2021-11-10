@@ -27,7 +27,7 @@ const Snippet = () => {
     return <Button
       key={label}
       label={label}
-      classColor="primary"
+      className="load-file__btns"
       onClick={() => {
         dispatch(loadSnippet(label));
       }}
@@ -36,23 +36,7 @@ const Snippet = () => {
 
   return (
     <div className="flex--horizontal container--center">
-      <div className="flex--vertical">
-        <Text
-          placeholder="Enter name"
-          selected={name}
-          onChange={({ selected }) => {
-            setName(selected);
-          }}
-        />
-        <Button
-          label="Add"
-          classColor="secondary"
-          onClick={() => {
-            if(name && content) {
-              dispatch(createSnippet(name, content));
-            }
-          }}
-        />
+      <div className="flex--vertical flex--one">
         {fileButtons}
       </div>
       <IconButton
@@ -61,11 +45,29 @@ const Snippet = () => {
           copyToClipboard(snippetFile);
         }}
       />
-      <div className="snippet__file-area">
+      <div className="project__file-area flex--three">
         <TextArea
           ariaLabel="Enter Contents"
           selected={content}
           onChange={({ selected }) => { setContent(selected); }}
+        />
+      </div>
+      <div className="flex--vertical flex--one">
+        <Text
+          placeholder="Snippet Name"
+          selected={name}
+          onChange={({ selected }) => {
+            setName(selected);
+          }}
+        />
+        <Button
+          label="Create New"
+          classColor="secondary"
+          onClick={() => {
+            if(name && content) {
+              dispatch(createSnippet(name, content));
+            }
+          }}
         />
       </div>
     </div>

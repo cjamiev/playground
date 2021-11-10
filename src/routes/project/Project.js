@@ -73,15 +73,8 @@ const Project = () => {
   }, [dispatch, message]);
 
   return (
-    <Page>
-      <div className="flex--horizontal flex--center">
-        <Text
-          placeholder="Root"
-          selected={root}
-          onChange={({ selected }) => {
-            setRoot(selected);
-          }}
-        />
+    <Page sidePanelContent={
+      <div className="container--center">
         <Dropdown
           label="Directories"
           values={dirKeys}
@@ -89,7 +82,9 @@ const Project = () => {
             setRoot(values.find(item => item.selected).value);
           }}
         />
+        <span>{root}</span>
       </div>
+    }>
       <Tabs data={TABS} />
     </Page>
   );

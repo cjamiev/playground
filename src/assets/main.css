@@ -77,3 +77,18 @@ html {
   white-space: nowrap;
   border: 0;
 }
+
+.load-file__btns {
+  background-color: #053759;
+  border: 1px solid #001f33;
+  color: #fff;
+  margin: 0px 10px;
+  border-radius: 0;
+  font-size: 16px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.load-file__btns:hover {
+  background-color: #006bb3;
+}
