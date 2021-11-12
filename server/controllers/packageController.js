@@ -2,7 +2,7 @@ const child_process = require('child_process');
 const { promisify } = require('util');
 const exec = child_process.exec;
 const execPromisify = promisify(exec);
-const { loadJSONFromFile, writeToFile } = require('./file');
+const { loadJSONFromFile, writeToFile } = require('../utils/file');
 
 const UTF8 = 'utf-8';
 const DEFAULT_DIR = './';

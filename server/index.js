@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 const exec = child_process.exec;
-const { writeToFile, loadFile, readDirectory } = require('./file');
-const { isEqual } = require('./util');
+const { writeToFile, loadFile, readDirectory } = require('./utils/file');
+const { isEqual } = require('./utils/util');
 const {
   createMockFile,
   updateMockFile,
@@ -18,12 +18,12 @@ const {
   loadLog,
   logEntry,
   clearLog
-} = require('./mockserver-util');
-const { runGitOperation } = require('./gitop');
-const { runPackageOperation } = require('./packageop');
-const { runTemplateOperation } = require('./templateop');
-const { runRegexOperation } = require('./regexop');
-const { runSnippetOperation } = require('./snippetop');
+} = require('./utils/mockserver-util');
+const { runGitOperation } = require('./controllers/gitController');
+const { runPackageOperation } = require('./controllers/packageController');
+const { runTemplateOperation } = require('./controllers/templateController');
+const { runRegexOperation } = require('./controllers/regexController');
+const { runSnippetOperation } = require('./controllers/snippetController');
 
 const DEFAULT_PORT = 1000;
 const SECOND_ARGUMENT = 2;

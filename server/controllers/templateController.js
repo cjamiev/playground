@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { writeToFile, loadFile, readDirectory } = require('./file');
+const { writeToFile, loadFile, readDirectory } = require('../utils/file');
 
 const TEMPLATE_DIR = './storage/io/templates';
 const UTF8 = 'utf-8';

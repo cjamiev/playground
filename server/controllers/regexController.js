@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { resolve } = require('path');
 const { readdir, stat } = fs.promises;
-const { isNumber } = require('./util');
+const { isNumber } = require('../utils/util');
 
 const UTF8 = 'utf-8';
 
