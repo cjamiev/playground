@@ -1,115 +1,77 @@
-const execSync = require('child_process').execSync;
+const { executeCommand } = require('../services/execService');
 
-const UTF8 = 'utf-8';
 const DEFAULT_DIR = './';
-
 const getRemoteUrl = (rootDir = DEFAULT_DIR) => {
-  try {
-    return execSync(`cd ${rootDir} && git config remote.origin.url`, { encoding: UTF8 });
-  } catch(e) {
-    return e.stderr;
-  }
+  return executeCommand(`cd ${rootDir} && git config remote.origin.url`);
 };
 
 const resetBranch = (rootDir = DEFAULT_DIR) => {
-  try {
-    return execSync(`cd ${rootDir} && git reset --hard`, { encoding: UTF8 });
-  } catch(e) {
-    return e.stderr;
-  }
+  return executeCommand(`cd ${rootDir} && git reset --hard`);
 };
 
 const deleteBranch = (rootDir = DEFAULT_DIR, branchname) => {
-  try {
-    if(branchname) {
-      return execSync(`cd ${rootDir} && git branch -D ${branchname}`, { encoding: UTF8 });
-    }
-    return 'Missing branchname';
-  } catch(e) {
-    return e.stderr;
+  if(branchname) {
+    return executeCommand(`cd ${rootDir} && git branch -D ${branchname}`);
   }
+  return 'Missing branchname';
 };
 
 const createBranch = (rootDir = DEFAULT_DIR, branchname) => {
-  try {
-    if(branchname) {
-      return execSync(`cd ${rootDir} && git checkout -b ${branchname}`, { encoding: UTF8 });
-    }
-    return 'Missing branchname';
-  } catch(e) {
-    return e.stderr;
+  if(branchname) {
+    return executeCommand(`cd ${rootDir} && git checkout -b ${branchname}`);
   }
+  return 'Missing branchname';
 };
 
 const mergeBranch = (rootDir = DEFAULT_DIR, branchname) => {
-  try {
-    if(branchname) {
-      return execSync(`cd ${rootDir} && git merge ${branchname}`, { encoding: UTF8 });
-    }
-    return 'Missing branchname';
-  } catch(e) {
-    return e.stderr;
+  if(branchname) {
+    return executeCommand(`cd ${rootDir} && git merge ${branchname}`);
   }
+  return 'Missing branchname';
 };
 
 const selectBranch = (rootDir = DEFAULT_DIR, branchname) => {
-  try {
-    if(branchname) {
-      return execSync(`cd ${rootDir} && git checkout ${branchname}`, { encoding: UTF8 });
-    }
-    return 'Missing branchname';
-  } catch(e) {
-    return e.stderr;
+  if(branchname) {
+    return executeCommand(`cd ${rootDir} && git checkout ${branchname}`);
   }
+  return 'Missing branchname';
 };
 
 const viewBranches = (rootDir = DEFAULT_DIR) => {
-  try {
-    return execSync(`cd ${rootDir} && git branch`, { encoding: UTF8 });
-  } catch(e) {
-    return e.stderr;
-  }
+  return executeCommand(`cd ${rootDir} && git branch`);
 };
 
 const createStash = (rootDir = DEFAULT_DIR, stashname) => {
   if(stashname){
-    return execSync(`cd ${rootDir} && git stash push -m ${stashname}`, { encoding: UTF8 });
+    return executeCommand(`cd ${rootDir} && git stash push -m ${stashname}`);
   }
-  return execSync(`cd ${rootDir} && git stash`, { encoding: UTF8 });
+  return executeCommand(`cd ${rootDir} && git stash`);
 };
 
 const deleteStash = (rootDir = DEFAULT_DIR, stashname) => {
   if(stashname){
-    return execSync(`cd ${rootDir} && git stash drop stash@{${stashname}}`, { encoding: UTF8 });
+    return executeCommand(`cd ${rootDir} && git stash drop stash@{${stashname}}`);
   }
-  return execSync(`cd ${rootDir} && git stash`, { encoding: UTF8 });
+  return executeCommand(`cd ${rootDir} && git stash`);
 };
 
 const selectStash = (rootDir = DEFAULT_DIR, stashname) => {
-  try {
-    if(stashname) {
-      return execSync(`cd ${rootDir} && git stash apply ${stashname}`, { encoding: UTF8 });
-    }
-    return execSync(`cd ${rootDir} && git stash apply`, { encoding: UTF8 });
-  } catch(e) {
-    return e.stderr;
+  if(stashname) {
+    return executeCommand(`cd ${rootDir} && git stash apply ${stashname}`);
   }
+  return executeCommand(`cd ${rootDir} && git stash apply`);
 };
 
 const viewStash = (rootDir = DEFAULT_DIR) => {
-  try {
-    return execSync(`cd ${rootDir} && git stash list`, { encoding: UTF8 });
-  } catch(e) {
-    return e.stderr;
-  }
+  return executeCommand(`cd ${rootDir} && git stash list`);
 };
 
-const gitMapDataOps = {
+const gitReadOps = {
   'remoteurl':getRemoteUrl,
   'viewbranches':viewBranches,
   'viewstash':viewStash
 };
-const gitMapMessageOps = {
+const gitWriteOps = {
   'deletebranch':deleteBranch,
   'createbranch':createBranch,
   'mergebranch':mergeBranch,
@@ -121,11 +83,11 @@ const gitMapMessageOps = {
 };
 
 const runGitOperation = (op, root, name) => {
-  if(gitMapMessageOps.hasOwnProperty(op)) {
-    const message = gitMapMessageOps[op](root, name);
+  if(gitWriteOps.hasOwnProperty(op)) {
+    const message = gitWriteOps[op](root, name);
     return { message };
-  } else if(gitMapDataOps.hasOwnProperty(op)) {
-    const data = gitMapDataOps[op](root);
+  } else if(gitReadOps.hasOwnProperty(op)) {
+    const data = gitReadOps[op](root);
     return { data };
   } else {
     return { message: 'git operation not found' };

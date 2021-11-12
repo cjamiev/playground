@@ -1,4 +1,3 @@
-const fs = require('fs');
 const { writeToFile, loadFile, readDirectory } = require('../utils/file');
 
 const SNIPPET_DIR = './storage/io/snippets';
