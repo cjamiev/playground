@@ -19,11 +19,7 @@ const {
   logEntry,
   clearLog
 } = require('./utils/mockserver-util');
-const { runGitOperation } = require('./controllers/gitController');
-const { runPackageOperation } = require('./controllers/packageController');
-const { runTemplateOperation } = require('./controllers/templateController');
-const { runRegexOperation } = require('./controllers/regexController');
-const { runSnippetOperation } = require('./controllers/snippetController');
+const { projectController } = require('./controllers/projectController');
 
 const DEFAULT_PORT = 1000;
 const SECOND_ARGUMENT = 2;
@@ -128,38 +124,6 @@ const handleCommandResponse = (request, response) => {
     const data = readDirectory(COMMAND_DIRECTORY);
 
     send(response, { data });
-  }
-};
-
-const handleProjectResponse = async (request, response) => {
-  const { type, op, root, name, content } = url.parse(request.url, true).query;
-
-  if(type === 'git') {
-    const { data, message } = runGitOperation(op, root, name);
-
-    send(response, { data, message });
-  } else if(type === 'package') {
-    const payload = (request.method === METHOD_POST) ? await resolvePostBody(request): content;
-    const { data, error, message } = await runPackageOperation(op, root, payload);
-
-    send(response, { data, error, message });
-  } else if(type === 'template') {
-    const payload = await resolvePostBody(request);
-    const { data, message } = runTemplateOperation(op, {targetDir:root, name, content:payload});
-
-    send(response, { data, message });
-  } else if(type === 'regex') {
-    const payload = await resolvePostBody(request);
-    const { message } = runRegexOperation(root, payload);
-
-    send(response, message);
-  } else if(type === 'snippet') {
-    const payload = await resolvePostBody(request);
-    const { data } = runSnippetOperation(op, name, payload);
-
-    send(response, { data });
-  } else {
-    send(response, { error: { message: 'project type not found'} });
   }
 };
 
@@ -290,24 +254,33 @@ const handleDefaultResponse = async (request, response) => {
   }
 };
 
+const handleRequest = async (request, response) => {
+  if (request.url.includes('file')) {
+    handleFileResponse(request, response);
+  } else if (request.url.includes('command')) {
+    handleCommandResponse(request, response);
+  } else if (request.url.includes('db')) {
+    handleDbResponse(request, response);
+  } else if (request.url.includes('project')) {
+    const queryParameters = url.parse(request.url, true).query;
+    const payload = request.method === METHOD_POST ? await resolvePostBody(request) : {};
+
+    const { data, message, error } = await projectController(queryParameters, payload);
+
+    send(response, { data, message, error });
+  } else if (request.url.includes('mockserver')) {
+    handleMockServerResponse(request, response);
+  } else if (path.extname(request.url)) {
+    handleStaticResponse(request, response);
+  } else {
+    handleDefaultResponse(request, response);
+  }
+};
+
 http
   .createServer((request, response) => {
     cors(response);
-    if (request.url.includes('file')) {
-      handleFileResponse(request, response);
-    } else if (request.url.includes('command')) {
-      handleCommandResponse(request, response);
-    } else if (request.url.includes('db')) {
-      handleDbResponse(request, response);
-    } else if (request.url.includes('project')) {
-      handleProjectResponse(request, response);
-    } else if (request.url.includes('mockserver')) {
-      handleMockServerResponse(request, response);
-    } else if (path.extname(request.url)) {
-      handleStaticResponse(request, response);
-    } else {
-      handleDefaultResponse(request, response);
-    }
+    handleRequest(request, response);
   })
   .listen(parseInt(port));
 
