@@ -92,8 +92,8 @@ export const getNewMockFields = () => {
 export const mapFieldsToNewMockPayload = (fields) => {
   const optionalFileName = fields.find((item) => item.id === INDEX_ONE).selected;
   const url = fields.find((item) => item.id === INDEX_TWO).selected;
-  const filename = optionalFileName ? optionalFileName : url.replace(/\//gm, '-');
   const method = fields.find((item) => item.id === INDEX_THREE).values.find((item) => item.selected).label;
+  const filename = optionalFileName ? optionalFileName : method + url.replace(/\//gm, '-');
 
   return {
     filename,
