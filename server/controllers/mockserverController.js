@@ -10,7 +10,7 @@ const {
   logEntry,
   clearLog
 } = require('../utils/mockserver-util');
-const { isEmpty } = require('../utils/util');
+const { isEmpty } = require('../utils/dataHelper');
 
 const handleMockServerPostResponses = (url, payload) => {
   if (url.includes('config')) {

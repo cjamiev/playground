@@ -3,7 +3,7 @@ const {
   getMatchedMockResponse,
   loadConfiguration
 } = require('../utils/mockserver-util');
-const { isEqual } = require('../utils/util');
+const { isEqual } = require('../utils/dataHelper');
 
 const MOCK_SERVER_ERROR = 'mock server error has occurred';
 const UTF8 = 'utf-8';

@@ -8,10 +8,6 @@ const parseObject = obj => {
 };
 
 const isJSONString = value => (isString(value) && parseObject(value) ? true : false);
-const drop = (arr = [], n = ONE) => arr.slice(n);
-const flattenDeep = (arr = []) =>
-  (Array.isArray(arr) ? arr.reduce((a, b) => [...flattenDeep(a), ...flattenDeep(b)], []) : [arr]);
-
 const isNumber = (value) => typeof value === 'number';
 const isBoolean = (value) => typeof value === 'boolean';
 const isString = (value) => typeof value === 'string';
@@ -58,8 +54,6 @@ const isEqual = (entry1, entry2) => {
 };
 
 module.exports = {
-  drop,
-  flattenDeep,
   isNumber,
   isJSONString,
   isBoolean,

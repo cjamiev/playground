@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const { drop, flattenDeep, isJSONString } = require('./util');
+const { isJSONString } = require('./dataHelper');
+const { drop, flattenDeep } = require('./arrayHelper');
 
 const UTF8_ENCODING = 'utf8';
 

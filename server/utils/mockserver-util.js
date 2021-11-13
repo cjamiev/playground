@@ -1,4 +1,4 @@
-const { isBoolean, isNumber, isObject } = require('./util');
+const { isBoolean, isNumber, isObject } = require('./dataHelper');
 const { loadJSONFromFile, writeToFile, deleteFile } = require('./file');
 
 const ONE = 1;
