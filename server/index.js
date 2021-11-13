@@ -20,6 +20,7 @@ const {
   clearLog
 } = require('./utils/mockserver-util');
 const { projectController } = require('./controllers/projectController');
+const { databaseController } = require('./controllers/databaseController');
 
 const DEFAULT_PORT = 1000;
 const SECOND_ARGUMENT = 2;
@@ -46,7 +47,6 @@ const STATUS_OK = 200;
 const STATUS_ERROR = 500;
 const METHOD_POST = 'POST';
 const FILE_DIRECTORY = './storage/io/file';
-const DB_DIRECTORY = './storage/io/db';
 const COMMAND_DIRECTORY = './storage/io/command';
 
 const cors = (res) => {
@@ -122,26 +122,6 @@ const handleCommandResponse = (request, response) => {
     });
   } else {
     const data = readDirectory(COMMAND_DIRECTORY);
-
-    send(response, { data });
-  }
-};
-
-const handleDbResponse = async (request, response) => {
-  if (request.method === METHOD_POST) {
-    const payload = await resolvePostBody(request);
-
-    const content = payload.content;
-    const filename = payload.filename;
-
-    const { message, error } = writeToFile(`${DB_DIRECTORY}/${filename}`, content);
-
-    send(response, { message, error });
-  } else {
-    const queryParams = url.parse(request.url, true).query;
-    const data = queryParams.name
-      ? loadFile(`${DB_DIRECTORY}/${queryParams.name}`)
-      : readDirectory(DB_DIRECTORY);
 
     send(response, { data });
   }
@@ -260,7 +240,12 @@ const handleRequest = async (request, response) => {
   } else if (request.url.includes('command')) {
     handleCommandResponse(request, response);
   } else if (request.url.includes('db')) {
-    handleDbResponse(request, response);
+    const queryParameters = url.parse(request.url, true).query;
+    const payload = request.method === METHOD_POST ? await resolvePostBody(request) : {};
+
+    const { data, message, error } = await databaseController(queryParameters.name, payload);
+
+    send(response, { data, message, error });
   } else if (request.url.includes('project')) {
     const queryParameters = url.parse(request.url, true).query;
     const payload = request.method === METHOD_POST ? await resolvePostBody(request) : {};
