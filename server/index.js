@@ -139,9 +139,10 @@ const handleRequest = async (request, response) => {
 
     send(response, { data, message, error });
   } else if (request.url.includes('command')) {
-    const { message } = await commandController(queryParameters);
 
-    send(response, { message });
+    const { data, message } = await commandController(queryParameters);
+
+    send(response, { data, message });
   } else if (request.url.includes('db')) {
     const { data, message, error } = await databaseController(queryParameters.name, payload);
 
