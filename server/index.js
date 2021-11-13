@@ -1,6 +1,5 @@
 const child_process = require('child_process');
 const http = require('http');
-const fs = require('fs');
 const path = require('path');
 const url = require('url');
 const { isEqual } = require('./utils/util');
@@ -10,28 +9,13 @@ const { databaseController } = require('./controllers/databaseController');
 const { mockserverController } = require('./controllers/mockserverController');
 const { mockController } = require('./controllers/mockController');
 const { commandController } = require('./controllers/commandController');
+const { staticController } = require('./controllers/staticController');
 
 const DEFAULT_PORT = 1000;
 const SECOND_ARGUMENT = 2;
 const port = process.argv[SECOND_ARGUMENT] || DEFAULT_PORT;
-const ROOT_DIR = './server/static/';
 const UTF8 = 'utf-8';
-const TYPE_OCTET = 'application/octet-stream';
-const mimeTypes = {
-  '.ico': 'image/x-icon',
-  '.html': 'text/html',
-  '.js': 'text/javascript',
-  '.json': 'application/json',
-  '.css': 'text/css',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.svg': 'image/svg+xml',
-  '.pdf': 'application/pdf',
-  '.doc': 'application/msword'
-};
 const STANDARD_HEADER = { 'Content-Type': 'application/json' };
-const MOCK_SERVER_ERROR = 'mock server error has occurred';
-const NOT_FOUND = 'Not found';
 const STATUS_OK = 200;
 const STATUS_ERROR = 500;
 const METHOD_POST = 'POST';
@@ -63,29 +47,18 @@ const resolvePostBody = async (request) => {
   return await promise;
 };
 
-const send = (response, { data = {}, message = '', error = false }) => {
-  const status = error ? STATUS_ERROR : STATUS_OK;
+const send = (response, { data = {}, message = '', error = false }, { status, headers, body } = {}) => {
+  if(status, headers, body) {
+    response.writeHead(status, headers);
+    response.end(JSON.stringify(body), UTF8);
+  } else {
+    const STANDARD_STATUS = error ? STATUS_ERROR : STATUS_OK;
 
-  response.writeHead(status, STANDARD_HEADER);
-  response.end(JSON.stringify({ data, message, error }), UTF8);
+    response.writeHead(STANDARD_STATUS, STANDARD_HEADER);
+    response.end(JSON.stringify({ data, message, error }), UTF8);
+  }
 };
 
-const handleStaticResponse = (request, response) => {
-  const filePath = ROOT_DIR + request.url;
-  const extname = String(path.extname(filePath)).toLowerCase();
-  const contentType = mimeTypes[extname] || TYPE_OCTET;
-
-  fs.readFile(filePath, (error, content) => {
-    if (error) {
-      send(response, { message: NOT_FOUND, error: true });
-    } else {
-      response.writeHead(STATUS_OK, { 'Content-Type': contentType });
-      response.end(content, UTF8);
-    }
-  });
-};
-
-// eslint-disable-next-line complexity
 const handleRequest = async (request, response) => {
   const queryParameters = url.parse(request.url, true).query;
   const payload = request.method === METHOD_POST ? await resolvePostBody(request) : {};
@@ -112,7 +85,15 @@ const handleRequest = async (request, response) => {
 
     send(response, { data, message, error });
   } else if (path.extname(request.url)) {
-    handleStaticResponse(request, response);
+    const {
+      message,
+      error,
+      status,
+      headers,
+      body
+    } = await staticController(request.url);
+
+    send(response, { message, error }, { status, headers, body });
   } else {
     const {
       message,
@@ -122,12 +103,7 @@ const handleRequest = async (request, response) => {
       body
     } = await mockController(request.url, request.method, payload);
 
-    if(status && headers && body) {
-      response.writeHead(status, headers);
-      response.end(JSON.stringify(body), UTF8);
-    } else {
-      send(response, { message, error });
-    }
+    send(response, { message, error }, { status, headers, body });
   }
 };
 
