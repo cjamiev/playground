@@ -150,7 +150,7 @@ const logEntry = (url, payload) => {
   const currentLog = loadLog();
   const updatedLog = currentLog.concat([{ timestamp, url, payload }]);
 
-  writeToFile(LOGFILE_PATH, JSON.stringify(updatedLog));
+  return writeToFile(LOGFILE_PATH, JSON.stringify(updatedLog));
 };
 
 const clearLog = () => {

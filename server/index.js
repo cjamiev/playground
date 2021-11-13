@@ -3,13 +3,12 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
-const exec = child_process.exec;
-const { writeToFile, loadFile, readDirectory } = require('./utils/file');
 const { isEqual } = require('./utils/util');
 const { projectController } = require('./controllers/projectController');
 const { fileController } = require('./controllers/fileController');
 const { databaseController } = require('./controllers/databaseController');
 const { mockserverController } = require('./controllers/mockserverController');
+const { mockController } = require('./controllers/mockController');
 const { commandController } = require('./controllers/commandController');
 
 const DEFAULT_PORT = 1000;
@@ -71,25 +70,6 @@ const send = (response, { data = {}, message = '', error = false }) => {
   response.end(JSON.stringify({ data, message, error }), UTF8);
 };
 
-const handleMockResponse = async ({ payload, reqUrl, method }, response) => {
-  const matchedResponse = getMatchedMockResponse(reqUrl, method);
-
-  if (matchedResponse && matchedResponse.conditionalResponse) {
-    const matchedConditionalResponse = matchedResponse.conditionalResponse.find((item) =>
-      isEqual(item.payload, payload)
-    );
-    const responsePayload = (matchedConditionalResponse && matchedConditionalResponse.body) || matchedResponse.body;
-
-    response.writeHead(matchedResponse.status, matchedResponse.headers);
-    response.end(JSON.stringify(responsePayload), UTF8);
-  } else if (matchedResponse) {
-    response.writeHead(matchedResponse.status, matchedResponse.headers);
-    response.end(JSON.stringify(matchedResponse.body), UTF8);
-  } else {
-    send(response, { message: NOT_FOUND, error: true });
-  }
-};
-
 const handleStaticResponse = (request, response) => {
   const filePath = ROOT_DIR + request.url;
   const extname = String(path.extname(filePath)).toLowerCase();
@@ -105,31 +85,7 @@ const handleStaticResponse = (request, response) => {
   });
 };
 
-const handleDefaultResponse = async (request, response) => {
-  const { delay, delayUrls, error, log, overrideUrls, overrideStatusCode, overrideResponse } = loadConfiguration();
-  const shouldDelayAllUrls = !delayUrls.length;
-  const shouldDelayThisUrl = delayUrls.some((item) => item === request.url);
-  const matchedUrl = overrideUrls.some((endpoint) => endpoint === request.url);
-
-  const payload = request.method === METHOD_POST ? await resolvePostBody(request) : {};
-
-  if (log) {
-    logEntry(request.url, payload);
-  }
-  if (error) {
-    send(response, { message: MOCK_SERVER_ERROR, error: true });
-  } else if (matchedUrl) {
-    response.writeHead(overrideStatusCode, STANDARD_HEADER);
-    response.end(JSON.stringify(overrideResponse), UTF8);
-  } else if (shouldDelayAllUrls || shouldDelayThisUrl) {
-    setTimeout(() => {
-      handleMockResponse({ payload, reqUrl: request.url, method: request.method }, response);
-    }, delay);
-  } else {
-    handleMockResponse({ payload, reqUrl: request.url, method: request.method }, response);
-  }
-};
-
+// eslint-disable-next-line complexity
 const handleRequest = async (request, response) => {
   const queryParameters = url.parse(request.url, true).query;
   const payload = request.method === METHOD_POST ? await resolvePostBody(request) : {};
@@ -158,7 +114,20 @@ const handleRequest = async (request, response) => {
   } else if (path.extname(request.url)) {
     handleStaticResponse(request, response);
   } else {
-    handleDefaultResponse(request, response);
+    const {
+      message,
+      error,
+      status,
+      headers,
+      body
+    } = await mockController(request.url, request.method, payload);
+
+    if(status && headers && body) {
+      response.writeHead(status, headers);
+      response.end(JSON.stringify(body), UTF8);
+    } else {
+      send(response, { message, error });
+    }
   }
 };
 
