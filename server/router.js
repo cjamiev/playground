@@ -7,7 +7,7 @@ const { mockController } = require('./controllers/mockController');
 const { commandController } = require('./controllers/commandController');
 const { staticController } = require('./controllers/staticController');
 
-const router = async (reqUrl, queryParameters, payload) => {
+const router = async ({ reqUrl, reqMethod, queryParameters, payload }) => {
   if (reqUrl.includes('file')) {
     return await fileController(queryParameters.name, payload);
   } else if (reqUrl.includes('command')) {
@@ -21,7 +21,7 @@ const router = async (reqUrl, queryParameters, payload) => {
   } else if (path.extname(reqUrl)) {
     return await staticController(reqUrl);
   } else {
-    return await mockController(reqUrl, request.method, payload);
+    return await mockController(reqUrl, reqMethod, payload);
   }
 };
 

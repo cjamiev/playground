@@ -61,7 +61,7 @@ const handleRequest = async (request, response) => {
     status,
     headers,
     body
-  } = await router(request.url, queryParameters, payload);
+  } = await router({ reqUrl: request.url, reqMethod: request.method, queryParameters, payload });
   send(response, { data, message, error }, { status, headers, body });
 };
 
