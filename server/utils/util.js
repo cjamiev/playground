@@ -64,5 +64,6 @@ module.exports = {
   isJSONString,
   isBoolean,
   isObject,
-  isEqual
+  isEqual,
+  isEmpty
 };

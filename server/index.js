@@ -6,22 +6,10 @@ const url = require('url');
 const exec = child_process.exec;
 const { writeToFile, loadFile, readDirectory } = require('./utils/file');
 const { isEqual } = require('./utils/util');
-const {
-  createMockFile,
-  updateMockFile,
-  removeMockRequestsEntry,
-  loadMockRequests,
-  loadMockResponse,
-  getMatchedMockResponse,
-  loadConfiguration,
-  updateConfiguration,
-  loadLog,
-  logEntry,
-  clearLog
-} = require('./utils/mockserver-util');
 const { projectController } = require('./controllers/projectController');
 const { fileController } = require('./controllers/fileController');
 const { databaseController } = require('./controllers/databaseController');
+const { mockserverController } = require('./controllers/mockserverController');
 
 const DEFAULT_PORT = 1000;
 const SECOND_ARGUMENT = 2;
@@ -89,9 +77,7 @@ const send = (response, { data = {}, message = '', error = false }) => {
   response.end(JSON.stringify({ data, message, error }), UTF8);
 };
 
-const handleCommandResponse = (request, response) => {
-  const queryParams = url.parse(request.url, true).query;
-
+const handleCommandResponse = (queryParams, response) => {
   if(queryParams.name) {
     exec(getExecCommand(queryParams), { encoding: UTF8 }, (error, stdout, stderr) => {
       error
@@ -100,54 +86,6 @@ const handleCommandResponse = (request, response) => {
     });
   } else {
     const data = readDirectory(COMMAND_DIRECTORY);
-
-    send(response, { data });
-  }
-};
-
-const handleMockServerPostResponses = async (request, response) => {
-  const payload = await resolvePostBody(request);
-
-  if (request.url.includes('config')) {
-    const { message, error } = updateConfiguration(payload);
-
-    send(response, { message, error });
-  } else if (request.url.includes('loadMockResponse')) {
-    const data = loadMockResponse(payload.responsePath);
-
-    send(response, { data });
-  } else if (request.url.includes('deleteMockEndpoint')) {
-    const { message, error } = removeMockRequestsEntry(payload);
-
-    send(response, { message, error });
-  } else if (request.url.includes('createMockEndpoint')) {
-    const { message, error } = createMockFile(payload);
-
-    send(response, { message, error });
-  } else if (request.url.includes('updateMockEndpoint')) {
-    const { message, error } = updateMockFile(payload);
-
-    send(response, { message, error });
-  }
-};
-
-const handleMockServerResponse = (request, response) => {
-  if (request.method === METHOD_POST) {
-    handleMockServerPostResponses(request, response);
-  } else if (request.url.includes('config')) {
-    const data = loadConfiguration();
-
-    send(response, { data });
-  } else if (request.url.includes('mockRequests')) {
-    const data = loadMockRequests();
-
-    send(response, { data });
-  } else if (request.url.includes('clearLog')) {
-    const { message, error } = clearLog();
-
-    send(response, { message, error });
-  } else if (request.url.includes('loadLog')) {
-    const data = loadLog();
 
     send(response, { data });
   }
@@ -213,31 +151,27 @@ const handleDefaultResponse = async (request, response) => {
 };
 
 const handleRequest = async (request, response) => {
-  if (request.url.includes('file')) {
-    const queryParameters = url.parse(request.url, true).query;
-    const payload = request.method === METHOD_POST ? await resolvePostBody(request) : {};
+  const queryParameters = url.parse(request.url, true).query;
+  const payload = request.method === METHOD_POST ? await resolvePostBody(request) : {};
 
+  if (request.url.includes('file')) {
     const { data, message, error } = await fileController(queryParameters.name, payload);
 
     send(response, { data, message, error });
   } else if (request.url.includes('command')) {
-    handleCommandResponse(request, response);
+    handleCommandResponse(queryParameters, response);
   } else if (request.url.includes('db')) {
-    const queryParameters = url.parse(request.url, true).query;
-    const payload = request.method === METHOD_POST ? await resolvePostBody(request) : {};
-
     const { data, message, error } = await databaseController(queryParameters.name, payload);
 
     send(response, { data, message, error });
   } else if (request.url.includes('project')) {
-    const queryParameters = url.parse(request.url, true).query;
-    const payload = request.method === METHOD_POST ? await resolvePostBody(request) : {};
-
     const { data, message, error } = await projectController(queryParameters, payload);
 
     send(response, { data, message, error });
   } else if (request.url.includes('mockserver')) {
-    handleMockServerResponse(request, response);
+    const { data, message, error } = await mockserverController(request.url, payload);
+
+    send(response, { data, message, error });
   } else if (path.extname(request.url)) {
     handleStaticResponse(request, response);
   } else {
