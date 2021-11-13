@@ -10,6 +10,7 @@ const { projectController } = require('./controllers/projectController');
 const { fileController } = require('./controllers/fileController');
 const { databaseController } = require('./controllers/databaseController');
 const { mockserverController } = require('./controllers/mockserverController');
+const { commandController } = require('./controllers/commandController');
 
 const DEFAULT_PORT = 1000;
 const SECOND_ARGUMENT = 2;
@@ -35,19 +36,12 @@ const NOT_FOUND = 'Not found';
 const STATUS_OK = 200;
 const STATUS_ERROR = 500;
 const METHOD_POST = 'POST';
-const COMMAND_DIRECTORY = './storage/io/command';
 
 const cors = (res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Request-Method', '*');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
   res.setHeader('Access-Control-Allow-Headers', '*');
-};
-
-const getExecCommand = ({ name, args }) => {
-  const command = name.includes('.sh') ? `sh ${name}` : name;
-
-  return `cd ${COMMAND_DIRECTORY} && ${command} ${args}`;
 };
 
 const resolvePostBody = async (request) => {
@@ -75,20 +69,6 @@ const send = (response, { data = {}, message = '', error = false }) => {
 
   response.writeHead(status, STANDARD_HEADER);
   response.end(JSON.stringify({ data, message, error }), UTF8);
-};
-
-const handleCommandResponse = (queryParams, response) => {
-  if(queryParams.name) {
-    exec(getExecCommand(queryParams), { encoding: UTF8 }, (error, stdout, stderr) => {
-      error
-        ? send(response, { message: JSON.stringify(error || stderr) })
-        : send(response, { message: stderr.concat(stdout) });
-    });
-  } else {
-    const data = readDirectory(COMMAND_DIRECTORY);
-
-    send(response, { data });
-  }
 };
 
 const handleMockResponse = async ({ payload, reqUrl, method }, response) => {
@@ -159,7 +139,9 @@ const handleRequest = async (request, response) => {
 
     send(response, { data, message, error });
   } else if (request.url.includes('command')) {
-    handleCommandResponse(queryParameters, response);
+    const { message } = await commandController(queryParameters);
+
+    send(response, { message });
   } else if (request.url.includes('db')) {
     const { data, message, error } = await databaseController(queryParameters.name, payload);
 

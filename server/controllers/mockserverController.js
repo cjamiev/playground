@@ -4,7 +4,6 @@ const {
   removeMockRequestsEntry,
   loadMockRequests,
   loadMockResponse,
-  getMatchedMockResponse,
   loadConfiguration,
   updateConfiguration,
   loadLog,
