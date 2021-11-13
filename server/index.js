@@ -20,6 +20,7 @@ const {
   clearLog
 } = require('./utils/mockserver-util');
 const { projectController } = require('./controllers/projectController');
+const { fileController } = require('./controllers/fileController');
 const { databaseController } = require('./controllers/databaseController');
 
 const DEFAULT_PORT = 1000;
@@ -46,7 +47,6 @@ const NOT_FOUND = 'Not found';
 const STATUS_OK = 200;
 const STATUS_ERROR = 500;
 const METHOD_POST = 'POST';
-const FILE_DIRECTORY = './storage/io/file';
 const COMMAND_DIRECTORY = './storage/io/command';
 
 const cors = (res) => {
@@ -87,28 +87,6 @@ const send = (response, { data = {}, message = '', error = false }) => {
 
   response.writeHead(status, STANDARD_HEADER);
   response.end(JSON.stringify({ data, message, error }), UTF8);
-};
-
-const handleFileResponse = async (request, response) => {
-  if (request.method === METHOD_POST) {
-    const payload = await resolvePostBody(request);
-
-    const content = payload.content || '';
-    const filename = payload.filename || 'no-name.txt';
-
-    const { message, error } = writeToFile(`${FILE_DIRECTORY}/${filename}`, content);
-
-    send(response, { message, error });
-  }
-  else {
-    const queryParams = url.parse(request.url, true).query;
-
-    const data = queryParams.name
-      ? loadFile(`${FILE_DIRECTORY}/${queryParams.name}`)
-      : readDirectory(FILE_DIRECTORY);
-
-    send(response, { data });
-  }
 };
 
 const handleCommandResponse = (request, response) => {
@@ -236,7 +214,12 @@ const handleDefaultResponse = async (request, response) => {
 
 const handleRequest = async (request, response) => {
   if (request.url.includes('file')) {
-    handleFileResponse(request, response);
+    const queryParameters = url.parse(request.url, true).query;
+    const payload = request.method === METHOD_POST ? await resolvePostBody(request) : {};
+
+    const { data, message, error } = await fileController(queryParameters.name, payload);
+
+    send(response, { data, message, error });
   } else if (request.url.includes('command')) {
     handleCommandResponse(request, response);
   } else if (request.url.includes('db')) {
