@@ -82,20 +82,7 @@ const gitWriteOps = {
   'resetbranch':resetBranch
 };
 
-const runGitOperation = (op, root, name) => {
-  if(gitWriteOps.hasOwnProperty(op)) {
-    const message = gitWriteOps[op](root, name);
-
-    return { message };
-  } else if(gitReadOps.hasOwnProperty(op)) {
-    const data = gitReadOps[op](root);
-
-    return { data };
-  } else {
-    return { message: 'git operation not found' };
-  }
-};
-
 module.exports = {
-  runGitOperation
+  gitReadOps,
+  gitWriteOps
 };
