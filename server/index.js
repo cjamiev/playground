@@ -1,15 +1,6 @@
-const child_process = require('child_process');
 const http = require('http');
-const path = require('path');
 const url = require('url');
-const { isEqual } = require('./utils/util');
-const { projectController } = require('./controllers/projectController');
-const { fileController } = require('./controllers/fileController');
-const { databaseController } = require('./controllers/databaseController');
-const { mockserverController } = require('./controllers/mockserverController');
-const { mockController } = require('./controllers/mockController');
-const { commandController } = require('./controllers/commandController');
-const { staticController } = require('./controllers/staticController');
+const { router } = require('./router');
 
 const DEFAULT_PORT = 1000;
 const SECOND_ARGUMENT = 2;
@@ -63,48 +54,15 @@ const handleRequest = async (request, response) => {
   const queryParameters = url.parse(request.url, true).query;
   const payload = request.method === METHOD_POST ? await resolvePostBody(request) : {};
 
-  if (request.url.includes('file')) {
-    const { data, message, error } = await fileController(queryParameters.name, payload);
-
-    send(response, { data, message, error });
-  } else if (request.url.includes('command')) {
-
-    const { data, message } = await commandController(queryParameters);
-
-    send(response, { data, message });
-  } else if (request.url.includes('db')) {
-    const { data, message, error } = await databaseController(queryParameters.name, payload);
-
-    send(response, { data, message, error });
-  } else if (request.url.includes('project')) {
-    const { data, message, error } = await projectController(queryParameters, payload);
-
-    send(response, { data, message, error });
-  } else if (request.url.includes('mockserver')) {
-    const { data, message, error } = await mockserverController(request.url, payload);
-
-    send(response, { data, message, error });
-  } else if (path.extname(request.url)) {
-    const {
-      message,
-      error,
-      status,
-      headers,
-      body
-    } = await staticController(request.url);
-
-    send(response, { message, error }, { status, headers, body });
-  } else {
-    const {
-      message,
-      error,
-      status,
-      headers,
-      body
-    } = await mockController(request.url, request.method, payload);
-
-    send(response, { message, error }, { status, headers, body });
-  }
+  const {
+    data,
+    message,
+    error,
+    status,
+    headers,
+    body
+  } = await router(request.url, queryParameters, payload);
+  send(response, { data, message, error }, { status, headers, body });
 };
 
 http
