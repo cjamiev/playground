@@ -30,7 +30,7 @@ const staticController = async (reqUrl) => {
       if (error) {
         resolve({ message: NOT_FOUND, error: true });
       } else {
-        resolve({ status: STATUS_OK, headers: { 'Content-Type': contentType }, body: content });
+        resolve({ status: STATUS_OK, headers: { 'Content-Type': contentType }, body: content, shouldStringify: false });
       }
     });
   });

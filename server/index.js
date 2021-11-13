@@ -38,10 +38,10 @@ const resolvePostBody = async (request) => {
   return await promise;
 };
 
-const send = (response, { data = {}, message = '', error = false }, { status, headers, body } = {}) => {
+const send = (response, { data = {}, message = '', error = false }, { status, headers, body, shouldStringify = true } = {}) => {
   if(status, headers, body) {
     response.writeHead(status, headers);
-    response.end(JSON.stringify(body), UTF8);
+    response.end(shouldStringify ? JSON.stringify(body): body, UTF8);
   } else {
     const STANDARD_STATUS = error ? STATUS_ERROR : STATUS_OK;
 
@@ -60,9 +60,10 @@ const handleRequest = async (request, response) => {
     error,
     status,
     headers,
-    body
+    body,
+    shouldStringify
   } = await router({ reqUrl: request.url, reqMethod: request.method, queryParameters, payload });
-  send(response, { data, message, error }, { status, headers, body });
+  send(response, { data, message, error }, { status, headers, body, shouldStringify });
 };
 
 http
