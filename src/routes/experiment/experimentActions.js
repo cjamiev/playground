@@ -8,7 +8,7 @@ const experimentGet = () => {
     api
       .get('/api/test')
       .then((response) => {
-        dispatch({ type: EXPERIMENT_GET, data });
+        dispatch({ type: EXPERIMENT_GET, data: response });
       })
       .catch((error) => {
         dispatch({ type: EXPERIMENT_GET, data: error.message });
@@ -21,7 +21,7 @@ const experimentPost = (data) => {
     api
       .post('/api/test', data)
       .then((response) => {
-        dispatch({ type: EXPERIMENT_POST, data });
+        dispatch({ type: EXPERIMENT_POST, data: response });
       })
       .catch((error) => {
         dispatch({ type: EXPERIMENT_POST, data: error });
