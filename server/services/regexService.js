@@ -1,15 +1,14 @@
 const fs = require('fs');
 const { resolve } = require('path');
-const { readdir, stat } = fs.promises;
 const { isNumber } = require('../utils/dataHelper');
 
 const UTF8 = 'utf-8';
 
 async function* getFiles(rootPath) {
-  const fileNames = await readdir(rootPath);
+  const fileNames = await fs.promises.readdir(rootPath);
   for (const fileName of fileNames) {
     const path = resolve(rootPath, fileName);
-    if ((await stat(path)).isDirectory()) {
+    if ((await fs.promises.stat(path)).isDirectory()) {
       yield* getFiles(path);
     } else {
       yield path;

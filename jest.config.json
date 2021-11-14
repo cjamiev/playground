@@ -1,11 +1,13 @@
 {
   "collectCoverageFrom": [
     "src/**/*.js",
-    "utils/*.js",
-    "server/file.js",
     "!src/index.js",
     "!src/store/index.js",
-    "!src/routes/experiment/**"
+    "!src/routes/experiment/**",
+    "utils/*.js",
+    "server/**/*.js",
+    "!server/index.js",
+    "!server/static/**"
   ],
   "moduleDirectories": [
     "src",
