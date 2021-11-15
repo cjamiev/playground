@@ -93,7 +93,7 @@ const newmockFields = [
 ];
 
 const newmockPayload = {
-  filename: '-test',
+  filename: 'GET-test',
   content: {
     request: {
       url: '/test',

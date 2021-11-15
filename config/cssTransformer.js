@@ -5,4 +5,4 @@ module.exports = {
   getCacheKey() {
     return 'cssTransform';
   }
-}
+};
