@@ -171,9 +171,9 @@ describe('fileHelper: Copy directory', () => {
   it('should copy entire directory', () => {
 
     const expectedResult = [
-      'tmp\\copyTest\\dummy\\dummy1\\testOne.json',
-      'tmp\\copyTest\\dummy\\dummy2\\testOne.json',
-      'tmp\\copyTest\\dummy\\dummy2\\testTwo.json'
+      'tmp\\copyTest\\dummy1\\testOne.json',
+      'tmp\\copyTest\\dummy2\\testOne.json',
+      'tmp\\copyTest\\dummy2\\testTwo.json'
     ];
 
     copyDir(dummyDir, copyTestDir);

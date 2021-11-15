@@ -127,11 +127,11 @@ const makeDirectory = folderpath => {
 const copyDir = (dir, targetPath) => {
   const root = drop(dir.split('/').reverse())
     .reverse()
-    .join('/');
+    .join('\\');
   const files = readDirectoryDeep(dir);
 
   files.forEach(file => {
-    const location = path.join(targetPath, file.replace(`${root}\\`, ''));
+    const location = path.join(targetPath, file.replace(`${root}`, ''));
     copyFile(file, location, '\\');
   });
 };
