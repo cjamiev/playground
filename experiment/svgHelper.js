@@ -1,4 +1,4 @@
-const { loadFile, writeToFile } = require('./server/utils/file');
+const { loadFile, writeToFile } = require('../server/utils/file');
 
 const removeExtraneousInformation = (data) => {
   return data
@@ -82,7 +82,7 @@ const fixEndingTag = (data) => {
 const svgFile = loadFile('./tmp/all.svg');
 const stepOne = removeExtraneousInformation(svgFile);
 const stepTwo = removeExtraTagsAndEmptyLines(stepOne);
-const stepThree = replaceStylesWithClass(stepTwo);
-const stepFour = fixEndingTag(stepThree);
+const stepThree = fixEndingTag(stepTwo);
+const stepFour = replaceStylesWithClass(stepThree);
 
 writeToFile('./tmp/out.svg', stepFour);
