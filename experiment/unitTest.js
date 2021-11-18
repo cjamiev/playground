@@ -1,6 +1,6 @@
 /* eslint-disable max-params */
 /* eslint-disable no-magic-numbers */
-const { isEqual } = require('../server/util');
+const { isEqual } = require('../server/utils/dataHelper');
 
 const getFormatedMessage = (testMessage, args, expectedResult, receivedResult) => {
   const failMessage = `\nfail: ${testMessage} \n`;
