@@ -1,5 +1,29 @@
 const { loadFile, writeToFile } = require('../server/utils/file');
 
+const ONE = 1;
+const toCamelCaseFromDashCase = text => {
+  const dashIndices = [];
+  return text.split('')
+    .map((char, index) => {
+      if(char === '-') {
+        dashIndices.push(index);
+        return '';
+      }
+
+      return char;
+    })
+    .map((char, index) => {
+      if(dashIndices.find(i => i === index - ONE)) {
+        return char.toUpperCase();
+      }
+
+      return char;
+    })
+    .join('');
+};
+
+const svgTemplate = loadFile('./tmp/{{name}}SVG.js');
+
 const removeExtraneousInformation = (data) => {
   const updatedData = data
     .replace(/^<[?]xml.+>$/gm,'')
@@ -108,14 +132,22 @@ const createReactComponents = (data) => {
 
   lines.forEach((item, index) => {
     if(item.includes('data-testid="obj-')) {
-      name && currentSegment.length && writeToFile(`./tmp/svg/${name}.svg`, currentSegment.join('\n'));
+      if(name && currentSegment.length) {
+        const componentName = toCamelCaseFromDashCase(name);
+        const content = svgTemplate.replace('{{name}}', componentName).replace('{{data}}', currentSegment.join('\n'));
+        writeToFile(`./tmp/svg/${componentName}SVG.js`, content);
+      }
 
       name = item.match(/obj-.+"/)[0].split('"')[0].replace('obj-','');
       currentSegment = [item];
     } else if(index === lines.length - 1) { // Note this one will have extra tags at the end
       currentSegment.push(item);
 
-      name && currentSegment.length && writeToFile(`./tmp/svg/${name}.svg`, currentSegment.join('\n'));
+      if(name && currentSegment.length) {
+        const componentName = toCamelCaseFromDashCase(name);
+        const content = svgTemplate.replace('{{name}}', componentName).replace('{{data}}', currentSegment.join('\n'));
+        writeToFile(`./tmp/svg/${componentName}SVG.js`, content);
+      }
     } else {
       currentSegment.push(item);
     }
