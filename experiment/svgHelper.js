@@ -1,17 +1,15 @@
 const { loadFile, writeToFile } = require('../server/utils/file');
 
 const removeExtraneousInformation = (data) => {
-  return data
+  const updatedData = data
     .replace(/^<[?]xml.+>$/gm,'')
     .replace(/^[ ]+xml.+"+.+"$/gm,'')
     .replace(/^[ ]+version.+"+.+"$/gm,'')
     .replace(/^[ ]+inkscape.+"+.+"$/gm,'')
     .replace(/^[ ]+sodipodi.+"/gm,'')
     .replace(/id="/gm,'data-testid="');
-};
 
-const removeExtraTagsAndEmptyLines = (data) => {
-  const lines = data.split('\n');
+  const lines = updatedData.split('\n');
   const removeStartIndex = lines.findIndex(item => item.includes('<defs'));
   const removeEndIndex = lines.findIndex(item => item.includes('</metadata'));
 
@@ -62,27 +60,69 @@ const replaceStylesWithClass = (data) => {
   return updatedLines.join('\n');
 };
 
-const fixEndingTag = (data) => {
-  const lines = data.split('\n');
+const getTagsOnOneLine = (data) => {
+  const lines = data.replace(/(\r|\n)/gm, '').replace(/[ ]+/gm, ' ').split('<');
+  let currentSegment = [];
+  const updatedData = [];
 
-  const updatedLines = lines.map((item, index) => {
-    if(lines[index + 1]?.trim() === '/>') {
-      return item.replace('\r', ' />');
-    }
-    else if(lines[index].trim() === '/>') {
-      return false;
+  lines.forEach(item => {
+    if(item.includes('>')) {
+      updatedData.push(`<${currentSegment.join('')}${item.trim().replace('\r', '')}`);
+      currentSegment = [];
     } else {
-      return item;
+      currentSegment.push(item.trim());
     }
-  }).filter(item => Boolean(item));
+  });
+
+  return updatedData.join('\n');
+};
+
+const addTagIndents = (data) => {
+  const lines = data.split('\n');
+  let tabCount = 0;
+
+  const updatedLines = lines.map(item => {
+    if (item.includes('</')) {
+      tabCount--;
+    }
+    const tabs = Array.from({ length: tabCount }, (v, i) => '\t').join('');
+    if (
+      item.includes('<')
+      && item.includes('>')
+      && !item.includes('</')
+      && !item.includes('/>')
+    ) {
+      tabCount++;
+    }
+
+    return tabs + item;
+  });
 
   return updatedLines.join('\n');
 };
 
+const createReactComponents = (data) => {
+  const lines = data.split('\n');
+  let currentSegment = [];
+  let name = '';
+
+  lines.forEach(item => {
+    if(item.includes('data-testid="obj-')) {
+      console.log('hit', name);
+      name && currentSegment.length && writeToFile(`./tmp/${name}.svg`, currentSegment.join('\n'));
+
+      name = item.match(/obj-.+"/)[0].split('"')[0].replace('obj-','');
+      currentSegment = [item];
+    } else {
+      currentSegment.push(item);
+    }
+  });
+};
+
 const svgFile = loadFile('./tmp/all.svg');
 const stepOne = removeExtraneousInformation(svgFile);
-const stepTwo = removeExtraTagsAndEmptyLines(stepOne);
-const stepThree = fixEndingTag(stepTwo);
-const stepFour = replaceStylesWithClass(stepThree);
-
+const stepTwo = replaceStylesWithClass(stepOne);
+const stepThree = getTagsOnOneLine(stepTwo);
+const stepFour = addTagIndents(stepThree);
 writeToFile('./tmp/out.svg', stepFour);
+createReactComponents(stepFour);
