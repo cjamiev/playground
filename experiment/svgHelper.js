@@ -106,13 +106,16 @@ const createReactComponents = (data) => {
   let currentSegment = [];
   let name = '';
 
-  lines.forEach(item => {
+  lines.forEach((item, index) => {
     if(item.includes('data-testid="obj-')) {
-      console.log('hit', name);
-      name && currentSegment.length && writeToFile(`./tmp/${name}.svg`, currentSegment.join('\n'));
+      name && currentSegment.length && writeToFile(`./tmp/svg/${name}.svg`, currentSegment.join('\n'));
 
       name = item.match(/obj-.+"/)[0].split('"')[0].replace('obj-','');
       currentSegment = [item];
+    } else if(index === lines.length - 1) { // Note this one will have extra tags at the end
+      currentSegment.push(item);
+
+      name && currentSegment.length && writeToFile(`./tmp/svg/${name}.svg`, currentSegment.join('\n'));
     } else {
       currentSegment.push(item);
     }
