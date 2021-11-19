@@ -1,26 +1,5 @@
 const { loadFile, writeToFile } = require('../server/utils/file');
-
-const ONE = 1;
-const toCamelCaseFromDashCase = text => {
-  const dashIndices = [];
-  return text.split('')
-    .map((char, index) => {
-      if(char === '-') {
-        dashIndices.push(index);
-        return '';
-      }
-
-      return char;
-    })
-    .map((char, index) => {
-      if(dashIndices.find(i => i === index - ONE)) {
-        return char.toUpperCase();
-      }
-
-      return char;
-    })
-    .join('');
-};
+const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('../server/utils/stringHelper');
 
 const svgTemplate = loadFile('./tmp/{{name}}SVG.js');
 
@@ -133,7 +112,7 @@ const createReactComponents = (data) => {
   lines.forEach((item, index) => {
     if(item.includes('data-testid="obj-')) {
       if(name && currentSegment.length) {
-        const componentName = toCamelCaseFromDashCase(name);
+        const componentName = capitalizeFirstLetter(toCamelCaseFromDashCase(name));
         const content = svgTemplate.replace('{{name}}', componentName).replace('{{data}}', currentSegment.join('\n'));
         writeToFile(`./tmp/svg/${componentName}SVG.js`, content);
       }
