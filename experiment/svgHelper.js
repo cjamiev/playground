@@ -1,7 +1,8 @@
 const { loadFile, writeToFile } = require('../server/utils/file');
 const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('../server/utils/stringHelper');
 
-const svgTemplate = loadFile('./tmp/{{name}}SVG.js');
+const svgTemplate = loadFile('./tmp/input/{{name}}SVG.js');
+const musicStaffSvgTemplate = loadFile('./tmp/input/MusicStaffSVG.js');
 
 const removeExtraneousInformation = (data) => {
   const updatedData = data
@@ -58,7 +59,9 @@ const replaceStylesWithClass = (data) => {
     return item;
   });
 
-  writeToFile('./tmp/svg.css', generatedClasses.map(item => item.style).join('\n'));
+  const generatedClassesContent = generatedClasses.map(item => item.style).join('\n');
+  writeToFile('./tmp/output/music-staff-svg.css', generatedClassesContent);
+  writeToFile('./tmp/output/svg/music-staff-svg.css', generatedClassesContent);
 
   return updatedLines.join('\n');
 };
@@ -106,6 +109,7 @@ const addTagIndents = (data) => {
 
 const createReactComponents = (data) => {
   const lines = data.split('\n');
+  const componentNames = [];
   let currentSegment = [];
   let name = '';
 
@@ -113,8 +117,9 @@ const createReactComponents = (data) => {
     if(item.includes('data-testid="obj-')) {
       if(name && currentSegment.length) {
         const componentName = capitalizeFirstLetter(toCamelCaseFromDashCase(name));
-        const content = svgTemplate.replace('{{name}}', componentName).replace('{{data}}', currentSegment.join('\n'));
-        writeToFile(`./tmp/svg/${componentName}SVG.js`, content);
+        componentNames.push({ name: componentName, value: `export { default as ${componentName}SVG } from './${componentName}SVG';`});
+        const content = svgTemplate.replace(/{{name}}/g, componentName).replace('{{data}}', currentSegment.join('\n'));
+        writeToFile(`./tmp/output/svg/${componentName}SVG.js`, content);
       }
 
       name = item.match(/obj-.+"/)[0].split('"')[0].replace('obj-','');
@@ -125,18 +130,31 @@ const createReactComponents = (data) => {
       if(name && currentSegment.length) {
         const componentName = toCamelCaseFromDashCase(name);
         const content = svgTemplate.replace('{{name}}', componentName).replace('{{data}}', currentSegment.join('\n'));
-        writeToFile(`./tmp/svg/${componentName}SVG.js`, content);
+        writeToFile(`./tmp/output/svg/${componentName}SVG.js`, content);
       }
     } else {
       currentSegment.push(item);
     }
   });
+
+  const indexContent = componentNames
+    .sort((itemA, itemB) => {
+      if(itemA.name > itemB.name) {
+        return 1;
+      } else {
+        return -1;
+      }
+    })
+    .map(item => item.value)
+    .join('\n') + '\nimport \'./music-staff-svg.css\';';
+  writeToFile('./tmp/output/svg/index.js', indexContent);
+  const musicStaffSvgContent = musicStaffSvgTemplate.replace('{{data}}', data);
+  writeToFile('./tmp/output/MusicStaffSvg.js', musicStaffSvgContent);
 };
 
-const svgFile = loadFile('./tmp/all.svg');
+const svgFile = loadFile('./tmp/input/musicstaff-template.svg');
 const stepOne = removeExtraneousInformation(svgFile);
 const stepTwo = replaceStylesWithClass(stepOne);
 const stepThree = getTagsOnOneLine(stepTwo);
 const stepFour = addTagIndents(stepThree);
-writeToFile('./tmp/out.svg', stepFour);
 createReactComponents(stepFour);
