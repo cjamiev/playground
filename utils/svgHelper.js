@@ -1,18 +1,22 @@
 const ZERO = 0;
 const ONE = 1;
 
-const getTagAttribute = (line, attr) => {
+const getAttributeList = (line, attr) => {
   if(!line.includes(attr)) {
-    return '';
+    return [];
   }
 
-  const segment = line.split(attr)[ONE].split('"');
-  const attrString = `${attr}${segment[ZERO]}"${segment[ONE]}"`;
+  const attributeList = line.replace(/<\w+\s/,'').split('" ');
+  const attrRegex = new RegExp(`^${attr}`);
 
-  return attrString;
+  return attributeList.filter(item => attrRegex.test(item)).map(item => `${item}"`);
 };
 
 const getSortedStyleAttribute = (styleLine) => {
+  if(!styleLine.includes('style="')) {
+    return '';
+  }
+
   const sortedLine = styleLine
     .replace('style="','')
     .replace('"','')
@@ -51,29 +55,26 @@ const formatTagsWithIndents = (data) => {
       indentCount++;
     }
 
-    return spaces + currentLine;
+    return spaces + currentLine.trim();
   });
 
   return updatedLines.join('\n');
 };
 
+// Does not work for multiple attributes on same with same name
 const removeExtraneousInformation = (data) => {
   const lines = data
     .replace(/id="/gm,'data-testid="')
     .split('\n');
 
   const updatedLines = lines.map(currentLine => {
-    const xmlAttr = getTagAttribute(currentLine, 'xml');
-    const inkscapeAttr = getTagAttribute(currentLine, 'inkscape');
-    const sodipodiAttr = getTagAttribute(currentLine, 'sodipodi');
+    const xmlAttributes = getAttributeList(currentLine, 'xml');
+    const inkscapeAttributes = getAttributeList(currentLine, 'inkscape');
+    const sodipodiAttributes = getAttributeList(currentLine, 'sodipodi');
 
-    return currentLine
-      .replace(`${xmlAttr} `,'')
-      .replace(xmlAttr,'')
-      .replace(`${inkscapeAttr} `,'')
-      .replace(inkscapeAttr,'')
-      .replace(`${sodipodiAttr} `,'')
-      .replace(sodipodiAttr,'');
+    const attributeList = [...xmlAttributes, ...inkscapeAttributes, ...sodipodiAttributes];
+
+    return currentLine;
   });
 
   return updatedLines.join('\n');
@@ -84,7 +85,7 @@ const generateClassesFromStyles = (data) => {
 
   const styleLines = lines
     .map(currentLine => {
-      return getTagAttribute(currentLine, 'style=');
+      return getAttributeList(currentLine, 'style=');
     })
     .filter(item => Boolean(item))
     .map(currentLine => getSortedStyleAttribute(currentLine));
@@ -113,7 +114,7 @@ const replaceStylesWithClass = (data, classes) => {
   const lines = data.split('\n');
 
   const updatedLines = lines.map((currentLine,index) => {
-    const styleLine = getTagAttribute(currentLine, 'style=');
+    const styleLine = getAttributeList(currentLine, 'style=');
 
     if(!styleLine) {
       return currentLine;
@@ -136,7 +137,7 @@ const replaceStylesWithClass = (data, classes) => {
 };
 
 export {
-  getTagAttribute,
+  getAttributeList,
   getSortedStyleAttribute,
   formatTagsToOneLine,
   formatTagsWithIndents,
