@@ -2,14 +2,20 @@ import {
   getAttributeListTestData,
   getSortedStyleAttributeTestData,
   formatTagsToOneLineTestData,
-  formatTagsWithIndentsTestData
+  formatTagsWithIndentsTestData,
+  removeExtraneousInformationTestData,
+  generateClassesFromStylesTestData,
+  replaceStylesWithClassTestData
 } from './testData/svgHelper-data';
 import { testFunctionHelper } from 'testHelper';
 import {
   getAttributeList,
   getSortedStyleAttribute,
   formatTagsToOneLine,
-  formatTagsWithIndents
+  formatTagsWithIndents,
+  removeExtraneousInformation,
+  generateClassesFromStyles,
+  replaceStylesWithClass
 } from './svgHelper';
 
 describe(':getAttributeList', () => {
@@ -26,4 +32,16 @@ describe(':formatTagsToOneLine', () => {
 
 describe(':formatTagsWithIndents', () => {
   formatTagsWithIndentsTestData.forEach(data => testFunctionHelper(data, formatTagsWithIndents));
+});
+
+describe(':removeExtraneousInformation', () => {
+  removeExtraneousInformationTestData.forEach(data => testFunctionHelper(data, removeExtraneousInformation));
+});
+
+describe(':generateClassesFromStyles', () => {
+  generateClassesFromStylesTestData.forEach(data => testFunctionHelper(data, generateClassesFromStyles));
+});
+
+describe(':replaceStylesWithClass', () => {
+  replaceStylesWithClassTestData.forEach(data => testFunctionHelper(data, replaceStylesWithClass));
 });

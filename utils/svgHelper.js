@@ -6,7 +6,7 @@ const getAttributeList = (line, attr) => {
     return [];
   }
 
-  const attributeList = line.replace(/<\w+\s/,'').split('" ');
+  const attributeList = line.replace(/\s*<\w+\s+/,'').split('" ');
   const attrRegex = new RegExp(`^${attr}`);
 
   return attributeList.filter(item => attrRegex.test(item)).map(item => `${item}"`);
@@ -61,20 +61,25 @@ const formatTagsWithIndents = (data) => {
   return updatedLines.join('\n');
 };
 
-// Does not work for multiple attributes on same with same name
+const removeList = ['xml', 'inkscape', 'sodipodi'];
 const removeExtraneousInformation = (data) => {
   const lines = data
     .replace(/id="/gm,'data-testid="')
     .split('\n');
 
   const updatedLines = lines.map(currentLine => {
-    const xmlAttributes = getAttributeList(currentLine, 'xml');
-    const inkscapeAttributes = getAttributeList(currentLine, 'inkscape');
-    const sodipodiAttributes = getAttributeList(currentLine, 'sodipodi');
+    const attributeList = removeList
+      .map(label => {
+        return getAttributeList(currentLine, label);
+      })
+      .reduce((list, acc) => ([...list, ...acc]));
 
-    const attributeList = [...xmlAttributes, ...inkscapeAttributes, ...sodipodiAttributes];
+    let newLine = currentLine;
+    attributeList.forEach(attr => {
+      newLine = newLine.replace(attr,'');
+    });
 
-    return currentLine;
+    return newLine.replace(/[ ]+/g, ' ');
   });
 
   return updatedLines.join('\n');
@@ -85,7 +90,7 @@ const generateClassesFromStyles = (data) => {
 
   const styleLines = lines
     .map(currentLine => {
-      return getAttributeList(currentLine, 'style=');
+      return getAttributeList(currentLine, 'style')[ZERO];
     })
     .filter(item => Boolean(item))
     .map(currentLine => getSortedStyleAttribute(currentLine));
@@ -114,7 +119,7 @@ const replaceStylesWithClass = (data, classes) => {
   const lines = data.split('\n');
 
   const updatedLines = lines.map((currentLine,index) => {
-    const styleLine = getAttributeList(currentLine, 'style=');
+    const styleLine = getAttributeList(currentLine, 'style')[ZERO];
 
     if(!styleLine) {
       return currentLine;
