@@ -6,10 +6,13 @@ const getAttributeList = (line, attr) => {
     return [];
   }
 
-  const attributeList = line.replace(/\s*<\w+\s+/,'').split('" ');
+  const attributeList = line
+    .replace(/\s*<\w+\s+/,'')
+    .split('" ')
+    .map(item => `${item.trim()}"`);
   const attrRegex = new RegExp(`^${attr}`);
 
-  return attributeList.filter(item => attrRegex.test(item)).map(item => `${item}"`);
+  return attributeList.filter(item => attrRegex.test(item));
 };
 
 const getSortedStyleAttribute = (styleLine) => {
@@ -32,6 +35,7 @@ const formatTagsToOneLine = (data) => {
   const splitLinesByOpeningTag = data
     .replace(/(\r|\t|\n)/gm, '')
     .replace(/[ ]+/gm, ' ')
+    .replace(/">/gm,'" >')
     .split('<');
 
   const updatedData = splitLinesByOpeningTag
@@ -82,7 +86,7 @@ const removeExtraneousInformation = (data) => {
     return newLine.replace(/[ ]+/g, ' ');
   });
 
-  return updatedLines.join('\n');
+  return updatedLines.filter(item => Boolean(item) && item !== ' ').join('\n');
 };
 
 const generateClassesFromStyles = (data) => {

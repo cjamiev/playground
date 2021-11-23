@@ -24,7 +24,7 @@ const svgData = `
      id="3" />
 </g>
 `;
-const formattedSvgData = `<g id="1"> 
+const formattedSvgData = `<g id="1" > 
 <path id="2" style="one;two;three" d="m 0.1 0.1 z" /> 
 <path style="four;five;six" d="m -0.2 -0.2 z" id="3" />
 </g>`;
@@ -33,7 +33,7 @@ const formatTagsToOneLineTestData = [
   { testMessage: 'formatted', args: [formattedSvgData], expectedResult: formattedSvgData }
 ];
 
-const indentedSvgData = `<g id="1">
+const indentedSvgData = `<g id="1" >
   <path id="2" style="one;two;three" d="m 0.1 0.1 z" />
   <path style="four;five;six" d="m -0.2 -0.2 z" id="3" />
 </g>`;
