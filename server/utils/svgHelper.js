@@ -1,9 +1,7 @@
-const { loadFile, writeToFile } = require('../server/utils/file');
-const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('../server/utils/stringHelper');
+const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('./stringHelper');
 
 const ZERO = 0;
 const ONE = 1;
-const TWO = 2;
 
 const getAttributeList = (line, attr) => {
   if(!line.includes(attr)) {
@@ -63,21 +61,6 @@ const getSortedStyleAttribute = (styleLine) => {
   return sortedLine ? `style="${sortedLine}"` : '';
 };
 
-const formatTagsToOneLine = (data) => {
-  const splitLinesByOpeningTag = data
-    .replace(/(\r|\t|\n)/gm, '')
-    .replace(/[ ]+/gm, ' ')
-    .replace(/">/gm,'" >')
-    .split('<');
-
-  const updatedData = splitLinesByOpeningTag
-    .slice(ONE)
-    .map(item => `<${item}`)
-    .join('\n');
-
-  return updatedData;
-};
-
 const formatTagsWithIndents = (data) => {
   const lines = data.split('\n');
   let indentCount = 0;
@@ -95,6 +78,21 @@ const formatTagsWithIndents = (data) => {
   });
 
   return updatedLines.join('\n');
+};
+
+const formatTagsToOneLine = (data) => {
+  const splitLinesByOpeningTag = data
+    .replace(/(\r|\t|\n)/gm, '')
+    .replace(/[ ]+/gm, ' ')
+    .replace(/">/gm,'" >')
+    .split('<');
+
+  const updatedData = splitLinesByOpeningTag
+    .slice(ONE)
+    .map(item => `<${item}`)
+    .join('\n');
+
+  return updatedData;
 };
 
 const removeList = ['xml', 'inkscape', 'sodipodi'];
@@ -244,18 +242,14 @@ const createReactComponents = (data) => {
   return { indexjs: indexContent, svgObjects: parsedSVGObjects, testjs: svgHelperContent };
 };
 
-const svgFile = loadFile('./tmp/musicstaff-template.svg');
-const stepOne = formatTagsToOneLine(svgFile);
-const stepTwo = removeExtraneousInformation(stepOne);
-const classes = generateClassesFromStyles(stepTwo);
-const stepThree = replaceStylesWithClass(stepTwo, classes);
-const stepFour = sortAttributes(stepThree);
-const generatedContent = createReactComponents(stepFour);
-
-const cssClasses = classes.map(item => item.cssClass).join('\n');
-writeToFile('./src/routes/experiment/svg/svg.css', cssClasses);
-generatedContent.svgObjects.forEach(entry => {
-  writeToFile(`./src/routes/experiment/svg/${entry.name}.js`, entry.component);
-});
-writeToFile('./src/routes/experiment/svg/index.js', generatedContent.indexjs);
-writeToFile('./src/routes/experiment/svg/TestSvg.js', generatedContent.testjs);
+module.exports = {
+  getAttributeList,
+  getSortedStyleAttribute,
+  formatTagsWithIndents,
+  formatTagsToOneLine,
+  removeExtraneousInformation,
+  generateClassesFromStyles,
+  replaceStylesWithClass,
+  sortAttributes,
+  createReactComponents
+};
