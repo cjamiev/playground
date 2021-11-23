@@ -42,9 +42,19 @@ const getEllipsisForLongText = (text, maxLength) => {
   return text.length > maxLength ? `${text.substring(ZERO, maxLength)}...` : text;
 };
 
+const lowerCaseFirstLetter = (string) => {
+  return string.charAt(ZERO).toLowerCase() + string.slice(ONE);
+};
+
+const capitalizeFirstLetter = (string) => {
+  return string.charAt(ZERO).toUpperCase() + string.slice(ONE);
+};
+
 export {
   reverseString,
   toDashCaseFromCamelCase,
   toCamelCaseFromDashCase,
-  getEllipsisForLongText
+  getEllipsisForLongText,
+  lowerCaseFirstLetter,
+  capitalizeFirstLetter
 };

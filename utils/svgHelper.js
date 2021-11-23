@@ -1,3 +1,8 @@
+import {
+  capitalizeFirstLetter,
+  toCamelCaseFromDashCase
+} from './stringHelper';
+
 const ZERO = 0;
 const ONE = 1;
 
@@ -145,6 +150,51 @@ const replaceStylesWithClass = (data, classes) => {
   return updatedLines.join('\n');
 };
 
+const createReactComponents = (data) => {
+  const lines = data.split('\n');
+
+  const parsedSVGObjects = lines
+    .map(currentLine => {
+      if(currentLine.includes('data-testid="obj-')) {
+        return `MARK${currentLine}`;
+      } else {
+        return currentLine;
+      }
+    })
+    .join('\n')
+    .split('MARK')
+    .splice(ONE)
+    .map(currentSegment => {
+      const dashCaseName = getAttributeList(currentSegment, 'data-testid="obj-')[ZERO].replace('data-testid="obj-','').replace('"','');
+
+      const name = `${capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName))}SVG`;
+      const svgObj = formatTagsWithIndents(currentSegment)
+        .split('\n')
+        .filter(item => Boolean(item))
+        .map(line => `    ${line}`)
+        .join('\n');
+      const component = `import React from 'react';\n\nconst ${name} = () => {\n  return (\n${svgObj}\n  );\n};\n\nexport default ${name};`;
+
+      return { name, component };
+    })
+    .sort((itemA, itemB) => {
+      if(itemA.name > itemB.name) {
+        return ONE;
+      } else {
+        return -ONE;
+      }
+    });
+
+  const indexContent = parsedSVGObjects
+    .map(entry => `export { default as ${entry.name} } from './${entry.name}';`)
+    .join('\n') + '\nimport \'./music-staff-svg.css\';';
+  const importContent = parsedSVGObjects.map(entry => `  ${entry.name}`).join(',\n');
+  const jsxContent = parsedSVGObjects.map(entry => `      <${entry.name} />`).join('\n');
+  const svgHelperContent = `import React from 'react';\nimport {\n${importContent}\n} from './svg/index';\n\nconst MusicStaffSVG = () => {\n  return (\n    <svg width="1920" height="1080" viewBox="0 0 507.99999 285.75002">\n${jsxContent}\n    </svg>\n  );\n};\n\nexport default MusicStaffSVG;`;
+
+  return { indexjs: indexContent, svgObjects: parsedSVGObjects, mainjs: svgHelperContent };
+};
+
 export {
   getAttributeList,
   getSortedStyleAttribute,
@@ -152,5 +202,6 @@ export {
   formatTagsWithIndents,
   removeExtraneousInformation,
   generateClassesFromStyles,
-  replaceStylesWithClass
+  replaceStylesWithClass,
+  createReactComponents
 };
