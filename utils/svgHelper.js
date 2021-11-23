@@ -20,8 +20,29 @@ const getAttributeList = (line, attr) => {
   return attributeList.filter(item => attrRegex.test(item));
 };
 
+const styleFilterList = [
+  'opacity:1',
+  'opacity:0.99',
+  'fill:#000000',
+  'stroke:#000000',
+  'overflow:visible',
+  '-inkscape-font-specification',
+  'stroke-dasharray:none',
+  'stroke-linecap',
+  'stroke-linejoin',
+  'font-family:sans-serif',
+  'font-style:normal',
+  'font-weight:normal',
+  'line-height',
+  'font-stretch:normal',
+  'font-variant-caps:normal',
+  'font-variant-east-asian:normal',
+  'font-variant-ligatures:normal',
+  'font-variant-numeric:normal',
+  'font-variant:normal'
+];
 const getSortedStyleAttribute = (styleLine) => {
-  if(!styleLine.includes('style="')) {
+  if(!styleLine || !styleLine.includes('style="')) {
     return '';
   }
 
@@ -29,11 +50,21 @@ const getSortedStyleAttribute = (styleLine) => {
     .replace('style="','')
     .replace('"','')
     .split(';')
-    .filter(prop => prop && !prop.includes('-inkscape-font-specification'))
+    .filter(prop => {
+      if(!prop) {
+        return false;
+      }
+
+      const shouldRemove = styleFilterList.map(item => {
+        return prop.includes(item);
+      });
+
+      return !shouldRemove.some(item => Boolean(item));
+    })
     .sort()
     .join(';');
 
-  return `style="${sortedLine}"`;
+  return sortedLine ? `style="${sortedLine}"` : '';
 };
 
 const formatTagsToOneLine = (data) => {
@@ -135,6 +166,11 @@ const replaceStylesWithClass = (data, classes) => {
     }
 
     const styleId = getSortedStyleAttribute(styleLine);
+
+    if(!styleId) {
+      return currentLine.replace(styleLine,'');
+    }
+
     const matched = classes.find(item => item.id === styleId);
 
     if(!matched) {

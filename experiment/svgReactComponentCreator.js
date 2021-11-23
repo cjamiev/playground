@@ -1,107 +1,182 @@
 const { loadFile, writeToFile } = require('../server/utils/file');
 const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('../server/utils/stringHelper');
 
-const svgTemplate = loadFile('./tmp/input/{{name}}SVG.js');
-const musicStaffSvgTemplate = loadFile('./tmp/input/MusicStaffSVG.js');
+const ZERO = 0;
+const ONE = 1;
+const TWO = 2;
 
+const getAttributeList = (line, attr) => {
+  if(!line.includes(attr)) {
+    return [];
+  }
+
+  const attributeList = line.replace(/\s*<\w+\s+/,'').split('" ').map(item => `${item.trim()}"`);
+  const attrRegex = new RegExp(`^${attr}`);
+
+  return attributeList.filter(item => attrRegex.test(item));
+};
+
+const styleFilterList = [
+  'opacity:1',
+  'opacity:0.99',
+  'fill:#000000',
+  'stroke:#000000',
+  'overflow:visible',
+  '-inkscape-font-specification',
+  'stroke-dasharray:none',
+  'stroke-linecap',
+  'stroke-linejoin',
+  'font-family:sans-serif',
+  'font-style:normal',
+  'font-weight:normal',
+  'line-height',
+  'font-stretch:normal',
+  'font-variant-caps:normal',
+  'font-variant-east-asian:normal',
+  'font-variant-ligatures:normal',
+  'font-variant-numeric:normal',
+  'font-variant:normal'
+];
+const getSortedStyleAttribute = (styleLine) => {
+  if(!styleLine || !styleLine.includes('style="')) {
+    return '';
+  }
+
+  const sortedLine = styleLine
+    .replace('style="','')
+    .replace('"','')
+    .split(';')
+    .filter(prop => {
+      if(!prop) {
+        return false;
+      }
+
+      const shouldRemove = styleFilterList.map(item => {
+        return prop.includes(item);
+      });
+
+      return !shouldRemove.some(item => Boolean(item));
+    })
+    .sort()
+    .join(';');
+
+  return sortedLine ? `style="${sortedLine}"` : '';
+};
+
+const formatTagsToOneLine = (data) => {
+  const splitLinesByOpeningTag = data
+    .replace(/(\r|\t|\n)/gm, '')
+    .replace(/[ ]+/gm, ' ')
+    .replace(/">/gm,'" >')
+    .split('<');
+
+  const updatedData = splitLinesByOpeningTag
+    .slice(ONE)
+    .map(item => `<${item}`)
+    .join('\n');
+
+  return updatedData;
+};
+
+const formatTagsWithIndents = (data) => {
+  const lines = data.split('\n');
+  let indentCount = 0;
+
+  const updatedLines = lines.map(currentLine => {
+    if (currentLine.includes('</')) {
+      indentCount--;
+    }
+    const spaces = Array.from({ length: indentCount }, i => '  ').join('');
+    if (!currentLine.includes('</') && !currentLine.includes('/>')) {
+      indentCount++;
+    }
+
+    return spaces + currentLine.trim();
+  });
+
+  return updatedLines.join('\n');
+};
+
+const removeList = ['xml', 'inkscape', 'sodipodi'];
 const removeExtraneousInformation = (data) => {
-  const updatedData = data
-    .replace(/^<[?]xml.+>$/gm,'')
-    .replace(/^[ ]+xml.+"+.+"$/gm,'')
-    .replace(/^[ ]+version.+"+.+"$/gm,'')
-    .replace(/^[ ]+inkscape.+"+.+"$/gm,'')
-    .replace(/^[ ]+sodipodi.+"/gm,'')
-    .replace(/id="/gm,'data-testid="');
+  const lines = data
+    .replace(/id="/gm,'data-testid="')
+    .split('\n');
 
-  const lines = updatedData.split('\n');
-  const removeStartIndex = lines.findIndex(item => item.includes('<defs'));
-  const removeEndIndex = lines.findIndex(item => item.includes('</metadata'));
+  const updatedLines = lines.map(currentLine => {
+    const attributeList = removeList
+      .map(label => {
+        return getAttributeList(currentLine, label);
+      })
+      .reduce((list, acc) => ([...list, ...acc]));
 
-  const updatedLines = lines.filter((item, index) => {
-    if(item === '\n' || item === '\t' || item === '\r') {
-      return false;
-    }
-    else if(index >= removeStartIndex && index <= removeEndIndex) {
-      return false;
-    }
+    let newLine = currentLine;
+    attributeList.forEach(attr => {
+      newLine = newLine.replace(attr,'');
+    });
 
-    return true;
+    return newLine.replace(/[ ]+/g, ' ');
   });
 
-  return updatedLines.join('\n');
+  return updatedLines.filter(item => Boolean(item) && item !== ' ').join('\n');
 };
 
-const replaceStylesWithClass = (data) => {
-  const generatedClasses = [];
+const generateClassesFromStyles = (data) => {
   const lines = data.split('\n');
 
-  const updatedLines = lines.map((item,index) => {
-    if(item.includes('style')) {
-      const segments = item.split('"');
-      const matched = generatedClasses.find(entry => entry.id === segments[1]);
-      const parsedStyle = segments[1]
+  const styleLines = lines
+    .map(currentLine => {
+      return getAttributeList(currentLine, 'style')[ZERO];
+    })
+    .map(currentLine => getSortedStyleAttribute(currentLine))
+    .filter(item => Boolean(item));
+
+  const uniqueStyleLines = styleLines.filter((i, position) => styleLines.indexOf(i) === position);
+
+  const generatedClasses = uniqueStyleLines
+    .map((styles,index) => {
+      const formattedStyles = styles
+        .replace('style="','')
+        .replace('"','')
         .split(';')
-        .map(style => {
-          return `\t${style};\n`;
+        .map(prop => {
+          return `\t${prop};\n`;
         })
-        .filter(style => !style.includes('-inkscape-font-specification'))
         .join('');
-      const generatedStyle = matched ? matched.style : `.name-${index} {\n${parsedStyle}}\n`;
-      const updatedLine = matched
-        ? segments[0].replace('style=',`className="${matched.className}"${segments[2]}`)
-        : segments[0].replace('style=',`className="name-${index}"${segments[2]}`);
+      const cssClass = `.name-${index} {\n${formattedStyles}}\n`;
 
-      !matched && generatedClasses.push({ style: generatedStyle, id: segments[1], className: `name-${index}` });
+      return { cssClass, id: styles, className: `name-${index}` };
+    });
 
-      return updatedLine;
-    }
-
-    return item;
-  });
-
-  const generatedClassesContent = generatedClasses.map(item => item.style).join('\n');
-  writeToFile('./tmp/output/music-staff-svg.css', generatedClassesContent);
-  writeToFile('./tmp/output/svg/music-staff-svg.css', generatedClassesContent);
-
-  return updatedLines.join('\n');
+  return generatedClasses;
 };
 
-const getTagsOnOneLine = (data) => {
-  const lines = data.replace(/(\r|\n)/gm, '').replace(/[ ]+/gm, ' ').split('<');
-  let currentSegment = [];
-  const updatedData = [];
-
-  lines.forEach(item => {
-    if(item.includes('>')) {
-      updatedData.push(`<${currentSegment.join('')}${item.trim().replace('\r', '')}`);
-      currentSegment = [];
-    } else {
-      currentSegment.push(item.trim());
-    }
-  });
-
-  return updatedData.join('\n');
-};
-
-const addTagIndents = (data) => {
+const replaceStylesWithClass = (data, classes) => {
   const lines = data.split('\n');
-  let tabCount = 0;
 
-  const updatedLines = lines.map(item => {
-    if (item.includes('</')) {
-      tabCount--;
-    }
-    const tabs = Array.from({ length: tabCount }, (v, i) => '  ').join('');
-    if (
-      item.includes('<')
-      && item.includes('>')
-      && !item.includes('</')
-      && !item.includes('/>')
-    ) {
-      tabCount++;
+  const updatedLines = lines.map((currentLine,index) => {
+    const styleLine = getAttributeList(currentLine, 'style')[ZERO];
+
+    if(!styleLine) {
+      return currentLine;
     }
 
-    return tabs + item;
+    const styleId = getSortedStyleAttribute(styleLine);
+
+    if(!styleId) {
+      return currentLine.replace(styleLine,'');
+    }
+
+    const matched = classes.find(item => item.id === styleId);
+
+    if(!matched) {
+      throw new Error(`Match not found for: ${styleLine}`);
+    }
+
+    const updatedLine = currentLine
+      .replace(styleLine,`className="${matched.className}"`);
+
+    return updatedLine;
   });
 
   return updatedLines.join('\n');
@@ -109,63 +184,63 @@ const addTagIndents = (data) => {
 
 const createReactComponents = (data) => {
   const lines = data.split('\n');
-  const componentNames = [];
-  let currentSegment = [];
-  let name = '';
 
-  lines.forEach((item, index) => {
-    if(item.includes('data-testid="obj-')) {
-      if(name && currentSegment.length) {
-        const componentName = capitalizeFirstLetter(toCamelCaseFromDashCase(name));
-        componentNames.push({
-          name: componentName,
-          value: `export { default as ${componentName}SVG } from './${componentName}SVG';`
-        });
-        const content = svgTemplate.replace(/{{name}}/g, componentName).replace('{{data}}', currentSegment.join('\n'));
-        writeToFile(`./tmp/output/svg/${componentName}SVG.js`, content);
-      }
-
-      name = item.match(/obj-.+"/)[0].split('"')[0].replace('obj-','');
-      currentSegment = [item];
-    } else if(index === lines.length - 3) { // Note this one will have extra tags at the end
-      currentSegment.push(item);
-
-      if(name && currentSegment.length) {
-        const componentName = capitalizeFirstLetter(toCamelCaseFromDashCase(name));
-        componentNames.push({
-          name: componentName,
-          value: `export { default as ${componentName}SVG } from './${componentName}SVG';`
-        });
-        const content = svgTemplate.replace(/{{name}}/g, componentName).replace('{{data}}', currentSegment.join('\n'));
-        writeToFile(`./tmp/output/svg/${componentName}SVG.js`, content);
-      }
-    } else {
-      currentSegment.push(item);
-    }
-  });
-
-  const indexContent = componentNames
-    .sort((itemA, itemB) => {
-      if(itemA.name > itemB.name) {
-        return 1;
+  const parsedSVGObjects = lines
+    .map(currentLine => {
+      if(currentLine.includes('data-testid="obj-')) {
+        return `MARK${currentLine}`;
       } else {
-        return -1;
+        return currentLine;
       }
     })
-    .map(item => item.value)
+    .join('\n')
+    .split('MARK')
+    .splice(ONE)
+    .map(currentSegment => {
+      const dashCaseName = getAttributeList(currentSegment, 'data-testid="obj-')[ZERO].replace('data-testid="obj-','').replace('"','');
+
+      const name = `${capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName))}SVG`;
+      const svgObj = formatTagsWithIndents(currentSegment)
+        .split('\n')
+        .filter(item => Boolean(item))
+        .map(line => `    ${line}`)
+        .join('\n');
+      const component = `import React from 'react';\n\nconst ${name} = () => {\n  return (\n${svgObj}\n  );\n};\n\nexport default ${name};`;
+
+      return { name, component };
+    })
+    .sort((itemA, itemB) => {
+      if(itemA.name > itemB.name) {
+        return ONE;
+      } else {
+        return -ONE;
+      }
+    });
+
+  const indexContent = parsedSVGObjects
+    .map(entry => `export { default as ${entry.name} } from './${entry.name}';`)
     .join('\n') + '\nimport \'./music-staff-svg.css\';';
-  const importContent = componentNames.map(item => `  ${item.name}SVG`).join(',\n');
-  const jsxContent = componentNames.map(item => `  <${item.name}SVG />`).join(',\n');
-  const svgHelperContent = `import {\n${importContent}\n} from './svg/index';\n\n${jsxContent}`;
-  writeToFile('./tmp/output/svg/index.js', indexContent);
-  writeToFile('./tmp/output/svgHelper.js', svgHelperContent);
-  const musicStaffSvgContent = musicStaffSvgTemplate.replace('{{data}}', data);
-  writeToFile('./tmp/output/MusicStaffSvg.js', musicStaffSvgContent);
+  const importContent = parsedSVGObjects.map(entry => `  ${entry.name}`).join(',\n');
+  const jsxContent = parsedSVGObjects.map(entry => `      <${entry.name} />`).join('\n');
+  const svgHelperContent = `import React from 'react';\nimport {\n${importContent}\n} from './svg/index';\n\nconst MusicStaffSVG = () => {\n  return (\n    <svg width="1920" height="1080" viewBox="0 0 507.99999 285.75002">\n${jsxContent}\n    </svg>\n  );\n};\n\nexport default MusicStaffSVG;`;
+
+  return { indexjs: indexContent, svgObjects: parsedSVGObjects, mainjs: svgHelperContent };
 };
 
+const svgTemplate = loadFile('./tmp/input/{{name}}SVG.js');
+const musicStaffSvgTemplate = loadFile('./tmp/input/MusicStaffSVG.js');
+
 const svgFile = loadFile('./tmp/input/musicstaff-template.svg');
-const stepOne = removeExtraneousInformation(svgFile);
-const stepTwo = replaceStylesWithClass(stepOne);
-const stepThree = getTagsOnOneLine(stepTwo);
-const stepFour = addTagIndents(stepThree);
-createReactComponents(stepFour);
+const stepOne = formatTagsToOneLine(svgFile);
+const stepTwo = removeExtraneousInformation(stepOne);
+const classes = generateClassesFromStyles(stepTwo);
+const stepThree = replaceStylesWithClass(stepTwo, classes);
+const generatedContent = createReactComponents(stepThree);
+
+const cssClasses = classes.map(item => item.cssClass).join('\n');
+writeToFile('./tmp/output/svg/music-staff-svg.css', cssClasses);
+generatedContent.svgObjects.forEach(entry => {
+  writeToFile(`./tmp/output/svg/${entry.name}.js`, entry.component);
+});
+writeToFile('./tmp/output/svg/index.js', generatedContent.indexjs);
+writeToFile('./tmp/output/testsvg.js', generatedContent.mainjs);
