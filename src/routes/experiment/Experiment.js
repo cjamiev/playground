@@ -12,10 +12,12 @@ import Form from './Form';
 import Wizard from './Wizard';
 import GlobalModal from './GlobalModal';
 import StyleGuide from './StyleGuide';
+import Svg from './Svg';
 import { experimentGet, experimentPost } from './experimentActions';
 import { noop } from 'helper/noop';
 
 const TABS = [
+  { title: 'Svg', component: Svg },
   { title: 'New', component: TestNew },
   { title: 'Animation', component: Animation },
   { title: 'Data Generator', component: DataGenerator },

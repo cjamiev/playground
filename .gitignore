@@ -5,3 +5,4 @@
 /tmp
 *.log*
 /server/static/bundle.js
+/src/routes/experiment/svg/
