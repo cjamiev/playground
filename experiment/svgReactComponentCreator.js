@@ -140,15 +140,14 @@ const generateClassesFromStyles = (data) => {
         .replace('"','')
         .split(';')
         .map(prop => {
-          return `\t${prop};\n`;
+          return `  ${prop};\n`;
         })
         .join('');
-      const cssClass = `.name-${index} {\n${formattedStyles}}\n`;
+      const cssClass = `.svg__${index} {\n${formattedStyles}}\n`;
 
-      return { cssClass, id: styles, className: `name-${index}` };
+      return { cssClass, id: styles, className: `svg__${index}` };
     });
-
-  return generatedClasses;
+  return [{ cssClass: '.svg--primary-color {\n  fill: #000000;\n  stroke: #000000;\n}\n'}].concat(generatedClasses);
 };
 
 const replaceStylesWithClass = (data, classes) => {
@@ -164,7 +163,9 @@ const replaceStylesWithClass = (data, classes) => {
     const styleId = getSortedStyleAttribute(styleLine);
 
     if(!styleId) {
-      return currentLine.replace(styleLine,'');
+      return currentLine
+        .replace(styleLine,'')
+        .replace(/[ ]+/g, ' ');
     }
 
     const matched = classes.find(item => item.id === styleId);
@@ -177,6 +178,22 @@ const replaceStylesWithClass = (data, classes) => {
       .replace(styleLine,`className="${matched.className}"`);
 
     return updatedLine;
+  });
+
+  return updatedLines.join('\n');
+};
+
+const sortAttributes = (data) => {
+  const lines = data.split('\n');
+
+  const updatedLines = lines.map((currentLine) => {
+    const attributes = currentLine.split(' ');
+    const id = attributes.find(item => item.includes('data-testid'));
+    const className = attributes.find(item => item.includes('className'));
+    const filteredLine = attributes.filter(item => !item.includes('data-testid') && !item.includes('className'));
+    const sortedLine = [filteredLine[ZERO], id, className, ...filteredLine.splice(ONE)];
+
+    return sortedLine.join(' ').replace(/[ ]+/g, ' ');
   });
 
   return updatedLines.join('\n');
@@ -219,28 +236,26 @@ const createReactComponents = (data) => {
 
   const indexContent = parsedSVGObjects
     .map(entry => `export { default as ${entry.name} } from './${entry.name}';`)
-    .join('\n') + '\nimport \'./music-staff-svg.css\';';
+    .join('\n') + '\nimport \'./svg.css\';';
   const importContent = parsedSVGObjects.map(entry => `  ${entry.name}`).join(',\n');
   const jsxContent = parsedSVGObjects.map(entry => `      <${entry.name} />`).join('\n');
-  const svgHelperContent = `import React from 'react';\nimport {\n${importContent}\n} from './svg/index';\n\nconst MusicStaffSVG = () => {\n  return (\n    <svg width="1920" height="1080" viewBox="0 0 507.99999 285.75002">\n${jsxContent}\n    </svg>\n  );\n};\n\nexport default MusicStaffSVG;`;
+  const svgHelperContent = `import React from 'react';\nimport {\n${importContent}\n} from './index';\n\nconst TestSvg = () => {\n  return (\n    <svg className="svg--primary-color" width="1920" height="1080" viewBox="0 0 507.99999 285.75002">\n${jsxContent}\n    </svg>\n  );\n};\n\nexport default TestSvg;`;
 
-  return { indexjs: indexContent, svgObjects: parsedSVGObjects, mainjs: svgHelperContent };
+  return { indexjs: indexContent, svgObjects: parsedSVGObjects, testjs: svgHelperContent };
 };
 
-const svgTemplate = loadFile('./tmp/input/{{name}}SVG.js');
-const musicStaffSvgTemplate = loadFile('./tmp/input/MusicStaffSVG.js');
-
-const svgFile = loadFile('./tmp/input/musicstaff-template.svg');
+const svgFile = loadFile('./tmp/musicstaff-template.svg');
 const stepOne = formatTagsToOneLine(svgFile);
 const stepTwo = removeExtraneousInformation(stepOne);
 const classes = generateClassesFromStyles(stepTwo);
 const stepThree = replaceStylesWithClass(stepTwo, classes);
-const generatedContent = createReactComponents(stepThree);
+const stepFour = sortAttributes(stepThree);
+const generatedContent = createReactComponents(stepFour);
 
 const cssClasses = classes.map(item => item.cssClass).join('\n');
-writeToFile('./tmp/output/svg/music-staff-svg.css', cssClasses);
+writeToFile('./src/routes/experiment/svg/svg.css', cssClasses);
 generatedContent.svgObjects.forEach(entry => {
-  writeToFile(`./tmp/output/svg/${entry.name}.js`, entry.component);
+  writeToFile(`./src/routes/experiment/svg/${entry.name}.js`, entry.component);
 });
-writeToFile('./tmp/output/svg/index.js', generatedContent.indexjs);
-writeToFile('./tmp/output/testsvg.js', generatedContent.mainjs);
+writeToFile('./src/routes/experiment/svg/index.js', generatedContent.indexjs);
+writeToFile('./src/routes/experiment/svg/TestSvg.js', generatedContent.testjs);
