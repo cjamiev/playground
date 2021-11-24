@@ -86,3 +86,7 @@ Unit Test:
   - Snippet more coverage
   - stringHelper capitalize/lowercase
   - svgHelper
+  - useAnimation
+
+Bug:
+  - Home Timer edit does not update local storage

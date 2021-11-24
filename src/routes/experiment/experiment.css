@@ -129,3 +129,11 @@
     transform: scale(1);
   }
 }
+
+.experiment__ball {
+  width: 100px;
+  height: 100px;
+  margin-right: 40px;
+  border-radius: 50px;
+  background-color: #4dd5fa;
+}
