@@ -58,6 +58,7 @@ Generator:
 
 Project:
   - Delete operation for Snippet/Template
+  - Add Wizard for Template {{<variable-name>:<type>:<options>}}
 
 Dropdown:
   - Pass different content
@@ -83,3 +84,5 @@ Package Tab:
 Unit Test:
   - InfoButton needs test
   - Snippet more coverage
+  - stringHelper capitalize/lowercase
+  - svgHelper

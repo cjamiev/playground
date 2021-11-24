@@ -8,7 +8,10 @@ const getAttributeList = (line, attr) => {
     return [];
   }
 
-  const attributeList = line.replace(/\s*<\w+\s+/,'').split('" ').map(item => `${item.trim()}"`);
+  const attributeList = line
+    .replace(/\s*<\w+\s+/,'')
+    .split('" ')
+    .map(item => `${item.trim()}"`);
   const attrRegex = new RegExp(`^${attr}`);
 
   return attributeList.filter(item => attrRegex.test(item));
@@ -121,6 +124,7 @@ const removeExtraneousInformation = (data) => {
 
 const generateClassesFromStyles = (data) => {
   const lines = data.split('\n');
+  const defaultClass = [{ cssClass: '.svg--primary-color {\n  fill: #000000;\n  stroke: #000000;\n}\n'}];
 
   const styleLines = lines
     .map(currentLine => {
@@ -145,7 +149,8 @@ const generateClassesFromStyles = (data) => {
 
       return { cssClass, id: styles, className: `svg__${index}` };
     });
-  return [{ cssClass: '.svg--primary-color {\n  fill: #000000;\n  stroke: #000000;\n}\n'}].concat(generatedClasses);
+
+  return defaultClass.concat(generatedClasses);
 };
 
 const replaceStylesWithClass = (data, classes) => {
@@ -212,7 +217,9 @@ const createReactComponents = (data) => {
     .split('MARK')
     .splice(ONE)
     .map(currentSegment => {
-      const dashCaseName = getAttributeList(currentSegment, 'data-testid="obj-')[ZERO].replace('data-testid="obj-','').replace('"','');
+      const dashCaseName = getAttributeList(currentSegment, 'data-testid="obj-')[ZERO]
+        .replace('data-testid="obj-','')
+        .replace('"','');
 
       const name = `${capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName))}SVG`;
       const svgObj = formatTagsWithIndents(currentSegment)
@@ -235,11 +242,12 @@ const createReactComponents = (data) => {
   const indexContent = parsedSVGObjects
     .map(entry => `export { default as ${entry.name} } from './${entry.name}';`)
     .join('\n') + '\nimport \'./svg.css\';';
+
   const importContent = parsedSVGObjects.map(entry => `  ${entry.name}`).join(',\n');
   const jsxContent = parsedSVGObjects.map(entry => `      <${entry.name} />`).join('\n');
-  const svgHelperContent = `import React from 'react';\nimport {\n${importContent}\n} from './index';\n\nconst TestSvg = () => {\n  return (\n    <svg className="svg--primary-color" width="1920" height="1080" viewBox="0 0 507.99999 285.75002">\n${jsxContent}\n    </svg>\n  );\n};\n\nexport default TestSvg;`;
+  const testContent = `import React from 'react';\nimport {\n${importContent}\n} from './index';\n\nconst TestSvg = () => {\n  return (\n    <svg className="svg--primary-color" width="1920" height="1080" viewBox="0 0 507.99999 285.75002">\n${jsxContent}\n    </svg>\n  );\n};\n\nexport default TestSvg;`;
 
-  return { indexjs: indexContent, svgObjects: parsedSVGObjects, testjs: svgHelperContent };
+  return { indexjs: indexContent, svgObjects: parsedSVGObjects, testjs: testContent };
 };
 
 module.exports = {

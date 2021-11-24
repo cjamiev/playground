@@ -1,8 +1,5 @@
 const { loadFile, writeToFile } = require('../server/utils/file');
 const {
-  getAttributeList,
-  getSortedStyleAttribute,
-  formatTagsWithIndents,
   formatTagsToOneLine,
   removeExtraneousInformation,
   generateClassesFromStyles,

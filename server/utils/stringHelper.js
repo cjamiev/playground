@@ -11,7 +11,8 @@ const capitalizeFirstLetter = (string) => {
 
 const toCamelCaseFromDashCase = text => {
   const dashIndices = [];
-  return text.split('')
+  return text
+    .split('')
     .map((char, index) => {
       if(char === '-') {
         dashIndices.push(index);
