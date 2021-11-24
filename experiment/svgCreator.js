@@ -8,7 +8,7 @@ const {
   createReactComponents
 } = require('../server/utils/svgHelper');
 
-const svgFile = loadFile('./tmp/musicstaff-template.svg');
+const svgFile = loadFile('./experiment/example.svg');
 const stepOne = formatTagsToOneLine(svgFile);
 const stepTwo = removeExtraneousInformation(stepOne);
 const classes = generateClassesFromStyles(stepTwo);
