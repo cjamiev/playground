@@ -2,21 +2,7 @@ const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('./stringHelp
 
 const ZERO = 0;
 const ONE = 1;
-
-const getAttributeList = (line, attr) => {
-  if(!line.includes(attr)) {
-    return [];
-  }
-
-  const attributeList = line
-    .replace(/\s*<\w+\s+/,'')
-    .split('" ')
-    .map(item => `${item.trim()}"`);
-  const attrRegex = new RegExp(`^${attr}`);
-
-  return attributeList.filter(item => attrRegex.test(item));
-};
-
+const attributeRemoveList = ['xml', 'inkscape', 'sodipodi'];
 const styleFilterList = [
   'opacity:1',
   'opacity:0.99',
@@ -38,6 +24,51 @@ const styleFilterList = [
   'font-variant-numeric:normal',
   'font-variant:normal'
 ];
+const componentTemplate = `import React from 'react';
+
+const ZERO = 0;
+
+const {{name}} = ({ translateX = ZERO, translateY = ZERO }) => {
+  const translate = \`translate(\${translateX},\${translateY})\`;
+
+  return (
+{{svgObj}}
+  );
+};
+
+export default {{name}};
+`;
+const exportTemplate = 'export { default as {{name}} } from \'./{{name}}\';';
+const testTemplate = `import React from 'react';
+import {
+{{importContent}}
+} from './index';
+
+const TestSvg = () => {
+  return (
+    <svg className="svg--primary-color" width="1920" height="1080" viewBox="0 0 100 100">
+{{jsxContent}}
+    </svg>
+  );
+};
+
+export default TestSvg;
+`;
+
+const getAttributeList = (line, attr) => {
+  if(!line.includes(attr)) {
+    return [];
+  }
+
+  const attributeList = line
+    .replace(/\s*<\w+\s+/,'')
+    .split('" ')
+    .map(item => `${item.trim()}"`);
+  const attrRegex = new RegExp(`^${attr}`);
+
+  return attributeList.filter(item => attrRegex.test(item));
+};
+
 const getSortedStyleAttribute = (styleLine) => {
   if(!styleLine || !styleLine.includes('style="')) {
     return '';
@@ -98,14 +129,13 @@ const formatTagsToOneLine = (data) => {
   return updatedData;
 };
 
-const removeList = ['xml', 'inkscape', 'sodipodi'];
 const removeExtraneousInformation = (data) => {
   const lines = data
     .replace(/id="/gm,'data-testid="')
     .split('\n');
 
   const updatedLines = lines.map(currentLine => {
-    const attributeList = removeList
+    const attributeList = attributeRemoveList
       .map(label => {
         return getAttributeList(currentLine, label);
       })
@@ -124,7 +154,10 @@ const removeExtraneousInformation = (data) => {
 
 const generateClassesFromStyles = (data) => {
   const lines = data.split('\n');
-  const defaultClass = [{ cssClass: '.svg--primary-color {\n  fill: #000000;\n  stroke: #000000;\n}\n'}];
+  const defaultClass = [{
+    cssClass: '.svg--primary-color {\n  fill: #000000;\n  stroke: #000000;\n}\n',
+    className: 'svg--primary-color'
+  }];
 
   const styleLines = lines
     .map(currentLine => {
@@ -223,11 +256,14 @@ const createReactComponents = (data) => {
 
       const name = `${capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName))}SVG`;
       const svgObj = formatTagsWithIndents(currentSegment)
+        .replace('data-testid="obj-','data-testid="')
         .split('\n')
         .filter(item => Boolean(item))
         .map(line => `    ${line}`)
         .join('\n');
-      const component = `import React from 'react';\n\nconst ${name} = () => {\n  return (\n${svgObj}\n  );\n};\n\nexport default ${name};`;
+      const component = componentTemplate
+        .replace(/{{name}}/g, name)
+        .replace('{{svgObj}}', svgObj);
 
       return { name, component };
     })
@@ -240,12 +276,14 @@ const createReactComponents = (data) => {
     });
 
   const indexContent = parsedSVGObjects
-    .map(entry => `export { default as ${entry.name} } from './${entry.name}';`)
+    .map(entry => exportTemplate.replace(/{{name}}/g, entry.name))
     .join('\n') + '\nimport \'./svg.css\';';
 
   const importContent = parsedSVGObjects.map(entry => `  ${entry.name}`).join(',\n');
   const jsxContent = parsedSVGObjects.map(entry => `      <${entry.name} />`).join('\n');
-  const testContent = `import React from 'react';\nimport {\n${importContent}\n} from './index';\n\nconst TestSvg = () => {\n  return (\n    <svg className="svg--primary-color" width="1920" height="1080" viewBox="0 0 507.99999 285.75002">\n${jsxContent}\n    </svg>\n  );\n};\n\nexport default TestSvg;`;
+  const testContent = testTemplate
+    .replace('{{importContent}}', importContent)
+    .replace('{{jsxContent}}', jsxContent);
 
   return { indexjs: indexContent, svgObjects: parsedSVGObjects, testjs: testContent };
 };
