@@ -51,9 +51,29 @@ const getEllipsisForLongTextTestData = [
   { testMessage: 'max greater than string', args: ['12345', 8], expectedResult: '12345' }
 ];
 
+const lowerCaseFirstLetterTestData = [
+  { testMessage: 'empty', args: [''], expectedResult: '' },
+  { testMessage: 'single lowercase', args: ['a'], expectedResult: 'a' },
+  { testMessage: 'single uppercase', args: ['A'], expectedResult: 'a' },
+  { testMessage: 'two letter lowercase', args: ['ab'], expectedResult: 'ab' },
+  { testMessage: 'two letter mixedcase', args: ['aB'], expectedResult: 'aB' },
+  { testMessage: 'two letter uppercase', args: ['AB'], expectedResult: 'aB' }
+];
+
+const capitalizeFirstLetterTestData = [
+  { testMessage: 'empty', args: [''], expectedResult: '' },
+  { testMessage: 'single lowercase', args: ['a'], expectedResult: 'A' },
+  { testMessage: 'single uppercase', args: ['A'], expectedResult: 'A' },
+  { testMessage: 'two letter lowercase', args: ['ab'], expectedResult: 'Ab' },
+  { testMessage: 'two letter mixedcase', args: ['aB'], expectedResult: 'AB' },
+  { testMessage: 'two letter uppercase', args: ['AB'], expectedResult: 'AB' }
+];
+
 export {
   reverseStringTestData,
   toDashCaseFromCamelCaseTestData,
   toCamelCaseFromDashCaseTestData,
-  getEllipsisForLongTextTestData
+  getEllipsisForLongTextTestData,
+  lowerCaseFirstLetterTestData,
+  capitalizeFirstLetterTestData
 };

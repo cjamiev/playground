@@ -2,14 +2,18 @@ import {
   reverseStringTestData,
   toDashCaseFromCamelCaseTestData,
   toCamelCaseFromDashCaseTestData,
-  getEllipsisForLongTextTestData
+  getEllipsisForLongTextTestData,
+  lowerCaseFirstLetterTestData,
+  capitalizeFirstLetterTestData
 } from './testData/stringHelper-data';
 import { testFunctionHelper } from 'testHelper';
 import {
   reverseString,
   toDashCaseFromCamelCase,
   toCamelCaseFromDashCase,
-  getEllipsisForLongText
+  getEllipsisForLongText,
+  lowerCaseFirstLetter,
+  capitalizeFirstLetter
 } from './stringHelper';
 
 describe(':reverseString', () => {
@@ -26,4 +30,12 @@ describe(':toCamelCaseFromDashCase', () => {
 
 describe(':getEllipsisForLongText', () => {
   getEllipsisForLongTextTestData.forEach(data => testFunctionHelper(data, getEllipsisForLongText));
+});
+
+describe(':lowerCaseFirstLetter', () => {
+  lowerCaseFirstLetterTestData.forEach(data => testFunctionHelper(data, lowerCaseFirstLetter));
+});
+
+describe(':capitalizeFirstLetter', () => {
+  capitalizeFirstLetterTestData.forEach(data => testFunctionHelper(data, capitalizeFirstLetter));
 });
