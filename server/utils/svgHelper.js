@@ -32,7 +32,9 @@ const {{name}} = ({ translateX = ZERO, translateY = ZERO }) => {
   const translate = \`translate(\${translateX},\${translateY})\`;
 
   return (
+    <g transform={translate}>
 {{svgObj}}
+    </g>
   );
 };
 
@@ -46,7 +48,7 @@ import {
 
 const TestSvg = () => {
   return (
-    <svg className="svg--primary-color" width="1920" height="1080" viewBox="0 0 100 100">
+    <svg className="svg--primary-color" width="1920" height="1080" viewBox="0 0 500 500">
 {{jsxContent}}
     </svg>
   );
@@ -259,7 +261,7 @@ const createReactComponents = (data) => {
         .replace('data-testid="obj-','data-testid="')
         .split('\n')
         .filter(item => Boolean(item))
-        .map(line => `    ${line}`)
+        .map(line => `      ${line}`)
         .join('\n');
       const component = componentTemplate
         .replace(/{{name}}/g, name)
