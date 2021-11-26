@@ -1,7 +1,6 @@
 /* eslint-disable no-magic-numbers */
 import React, { useEffect, useState } from 'react';
 import Radio from 'components/form/Radio';
-import { ToggleButton } from 'components/button';
 import useAnimation from 'hooks/useAnimation';
 
 const OPTIONS = [
@@ -39,9 +38,9 @@ const Animation = () => {
       </div>
     </div>
     <div className="flex--two flex--horizontal flex--center">
-      <div className="experiment__ball" style={{ marginTop: animation1 * 200 - 100 }} />
-      <div className="experiment__ball" style={{ marginTop: animation2 * 200 - 100 }} />
-      <div className="experiment__ball" style={{ marginTop: animation3 * 200 - 100 }} />
+      <div className="experiment__ball" style={{ transform: `translate(0px,${animation1 * 200 - 200}px` }} />
+      <div className="experiment__ball" style={{ transform: `translate(0px,${animation2 * 200 - 200}px` }} />
+      <div className="experiment__ball" style={{ transform: `translate(0px,${animation3 * 200 - 200}px` }} />
     </div>
   </div>;
 };

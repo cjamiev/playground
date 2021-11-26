@@ -17,7 +17,7 @@ const getPackageJson = (rootDir = DEFAULT_DIR) => {
         dispatch({ type: LOAD_PACKAGE, data: response.data.data });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `getPackageJson: ${error.message}`, status: 'error' }));
       })
       .finally(() => {
         dispatch(hideLoadingModal('Package JSON'));
@@ -34,7 +34,7 @@ const getDependencyVersions = (rootDir) => {
         dispatch({ type: LOAD_VERSIONS, data: response.data.data });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `getDependencyVersions: ${error.message}`, status: 'error' }));
       })
       .finally(() => {
         dispatch(hideLoadingModal('Latest Package Versions'));
@@ -50,7 +50,7 @@ const runNpmScript = (rootDir, content) => {
         dispatch({ type: RUN_SCRIPT, message: response.data.message });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `runNpmScript: ${error.message}`, status: 'error' }));
       });
   };
 };
@@ -63,7 +63,7 @@ const updatePackage = (rootDir, content) => {
         dispatch({ type: UPDATE_PACKAGE, message: response.data.message });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `updatePackage: ${error.message}`, status: 'error' }));
       });
   };
 };
