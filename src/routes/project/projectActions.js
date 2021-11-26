@@ -16,7 +16,7 @@ const loadProject = () => {
         dispatch({ type: LOAD_PROJECT, data: JSON.parse(response.data.data) });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `loadProject: ${error.message}`, status: 'error' }));
       })
       .finally(() => {
         dispatch(hideLoadingModal('Project'));
@@ -33,7 +33,7 @@ const updateProject = (content) => {
         dispatch({ type: LOAD_PROJECT, data: content });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `updateProject: ${error.message}`, status: 'error' }));
       });
   };
 };

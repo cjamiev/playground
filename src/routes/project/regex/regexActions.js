@@ -11,7 +11,7 @@ const updateFilesByRegex = (rootDir, content) => {
         dispatch({ type: UPDATE_FILES_BY_REGEX, message: response.data.message });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `updateFilesByRegex: ${error.message}`, status: 'error' }));
       });
   };
 };

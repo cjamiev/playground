@@ -13,7 +13,7 @@ const loadSnippetDirectory = () => {
         dispatch({ type: LOAD_SNIPPET_DIRECTORY, data: response.data.data });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `loadSnippetDirectory: ${error.message}`, status: 'error' }));
       });
   };
 };
@@ -26,7 +26,7 @@ const loadSnippet = (name) => {
         dispatch({ type: LOAD_SNIPPET, data: response.data.data });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `loadSnippet: ${error.message}`, status: 'error' }));
       });
   };
 };
@@ -40,7 +40,7 @@ const createSnippet = (filename, content) => {
         dispatch(loadSnippetDirectory());
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `createSnippet: ${error.message}`, status: 'error' }));
       });
   };
 };

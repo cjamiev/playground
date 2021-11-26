@@ -16,7 +16,7 @@ const loadTemplateDirectory = () => {
         dispatch({ type: LOAD_TEMPLATE_DIRECTORY, data: response.data.data });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `loadTemplateDirectory: ${error.message}`, status: 'error' }));
       })
       .finally(() => {
         dispatch(hideLoadingModal('Templates'));
@@ -32,7 +32,7 @@ const loadTemplate = (name) => {
         dispatch({ type: LOAD_TEMPLATE, data: response.data.data });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `loadTemplate: ${error.message}`, status: 'error' }));
       });
   };
 };
@@ -45,7 +45,7 @@ const createFilesFromTemplates = (rootDir, name, content) => {
         dispatch({ type: CREATE_FILES_FROM_TEMPLATES, message: response.data.message });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `createFilesFromTemplates: ${error.message}`, status: 'error' }));
       });
   };
 };
@@ -59,7 +59,7 @@ const createTemplate = (filename, content) => {
         dispatch(loadTemplateDirectory());
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `createTemplate: ${error.message}`, status: 'error' }));
       });
   };
 };

@@ -25,7 +25,7 @@ const getRemoteUrl = (rootDir = DEFAULT_DIR) => {
         dispatch({ type: LOAD_REMOTE_URL, data: response.data.data });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `getRemoteUrl: ${error.message}`, status: 'error' }));
       })
       .finally(() => {
         dispatch(hideLoadingModal('Git Remote Url'));
@@ -41,7 +41,7 @@ const deleteBranch = (rootDir = DEFAULT_DIR, name) => {
         dispatch({ type: DELETE_BRANCH, message: response.data.message });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `deleteBranch: ${error.message}`, status: 'error' }));
       });
   };
 };
@@ -54,7 +54,7 @@ const createBranch = (rootDir = DEFAULT_DIR, name) => {
         dispatch({ type: CREATE_BRANCH, message: response.data.message });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `createBranch: ${error.message}`, status: 'error' }));
       });
   };
 };
@@ -67,7 +67,7 @@ const mergeBranch = (rootDir = DEFAULT_DIR, name) => {
         dispatch({ type: MERGE_BRANCH, message: response.data.message });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `mergeBranch: ${error.message}`, status: 'error' }));
       });
   };
 };
@@ -80,7 +80,7 @@ const selectBranch = (rootDir = DEFAULT_DIR, name) => {
         dispatch({ type: SELECT_BRANCH, message: response.data.message });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `selectBranch: ${error.message}`, status: 'error' }));
       });
   };
 };
@@ -94,7 +94,7 @@ const viewBranches = (rootDir = DEFAULT_DIR) => {
         dispatch({ type: LOAD_BRANCHES, data: response.data.data });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `viewBranches: ${error.message}`, status: 'error' }));
       })
       .finally(() => {
         dispatch(hideLoadingModal('Git Branches'));
@@ -110,7 +110,7 @@ const createStash = (rootDir = DEFAULT_DIR, name) => {
         dispatch({ type: CREATE_STASH, message: response.data.message });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `createStash: ${error.message}`, status: 'error' }));
       });
   };
 };
@@ -123,7 +123,7 @@ const deleteStash = (rootDir = DEFAULT_DIR, name) => {
         dispatch({ type: DELETE_STASH, message: response.data.message });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `deleteStash: ${error.message}`, status: 'error' }));
       });
   };
 };
@@ -136,7 +136,7 @@ const selectStash = (rootDir = DEFAULT_DIR, name) => {
         dispatch({ type: SELECT_STASH, message: response.data.message });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `selectStash: ${error.message}`, status: 'error' }));
       });
   };
 };
@@ -150,7 +150,7 @@ const viewStash = (rootDir = DEFAULT_DIR) => {
         dispatch({ type: LOAD_VIEW_STASH, data: response.data.data });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `viewStash: ${error.message}`, status: 'error' }));
       })
       .finally(() => {
         dispatch(hideLoadingModal('Git Stashes'));
@@ -166,7 +166,7 @@ const resetBranch = (rootDir = DEFAULT_DIR) => {
         dispatch({ type: RESET_BRANCH, message: response.data.message });
       })
       .catch((error) => {
-        dispatch(createAlert({ content: error.message, status: 'error' }));
+        dispatch(createAlert({ content: `resetBranch: ${error.message}`, status: 'error' }));
       });
   };
 };
