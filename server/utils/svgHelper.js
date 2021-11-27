@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('./stringHelper');
 
 const ZERO = 0;
@@ -24,12 +25,15 @@ const styleFilterList = [
   'font-variant-numeric:normal',
   'font-variant:normal'
 ];
-const componentTemplate = `import React from 'react';
+const componentTemplate = `/* eslint-disable complexity */
+import React from 'react';
 
 const ZERO = 0;
 
 const {{name}} = ({ translateX = ZERO, translateY = ZERO }) => {
   const translate = \`translate(\${translateX},\${translateY})\`;
+
+{{conditions}}
 
   return (
     <g transform={translate}>
@@ -239,10 +243,73 @@ const sortAttributes = (data) => {
 
 const createReactComponents = (data) => {
   const lines = data.split('\n');
+  const conditions = [];
+  let mode = 'search';
+  let count = 0;
 
   const parsedSVGObjects = lines
     .map(currentLine => {
-      if(currentLine.includes('data-testid="obj-')) {
+      if (currentLine.includes('data-testid="remove-') && currentLine.includes('/>')) {
+        return '';
+      } else if (currentLine.includes('data-testid="remove-')) {
+        mode = 'remove';
+
+        return '';
+      } else if(mode === 'remove' && count === ZERO && currentLine.includes('</')) {
+        mode = 'search';
+        return '';
+      } else if(mode === 'remove' && currentLine.includes('</')) {
+        count--;
+        return '';
+      } else if(mode === 'remove' && currentLine.includes('<') && currentLine.includes('/>')) {
+        return '';
+      } else if(mode === 'remove' && currentLine.includes('<') && currentLine.includes('>')) {
+        count++;
+        return '';
+      }
+
+      return currentLine;
+    })
+    .filter(Boolean)
+    .map(currentLine => {
+      if (currentLine.includes('data-testid="condition-') && currentLine.includes('/>')) {
+        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
+          .replace('data-testid="condition-','')
+          .replace('"','');
+        const name = toCamelCaseFromDashCase(dashCaseName);
+        conditions.push(`  const ${name} = true;`);
+
+        return currentLine
+          .replace('<', `{ ${name} && <`)
+          .replace('/>', '/> }');
+      } else if (currentLine.includes('data-testid="condition-')) {
+        mode = 'condition';
+
+        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
+          .replace('data-testid="condition-','')
+          .replace('"','');
+        const name = toCamelCaseFromDashCase(dashCaseName);
+        conditions.push(`  const ${name} = true;`);
+
+        return currentLine.replace('<', `{ ${name} && <`);
+      } else if(mode === 'condition' && count === ZERO && currentLine.includes('</')) {
+        mode = 'search';
+        return currentLine
+          .replace('>', '> }');
+      } else if(mode === 'condition' && currentLine.includes('</')) {
+        count--;
+        return currentLine;
+      } else if(mode === 'condition' && currentLine.includes('<') && currentLine.includes('/>')) {
+        return currentLine;
+      } else if(mode === 'condition' && currentLine.includes('<') && currentLine.includes('>')) {
+        count++;
+        return currentLine;
+      }
+
+      return currentLine;
+    })
+    .map(currentLine => {
+      if(currentLine.includes('data-testid="component-')) {
         return `MARK${currentLine}`;
       } else {
         return currentLine;
@@ -252,19 +319,20 @@ const createReactComponents = (data) => {
     .split('MARK')
     .splice(ONE)
     .map(currentSegment => {
-      const dashCaseName = getAttributeList(currentSegment, 'data-testid="obj-')[ZERO]
-        .replace('data-testid="obj-','')
+      const dashCaseName = getAttributeList(currentSegment, 'data-testid="component-')[ZERO]
+        .replace('data-testid="component-','')
         .replace('"','');
 
       const name = `${capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName))}SVG`;
       const svgObj = formatTagsWithIndents(currentSegment)
-        .replace('data-testid="obj-','data-testid="')
+        .replace('data-testid="component-','data-testid="')
         .split('\n')
         .filter(item => Boolean(item))
         .map(line => `      ${line}`)
         .join('\n');
       const component = componentTemplate
         .replace(/{{name}}/g, name)
+        .replace('{{conditions}}', conditions.join('\n'))
         .replace('{{svgObj}}', svgObj);
 
       return { name, component };
