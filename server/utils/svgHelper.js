@@ -32,9 +32,7 @@ const ZERO = 0;
 
 const {{name}} = ({ translateX = ZERO, translateY = ZERO }) => {
   const translate = \`translate(\${translateX},\${translateY})\`;
-
 {{conditions}}
-
   return (
     <g transform={translate}>
 {{svgObj}}
@@ -243,71 +241,10 @@ const sortAttributes = (data) => {
 
 const createReactComponents = (data) => {
   const lines = data.split('\n');
-  const conditions = [];
   let mode = 'search';
   let count = 0;
 
   const parsedSVGObjects = lines
-    .map(currentLine => {
-      if (currentLine.includes('data-testid="remove-') && currentLine.includes('/>')) {
-        return '';
-      } else if (currentLine.includes('data-testid="remove-')) {
-        mode = 'remove';
-
-        return '';
-      } else if(mode === 'remove' && count === ZERO && currentLine.includes('</')) {
-        mode = 'search';
-        return '';
-      } else if(mode === 'remove' && currentLine.includes('</')) {
-        count--;
-        return '';
-      } else if(mode === 'remove' && currentLine.includes('<') && currentLine.includes('/>')) {
-        return '';
-      } else if(mode === 'remove' && currentLine.includes('<') && currentLine.includes('>')) {
-        count++;
-        return '';
-      }
-
-      return currentLine;
-    })
-    .filter(Boolean)
-    .map(currentLine => {
-      if (currentLine.includes('data-testid="condition-') && currentLine.includes('/>')) {
-        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
-          .replace('data-testid="condition-','')
-          .replace('"','');
-        const name = toCamelCaseFromDashCase(dashCaseName);
-        conditions.push(`  const ${name} = true;`);
-
-        return currentLine
-          .replace('<', `{ ${name} && <`)
-          .replace('/>', '/> }');
-      } else if (currentLine.includes('data-testid="condition-')) {
-        mode = 'condition';
-
-        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
-          .replace('data-testid="condition-','')
-          .replace('"','');
-        const name = toCamelCaseFromDashCase(dashCaseName);
-        conditions.push(`  const ${name} = true;`);
-
-        return currentLine.replace('<', `{ ${name} && <`);
-      } else if(mode === 'condition' && count === ZERO && currentLine.includes('</')) {
-        mode = 'search';
-        return currentLine
-          .replace('>', '> }');
-      } else if(mode === 'condition' && currentLine.includes('</')) {
-        count--;
-        return currentLine;
-      } else if(mode === 'condition' && currentLine.includes('<') && currentLine.includes('/>')) {
-        return currentLine;
-      } else if(mode === 'condition' && currentLine.includes('<') && currentLine.includes('>')) {
-        count++;
-        return currentLine;
-      }
-
-      return currentLine;
-    })
     .map(currentLine => {
       if(currentLine.includes('data-testid="component-')) {
         return `MARK${currentLine}`;
@@ -330,12 +267,8 @@ const createReactComponents = (data) => {
         .filter(item => Boolean(item))
         .map(line => `      ${line}`)
         .join('\n');
-      const component = componentTemplate
-        .replace(/{{name}}/g, name)
-        .replace('{{conditions}}', conditions.join('\n'))
-        .replace('{{svgObj}}', svgObj);
 
-      return { name, component };
+      return { name, svgObj };
     })
     .sort((itemA, itemB) => {
       if(itemA.name > itemB.name) {
@@ -343,6 +276,90 @@ const createReactComponents = (data) => {
       } else {
         return -ONE;
       }
+    })
+    .map(entry => {
+      const filteredSvgObject = entry.svgObj
+        .split('\n')
+        .map(currentLine => {
+          if (currentLine.includes('data-testid="remove-') && currentLine.includes('/>')) {
+            return '';
+          } else if (currentLine.includes('data-testid="remove-')) {
+            mode = 'remove';
+
+            return '';
+          } else if(mode === 'remove' && count === ZERO && currentLine.includes('</')) {
+            mode = 'search';
+            return '';
+          } else if(mode === 'remove' && currentLine.includes('</')) {
+            count--;
+            return '';
+          } else if(mode === 'remove' && currentLine.includes('<') && currentLine.includes('/>')) {
+            return '';
+          } else if(mode === 'remove' && currentLine.includes('<') && currentLine.includes('>')) {
+            count++;
+            return '';
+          }
+
+          return currentLine;
+        })
+        .filter(Boolean)
+        .join('\n');
+
+      return { ...entry, svgObj: filteredSvgObject};
+    })
+    .map(entry => {
+      const conditions = [];
+      const updatedSvgObj = entry.svgObj
+        .split('\n')
+        .map(currentLine => {
+          if (currentLine.includes('data-testid="condition-') && currentLine.includes('/>')) {
+            const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
+              .replace('data-testid="condition-','')
+              .replace('"','');
+            const name = toCamelCaseFromDashCase(dashCaseName);
+            conditions.push(`  const ${name} = true;`);
+
+            return currentLine
+              .replace('<', `{ ${name} && <`)
+              .replace('/>', '/> }');
+          } else if (currentLine.includes('data-testid="condition-')) {
+            mode = 'condition';
+
+            const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
+              .replace('data-testid="condition-','')
+              .replace('"','');
+            const name = toCamelCaseFromDashCase(dashCaseName);
+            conditions.push(`  const ${name} = true;`);
+
+            return currentLine.replace('<', `{ ${name} && <`);
+          } else if(mode === 'condition' && count === ZERO && currentLine.includes('</')) {
+            mode = 'search';
+            return currentLine
+              .replace('>', '> }');
+          } else if(mode === 'condition' && currentLine.includes('</')) {
+            count--;
+            return currentLine;
+          } else if(mode === 'condition' && currentLine.includes('<') && currentLine.includes('/>')) {
+            return currentLine;
+          } else if(mode === 'condition' && currentLine.includes('<') && currentLine.includes('>')) {
+            count++;
+            return currentLine;
+          }
+
+          return currentLine;
+        })
+        .join('\n');
+
+      return { ...entry, svgObj: updatedSvgObj, conditions: conditions.join('\n') };
+    })
+    .map(entry => {
+
+      const component = componentTemplate
+        .replace(/{{name}}/g, entry.name)
+        .replace('{{conditions}}', entry.conditions ? `\n${entry.conditions}\n` : '')
+        .replace('{{svgObj}}', entry.svgObj);
+
+      return { name: entry.name, component };
     });
 
   const indexContent = parsedSVGObjects
