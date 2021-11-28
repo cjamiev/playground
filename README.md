@@ -3,7 +3,7 @@ Project to help with building other projects. Used for improving efficency by he
 
 ![Feature](./documentation/generator-screenshot.jpg)
 
-## Sections
+## Application Pages & Sections
 - Home: To do list and global timers will alerts that fire on any page. 
 - File: Read and update files, perform string ops, regex, and json ops.
 - Clipboard: Store collections of copy buttons, text, timer, urls, or commands
@@ -18,10 +18,10 @@ Project to help with building other projects. Used for improving efficency by he
 - Config: Sets what appears in Commands & Links dropdown.  Add and delete project directories
 
 ## utils
-Re-usable pure functions will be saved stored here
+Re-usable pure functions will be stored here
 
 ## server
-Simple server for allowing reading/writing, storing information, executing commands, etc. 
+Simple node server for allowing reading/writing, storing information, executing commands, etc. 
 
 Copy the following to capture api call payloads.
 ```
@@ -40,25 +40,51 @@ post: (payload) => {
   }
 ```
 
-## testing, q.js, script.js
-Folder for quick testing of html as testing javascript functions. Node script for creating files from template, updating files with regex. 
+## q.js
+For quick testing of javascript code run 'node q.js'
+
+## experiment
+Folder for quick testing, experimenting of code, and some examples. 
+
+## SVG Components
+Step 1: Create objects in one file <name>-canvas.svg
+	- Check all sizes are relatively correct. 
+	- Optionally set id with element-<name> for convenience
+	- Set id with condition-<name> for conditional objects 
+	- Set id with remove-<name> for extraneous objects
+Step 2: Duplicate in another file <name>-template.svg
+	- Group same items together overlapped
+	- Set id with component-<name> for grouped objects
+Step 3: Convert to React Components
+  - Copy content to experiment/example.svg
+  - Only include information inside the primary layer grouping
+	- Run node experiment/svgCreator.js
+Step 4: Clean up
+  - create object maps for conditionals 
+	- transform="translate(x,y)"
 
 ## ToDo
+SvgCreator:
+  - Add aria labels to components
+  - Clean up code
+  - Add more unit tests
+  - Add to tab to Project page
+
+Project:
+  - Add Wizard for using Template {{<variable-name>:<type>:<options>}}
+  - Delete operation for Snippet/Template
+
 Generator:
   - Flex/Grid
   - Neomorphism, Glassmorphism, Aurora
   - Add ability to change width of generator div
   - SVG Animator
-  - Animation
+  - Animation: position, scale, filters, rotation, opacity
   - Background Image Gradient Form
   - Default Values on Form load
-  - Visibility: visible/hidden, cursor: pointer/text, overflow: auto/hidden
-  - font-weight (normal, bolder, bolder, lighter), text-decoration, font family
-  - Move Remove Attribute to it's own section
-
-Project:
-  - Delete operation for Snippet/Template
-  - Add Wizard for Template {{<variable-name>:<type>:<options>}}
+  - Other attributes: Visibility (visible/hidden), cursor (pointer/text), overflow (auto/hidden)
+    font-weight (normal, bolder, bolder, lighter), text-decoration, font family
+  - Move Remove Attribute dropdown to it's own section
 
 Dropdown:
   - Pass different content
@@ -84,9 +110,7 @@ Package Tab:
 Unit Test:
   - InfoButton needs test
   - Snippet more coverage
-  - stringHelper capitalize/lowercase
-  - svgHelper
-  - useAnimation
+  - server/**
 
 Bug:
   - Home Timer edit does not update local storage
