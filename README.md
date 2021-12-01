@@ -47,19 +47,24 @@ For quick testing of javascript code run 'node q.js'
 Folder for quick testing, experimenting of code, and some examples. 
 
 ## SVG Components
-Step 1: Create objects in one file <name>-canvas.svg
+Step 1: Create objects 
+  - In one file <name>-canvas.svg
+  - Ideally one object should be reference.
 	- Check all sizes are relatively correct. 
-	- Optionally set id with element-<name> for convenience
-	- Set id with condition-<name> for conditional objects 
-	- Set id with remove-<name> for extraneous objects
-Step 2: Duplicate in another file <name>-template.svg
-	- Group same items together overlapped
+Step 2: Id the objects
+	- Set id with condition-<name> for conditional objects in groups 
+	- Set id with remove-<name> for extraneous objects in groups
+	- Set id with element-<name> for convenience
+Step 3: Clean up objects
+  - Place items in correct positions
+  - Collapse related objects in the same position. 
+  - Ungroup and re-group to remove transformations on groups
 	- Set id with component-<name> for grouped objects
-Step 3: Convert to React Components
+Step 4: Convert to React Components
   - Copy content to experiment/example.svg
   - Only include information inside the primary layer grouping
 	- Run node experiment/svgCreator.js
-Step 4: Clean up
+Step 5: Clean up
   - create object maps for conditionals 
 	- transform="translate(x,y)"
 
