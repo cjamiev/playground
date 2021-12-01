@@ -58,6 +58,19 @@ const TestSvg = () => {
 
 export default TestSvg;
 `;
+const singleTemplate = `import React from 'react';
+import './svg.css';
+
+const TestSvg = () => {
+  return (
+    <svg className="svg--primary-color" width="1920" height="1080" viewBox="0 0 500 500">
+{{jsxContent}}
+    </svg>
+  );
+};
+
+export default TestSvg;
+`;
 
 const getAttributeList = (line, attr) => {
   if(!line.includes(attr)) {
@@ -161,6 +174,9 @@ const generateClassesFromStyles = (data) => {
   const defaultClass = [{
     cssClass: '.svg--primary-color {\n  fill: #000000;\n  stroke: #000000;\n}\n',
     className: 'svg--primary-color'
+  }, {
+    cssClass: '.svg_mark {\n  fill: #ff0000;\n  stroke: #ff0000;\n}',
+    className: 'svg_mark'
   }];
 
   const styleLines = lines
@@ -237,6 +253,13 @@ const sortAttributes = (data) => {
   });
 
   return updatedLines.join('\n');
+};
+
+const createSingleComponent = (data) => {
+  const formattedData = formatTagsWithIndents(data).split('\n').map(item => `      ${item}`).join('\n');
+  const testContent = singleTemplate.replace('{{jsxContent}}', formattedData);
+
+  return { testjs: testContent };
 };
 
 const createReactComponents = (data) => {
@@ -384,5 +407,6 @@ module.exports = {
   generateClassesFromStyles,
   replaceStylesWithClass,
   sortAttributes,
+  createSingleComponent,
   createReactComponents
 };
