@@ -13,12 +13,14 @@ import Wizard from './Wizard';
 import GlobalModal from './GlobalModal';
 import StyleGuide from './StyleGuide';
 import Svg from './Svg';
+import SvgCurve from './SvgCurve';
 import { experimentGet, experimentPost } from './experimentActions';
 import { noop } from 'helper/noop';
 
 const TABS = [
-  { title: 'Svg', component: Svg },
   { title: 'New', component: TestNew },
+  { title: 'Svg', component: Svg },
+  { title: 'SvgCurve', component: SvgCurve },
   { title: 'Animation', component: Animation },
   { title: 'Data Generator', component: DataGenerator },
   { title: 'Global Modal', component: GlobalModal },
