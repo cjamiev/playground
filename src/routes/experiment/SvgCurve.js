@@ -3,35 +3,24 @@ import { noop } from 'helper/noop';
 
 const ONE = 1;
 
-const useDrag = (ref, deps = [], options) => {
-  const {
-    onPointerDown = noop,
-    onPointerUp = noop,
-    onPointerMove = noop,
-    onDrag = noop
-  } = options;
-
+const useDrag = (ref, id, onDrag) => {
   const [isDragging, setIsDragging] = useState(false);
 
   const handlePointerDown = useCallback((e) => {
-    setIsDragging(true);
-
-    onPointerDown(e);
-  },[onPointerDown]);
+    if(e.target.getAttribute('data-testid') === id) {
+      setIsDragging(true);
+    }
+  },[id]);
 
   const handlePointerUp = useCallback((e) => {
     setIsDragging(false);
-
-    onPointerUp(e);
-  },[onPointerUp]);
+  },[]);
 
   const handlePointerMove = useCallback((e) => {
-    onPointerMove(e);
-
     if (isDragging) {
       onDrag(e);
     }
-  },[isDragging, onDrag, onPointerMove]);
+  },[isDragging, onDrag]);
 
   useEffect(() => {
     const element = ref.current;
@@ -81,10 +70,7 @@ const Controller = ({ onChange }) => {
 };
 
 const SvgCurve = () => {
-  const startCoordRef = useRef();
-  const controlPointOneCoordRef = useRef();
-  const controlPointTwoCoordRef = useRef();
-  const endCoordRef = useRef();
+  const ref = useRef();
   const [startCoord, setStartCoord] = useState({ x: 100, y: 250 });
   const [controlPointOneCoord, setControlPointOneCoord] = useState({ x: 100, y: 100 });
   const [controlPointTwoCoord, setControlPointTwoCoord] = useState({ x: 400, y: 100 });
@@ -119,13 +105,13 @@ const SvgCurve = () => {
     });
   };
 
-  useDrag(startCoordRef, [startCoord], { onDrag: handleStartCoordDrag });
-  useDrag(controlPointOneCoordRef, [controlPointOneCoord], { onDrag: handleControlPointOneCoordDrag });
-  useDrag(controlPointTwoCoordRef, [controlPointTwoCoord], { onDrag: handleControlPointTwoCoordDrag });
-  useDrag(endCoordRef, [endCoord], { onDrag: handleEndCoordDrag });
+  useDrag(ref, 'curve-start-point', handleStartCoordDrag);
+  useDrag(ref, 'curve-control-point-one', handleControlPointOneCoordDrag);
+  useDrag(ref, 'curve-control-point-two', handleControlPointTwoCoordDrag);
+  useDrag(ref, 'curve-end-point', handleEndCoordDrag);
 
   return (
-    <div>
+    <div ref={ref}>
       <svg viewBox="0 0 500 500" width="1920" height="1080" preserveAspectRatio="xMidYMid meet">
         <g>
           <circle
@@ -134,7 +120,6 @@ const SvgCurve = () => {
             cx={startCoord.x}
             cy={startCoord.y}
             r="16"
-            ref={startCoordRef}
             onClick={() => { setController({ current: startCoord, onChange: setStartCoord });}}
           />
           <circle
@@ -143,7 +128,6 @@ const SvgCurve = () => {
             cx={controlPointOneCoord.x}
             cy={controlPointOneCoord.y}
             r="8"
-            ref={controlPointOneCoordRef}
             onClick={() => { setController({ current: controlPointOneCoord, onChange: setControlPointOneCoord });}}
           />
           <circle
@@ -152,7 +136,6 @@ const SvgCurve = () => {
             cx={controlPointTwoCoord.x}
             cy={controlPointTwoCoord.y}
             r="8"
-            ref={controlPointTwoCoordRef}
             onClick={() => { setController({ current: controlPointTwoCoord, onChange: setControlPointTwoCoord });}}
           />
           <circle
@@ -160,7 +143,6 @@ const SvgCurve = () => {
             className="svg__drag-point"
             cx={endCoord.x}
             cy={endCoord.y}
-            ref={endCoordRef}
             r="16"
             onClick={() => { setController({ current: endCoord, onChange: setEndCoord });}}
           />
