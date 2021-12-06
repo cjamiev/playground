@@ -56,6 +56,7 @@ Step 2: Id the objects
 	- Set id with remove-<name> for extraneous objects in groups
 	- Set id with element-<name> for convenience
 Step 3: Clean up objects
+  - Copy over to <name>-template.svg objects that are ready or redone
   - Place items in correct positions
   - Collapse related objects in the same position. 
   - Ungroup and re-group to remove transformations on groups
@@ -64,6 +65,7 @@ Step 4: Convert to React Components
   - Copy content to experiment/example.svg
   - Only include information inside the primary layer grouping
 	- Run node experiment/svgCreator.js
+  - Search for prexisting translate and scale (redo previous steps to remove them)
 Step 5: Clean up
   - create object maps for conditionals 
 	- transform="translate(x,y)"
