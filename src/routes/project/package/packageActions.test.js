@@ -18,9 +18,11 @@ const dispatch = jest.fn();
 
 const mockGet = jest.fn();
 jest.mock('api');
-const errorObject = {
-  content: 'Test Message',
-  status: 'error'
+const getErrorObject = (name) => {
+  return {
+    content: `${name} Test Message`,
+    status: 'error'
+  };
 };
 const successObject = {
   content: 'Updated',
@@ -55,7 +57,7 @@ describe('packageActions', () => {
     getPackageJson()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('getPackageJson:') });
     });
   });
 
@@ -78,7 +80,7 @@ describe('packageActions', () => {
     getDependencyVersions()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('getDependencyVersions:') });
     });
   });
 
@@ -101,7 +103,7 @@ describe('packageActions', () => {
     runNpmScript()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('runNpmScript:') });
     });
   });
 
@@ -124,7 +126,7 @@ describe('packageActions', () => {
     updatePackage()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('updatePackage:') });
     });
   });
 });

@@ -31,9 +31,11 @@ const dispatch = jest.fn();
 
 const mockGet = jest.fn();
 jest.mock('api');
-const errorObject = {
-  content: 'Test Message',
-  status: 'error'
+const getErrorObject = (name) => {
+  return {
+    content: `${name} Test Message`,
+    status: 'error'
+  };
 };
 const successObject = {
   content: 'Updated',
@@ -67,7 +69,7 @@ describe('gitActions', () => {
     getRemoteUrl()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('getRemoteUrl:') });
     });
   });
 
@@ -90,7 +92,7 @@ describe('gitActions', () => {
     deleteBranch()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('deleteBranch:') });
     });
   });
 
@@ -113,7 +115,7 @@ describe('gitActions', () => {
     createBranch()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('createBranch:') });
     });
   });
 
@@ -136,7 +138,7 @@ describe('gitActions', () => {
     mergeBranch()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('mergeBranch:') });
     });
   });
 
@@ -159,7 +161,7 @@ describe('gitActions', () => {
     selectBranch()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('selectBranch:') });
     });
   });
 
@@ -182,7 +184,7 @@ describe('gitActions', () => {
     viewBranches()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('viewBranches:') });
     });
   });
 
@@ -205,7 +207,7 @@ describe('gitActions', () => {
     createStash()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('createStash:') });
     });
   });
 
@@ -228,7 +230,7 @@ describe('gitActions', () => {
     deleteStash()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('deleteStash:') });
     });
   });
 
@@ -251,7 +253,7 @@ describe('gitActions', () => {
     selectStash()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('selectStash:') });
     });
   });
 
@@ -274,7 +276,7 @@ describe('gitActions', () => {
     viewStash()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('viewStash:') });
     });
   });
 
@@ -297,7 +299,7 @@ describe('gitActions', () => {
     resetBranch()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('resetBranch:') });
     });
   });
 });

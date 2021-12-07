@@ -14,9 +14,11 @@ const dispatch = jest.fn();
 
 const mockGet = jest.fn();
 jest.mock('api');
-const errorObject = {
-  content: 'Test Message',
-  status: 'error'
+const getErrorObject = (name) => {
+  return {
+    content: `${name} Test Message`,
+    status: 'error'
+  };
 };
 const successObject = {
   content: 'Updated',
@@ -49,7 +51,7 @@ describe('snippetActions', () => {
     loadSnippetDirectory()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('loadSnippetDirectory:') });
     });
   });
 
@@ -72,7 +74,7 @@ describe('snippetActions', () => {
     loadSnippet()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('loadSnippet:') });
     });
   });
 
@@ -100,7 +102,7 @@ describe('snippetActions', () => {
     createSnippet(name, fileContent)(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('createSnippet:') });
     });
   });
 });

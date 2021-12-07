@@ -16,9 +16,11 @@ const dispatch = jest.fn();
 
 const mockGet = jest.fn();
 jest.mock('api');
-const errorObject = {
-  content: 'Test Message',
-  status: 'error'
+const getErrorObject = (name) => {
+  return {
+    content: `${name} Test Message`,
+    status: 'error'
+  };
 };
 const successObject = {
   content: 'Updated',
@@ -53,7 +55,7 @@ describe('projectActions', () => {
     loadTemplateDirectory()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('loadTemplateDirectory:') });
     });
   });
 
@@ -76,7 +78,7 @@ describe('projectActions', () => {
     loadTemplate()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('loadTemplate:') });
     });
   });
 
@@ -99,7 +101,7 @@ describe('projectActions', () => {
     createFilesFromTemplates()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('createFilesFromTemplates:') });
     });
   });
 
@@ -127,7 +129,7 @@ describe('projectActions', () => {
     createTemplate(name, fileContent)(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('createTemplate:') });
     });
   });
 });
