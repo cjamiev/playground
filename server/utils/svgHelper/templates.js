@@ -2,8 +2,8 @@ const defaultClass = [{
   cssClass: '.svg--primary-color {\n  fill: #000000;\n  stroke: #000000;\n}\n',
   className: 'svg--primary-color'
 }, {
-  cssClass: '.svg_mark {\n  fill: #ff0000;\n  stroke: #ff0000;\n}',
-  className: 'svg_mark'
+  cssClass: '.svg__mark {\n  fill: #ff0000;\n  stroke: #ff0000;\n}\n',
+  className: 'svg__mark'
 }];
 
 const componentTemplate = `/* eslint-disable complexity */

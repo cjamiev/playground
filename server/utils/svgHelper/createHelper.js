@@ -25,30 +25,35 @@ const formatTagsWithIndents = (data) => {
   return updatedLines.join('\n');
 };
 
+const handleRemoveMode = (line, counter) => {
+  if(counter === ZERO && line.includes('</')) {
+    return { flag: false, counter: 0 };
+  } else if(line.includes('</')) {
+    return { flag: true, counter: counter - ONE };
+  } else if(line.includes('<') && line.includes('/>')) {
+    return { flag: true, counter };
+  } else if(line.includes('<') && line.includes('>')) {
+    return { flag: true, counter: counter + ONE };
+  }
+};
+
 const removeSpecifiedSvg = (section) => {
-  let mode = 'search';
+  let isRemoving = false;
   let count = 0;
 
   return section
     .split('\n')
     .filter(currentLine => !(currentLine.includes('data-testid="remove-') && currentLine.includes('/>')))
     .map(currentLine => {
-      if (mode !== 'remove' && currentLine.includes('data-testid="remove-')) {
-        mode = 'remove';
+      if(isRemoving) {
+        const { flag, counter } = handleRemoveMode(currentLine, count);
+
+        isRemoving = flag;
+        count = counter;
 
         return '';
-      } else if(mode === 'remove' && count === ZERO && currentLine.includes('</')) {
-        mode = 'search';
-
-        return '';
-      } else if(mode === 'remove' && currentLine.includes('</')) {
-        count--;
-
-        return '';
-      } else if(mode === 'remove' && currentLine.includes('<') && currentLine.includes('/>')) {
-        return '';
-      } else if(mode === 'remove' && currentLine.includes('<') && currentLine.includes('>')) {
-        count++;
+      } else if (!isRemoving && currentLine.includes('data-testid="remove-')) {
+        isRemoving = true;
 
         return '';
       }
