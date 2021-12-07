@@ -72,7 +72,7 @@ const addConditionsToSpecifiedSvg = (section) => {
           .replace('data-testid="condition-','')
           .replace('"','');
         const name = toCamelCaseFromDashCase(dashCaseName);
-        conditions.push(`  const ${name} = true;`);
+        conditions.push(name);
 
         return currentLine
           .replace('data-testid="condition-','data-testid="')
@@ -85,7 +85,7 @@ const addConditionsToSpecifiedSvg = (section) => {
           .replace('data-testid="condition-','')
           .replace('"','');
         const name = toCamelCaseFromDashCase(dashCaseName);
-        conditions.push(`  const ${name} = true;`);
+        conditions.push(name);
 
         return currentLine
           .replace('data-testid="condition-','data-testid="')
@@ -108,7 +108,7 @@ const addConditionsToSpecifiedSvg = (section) => {
     })
     .join('\n');
 
-  return { updatedSvgObj, conditions: conditions.join('\n') };
+  return { updatedSvgObj, conditions };
 };
 
 const createSingleComponent = (data) => {
@@ -166,9 +166,12 @@ const createReactComponents = (data) => {
     })
     .map(entry => {
 
+      const conditionVariables = entry.conditions ? entry.conditions.map(name => `  const ${name} = true;`).join('\n') : '';
+      const conditionList = entry.conditions ? entry.conditions.join(', ') : '';
+
       const component = componentTemplate
         .replace(/{{name}}/g, entry.name)
-        .replace('{{conditions}}', entry.conditions ? `\n${entry.conditions}\n` : '')
+        .replace('{{conditions}}', conditionVariables ? `\n  \/\/${conditionList}\n${conditionVariables}\n` : '')
         .replace('{{svgObj}}', entry.svgObj);
 
       return { name: entry.name, component };
