@@ -1,14 +1,21 @@
 const {
+  formatTagsToOneLine,
+  removeExtraneousInformation
+} = require('./cleanupHelper');
+const {
+  generateClassesFromStyles,
+  replaceStylesWithClass
+} = require('./classHelper');
+const {
   getAttributeList,
   getSortedStyleAttribute,
+  sortAttributes
+} = require('./attributeHelper');
+const {
   formatTagsWithIndents,
-  formatTagsToOneLine,
-  removeExtraneousInformation,
-  generateClassesFromStyles,
-  replaceStylesWithClass,
-  sortAttributes,
+  createSingleComponent,
   createReactComponents
-} = require('./svgHelper');
+} = require('./createHelper');
 
 const tag = '<tagname one="val1 val2 val3" two-one="val1;val2;val3" two-two="val2;val3;val4" three-two="val1" four="one two three" />';
 const svgData = `
