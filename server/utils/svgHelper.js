@@ -137,23 +137,25 @@ const removeSpecifiedSvg = (section) => {
 
   return section
     .split('\n')
+    .filter(currentLine => !(currentLine.includes('data-testid="remove-') && currentLine.includes('/>')))
     .map(currentLine => {
-      if (mode !== 'remove' && currentLine.includes('data-testid="remove-') && currentLine.includes('/>')) {
-        return '';
-      } else if (mode !== 'remove' && currentLine.includes('data-testid="remove-')) {
+      if (mode !== 'remove' && currentLine.includes('data-testid="remove-')) {
         mode = 'remove';
 
         return '';
       } else if(mode === 'remove' && count === ZERO && currentLine.includes('</')) {
         mode = 'search';
+
         return '';
       } else if(mode === 'remove' && currentLine.includes('</')) {
         count--;
+
         return '';
       } else if(mode === 'remove' && currentLine.includes('<') && currentLine.includes('/>')) {
         return '';
       } else if(mode === 'remove' && currentLine.includes('<') && currentLine.includes('>')) {
         count++;
+
         return '';
       }
 
