@@ -16,6 +16,7 @@ const {
   createSingleComponent,
   createReactComponents
 } = require('./createHelper');
+const { defaultClass } = require('./templates');
 
 const tag = '<tagname one="val1 val2 val3" two-one="val1;val2;val3" two-two="val2;val3;val4" three-two="val1" four="one two three" />';
 const svgData = `
@@ -49,7 +50,6 @@ const notStyledSvg = `<g>
   <path id="2" />
   <path id="3" />
 </g>`;
-const defaultClass = [{ cssClass: '.svg--primary-color {\n  fill: #000000;\n  stroke: #000000;\n}\n'}];
 const generatedClasses = defaultClass.concat([
   {
     cssClass: '.svg__0 {\n  fill:#ffffff;\n  stroke:#ffffff;\n}\n',

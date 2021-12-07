@@ -191,6 +191,7 @@ const createReactComponents = (data) => {
 };
 
 module.exports = {
+  formatTagsWithIndents,
   createSingleComponent,
   createReactComponents
 };
