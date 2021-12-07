@@ -1,4 +1,3 @@
-/* eslint-disable complexity */
 const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('../stringHelper');
 const { componentTemplate, exportTemplate, testTemplate, singleTemplate } = require('./templates');
 const { getAttributeList } = require('./attributeHelper');
@@ -64,8 +63,20 @@ const removeSpecifiedSvg = (section) => {
     .join('\n');
 };
 
+const handleConditionMode = (line, counter) => {
+  if(counter === ZERO && line.includes('</')) {
+    return { line: line.replace('>', '> }'), flag: false, counter: 0 };
+  } else if(line.includes('</')) {
+    return { line, flag: true, counter: counter - ONE };
+  } else if(line.includes('<') && line.includes('/>')) {
+    return { line, flag: true, counter };
+  } else if(line.includes('<') && line.includes('>')) {
+    return { line, flag: true, counter: counter + ONE };
+  }
+};
+
 const addConditionsToSpecifiedSvg = (section) => {
-  let mode = 'search';
+  let isAddingCondition = false;
   let count = 0;
   const conditions = [];
 
@@ -83,8 +94,8 @@ const addConditionsToSpecifiedSvg = (section) => {
           .replace('data-testid="condition-','data-testid="')
           .replace('<', `{ ${name} && <`)
           .replace('/>', '/> }');
-      } else if (currentLine.includes('data-testid="condition-') && mode !== 'condition') {
-        mode = 'condition';
+      } else if (!isAddingCondition && currentLine.includes('data-testid="condition-')) {
+        isAddingCondition = true;
 
         const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
           .replace('data-testid="condition-','')
@@ -95,18 +106,13 @@ const addConditionsToSpecifiedSvg = (section) => {
         return currentLine
           .replace('data-testid="condition-','data-testid="')
           .replace('<', `{ ${name} && <`);
-      } else if(mode === 'condition' && count === ZERO && currentLine.includes('</')) {
-        mode = 'search';
-        return currentLine
-          .replace('>', '> }');
-      } else if(mode === 'condition' && currentLine.includes('</')) {
-        count--;
-        return currentLine;
-      } else if(mode === 'condition' && currentLine.includes('<') && currentLine.includes('/>')) {
-        return currentLine;
-      } else if(mode === 'condition' && currentLine.includes('<') && currentLine.includes('>')) {
-        count++;
-        return currentLine;
+      } else if(isAddingCondition) {
+        const { line, flag, counter } = handleConditionMode(currentLine, count);
+
+        isAddingCondition = flag;
+        count = counter;
+
+        return line;
       }
 
       return currentLine;
