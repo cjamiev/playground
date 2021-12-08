@@ -75,7 +75,7 @@ const handleConditionMode = (line, counter) => {
   }
 };
 
-const addConditionsToSpecifiedSvg = (section) => {
+const addCondition = (section) => {
   let isAddingCondition = false;
   let count = 0;
   const conditions = [];
@@ -83,18 +83,7 @@ const addConditionsToSpecifiedSvg = (section) => {
   const updatedSvgObj = section
     .split('\n')
     .map(currentLine => {
-      if (currentLine.includes('data-testid="condition-') && currentLine.includes('/>')) {
-        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
-          .replace('data-testid="condition-','')
-          .replace('"','');
-        const name = toCamelCaseFromDashCase(dashCaseName);
-        conditions.push(name);
-
-        return currentLine
-          .replace('data-testid="condition-','data-testid="')
-          .replace('<', `{ ${name} && <`)
-          .replace('/>', '/> }');
-      } else if (!isAddingCondition && currentLine.includes('data-testid="condition-')) {
+      if (!isAddingCondition && currentLine.includes('data-testid="condition-')) {
         isAddingCondition = true;
 
         const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
@@ -118,6 +107,39 @@ const addConditionsToSpecifiedSvg = (section) => {
       return currentLine;
     })
     .join('\n');
+
+  return { conditions, updatedSvgObj};
+};
+
+const addConditionsToSpecifiedSvg = (section) => {
+  let conditions = [];
+
+  let updatedSvgObj = section
+    .split('\n')
+    .map(currentLine => {
+      if (currentLine.includes('data-testid="condition-') && currentLine.includes('/>')) {
+        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
+          .replace('data-testid="condition-','')
+          .replace('"','');
+        const name = toCamelCaseFromDashCase(dashCaseName);
+        conditions.push(name);
+
+        return currentLine
+          .replace('data-testid="condition-','data-testid="')
+          .replace('<', `{ ${name} && <`)
+          .replace('/>', '/> }');
+      }
+
+      return currentLine;
+    })
+    .join('\n');
+
+  while(updatedSvgObj.includes('data-testid="condition-')) {
+    const result = addCondition(updatedSvgObj);
+    conditions = conditions.concat(result.conditions);
+
+    updatedSvgObj = result.updatedSvgObj;
+  }
 
   return { updatedSvgObj, conditions };
 };
