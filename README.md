@@ -118,6 +118,3 @@ Unit Test:
   - InfoButton needs test
   - Snippet more coverage
   - server/**
-
-Bug:
-  - Home Timer edit does not update local storage

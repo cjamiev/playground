@@ -144,14 +144,16 @@ const addConditionsToSpecifiedSvg = (section) => {
   return { updatedSvgObj, conditions };
 };
 
-const createSingleComponent = (data) => {
+const createSingleComponent = (svgTagAttributes, data) => {
   const formattedData = formatTagsWithIndents(data).split('\n').map(item => `      ${item}`).join('\n');
-  const testContent = singleTemplate.replace('{{jsxContent}}', formattedData);
+  const testContent = singleTemplate
+    .replace('{{svgTagAttributes}}', svgTagAttributes)
+    .replace('{{jsxContent}}', formattedData);
 
   return { testjs: testContent };
 };
 
-const createReactComponents = (data) => {
+const createReactComponents = (svgTagAttributes, data) => {
   const lines = data.split('\n');
 
   const parsedSVGObjects = lines
@@ -217,6 +219,7 @@ const createReactComponents = (data) => {
   const importContent = parsedSVGObjects.map(entry => `  ${entry.name}`).join(',\n');
   const jsxContent = parsedSVGObjects.map(entry => `      <${entry.name} />`).join('\n');
   const testContent = testTemplate
+    .replace('{{svgTagAttributes}}', svgTagAttributes)
     .replace('{{importContent}}', importContent)
     .replace('{{jsxContent}}', jsxContent);
 

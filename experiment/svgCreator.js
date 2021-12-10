@@ -11,17 +11,17 @@ const {
 
 const parseSVGFile = () => {
   const svgFile = loadFile('./experiment/example.svg');
-  const stepOne = formatTagsToOneLine(svgFile);
-  const stepTwo = removeExtraneousInformation(stepOne);
-  const classes = generateClassesFromStyles(stepTwo);
-  const stepThree = replaceStylesWithClass(stepTwo, classes);
-  const stepFour = sortAttributes(stepThree);
+  const formattedSvgFile = formatTagsToOneLine(svgFile);
+  const { svgTagAttributes, cleanSvgFile } = removeExtraneousInformation(formattedSvgFile);
+  const classes = generateClassesFromStyles(cleanSvgFile);
+  const svgWithClasses = replaceStylesWithClass(cleanSvgFile, classes);
+  const data = sortAttributes(svgWithClasses);
 
-  return { classes, data: stepFour };
+  return { classes, svgTagAttributes, data };
 };
 
-const createComponent = ({ classes, data }, isSingle = false) => {
-  const generatedContent = isSingle ? createSingleComponent(data) : createReactComponents(data);
+const createComponent = ({ classes, svgTagAttributes, data }, isSingle = false) => {
+  const generatedContent = isSingle ? createSingleComponent(svgTagAttributes, data) : createReactComponents(svgTagAttributes, data);
 
   const cssClasses = classes.map(item => item.cssClass).join('\n');
   writeToFile('./src/routes/experiment/svg/svg.css', cssClasses);

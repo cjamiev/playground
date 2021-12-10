@@ -33,7 +33,7 @@ import {
 
 const TestSvg = () => {
   return (
-    <svg className="svg--primary-color" width="1920" height="1080" viewBox="0 0 500 500">
+    <svg className="svg--primary-color" {{svgTagAttributes}}>
 {{jsxContent}}
     </svg>
   );
@@ -47,7 +47,7 @@ import './svg.css';
 
 const TestSvg = () => {
   return (
-    <svg className="svg--primary-color" width="1920" height="1080" viewBox="0 0 500 500">
+    <svg className="svg--primary-color" {{svgTagAttributes}}>
 {{jsxContent}}
     </svg>
   );
