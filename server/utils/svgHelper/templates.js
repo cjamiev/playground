@@ -53,13 +53,13 @@ export const {{name}} = ({ transform, subcomponents = [] }) => {
 
 const exportTemplate = 'export {\n {{imports}} \n} from \'./{{name}}\';';
 
-const testTemplate = `import React from 'react';
+const svgMapperTemplate = `import React from 'react';
 import {
 {{importContent}}
 } from './index';
 
 {{jsonDataTemplate}}
-const TestSvg = () => {
+const SvgMapper = ({ data = testData }) => {
   const renderData = data.map(item => {
     const SvgComponent = item.component;
     const key = SvgComponent.name + item.transform + JSON.stringify(item.subcomponents);
@@ -74,13 +74,13 @@ const TestSvg = () => {
   );
 };
 
-export default TestSvg;
+export default SvgMapper;
 `;
 
 const singleTemplate = `import React from 'react';
 import './svg.css';
 
-const TestSvg = () => {
+const SvgMapper = () => {
   return (
     <svg className="svg--primary-color" {{svgTagAttributes}}>
       {{jsxContent}}
@@ -88,7 +88,7 @@ const TestSvg = () => {
   );
 };
 
-export default TestSvg;
+export default SvgMapper;
 `;
 
 module.exports = {
@@ -96,6 +96,6 @@ module.exports = {
   componentTemplate,
   subcomponentTemplate,
   exportTemplate,
-  testTemplate,
+  svgMapperTemplate,
   singleTemplate
 };

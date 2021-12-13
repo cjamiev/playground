@@ -1,8 +1,8 @@
 import React from 'react';
-import TestSvg from './svg/TestSvg';
+import SvgMapper from './svg/SvgMapper';
 
 const Svg = () => {
-  return <TestSvg />;
+  return <SvgMapper />;
 };
 
 export default Svg;

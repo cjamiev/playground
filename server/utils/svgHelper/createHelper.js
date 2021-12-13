@@ -1,5 +1,5 @@
 const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('../stringHelper');
-const { subcomponentTemplate, componentTemplate, exportTemplate, testTemplate, singleTemplate } = require('./templates');
+const { subcomponentTemplate, componentTemplate, exportTemplate, svgMapperTemplate, singleTemplate } = require('./templates');
 const { getAttributeList } = require('./attributeHelper');
 
 const ZERO = 0;
@@ -247,12 +247,12 @@ const createReactComponents = (svgTagAttributes, data) => {
 
   const importContent = parsedSVGObjects.map(entry => `  ${entry.componentInfo.name},\n${entry.componentInfo.subcomponentNames}`).join(',\n');
   const jsxContent = parsedSVGObjects.map(entry => `      <${entry.componentInfo.name} />`).join('\n');
-  const testContent = testTemplate
+  const svgMapperContent = svgMapperTemplate
     .replace('{{svgTagAttributes}}', svgTagAttributes)
     .replace('{{importContent}}', importContent)
     .replace('{{jsxContent}}', jsxContent);
 
-  return { indexjs: indexContent, svgObjects: parsedSVGObjects, testjs: testContent };
+  return { indexjs: indexContent, svgObjects: parsedSVGObjects, svgmapperjs: svgMapperContent };
 };
 
 module.exports = {

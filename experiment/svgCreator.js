@@ -41,8 +41,8 @@ const createComponent = ({ classes, svgTagAttributes, data }, isSingle = false) 
       return `\n  { component: ${entry.componentInfo.name}, transform: 'translate(0,0)', subcomponents: [${entry.jsonDataTemplate}] }`;
     })
     .join(',');
-  const jsonDataTemplate = `const data = [${svgJsonDataTemplate}\n];`;
-  writeToFile(`${basePath}TestSvg.js`, generatedContent.testjs.replace('{{jsonDataTemplate}}', jsonDataTemplate));
+  const jsonDataTemplate = `const testData = [${svgJsonDataTemplate}\n];`;
+  writeToFile(`${basePath}SvgMapper.js`, generatedContent.svgmapperjs.replace('{{jsonDataTemplate}}', jsonDataTemplate));
 };
 
 const result = parseSVGFile();
