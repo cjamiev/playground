@@ -6,37 +6,52 @@ const defaultClass = [{
   className: 'svg__mark'
 }];
 
-const subcomponentTemplate = `const {{name}} = ({ transform, subcomponents = {} }) => {
+const subcomponentTemplate = `export const {{name}} = ({ transform, subcomponents = [] }) => {
   if(!transform) {
     return null;
   }
+  const renderData = subcomponents.map(item => {
+    const SvgComponent = item.component;
+    const key = SvgComponent.name + item.transform + JSON.stringify(item.subcomponents);
+
+    return <SvgComponent key={key} transform={item.transform} subcomponents={item.subcomponents} />;
+  });
 
   return (
     <g transform={transform}>
       {{subcomponentSVG}}
+      {renderData}
     </g>
   );
 };
 `;
 
-const componentTemplate = `/* eslint-disable complexity */
+const componentTemplate = `/* eslint-disable max-lines */
+/* eslint-disable complexity */
 import React from 'react';
 
 const ZERO = 0;
 
 {{subcomponents}}
-const {{name}} = ({ transform, subcomponents = {} }) => {
+export const {{name}} = ({ transform, subcomponents = [] }) => {
+  const renderData = subcomponents.map(item => {
+    const SvgComponent = item.component;
+    const key = SvgComponent.name + item.transform + JSON.stringify(item.subcomponents);
+
+    return <SvgComponent key={key} transform={item.transform} subcomponents={item.subcomponents} />;
+  });
+
   return (
     <g transform={transform}>
-{{svgObj}}
+      {{svgObj}}
+      {renderData}
     </g>
   );
 };
 
-export default {{name}};
 `;
 
-const exportTemplate = 'export { default as {{name}} } from \'./{{name}}\';';
+const exportTemplate = 'export {\n {{imports}} \n} from \'./{{name}}\';';
 
 const testTemplate = `import React from 'react';
 import {
@@ -49,7 +64,7 @@ const TestSvg = () => {
     const SvgComponent = item.component;
     const key = SvgComponent.name + item.transform + JSON.stringify(item.subcomponents);
 
-    return <SvgComponent key={SvgComponent.name + item.transform} transform={item.transform} subcomponents={item.subcomponents} />;
+    return <SvgComponent key={key} transform={item.transform} subcomponents={item.subcomponents} />;
   });
 
   return (
@@ -68,7 +83,7 @@ import './svg.css';
 const TestSvg = () => {
   return (
     <svg className="svg--primary-color" {{svgTagAttributes}}>
-{{jsxContent}}
+      {{jsxContent}}
     </svg>
   );
 };

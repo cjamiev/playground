@@ -102,7 +102,7 @@ const addCondition = (section) => {
         currentCondition.name = name;
         currentCondition.value = [currentLine.replace('data-testid="condition-','data-testid="')];
 
-        return `<${name}SVG {...subcomponents.${name}SVG} {...subcomponents} />`;
+        return '';
       } else if(isAddingCondition) {
         const { flag, counter } = handleConditionMode(currentLine, count);
 
@@ -218,7 +218,7 @@ const createReactComponents = (svgTagAttributes, data) => {
 
       const jsonDataTemplate = entry.conditions ? entry.conditions
         .map(item => {
-          return `${item.name}SVG: { transform: 'translate(0,0)' }`;
+          return `{ component:${item.name}SVG, transform: 'translate(0,0)' }`;
         })
         .join(',') : '';
       const conditionList = entry.conditions ? entry.conditions.map(item => {
@@ -226,21 +226,27 @@ const createReactComponents = (svgTagAttributes, data) => {
           .replace('{{name}}', item.name + 'SVG')
           .replace('{{subcomponentSVG}}', item.value);
       }).join('\n') : '';
+      const subcomponentNames = entry.conditions ? entry.conditions.map(item => {
+        return `  ${item.name}SVG`;
+      }).join(',\n') : '';
 
       const component = componentTemplate
         .replace(/{{name}}/g, entry.name)
         .replace('{{subcomponents}}', conditionList)
         .replace('{{svgObj}}', entry.svgObj);
 
-      return { name: entry.name, component, jsonDataTemplate };
+      return { componentInfo: { name: entry.name, subcomponentNames }, component, jsonDataTemplate };
     });
 
   const indexContent = parsedSVGObjects
-    .map(entry => exportTemplate.replace(/{{name}}/g, entry.name))
+    .map(entry => exportTemplate
+      .replace('{{imports}}', `${entry.componentInfo.name},\n  ${entry.componentInfo.subcomponentNames}`)
+      .replace('{{name}}', entry.componentInfo.name)
+    )
     .join('\n') + '\nimport \'./svg.css\';';
 
-  const importContent = parsedSVGObjects.map(entry => `  ${entry.name}`).join(',\n');
-  const jsxContent = parsedSVGObjects.map(entry => `      <${entry.name} />`).join('\n');
+  const importContent = parsedSVGObjects.map(entry => `  ${entry.componentInfo.name},\n${entry.componentInfo.subcomponentNames}`).join(',\n');
+  const jsxContent = parsedSVGObjects.map(entry => `      <${entry.componentInfo.name} />`).join('\n');
   const testContent = testTemplate
     .replace('{{svgTagAttributes}}', svgTagAttributes)
     .replace('{{importContent}}', importContent)
