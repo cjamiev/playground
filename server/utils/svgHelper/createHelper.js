@@ -5,6 +5,7 @@ const { getAttributeList } = require('./attributeHelper');
 const ZERO = 0;
 const ONE = 1;
 
+// Remove functiion
 const formatTagsWithIndents = (data) => {
   const lines = data.split('\n');
   let indentCount = 0;
@@ -149,7 +150,6 @@ const addConditionsToSpecifiedSvg = (section) => {
     .filter(Boolean)
     .join('\n');
 
-
   while(updatedSvgObj.includes('data-testid="condition-')) {
     const result = addCondition(updatedSvgObj);
     conditions = conditions.concat(result.conditions);
@@ -161,13 +161,9 @@ const addConditionsToSpecifiedSvg = (section) => {
 };
 
 const createSingleComponent = (svgTagAttributes, data) => {
-  const formattedData = formatTagsWithIndents(data)
-    .split('\n')
-    .map(item => `      ${item}`)
-    .join('\n');
   const testContent = singleTemplate
     .replace('{{svgTagAttributes}}', svgTagAttributes)
-    .replace('{{jsxContent}}', formattedData);
+    .replace('{{jsxContent}}', data);
 
   return { testjs: testContent };
 };
@@ -192,7 +188,7 @@ const createReactComponents = (svgTagAttributes, data) => {
         .replace('"','');
 
       const name = `${capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName))}SVG`;
-      const svgObj = formatTagsWithIndents(currentSegment)
+      const svgObj = currentSegment
         .replace('data-testid="component-','data-testid="')
         .split('\n')
         .filter(item => Boolean(item))

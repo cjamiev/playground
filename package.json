@@ -7,6 +7,8 @@
     "start": "webpack serve --config config/webpack.dev.js",
     "server": "nodemon server/index.js",
     "build": "webpack --config config/webpack.prod.js",
+    "svg": "node experiment/svgCreator && npm run lint",
+    "lint": "eslint --fix --ext .js ./src",
     "eslint": "eslint --ext .js src/ -f html -o coverage/eslint-report.html",
     "test": "jest --env=jsdom --coverage > test.log 2>&1",
     "t": "jest --env=jsdom --watch"
