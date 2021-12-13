@@ -1,5 +1,5 @@
 const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('../stringHelper');
-const { componentTemplate, exportTemplate, testTemplate, singleTemplate } = require('./templates');
+const { subcomponentTemplate, componentTemplate, exportTemplate, testTemplate, singleTemplate } = require('./templates');
 const { getAttributeList } = require('./attributeHelper');
 
 const ZERO = 0;
@@ -65,13 +65,13 @@ const removeSpecifiedSvg = (section) => {
 
 const handleConditionMode = (line, counter) => {
   if(counter === ZERO && line.includes('</')) {
-    return { line: line.replace('>', '> }'), flag: false, counter: 0 };
+    return { flag: false, counter: 0 };
   } else if(line.includes('</')) {
-    return { line, flag: true, counter: counter - ONE };
+    return { flag: true, counter: counter - ONE };
   } else if(line.includes('<') && line.includes('/>')) {
-    return { line, flag: true, counter };
+    return { flag: true, counter };
   } else if(line.includes('<') && line.includes('>')) {
-    return { line, flag: true, counter: counter + ONE };
+    return { flag: true, counter: counter + ONE };
   }
 };
 
@@ -79,34 +79,48 @@ const addCondition = (section) => {
   let isAddingCondition = false;
   let count = 0;
   const conditions = [];
+  const currentCondition = {
+    name: '',
+    value: []
+  };
 
   const updatedSvgObj = section
     .split('\n')
     .map(currentLine => {
       if (!isAddingCondition && currentLine.includes('data-testid="condition-')) {
+        currentCondition.name && conditions.push({
+          name: currentCondition.name,
+          value: currentCondition.value.join('\n')
+        });
         isAddingCondition = true;
 
         const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
           .replace('data-testid="condition-','')
           .replace('"','');
-        const name = toCamelCaseFromDashCase(dashCaseName);
-        conditions.push(name);
+        const name = capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName));
+        currentCondition.name = name;
+        currentCondition.value = [currentLine.replace('data-testid="condition-','data-testid="')];
 
-        return currentLine
-          .replace('data-testid="condition-','data-testid="')
-          .replace('<', `{ ${name} && <`);
+        return `<${name}SVG {...subcomponents.${name}SVG} {...subcomponents} />`;
       } else if(isAddingCondition) {
-        const { line, flag, counter } = handleConditionMode(currentLine, count);
+        const { flag, counter } = handleConditionMode(currentLine, count);
 
         isAddingCondition = flag;
         count = counter;
+        currentCondition.value.push(currentLine);
 
-        return line;
+        return '';
       }
 
       return currentLine;
     })
+    .filter(Boolean)
     .join('\n');
+
+  currentCondition.name && conditions.push({
+    name: currentCondition.name,
+    value: currentCondition.value.join('\n')
+  });
 
   return { conditions, updatedSvgObj};
 };
@@ -121,18 +135,20 @@ const addConditionsToSpecifiedSvg = (section) => {
         const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
           .replace('data-testid="condition-','')
           .replace('"','');
-        const name = toCamelCaseFromDashCase(dashCaseName);
-        conditions.push(name);
+        const name = capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName));
+        conditions.push({
+          name,
+          value: currentLine.replace('data-testid="condition-','data-testid="')
+        });
 
-        return currentLine
-          .replace('data-testid="condition-','data-testid="')
-          .replace('<', `{ ${name} && <`)
-          .replace('/>', '/> }');
+        return `<${name}SVG {...subcomponents.${name}SVG} {...subcomponents} />`;
       }
 
       return currentLine;
     })
+    .filter(Boolean)
     .join('\n');
+
 
   while(updatedSvgObj.includes('data-testid="condition-')) {
     const result = addCondition(updatedSvgObj);
@@ -145,7 +161,10 @@ const addConditionsToSpecifiedSvg = (section) => {
 };
 
 const createSingleComponent = (svgTagAttributes, data) => {
-  const formattedData = formatTagsWithIndents(data).split('\n').map(item => `      ${item}`).join('\n');
+  const formattedData = formatTagsWithIndents(data)
+    .split('\n')
+    .map(item => `      ${item}`)
+    .join('\n');
   const testContent = singleTemplate
     .replace('{{svgTagAttributes}}', svgTagAttributes)
     .replace('{{jsxContent}}', formattedData);
@@ -201,15 +220,23 @@ const createReactComponents = (svgTagAttributes, data) => {
     })
     .map(entry => {
 
-      const conditionVariables = entry.conditions ? entry.conditions.map(name => `  const ${name} = true;`).join('\n') : '';
-      const conditionList = entry.conditions ? entry.conditions.join(', ') : '';
+      const jsonDataTemplate = entry.conditions ? entry.conditions
+        .map(item => {
+          return `${item.name}SVG: { transform: 'translate(0,0)' }`;
+        })
+        .join(',') : '';
+      const conditionList = entry.conditions ? entry.conditions.map(item => {
+        return subcomponentTemplate
+          .replace('{{name}}', item.name + 'SVG')
+          .replace('{{subcomponentSVG}}', item.value);
+      }).join('\n') : '';
 
       const component = componentTemplate
         .replace(/{{name}}/g, entry.name)
-        .replace('{{conditions}}', conditionVariables ? `\n  \/\/${conditionList}\n${conditionVariables}\n` : '')
+        .replace('{{subcomponents}}', conditionList)
         .replace('{{svgObj}}', entry.svgObj);
 
-      return { name: entry.name, component };
+      return { name: entry.name, component, jsonDataTemplate };
     });
 
   const indexContent = parsedSVGObjects

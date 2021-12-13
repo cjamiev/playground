@@ -9,8 +9,13 @@ const {
   createReactComponents
 } = require('../server/utils/svgHelper');
 
+const EXPERIMENT_PATH = './src/routes/experiment/svg/';
+const EXPERIMENT_SVG_PATH = './experiment/example.svg';
+const basePath = EXPERIMENT_PATH;
+const svgPath = EXPERIMENT_SVG_PATH;
+
 const parseSVGFile = () => {
-  const svgFile = loadFile('./experiment/example.svg');
+  const svgFile = loadFile(svgPath);
   const formattedSvgFile = formatTagsToOneLine(svgFile);
   const { svgTagAttributes, cleanSvgFile } = removeExtraneousInformation(formattedSvgFile);
   const classes = generateClassesFromStyles(cleanSvgFile);
@@ -24,14 +29,20 @@ const createComponent = ({ classes, svgTagAttributes, data }, isSingle = false) 
   const generatedContent = isSingle ? createSingleComponent(svgTagAttributes, data) : createReactComponents(svgTagAttributes, data);
 
   const cssClasses = classes.map(item => item.cssClass).join('\n');
-  writeToFile('./src/routes/experiment/svg/svg.css', cssClasses);
+  writeToFile(`${basePath}svg.css`, cssClasses);
   if(!isSingle) {
     generatedContent.svgObjects.forEach(entry => {
-      writeToFile(`./src/routes/experiment/svg/${entry.name}.js`, entry.component);
+      writeToFile(`${basePath}${entry.name}.js`, entry.component);
     });
-    writeToFile('./src/routes/experiment/svg/index.js', generatedContent.indexjs);
+    writeToFile(`${basePath}index.js`, generatedContent.indexjs);
   }
-  writeToFile('./src/routes/experiment/svg/TestSvg.js', generatedContent.testjs);
+  const svgJsonDataTemplate = generatedContent.svgObjects
+    .map(entry => {
+      return `\n  { component: ${entry.name}, transform: 'translate(0,0)', subcomponents: {${entry.jsonDataTemplate}} }`;
+    })
+    .join(',');
+  const jsonDataTemplate = `const data = [${svgJsonDataTemplate}\n];`;
+  writeToFile(`${basePath}TestSvg.js`, generatedContent.testjs.replace('{{jsonDataTemplate}}', jsonDataTemplate));
 };
 
 const result = parseSVGFile();

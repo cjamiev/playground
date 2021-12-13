@@ -6,16 +6,28 @@ const defaultClass = [{
   className: 'svg__mark'
 }];
 
+const subcomponentTemplate = `const {{name}} = ({ transform, subcomponents = {} }) => {
+  if(!transform) {
+    return null;
+  }
+
+  return (
+    <g transform={transform}>
+      {{subcomponentSVG}}
+    </g>
+  );
+};
+`;
+
 const componentTemplate = `/* eslint-disable complexity */
 import React from 'react';
 
 const ZERO = 0;
 
-const {{name}} = ({ translateX = ZERO, translateY = ZERO }) => {
-  const translate = \`translate(\${translateX},\${translateY})\`;
-{{conditions}}
+{{subcomponents}}
+const {{name}} = ({ transform, subcomponents = {} }) => {
   return (
-    <g transform={translate}>
+    <g transform={transform}>
 {{svgObj}}
     </g>
   );
@@ -31,10 +43,18 @@ import {
 {{importContent}}
 } from './index';
 
+{{jsonDataTemplate}}
 const TestSvg = () => {
+  const renderData = data.map(item => {
+    const SvgComponent = item.component;
+    const key = SvgComponent.name + item.transform + JSON.stringify(item.subcomponents);
+
+    return <SvgComponent key={SvgComponent.name + item.transform} transform={item.transform} subcomponents={item.subcomponents} />;
+  });
+
   return (
     <svg className="svg--primary-color" {{svgTagAttributes}}>
-{{jsxContent}}
+      {renderData}
     </svg>
   );
 };
@@ -59,6 +79,7 @@ export default TestSvg;
 module.exports = {
   defaultClass,
   componentTemplate,
+  subcomponentTemplate,
   exportTemplate,
   testTemplate,
   singleTemplate
