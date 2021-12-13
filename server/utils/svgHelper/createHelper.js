@@ -161,11 +161,11 @@ const addConditionsToSpecifiedSvg = (section) => {
 };
 
 const createSingleComponent = (svgTagAttributes, data) => {
-  const testContent = singleTemplate
+  const svgMapperContent = singleTemplate
     .replace('{{svgTagAttributes}}', svgTagAttributes)
     .replace('{{jsxContent}}', data);
 
-  return { testjs: testContent };
+  return { svgmapperjs: svgMapperContent };
 };
 
 const createReactComponents = (svgTagAttributes, data) => {

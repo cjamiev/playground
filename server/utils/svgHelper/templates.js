@@ -77,7 +77,9 @@ const SvgMapper = ({ data = testData }) => {
 export default SvgMapper;
 `;
 
-const singleTemplate = `import React from 'react';
+const singleTemplate = `/* eslint-disable max-lines */
+/* eslint-disable complexity */
+import React from 'react';
 import './svg.css';
 
 const SvgMapper = () => {

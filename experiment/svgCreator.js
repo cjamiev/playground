@@ -35,15 +35,17 @@ const createComponent = ({ classes, svgTagAttributes, data }, isSingle = false) 
       writeToFile(`${basePath}${entry.componentInfo.name}.js`, entry.component);
     });
     writeToFile(`${basePath}index.js`, generatedContent.indexjs);
+    const svgJsonDataTemplate = generatedContent.svgObjects
+      .map(entry => {
+        return `\n  { component: ${entry.componentInfo.name}, transform: 'translate(0,0)', subcomponents: [${entry.jsonDataTemplate}] }`;
+      })
+      .join(',');
+    const jsonDataTemplate = `const testData = [${svgJsonDataTemplate}\n];`;
+    writeToFile(`${basePath}SvgMapper.js`, generatedContent.svgmapperjs.replace('{{jsonDataTemplate}}', jsonDataTemplate));
+  } else {
+    writeToFile(`${basePath}SvgMapper.js`, generatedContent.svgmapperjs.replace('{{jsonDataTemplate}}', ''));
   }
-  const svgJsonDataTemplate = generatedContent.svgObjects
-    .map(entry => {
-      return `\n  { component: ${entry.componentInfo.name}, transform: 'translate(0,0)', subcomponents: [${entry.jsonDataTemplate}] }`;
-    })
-    .join(',');
-  const jsonDataTemplate = `const testData = [${svgJsonDataTemplate}\n];`;
-  writeToFile(`${basePath}SvgMapper.js`, generatedContent.svgmapperjs.replace('{{jsonDataTemplate}}', jsonDataTemplate));
 };
 
 const result = parseSVGFile();
-createComponent(result, false);
+createComponent(result, true);
