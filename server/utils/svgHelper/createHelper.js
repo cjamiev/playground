@@ -163,7 +163,7 @@ const addConditionsToSpecifiedSvg = (section) => {
 const createSingleComponent = (svgTagAttributes, data) => {
   const svgMapperContent = singleTemplate
     .replace('{{svgTagAttributes}}', svgTagAttributes)
-    .replace('{{jsxContent}}', data);
+    .replace('{{jsxContent}}', removeSpecifiedSvg(data));
 
   return { svgmapperjs: svgMapperContent };
 };
