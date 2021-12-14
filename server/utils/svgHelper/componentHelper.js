@@ -233,13 +233,13 @@ const createReactComponents = (svgTagAttributes, data) => {
     const subcomponentNames = entry.componentInfo.subcomponentNames.map(item => {
       return `'${item.name}': ${item.name}SVG`;
     }).join(',\n');
-    const subcomponentNamesKeyMap = subcomponentNames ? `,${subcomponentNames}`: '';
+    const subcomponentNamesKeyMap = subcomponentNames ? `,\n${subcomponentNames}`: '';
 
-    return `${componentNameKeyMap}${subcomponentNamesKeyMap}`;
+    return `${componentNameKeyMap}${subcomponentNamesKeyMap}\n`;
   });
   const indexContent = indexTemplate
     .replace('{{imports}}', importContent)
-    .replace('{{svgMap}}', `const svgMap = {\n${svgMapContent}\n};`);
+    .replace('{{svgMap}}', `const svgMap = {\n${svgMapContent}};`);
 
   const svgMapperContent = svgMapperTemplate
     .replace('{{svgTagAttributes}}', svgTagAttributes);
