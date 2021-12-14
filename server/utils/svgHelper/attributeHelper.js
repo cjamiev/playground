@@ -68,9 +68,10 @@ const sortAttributes = (data) => {
   const updatedLines = lines.map((currentLine) => {
     const attributes = currentLine.split(' ');
     const id = attributes.find(item => item.includes('data-testid'));
+    const ariaLabel = id ? `aria-label${id.replace('data-testid','').replace('subcomponent-','').replace('component-','')}`: '';
     const className = attributes.find(item => item.includes('className'));
     const filteredLine = attributes.filter(item => !item.includes('data-testid') && !item.includes('className'));
-    const sortedLine = [filteredLine[ZERO], id, className, ...filteredLine.splice(ONE)];
+    const sortedLine = [filteredLine[ZERO], id, className, ariaLabel, ...filteredLine.splice(ONE)];
 
     return sortedLine.join(' ').replace(/[ ]+/g, ' ');
   });

@@ -56,10 +56,10 @@ const handleConditionMode = (line, counter) => {
   }
 };
 
-const addCondition = (section) => {
+const findSubcomponent = (section) => {
   let isAddingCondition = false;
   let count = 0;
-  const conditions = [];
+  const subcomponents = [];
   const currentCondition = {
     name: '',
     value: []
@@ -68,19 +68,19 @@ const addCondition = (section) => {
   const updatedSvgObj = section
     .split('\n')
     .map(currentLine => {
-      if (!isAddingCondition && currentLine.includes('data-testid="condition-')) {
-        currentCondition.name && conditions.push({
+      if (!isAddingCondition && currentLine.includes('data-testid="subcomponent-')) {
+        currentCondition.name && subcomponents.push({
           name: currentCondition.name,
           value: currentCondition.value.join('\n')
         });
         isAddingCondition = true;
 
-        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
-          .replace('data-testid="condition-','')
+        const dashCaseName = getAttributeList(currentLine, 'data-testid="subcomponent-')[ZERO]
+          .replace('data-testid="subcomponent-','')
           .replace('"','');
         const name = capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName));
         currentCondition.name = name;
-        currentCondition.value = [currentLine.replace('data-testid="condition-','data-testid="')];
+        currentCondition.value = [currentLine];
 
         return '';
       } else if(isAddingCondition) {
@@ -98,28 +98,28 @@ const addCondition = (section) => {
     .filter(Boolean)
     .join('\n');
 
-  currentCondition.name && conditions.push({
+  currentCondition.name && subcomponents.push({
     name: currentCondition.name,
     value: currentCondition.value.join('\n')
   });
 
-  return { conditions, updatedSvgObj};
+  return { subcomponents, updatedSvgObj};
 };
 
-const addConditionsToSpecifiedSvg = (section) => {
-  let conditions = [];
+const parseOutSubcomponents = (section) => {
+  let subcomponents = [];
 
   let updatedSvgObj = section
     .split('\n')
     .map(currentLine => {
-      if (currentLine.includes('data-testid="condition-') && currentLine.includes('/>')) {
-        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
-          .replace('data-testid="condition-','')
+      if (currentLine.includes('data-testid="subcomponent-') && currentLine.includes('/>')) {
+        const dashCaseName = getAttributeList(currentLine, 'data-testid="subcomponent-')[ZERO]
+          .replace('data-testid="subcomponent-','')
           .replace('"','');
         const name = capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName));
-        conditions.push({
+        subcomponents.push({
           name,
-          value: currentLine.replace('data-testid="condition-','data-testid="')
+          value: currentLine
         });
 
         return `<${name}SVG DELETE />`;
@@ -130,9 +130,9 @@ const addConditionsToSpecifiedSvg = (section) => {
     .filter(Boolean)
     .join('\n');
 
-  while(updatedSvgObj.includes('data-testid="condition-')) {
-    const result = addCondition(updatedSvgObj);
-    conditions = conditions.concat(result.conditions);
+  while(updatedSvgObj.includes('data-testid="subcomponent-')) {
+    const result = findSubcomponent(updatedSvgObj);
+    subcomponents = subcomponents.concat(result.subcomponents);
 
     updatedSvgObj = result.updatedSvgObj;
   }
@@ -140,7 +140,7 @@ const addConditionsToSpecifiedSvg = (section) => {
   // Error correction not sure what is the source of this problem
   updatedSvgObj = updatedSvgObj.split('\n').filter(item => !item.includes('DELETE')).join('\n');
 
-  return { updatedSvgObj, conditions };
+  return { updatedSvgObj, subcomponents };
 };
 
 const createSingleComponent = (svgTagAttributes, data) => {
@@ -172,7 +172,6 @@ const createReactComponents = (svgTagAttributes, data) => {
 
       const name = capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName));
       const svgObj = currentSegment
-        .replace('data-testid="component-','data-testid="')
         .split('\n')
         .filter(item => Boolean(item))
         .map(line => `      ${line}`)
@@ -193,18 +192,18 @@ const createReactComponents = (svgTagAttributes, data) => {
       return { ...entry, svgObj: filteredSvgObject};
     })
     .map(entry => {
-      const { updatedSvgObj, conditions } = addConditionsToSpecifiedSvg(entry.svgObj);
+      const { updatedSvgObj, subcomponents } = parseOutSubcomponents(entry.svgObj);
 
-      return { ...entry, svgObj: updatedSvgObj, conditions };
+      return { ...entry, svgObj: updatedSvgObj, subcomponents };
     })
     .map(entry => {
 
-      const jsonDataTemplate = entry.conditions ? entry.conditions
+      const jsonDataTemplate = entry.subcomponents ? entry.subcomponents
         .map(item => {
           return `{ component:'${item.name}', transform: 'translate(0,0)' }`;
         })
         .join(',') : '';
-      const conditionList = entry.conditions ? entry.conditions.map(item => {
+      const subcomponentList = entry.subcomponents ? entry.subcomponents.map(item => {
         return subcomponentTemplate
           .replace('{{name}}', item.name + 'SVG')
           .replace('{{subcomponentSVG}}', item.value);
@@ -212,10 +211,10 @@ const createReactComponents = (svgTagAttributes, data) => {
 
       const component = componentTemplate
         .replace(/{{name}}/g, `${entry.name}SVG`)
-        .replace('{{subcomponents}}', conditionList)
+        .replace('{{subcomponents}}', subcomponentList)
         .replace('{{svgObj}}', entry.svgObj);
 
-      return { componentInfo: { name: entry.name, subcomponentNames: entry.conditions }, component, jsonDataTemplate };
+      return { componentInfo: { name: entry.name, subcomponentNames: entry.subcomponents }, component, jsonDataTemplate };
     });
 
   const importContent = parsedSVGObjects
