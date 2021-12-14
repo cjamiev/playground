@@ -142,7 +142,7 @@ const addConditionsToSpecifiedSvg = (section) => {
           value: currentLine.replace('data-testid="condition-','data-testid="')
         });
 
-        return `<${name}SVG {...subcomponents.${name}SVG} {...subcomponents} />`;
+        return `<${name}SVG DELETE />`;
       }
 
       return currentLine;
@@ -156,6 +156,9 @@ const addConditionsToSpecifiedSvg = (section) => {
 
     updatedSvgObj = result.updatedSvgObj;
   }
+
+  // Error correction not sure what is the source of this problem
+  updatedSvgObj = updatedSvgObj.split('\n').filter(item => !item.includes('DELETE')).join('\n');
 
   return { updatedSvgObj, conditions };
 };
