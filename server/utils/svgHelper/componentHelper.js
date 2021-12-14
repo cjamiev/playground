@@ -219,18 +219,23 @@ const createReactComponents = (svgTagAttributes, data) => {
     });
 
   const importContent = parsedSVGObjects
-    .map(entry => importTemplate
-      .replace('{{imports}}', `${entry.componentInfo.name}SVG,\n  ${entry.componentInfo.subcomponentNames.map(item => { return `  ${item.name}SVG`; }).join(',\n')}`)
-      .replace('{{name}}', `${entry.componentInfo.name}SVG`)
-    )
+    .map(entry => {
+      const subcomponentNames = entry.componentInfo.subcomponentNames.map(item => { return `  ${item.name}SVG`; }).join(',\n');
+      const subcomponentsImport = subcomponentNames ? `,\n${subcomponentNames}`: '';
+
+      return importTemplate
+        .replace('{{imports}}', `${entry.componentInfo.name}SVG${subcomponentsImport}`)
+        .replace('{{name}}', `${entry.componentInfo.name}SVG`);
+    })
     .join('\n');
   const svgMapContent = parsedSVGObjects.map(entry => {
-    const componentName = `'${entry.componentInfo.name}': ${entry.componentInfo.name}SVG`;
-    const subComponentNames = entry.componentInfo.subcomponentNames.map(item => {
+    const componentNameKeyMap = `'${entry.componentInfo.name}': ${entry.componentInfo.name}SVG`;
+    const subcomponentNames = entry.componentInfo.subcomponentNames.map(item => {
       return `'${item.name}': ${item.name}SVG`;
     }).join(',\n');
+    const subcomponentNamesKeyMap = subcomponentNames ? `,${subcomponentNames}`: '';
 
-    return `${componentName},${subComponentNames}`;
+    return `${componentNameKeyMap}${subcomponentNamesKeyMap}`;
   });
   const indexContent = indexTemplate
     .replace('{{imports}}', importContent)
