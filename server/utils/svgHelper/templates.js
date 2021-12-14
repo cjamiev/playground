@@ -51,16 +51,34 @@ export const {{name}} = ({ transform, subcomponents = [] }) => {
 
 `;
 
-const exportTemplate = 'export {\n {{imports}} \n} from \'./{{name}}\';';
+const importTemplate = 'import {\n {{imports}} \n} from \'./{{name}}\';';
+const indexTemplate = `
+{{imports}}
+import './svg.css';
+
+{{svgMap}}
+
+const entryMapper = (entry) => {
+  return {
+    ...entry,
+    subcomponents: entry.subcomponents ? entry.subcomponents.map(item => entryMapper(item)): [],
+    component: svgMap[entry.component]
+  };
+};
+
+const svgDataMapper = (data) => {
+  return data.map(entry => entryMapper(entry));
+};
+
+export default svgDataMapper;
+`;
 
 const svgMapperTemplate = `import React from 'react';
-import {
-{{importContent}}
-} from './index';
+import svgDataMapper from './index';
 
 {{jsonDataTemplate}}
 const SvgMapper = ({ data = testData }) => {
-  const renderData = data.map(item => {
+  const renderData = svgDataMapper(data).map(item => {
     const SvgComponent = item.component;
     const key = SvgComponent.name + item.transform + JSON.stringify(item.subcomponents);
 
@@ -97,7 +115,8 @@ module.exports = {
   defaultClass,
   componentTemplate,
   subcomponentTemplate,
-  exportTemplate,
+  importTemplate,
+  indexTemplate,
   svgMapperTemplate,
   singleTemplate
 };

@@ -32,12 +32,12 @@ const createComponent = ({ classes, svgTagAttributes, data }, isSingle = false) 
   writeToFile(`${basePath}svg.css`, cssClasses);
   if(!isSingle) {
     generatedContent.svgObjects.forEach(entry => {
-      writeToFile(`${basePath}${entry.componentInfo.name}.js`, entry.component);
+      writeToFile(`${basePath}${entry.componentInfo.name}SVG.js`, entry.component);
     });
     writeToFile(`${basePath}index.js`, generatedContent.indexjs);
     const svgJsonDataTemplate = generatedContent.svgObjects
       .map(entry => {
-        return `\n  { component: ${entry.componentInfo.name}, transform: 'translate(0,0)', subcomponents: [${entry.jsonDataTemplate}] }`;
+        return `\n  { component: '${entry.componentInfo.name}', transform: 'translate(0,0)', subcomponents: [${entry.jsonDataTemplate}] }`;
       })
       .join(',');
     const jsonDataTemplate = `const testData = [${svgJsonDataTemplate}\n];`;
@@ -48,4 +48,4 @@ const createComponent = ({ classes, svgTagAttributes, data }, isSingle = false) 
 };
 
 const result = parseSVGFile();
-createComponent(result, true);
+createComponent(result, false);

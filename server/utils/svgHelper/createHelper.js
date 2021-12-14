@@ -1,5 +1,5 @@
 const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('../stringHelper');
-const { subcomponentTemplate, componentTemplate, exportTemplate, svgMapperTemplate, singleTemplate } = require('./templates');
+const { subcomponentTemplate, componentTemplate, importTemplate, indexTemplate, svgMapperTemplate, singleTemplate } = require('./templates');
 const { getAttributeList } = require('./attributeHelper');
 
 const ZERO = 0;
@@ -187,7 +187,7 @@ const createReactComponents = (svgTagAttributes, data) => {
         .replace('data-testid="component-','')
         .replace('"','');
 
-      const name = `${capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName))}SVG`;
+      const name = capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName));
       const svgObj = currentSegment
         .replace('data-testid="component-','data-testid="')
         .split('\n')
@@ -218,7 +218,7 @@ const createReactComponents = (svgTagAttributes, data) => {
 
       const jsonDataTemplate = entry.conditions ? entry.conditions
         .map(item => {
-          return `{ component:${item.name}SVG, transform: 'translate(0,0)' }`;
+          return `{ component:'${item.name}', transform: 'translate(0,0)' }`;
         })
         .join(',') : '';
       const conditionList = entry.conditions ? entry.conditions.map(item => {
@@ -226,31 +226,35 @@ const createReactComponents = (svgTagAttributes, data) => {
           .replace('{{name}}', item.name + 'SVG')
           .replace('{{subcomponentSVG}}', item.value);
       }).join('\n') : '';
-      const subcomponentNames = entry.conditions ? entry.conditions.map(item => {
-        return `  ${item.name}SVG`;
-      }).join(',\n') : '';
 
       const component = componentTemplate
-        .replace(/{{name}}/g, entry.name)
+        .replace(/{{name}}/g, `${entry.name}SVG`)
         .replace('{{subcomponents}}', conditionList)
         .replace('{{svgObj}}', entry.svgObj);
 
-      return { componentInfo: { name: entry.name, subcomponentNames }, component, jsonDataTemplate };
+      return { componentInfo: { name: entry.name, subcomponentNames: entry.conditions }, component, jsonDataTemplate };
     });
 
-  const indexContent = parsedSVGObjects
-    .map(entry => exportTemplate
-      .replace('{{imports}}', `${entry.componentInfo.name},\n  ${entry.componentInfo.subcomponentNames}`)
-      .replace('{{name}}', entry.componentInfo.name)
+  const importContent = parsedSVGObjects
+    .map(entry => importTemplate
+      .replace('{{imports}}', `${entry.componentInfo.name}SVG,\n  ${entry.componentInfo.subcomponentNames.map(item => { return `  ${item.name}SVG`; }).join(',\n')}`)
+      .replace('{{name}}', `${entry.componentInfo.name}SVG`)
     )
-    .join('\n') + '\nimport \'./svg.css\';';
+    .join('\n');
+  const svgMapContent = parsedSVGObjects.map(entry => {
+    const componentName = `'${entry.componentInfo.name}': ${entry.componentInfo.name}SVG`;
+    const subComponentNames = entry.componentInfo.subcomponentNames.map(item => {
+      return `'${item.name}': ${item.name}SVG`;
+    }).join(',\n');
 
-  const importContent = parsedSVGObjects.map(entry => `  ${entry.componentInfo.name},\n${entry.componentInfo.subcomponentNames}`).join(',\n');
-  const jsxContent = parsedSVGObjects.map(entry => `      <${entry.componentInfo.name} />`).join('\n');
+    return `${componentName},${subComponentNames}`;
+  });
+  const indexContent = indexTemplate
+    .replace('{{imports}}', importContent)
+    .replace('{{svgMap}}', `const svgMap = {\n${svgMapContent}\n};`);
+
   const svgMapperContent = svgMapperTemplate
-    .replace('{{svgTagAttributes}}', svgTagAttributes)
-    .replace('{{importContent}}', importContent)
-    .replace('{{jsxContent}}', jsxContent);
+    .replace('{{svgTagAttributes}}', svgTagAttributes);
 
   return { indexjs: indexContent, svgObjects: parsedSVGObjects, svgmapperjs: svgMapperContent };
 };
