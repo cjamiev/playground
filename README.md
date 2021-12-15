@@ -52,6 +52,7 @@ Step 1: Create objects
   - Ideally one object should be reference.
 	- Check all sizes are relatively correct. 
 Step 2: Id the objects
+	- Set id with subcomponent-<name> for objects that should be a subcomponent
 	- Set id with condition-<name> for conditional objects in groups 
 	- Set id with remove-<name> for extraneous objects in groups
 	- Set id with element-<name> for convenience
