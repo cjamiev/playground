@@ -73,6 +73,7 @@ const addCondition = (section) => {
         conditions.push(name);
 
         return currentLine
+          .replace('data-testid="condition-','data-testid="')
           .replace('<', `{ ${name} && <`);
       } else if(isAddingCondition) {
         const { line, flag, counter } = handleConditionMode(currentLine, count);
@@ -104,6 +105,7 @@ const addConditionsToSpecifiedSvg = (section) => {
         conditions.push(name);
 
         return currentLine
+          .replace('data-testid="condition-','data-testid="')
           .replace('<', `{ ${name} && <`)
           .replace('/>', '/> }');
       }

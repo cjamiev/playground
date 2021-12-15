@@ -1,7 +1,20 @@
 const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('../stringHelper');
-const { subcomponentTemplate, componentTemplate, importTemplate, indexTemplate, svgMapperTemplate, singleTemplate } = require('./templates');
+const {
+  subcomponentTemplate,
+  componentTemplate,
+  componentWithoutSubcomponentTemplate,
+  importTemplate,
+  indexTemplate,
+  svgMapperTemplate,
+  singleTemplate
+} = require('./templates');
 const { getAttributeList } = require('./attributeHelper');
-const { removeSpecifiedSvg, handleConditionMode, addConditionsToSpecifiedSvg, parseOutSubcomponents } = require('./parseComponentHelper');
+const {
+  removeSpecifiedSvg,
+  handleConditionMode,
+  addConditionsToSpecifiedSvg,
+  parseOutSubcomponents
+} = require('./parseComponentHelper');
 
 const ZERO = 0;
 const ONE = 1;
@@ -72,10 +85,14 @@ const createReactComponents = (svgTagAttributes, data) => {
           .replace('{{subcomponentSVG}}', item.value);
       }).join('\n') : '';
 
-      const component = componentTemplate
-        .replace(/{{name}}/g, `${entry.name}SVG`)
-        .replace('{{subcomponents}}', subcomponentList)
-        .replace('{{svgObj}}', entry.svgObj);
+      const component = subcomponentList
+        ? componentTemplate
+          .replace(/{{name}}/g, `${entry.name}SVG`)
+          .replace('{{subcomponents}}', subcomponentList)
+          .replace('{{svgObj}}', entry.svgObj)
+        : componentWithoutSubcomponentTemplate
+          .replace(/{{name}}/g, `${entry.name}SVG`)
+          .replace('{{svgObj}}', entry.svgObj);
 
       return { componentInfo: { name: entry.name, subcomponentNames: entry.subcomponents }, component, jsonDataTemplate };
     });

@@ -41,6 +41,23 @@ export const {{name}} = ({ transform, subcomponents = [] }) => {
 
 `;
 
+const componentWithoutSubcomponentTemplate = `/* eslint-disable max-lines */
+/* eslint-disable complexity */
+import React from 'react';
+
+const ZERO = 0;
+
+export const {{name}} = ({ transform }) => {
+
+  return (
+    <g transform={transform}>
+      {{svgObj}}
+    </g>
+  );
+};
+
+`;
+
 const importTemplate = 'import {\n {{imports}} \n} from \'./{{name}}\';';
 const indexTemplate = `
 {{imports}}
@@ -104,6 +121,7 @@ export default SvgMapper;
 module.exports = {
   defaultClass,
   componentTemplate,
+  componentWithoutSubcomponentTemplate,
   subcomponentTemplate,
   importTemplate,
   indexTemplate,
