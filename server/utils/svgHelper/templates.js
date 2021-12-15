@@ -6,21 +6,11 @@ const defaultClass = [{
   className: 'svg__mark'
 }];
 
-const subcomponentTemplate = `export const {{name}} = ({ transform, subcomponents = [] }) => {
-  if(!transform) {
-    return null;
-  }
-  const renderData = subcomponents.map(item => {
-    const SvgComponent = item.component;
-    const key = SvgComponent.name + item.transform + JSON.stringify(item.subcomponents);
-
-    return <SvgComponent key={key} transform={item.transform} subcomponents={item.subcomponents} />;
-  });
+const subcomponentTemplate = `export const {{name}} = ({ transform }) => {
 
   return (
     <g transform={transform}>
       {{subcomponentSVG}}
-      {renderData}
     </g>
   );
 };
