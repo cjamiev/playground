@@ -97,7 +97,7 @@ const getParsedData = (data) => {
   return data.map(entry => {
     const subcomponentTestData = entry.subcomponents ? entry.subcomponents
       .map(item => {
-        return `{ component:'${item.name}', transform: 'translate(0,0)' }`;
+        return `{ component:'${item.name}', transform: 'translate(0,0)', conditions: { ${item.conditions ? item.conditions.map(cond => `${cond}:true`).join(','): '' } } }`;
       })
       .join(',') : '';
 
@@ -105,7 +105,7 @@ const getParsedData = (data) => {
       return subcomponentTemplate
         .replace('{{name}}', item.name + 'SVG')
         .replace('{{subcomponentSVG}}', item.value)
-        .replace('{{conditions}}', item.conditions.length > ZERO ? `const {${item.conditions.map(cond => ` ${cond} = true`).join(',')} } = conditions;` : '');
+        .replace('{{conditions}}', item.conditions.length > ZERO ? `const {${item.conditions.map(cond => ` ${cond}`).join(',')} } = conditions;` : '');
     }).join('\n') : '';
 
     const reactComponent = reactSubcomponents
@@ -113,13 +113,13 @@ const getParsedData = (data) => {
         .replace(/{{name}}/g, `${entry.name}SVG`)
         .replace('{{subcomponents}}', reactSubcomponents)
         .replace('{{svgObj}}', entry.component)
-        .replace('{{conditions}}', entry.conditions.length > ZERO ? `const {${entry.conditions.map(cond => ` ${cond} = true`).join(',')} } = conditions;` : '')
+        .replace('{{conditions}}', entry.conditions.length > ZERO ? `const {${entry.conditions.map(cond => ` ${cond}`).join(',')} } = conditions;` : '')
       : componentWithoutSubcomponentTemplate
         .replace(/{{name}}/g, `${entry.name}SVG`)
         .replace('{{svgObj}}', entry.component)
-        .replace('{{conditions}}', entry.conditions.length > ZERO ? `const {${entry.conditions.map(cond => ` ${cond} = true`).join(',')} } = conditions;` : '');
+        .replace('{{conditions}}', entry.conditions.length > ZERO ? `const {${entry.conditions.map(cond => ` ${cond}`).join(',')} } = conditions;` : '');
 
-    return { name: entry.name, subcomponentNames: entry.subcomponents.map(item => item.name), reactComponent, subcomponentTestData };
+    return { name: entry.name, subcomponentNames: entry.subcomponents.map(item => item.name), reactComponent, conditions: entry.conditions, subcomponentTestData };
   });
 };
 
