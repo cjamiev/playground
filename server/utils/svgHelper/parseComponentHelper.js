@@ -56,10 +56,10 @@ const handleConditionMode = (line, counter) => {
 };
 
 const findSubcomponent = (section) => {
-  let isAddingCondition = false;
+  let isAddingSubcomponent = false;
   let count = 0;
   const subcomponents = [];
-  const currentCondition = {
+  const currentSubcomponent = {
     name: '',
     value: []
   };
@@ -67,27 +67,27 @@ const findSubcomponent = (section) => {
   const updatedSvgObj = section
     .split('\n')
     .map(currentLine => {
-      if (!isAddingCondition && currentLine.includes('data-testid="subcomponent-')) {
-        currentCondition.name && subcomponents.push({
-          name: currentCondition.name,
-          value: currentCondition.value.join('\n')
+      if (!isAddingSubcomponent && currentLine.includes('data-testid="subcomponent-')) {
+        currentSubcomponent.name && subcomponents.push({
+          name: currentSubcomponent.name,
+          value: currentSubcomponent.value.join('\n')
         });
-        isAddingCondition = true;
+        isAddingSubcomponent = true;
 
         const dashCaseName = getAttributeList(currentLine, 'data-testid="subcomponent-')[ZERO]
           .replace('data-testid="subcomponent-','')
           .replace('"','');
         const name = capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName));
-        currentCondition.name = name;
-        currentCondition.value = [currentLine];
+        currentSubcomponent.name = name;
+        currentSubcomponent.value = [currentLine];
 
         return '';
-      } else if(isAddingCondition) {
+      } else if(isAddingSubcomponent) {
         const { flag, counter } = handleConditionMode(currentLine, count);
 
-        isAddingCondition = flag;
+        isAddingSubcomponent = flag;
         count = counter;
-        currentCondition.value.push(currentLine);
+        currentSubcomponent.value.push(currentLine);
 
         return '';
       }
@@ -97,9 +97,9 @@ const findSubcomponent = (section) => {
     .filter(Boolean)
     .join('\n');
 
-  currentCondition.name && subcomponents.push({
-    name: currentCondition.name,
-    value: currentCondition.value.join('\n')
+  currentSubcomponent.name && subcomponents.push({
+    name: currentSubcomponent.name,
+    value: currentSubcomponent.value.join('\n')
   });
 
   return { subcomponents, updatedSvgObj};
