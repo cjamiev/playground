@@ -16,7 +16,7 @@ const handleRemoveMode = (line, counter) => {
   }
 };
 
-const removeSpecifiedSvg = (section) => {
+const trimSvgComponent = (section) => {
   let isRemoving = false;
   let count = 0;
 
@@ -53,75 +53,6 @@ const handleConditionMode = (line, counter) => {
   } else if(line.includes('<') && line.includes('>')) {
     return { flag: true, counter: counter + ONE };
   }
-};
-
-const addCondition = (section) => {
-  let isAddingCondition = false;
-  let count = 0;
-  const conditions = [];
-
-  const updatedSvgObj = section
-    .split('\n')
-    .map(currentLine => {
-      if (!isAddingCondition && currentLine.includes('data-testid="condition-')) {
-        isAddingCondition = true;
-
-        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
-          .replace('data-testid="condition-','')
-          .replace('"','');
-        const name = toCamelCaseFromDashCase(dashCaseName);
-        conditions.push(name);
-
-        return currentLine
-          .replace('data-testid="condition-','data-testid="')
-          .replace('<', `{ ${name} && <`);
-      } else if(isAddingCondition) {
-        const { line, flag, counter } = handleConditionMode(currentLine, count);
-
-        isAddingCondition = flag;
-        count = counter;
-
-        return line;
-      }
-
-      return currentLine;
-    })
-    .join('\n');
-
-  return { conditions, updatedSvgObj};
-};
-
-const addConditionsToSpecifiedSvg = (section) => {
-  let conditions = [];
-
-  let updatedSvgObj = section
-    .split('\n')
-    .map(currentLine => {
-      if (currentLine.includes('data-testid="condition-') && currentLine.includes('/>')) {
-        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
-          .replace('data-testid="condition-','')
-          .replace('"','');
-        const name = toCamelCaseFromDashCase(dashCaseName);
-        conditions.push(name);
-
-        return currentLine
-          .replace('data-testid="condition-','data-testid="')
-          .replace('<', `{ ${name} && <`)
-          .replace('/>', '/> }');
-      }
-
-      return currentLine;
-    })
-    .join('\n');
-
-  while(updatedSvgObj.includes('data-testid="condition-')) {
-    const result = addCondition(updatedSvgObj);
-    conditions = conditions.concat(result.conditions);
-
-    updatedSvgObj = result.updatedSvgObj;
-  }
-
-  return { updatedSvgObj, conditions };
 };
 
 const findSubcomponent = (section) => {
@@ -174,7 +105,7 @@ const findSubcomponent = (section) => {
   return { subcomponents, updatedSvgObj};
 };
 
-const parseOutSubcomponents = (section) => {
+const getSvgSubcomponents = (section) => {
   let subcomponents = [];
 
   let updatedSvgObj = section
@@ -211,9 +142,77 @@ const parseOutSubcomponents = (section) => {
   return { updatedSvgObj, subcomponents };
 };
 
+const addCondition = (section) => {
+  let isAddingCondition = false;
+  let count = 0;
+  const conditions = [];
+
+  const updatedSvgObj = section
+    .split('\n')
+    .map(currentLine => {
+      if (!isAddingCondition && currentLine.includes('data-testid="condition-')) {
+        isAddingCondition = true;
+
+        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
+          .replace('data-testid="condition-','')
+          .replace('"','');
+        const name = toCamelCaseFromDashCase(dashCaseName);
+        conditions.push(name);
+
+        return currentLine
+          .replace('data-testid="condition-','data-testid="')
+          .replace('<', `{ ${name} && <`);
+      } else if(isAddingCondition) {
+        const { line, flag, counter } = handleConditionMode(currentLine, count);
+
+        isAddingCondition = flag;
+        count = counter;
+
+        return line;
+      }
+
+      return currentLine;
+    })
+    .join('\n');
+
+  return { conditions, updatedSvgObj};
+};
+
+const addConditionsToSvgComponents = (section) => {
+  let conditions = [];
+
+  let updatedSvgObj = section
+    .split('\n')
+    .map(currentLine => {
+      if (currentLine.includes('data-testid="condition-') && currentLine.includes('/>')) {
+        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
+          .replace('data-testid="condition-','')
+          .replace('"','');
+        const name = toCamelCaseFromDashCase(dashCaseName);
+        conditions.push(name);
+
+        return currentLine
+          .replace('data-testid="condition-','data-testid="')
+          .replace('<', `{ ${name} && <`)
+          .replace('/>', '/> }');
+      }
+
+      return currentLine;
+    })
+    .join('\n');
+
+  while(updatedSvgObj.includes('data-testid="condition-')) {
+    const result = addCondition(updatedSvgObj);
+    conditions = conditions.concat(result.conditions);
+
+    updatedSvgObj = result.updatedSvgObj;
+  }
+
+  return { updatedSvgObj, conditions };
+};
+
 module.exports = {
-  removeSpecifiedSvg,
-  handleConditionMode,
-  addConditionsToSpecifiedSvg,
-  parseOutSubcomponents
+  trimSvgComponent,
+  getSvgSubcomponents,
+  addConditionsToSvgComponents
 };

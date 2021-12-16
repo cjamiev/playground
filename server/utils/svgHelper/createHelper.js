@@ -24,15 +24,15 @@ const writeComponentsToFile = ({ classes, svgTagAttributes, data }, targetPath, 
   writeToFile(`${targetPath}svg.css`, cssClasses);
   if(!isSingleComponent) {
     generatedContent.svgObjects.forEach(entry => {
-      writeToFile(`${targetPath}${entry.componentInfo.name}SVG.js`, entry.component);
+      writeToFile(`${targetPath}${entry.name}SVG.js`, entry.reactComponent);
     });
     writeToFile(`${targetPath}index.js`, generatedContent.indexjs);
-    const svgJsonDataTemplate = generatedContent.svgObjects
+    const testData = generatedContent.svgObjects
       .map(entry => {
-        return `\n  { component: '${entry.componentInfo.name}', transform: 'translate(0,0)', subcomponents: [${entry.jsonDataTemplate}] }`;
+        return `\n  { component: '${entry.name}', transform: 'translate(0,0)', subcomponents: [${entry.subcomponentTestData}] }`;
       })
       .join(',');
-    const jsonDataTemplate = `const testData = [${svgJsonDataTemplate}\n];`;
+    const jsonDataTemplate = `const testData = [${testData}\n];`;
     writeToFile(`${targetPath}SvgMapper.js`, generatedContent.svgmapperjs.replace('{{jsonDataTemplate}}', jsonDataTemplate));
   } else {
     writeToFile(`${targetPath}SvgMapper.js`, generatedContent.svgmapperjs.replace('{{jsonDataTemplate}}', ''));
