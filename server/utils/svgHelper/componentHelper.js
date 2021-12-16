@@ -65,19 +65,36 @@ const getSvgComponents = (data) => {
   return svgComponents;
 };
 
-const createReactComponents = (svgTagAttributes, data) => {
-  const svgComponents = getSvgComponents(data);
-  const filteredSvgComponents = svgComponents.map(entry => {
+const getParsedComponents = (data) => {
+  const filteredSvgComponents = data.map(entry => {
     const filteredSvgObject = trimSvgComponent(entry.component);
 
     return { ...entry, component: filteredSvgObject};
   });
-  const componentsAndSubcomponents = filteredSvgComponents.map(entry => {
+
+  const componentsWithSubcomponents = filteredSvgComponents.map(entry => {
     const { updatedSvgObj, subcomponents } = getSvgSubcomponents(entry.component);
 
     return { ...entry, component: updatedSvgObj, subcomponents };
   });
-  const parsedData = componentsAndSubcomponents.map(entry => {
+
+  return componentsWithSubcomponents.map(entry => {
+    const updatedComponent = addConditionsToSvgComponents(entry.component);
+    const updatedSubcomponent = entry.subcomponents.map(item => {
+      const updatedItem = addConditionsToSvgComponents(item.value);
+      return {
+        ...item,
+        value: updatedItem.updatedSvgObj,
+        conditions: updatedItem.conditions
+      };
+    });
+
+    return { ...entry, component: updatedComponent.updatedSvgObj, conditions: updatedComponent.conditions, subcomponents: updatedSubcomponent };
+  });
+};
+
+const getParsedData = (data) => {
+  return data.map(entry => {
     const subcomponentTestData = entry.subcomponents ? entry.subcomponents
       .map(item => {
         return `{ component:'${item.name}', transform: 'translate(0,0)' }`;
@@ -87,7 +104,8 @@ const createReactComponents = (svgTagAttributes, data) => {
     const reactSubcomponents = entry.subcomponents ? entry.subcomponents.map(item => {
       return subcomponentTemplate
         .replace('{{name}}', item.name + 'SVG')
-        .replace('{{subcomponentSVG}}', item.value);
+        .replace('{{subcomponentSVG}}', item.value)
+        .replace('{{conditions}}', item.conditions.length > ZERO ? `const {${item.conditions.map(cond => ` ${cond} = true`).join(',')} } = conditions;` : '');
     }).join('\n') : '';
 
     const reactComponent = reactSubcomponents
@@ -95,14 +113,18 @@ const createReactComponents = (svgTagAttributes, data) => {
         .replace(/{{name}}/g, `${entry.name}SVG`)
         .replace('{{subcomponents}}', reactSubcomponents)
         .replace('{{svgObj}}', entry.component)
+        .replace('{{conditions}}', entry.conditions.length > ZERO ? `const {${entry.conditions.map(cond => ` ${cond} = true`).join(',')} } = conditions;` : '')
       : componentWithoutSubcomponentTemplate
         .replace(/{{name}}/g, `${entry.name}SVG`)
-        .replace('{{svgObj}}', entry.component);
+        .replace('{{svgObj}}', entry.component)
+        .replace('{{conditions}}', entry.conditions.length > ZERO ? `const {${entry.conditions.map(cond => ` ${cond} = true`).join(',')} } = conditions;` : '');
 
     return { name: entry.name, subcomponentNames: entry.subcomponents.map(item => item.name), reactComponent, subcomponentTestData };
   });
+};
 
-  const importContent = parsedData
+const getGeneratedContent = (svgTagAttributes, data) => {
+  const importContent = data
     .map(entry => {
       const subcomponentReactNames = entry.subcomponentNames.map(name => { return `  ${name}SVG`; }).join(',\n');
       const subcomponentsImport = subcomponentReactNames ? `,\n${subcomponentReactNames}`: '';
@@ -113,7 +135,7 @@ const createReactComponents = (svgTagAttributes, data) => {
     })
     .join('\n');
 
-  const svgMapContent = parsedData.map(entry => {
+  const svgMapContent = data.map(entry => {
     const componentNameKeyMap = `'${entry.name}': ${entry.name}SVG`;
     const subcomponentNamesKeyMap = entry.subcomponentNames.map(name => {
       return `'${name}': ${name}SVG`;
@@ -129,7 +151,15 @@ const createReactComponents = (svgTagAttributes, data) => {
   const svgMapperContent = svgMapperTemplate
     .replace('{{svgTagAttributes}}', svgTagAttributes);
 
-  return { svgmapperjs: svgMapperContent, indexjs: indexContent, svgObjects: parsedData };
+  return { svgmapperjs: svgMapperContent, indexjs: indexContent, svgObjects: data };
+};
+
+const createReactComponents = (svgTagAttributes, data) => {
+  const svgComponents = getSvgComponents(data);
+  const parsedSvgComponents = getParsedComponents(svgComponents);
+  const parsedData = getParsedData(parsedSvgComponents);
+
+  return getGeneratedContent(svgTagAttributes, parsedData);
 };
 
 module.exports = {

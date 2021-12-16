@@ -6,8 +6,8 @@ const defaultClass = [{
   className: 'svg__mark'
 }];
 
-const subcomponentTemplate = `export const {{name}} = ({ transform }) => {
-
+const subcomponentTemplate = `export const {{name}} = ({ transform, conditions = {} }) => {
+  {{conditions}}
   return (
     <g transform={transform}>
       {{subcomponentSVG}}
@@ -23,7 +23,8 @@ import React from 'react';
 const ZERO = 0;
 
 {{subcomponents}}
-export const {{name}} = ({ transform, subcomponents = [] }) => {
+export const {{name}} = ({ transform, subcomponents = [], conditions = {} }) => {
+  {{conditions}}
   const renderData = subcomponents.map(item => {
     const SvgComponent = item.component;
     const key = SvgComponent.name + item.transform + JSON.stringify(item.subcomponents);
@@ -47,8 +48,8 @@ import React from 'react';
 
 const ZERO = 0;
 
-export const {{name}} = ({ transform }) => {
-
+export const {{name}} = ({ transform, conditions = {} }) => {
+  {{conditions}}
   return (
     <g transform={transform}>
       {{svgObj}}

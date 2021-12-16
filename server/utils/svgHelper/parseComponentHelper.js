@@ -156,19 +156,19 @@ const addCondition = (section) => {
         const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
           .replace('data-testid="condition-','')
           .replace('"','');
-        const name = toCamelCaseFromDashCase(dashCaseName);
+        const name = `show${capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName))}`;
         conditions.push(name);
 
         return currentLine
           .replace('data-testid="condition-','data-testid="')
           .replace('<', `{ ${name} && <`);
       } else if(isAddingCondition) {
-        const { line, flag, counter } = handleConditionMode(currentLine, count);
+        const { flag, counter } = handleConditionMode(currentLine, count);
 
         isAddingCondition = flag;
         count = counter;
 
-        return line;
+        return isAddingCondition ? currentLine : `${currentLine} }`;
       }
 
       return currentLine;
@@ -188,7 +188,7 @@ const addConditionsToSvgComponents = (section) => {
         const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
           .replace('data-testid="condition-','')
           .replace('"','');
-        const name = toCamelCaseFromDashCase(dashCaseName);
+        const name = `show${capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName))}`;
         conditions.push(name);
 
         return currentLine
