@@ -97,7 +97,7 @@ const getParsedData = (data) => {
   return data.map(entry => {
     const subcomponentTestData = entry.subcomponents ? entry.subcomponents
       .map(item => {
-        return `{ component:'${item.name}', transform: 'translate(0,0)', conditions: { ${item.conditions ? item.conditions.map(cond => `${cond}:true`).join(','): '' } } }`;
+        return `{ component:'${item.name}', transform:'translate(0,0)', conditions:{${item.conditions ? item.conditions.map(cond => `${cond}:true`).join(','): '' }}}`;
       })
       .join(',') : '';
 

@@ -29,7 +29,7 @@ const writeComponentsToFile = ({ classes, svgTagAttributes, data }, targetPath, 
     writeToFile(`${targetPath}index.js`, generatedContent.indexjs);
     const testData = generatedContent.svgObjects
       .map(entry => {
-        return `\n  { component: '${entry.name}', transform: 'translate(0,0)', conditions: { ${entry.conditions ? entry.conditions.map(cond => `${cond}:true`).join(','): '' } }, subcomponents: [${entry.subcomponentTestData}] }`;
+        return `\n  { component:'${entry.name}', transform:'translate(0,0)', conditions:{${entry.conditions ? entry.conditions.map(cond => `${cond}:true`).join(','): '' }}, subcomponents:[${entry.subcomponentTestData}] }`;
       })
       .join(',');
     const jsonDataTemplate = `const testData = [${testData}\n];`;
