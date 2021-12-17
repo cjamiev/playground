@@ -2,12 +2,13 @@ const defaultClass = [{
   cssClass: '.svg--primary-color {\n  fill: #000000;\n  stroke: #000000;\n}\n',
   className: 'svg--primary-color'
 }, {
-  cssClass: '.svg__mark {\n  fill: #ff0000;\n  stroke: #ff0000;\n}\n',
-  className: 'svg__mark'
+  cssClass: '.svg--marked-color {\n  fill: #ff0000;\n  stroke: #ff0000;\n}\n',
+  className: 'svg--marked-color'
 }];
 
 const subcomponentTemplate = `export const {{name}} = ({ transform, conditions = {} }) => {
-  {{conditions}}
+{{conditions}}
+
   return (
     <g transform={transform}>
       {{subcomponentSVG}}
@@ -20,11 +21,10 @@ const componentTemplate = `/* eslint-disable max-lines */
 /* eslint-disable complexity */
 import React from 'react';
 
-const ZERO = 0;
-
 {{subcomponents}}
 export const {{name}} = ({ transform, subcomponents = [], conditions = {} }) => {
-  {{conditions}}
+{{conditions}}
+
   const renderData = subcomponents.map(item => {
     const SvgComponent = item.component;
     const key = SvgComponent.name + item.transform + JSON.stringify(item.subcomponents);
@@ -46,10 +46,9 @@ const componentWithoutSubcomponentTemplate = `/* eslint-disable max-lines */
 /* eslint-disable complexity */
 import React from 'react';
 
-const ZERO = 0;
-
 export const {{name}} = ({ transform, conditions = {} }) => {
-  {{conditions}}
+{{conditions}}
+
   return (
     <g transform={transform}>
       {{svgObj}}

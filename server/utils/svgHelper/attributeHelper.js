@@ -1,5 +1,6 @@
 const ZERO = 0;
 const ONE = 1;
+const hasDigitRegex = new RegExp(/\d/,'gm');
 const styleFilterList = [
   'opacity:1',
   'opacity:0.99',
@@ -68,7 +69,11 @@ const sortAttributes = (data) => {
   const updatedLines = lines.map((currentLine) => {
     const attributes = currentLine.split(' ');
     const id = attributes.find(item => item.includes('data-testid'));
-    const ariaLabel = id ? `aria-label${id.replace('data-testid','').replace('subcomponent-','').replace('component-','')}`: '';
+    const ariaLabel = id && !hasDigitRegex.test(id) ? `aria-label${id
+      .replace('data-testid','')
+      .replace('subcomponent-','')
+      .replace('component-','')
+      .replace(/-/g,' ')}`: '';
     const className = attributes.find(item => item.includes('className'));
     const filteredLine = attributes.filter(item => !item.includes('data-testid') && !item.includes('className'));
     const sortedLine = [filteredLine[ZERO], id, className, ariaLabel, ...filteredLine.splice(ONE)];

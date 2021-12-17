@@ -114,10 +114,12 @@ const getParsedData = (data) => {
         .replace('{{subcomponents}}', reactSubcomponents)
         .replace('{{svgObj}}', entry.component)
         .replace('{{conditions}}', entry.conditions.length > ZERO ? `const {${entry.conditions.map(cond => ` ${cond}`).join(',')} } = conditions;` : '')
+        .replace(/\n{3,}/g,'\n\n')
       : componentWithoutSubcomponentTemplate
         .replace(/{{name}}/g, `${entry.name}SVG`)
         .replace('{{svgObj}}', entry.component)
-        .replace('{{conditions}}', entry.conditions.length > ZERO ? `const {${entry.conditions.map(cond => ` ${cond}`).join(',')} } = conditions;` : '');
+        .replace('{{conditions}}', entry.conditions.length > ZERO ? `const {${entry.conditions.map(cond => ` ${cond}`).join(',')} } = conditions;` : '')
+        .replace(/\n{3,}/g,'\n\n');
 
     return { name: entry.name, subcomponentNames: entry.subcomponents.map(item => item.name), reactComponent, conditions: entry.conditions, subcomponentTestData };
   });
