@@ -48,38 +48,34 @@ Folder for quick testing, experimenting of code, and some examples.
 
 ## SVG Components
 Step 1: Create objects 
-  - In one file <name>-canvas.svg
-  - Ideally one object should be reference.
-	- Check all sizes are relatively correct. 
+- In one file <name>-canvas.svg
+- Check all sizes are relatively correct
+
 Step 2: Id the objects
-	- Set id with subcomponent-<name> for objects that should be a subcomponent
-	- Set id with condition-<name> for conditional objects in groups 
-	- Set id with remove-<name> for extraneous objects in groups
-	- Set id with element-<name> for convenience
+- Set id with component-<name> for objects that should be a react component
+- Set id with subcomponent-<name> for objects that should be a subcomponent
+- Set id with condition-<name> for conditional objects in groups 
+- Set id with remove-<name> for extraneous objects in groups
+- Set id with element-<name> for convenience
+
 Step 3: Clean up objects
-  - Copy over to <name>-template.svg objects that are ready or redone
-  - Place items in correct positions
-  - Collapse related objects in the same position. 
-  - Ungroup and re-group to remove transformations on groups
-	- Set id with component-<name> for grouped objects
+- Copy over to <name>-template.svg objects that are ready or redone
+- Place items in correct positions
+- Collapse related objects in the same position. 
+- Ungroup and re-group to remove transformations on groups
+
 Step 4: Convert to React Components
-  - Copy content to experiment/example.svg
-  - Only include information inside the primary layer grouping
-	- Run node experiment/svgCreator.js
-  - Search for prexisting translate and scale (redo previous steps to remove them)
-Step 5: Clean up
-  - create object maps for conditionals 
-	- transform="translate(x,y)"
+- Copy content to experiment/example.svg
+- Run node experiment/svgCreator.js or npm run script
+- Search for prexisting translate and scale (redo previous steps to remove them)
 
 ## ToDo
 SvgCreator:
-  - Add aria labels to components
   - Clean up code
   - Add more unit tests
-  - Add to tab to Project page
 
 Project:
-  - Add Wizard for using Template {{<variable-name>:<type>:<options>}}
+  - Add Wizard for using Template {{(variable-name):(type):(options)}}
   - Delete operation for Snippet/Template
 
 Generator:
@@ -100,7 +96,7 @@ Dropdown:
 
 Config Page:
   - Set theme and update app with theme
-	
+
 Table:
   - Sort
   - Config (add/remove columns)
