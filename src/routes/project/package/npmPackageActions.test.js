@@ -10,7 +10,7 @@ import {
   UPDATE_PACKAGE,
   updatePackage,
   UPDATE_FILES_BY_REGEX
-} from './packageActions';
+} from './npmPackageActions';
 import { CREATE_ALERT } from 'components/alert/alertActions';
 
 const error = new Error('Test Message');
@@ -37,7 +37,7 @@ const rootDir = 'test-dir';
 const name = 'test-name';
 const packageJson = { one: 1, two: 2, three: 3 };
 
-describe('packageActions', () => {
+describe('npmPackageActions', () => {
   it('getPackageJson', async () => {
     api.get.mockResolvedValueOnce({
       data: {

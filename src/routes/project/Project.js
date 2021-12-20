@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openGlobalModal } from 'components/global/globalActions';
 import { loadProject, clearMessage } from './projectActions';
-import { getPackageJson } from './package/packageActions';
+import { getPackageJson } from './package/npmPackageActions';
 import { getRemoteUrl, viewBranches, viewStash } from './git/gitActions';
 import { loadTemplateDirectory } from './template/templateActions';
 import Page from 'components/layout';
@@ -11,7 +11,7 @@ import Text from 'components/form/Text';
 import Dropdown from 'components/form/Dropdown';
 import ComponentWrapper from 'components/ComponentWrapper';
 import Git from './git';
-import Package from './package';
+import NpmPackage from './package';
 import Regex from './regex';
 import Template from './template';
 import Snippet from './snippet';
@@ -30,7 +30,7 @@ const Project = () => {
   const [dirKeys, setDirKeys] = useState([]);
   const TABS = [
     { title: 'Git', component: ComponentWrapper(Git, { root }) },
-    { title: 'Package', component: ComponentWrapper(Package, { root }) },
+    { title: 'Npm Package', component: ComponentWrapper(NpmPackage, { root }) },
     { title: 'Regex', component: ComponentWrapper(Regex, { root, directories, regexes }) },
     { title: 'Template', component: ComponentWrapper(Template, { root }) },
     { title: 'Snippet', component: ComponentWrapper(Snippet, {}) }

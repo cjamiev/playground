@@ -20,7 +20,7 @@ import {
   LOAD_VERSIONS,
   RUN_SCRIPT,
   UPDATE_PACKAGE
-} from './package/packageActions';
+} from './package/npmPackageActions';
 import {
   UPDATE_FILES_BY_REGEX
 } from './regex/regexActions';

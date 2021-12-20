@@ -32,11 +32,11 @@ const defaultStoreProps = {
   }
 };
 
-describe('Package', () => {
+describe('NpmPackage', () => {
   it('should render package deps', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
-    const packageTab = screen.getByText('Package');
+    const packageTab = screen.getByText('Npm Package');
     fireEvent.click(packageTab);
 
     Object.keys(packageJson.devDependencies).forEach(depName => {
@@ -52,7 +52,7 @@ describe('Package', () => {
   it('handle load versions and update versions', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
-    const packageTab = screen.getByText('Package');
+    const packageTab = screen.getByText('Npm Package');
     fireEvent.click(packageTab);
 
     const versionBtn = screen.getByText('Load Versions');
@@ -88,7 +88,7 @@ describe('Package', () => {
   it('handle script and modal message', async () => {
     fullTestWrapper(Project, {}, defaultStoreProps, ROUTES.PROJECT.url);
 
-    const packageTab = screen.getByText('Package');
+    const packageTab = screen.getByText('Npm Package');
     fireEvent.click(packageTab);
 
     const scriptBtn = screen.getByText('test-script');
