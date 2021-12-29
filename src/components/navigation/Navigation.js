@@ -88,7 +88,7 @@ const Navigation = React.memo(() => {
         <span className="navigation__time_label">{getFormattedDate().week}</span>
       </div>
       <div className="navigation__quick-ops">
-        {commands.length && <div>
+        {commands.length ? <div>
           <Dropdown
             classNames={DROPDOWN_CLASSNAMES}
             label="Commands"
@@ -99,9 +99,9 @@ const Navigation = React.memo(() => {
               dispatch(executeCommand(selected.value));
             }}
           />
-        </div>}
-        <div>
-          {links.length && <Dropdown
+        </div> : <></>}
+        {links.length ? <div>
+          <Dropdown
             classNames={DROPDOWN_CLASSNAMES}
             label="Links"
             values={links.map(item => ({ label: item.label, value: item.value, selected: false }))}
@@ -110,8 +110,8 @@ const Navigation = React.memo(() => {
 
               window.open(selected.value, '_blank');
             }}
-          />}
-        </div>
+          />
+        </div> : <></>}
       </div>
       <div className="navigation__links">{renderNavItems}</div>
     </nav>
