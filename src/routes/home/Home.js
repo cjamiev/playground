@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useLocalStorage from 'hooks/useLocalStorage';
 import { openSidePanel, updateGlobal } from 'components/global/globalActions';
 import { loadHome, updateHome } from './homeActions';
 import Page from 'components/layout';

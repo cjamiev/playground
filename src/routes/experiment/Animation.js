@@ -42,6 +42,17 @@ const Animation = () => {
       <div className="experiment__ball" style={{ transform: `translate(0px,${animation2 * 200 - 200}px` }} />
       <div className="experiment__ball" style={{ transform: `translate(0px,${animation3 * 200 - 200}px` }} />
     </div>
+    <svg viewBox="0 0 5120 5120">
+      <path
+        className="animate__svg-line"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="32"
+        d="M416 128L192 384l-96-96"
+      />
+    </svg>
   </div>;
 };
 

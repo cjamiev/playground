@@ -45,6 +45,18 @@
   animation: zoom 500ms linear 0s 1 normal forwards;  
 }
 
+.animate__svg-line {
+  stroke-dasharray: 500;
+  stroke-dashoffset: -500;
+  animation: drawline 500ms ease-in forwards;
+}
+
+@keyframes drawline {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 @keyframes slide {
   0% {
     opacity: 0;
