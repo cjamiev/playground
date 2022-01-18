@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
 import Button from 'components/button';
 import PageHeader from './PageHeader';
@@ -16,8 +16,8 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
   const dispatch = useDispatch();
   const [sidePanelAnimation, setSidePanelAnimation] = useState('sidepanel--animate-in');
   const { isSidePanelOpen } = useSelector((state) => state.global);
-  const history = useHistory();
-  const currentPage = NAV_ITEMS.find((item) => item.url === history.location.pathname);
+  const location = useLocation();
+  const currentPage = NAV_ITEMS.find((item) => item.url === location.pathname);
 
   const toggleSidePanel = () => {
     if (isSidePanelOpen) {

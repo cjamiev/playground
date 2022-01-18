@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Navigate, Redirect, Route, Routes } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
 
 import Clipboard from './clipboard';
@@ -12,23 +12,21 @@ import Home from './home';
 import MockServer from './mockserver';
 import Project from './project';
 
-const Routes = React.memo(() => {
+const AppRoutes = React.memo(() => {
   return (
-    <Switch>
-      <Route exact path="/">
-        <Redirect to={ROUTES.HOME.url} />
-      </Route>
-      <Route path={ROUTES.CLIPBOARD.url} component={Clipboard} />
-      <Route path={ROUTES.EXPERIMENT.url} component={Experiment} />
-      <Route path={ROUTES.FILE.url} component={File} />
-      <Route path={ROUTES.GENERATOR.url} component={Generator} />
-      <Route path={ROUTES.PROJECT.url} component={Project} />
-      <Route path={ROUTES.HOME.url} component={Home} />
-      <Route path={ROUTES.MOCKSERVER.url} component={MockServer} />
-      <Route path={ROUTES.CONFIG.url} component={Config} />
-      <Route component={ErrorPage} />
-    </Switch>
+    <Routes>
+      <Route exact path="/" element={<Navigate to={ROUTES.HOME.url} />} />}
+      <Route path={ROUTES.CLIPBOARD.url} element={<Clipboard />} />
+      <Route path={ROUTES.EXPERIMENT.url} element={<Experiment />} />
+      <Route path={ROUTES.FILE.url} element={<File />} />
+      <Route path={ROUTES.GENERATOR.url} element={<Generator />} />
+      <Route path={ROUTES.PROJECT.url} element={<Project />} />
+      <Route path={ROUTES.HOME.url} element={<Home />} />
+      <Route path={ROUTES.MOCKSERVER.url} element={<MockServer />} />
+      <Route path={ROUTES.CONFIG.url} element={<Config />} />
+      <Route element={<ErrorPage />} />
+    </Routes>
   );
 });
 
-export default Routes;
+export default AppRoutes;

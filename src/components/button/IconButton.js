@@ -1,15 +1,15 @@
 import React from 'react';
 import {
-  MinusIcon,
-  PlusIcon,
   ArrowIcon,
   CloseIcon,
   CopyIcon,
   EditIcon,
+  MinusIcon,
+  PlusIcon,
   SaveIcon,
+  SemicircleArrowIcon,
   TrashIcon,
-  TripleBarIcon,
-  SemicircleArrowIcon
+  TripleBarIcon
 } from 'components/icons';
 import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
 import ComponentWrapper from 'components/ComponentWrapper';
