@@ -24,7 +24,7 @@ const AppRoutes = React.memo(() => {
       <Route path={ROUTES.HOME.url} element={<Home />} />
       <Route path={ROUTES.MOCKSERVER.url} element={<MockServer />} />
       <Route path={ROUTES.CONFIG.url} element={<Config />} />
-      <Route element={<ErrorPage />} />
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 });
