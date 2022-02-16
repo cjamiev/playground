@@ -23,4 +23,12 @@ Grid template
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
 }
+
+Dropdown on click focus
+.dropdown { opacity: 0; visibility: hidden;} 
+button:focus-within .dropdown { opacity: 1; visibility: visible;}
+
+bounds for size
+width: clamp()
 */
+
