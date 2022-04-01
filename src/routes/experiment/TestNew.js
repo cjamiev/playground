@@ -1,10 +1,14 @@
 /* eslint-disable no-magic-numbers */
 import React, { useEffect, useState } from 'react';
+import { SCDiv } from './styles';
 
 const TestNew = () => {
-  const [item, setItem] = useState('Test New');
+  const [item, setItem] = useState('Test Red');
 
-  return <div>{item}</div>;
+  return <>
+    <SCDiv isRed={true}>{item}</SCDiv>
+    <SCDiv isRed={false}>Test Blue</SCDiv>
+  </>;
 };
 
 export default TestNew;
