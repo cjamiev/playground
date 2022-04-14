@@ -5,9 +5,13 @@ const cloneDeep = targetObject => {
   const entries = Object.keys(targetObject);
 
   return entries.reduce((accumulator, key) => {
-    return isObjectLike(targetObject[key])
-      ? { ...accumulator, [key]: cloneDeep(targetObject[key]) }
-      : { ...accumulator, [key]: targetObject[key] };
+    if(Array.isArray(targetObject[key]) && isObjectLike(targetObject[key][ZERO])) {
+      return { ...accumulator, [key]: targetObject[key].map(item => cloneDeep(item)) };
+    } else if(isObjectLike(targetObject[key])) {
+      return { ...accumulator, [key]: cloneDeep(targetObject[key]) };
+    } else {
+      return { ...accumulator, [key]: targetObject[key] };
+    }
   }, {});
 };
 
@@ -23,6 +27,29 @@ const map = func => targetObject => {
 };
 
 const removeProperty = prop => ({ [prop]: _, ...rest }) => rest;
+
+const removeAttribute = (targetObject, keyName) => {
+  const entries = Object.keys(targetObject).filter(key => key !== keyName);
+
+  return entries.reduce((accumulator, key) => {
+    if(Array.isArray(targetObject[key]) && isObjectLike(targetObject[key][ZERO])) {
+      return { ...accumulator, [key]: targetObject[key].map(item => removeAttribute(item, keyName)) };
+    } else if(isObjectLike(targetObject[key])) {
+      return { ...accumulator, [key]: removeAttribute(targetObject[key], keyName) };
+    } else {
+      return { ...accumulator, [key]: targetObject[key] };
+    }
+  }, {});
+};
+
+const removeAttributes = (targetObject, keyNames) => {
+  let currentObj = targetObject;
+  keyNames.forEach(keyName => {
+    currentObj = removeAttribute(currentObj, keyName);
+  });
+
+  return currentObj;
+};
 
 const resolvePath = (obj = {}, path = '', separator = '.') => {
   const properties = path.split(separator);
@@ -71,6 +98,7 @@ export {
   getObjectPath,
   map,
   removeProperty,
+  removeAttributes,
   resolvePath,
   filterOutEmptyKeys
 };
