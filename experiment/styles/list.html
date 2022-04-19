@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Spotify Account</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+
+    .page {
+      display: flex;
+    }
+
+    .spotify-account-sidebar {
+      display: flex;
+      flex-direction: column;
+      height: 858px;
+      background-image: linear-gradient(to right, rgb(28, 28, 28) 0%, rgb(23, 23, 23) 100%);
+      background-repeat: repeat-x;
+    }
+
+    .spotify-account-sidebar__header {
+      height: 120px;
+    }
+
+    .spotify-account-sidebar__tab {
+      position: relative;
+      width: 236px;
+      height: 20px;
+      cursor: pointer;
+      padding: 15px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: rgb(145, 148, 150);
+    }
+
+    .spotify-account-sidebar__tab--active::before,
+    .spotify-account-sidebar__tab:hover::before {
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: 5px;
+      left: 0px;
+      bottom: 0px;
+      background-color: rgb(30, 215, 96);
+    }
+
+    .spotify-account-sidebar__tab-link {
+      position: absolute;
+      left: 30px;
+    }
+
+    .spotify-account-sidebar__tab-link--active {
+      color: #fff;
+    }
+
+    .spotify-account-sidebar__tab:hover .spotify-account-sidebar__tab-link--active {
+      color: rgb(145, 148, 150);
+    }
+
+    .spotify-sidebar {
+      width: 241px;
+      height: 822px;
+      background-color: #000;
+      color: #fff;
+    }
+
+    .spotify-sidebar__title {
+      line-height: 25.6px;
+      font-size: 30px;
+      padding-top: 20px;
+      margin-left: 55px;
+      margin-bottom: 30px;
+    }
+
+    .spotify-sidebar__link {
+      margin-left: 45px;
+      margin-bottom: 15px;
+      color: rgb(179, 179, 179);
+      transition: color 500ms;
+    }
+
+    .spotify-sidebar__link:hover {
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .spotify-sidebar__divide {
+      background-color: #282828;
+      height: 1px;
+      border: 0;
+      margin: 0 24px;
+    }
+
+    .spotify-sidebar__second-half {
+      position: relative;
+    }
+
+    .spotify-sidebar__bottom-link {
+      position: absolute;
+      color: rgb(179, 179, 179);
+      top: 600px;
+      left: 50px;
+    }
+
+    .spotify-sidebar__bottom-link:hover {
+      color: #fff;
+      cursor: pointer;
+      transition: color 500ms;
+    }
+
+    .main {
+      padding: 32px;
+      width: 780px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="spotify-account-sidebar">
+      <div class="spotify-account-sidebar__header"></div>
+      <div class="spotify-account-sidebar__tab spotify-account-sidebar__tab--active">
+        <div class="spotify-account-sidebar__tab-link spotify-account-sidebar__tab-link--active">Account overview </div>
+      </div>
+      <div class="spotify-account-sidebar__tab">
+        <div class="spotify-account-sidebar__tab-link">Edit profile </div>
+      </div>
+      <div class="spotify-account-sidebar__tab">
+        <div class="spotify-account-sidebar__tab-link"> Address </div>
+      </div>
+      <div class="spotify-account-sidebar__tab">
+        <div class="spotify-account-sidebar__tab-link"> Change password </div>
+      </div>
+      <div class="spotify-account-sidebar__tab">
+        <div class="spotify-account-sidebar__tab-link"> Notification settings </div>
+      </div>
+      <div class="spotify-account-sidebar__tab">
+        <div class="spotify-account-sidebar__tab-link"> Recover playlists </div>
+      </div>
+      <div class="spotify-account-sidebar__tab">
+        <div class="spotify-account-sidebar__tab-link"> Receipts </div>
+      </div>
+      <div class="spotify-account-sidebar__tab">
+        <div class="spotify-account-sidebar__tab-link"> Apps </div>
+      </div>
+      <div class="spotify-account-sidebar__tab">
+        <div class="spotify-account-sidebar__tab-link"> Redeem </div>
+      </div>
+    </div>
+
+    <div class="spotify-sidebar">
+      <div class="spotify-sidebar__title"> Spotify </div>
+      <div class="spotify-sidebar__link"> Home </div>
+      <div class="spotify-sidebar__link"> Search </div>
+      <div class="spotify-sidebar__link"> Your Library </div>
+      <hr class="spotify-sidebar__divide" />
+      <div class="spotify-sidebar__second-half">
+        <div class="spotify-sidebar__bottom-link">
+          Install App
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<script>
+
+</script>
+
+</html>
