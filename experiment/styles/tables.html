@@ -35,6 +35,53 @@
       border-bottom: 1px solid #dedede;
       width: 390px;
     }
+
+    .steamdb-table-container {
+      background-color: #1f232e;
+      color: #fff;
+      padding: 0 15px 15px;
+      border-radius: 6px;
+    }
+
+    .steamdb-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .steamdb-table__header {
+      font-weight: 700;
+      padding: 10px;
+    }
+
+
+    .steamdb-table__header::after,
+    .steamdb-table__header::before {
+      content: "";
+      display: block;
+      height: 10px;
+      width: 100%;
+    }
+
+    .steamdb-table__body tr:not(:last-child) {
+      border-bottom: 1px solid #292e3d;
+    }
+
+    .steamdb-table__row:hover {
+      background-color: hsl(216deg 25% 30%);
+    }
+
+    .steamdb-table__col-one {
+      padding: 10px;
+    }
+
+    .steamdb-table__col-two {
+      color: #a3cf06;
+      padding: 10px;
+    }
+
+    .steamdb-table__col-three {
+      padding: 10px;
+    }
   </style>
 </head>
 
@@ -61,6 +108,36 @@
         </tr>
       </tbody>
     </table>
+
+    <h2>SteamDB Table</h2>
+    <div class="steamdb-table-container">
+      <table class="steamdb-table">
+        <thead class="steamdb-table__header">
+          <tr>
+            <td> Most Played </td>
+            <td> Players Now </td>
+            <td> Peak Today </td>
+          </tr>
+        </thead>
+        <tbody class="steamdb-table__body">
+          <tr class="steamdb-table__row">
+            <td class="steamdb-table__col-one">Lost Ark</td>
+            <td class="steamdb-table__col-two">381,654</td>
+            <td class="steamdb-table__col-three">462,085</td>
+          </tr>
+          <tr class="steamdb-table__row">
+            <td class="steamdb-table__col-one"> Counter-Strike: Global Offensive</td>
+            <td class="steamdb-table__col-two">369,336</td>
+            <td class="steamdb-table__col-three">850,323</td>
+          </tr>
+          <tr class="steamdb-table__row">
+            <td class="steamdb-table__col-one"> Dota 2</td>
+            <td class="steamdb-table__col-two">306,767</td>
+            <td class="steamdb-table__col-three">629,763</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </main>
 
 </body>

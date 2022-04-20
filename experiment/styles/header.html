@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Testing Page</title>
+  <style>
+    body {
+      background-color: #f3f2ef;
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #fff;
+      width: 100%;
+      height: 53px;
+      padding: 0 24px;
+      position: relative;
+    }
+
+    .logo {
+      position: absolute;
+      background-color: rgb(10, 102, 194);
+      color: #fff;
+      width: 34px;
+      height: 34px;
+      font-size: 32px;
+      text-align: center;
+      line-height: 30px;
+      top: 10px;
+      margin-left: 10px;
+      border-radius: 3px;
+    }
+
+    .search-container {
+      position: relative;
+    }
+
+    .search {
+      position: absolute;
+      top: 10px;
+      left: 50px;
+      width: 232px;
+      height: 34px;
+      padding: 0 8px 0 40px;
+      background-color: #eef3f8;
+      border: 0;
+      border-radius: 4px;
+    }
+
+    .tab-container {
+      display: flex;
+      position: absolute;
+      left: 500px;
+    }
+
+    .tab {
+      position: relative;
+    }
+
+    .link {
+      margin-top: 30px;
+      width: 80px;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.6);
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .link-active {
+      color: #000;
+    }
+
+    .link-active::after {
+      border-bottom: 2px solid rgb(0, 0, 0, 0.9);
+      content: '';
+      bottom: -5px;
+      left: 0;
+      width: 80px;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <div class="logo">in</div>
+    <div class="search-container">
+      <input class="search" type="text" placeholder="Search"></input>
+    </div>
+    <div class="tab-container">
+      <div class="tab">
+        <div class="link link-active">Home</div>
+      </div>
+      <div class="link">My Network</div>
+      <div class="link">Jobs</div>
+      <div class="link">Messaging</div>
+      <div class="link">Notifications</div>
+    </div>
+  </div>
+
+</body>
+
+<script>
+
+</script>
+
+</html>

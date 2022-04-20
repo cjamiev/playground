@@ -118,6 +118,41 @@
       padding: 32px;
       width: 780px;
     }
+
+    .growing-sidebar {
+      width: 50px;
+      background-color: #2fa6df;
+      display: flex;
+      flex-direction: column;
+      transition: width 250ms;
+    }
+
+    .growing-sidebar:hover {
+      width: 250px;
+    }
+
+    .growing-sidebar__tab {
+      position: relative;
+      height: 40px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .growing-sidebar__tab:hover {
+      background-color: #1e96ce;
+    }
+
+    .growing-sidebar__tab-icon {
+      position: relative;
+      left: 10px;
+      top: 10px;
+    }
+
+    .growing-sidebar__tab-link {
+      position: relative;
+      left: 50px;
+      bottom: 10px;
+    }
   </style>
 </head>
 
@@ -165,6 +200,21 @@
           Install App
         </div>
       </div>
+    </div>
+    <div class="growing-sidebar">
+      <div class="growing-sidebar__tab">
+        <div class="growing-sidebar__tab-icon"> H </div>
+        <div class="growing-sidebar__tab-link"> Home </div>
+      </div>
+      <div class="growing-sidebar__tab">
+        <div class="growing-sidebar__tab-icon"> C </div>
+        <div class="growing-sidebar__tab-link"> Create </div>
+      </div>
+      <div class="growing-sidebar__tab">
+        <div class="growing-sidebar__tab-icon"> E </div>
+        <div class="growing-sidebar__tab-link"> Edit </div>
+      </div>
+
     </div>
   </div>
 
