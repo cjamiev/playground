@@ -13,6 +13,11 @@
     }
 
     .main {
+      display: flex;
+      gap: 0 10px;
+    }
+
+    .linked-form {
       padding: 32px;
       width: 780px;
     }
@@ -90,55 +95,124 @@
       text-align: center;
       place-self: center;
     }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px 0;
+    }
+
+    .checkbox-group {
+      margin-top: 20px;
+      gap: 20px 0;
+    }
+
+    .radio-container {
+      display: flex;
+      border-radius: 3px;
+      border: 1px solid #dcdfe3;
+      font-size: 16px;
+      padding: 10px;
+      width: 350px;
+      height: 35px;
+      align-items: center;
+    }
+
+    .radio-container input[type="radio"],
+    .checkbox-container input[type="checkbox"] {
+      height: 35px;
+      width: 35px;
+      vertical-align: middle;
+    }
+
+    .radio__label,
+    .checkbox__label {
+      margin-left: 10px;
+      font-size: 20px;
+    }
   </style>
 </head>
 
 <body>
   <div class="main">
-    <h1 class="title">LinkedIn Form</h1>
-    <div class="flex-group">
-      <label class="group-label">Email</label>
-      <input class="text-in" type="text"></input>
-    </div>
-    <div class="flex-group">
-      <label class="group-label">Gender</label>
-      <select class="dropdown">
-        <option>Male</option>
-        <option>Female</option>
-        <option>Nonbinary</option>
-      </select>
-    </div>
-    <div class="flex-group">
-      <label class="group-label">Date of birth</label>
-      <div class="flex-row">
-        <select class="dropdown dob-gap">
-          <option>January</option>
-          <option>February</option>
-          <option>March</option>
-          <option>April</option>
-          <option>May</option>
-          <option>June</option>
-          <option>July</option>
-          <option>August</option>
-          <option>September</option>
-          <option>October</option>
-          <option>November</option>
-          <option>December</option>
+    <div class="linked-form">
+      <h1 class="title">LinkedIn Form</h1>
+      <div class="flex-group">
+        <label class="group-label">Email</label>
+        <input class="text-in" type="text"></input>
+      </div>
+      <div class="flex-group">
+        <label class="group-label">Gender</label>
+        <select class="dropdown">
+          <option>Male</option>
+          <option>Female</option>
+          <option>Nonbinary</option>
         </select>
-        <input class="text-in dob-gap" type="text" value="18"></input>
-        <input class="text-in" type="text" value="1988"></input>
+      </div>
+      <div class="flex-group">
+        <label class="group-label">Date of birth</label>
+        <div class="flex-row">
+          <select class="dropdown dob-gap">
+            <option>January</option>
+            <option>February</option>
+            <option>March</option>
+            <option>April</option>
+            <option>May</option>
+            <option>June</option>
+            <option>July</option>
+            <option>August</option>
+            <option>September</option>
+            <option>October</option>
+            <option>November</option>
+            <option>December</option>
+          </select>
+          <input class="text-in dob-gap" type="text" value="18"></input>
+          <input class="text-in" type="text" value="1988"></input>
+        </div>
+      </div>
+      <div class="header-grid">
+        <div class="header-grid-area">Spotify Updates</div>
+        <div class="center-grid-cell">Email</div>
+        <div class="center-grid-cell">Push</div>
+      </div>
+      <div class="checkbox-grid">
+        <div class="name-grid-area">Product News</div>
+        <div class="description-grid-area">Getting started, new features and the latest product updates on Spotify</div>
+        <input class="email-grid-area center-grid-cell" type="checkbox"></input>
+        <input class="push-grid-area center-grid-cell" type="checkbox"></input>
       </div>
     </div>
-    <div class="header-grid">
-      <div class="header-grid-area">Spotify Updates</div>
-      <div class="center-grid-cell">Email</div>
-      <div class="center-grid-cell">Push</div>
-    </div>
-    <div class="checkbox-grid">
-      <div class="name-grid-area">Product News</div>
-      <div class="description-grid-area">Getting started, new features and the latest product updates on Spotify</div>
-      <input class="email-grid-area center-grid-cell" type="checkbox"></input>
-      <input class="push-grid-area center-grid-cell" type="checkbox"></input>
+    <div>
+      <h1> ATT Form</h1>
+      <div class="radio-group">
+        <div class="radio-container">
+          <input name="radiogroup" type="radio" />
+          <span class="radio__label">
+            AT&T promotional card
+          </span>
+        </div>
+        <div class="radio-container">
+          <input name="radiogroup" type="radio" />
+          <span class="radio__label">
+            BitPay
+          </span>
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <div class="checkbox-container">
+          <input type="checkbox" />
+          <span class="checkbox__label">
+            Sign up for AutoPay
+          </span>
+        </div>
+        <div class="checkbox-container">
+          <input type="checkbox" />
+          <span class="checkbox__label">
+            Split this payment
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 
