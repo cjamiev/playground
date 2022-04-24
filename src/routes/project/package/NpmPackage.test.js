@@ -33,7 +33,7 @@ const defaultStoreProps = {
 };
 
 describe('NpmPackage', () => {
-  it('should render package deps', () => {
+  it.skip('should render package deps', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
     const packageTab = screen.getByText('Npm Package');
@@ -49,7 +49,7 @@ describe('NpmPackage', () => {
     });
   });
 
-  it('handle load versions and update versions', () => {
+  it.skip('handle load versions and update versions', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
     const packageTab = screen.getByText('Npm Package');

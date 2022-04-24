@@ -1,4 +1,5 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import { reduxTestWrapper, fullTestWrapper } from 'testHelper';
 import api from 'api';
 import MockLog from './MockLog';
@@ -60,14 +61,14 @@ describe('MockLog', () => {
         }
       }
     });
-    reduxTestWrapper(MockLog, {}, mockLogProps);
-
+    act(() => {
+      reduxTestWrapper(MockLog, {}, mockLogProps);
+    });
     const clearBtn = screen.getByText('Clear Log');
 
     await waitFor(() =>
       expect(screen.queryByText(mockLogProps.mockserver.log[ZERO].timestamp)).not.toBeInTheDocument()
     );
-    fireEvent.click(clearBtn);
   });
 
   it('click load then click copy content', async () => {
@@ -81,7 +82,10 @@ describe('MockLog', () => {
 
     const copyBtn = screen.getByText('Copy');
     const appendChildSpy = jest.spyOn(document.body, 'appendChild');
-    fireEvent.click(copyBtn);
+
+    act(() => {
+      fireEvent.click(copyBtn);
+    });
     const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
 
     expect(copyEl.value).toEqual('{\"testing\":123}');
