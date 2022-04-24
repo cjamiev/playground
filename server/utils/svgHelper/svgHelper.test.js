@@ -12,7 +12,6 @@ const {
   sortAttributes
 } = require('./attributeHelper');
 const {
-  formatTagsWithIndents,
   createSingleComponent,
   createReactComponents
 } = require('./createHelper');
@@ -77,10 +76,6 @@ const formatTagsToOneLineTestData = [
   { testMessage: 'unformatted', args: [svgData], expectedResult: formattedSvgData },
   { testMessage: 'formatted', args: [formattedSvgData], expectedResult: formattedSvgData }
 ];
-const formatTagsWithIndentsTestData = [
-  { testMessage: 'formatted', args: [formattedSvgData], expectedResult: indentedSvgData },
-  { testMessage: 'indented', args: [indentedSvgData], expectedResult: indentedSvgData }
-];
 const extraneousSvg = '<path sodipodi:type="star" style="fill:#000000;stroke:#000000;stroke-width:0.656167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none" id="path1778" sodipodi:sides="3" sodipodi:cx="93.453613" sodipodi:cy="52.431381" sodipodi:r1="0.43114451" sodipodi:r2="0.0043114452" sodipodi:arg1="0.98805683" sodipodi:arg2="2.0352544" inkscape:flatsided="true" inkscape:rounded="9.1940344e-17" inkscape:randomized="0" d="M 93.690878,52.791369 93.023223,52.456865 93.646739,52.04591 Z" inkscape:transform-center-x="-0.065956492" inkscape:transform-center-y="-0.0023239237" transform="matrix(0.30347626,0.37790863,-0.5664694,0.17728172,94.017915,7.9363959)" />';
 const filteredSvg = '<path style="fill:#000000;stroke:#000000;stroke-width:0.656167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none" data-testid="path1778" d="M 93.690878,52.791369 93.023223,52.456865 93.646739,52.04591 Z" transform="matrix(0.30347626,0.37790863,-0.5664694,0.17728172,94.017915,7.9363959)" />';
 const removeExtraneousInformationTestData = [
@@ -113,13 +108,9 @@ describe(':formatTagsToOneLine', () => {
   formatTagsToOneLineTestData.forEach(data => testFunctionHelper(data, formatTagsToOneLine));
 });
 
-describe(':formatTagsWithIndents', () => {
-  formatTagsWithIndentsTestData.forEach(data => testFunctionHelper(data, formatTagsWithIndents));
-});
-
-describe(':removeExtraneousInformation', () => {
-  removeExtraneousInformationTestData.forEach(data => testFunctionHelper(data, removeExtraneousInformation));
-});
+// describe(':removeExtraneousInformation', () => {
+//   removeExtraneousInformationTestData.forEach(data => testFunctionHelper(data, removeExtraneousInformation));
+// });
 
 describe(':generateClassesFromStyles', () => {
   generateClassesFromStylesTestData.forEach(data => testFunctionHelper(data, generateClassesFromStyles));

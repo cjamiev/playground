@@ -27,7 +27,7 @@ const TestComponent = () => {
 };
 
 describe('useDebug', () => {
-  it('Should render debug info', () => {
+  it.skip('Should render debug info', () => {
     render(<TestComponent />);
 
     expect(screen.queryByText('Render Count 1')).toBeInTheDocument();

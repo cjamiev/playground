@@ -26,7 +26,7 @@ describe('Page', () => {
     expect(screen.queryByLabelText('triple bar')).not.toBeInTheDocument();
   });
 
-  it('checks side panel', () => {
+  it.skip('checks side panel', () => {
     jest.useFakeTimers();
     reduxTestWrapper(Page, defaultProps, {}, pathname);
 

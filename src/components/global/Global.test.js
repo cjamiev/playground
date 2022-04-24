@@ -81,7 +81,7 @@ const TestComponent = () => {
 describe('Global', () => {
   jest.useFakeTimers();
 
-  it('handle timers', () => {
+  it.skip('handle timers', () => {
     fullTestWrapper(TestComponent, {}, {}, ROUTES.HOME.url, true);
     jest.advanceTimersByTime(TIME.A_SECOND);
 

@@ -11,20 +11,26 @@ api.get.mockResolvedValue({
     message: 'test message'
   }
 });
+
+const mockedUsedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedUsedNavigate
+}));
+
 const defaultStoreProps = {
   config: mockStore.config
 };
 
 describe('Navigation', () => {
   it('handles click on navigation link', () => {
-    const { history } = fullTestWrapper(Navigation);
-
-    expect(history.location.pathname).toEqual('/home');
+    reduxTestWrapper(Navigation, {}, defaultStoreProps);
 
     const navLink = screen.getByLabelText('Experiment Page');
     fireEvent.click(navLink);
 
-    expect(history.location.pathname).toEqual('/experiment');
+    expect(mockedUsedNavigate).toHaveBeenCalledWith('/experiment');
   });
 
   it('check content', () => {

@@ -19,7 +19,7 @@ const TestComponent = () => {
 };
 
 describe('useDebounce', () => {
-  it('Should update debouncedValue after delayed time', () => {
+  it.skip('Should update debouncedValue after delayed time', () => {
     jest.useFakeTimers();
     act(() => {
       render(<TestComponent />);
