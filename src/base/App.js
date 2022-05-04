@@ -5,6 +5,7 @@ import { configureStore } from 'store';
 import Routes from 'routes/Routes';
 import Global from 'components/global';
 import Navigation from './Navigation';
+import { SCMainLayout } from './styles';
 
 const store = configureStore();
 
@@ -13,8 +14,10 @@ function App() {
     <Provider store={store}>
       <HashRouter>
         <Global />
-        <Navigation />
-        <Routes />
+        <SCMainLayout>
+          <Navigation />
+          <Routes />
+        </SCMainLayout>
       </HashRouter>
     </Provider>
   );
