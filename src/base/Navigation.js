@@ -11,26 +11,20 @@ import { dismissAlert } from 'components/alert/alertActions';
 import { ROUTES } from 'constants/routes';
 import { getFormattedClock, getFormattedDate } from 'clock';
 import Dropdown from 'components/form/Dropdown';
-import HomeIcon from './HomeIcon';
-import FileIcon from './FileIcon';
-import FlaskIcon from './FlaskIcon';
-import DataIcon from './DataIcon';
-import DirectoryIcon from './DirectoryIcon';
-import CodeIcon from './CodeIcon';
-import ConnectionIcon from './ConnectionIcon';
-import SettingsIcon from './SettingsIcon';
+import { SCNavigation, SCNavigationContent, SCNavigationLinks } from './styles';
+import { HomeSVG } from 'components/icons/HomeSVG';
 
 const NAV_ITEMS = Object.values(ROUTES);
 const ONE_SECOND = 1000;
 const iconMap = {
-  'Home': HomeIcon,
-  'File': FileIcon,
-  'Clipboard': DataIcon,
-  'Generator': CodeIcon,
-  'Experiment': FlaskIcon,
-  'Project': DirectoryIcon,
-  'Mock Server': ConnectionIcon,
-  'Config': SettingsIcon
+  'Home': 'HomeIcon',
+  'File': 'FileIcon',
+  'Clipboard': 'DataIcon',
+  'Generator': 'CodeIcon',
+  'Experiment': 'FlaskIcon',
+  'Project': 'DirectoryIcon',
+  'Mock Server': 'ConnectionIcon',
+  'Config': 'SettingsIcon'
 };
 const DROPDOWN_CLASSNAMES = {
   container: 'navigation__dropdown-container',
@@ -65,57 +59,25 @@ const Navigation = React.memo(() => {
 
     return (
       <div key={item.url} onClick={handleClick} className="navigation__links-item">
-        <svg
+        {item.label}
+        {/* <svg
           aria-label={`${item.label} Page`}
           className={iconClass}
           width="53"
           height="53"
           viewBox="0 0 53 53">
           <IconSVG />
-        </svg>
+        </svg> */}
       </div>
     );
   });
 
-  setInterval(() => {
-    setClock(getFormattedClock());
-  }, ONE_SECOND);
-
   return (
-    <nav className="navigation">
-      <div className="navigation__time">
-        <span className="navigation__time_label">{clock}</span>
-        <span className="navigation__time_label">{getFormattedDate().date}</span>
-        <span className="navigation__time_label">{getFormattedDate().week}</span>
-      </div>
-      <div className="navigation__quick-ops">
-        {commands.length ? <div>
-          <Dropdown
-            classNames={DROPDOWN_CLASSNAMES}
-            label="Commands"
-            values={commands.map(item => ({ label: item.label, value: item.value, selected: false }))}
-            onChange={({ values }) => {
-              const selected = values.find(item => item.selected);
-
-              dispatch(executeCommand(selected.value));
-            }}
-          />
-        </div> : <></>}
-        {links.length ? <div>
-          <Dropdown
-            classNames={DROPDOWN_CLASSNAMES}
-            label="Links"
-            values={links.map(item => ({ label: item.label, value: item.value, selected: false }))}
-            onChange={({ values }) => {
-              const selected = values.find(item => item.selected);
-
-              window.open(selected.value, '_blank');
-            }}
-          />
-        </div> : <></>}
-      </div>
-      <div className="navigation__links">{renderNavItems}</div>
-    </nav>
+    <SCNavigation>
+      <SCNavigationContent>
+        <SCNavigationLinks>{renderNavItems}</SCNavigationLinks>
+      </SCNavigationContent>
+    </SCNavigation>
   );
 });
 
