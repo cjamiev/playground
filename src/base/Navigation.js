@@ -11,20 +11,27 @@ import { dismissAlert } from 'components/alert/alertActions';
 import { ROUTES } from 'constants/routes';
 import { getFormattedClock, getFormattedDate } from 'clock';
 import Dropdown from 'components/form/Dropdown';
-import { SCNavigation, SCNavigationContent, SCNavigationLinks } from './styles';
+import {
+  SCNavigation,
+  SCNavigationContent,
+  SCNavigationLinks,
+  SCNavigationIcon,
+  SCNavigationLabels
+} from './styles';
 import { HomeSVG } from 'components/icons/HomeSVG';
+import { FileSVG } from 'components/icons/FileSVG';
 
 const NAV_ITEMS = Object.values(ROUTES);
 const ONE_SECOND = 1000;
 const iconMap = {
-  'Home': 'HomeIcon',
-  'File': 'FileIcon',
-  'Clipboard': 'DataIcon',
-  'Generator': 'CodeIcon',
-  'Experiment': 'FlaskIcon',
-  'Project': 'DirectoryIcon',
-  'Mock Server': 'ConnectionIcon',
-  'Config': 'SettingsIcon'
+  'Home': HomeSVG,
+  'File': FileSVG,
+  'Clipboard': null,
+  'Generator': null,
+  'Experiment': null,
+  'Project': null,
+  'Mock Server': null,
+  'Config': null
 };
 const DROPDOWN_CLASSNAMES = {
   container: 'navigation__dropdown-container',
@@ -58,24 +65,25 @@ const Navigation = React.memo(() => {
     const IconSVG = iconMap[item.label];
 
     return (
-      <div key={item.url} onClick={handleClick} className="navigation__links-item">
-        {item.label}
-        {/* <svg
-          aria-label={`${item.label} Page`}
-          className={iconClass}
-          width="53"
-          height="53"
-          viewBox="0 0 53 53">
-          <IconSVG />
-        </svg> */}
-      </div>
+      <SCNavigationLinks key={item.url} onClick={handleClick} isActive={isActiveItem}>
+        <SCNavigationIcon isActive={isActiveItem}>
+          {IconSVG && <svg
+            aria-label={`${item.label} Page`}
+            width="53"
+            height="53"
+            viewBox="0 0 53 53">
+            <IconSVG transform='scale(0.6) translate(6,6)'/>
+          </svg> }
+        </SCNavigationIcon>
+        <SCNavigationLabels>{item.label}</SCNavigationLabels>
+      </SCNavigationLinks>
     );
   });
 
   return (
     <SCNavigation>
       <SCNavigationContent>
-        <SCNavigationLinks>{renderNavItems}</SCNavigationLinks>
+        {renderNavItems}
       </SCNavigationContent>
     </SCNavigation>
   );

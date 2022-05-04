@@ -4,7 +4,7 @@ export const HomeSVG = ({ transform, conditions = {} }) => {
 
   return (
     <g transform={transform}>
-      <g data-testid="component-home" aria-label="home" transform="matrix(0.35180651,0,0,0.35180651,-8.7810129,-12.859645)" >
+      <g data-testid="component-home" className="icon--white" aria-label="home" transform="matrix(0.35180651,0,0,0.35180651,-8.7810129,-12.859645)" >
         <g data-testid="g3343" transform="translate(-0.6494285)" >
           <g data-testid="g3337" >
             <path data-testid="path3278" className="svg__0" d="M 28.72619,111.125 103.94345,62.744048" />
