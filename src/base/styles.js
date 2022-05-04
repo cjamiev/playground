@@ -14,6 +14,7 @@ export const SCNavigation = styled.nav`
   width: 60px;
   min-height: 937px;
   transition: width 500ms;
+  z-index: 1;
 
   :hover {
     width: 250px;

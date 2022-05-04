@@ -19,19 +19,25 @@ import {
   SCNavigationLabels
 } from './styles';
 import { HomeSVG } from 'components/icons/HomeSVG';
-import { FileSVG } from 'components/icons/FileSVG';
+import { ClipboardSVG } from 'components/icons/ClipboardSVG';
+import { ArchiveSVG } from 'components/icons/ArchiveSVG';
+import { FlaskSVG } from 'components/icons/FlaskSVG';
+import { LinkSVG } from 'components/icons/LinkSVG';
+import { DirectorySVG } from 'components/icons/DirectorySVG';
+import { SettingSVG } from 'components/icons/SettingSVG';
+import { TextSVG } from 'components/icons/TextSVG';
 
 const NAV_ITEMS = Object.values(ROUTES);
 const ONE_SECOND = 1000;
 const iconMap = {
   'Home': HomeSVG,
-  'File': FileSVG,
-  'Clipboard': null,
-  'Generator': null,
-  'Experiment': null,
-  'Project': null,
-  'Mock Server': null,
-  'Config': null
+  'File': ArchiveSVG,
+  'Clipboard': ClipboardSVG,
+  'Generator': TextSVG,
+  'Experiment': FlaskSVG,
+  'Project': DirectorySVG,
+  'Mock Server': LinkSVG,
+  'Config': SettingSVG
 };
 const DROPDOWN_CLASSNAMES = {
   container: 'navigation__dropdown-container',
@@ -63,6 +69,8 @@ const Navigation = React.memo(() => {
     };
 
     const IconSVG = iconMap[item.label];
+    const transform = item.label === 'Generator' ?
+      'scale(0.4) translate(-5,21)' : 'scale(0.6) translate(6,6)';
 
     return (
       <SCNavigationLinks key={item.url} onClick={handleClick} isActive={isActiveItem}>
@@ -72,7 +80,7 @@ const Navigation = React.memo(() => {
             width="53"
             height="53"
             viewBox="0 0 53 53">
-            <IconSVG transform='scale(0.6) translate(6,6)'/>
+            <IconSVG transform={transform} text='</>'/>
           </svg> }
         </SCNavigationIcon>
         <SCNavigationLabels>{item.label}</SCNavigationLabels>
