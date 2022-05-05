@@ -21,6 +21,26 @@ export const SCNavigation = styled.nav`
   }
 `;
 
+export const SCWeek = styled.span`
+  position: relative;
+  left: 17px;
+  bottom: 3px;
+  font-size: 24px;
+  font-weight: bold;
+
+  ::after {
+    content: '';
+    height: 30px;
+    width: 30px;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    right: 28px;
+    top: 8px;
+  }
+`;
+
 export const SCNavigationContent = styled.nav`
   width: inherit;
   position: fixed;
@@ -32,7 +52,7 @@ export const SCNavigationLinks = styled.div`
   position: relative;
   height: 50px;
   cursor: pointer;
-  top: ${({ isAtBottom }) => (isAtBottom ? '520px' : '0')};
+  top: ${({ isAtBottom }) => (isAtBottom ? '500px' : '10px')};
 
   :hover {
     background-color: ${colors.secondaryDarkColor};

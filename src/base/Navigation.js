@@ -11,6 +11,7 @@ import { dismissAlert } from 'components/alert/alertActions';
 import { getFormattedDate } from 'clock';
 import {
   SCNavigation,
+  SCWeek,
   SCNavigationContent,
   SCNavigationLinks,
   SCNavigationIcon,
@@ -38,7 +39,6 @@ const Navigation = React.memo(() => {
       }
     };
 
-
     return (
       <SCNavigationLinks
         key={item.url}
@@ -63,6 +63,7 @@ const Navigation = React.memo(() => {
   return (
     <SCNavigation>
       <SCNavigationContent>
+        <SCWeek>{getFormattedDate().week}</SCWeek>
         {renderNavItems}
       </SCNavigationContent>
     </SCNavigation>

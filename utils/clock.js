@@ -92,7 +92,7 @@ const getFormattedDate = (date) => {
   const timeBetweenNowAndNewYears = clockBetweenDates(givenDate, newYears);
 
   const displayDate = DAYS_OF_THE_WEEK[givenDate.getDay()] + ', ' + MONTHS[givenDate.getMonth()].slice(ZERO, NUMBER_OF_LETTERS) + ' ' + givenDate.getDate();
-  const displayWeek = 'Week ' + Math.trunc(firstWeekPartial + timeBetweenNowAndNewYears.weeks + timeBetweenNowAndNewYears.days / DAYS_IN_A_WEEK );
+  const displayWeek = Math.trunc(firstWeekPartial + timeBetweenNowAndNewYears.weeks + timeBetweenNowAndNewYears.days / DAYS_IN_A_WEEK );
 
   return { date: displayDate, week: displayWeek };
 };
