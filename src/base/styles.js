@@ -11,7 +11,7 @@ export const SCNavigation = styled.nav`
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
-  width: 60px;
+  width: 65px;
   min-height: 937px;
   transition: width 500ms;
   z-index: 1;
@@ -23,7 +23,7 @@ export const SCNavigation = styled.nav`
 
 export const SCWeek = styled.span`
   position: relative;
-  left: 17px;
+  left: 20px;
   bottom: 3px;
   font-size: 24px;
   font-weight: bold;
@@ -52,7 +52,7 @@ export const SCNavigationLinks = styled.div`
   position: relative;
   height: 50px;
   cursor: pointer;
-  top: ${({ isAtBottom }) => (isAtBottom ? '500px' : '10px')};
+  top: ${({ isAtBottom }) => (isAtBottom ? '495px' : '10px')};
 
   :hover {
     background-color: ${colors.secondaryDarkColor};
@@ -66,6 +66,7 @@ export const SCNavigationLinks = styled.div`
 export const SCNavigationIcon = styled.div`
   margin: 5px 10px;
   position: absolute;
+  left: 5px;
 
   ${({ isActive }) => isActive && `
     ::before {
@@ -73,7 +74,7 @@ export const SCNavigationIcon = styled.div`
       position: absolute;
       height: 45px;
       width: 3px;
-      left: -5px;
+      left: -10px;
       bottom: 15px;
       background-color: ${colors.white};
     }
