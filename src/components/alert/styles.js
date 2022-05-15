@@ -29,16 +29,23 @@ const statusError = css`
   border: 1px solid ${bgColorError};
 `;
 
-export const SCAlert = styled.div`
+export const SCAlertWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   position: fixed;
   left: calc(100% - 325px);
-  top: 20px;
+  top: 0px;
   min-height: 150px;
   width: 300px;
   z-index: 2;
 `;
 
+export const SCAlert = styled.div`
+  margin-top: 20px;
+`;
+
 export const SCAlertHeader = styled.h2`
+  position: relative;
   font-size: 20px;
   text-transform: capitalize;
   padding: 5px 10px;
@@ -60,8 +67,8 @@ export const SCAlertHeader = styled.h2`
 
   button {
     position: absolute;
-    left: calc(100% - 25px);
-    top: 2px;
+    left: calc(100% - 30px);
+    top: 1px;
     height: 10px;
     border: none;
     color: inherit;

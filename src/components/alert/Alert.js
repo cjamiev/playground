@@ -2,40 +2,50 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dismissAlert } from 'components/alert/alertActions';
 import { CloseButton } from 'components/button';
-import { SCAlert, SCAlertHeader, SCAlertContent } from './styles';
+import {
+  SCAlertWrapper,
+  SCAlert,
+  SCAlertHeader,
+  SCAlertContent
+} from './styles';
 
 const ZERO = 0;
-const ONE = 1;
 
 const Alert = () => {
   const dispatch = useDispatch();
   const { queue } = useSelector((state) => state.alert);
-  const { id, content, status, timer } = queue[ZERO] || {};
-
-  const close = useCallback(() => {
-    dispatch(dismissAlert(id));
-  }, [dispatch, id]);
+  const timerQueue = queue.filter(item => item.timer);
 
   useEffect(() => {
-    if (timer) {
-      setTimeout(close, timer);
+    if (timerQueue.length > ZERO) {
+      timerQueue.forEach(item => {
+        setTimeout(() => {
+          dispatch(dismissAlert(item.id));
+        }, timer);
+      });
     }
-  }, [close, timer]);
+  }, [timerQueue, dispatch]);
 
-  if (!content) {
+  if (!queue.length) {
     return null;
   }
 
   return (
-    <SCAlert>
-      <SCAlertHeader status={status}>
-        {status}
-        <button onClick={close}>X</button>
-      </SCAlertHeader>
-      <SCAlertContent status={status}>
-        <span>{content}</span>
-      </SCAlertContent>
-    </SCAlert>
+    <SCAlertWrapper>
+      {queue.map(item => {
+        return (
+          <SCAlert key={item.id}>
+            <SCAlertHeader status={item.status}>
+              {item.status}
+              <button onClick={() => { dispatch(dismissAlert(item.id)); }}>X</button>
+            </SCAlertHeader>
+            <SCAlertContent status={item.status}>
+              <span>{item.content}</span>
+            </SCAlertContent>
+          </SCAlert>
+        );
+      })}
+    </SCAlertWrapper>
   );
 };
 
