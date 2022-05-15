@@ -52,7 +52,7 @@ const Global = () => {
 
     !isTimeTooLarge &&
       setTimeout(() => {
-        dispatch(createAlert({ content: `Time's up for "${shortestTimer.name}"`, status: 'success' }));
+        dispatch(createAlert({ content: `Time's up for "${shortestTimer.name}"`, status: 'info' }));
       }, absoluteTime);
   }
 
