@@ -1,29 +1,25 @@
 import React from 'react';
 import { IconButton } from 'components/button';
 import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
+import { SCSidepanel, SCSidepanelHeader, SCSidepanelTitle, SCSidepanelBtn } from './styles';
 
-const SidePanel = ({ animation, sidePanelContent, isSidePanelWide, toggleSidePanel, title }) => {
-  const sidePanelClassName = isSidePanelWide ? `sidepanel sidepanel--full ${animation}` : `sidepanel ${animation}`;
+const SidePanel = ({ isTransitioningOut, sidePanelContent, isSidePanelWide, toggleSidePanel, title }) => {
   const sidePanelHeaderClassName = isSidePanelWide ? 'sidepanel__header--full' : 'sidepanel__header';
 
   return (
-    <div className={sidePanelClassName}>
+    <SCSidepanel isFullSize={isSidePanelWide} isTransitioningOut={isTransitioningOut}>
       {title && (
-        <header className={sidePanelHeaderClassName}>
-          {isSidePanelWide ? (
-            <h1 className="sidepanel__title">{title}</h1>
-          ) : (
-            <h2 className="sidepanel__title">{title}</h2>
-          )}
+        <SCSidepanelHeader isFullSize={isSidePanelWide}>
+          <SCSidepanelTitle>{title}</SCSidepanelTitle>
           {isSidePanelWide && (
-            <div className="sidepanel__button">
+            <SCSidepanelBtn>
               <IconButton type={ICON_TYPES.CLOSE} size={ICON_SIZES.SMALL} onClick={toggleSidePanel} />
-            </div>
+            </SCSidepanelBtn>
           )}
-        </header>
+        </SCSidepanelHeader>
       )}
       {sidePanelContent}
-    </div>
+    </SCSidepanel>
   );
 };
 

@@ -2,18 +2,19 @@ import React from 'react';
 import Alert from 'components/alert';
 import { IconButton } from 'components/button';
 import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
+import { SCPageHeader, SCPageHeaderTitle, SCSidepanelBtn } from './styles';
 
 const PageHeader = ({ toggleSidePanel, hasSidePanelContent, title }) => {
   return (
-    <header className="pageheader">
-      <h1 className="pageheader__title">{title}</h1>
+    <SCPageHeader>
+      <SCPageHeaderTitle>{title}</SCPageHeaderTitle>
       {hasSidePanelContent && (
-        <div className="pageheader__sidepanel_button">
+        <SCSidepanelBtn>
           <IconButton type={ICON_TYPES.TRIPLE_BAR} size={ICON_SIZES.SMALL} onClick={toggleSidePanel} />
-        </div>
+        </SCSidepanelBtn>
       )}
       <Alert />
-    </header>
+    </SCPageHeader>
   );
 };
 

@@ -9,50 +9,49 @@ import PageFooter from './PageFooter';
 import SidePanel from './SidePanel';
 import { openSidePanel, closeSidePanel } from 'components/global/globalActions';
 import { TIME } from 'constants/time';
+import { SCLayout, SCPageWrapper } from './styles';
 
 const NAV_ITEMS = Object.values(ROUTES);
 
 const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) => {
   const dispatch = useDispatch();
-  const [sidePanelAnimation, setSidePanelAnimation] = useState('sidepanel--animate-in');
+  const [isTransitioningOut, setIsTransitioningOut] = useState(false);
   const { isSidePanelOpen } = useSelector((state) => state.global);
   const location = useLocation();
   const currentPage = NAV_ITEMS.find((item) => item.url === location.pathname);
+  const hasSidePanelContent = !!sidePanelContent;
 
   const toggleSidePanel = () => {
     if (isSidePanelOpen) {
-      setSidePanelAnimation('sidepanel--animate-out');
       setTimeout(() => { dispatch(closeSidePanel()); }, TIME.A_SECOND);
+      setIsTransitioningOut(true);
     } else {
-      setSidePanelAnimation('sidepanel--animate-in');
       dispatch(openSidePanel());
+      setIsTransitioningOut(false);
     }
   };
 
-  const hasSidePanelContent = !!sidePanelContent;
-  const mainClassName = isSidePanelWide && isSidePanelOpen ? 'page__main page__main--hide' : 'page__main';
-
   return (
-    <div className="page scrollbar">
+    <SCLayout>
       {isSidePanelOpen &&
         <SidePanel
-          animation={sidePanelAnimation}
+          isTransitioningOut={isTransitioningOut}
           sidePanelContent={sidePanelContent}
           isSidePanelWide={isSidePanelWide}
           toggleSidePanel={toggleSidePanel}
           title={currentPage.sidePanelLabel}
         />
       }
-      <div className={mainClassName}>
+      <SCPageWrapper isSideBarFullSize={isSidePanelWide}>
         <PageHeader
           toggleSidePanel={toggleSidePanel}
           hasSidePanelContent={hasSidePanelContent}
           title={currentPage.label}
         />
         <PageContent>{children}</PageContent>
-        <PageFooter> {footerComponent} </PageFooter>
-      </div>
-    </div>
+        <PageFooter />
+      </SCPageWrapper>
+    </SCLayout>
   );
 };
 

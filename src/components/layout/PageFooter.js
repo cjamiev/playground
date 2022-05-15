@@ -1,11 +1,8 @@
 import React from 'react';
+import { SCFooter } from './styles';
 
-const PageFooter = ({ children }) => {
-  if (!children) {
-    return null;
-  }
-
-  return <footer className="pagefooter">{children}</footer>;
+const PageFooter = () => {
+  return <SCFooter>Footer</SCFooter>;
 };
 
 export default PageFooter;

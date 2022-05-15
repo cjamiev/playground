@@ -3,6 +3,7 @@ import { colors } from 'styles';
 
 export const SCMainLayout = styled.div`
   display: flex;
+  width: 100%;
 `;
 
 export const SCNavigation = styled.nav`
