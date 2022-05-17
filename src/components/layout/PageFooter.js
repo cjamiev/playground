@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { executeCommand } from 'components/global/globalActions';
 import { SCFooter, SCFooterBtnGroup, SCFooterBtn, SCFooterList, SCFooterListBtn } from './styles';
 import { copyToClipboard } from 'helper/copy';
-
-const ZERO = 0;
+import useOnClickOutside from 'hooks/useOnClickOutside';
 
 const FooterList = ({mode}) => {
   const { commands, links, paste } = useSelector(state => state.config);
@@ -50,20 +49,20 @@ const FooterList = ({mode}) => {
 };
 
 const PageFooter = () => {
+  const ref = useRef();
   const dispatch = useDispatch();
   const [mode, setMode] = useState('');
+  useOnClickOutside(ref, () => setMode(''));
 
   const showCommands = () => setMode('c');
   const showLinks = () => setMode('l');
   const showPaste = () => setMode('p');
-  const close = () => setMode('');
 
-  return <SCFooter>
+  return <SCFooter ref={ref}>
     <SCFooterBtnGroup>
       <SCFooterBtn onClick={showCommands}>C</SCFooterBtn>
       <SCFooterBtn onClick={showLinks}>L</SCFooterBtn>
       <SCFooterBtn onClick={showPaste}>P</SCFooterBtn>
-      <SCFooterBtn onClick={close}>x</SCFooterBtn>
     </SCFooterBtnGroup>
     <SCFooterList isCommandsVisible={mode !== ''}>
       <FooterList mode={mode} />

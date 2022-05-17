@@ -130,6 +130,7 @@ export const SCFooterList = styled.div`
   height: ${props => (props.isCommandsVisible ? '500px' : '0px')};
   background-color: ${colors.primaryDarkColor};
   margin-top: 20px;
+  transition: height 500ms;
 `;
 
 export const SCFooterListBtn = styled.button`
