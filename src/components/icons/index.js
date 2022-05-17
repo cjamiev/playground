@@ -10,3 +10,4 @@ export { default as SaveIcon } from './SaveIcon';
 export { default as TrashIcon } from './TrashIcon';
 export { default as TripleBarIcon } from './TripleBarIcon';
 import './icon.css';
+import './svg.css';
