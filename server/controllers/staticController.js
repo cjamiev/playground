@@ -19,6 +19,7 @@ const mimeTypes = {
 const STANDARD_HEADER = { 'Content-Type': 'application/json' };
 const STATUS_OK = 200;
 const STATUS_ERROR = 500;
+const NOT_FOUND = 'Not found';
 
 const staticController = async (reqUrl) => {
   const filePath = ROOT_DIR + reqUrl;
