@@ -107,16 +107,17 @@ export const SCFooter = styled.footer`
 
 export const SCFooterBtnGroup = styled.div`
   display: flex;
+  border-bottom: 1px solid ${colors.secondaryDarkColor};
 `;
 
 export const SCFooterBtn = styled.button`
   border: none;
-  border-bottom: 1px solid ${colors.secondaryDarkColor};
   color: #fff;
   min-height: 50px;
   cursor: pointer;
   background-color: ${colors.primaryDarkColor};
   flex: 1;
+  ${props => props.isActive && `background-color: ${colors.secondaryDarkColor};`};
   
   :hover {
     background-color: ${colors.secondaryDarkColor};
@@ -127,7 +128,7 @@ export const SCFooterBtn = styled.button`
 export const SCFooterList = styled.div`
   display: flex;
   flex-direction: column;
-  height: ${props => (props.isCommandsVisible ? '500px' : '0px')};
+  height: ${props => (props.isVisible ? '500px' : '0px')};
   background-color: ${colors.primaryDarkColor};
   margin-top: 20px;
   transition: height 500ms;
@@ -135,7 +136,6 @@ export const SCFooterList = styled.div`
 
 export const SCFooterListBtn = styled.button`
   border: none;
-  border-radius: 0;
   color: #fff;
   min-height: 50px;
   background-color: ${colors.primaryDarkColor};
