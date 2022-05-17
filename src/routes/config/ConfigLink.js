@@ -74,14 +74,14 @@ const ConfigLink = ({globalLinks, configLinks, onChange}) => {
           }}
         />
         <Text
-          placeholder='New Link Value'
+          placeholder='Link'
           selected={newLink.value}
           onChange={({ selected }) => {
             setNewLink({ label: newLink.label, value: selected});
           }}
         />
         <Text
-          placeholder='New Link Label'
+          placeholder='Description'
           selected={newLink.label}
           onChange={({ selected }) => {
             setNewLink({ label: selected, value: newLink.value});

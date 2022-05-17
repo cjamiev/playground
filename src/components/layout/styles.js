@@ -1,4 +1,6 @@
+/* eslint-disable no-magic-numbers */
 import styled, { css, keyframes } from 'styled-components';
+import { colors } from 'styles';
 
 const fadeIn = keyframes`
   0% {
@@ -93,7 +95,57 @@ export const SCSidepanelBtn = styled.div`
 
 export const SCFooter = styled.footer`
   position: fixed;
-  height: 50px;
-  top: calc(100% - 50px);
-  left: calc(100% - 100px);
+  z-index: 2;
+  width: 200px;
+  bottom: -20px;
+  left: calc(100% - 200px);
+  display: flex;
+  flex-direction: column;
+  background-color: ${colors.primaryDarkColor};
+  border-radius: 10px 10px 0 0;
+`;
+
+export const SCFooterBtnGroup = styled.div`
+  display: flex;
+`;
+
+export const SCFooterBtn = styled.button`
+  border: none;
+  border-bottom: 1px solid ${colors.secondaryDarkColor};
+  color: #fff;
+  min-height: 50px;
+  cursor: pointer;
+  background-color: ${colors.primaryDarkColor};
+  flex: 1;
+  
+  :hover {
+    background-color: ${colors.secondaryDarkColor};
+    outline: none;
+  }
+`;
+
+export const SCFooterList = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: ${props => (props.isCommandsVisible ? '500px' : '0px')};
+  background-color: ${colors.primaryDarkColor};
+  margin-top: 20px;
+`;
+
+export const SCFooterListBtn = styled.button`
+  border: none;
+  border-radius: 0;
+  color: #fff;
+  min-height: 50px;
+  background-color: ${colors.primaryDarkColor};
+  cursor: pointer;
+  
+  :hover {
+    background-color: ${colors.secondaryDarkColor};
+    outline: none;
+  }
+  
+  :active {
+    background-color: ${colors.primaryDarkMatchingGradient};
+  }
 `;

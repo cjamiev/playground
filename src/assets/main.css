@@ -73,7 +73,7 @@ html {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
 }
@@ -91,4 +91,13 @@ html {
 
 .load-file__btns:hover {
   background-color: #006bb3;
+}
+
+.hide {
+  display: none;
+  cursor: pointer;
+}
+
+.show-on-active:hover>.hide {
+  display: inline;
 }

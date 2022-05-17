@@ -21,7 +21,7 @@ const Alert = () => {
       timerQueue.forEach(item => {
         setTimeout(() => {
           dispatch(dismissAlert(item.id));
-        }, timer);
+        }, item.timer);
       });
     }
   }, [timerQueue, dispatch]);

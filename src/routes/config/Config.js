@@ -4,6 +4,7 @@ import { updateConfig } from './configActions';
 import { loadProject, updateProject } from 'routes/project/projectActions';
 import ConfigCommand from './ConfigCommand';
 import ConfigLink from './ConfigLink';
+import ConfigPaste from './ConfigPaste';
 import ConfigDirectory from './ConfigDirectory';
 import Table from 'components/table';
 import Button, { IconButton } from 'components/button';
@@ -33,11 +34,15 @@ const Config = () => {
   }, [config]);
 
   const handleCommandChange = (updatedCommandConfiguration) => {
-    dispatch(updateConfig({ commands: updatedCommandConfiguration, links: config.links }));
+    dispatch(updateConfig({ commands: updatedCommandConfiguration, links: config.links, paste: config.paste }));
   };
 
   const handleLinkChange = (updatedLinkConfiguration) => {
-    dispatch(updateConfig({ commands: config.commands, links: updatedLinkConfiguration }));
+    dispatch(updateConfig({ commands: config.commands, links: updatedLinkConfiguration, paste: config.paste }));
+  };
+
+  const handlePasteChange = (updatedPasteConfiguration) => {
+    dispatch(updateConfig({ commands: config.commands, links: config.links, paste: updatedPasteConfiguration }));
   };
 
   const handleDirectoryChange = (updatedDirectories) => {
@@ -55,6 +60,10 @@ const Config = () => {
         globalLinks={global.links}
         configLinks={config.links}
         onChange={handleLinkChange}
+      />
+      <ConfigPaste
+        configPaste={config.paste}
+        onChange={handlePasteChange}
       />
       <ConfigDirectory
         directories={directories}
