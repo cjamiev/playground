@@ -37,7 +37,7 @@ export const SCWeek = styled.span`
     border-radius: 50%;
     display: inline-block;
     position: relative;
-    right: 28px;
+    right: ${props => (props.isTwoDigit ? '30px' : '23px')};
     top: 8px;
   }
 `;

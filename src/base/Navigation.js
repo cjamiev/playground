@@ -19,6 +19,8 @@ import {
 } from './styles';
 import { navigationMap } from './data';
 
+const SINGLE_DIGIT = 9;
+
 const Navigation = React.memo(() => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -63,7 +65,7 @@ const Navigation = React.memo(() => {
   return (
     <SCNavigation>
       <SCNavigationContent>
-        <SCWeek>{getFormattedDate().week}</SCWeek>
+        <SCWeek isTwoDigit={getFormattedDate().week > SINGLE_DIGIT}>{getFormattedDate().week}</SCWeek>
         {renderNavItems}
       </SCNavigationContent>
     </SCNavigation>
