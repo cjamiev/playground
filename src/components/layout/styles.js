@@ -93,24 +93,24 @@ export const SCSidepanelBtn = styled.div`
   margin-left: 10px;
 `;
 
-export const SCFooter = styled.footer`
+export const SCQuickAccess = styled.footer`
   position: fixed;
   z-index: 2;
-  width: 200px;
+  width: 400px;
   bottom: -20px;
-  left: calc(100% - 200px);
+  left: calc(100% - 400px);
   display: flex;
   flex-direction: column;
   background-color: ${colors.primaryDarkColor};
   border-radius: 10px 10px 0 0;
 `;
 
-export const SCFooterBtnGroup = styled.div`
+export const SCQuickAccessBtnGroup = styled.div`
   display: flex;
   border-bottom: 1px solid ${colors.secondaryDarkColor};
 `;
 
-export const SCFooterBtn = styled.button`
+export const SCQuickAccessBtn = styled.button`
   border: none;
   color: #fff;
   min-height: 50px;
@@ -125,7 +125,7 @@ export const SCFooterBtn = styled.button`
   }
 `;
 
-export const SCFooterList = styled.div`
+export const SCQuickAccessList = styled.div`
   display: flex;
   flex-direction: column;
   height: ${props => (props.isVisible ? '500px' : '0px')};
@@ -134,7 +134,7 @@ export const SCFooterList = styled.div`
   transition: height 500ms;
 `;
 
-export const SCFooterListBtn = styled.button`
+export const SCQuickAccessListBtn = styled.button`
   border: none;
   color: #fff;
   min-height: 50px;
