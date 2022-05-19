@@ -1,11 +1,12 @@
 {
   "name": "playground",
-  "version": "2.5.6",
+  "version": "2.5.7",
   "description": "Project to help with daily tasks and other projects",
   "main": "src/index.js",
   "scripts": {
     "start": "webpack serve --config config/webpack.dev.js",
     "server": "nodemon server/index.js",
+    "work": "npm run server & npm run start",
     "build": "webpack --config config/webpack.prod.js",
     "script": "node experiment/script && npm run lint",
     "lint": "eslint --fix --ext .js ./src",
