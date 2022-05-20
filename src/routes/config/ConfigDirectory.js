@@ -15,7 +15,7 @@ import {
 
 const directoriesTableHeaders = [
   { label: 'Description' },
-  { label: 'Directory' },
+  { label: 'Path' },
   { label: 'Remove' }
 ];
 

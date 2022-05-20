@@ -4,7 +4,7 @@ import { updateConfig } from './configActions';
 import { loadProject, updateProject } from 'routes/project/projectActions';
 import ConfigCommand from './ConfigCommand';
 import ConfigLink from './ConfigLink';
-import ConfigPaste from './ConfigPaste';
+import ConfigCopy from './ConfigCopy';
 import ConfigDirectory from './ConfigDirectory';
 import Page from 'components/layout';
 import { SCTabButtonGroup, SCTabButton } from './styles';
@@ -20,15 +20,15 @@ const Config = () => {
   }, [dispatch]);
 
   const handleCommandChange = (updatedCommandConfiguration) => {
-    dispatch(updateConfig({ commands: updatedCommandConfiguration, links: config.links, paste: config.paste }));
+    dispatch(updateConfig({ commands: updatedCommandConfiguration, links: config.links, copy: config.copy }));
   };
 
   const handleLinkChange = (updatedLinkConfiguration) => {
-    dispatch(updateConfig({ commands: config.commands, links: updatedLinkConfiguration, paste: config.paste }));
+    dispatch(updateConfig({ commands: config.commands, links: updatedLinkConfiguration, copy: config.copy }));
   };
 
-  const handlePasteChange = (updatedPasteConfiguration) => {
-    dispatch(updateConfig({ commands: config.commands, links: config.links, paste: updatedPasteConfiguration }));
+  const handleCopyChange = (updatedCopyConfiguration) => {
+    dispatch(updateConfig({ commands: config.commands, links: config.links, copy: updatedCopyConfiguration }));
   };
 
   const handleDirectoryChange = (updatedDirectories) => {
@@ -51,10 +51,10 @@ const Config = () => {
           Links
         </SCTabButton>
         <SCTabButton
-          isActive={tab === 'paste'}
-          onClick={() => { setTab('paste');}}
+          isActive={tab === 'copy'}
+          onClick={() => { setTab('copy');}}
         >
-          Paste
+          Copy
         </SCTabButton>
         <SCTabButton
           isActive={tab === 'directory'}
@@ -71,9 +71,9 @@ const Config = () => {
         configLinks={config.links}
         onChange={handleLinkChange}
       />}
-      {tab === 'paste' && <ConfigPaste
-        configPaste={config.paste}
-        onChange={handlePasteChange}
+      {tab === 'copy' && <ConfigCopy
+        configCopy={config.copy}
+        onChange={handleCopyChange}
       />}
       {tab === 'directory' && <ConfigDirectory
         directories={directories}

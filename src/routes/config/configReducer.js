@@ -3,7 +3,7 @@ import { LOAD_CONFIG } from './configActions';
 export const configInitialState = {
   commands: [],
   links: [],
-  paste: []
+  copy: []
 };
 
 const configReducer = (state = configInitialState, action) => {
@@ -13,7 +13,7 @@ const configReducer = (state = configInitialState, action) => {
         ...state,
         commands: action.data.commands,
         links: action.data.links,
-        paste: action.data.paste
+        copy: action.data.copy
       };
     }
   };

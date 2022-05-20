@@ -15,29 +15,29 @@ import {
   SCCreateFormFieldSet
 } from './styles';
 
-const pasteTableHeaders = [
+const copyTableHeaders = [
   { label: 'Description' },
-  { label: 'Paste' },
+  { label: 'Value' },
   { label: 'Action' }
 ];
 const ZERO = 0;
 
-const ConfigPaste = ({configPaste, onChange}) => {
+const ConfigCopy = ({configCopy, onChange}) => {
   const dispatch = useDispatch();
-  const [newPaste, setNewPaste] = useState({ label: '', value: ''});
-  const [pasteConfiguration, setPasteConfiguration] = useState([]);
+  const [newCopy, setNewCopy] = useState({ label: '', value: ''});
+  const [copyConfiguration, setCopyConfiguration] = useState([]);
 
   useEffect(() => {
-    setPasteConfiguration(configPaste);
-  },[configPaste]);
+    setCopyConfiguration(configCopy);
+  },[configCopy]);
 
-  const renderPasteCells = () => {
-    return pasteConfiguration.map(pasteItem => {
+  const renderCopyCells = () => {
+    return copyConfiguration.map(copyItem => {
       return (
-        <tr key={pasteItem.value}>
-          <SCTableCell isFirstCell><span>{pasteItem.label}</span></SCTableCell>
+        <tr key={copyItem.value}>
+          <SCTableCell isFirstCell><span>{copyItem.label}</span></SCTableCell>
           <SCTableCell isClickable>
-            <SCTableHidden>{pasteItem.value}</SCTableHidden>
+            <SCTableHidden>{copyItem.value}</SCTableHidden>
             <SCTableOverlayText>Click To See</SCTableOverlayText>
           </SCTableCell>
           <SCTableCellIcon>
@@ -47,9 +47,9 @@ const ConfigPaste = ({configPaste, onChange}) => {
               height="53"
               viewBox="0 0 53 53"
               onClick={() => {
-                const updatedPasteConfig = pasteConfiguration.filter(item => item.value !== pasteItem.value);
+                const updatedCopyConfig = copyConfiguration.filter(item => item.value !== copyItem.value);
 
-                onChange(updatedPasteConfig);
+                onChange(updatedCopyConfig);
               }}
             >
               <TrashSVG transform={'scale(0.6) translate(35,-2)'} />
@@ -62,38 +62,38 @@ const ConfigPaste = ({configPaste, onChange}) => {
 
   return (
     <div>
-      <h2> Paste </h2>
+      <h2> Copy </h2>
       <div>
-        {pasteConfiguration.length > ZERO ? <Table
-          headers={pasteTableHeaders}
-          body={renderPasteCells()}
+        {copyConfiguration.length > ZERO ? <Table
+          headers={copyTableHeaders}
+          body={renderCopyCells()}
         /> : <span> No Entries Found </span>}
         <form>
           <SCCreateFormFieldSet>
             <legend>Create New Copy/Paste</legend>
             <Text
               placeholder='Description'
-              selected={newPaste.label}
+              selected={newCopy.label}
               onChange={({ selected }) => {
-                setNewPaste({ label: selected, value: newPaste.value});
+                setNewCopy({ label: selected, value: newCopy.value});
               }}
             />
             <Text
-              placeholder='Paste'
-              selected={newPaste.value}
+              placeholder='Copy'
+              selected={newCopy.value}
               onChange={({ selected }) => {
-                setNewPaste({ label: newPaste.label, value: selected});
+                setNewCopy({ label: newCopy.label, value: selected});
               }}
             />
             <Button
               classColor="primary"
               label="Submit"
               onClick={() => {
-                if(newPaste.label && newPaste.value) {
-                  const updatedPaste = [newPaste].concat(pasteConfiguration);
+                if(newCopy.label && newCopy.value) {
+                  const updatedCopy = [newCopy].concat(copyConfiguration);
 
-                  setNewPaste({ label: '', value: ''});
-                  onChange(updatedPaste);
+                  setNewCopy({ label: '', value: ''});
+                  onChange(updatedCopy);
                 }
               }}
             />
@@ -104,4 +104,4 @@ const ConfigPaste = ({configPaste, onChange}) => {
   );
 };
 
-export default ConfigPaste;
+export default ConfigCopy;

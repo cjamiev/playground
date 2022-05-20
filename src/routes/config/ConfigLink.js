@@ -15,7 +15,7 @@ import {
 
 const linkTableHeaders = [
   { label: 'Description' },
-  { label: 'Link' },
+  { label: 'URL' },
   { label: 'Action' }
 ];
 
