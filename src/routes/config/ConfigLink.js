@@ -14,8 +14,8 @@ import {
 } from './styles';
 
 const linkTableHeaders = [
-  { label: 'Link' },
   { label: 'Description' },
+  { label: 'Link' },
   { label: 'Action' }
 ];
 
@@ -35,14 +35,14 @@ const ConfigLink = ({configLinks, onChange}) => {
           <SCTableCell isFirstCell>
             <SCTableCellText>
               <Text
-                placeholder={linkItem.value}
-                selected={linkItem.value}
+                placeholder={linkItem.label}
+                selected={linkItem.label}
                 onChange={({ selected }) => {
                   const updatedLinkConfig = linkConfiguration.map(item => {
                     if(item.id === linkItem.id) {
                       return {
                         ...item,
-                        value: selected
+                        label: selected
                       };
                     }
 
@@ -57,14 +57,14 @@ const ConfigLink = ({configLinks, onChange}) => {
           <SCTableCell>
             <SCTableCellText>
               <Text
-                placeholder={linkItem.label}
-                selected={linkItem.label}
+                placeholder={linkItem.value}
+                selected={linkItem.value}
                 onChange={({ selected }) => {
                   const updatedLinkConfig = linkConfiguration.map(item => {
                     if(item.id === linkItem.id) {
                       return {
                         ...item,
-                        label: selected
+                        value: selected
                       };
                     }
 
@@ -115,17 +115,17 @@ const ConfigLink = ({configLinks, onChange}) => {
           <SCCreateFormFieldSet>
             <legend> Create New Link </legend>
             <Text
-              placeholder='Link'
-              selected={newLink.value}
-              onChange={({ selected }) => {
-                setNewLink({ label: newLink.label, value: selected});
-              }}
-            />
-            <Text
               placeholder='Description'
               selected={newLink.label}
               onChange={({ selected }) => {
                 setNewLink({ label: selected, value: newLink.value, id: linkConfiguration.length});
+              }}
+            />
+            <Text
+              placeholder='Link'
+              selected={newLink.value}
+              onChange={({ selected }) => {
+                setNewLink({ label: newLink.label, value: selected});
               }}
             />
             <Button

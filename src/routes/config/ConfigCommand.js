@@ -10,8 +10,8 @@ import {
 } from './styles';
 
 const commandTableHeaders = [
-  { label: 'File' },
-  { label: 'Description' }
+  { label: 'Description' },
+  { label: 'File' }
 ];
 
 const ConfigCommand = ({configCommands, onChange}) => {
@@ -26,8 +26,7 @@ const ConfigCommand = ({configCommands, onChange}) => {
     return commandConfiguration.map(commandname => {
       return (
         <tr key={commandname.value}>
-          <SCTableCell isFirstCell ><span>{commandname.value}</span></SCTableCell>
-          <SCTableCell>
+          <SCTableCell isFirstCell>
             <SCTableCellText>
               <Text
                 selected={commandname.label}
@@ -48,6 +47,7 @@ const ConfigCommand = ({configCommands, onChange}) => {
               />
             </SCTableCellText>
           </SCTableCell>
+          <SCTableCell><span>{commandname.value}</span></SCTableCell>
         </tr>
       );
     });

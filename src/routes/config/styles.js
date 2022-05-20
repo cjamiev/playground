@@ -146,5 +146,10 @@ export const SCCreateFormFieldSet = styled.fieldset`
 
   div {
     margin-bottom: 10px;
+    margin-left: 6px;
+  }
+
+  button {
+    margin-left: 25%;
   }
 `;

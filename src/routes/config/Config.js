@@ -11,7 +11,7 @@ import { SCTabButtonGroup, SCTabButton } from './styles';
 
 const Config = () => {
   const dispatch = useDispatch();
-  const [tab, setTab] = useState('links');
+  const [tab, setTab] = useState('commands');
   const { directories, regexes } = useSelector(state => state.project);
   const config = useSelector(state => state.config);
 

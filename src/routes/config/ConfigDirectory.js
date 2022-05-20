@@ -14,11 +14,12 @@ import {
 } from './styles';
 
 const directoriesTableHeaders = [
+  { label: 'Description' },
   { label: 'Directory' },
   { label: 'Remove' }
 ];
 
-const Config = ({ directories, onChange }) => {
+const ConfigDirectory = ({ directories, onChange }) => {
   const dispatch = useDispatch();
   const [newDir, setNewDir] = useState('');
   const [projectDirectories, setProjectDirectories] = useState([]);
@@ -31,7 +32,8 @@ const Config = ({ directories, onChange }) => {
     return projectDirectories.map(filepath => {
       return (
         <tr key={filepath}>
-          <SCTableCell isFirstCell><span>{filepath}</span></SCTableCell>
+          <SCTableCell isFirstCell><span>WIP</span></SCTableCell>
+          <SCTableCell><span>{filepath}</span></SCTableCell>
           <SCTableCellIcon>
             <SCTableCellSvg
               aria-label='Delete'
@@ -64,7 +66,7 @@ const Config = ({ directories, onChange }) => {
           <SCCreateFormFieldSet>
             <legend> Create New Directory </legend>
             <Text
-              placeholder='New Directory'
+              placeholder='Directory'
               selected={newDir}
               onChange={({ selected }) => {
                 setNewDir(selected);
@@ -72,7 +74,7 @@ const Config = ({ directories, onChange }) => {
             />
             <Button
               classColor="primary"
-              label="Add Directory"
+              label="Submit"
               onClick={() => {
                 const updatedDirectories = [newDir].concat(projectDirectories);
 
@@ -86,4 +88,4 @@ const Config = ({ directories, onChange }) => {
   );
 };
 
-export default Config;
+export default ConfigDirectory;

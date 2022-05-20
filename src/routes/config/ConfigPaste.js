@@ -16,10 +16,11 @@ import {
 } from './styles';
 
 const pasteTableHeaders = [
-  { label: 'Paste' },
   { label: 'Description' },
+  { label: 'Paste' },
   { label: 'Action' }
 ];
+const ZERO = 0;
 
 const ConfigPaste = ({configPaste, onChange}) => {
   const dispatch = useDispatch();
@@ -34,24 +35,24 @@ const ConfigPaste = ({configPaste, onChange}) => {
     return pasteConfiguration.map(pasteItem => {
       return (
         <tr key={pasteItem.value}>
-          <SCTableCell isFirstCell isClickable>
+          <SCTableCell isFirstCell><span>{pasteItem.label}</span></SCTableCell>
+          <SCTableCell isClickable>
             <SCTableHidden>{pasteItem.value}</SCTableHidden>
             <SCTableOverlayText>Click To See</SCTableOverlayText>
           </SCTableCell>
-          <SCTableCell><span>{pasteItem.label}</span></SCTableCell>
           <SCTableCellIcon>
             <SCTableCellSvg
               aria-label='Delete'
               width="45"
               height="53"
-              viewBox="0 0 53 53">
-              <TrashSVG
-                transform={'scale(0.6) translate(35,-2)'}
-                onClick={() => {
-                  const updatedPasteConfig = pasteConfiguration.filter(item => item.value !== pasteItem.value);
+              viewBox="0 0 53 53"
+              onClick={() => {
+                const updatedPasteConfig = pasteConfiguration.filter(item => item.value !== pasteItem.value);
 
-                  onChange(updatedPasteConfig);
-                }} />
+                onChange(updatedPasteConfig);
+              }}
+            >
+              <TrashSVG transform={'scale(0.6) translate(35,-2)'} />
             </SCTableCellSvg>
           </SCTableCellIcon>
         </tr>
@@ -63,25 +64,25 @@ const ConfigPaste = ({configPaste, onChange}) => {
     <div>
       <h2> Paste </h2>
       <div>
-        <Table
+        {pasteConfiguration.length > ZERO ? <Table
           headers={pasteTableHeaders}
-          body={renderPasteCells(global.pastes)}
-        />
+          body={renderPasteCells()}
+        /> : <span> No Entries Found </span>}
         <form>
           <SCCreateFormFieldSet>
             <legend>Create New Copy/Paste</legend>
-            <Text
-              placeholder='Paste'
-              selected={newPaste.value}
-              onChange={({ selected }) => {
-                setNewPaste({ label: newPaste.label, value: selected});
-              }}
-            />
             <Text
               placeholder='Description'
               selected={newPaste.label}
               onChange={({ selected }) => {
                 setNewPaste({ label: selected, value: newPaste.value});
+              }}
+            />
+            <Text
+              placeholder='Paste'
+              selected={newPaste.value}
+              onChange={({ selected }) => {
+                setNewPaste({ label: newPaste.label, value: selected});
               }}
             />
             <Button
