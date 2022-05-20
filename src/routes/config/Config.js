@@ -6,21 +6,12 @@ import ConfigCommand from './ConfigCommand';
 import ConfigLink from './ConfigLink';
 import ConfigPaste from './ConfigPaste';
 import ConfigDirectory from './ConfigDirectory';
-import Table from 'components/table';
-import Button, { IconButton } from 'components/button';
-import Text from 'components/form/Text';
 import Page from 'components/layout';
-import { ICON_TYPES } from 'constants/icon';
-
-const directoriesTableHeaders = [
-  { label: 'Directory', className: 'flex--four' },
-  { label: 'Remove', className: 'flex--one' }
-];
+import { SCTabButtonGroup, SCTabButton } from './styles';
 
 const Config = () => {
   const dispatch = useDispatch();
-  const [newDir, setNewDir] = useState('');
-  const [configuration, setConfiguration] = useState({ commands: [], links: []});
+  const [tab, setTab] = useState('commands');
   const { directories, regexes } = useSelector(state => state.project);
   const config = useSelector(state => state.config);
   const global = useSelector(state => state.global);
@@ -28,10 +19,6 @@ const Config = () => {
   useEffect(() => {
     dispatch(loadProject());
   }, [dispatch]);
-
-  useEffect(() => {
-    setConfiguration(config);
-  }, [config]);
 
   const handleCommandChange = (updatedCommandConfiguration) => {
     dispatch(updateConfig({ commands: updatedCommandConfiguration, links: config.links, paste: config.paste }));
@@ -51,24 +38,50 @@ const Config = () => {
 
   return (
     <Page>
-      <ConfigCommand
+      <SCTabButtonGroup>
+        <SCTabButton
+          isActive={tab === 'commands'}
+          onClick={() => { setTab('commands');}}
+        >
+          Commands
+        </SCTabButton>
+        <SCTabButton
+          isActive={tab === 'links'}
+          onClick={() => { setTab('links');}}
+        >
+          Links
+        </SCTabButton>
+        <SCTabButton
+          isActive={tab === 'paste'}
+          onClick={() => { setTab('paste');}}
+        >
+          Paste
+        </SCTabButton>
+        <SCTabButton
+          isActive={tab === 'directory'}
+          onClick={() => { setTab('directory');}}
+        >
+          Directory
+        </SCTabButton>
+      </SCTabButtonGroup>
+      {tab === 'commands' && <ConfigCommand
         globalCommands={global.commands}
         configCommands={config.commands}
         onChange={handleCommandChange}
-      />
-      <ConfigLink
+      />}
+      {tab === 'links' && <ConfigLink
         globalLinks={global.links}
         configLinks={config.links}
         onChange={handleLinkChange}
-      />
-      <ConfigPaste
+      />}
+      {tab === 'paste' && <ConfigPaste
         configPaste={config.paste}
         onChange={handlePasteChange}
-      />
-      <ConfigDirectory
+      />}
+      {tab === 'directory' && <ConfigDirectory
         directories={directories}
         onChange={handleDirectoryChange}
-      />
+      />}
     </Page>
   );
 };

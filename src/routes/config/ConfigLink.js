@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateConfig } from './configActions';
-import Table from 'components/table';
-import Button, { IconButton } from 'components/button';
+import { Table } from './ConfigTable';
+import Button from 'components/button';
 import Text from 'components/form/Text';
-import { ICON_TYPES } from 'constants/icon';
+import { TrashSVG } from 'components/icons/TrashSVG';
+import {
+  SCTableCell,
+  SCTableCellIcon,
+  SCTableCellSvg,
+  SCTableCellText
+} from './styles';
 
 const linkTableHeaders = [
-  { label: 'Link', className: 'flex--four' },
-  { label: 'Description', className: 'flex--two' },
-  { label: 'Action', className: 'flex--one'}
+  { label: 'Link' },
+  { label: 'Description' },
+  { label: 'Action' }
 ];
 
 const ConfigLink = ({globalLinks, configLinks, onChange}) => {
@@ -24,35 +30,66 @@ const ConfigLink = ({globalLinks, configLinks, onChange}) => {
   const renderLinkCells = () => {
     return linkConfiguration.map(linkItem => {
       return (
-        <tr key={linkItem.value} className="flex--horizontal">
-          <td className="flex--four">{linkItem.value}</td>
-          <td className="flex--two">
-            <Text
-              placeholder={linkItem.label}
-              selected={linkItem.label}
-              onChange={({ selected }) => {
-                const updatedLinkConfig = linkConfiguration.map(item => {
-                  if(item.value === linkItem.value) {
-                    return {
-                      ...item,
-                      label: selected
-                    };
-                  }
+        <tr key={linkItem.id}>
+          <SCTableCell isFirstCell>
+            <SCTableCellText>
+              <Text
+                placeholder={linkItem.value}
+                selected={linkItem.value}
+                onChange={({ selected }) => {
+                  const updatedLinkConfig = linkConfiguration.map(item => {
+                    if(item.id === linkItem.id) {
+                      return {
+                        ...item,
+                        value: selected
+                      };
+                    }
 
-                  return item;
-                });
+                    return item;
+                  });
 
-                setLinkConfiguration(updatedLinkConfig);
-              }}
-            />
-          </td>
-          <td className="flex--one">
-            <IconButton type={ICON_TYPES.TRASH} onClick={() => {
-              const updatedLinkConfig = linkConfiguration.filter(item => item.value !== linkItem.value);
+                  setLinkConfiguration(updatedLinkConfig);
+                }}
+              />
+            </SCTableCellText>
+          </SCTableCell>
+          <SCTableCell>
+            <SCTableCellText>
+              <Text
+                placeholder={linkItem.label}
+                selected={linkItem.label}
+                onChange={({ selected }) => {
+                  const updatedLinkConfig = linkConfiguration.map(item => {
+                    if(item.id === linkItem.id) {
+                      return {
+                        ...item,
+                        label: selected
+                      };
+                    }
 
-              onChange(updatedLinkConfig);
-            }} />
-          </td>
+                    return item;
+                  });
+
+                  setLinkConfiguration(updatedLinkConfig);
+                }}
+              />
+            </SCTableCellText>
+          </SCTableCell>
+          <SCTableCellIcon>
+            <SCTableCellSvg
+              aria-label='Delete'
+              width="45"
+              height="53"
+              viewBox="0 0 53 53">
+              <TrashSVG
+                transform={'scale(0.6) translate(35,-2)'}
+                onClick={() => {
+                  const updatedLinkConfig = linkConfiguration.filter(item => item.value !== linkItem.value);
+
+                  onChange(updatedLinkConfig);
+                }} />
+            </SCTableCellSvg>
+          </SCTableCellIcon>
         </tr>
       );
     });
@@ -60,8 +97,8 @@ const ConfigLink = ({globalLinks, configLinks, onChange}) => {
 
   return (
     <div>
-      <h2> Link Configuration </h2>
-      <div className="container--center">
+      <h2> Links </h2>
+      <div>
         <Table
           headers={linkTableHeaders}
           body={renderLinkCells(global.links)}
@@ -84,7 +121,7 @@ const ConfigLink = ({globalLinks, configLinks, onChange}) => {
           placeholder='Description'
           selected={newLink.label}
           onChange={({ selected }) => {
-            setNewLink({ label: selected, value: newLink.value});
+            setNewLink({ label: selected, value: newLink.value, id: linkConfiguration.length});
           }}
         />
         <Button

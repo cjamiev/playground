@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateConfig } from './configActions';
-import Table from 'components/table';
-import Button, { IconButton } from 'components/button';
+import Button from 'components/button';
 import Text from 'components/form/Text';
-import { ICON_TYPES } from 'constants/icon';
+import { EyeSVG } from 'components/icons/EyeSVG';
+import { Table } from './ConfigTable';
+import {
+  SCTableCell,
+  SCTableCellIcon,
+  SCTableCellSvg,
+  SCTableCellText
+} from './styles';
 
 const commandTableHeaders = [
-  { label: 'Command', className: 'flex--two' },
-  { label: 'Description', className: 'flex--three' },
-  { label: 'Should Show?', className: 'flex--one' }
+  { label: 'Q' },
+  { label: 'File' },
+  { label: 'Description' }
 ];
 
 const ConfigCommand = ({globalCommands, configCommands, onChange}) => {
@@ -33,28 +39,42 @@ const ConfigCommand = ({globalCommands, configCommands, onChange}) => {
       };
 
       return (
-        <tr key={commandname} className="flex--horizontal">
-          <td className="flex--two">{commandname}</td>
-          <td className="flex--three">
-            {matched ? <Text
-              placeholder={commandname}
-              selected={label}
-              onChange={({ selected }) => {
-                const updatedCommandConfiguration = commandConfiguration.map(item => {
-                  if(item.value === commandname) {
-                    return {
-                      ...item,
-                      label: selected
-                    };
-                  }
+        <tr key={commandname}>
+          <SCTableCellIcon isFirstCell onClick={handleClick}>
+            <SCTableCellSvg
+              aria-label='Hide or Show'
+              width="45"
+              height="53"
+              viewBox="0 0 53 53">
+              <EyeSVG
+                conditions={{ showCross: matched}}
+                transform={'scale(0.6) translate(12,-5)'}
+              />
+            </SCTableCellSvg>
+          </SCTableCellIcon>
+          <SCTableCell><span>{commandname}</span></SCTableCell>
+          <SCTableCell>
+            {matched ? <SCTableCellText>
+              <Text
+                placeholder={commandname}
+                selected={label}
+                onChange={({ selected }) => {
+                  const updatedCommandConfiguration = commandConfiguration.map(item => {
+                    if(item.value === commandname) {
+                      return {
+                        ...item,
+                        label: selected
+                      };
+                    }
 
-                  return item;
-                });
+                    return item;
+                  });
 
-                setCommandConfiguration(updatedCommandConfiguration);
-              }}
-            />: 'N/A'}</td>
-          <td className="flex--one clickable" onClick={handleClick}>{matched ? 'Yes' : 'No'}</td>
+                  setCommandConfiguration(updatedCommandConfiguration);
+                }}
+              />
+            </SCTableCellText>: <span>N/A</span>}
+          </SCTableCell>
         </tr>
       );
     });
@@ -62,8 +82,8 @@ const ConfigCommand = ({globalCommands, configCommands, onChange}) => {
 
   return (
     <div>
-      <h2> Command Configuration </h2>
-      <div className="container--center">
+      <h2> Commands </h2>
+      <div>
         <Table
           headers={commandTableHeaders}
           body={renderCommandCells(global.commands)}

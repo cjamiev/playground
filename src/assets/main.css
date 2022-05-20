@@ -92,12 +92,3 @@ html {
 .load-file__btns:hover {
   background-color: #006bb3;
 }
-
-.hide {
-  display: none;
-  cursor: pointer;
-}
-
-.show-on-active:hover>.hide {
-  display: inline;
-}

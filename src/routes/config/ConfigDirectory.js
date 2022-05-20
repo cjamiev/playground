@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Table from 'components/table';
-import Button, { IconButton } from 'components/button';
+import Button from 'components/button';
 import Text from 'components/form/Text';
-import { ICON_TYPES } from 'constants/icon';
+import { TrashSVG } from 'components/icons/TrashSVG';
+import { Table } from './ConfigTable';
+import {
+  SCTableCell,
+  SCTableCellIcon,
+  SCTableCellSvg,
+  SCTableCellText,
+  SCTableHidden
+} from './styles';
 
 const directoriesTableHeaders = [
-  { label: 'Directory', className: 'flex--four' },
-  { label: 'Remove', className: 'flex--one' }
+  { label: 'Directory' },
+  { label: 'Remove' }
 ];
 
 const Config = ({ directories, onChange }) => {
@@ -22,18 +29,23 @@ const Config = ({ directories, onChange }) => {
   const renderDirectoryCells = () => {
     return projectDirectories.map(filepath => {
       return (
-        <tr key={filepath} className="flex--horizontal">
-          <td className="flex--four">{filepath}</td>
-          <td className="flex--one">
-            <IconButton
-              type={ICON_TYPES.TRASH}
-              onClick={() => {
-                const updatedDirectories = projectDirectories.filter(item => item !== filepath);
+        <tr key={filepath}>
+          <SCTableCell>{filepath}</SCTableCell>
+          <SCTableCellIcon>
+            <SCTableCellSvg
+              aria-label='Delete'
+              width="45"
+              height="53"
+              viewBox="0 0 53 53">
+              <TrashSVG
+                transform={'scale(0.6) translate(35,-2)'}
+                onClick={() => {
+                  const updatedDirectories = projectDirectories.filter(item => item !== filepath);
 
-                onChange(updatedDirectories);
-              }}
-            />
-          </td>
+                  onChange(updatedDirectories);
+                }} />
+            </SCTableCellSvg>
+          </SCTableCellIcon>
         </tr>
       );
     });
@@ -41,8 +53,8 @@ const Config = ({ directories, onChange }) => {
 
   return (
     <div>
-      <h2> Directory Configuration </h2>
-      <div className="container--center">
+      <h2> Directory </h2>
+      <div>
         <Table
           headers={directoriesTableHeaders}
           body={renderDirectoryCells()}
