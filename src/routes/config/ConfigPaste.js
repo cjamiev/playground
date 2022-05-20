@@ -11,7 +11,8 @@ import {
   SCTableCellSvg,
   SCTableCellText,
   SCTableHidden,
-  SCTableOverlayText
+  SCTableOverlayText,
+  SCCreateFormFieldSet
 } from './styles';
 
 const pasteTableHeaders = [
@@ -66,32 +67,37 @@ const ConfigPaste = ({configPaste, onChange}) => {
           headers={pasteTableHeaders}
           body={renderPasteCells(global.pastes)}
         />
-        <Text
-          placeholder='Paste'
-          selected={newPaste.value}
-          onChange={({ selected }) => {
-            setNewPaste({ label: newPaste.label, value: selected});
-          }}
-        />
-        <Text
-          placeholder='Description'
-          selected={newPaste.label}
-          onChange={({ selected }) => {
-            setNewPaste({ label: selected, value: newPaste.value});
-          }}
-        />
-        <Button
-          classColor="primary"
-          label="Add Paste"
-          onClick={() => {
-            if(newPaste.label && newPaste.value) {
-              const updatedPaste = [newPaste].concat(pasteConfiguration);
+        <form>
+          <SCCreateFormFieldSet>
+            <legend>Create New Copy/Paste</legend>
+            <Text
+              placeholder='Paste'
+              selected={newPaste.value}
+              onChange={({ selected }) => {
+                setNewPaste({ label: newPaste.label, value: selected});
+              }}
+            />
+            <Text
+              placeholder='Description'
+              selected={newPaste.label}
+              onChange={({ selected }) => {
+                setNewPaste({ label: selected, value: newPaste.value});
+              }}
+            />
+            <Button
+              classColor="primary"
+              label="Submit"
+              onClick={() => {
+                if(newPaste.label && newPaste.value) {
+                  const updatedPaste = [newPaste].concat(pasteConfiguration);
 
-              setNewPaste({ label: '', value: ''});
-              onChange(updatedPaste);
-            }
-          }}
-        />
+                  setNewPaste({ label: '', value: ''});
+                  onChange(updatedPaste);
+                }
+              }}
+            />
+          </ SCCreateFormFieldSet>
+        </form>
       </div>
     </div>
   );

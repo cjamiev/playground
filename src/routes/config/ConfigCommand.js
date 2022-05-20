@@ -26,7 +26,7 @@ const ConfigCommand = ({configCommands, onChange}) => {
     return commandConfiguration.map(commandname => {
       return (
         <tr key={commandname.value}>
-          <SCTableCell><span>{commandname.value}</span></SCTableCell>
+          <SCTableCell isFirstCell ><span>{commandname.value}</span></SCTableCell>
           <SCTableCell>
             <SCTableCellText>
               <Text

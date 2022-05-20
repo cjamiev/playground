@@ -9,7 +9,8 @@ import {
   SCTableCell,
   SCTableCellIcon,
   SCTableCellSvg,
-  SCTableCellText
+  SCTableCellText,
+  SCCreateFormFieldSet
 } from './styles';
 
 const linkTableHeaders = [
@@ -110,32 +111,37 @@ const ConfigLink = ({configLinks, onChange}) => {
             onChange(linkConfiguration);
           }}
         />
-        <Text
-          placeholder='Link'
-          selected={newLink.value}
-          onChange={({ selected }) => {
-            setNewLink({ label: newLink.label, value: selected});
-          }}
-        />
-        <Text
-          placeholder='Description'
-          selected={newLink.label}
-          onChange={({ selected }) => {
-            setNewLink({ label: selected, value: newLink.value, id: linkConfiguration.length});
-          }}
-        />
-        <Button
-          classColor="primary"
-          label="Add Link"
-          onClick={() => {
-            if(newLink.label && newLink.value) {
-              const updatedLinks = [newLink].concat(linkConfiguration);
+        <form>
+          <SCCreateFormFieldSet>
+            <legend> Create New Link </legend>
+            <Text
+              placeholder='Link'
+              selected={newLink.value}
+              onChange={({ selected }) => {
+                setNewLink({ label: newLink.label, value: selected});
+              }}
+            />
+            <Text
+              placeholder='Description'
+              selected={newLink.label}
+              onChange={({ selected }) => {
+                setNewLink({ label: selected, value: newLink.value, id: linkConfiguration.length});
+              }}
+            />
+            <Button
+              classColor="primary"
+              label="Submit"
+              onClick={() => {
+                if(newLink.label && newLink.value) {
+                  const updatedLinks = [newLink].concat(linkConfiguration);
 
-              setNewLink({ label: '', value: ''});
-              onChange(updatedLinks);
-            }
-          }}
-        />
+                  setNewLink({ label: '', value: ''});
+                  onChange(updatedLinks);
+                }
+              }}
+            />
+          </SCCreateFormFieldSet>
+        </form>
       </div>
     </div>
   );

@@ -9,7 +9,8 @@ import {
   SCTableCellIcon,
   SCTableCellSvg,
   SCTableCellText,
-  SCTableHidden
+  SCTableHidden,
+  SCCreateFormFieldSet
 } from './styles';
 
 const directoriesTableHeaders = [
@@ -30,7 +31,7 @@ const Config = ({ directories, onChange }) => {
     return projectDirectories.map(filepath => {
       return (
         <tr key={filepath}>
-          <SCTableCell>{filepath}</SCTableCell>
+          <SCTableCell isFirstCell><span>{filepath}</span></SCTableCell>
           <SCTableCellIcon>
             <SCTableCellSvg
               aria-label='Delete'
@@ -59,22 +60,27 @@ const Config = ({ directories, onChange }) => {
           headers={directoriesTableHeaders}
           body={renderDirectoryCells()}
         />
-        <Text
-          placeholder='New Directory'
-          selected={newDir}
-          onChange={({ selected }) => {
-            setNewDir(selected);
-          }}
-        />
-        <Button
-          classColor="primary"
-          label="Add Directory"
-          onClick={() => {
-            const updatedDirectories = [newDir].concat(projectDirectories);
+        <form>
+          <SCCreateFormFieldSet>
+            <legend> Create New Directory </legend>
+            <Text
+              placeholder='New Directory'
+              selected={newDir}
+              onChange={({ selected }) => {
+                setNewDir(selected);
+              }}
+            />
+            <Button
+              classColor="primary"
+              label="Add Directory"
+              onClick={() => {
+                const updatedDirectories = [newDir].concat(projectDirectories);
 
-            onChange(updatedDirectories);
-          }}
-        />
+                onChange(updatedDirectories);
+              }}
+            />
+          </SCCreateFormFieldSet>
+        </form>
       </div>
     </div>
   );

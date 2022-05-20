@@ -134,3 +134,17 @@ export const SCTableOverlayText = styled.span`
     display: none;
   }
 `;
+
+export const SCCreateFormFieldSet = styled.fieldset`
+  width: 350px;
+  margin-top: 10px;
+  padding: 10px;
+  border-width: 2px;
+  border-style: groove;
+  border-color: threedface;
+  border-image: initial;
+
+  div {
+    margin-bottom: 10px;
+  }
+`;
