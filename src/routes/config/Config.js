@@ -14,7 +14,6 @@ const Config = () => {
   const [tab, setTab] = useState('commands');
   const { directories, regexes } = useSelector(state => state.project);
   const config = useSelector(state => state.config);
-  const global = useSelector(state => state.global);
 
   useEffect(() => {
     dispatch(loadProject());
@@ -65,12 +64,10 @@ const Config = () => {
         </SCTabButton>
       </SCTabButtonGroup>
       {tab === 'commands' && <ConfigCommand
-        globalCommands={global.commands}
         configCommands={config.commands}
         onChange={handleCommandChange}
       />}
       {tab === 'links' && <ConfigLink
-        globalLinks={global.links}
         configLinks={config.links}
         onChange={handleLinkChange}
       />}

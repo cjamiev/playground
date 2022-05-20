@@ -3,22 +3,18 @@ import { useDispatch } from 'react-redux';
 import { updateConfig } from './configActions';
 import Button from 'components/button';
 import Text from 'components/form/Text';
-import { EyeSVG } from 'components/icons/EyeSVG';
 import { Table } from './ConfigTable';
 import {
   SCTableCell,
-  SCTableCellIcon,
-  SCTableCellSvg,
   SCTableCellText
 } from './styles';
 
 const commandTableHeaders = [
-  { label: 'Q' },
   { label: 'File' },
   { label: 'Description' }
 ];
 
-const ConfigCommand = ({globalCommands, configCommands, onChange}) => {
+const ConfigCommand = ({configCommands, onChange}) => {
   const dispatch = useDispatch();
   const [commandConfiguration, setCommandConfiguration] = useState([]);
 
@@ -27,40 +23,17 @@ const ConfigCommand = ({globalCommands, configCommands, onChange}) => {
   },[configCommands]);
 
   const renderCommandCells = () => {
-    return globalCommands.map(commandname => {
-      const matched = commandConfiguration.find(item => item.value === commandname);
-      const label = matched ? matched.label : '';
-      const handleClick = () => {
-        const updatedCommandConfiguration = matched
-          ? commandConfiguration.filter(item => item.value !== commandname)
-          : [{ label: commandname, value: commandname }].concat(commandConfiguration);
-
-        setCommandConfiguration(updatedCommandConfiguration);
-      };
-
+    return commandConfiguration.map(commandname => {
       return (
-        <tr key={commandname}>
-          <SCTableCellIcon isFirstCell onClick={handleClick}>
-            <SCTableCellSvg
-              aria-label='Hide or Show'
-              width="45"
-              height="53"
-              viewBox="0 0 53 53">
-              <EyeSVG
-                conditions={{ showCross: matched}}
-                transform={'scale(0.6) translate(12,-5)'}
-              />
-            </SCTableCellSvg>
-          </SCTableCellIcon>
-          <SCTableCell><span>{commandname}</span></SCTableCell>
+        <tr key={commandname.value}>
+          <SCTableCell><span>{commandname.value}</span></SCTableCell>
           <SCTableCell>
-            {matched ? <SCTableCellText>
+            <SCTableCellText>
               <Text
-                placeholder={commandname}
-                selected={label}
+                selected={commandname.label}
                 onChange={({ selected }) => {
                   const updatedCommandConfiguration = commandConfiguration.map(item => {
-                    if(item.value === commandname) {
+                    if(item.value === commandname.value) {
                       return {
                         ...item,
                         label: selected
@@ -73,7 +46,7 @@ const ConfigCommand = ({globalCommands, configCommands, onChange}) => {
                   setCommandConfiguration(updatedCommandConfiguration);
                 }}
               />
-            </SCTableCellText>: <span>N/A</span>}
+            </SCTableCellText>
           </SCTableCell>
         </tr>
       );
@@ -90,7 +63,7 @@ const ConfigCommand = ({globalCommands, configCommands, onChange}) => {
         />
         <Button
           classColor="primary"
-          label="Update Commands"
+          label="Update"
           onClick={() => {
             onChange(commandConfiguration);
           }}

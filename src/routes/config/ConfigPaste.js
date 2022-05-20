@@ -37,28 +37,7 @@ const ConfigPaste = ({configPaste, onChange}) => {
             <SCTableHidden>{pasteItem.value}</SCTableHidden>
             <SCTableOverlayText>Click To See</SCTableOverlayText>
           </SCTableCell>
-          <SCTableCell>
-            <SCTableCellText>
-              <Text
-                placeholder={pasteItem.label}
-                selected={pasteItem.label}
-                onChange={({ selected }) => {
-                  const updatedPasteConfig = pasteConfiguration.map(item => {
-                    if(item.value === pasteItem.value) {
-                      return {
-                        ...item,
-                        label: selected
-                      };
-                    }
-
-                    return item;
-                  });
-
-                  setPasteConfiguration(updatedPasteConfig);
-                }}
-              />
-            </SCTableCellText>
-          </SCTableCell>
+          <SCTableCell><span>{pasteItem.label}</span></SCTableCell>
           <SCTableCellIcon>
             <SCTableCellSvg
               aria-label='Delete'
@@ -86,13 +65,6 @@ const ConfigPaste = ({configPaste, onChange}) => {
         <Table
           headers={pasteTableHeaders}
           body={renderPasteCells(global.pastes)}
-        />
-        <Button
-          classColor="primary"
-          label="Update Paste"
-          onClick={() => {
-            onChange(pasteConfiguration);
-          }}
         />
         <Text
           placeholder='Paste'

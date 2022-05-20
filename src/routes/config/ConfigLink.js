@@ -18,7 +18,7 @@ const linkTableHeaders = [
   { label: 'Action' }
 ];
 
-const ConfigLink = ({globalLinks, configLinks, onChange}) => {
+const ConfigLink = ({configLinks, onChange}) => {
   const dispatch = useDispatch();
   const [newLink, setNewLink] = useState({ label: '', value: ''});
   const [linkConfiguration, setLinkConfiguration] = useState([]);
@@ -105,7 +105,7 @@ const ConfigLink = ({globalLinks, configLinks, onChange}) => {
         />
         <Button
           classColor="primary"
-          label="Update Links"
+          label="Update"
           onClick={() => {
             onChange(linkConfiguration);
           }}

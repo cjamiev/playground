@@ -9,6 +9,7 @@ import { CopyFileSVG } from 'components/icons/CopyFileSVG';
 import { PlaySVG } from 'components/icons/PlaySVG';
 
 const QuickAccessList = ({mode}) => {
+  const dispatch = useDispatch();
   const { commands, links, paste } = useSelector(state => state.config);
 
   if(mode === 'c') {
@@ -53,7 +54,6 @@ const QuickAccessList = ({mode}) => {
 
 const PageQuickAccess = () => {
   const ref = useRef();
-  const dispatch = useDispatch();
   const [mode, setMode] = useState('');
   useOnClickOutside(ref, () => setMode(''));
 
