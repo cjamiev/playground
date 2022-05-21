@@ -1,7 +1,4 @@
-import {
-  LOAD_PROJECT,
-  CLEAR_MESSAGE
-} from './projectActions';
+import { LOAD_PROJECT, CLEAR_MESSAGE } from './projectActions';
 import {
   LOAD_REMOTE_URL,
   DELETE_BRANCH,
@@ -15,24 +12,9 @@ import {
   LOAD_VIEW_STASH,
   RESET_BRANCH
 } from './git/gitActions';
-import {
-  LOAD_PACKAGE,
-  LOAD_VERSIONS,
-  RUN_SCRIPT,
-  UPDATE_PACKAGE
-} from './package/npmPackageActions';
-import {
-  UPDATE_FILES_BY_REGEX
-} from './regex/regexActions';
-import {
-  LOAD_TEMPLATE_DIRECTORY,
-  LOAD_TEMPLATE,
-  CREATE_FILES_FROM_TEMPLATES
-} from './template/templateActions';
-import {
-  LOAD_SNIPPET_DIRECTORY,
-  LOAD_SNIPPET
-} from './snippet/snippetActions';
+import { LOAD_PACKAGE, LOAD_VERSIONS, RUN_SCRIPT, UPDATE_PACKAGE } from './package/npmPackageActions';
+import { UPDATE_FILES_BY_REGEX } from './regex/regexActions';
+import { LOAD_SNIPPET_DIRECTORY, LOAD_SNIPPET } from './snippet/snippetActions';
 
 export const projectInitialState = {
   directories: [],
@@ -50,8 +32,6 @@ export const projectInitialState = {
     dependencies: {},
     devDependencies: {}
   },
-  templates: [],
-  tempateFile: '',
   snippets: [],
   snippetFile: '',
   message: ''
@@ -69,7 +49,7 @@ const projectReducer = (state = projectInitialState, action) => {
     [LOAD_REMOTE_URL]: () => {
       return {
         ...state,
-        remoteUrl: action.data.replace('\n','')
+        remoteUrl: action.data.replace('\n', '')
       };
     },
     [DELETE_BRANCH]: () => {
@@ -101,8 +81,8 @@ const projectReducer = (state = projectInitialState, action) => {
         ...state,
         branches: action.data
           .split('\n')
-          .filter(item => Boolean(item))
-          .map(item => item.replace(/[*]?[ ]*/g, ''))
+          .filter((item) => Boolean(item))
+          .map((item) => item.replace(/[*]?[ ]*/g, ''))
       };
     },
     [CREATE_STASH]: () => {
@@ -160,24 +140,6 @@ const projectReducer = (state = projectInitialState, action) => {
       };
     },
     [UPDATE_FILES_BY_REGEX]: () => {
-      return {
-        ...state,
-        message: action.message
-      };
-    },
-    [LOAD_TEMPLATE_DIRECTORY]: () => {
-      return {
-        ...state,
-        templates: action.data
-      };
-    },
-    [LOAD_TEMPLATE]: () => {
-      return {
-        ...state,
-        templateFile: action.data
-      };
-    },
-    [CREATE_FILES_FROM_TEMPLATES]: () => {
       return {
         ...state,
         message: action.message
