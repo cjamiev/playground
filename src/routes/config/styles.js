@@ -1,15 +1,19 @@
 import styled from 'styled-components';
-import { colors } from 'styles';
+import { colors, media } from 'styles';
 
 export const SCConfigWrapper = styled.div`
   display: flex;
   column-gap: 20px;
+
+  ${media.getMediaQuery(media.S, media.M)} {
+    flex-direction: column;
+  }
 `;
 
 export const SCTabButtonGroup = styled.div`
   display: flex;
-  height: 40px;
-  padding-top: 5px;
+  height: 50px;
+  padding: 10px;
   margin-bottom: 20px;
   background-color: ${colors.primaryDarkColor};
 `;
@@ -26,9 +30,9 @@ export const SCTabButton = styled.button`
   ${(props) =>
     props.isActive &&
     `
-    color: hsl(263, 25%, 76%);
+    color: hsl(240, 85%, 75%);
     background: ${colors.secondaryDarkColor};
-    box-shadow: 0px 2px 10px #845EC2;
+    box-shadow: 0px 2px 10px hsl(230, 85%, 75%);
     transform: translateY(1px);
   `};
 `;
