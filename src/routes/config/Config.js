@@ -2,12 +2,41 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateConfig } from './configActions';
 import { loadProject, updateProject } from 'routes/project/projectActions';
-import ConfigCommand from './ConfigCommand';
-import ConfigLink from './ConfigLink';
-import ConfigCopy from './ConfigCopy';
-import ConfigDirectory from './ConfigDirectory';
+import ConfigTab from './ConfigTab';
 import Page from 'components/layout';
 import { SCTabButtonGroup, SCTabButton } from './styles';
+
+const commandLabels = {
+  title: 'Commands',
+  tableHeaders: [{ label: 'Description' }, { label: 'File' }, { label: 'Delete' }],
+  legend: 'Create New Command',
+  inputLabel: 'Description',
+  inputValue: 'File'
+};
+
+const linkLabels = {
+  title: 'Links',
+  tableHeaders: [{ label: 'Description' }, { label: 'URL' }, { label: 'Delete' }],
+  legend: 'Create New Link',
+  inputLabel: 'Description',
+  inputValue: 'URL'
+};
+
+const copyLabels = {
+  title: 'Copies',
+  tableHeaders: [{ label: 'Description' }, { label: 'Value' }, { label: 'Delete' }],
+  legend: 'Create New Copy/Paste',
+  inputLabel: 'Description',
+  inputValue: 'Value'
+};
+
+const directoryLabels = {
+  title: 'Directories',
+  tableHeaders: [{ label: 'Description' }, { label: 'Path' }, { label: 'Delete' }],
+  legend: 'Create New Directory',
+  inputLabel: 'Description',
+  inputValue: 'Path'
+};
 
 const Config = () => {
   const dispatch = useDispatch();
@@ -71,10 +100,14 @@ const Config = () => {
           Directory
         </SCTabButton>
       </SCTabButtonGroup>
-      {tab === 'commands' && <ConfigCommand configCommands={config.commands} onChange={handleCommandChange} />}
-      {tab === 'links' && <ConfigLink configLinks={config.links} onChange={handleLinkChange} />}
-      {tab === 'copy' && <ConfigCopy configCopy={config.copy} onChange={handleCopyChange} />}
-      {tab === 'directory' && <ConfigDirectory directories={directories} onChange={handleDirectoryChange} />}
+      {tab === 'commands' && (
+        <ConfigTab configData={config.commands} labels={commandLabels} onChange={handleCommandChange} />
+      )}
+      {tab === 'links' && <ConfigTab configData={config.links} labels={linkLabels} onChange={handleLinkChange} />}
+      {tab === 'copy' && <ConfigTab configData={config.copy} labels={copyLabels} onChange={handleCopyChange} />}
+      {tab === 'directory' && (
+        <ConfigTab configData={directories} labels={directoryLabels} onChange={handleDirectoryChange} />
+      )}
     </Page>
   );
 };

@@ -133,7 +133,6 @@ export const SCTableOverlayText = styled.span`
 
 export const SCCreateFormFieldSet = styled.fieldset`
   width: 350px;
-  margin-top: 10px;
   padding: 10px;
   border-width: 2px;
   border-style: groove;
