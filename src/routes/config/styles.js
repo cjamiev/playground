@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import { colors } from 'styles';
 
+export const SCConfigWrapper = styled.div`
+  display: flex;
+  column-gap: 20px;
+`;
+
 export const SCTabButtonGroup = styled.div`
   display: flex;
   margin-bottom: 20px;

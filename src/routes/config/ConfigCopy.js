@@ -6,6 +6,7 @@ import Text from 'components/form/Text';
 import { TrashSVG } from 'components/icons/TrashSVG';
 import { Table } from './ConfigTable';
 import {
+  SCConfigWrapper,
   SCTableCell,
   SCTableCellIcon,
   SCTableCellSvg,
@@ -60,7 +61,7 @@ const ConfigCopy = ({ configCopy, onChange }) => {
   return (
     <div>
       <h2> Copy </h2>
-      <div>
+      <SCConfigWrapper>
         {copyConfiguration.length > ZERO ? (
           <Table headers={copyTableHeaders} body={renderCopyCells()} />
         ) : (
@@ -97,7 +98,7 @@ const ConfigCopy = ({ configCopy, onChange }) => {
             />
           </SCCreateFormFieldSet>
         </form>
-      </div>
+      </SCConfigWrapper>
     </div>
   );
 };

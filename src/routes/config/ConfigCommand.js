@@ -5,7 +5,7 @@ import Text from 'components/form/Text';
 import { TrashSVG } from 'components/icons/TrashSVG';
 import { updateConfig } from './configActions';
 import { Table } from './ConfigTable';
-import { SCTableCell, SCTableCellIcon, SCTableCellSvg, SCCreateFormFieldSet } from './styles';
+import { SCConfigWrapper, SCTableCell, SCTableCellIcon, SCTableCellSvg, SCCreateFormFieldSet } from './styles';
 
 const commandTableHeaders = [{ label: 'Description' }, { label: 'File' }, { label: 'Delete' }];
 
@@ -51,7 +51,7 @@ const ConfigCommand = ({ configCommands, onChange }) => {
   return (
     <div>
       <h2> Commands </h2>
-      <div>
+      <SCConfigWrapper>
         <Table headers={commandTableHeaders} body={renderCommandCells(global.commands)} />
         <form>
           <SCCreateFormFieldSet>
@@ -81,7 +81,7 @@ const ConfigCommand = ({ configCommands, onChange }) => {
             />
           </SCCreateFormFieldSet>
         </form>
-      </div>
+      </SCConfigWrapper>
     </div>
   );
 };

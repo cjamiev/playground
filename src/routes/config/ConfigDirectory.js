@@ -4,7 +4,14 @@ import Button from 'components/button';
 import Text from 'components/form/Text';
 import { TrashSVG } from 'components/icons/TrashSVG';
 import { Table } from './ConfigTable';
-import { SCTableCell, SCTableCellIcon, SCTableCellSvg, SCTableHidden, SCCreateFormFieldSet } from './styles';
+import {
+  SCConfigWrapper,
+  SCTableCell,
+  SCTableCellIcon,
+  SCTableCellSvg,
+  SCTableHidden,
+  SCCreateFormFieldSet
+} from './styles';
 
 const directoriesTableHeaders = [{ label: 'Description' }, { label: 'Path' }, { label: 'Delete' }];
 
@@ -50,7 +57,7 @@ const ConfigDirectory = ({ directories, onChange }) => {
   return (
     <div>
       <h2> Directory </h2>
-      <div>
+      <SCConfigWrapper>
         <Table headers={directoriesTableHeaders} body={renderDirectoryCells()} />
         <form>
           <SCCreateFormFieldSet>
@@ -80,7 +87,7 @@ const ConfigDirectory = ({ directories, onChange }) => {
             />
           </SCCreateFormFieldSet>
         </form>
-      </div>
+      </SCConfigWrapper>
     </div>
   );
 };

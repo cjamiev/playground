@@ -5,7 +5,7 @@ import { Table } from './ConfigTable';
 import Button from 'components/button';
 import Text from 'components/form/Text';
 import { TrashSVG } from 'components/icons/TrashSVG';
-import { SCTableCell, SCTableCellIcon, SCTableCellSvg, SCCreateFormFieldSet } from './styles';
+import { SCConfigWrapper, SCTableCell, SCTableCellIcon, SCTableCellSvg, SCCreateFormFieldSet } from './styles';
 
 const linkTableHeaders = [{ label: 'Description' }, { label: 'URL' }, { label: 'Delete' }];
 
@@ -51,7 +51,7 @@ const ConfigLink = ({ configLinks, onChange }) => {
   return (
     <div>
       <h2> Links </h2>
-      <div>
+      <SCConfigWrapper>
         <Table headers={linkTableHeaders} body={renderLinkCells(global.links)} />
         <form>
           <SCCreateFormFieldSet>
@@ -84,7 +84,7 @@ const ConfigLink = ({ configLinks, onChange }) => {
             />
           </SCCreateFormFieldSet>
         </form>
-      </div>
+      </SCConfigWrapper>
     </div>
   );
 };
