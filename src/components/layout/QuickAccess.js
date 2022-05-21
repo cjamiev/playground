@@ -10,9 +10,9 @@ import { PlaySVG } from 'components/icons/PlaySVG';
 
 const QuickAccessList = ({mode}) => {
   const dispatch = useDispatch();
-  const { commands, links, paste } = useSelector(state => state.config);
+  const { commands, links, copy } = useSelector(state => state.config);
 
-  if(mode === 'c') {
+  if(mode === 'e') {
     return <>{commands.map((item, index) => {
       return (
         <SCQuickAccessListBtn
@@ -36,8 +36,8 @@ const QuickAccessList = ({mode}) => {
       );
     })}</>;
   }
-  if(mode === 'p') {
-    return <>{paste.map((item, index) => {
+  if(mode === 'c') {
+    return <>{copy.map((item, index) => {
       return (
         <SCQuickAccessListBtn
           key={item.label}
@@ -57,13 +57,13 @@ const PageQuickAccess = () => {
   const [mode, setMode] = useState('');
   useOnClickOutside(ref, () => setMode(''));
 
-  const showCommands = () => setMode('c');
+  const showCommands = () => setMode('e');
   const showLinks = () => setMode('l');
-  const showPaste = () => setMode('p');
+  const showPaste = () => setMode('c');
 
   return <SCQuickAccess ref={ref}>
     <SCQuickAccessBtnGroup>
-      <SCQuickAccessBtn isActive={mode === 'c'} onClick={showCommands}>
+      <SCQuickAccessBtn isActive={mode === 'e'} onClick={showCommands}>
         <svg
           aria-label='Commands'
           width="45"
@@ -82,7 +82,7 @@ const PageQuickAccess = () => {
           <StarSVG transform='scale(0.7) translate(10,6)'/>
         </svg>
       </SCQuickAccessBtn>
-      <SCQuickAccessBtn isActive={mode === 'p'} onClick={showPaste}>
+      <SCQuickAccessBtn isActive={mode === 'c'} onClick={showPaste}>
         <svg
           aria-label='Copy and Paste'
           width="45"

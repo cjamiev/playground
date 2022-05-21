@@ -5,90 +5,42 @@ import { Table } from './ConfigTable';
 import Button from 'components/button';
 import Text from 'components/form/Text';
 import { TrashSVG } from 'components/icons/TrashSVG';
-import {
-  SCTableCell,
-  SCTableCellIcon,
-  SCTableCellSvg,
-  SCTableCellText,
-  SCCreateFormFieldSet
-} from './styles';
+import { SCTableCell, SCTableCellIcon, SCTableCellSvg, SCCreateFormFieldSet } from './styles';
 
-const linkTableHeaders = [
-  { label: 'Description' },
-  { label: 'URL' },
-  { label: 'Action' }
-];
+const linkTableHeaders = [{ label: 'Description' }, { label: 'URL' }, { label: 'Delete' }];
 
-const ConfigLink = ({configLinks, onChange}) => {
+const ConfigLink = ({ configLinks, onChange }) => {
   const dispatch = useDispatch();
-  const [newLink, setNewLink] = useState({ label: '', value: ''});
+  const [newLink, setNewLink] = useState({ label: '', value: '' });
   const [linkConfiguration, setLinkConfiguration] = useState([]);
 
   useEffect(() => {
     setLinkConfiguration(configLinks);
-  },[configLinks]);
+  }, [configLinks]);
 
   const renderLinkCells = () => {
-    return linkConfiguration.map(linkItem => {
+    return linkConfiguration.map((linkItem) => {
       return (
-        <tr key={linkItem.id}>
+        <tr key={linkItem.label}>
           <SCTableCell isFirstCell>
-            <SCTableCellText>
-              <Text
-                placeholder={linkItem.label}
-                selected={linkItem.label}
-                onChange={({ selected }) => {
-                  const updatedLinkConfig = linkConfiguration.map(item => {
-                    if(item.id === linkItem.id) {
-                      return {
-                        ...item,
-                        label: selected
-                      };
-                    }
-
-                    return item;
-                  });
-
-                  setLinkConfiguration(updatedLinkConfig);
-                }}
-              />
-            </SCTableCellText>
+            <span>{linkItem.label}</span>
           </SCTableCell>
           <SCTableCell>
-            <SCTableCellText>
-              <Text
-                placeholder={linkItem.value}
-                selected={linkItem.value}
-                onChange={({ selected }) => {
-                  const updatedLinkConfig = linkConfiguration.map(item => {
-                    if(item.id === linkItem.id) {
-                      return {
-                        ...item,
-                        value: selected
-                      };
-                    }
-
-                    return item;
-                  });
-
-                  setLinkConfiguration(updatedLinkConfig);
-                }}
-              />
-            </SCTableCellText>
+            <span>{linkItem.value}</span>
           </SCTableCell>
           <SCTableCellIcon>
             <SCTableCellSvg
-              aria-label='Delete'
+              aria-label="Delete"
               width="45"
               height="53"
-              viewBox="0 0 53 53">
-              <TrashSVG
-                transform={'scale(0.6) translate(35,-2)'}
-                onClick={() => {
-                  const updatedLinkConfig = linkConfiguration.filter(item => item.value !== linkItem.value);
+              viewBox="0 0 53 53"
+              onClick={() => {
+                const updatedLinkConfig = linkConfiguration.filter((item) => item.value !== linkItem.value);
 
-                  onChange(updatedLinkConfig);
-                }} />
+                onChange(updatedLinkConfig);
+              }}
+            >
+              <TrashSVG transform={'scale(0.6) translate(35,-2)'} />
             </SCTableCellSvg>
           </SCTableCellIcon>
         </tr>
@@ -100,42 +52,32 @@ const ConfigLink = ({configLinks, onChange}) => {
     <div>
       <h2> Links </h2>
       <div>
-        <Table
-          headers={linkTableHeaders}
-          body={renderLinkCells(global.links)}
-        />
-        <Button
-          classColor="primary"
-          label="Update"
-          onClick={() => {
-            onChange(linkConfiguration);
-          }}
-        />
+        <Table headers={linkTableHeaders} body={renderLinkCells(global.links)} />
         <form>
           <SCCreateFormFieldSet>
             <legend> Create New Link </legend>
             <Text
-              placeholder='Description'
+              placeholder="Description"
               selected={newLink.label}
               onChange={({ selected }) => {
-                setNewLink({ label: selected, value: newLink.value, id: linkConfiguration.length});
+                setNewLink({ label: selected, value: newLink.value, id: linkConfiguration.length });
               }}
             />
             <Text
-              placeholder='Link'
+              placeholder="Link"
               selected={newLink.value}
               onChange={({ selected }) => {
-                setNewLink({ label: newLink.label, value: selected});
+                setNewLink({ label: newLink.label, value: selected });
               }}
             />
             <Button
               classColor="primary"
               label="Submit"
               onClick={() => {
-                if(newLink.label && newLink.value) {
+                if (newLink.label && newLink.value) {
                   const updatedLinks = [newLink].concat(linkConfiguration);
 
-                  setNewLink({ label: '', value: ''});
+                  setNewLink({ label: '', value: '' });
                   onChange(updatedLinks);
                 }
               }}

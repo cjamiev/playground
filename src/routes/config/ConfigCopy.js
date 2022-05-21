@@ -9,45 +9,42 @@ import {
   SCTableCell,
   SCTableCellIcon,
   SCTableCellSvg,
-  SCTableCellText,
   SCTableHidden,
   SCTableOverlayText,
   SCCreateFormFieldSet
 } from './styles';
 
-const copyTableHeaders = [
-  { label: 'Description' },
-  { label: 'Value' },
-  { label: 'Action' }
-];
+const copyTableHeaders = [{ label: 'Description' }, { label: 'Value' }, { label: 'Delete' }];
 const ZERO = 0;
 
-const ConfigCopy = ({configCopy, onChange}) => {
+const ConfigCopy = ({ configCopy, onChange }) => {
   const dispatch = useDispatch();
-  const [newCopy, setNewCopy] = useState({ label: '', value: ''});
+  const [newCopy, setNewCopy] = useState({ label: '', value: '' });
   const [copyConfiguration, setCopyConfiguration] = useState([]);
 
   useEffect(() => {
     setCopyConfiguration(configCopy);
-  },[configCopy]);
+  }, [configCopy]);
 
   const renderCopyCells = () => {
-    return copyConfiguration.map(copyItem => {
+    return copyConfiguration.map((copyItem) => {
       return (
         <tr key={copyItem.value}>
-          <SCTableCell isFirstCell><span>{copyItem.label}</span></SCTableCell>
+          <SCTableCell isFirstCell>
+            <span>{copyItem.label}</span>
+          </SCTableCell>
           <SCTableCell isClickable>
             <SCTableHidden>{copyItem.value}</SCTableHidden>
             <SCTableOverlayText>Click To See</SCTableOverlayText>
           </SCTableCell>
           <SCTableCellIcon>
             <SCTableCellSvg
-              aria-label='Delete'
+              aria-label="Delete"
               width="45"
               height="53"
               viewBox="0 0 53 53"
               onClick={() => {
-                const updatedCopyConfig = copyConfiguration.filter(item => item.value !== copyItem.value);
+                const updatedCopyConfig = copyConfiguration.filter((item) => item.value !== copyItem.value);
 
                 onChange(updatedCopyConfig);
               }}
@@ -64,40 +61,41 @@ const ConfigCopy = ({configCopy, onChange}) => {
     <div>
       <h2> Copy </h2>
       <div>
-        {copyConfiguration.length > ZERO ? <Table
-          headers={copyTableHeaders}
-          body={renderCopyCells()}
-        /> : <span> No Entries Found </span>}
+        {copyConfiguration.length > ZERO ? (
+          <Table headers={copyTableHeaders} body={renderCopyCells()} />
+        ) : (
+          <span> No Entries Found </span>
+        )}
         <form>
           <SCCreateFormFieldSet>
             <legend>Create New Copy/Paste</legend>
             <Text
-              placeholder='Description'
+              placeholder="Description"
               selected={newCopy.label}
               onChange={({ selected }) => {
-                setNewCopy({ label: selected, value: newCopy.value});
+                setNewCopy({ label: selected, value: newCopy.value });
               }}
             />
             <Text
-              placeholder='Copy'
+              placeholder="Copy"
               selected={newCopy.value}
               onChange={({ selected }) => {
-                setNewCopy({ label: newCopy.label, value: selected});
+                setNewCopy({ label: newCopy.label, value: selected });
               }}
             />
             <Button
               classColor="primary"
               label="Submit"
               onClick={() => {
-                if(newCopy.label && newCopy.value) {
+                if (newCopy.label && newCopy.value) {
                   const updatedCopy = [newCopy].concat(copyConfiguration);
 
-                  setNewCopy({ label: '', value: ''});
+                  setNewCopy({ label: '', value: '' });
                   onChange(updatedCopy);
                 }
               }}
             />
-          </ SCCreateFormFieldSet>
+          </SCCreateFormFieldSet>
         </form>
       </div>
     </div>

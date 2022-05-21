@@ -15,7 +15,9 @@ export const SCTabButton = styled.button`
   color: #fff;
   cursor: pointer;
 
-  ${props => props.isActive && `
+  ${(props) =>
+    props.isActive &&
+    `
     background: #0089BA;
     box-shadow: inset 1px 2px 5px #845EC2;
     transform: translateY(1px);
@@ -39,7 +41,8 @@ export const SCTableCellIcon = styled.td`
   padding: 0;
   cursor: pointer;
 
-  ${props => props.isFirstCell &&
+  ${(props) =>
+    props.isFirstCell &&
     `::before {
       position: absolute;
       content: '';
@@ -77,9 +80,10 @@ export const SCTableCell = styled.td`
     white-space: nowrap;
   }
 
-  ${props => props.isClickable && 'cursor: pointer'};
+  ${(props) => props.isClickable && 'cursor: pointer'};
 
-  ${props => props.isFirstCell &&
+  ${(props) =>
+    props.isFirstCell &&
     `::before {
       position: absolute;
       content: '';
@@ -105,32 +109,19 @@ export const SCTableCellSvg = styled.svg`
   top: 3px;
 `;
 
-export const SCTableCellText = styled.div`
-  position: absolute;
-  top: 5px;
-  left: 1px;
-
-  input {
-    background-color: var(--primary-bg-color);  
-    outline: none;
-    border: none;
-    width: 400px;
-  }
-`;
-
 export const SCTableHidden = styled.span`
   display: none;
   width: 100%;
 
-  ${SCTableCell}:active & {    
+  ${SCTableCell}:active & {
     display: inline;
   }
 `;
 
 export const SCTableOverlayText = styled.span`
   display: inline;
-  
-  ${SCTableCell}:active & {    
+
+  ${SCTableCell}:active & {
     display: none;
   }
 `;
