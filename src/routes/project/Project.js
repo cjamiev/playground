@@ -26,7 +26,7 @@ const TWELVE = 12;
 const Project = () => {
   const dispatch = useDispatch();
   const [root, setRoot] = useLocalStorage(LS_DIR_KEY, DEFAULT_DIR, false);
-  const { directories, regexes, packageJson, message } = useSelector(state => state.project);
+  const { directories, regexes, packageJson, message } = useSelector((state) => state.project);
   const [dirKeys, setDirKeys] = useState([]);
   const TABS = [
     { title: 'Git', component: ComponentWrapper(Git, { root }) },
@@ -38,10 +38,8 @@ const Project = () => {
   const debouncedRoot = useDebounce(root, TIME.A_SECOND);
 
   useEffect(() => {
-    const DIR_KEYS = directories.map(filepath => {
-      const name = filepath.length > TWELVE ? `...${filepath.substring(filepath.length - TWELVE)}` : filepath;
-
-      return { label: name, value: filepath, selected: false };
+    const DIR_KEYS = directories.map((item) => {
+      return { label: item.label, value: item.value, selected: false };
     });
     setDirKeys(DIR_KEYS);
   }, [directories, root]);
@@ -56,35 +54,38 @@ const Project = () => {
   }, [dispatch, debouncedRoot]);
 
   useEffect(() => {
-    if(message) {
-      const parsedResult = message.replace(/\\r/g,'').split('\n');
-      const renderResult = parsedResult.map((item,index) => {
+    if (message) {
+      const parsedResult = message.replace(/\\r/g, '').split('\n');
+      const renderResult = parsedResult.map((item, index) => {
         return <p key={index}>{item}</p>;
       });
-      dispatch(openGlobalModal(
-        {
+      dispatch(
+        openGlobalModal({
           title: 'Project Response',
           message: renderResult,
           beforeClose: () => {
             dispatch(clearMessage());
           }
-        }));
+        })
+      );
     }
   }, [dispatch, message]);
 
   return (
-    <Page sidePanelContent={
-      <div className="container--center">
-        <Dropdown
-          label="Directories"
-          values={dirKeys}
-          onChange={({ values }) => {
-            setRoot(values.find(item => item.selected).value);
-          }}
-        />
-        <span>{root}</span>
-      </div>
-    }>
+    <Page
+      sidePanelContent={
+        <div className="container--center">
+          <Dropdown
+            label="Directories"
+            values={dirKeys}
+            onChange={({ values }) => {
+              setRoot(values.find((item) => item.selected).value);
+            }}
+          />
+          <span>{root}</span>
+        </div>
+      }
+    >
       <Tabs data={TABS} />
     </Page>
   );
