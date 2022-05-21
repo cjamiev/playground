@@ -1,6 +1,5 @@
-/* eslint-disable no-magic-numbers */
 import styled, { css, keyframes } from 'styled-components';
-import { colors } from 'styles';
+import { Theme } from 'styles';
 
 const fadeIn = keyframes`
   0% {
@@ -48,7 +47,7 @@ export const SCLayout = styled.div`
 
 export const SCPageWrapper = styled.div`
   padding-left: 10px;
-  width: ${props => (props.isSideBarFullSize ? '0px' : '100%')};
+  width: ${(props) => (props.isSideBarFullSize ? '0px' : '100%')};
 `;
 
 export const SCPageHeader = styled.div`
@@ -65,21 +64,28 @@ export const SCPageHeaderTitle = styled.h1`
 
 export const SCSidepanel = styled.div`
   border-right: 1px solid rgb(228, 228, 228);
-  animation: ${props => (props.isTransitioningOut
-    ? css`${slideOut} 500ms ease-out 0s 1 normal forwards;`
-    : css`${slideIn} 500ms ease-out 0s 1 normal forwards;`)}
-
-  ${props => (props.isFullSize ? 'width: 100%' : 'width: 650px')}
+  animation: ${({ isTransitioningOut }) => {
+    return isTransitioningOut
+      ? css`
+          ${slideOut} 500ms ease-out 0s 1 normal forwards;
+        `
+      : css`
+          ${slideIn} 500ms ease-out 0s 1 normal forwards;
+        `;
+  }};
+  ${(props) => (props.isFullSize ? 'width: 100%' : 'width: 650px')};
 `;
 
 export const SCSidepanelHeader = styled.div`
-  ${props => (props.isFullSize
-    ? 'height: 60px;'
-    : `
+  ${({ isFullSize }) => {
+    return isFullSize
+      ? 'height: 60px;'
+      : `
       position: relative;
       height: 100px;
       white-space: nowrap;
-    `)}
+    `;
+  }}
 `;
 
 export const SCSidepanelTitle = styled.h2`
@@ -101,13 +107,13 @@ export const SCQuickAccess = styled.footer`
   left: calc(100% - 400px);
   display: flex;
   flex-direction: column;
-  background-color: ${colors.primaryDarkColor};
+  background-color: ${Theme.primaryDarkColor};
   border-radius: 10px 10px 0 0;
 `;
 
 export const SCQuickAccessBtnGroup = styled.div`
   display: flex;
-  border-bottom: 1px solid ${colors.secondaryDarkColor};
+  border-bottom: 1px solid ${Theme.secondaryDarkColor};
 `;
 
 export const SCQuickAccessBtn = styled.button`
@@ -115,12 +121,12 @@ export const SCQuickAccessBtn = styled.button`
   color: #fff;
   min-height: 50px;
   cursor: pointer;
-  background-color: ${colors.primaryDarkColor};
+  background-color: ${Theme.primaryDarkColor};
   flex: 1;
-  ${props => props.isActive && `background-color: ${colors.secondaryDarkColor};`};
-  
+  ${(props) => props.isActive && `background-color: ${Theme.secondaryDarkColor};`};
+
   :hover {
-    background-color: ${colors.secondaryDarkColor};
+    background-color: ${Theme.secondaryDarkColor};
     outline: none;
   }
 `;
@@ -128,8 +134,8 @@ export const SCQuickAccessBtn = styled.button`
 export const SCQuickAccessList = styled.div`
   display: flex;
   flex-direction: column;
-  height: ${props => (props.isVisible ? '500px' : '0px')};
-  background-color: ${colors.primaryDarkColor};
+  height: ${(props) => (props.isVisible ? '500px' : '0px')};
+  background-color: ${Theme.primaryDarkColor};
   margin-top: 20px;
   transition: height 500ms;
 `;
@@ -138,15 +144,15 @@ export const SCQuickAccessListBtn = styled.button`
   border: none;
   color: #fff;
   min-height: 50px;
-  background-color: ${colors.primaryDarkColor};
+  background-color: ${Theme.primaryDarkColor};
   cursor: pointer;
-  
+
   :hover {
-    background-color: ${colors.secondaryDarkColor};
+    background-color: ${Theme.secondaryDarkColor};
     outline: none;
   }
-  
+
   :active {
-    background-color: ${colors.primaryDarkMatchingGradient};
+    background-color: ${Theme.primaryDarkMatchingGradient};
   }
 `;

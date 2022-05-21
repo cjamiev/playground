@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { colors, media } from 'styles';
+import { Theme } from 'styles';
 
 export const SCConfigWrapper = styled.div`
   display: flex;
   column-gap: 20px;
 
-  ${media.getMediaQuery(media.S, media.M)} {
+  ${Theme.getMediaQuery(Theme.S, Theme.M)} {
     flex-direction: column;
   }
 `;
@@ -15,7 +15,7 @@ export const SCTabButtonGroup = styled.div`
   height: 50px;
   padding: 10px;
   margin-bottom: 20px;
-  background-color: ${colors.primaryDarkColor};
+  background-color: ${Theme.primaryDarkColor};
 `;
 
 export const SCTabButton = styled.button`
@@ -25,13 +25,13 @@ export const SCTabButton = styled.button`
   border-radius: 0;
   color: #fff;
   cursor: pointer;
-  background-color: ${colors.primaryDarkColor};
+  background-color: ${Theme.primaryDarkColor};
 
   ${(props) =>
     props.isActive &&
     `
     color: hsl(240, 85%, 75%);
-    background: ${colors.secondaryDarkColor};
+    background: ${Theme.secondaryDarkColor};
     box-shadow: 0px 2px 10px hsl(230, 85%, 75%);
     transform: translateY(1px);
   `};
