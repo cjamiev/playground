@@ -79,7 +79,6 @@ const ConfigTab = ({ configData, labels, isHidden = false, onChange }) => {
 
   return (
     <div>
-      <h2> {labels.title} </h2>
       <SCConfigWrapper>
         <div>
           <ConfigTable headers={labels.tableHeaders} body={renderCommandCells()} />

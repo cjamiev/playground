@@ -8,7 +8,10 @@ export const SCConfigWrapper = styled.div`
 
 export const SCTabButtonGroup = styled.div`
   display: flex;
+  height: 40px;
+  padding-top: 5px;
   margin-bottom: 20px;
+  background-color: ${colors.primaryDarkColor};
 `;
 
 export const SCTabButton = styled.button`
@@ -16,15 +19,16 @@ export const SCTabButton = styled.button`
   height: 30px;
   padding: 2px;
   border-radius: 0;
-  background-color: ${colors.primaryDarkColor};
   color: #fff;
   cursor: pointer;
+  background-color: ${colors.primaryDarkColor};
 
   ${(props) =>
     props.isActive &&
     `
-    background: #0089BA;
-    box-shadow: inset 1px 2px 5px #845EC2;
+    color: hsl(263, 25%, 76%);
+    background: ${colors.secondaryDarkColor};
+    box-shadow: 0px 2px 10px #845EC2;
     transform: translateY(1px);
   `};
 `;

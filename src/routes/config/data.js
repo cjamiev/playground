@@ -1,5 +1,4 @@
 export const commandLabels = {
-  title: 'Commands',
   tableHeaders: [{ label: 'Description' }, { label: 'File' }, { label: 'Delete' }],
   legend: 'Create New Command',
   inputLabel: 'Description',
@@ -7,7 +6,6 @@ export const commandLabels = {
 };
 
 export const linkLabels = {
-  title: 'Links',
   tableHeaders: [{ label: 'Description' }, { label: 'URL' }, { label: 'Delete' }],
   legend: 'Create New Link',
   inputLabel: 'Description',
@@ -15,7 +13,6 @@ export const linkLabels = {
 };
 
 export const copyLabels = {
-  title: 'Copies',
   tableHeaders: [{ label: 'Description' }, { label: 'Value' }, { label: 'Delete' }],
   legend: 'Create New Copy/Paste',
   inputLabel: 'Description',
@@ -23,7 +20,6 @@ export const copyLabels = {
 };
 
 export const directoryLabels = {
-  title: 'Directories',
   tableHeaders: [{ label: 'Description' }, { label: 'Path' }, { label: 'Delete' }],
   legend: 'Create New Directory',
   inputLabel: 'Description',
