@@ -11,6 +11,8 @@ import {
   SCTableCell,
   SCTableCellIcon,
   SCTableCellSvg,
+  SCTableHidden,
+  SCTableOverlayText,
   SCCreateFormFieldSet
 } from './styles';
 
@@ -29,7 +31,7 @@ export const ConfigTable = ({ headers, body }) => {
   );
 };
 
-const ConfigTab = ({ configData, labels, onChange }) => {
+const ConfigTab = ({ configData, labels, isHidden = false, onChange }) => {
   const dispatch = useDispatch();
   const [newConfig, setNewConfig] = useState({ label: '', value: '' });
   const [currentConfiguration, setCurrentConfiguration] = useState([]);
@@ -46,7 +48,14 @@ const ConfigTab = ({ configData, labels, onChange }) => {
             <span>{item.label}</span>
           </SCTableCell>
           <SCTableCell>
-            <span>{item.value}</span>
+            {isHidden ? (
+              <>
+                <SCTableOverlayText>Click to see</SCTableOverlayText>
+                <SCTableHidden>{item.value}</SCTableHidden>
+              </>
+            ) : (
+              <span>{item.value}</span>
+            )}
           </SCTableCell>
           <SCTableCellIcon>
             <SCTableCellSvg
@@ -72,7 +81,9 @@ const ConfigTab = ({ configData, labels, onChange }) => {
     <div>
       <h2> {labels.title} </h2>
       <SCConfigWrapper>
-        <ConfigTable headers={labels.tableHeaders} body={renderCommandCells()} />
+        <div>
+          <ConfigTable headers={labels.tableHeaders} body={renderCommandCells()} />
+        </div>
         <form>
           <SCCreateFormFieldSet>
             <legend> {labels.legend} </legend>

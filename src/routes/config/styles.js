@@ -79,7 +79,7 @@ export const SCTableCell = styled.td`
   padding: 0;
 
   span {
-    position: relative;
+    position: absolute;
     top: 10px;
     left: 5px;
     white-space: nowrap;
