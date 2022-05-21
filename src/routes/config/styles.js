@@ -116,7 +116,6 @@ export const SCTableCellSvg = styled.svg`
 
 export const SCTableHidden = styled.span`
   display: none;
-  width: 100%;
 
   ${SCTableCell}:active & {
     display: inline;
@@ -125,6 +124,8 @@ export const SCTableHidden = styled.span`
 
 export const SCTableOverlayText = styled.span`
   display: inline;
+  width: 100%;
+  cursor: pointer;
 
   ${SCTableCell}:active & {
     display: none;
