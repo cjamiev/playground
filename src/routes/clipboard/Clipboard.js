@@ -53,8 +53,8 @@ const Clipboard = () => {
 
   useEffect(() => {
     if (commandResponse) {
-      const parsedResult = commandResponse.replace(/\\r/g,'').split('\n');
-      const renderResult = parsedResult.map((item,index) => {
+      const parsedResult = commandResponse.replace(/\\r/g, '').split('\n');
+      const renderResult = parsedResult.map((item, index) => {
         return <p key={index}>{item}</p>;
       });
       dispatch(

@@ -4,7 +4,7 @@ import Page from 'components/layout';
 import ComponentWrapper from 'components/ComponentWrapper';
 import { loadProject, updateProject } from 'routes/project/projectActions';
 import ConfigTab from './ConfigTab';
-import Tab from './Tab';
+import Tabs from 'components/tabs';
 import { updateConfig } from './configActions';
 import { commandLabels, linkLabels, copyLabels, directoryLabels } from './data';
 import { SCTabButtonGroup, SCTabButton } from './styles';
@@ -71,7 +71,7 @@ const Config = () => {
 
   return (
     <Page>
-      <Tab data={TABS} />
+      <Tabs data={TABS} />
     </Page>
   );
 };

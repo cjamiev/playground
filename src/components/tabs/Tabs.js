@@ -1,36 +1,62 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Theme } from 'styles';
 import { noop } from 'helper/noop';
+
+export const SCTabButtonGroup = styled.div`
+  display: flex;
+  height: 50px;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: ${Theme.primaryDarkColor};
+`;
+
+export const SCTabButton = styled.button`
+  width: 120px;
+  height: 30px;
+  padding: 2px;
+  border-radius: 0;
+  color: #fff;
+  cursor: pointer;
+  background-color: ${Theme.primaryDarkColor};
+
+  ${(props) =>
+    props.isActive &&
+    `
+    color: hsl(240, 85%, 75%);
+    background: ${Theme.secondaryDarkColor};
+    box-shadow: 0px 2px 10px hsl(230, 85%, 75%);
+    transform: translateY(1px);
+  `};
+`;
 
 const ZERO = 0;
 
-const Tabs = React.memo(({ data, onTabSwitch = noop }) => {
+const Tabs = ({ data, onTabSwitch = noop }) => {
   const [tabIndex, setTabIndex] = useState(ZERO);
   const TabComponent = data[tabIndex].component;
 
-  const renderTabs = data.map((item, itemIndex) => {
-    const tabClass = tabIndex === itemIndex ? 'tabs__item tabs__item--active' : 'tabs__item';
-
+  const renderTabs = data.map((tItem, tIndex) => {
     return (
-      <li
-        key={item.title}
-        className={tabClass}
-        aria-current="page"
+      <SCTabButton
+        key={tItem.title}
+        isActive={tabIndex === tIndex}
         onClick={() => {
-          setTabIndex(itemIndex);
+          setTabIndex(tIndex);
           onTabSwitch();
         }}
       >
-        {item.title}
-      </li>
+        {tItem.title}
+      </SCTabButton>
     );
   });
 
   return (
     <>
-      <ul className="tabs">{renderTabs}</ul>
+      <SCTabButtonGroup>{renderTabs}</SCTabButtonGroup>
       {<TabComponent />}
     </>
   );
-});
+};
 
 export default Tabs;

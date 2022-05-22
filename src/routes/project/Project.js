@@ -28,7 +28,7 @@ const Project = () => {
   const [dirKeys, setDirKeys] = useState([]);
   const TABS = [
     { title: 'Git', component: ComponentWrapper(Git, { root }) },
-    { title: 'Npm Package', component: ComponentWrapper(NpmPackage, { root }) },
+    { title: 'Npm', component: ComponentWrapper(NpmPackage, { root }) },
     { title: 'Regex', component: ComponentWrapper(Regex, { root, directories, regexes }) },
     { title: 'Snippet', component: ComponentWrapper(Snippet, {}) }
   ];

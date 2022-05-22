@@ -20,12 +20,12 @@ import { noop } from 'helper/noop';
 const TABS = [
   { title: 'New', component: TestNew },
   { title: 'Svg', component: Svg },
-  { title: 'SvgCurve', component: SvgCurve },
+  { title: 'Curve', component: SvgCurve },
   { title: 'Animation', component: Animation },
-  { title: 'Data Generator', component: DataGenerator },
-  { title: 'Global Modal', component: GlobalModal },
+  { title: 'Mock Data', component: DataGenerator },
+  { title: 'Modal', component: GlobalModal },
   { title: 'Wizard', component: Wizard },
-  { title: 'Dynamic Form', component: Form },
+  { title: 'Form', component: Form },
   { title: 'Style Guide', component: StyleGuide }
 ];
 

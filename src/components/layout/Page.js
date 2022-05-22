@@ -9,7 +9,7 @@ import QuickAccess from './QuickAccess';
 import SidePanel from './SidePanel';
 import { openSidePanel, closeSidePanel } from 'components/global/globalActions';
 import { TIME } from 'constants/time';
-import { SCLayout, SCPageWrapper } from './styles';
+import { SCLayout, SCPageWrapper, SCPageContent } from './styles';
 
 const NAV_ITEMS = Object.values(ROUTES);
 
@@ -23,7 +23,9 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
 
   const toggleSidePanel = () => {
     if (isSidePanelOpen) {
-      setTimeout(() => { dispatch(closeSidePanel()); }, TIME.A_SECOND);
+      setTimeout(() => {
+        dispatch(closeSidePanel());
+      }, TIME.A_SECOND);
       setIsTransitioningOut(true);
     } else {
       dispatch(openSidePanel());
@@ -33,7 +35,7 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
 
   return (
     <SCLayout>
-      {isSidePanelOpen &&
+      {isSidePanelOpen && (
         <SidePanel
           isTransitioningOut={isTransitioningOut}
           sidePanelContent={sidePanelContent}
@@ -41,14 +43,14 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
           toggleSidePanel={toggleSidePanel}
           title={currentPage.sidePanelLabel}
         />
-      }
-      <SCPageWrapper isSideBarFullSize={isSidePanelWide}>
+      )}
+      <SCPageWrapper>
         <PageHeader
           toggleSidePanel={toggleSidePanel}
           hasSidePanelContent={hasSidePanelContent}
           title={currentPage.label}
         />
-        <PageContent>{children}</PageContent>
+        <div>{children}</div>
         <QuickAccess />
       </SCPageWrapper>
     </SCLayout>

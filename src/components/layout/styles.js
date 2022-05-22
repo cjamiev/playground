@@ -73,7 +73,17 @@ export const SCSidepanel = styled.div`
           ${slideIn} 500ms ease-out 0s 1 normal forwards;
         `;
   }};
-  ${(props) => (props.isFullSize ? 'width: 100%' : 'width: 650px')};
+  ${(props) => {
+    return props.isFullSize
+      ? `
+      position: absolute;
+      background-color: #fff;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+    `
+      : 'width: 650px';
+  }};
 `;
 
 export const SCSidepanelHeader = styled.div`
