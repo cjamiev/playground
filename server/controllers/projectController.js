@@ -1,12 +1,5 @@
-const {
-  writeToFile,
-  loadFile,
-  readDirectory
-} = require('../utils/file');
-const {
-  gitReadOps,
-  gitWriteOps
-} = require('../services/gitService');
+const { writeToFile, loadFile, readDirectory, deleteFile } = require('../utils/file');
+const { gitReadOps, gitWriteOps } = require('../services/gitService');
 const {
   getPackageFile,
   getLatestDependencyVersions,
@@ -17,11 +10,11 @@ const { updateFiles } = require('../services/regexService');
 const { createFilesFromTemplates } = require('../services/templateService');
 
 const runGitOperation = (op, root, name) => {
-  if(gitWriteOps.hasOwnProperty(op)) {
+  if (gitWriteOps.hasOwnProperty(op)) {
     const message = gitWriteOps[op](root, name);
 
     return { message };
-  } else if(gitReadOps.hasOwnProperty(op)) {
+  } else if (gitReadOps.hasOwnProperty(op)) {
     const data = gitReadOps[op](root);
 
     return { data };
@@ -31,23 +24,23 @@ const runGitOperation = (op, root, name) => {
 };
 
 const runPackageOperation = async (op, root, content) => {
-  if(op === 'read') {
+  if (op === 'read') {
     const data = getPackageFile(root);
-    if(data.error) {
+    if (data.error) {
       return { error: data.error, message: data.message };
     }
 
     return { data };
-  } else if(op === 'getversions') {
+  } else if (op === 'getversions') {
     const packageJson = getPackageFile(root);
     const data = await getLatestDependencyVersions(packageJson);
 
     return { data };
-  } else if(op === 'update') {
+  } else if (op === 'update') {
     const { error, message } = updatePackageFile(root, content);
 
     return { error, message };
-  } else if(op === 'runscript') {
+  } else if (op === 'runscript') {
     runNpmScript(root, content);
 
     return { message: `Running Script ${content}` };
@@ -59,9 +52,8 @@ const runPackageOperation = async (op, root, content) => {
 const runRegexOperation = (root, content) => {
   const { fileRegex, lineRegex, modifiers, lineRange, replace = '' } = content;
   const { start, end } = lineRange;
-  const lineReplacer = isNumber(start) && isNumber(end)
-    ? matchedKey => matchedKey.substr(start,end) + replace
-    : replace;
+  const lineReplacer =
+    isNumber(start) && isNumber(end) ? (matchedKey) => matchedKey.substr(start, end) + replace : replace;
 
   try {
     updateFiles({
@@ -79,14 +71,18 @@ const runRegexOperation = (root, content) => {
 
 const SNIPPET_DIR = './storage/io/snippets';
 const runSnippetOperation = (op, filename, content) => {
-  if(op === 'read') {
-    const data = filename
-      ? loadFile(`${SNIPPET_DIR}/${filename}`)
-      : readDirectory(SNIPPET_DIR);
+  if (op === 'read') {
+    const data = filename ? loadFile(`${SNIPPET_DIR}/${filename}`) : readDirectory(SNIPPET_DIR);
 
     return { data };
-  } else if (op === 'write') {
+  }
+  if (op === 'write') {
     const { message, error } = writeToFile(`${SNIPPET_DIR}/${filename}`, content);
+
+    return { message, error };
+  }
+  if (op === 'delete') {
+    const { message, error } = deleteFile(`${SNIPPET_DIR}/${filename}`);
 
     return { message, error };
   } else {
@@ -95,15 +91,13 @@ const runSnippetOperation = (op, filename, content) => {
 };
 
 const TEMPLATE_DIR = './storage/io/templates';
-const runTemplateOperation = (op, {targetDir, content, name}) => {
-  if(op === 'create') {
-    createFilesFromTemplates({targetDir, name, filePaths: content});
+const runTemplateOperation = (op, { targetDir, content, name }) => {
+  if (op === 'create') {
+    createFilesFromTemplates({ targetDir, name, filePaths: content });
 
     return { message: 'Creating templates' };
-  } else if(op === 'read') {
-    const data = name
-      ? loadFile(`${TEMPLATE_DIR}/${name}`)
-      : readDirectory(TEMPLATE_DIR);
+  } else if (op === 'read') {
+    const data = name ? loadFile(`${TEMPLATE_DIR}/${name}`) : readDirectory(TEMPLATE_DIR);
 
     return { data };
   } else if (op === 'write') {
@@ -118,18 +112,18 @@ const runTemplateOperation = (op, {targetDir, content, name}) => {
 const projectController = async ({ type, op, root, name, content }, payload) => {
   const data = payload ? payload : content;
 
-  if(type === 'git') {
+  if (type === 'git') {
     return runGitOperation(op, root, name);
-  } else if(type === 'package') {
+  } else if (type === 'package') {
     return await runPackageOperation(op, root, data);
-  } else if(type === 'template') {
-    return runTemplateOperation(op, {targetDir:root, name, content:data});
-  } else if(type === 'regex') {
+  } else if (type === 'template') {
+    return runTemplateOperation(op, { targetDir: root, name, content: data });
+  } else if (type === 'regex') {
     return runRegexOperation(root, data);
-  } else if(type === 'snippet') {
+  } else if (type === 'snippet') {
     return runSnippetOperation(op, name, data);
   } else {
-    return { error: { message: 'project type not found'} };
+    return { error: { message: 'project type not found' } };
   }
 };
 
