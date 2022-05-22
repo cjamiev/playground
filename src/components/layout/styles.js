@@ -77,7 +77,7 @@ export const SCSidepanel = styled.div`
     return props.isFullSize
       ? `
       position: absolute;
-      background-color: #fff;
+      background-color: ${Theme.white};
       z-index: 2;
       width: 100%;
       height: 100%;
@@ -128,7 +128,7 @@ export const SCQuickAccessBtnGroup = styled.div`
 
 export const SCQuickAccessBtn = styled.button`
   border: none;
-  color: #fff;
+  color: ${Theme.white};
   min-height: 50px;
   cursor: pointer;
   background-color: ${Theme.primaryDarkColor};
@@ -152,7 +152,7 @@ export const SCQuickAccessList = styled.div`
 
 export const SCQuickAccessListBtn = styled.button`
   border: none;
-  color: #fff;
+  color: ${Theme.white};
   min-height: 50px;
   background-color: ${Theme.primaryDarkColor};
   cursor: pointer;

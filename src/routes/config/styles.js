@@ -20,9 +20,9 @@ export const SCTableHeaderCell = styled.th`
 
 export const SCTableCellIcon = styled.td`
   position: relative;
-  background-color: var(--primary-bg-color);
+  background-color: ${Theme.primaryBgColor};
   border: none;
-  border-bottom: 1px solid #dedede;
+  border-bottom: 1px solid hsl(0, 0%, 87%);
   width: 40px;
   padding: 0;
   cursor: pointer;
@@ -35,7 +35,7 @@ export const SCTableCellIcon = styled.td`
       top: 7px;
       height: 25px;
       width: 1px;
-      background-color: #dedede;
+      background-color: hsl(0, 0%, 87%);
     }`};
 
   ::after {
@@ -45,16 +45,16 @@ export const SCTableCellIcon = styled.td`
     left: calc(100% - 1px);
     height: 25px;
     width: 1px;
-    background-color: #dedede;
+    background-color: hsl(0, 0%, 87%);
   }
 `;
 
 export const SCTableCell = styled.td`
   position: relative;
-  color: #b3b3b3;
-  background-color: var(--primary-bg-color);
+  color: hsl(0, 0%, 70%);
+  background-color: ${Theme.primaryBgColor};
   border: none;
-  border-bottom: 1px solid #dedede;
+  border-bottom: 1px solid hsl(0, 0%, 87%);
   height: 40px;
   width: 400px;
   padding: 0;
@@ -76,7 +76,7 @@ export const SCTableCell = styled.td`
       top: 7px;
       height: 25px;
       width: 1px;
-      background-color: #dedede;
+      background-color: hsl(0, 0%, 87%);
     }`};
 
   ::after {
@@ -86,7 +86,7 @@ export const SCTableCell = styled.td`
     left: calc(100% - 2px);
     height: 25px;
     width: 1px;
-    background-color: #dedede;
+    background-color: hsl(0, 0%, 87%);
   }
 `;
 

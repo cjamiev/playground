@@ -1,6 +1,7 @@
 export const colors = {
-  primaryDarkColor: '#24292e',
-  secondaryDarkColor: '#0C1218',
-  primaryDarkMatchingGradient: '#40454F',
-  white: '#ffffff'
+  primaryBgColor: 'hsl(210, 29%, 97%)',
+  primaryDarkColor: 'hsl(210, 12%, 16%)',
+  secondaryDarkColor: 'hsl(210, 33%, 7%)',
+  primaryDarkMatchingGradient: 'hsl(220, 10%, 28%)',
+  white: 'hsl(0, 0%, 100%)'
 };
