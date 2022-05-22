@@ -23,7 +23,7 @@ const loadSnippet = (name) => {
     api
       .get(`/project/?type=snippet&op=read&name=${name}`)
       .then((response) => {
-        dispatch({ type: LOAD_SNIPPET, data: response.data.data });
+        dispatch({ type: LOAD_SNIPPET, data: { name, content: response.data.data } });
       })
       .catch((error) => {
         dispatch(createAlert({ content: `loadSnippet: ${error.message}`, status: 'error' }));
@@ -45,10 +45,18 @@ const createSnippet = (filename, content) => {
   };
 };
 
-export {
-  LOAD_SNIPPET_DIRECTORY,
-  loadSnippetDirectory,
-  LOAD_SNIPPET,
-  loadSnippet,
-  createSnippet
+const deleteSnippet = (filename) => {
+  return (dispatch) => {
+    api
+      .get(`/project/?type=snippet&op=delete&name=${filename}`)
+      .then((response) => {
+        dispatch(createAlert({ content: `Deleted ${filename}`, timer: ONE_SECOND, status: 'success' }));
+        dispatch(loadSnippetDirectory());
+      })
+      .catch((error) => {
+        dispatch(createAlert({ content: `deleteSnippet: ${error.message}`, status: 'error' }));
+      });
+  };
 };
+
+export { LOAD_SNIPPET_DIRECTORY, loadSnippetDirectory, LOAD_SNIPPET, loadSnippet, createSnippet, deleteSnippet };

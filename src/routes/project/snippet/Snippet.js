@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadSnippetDirectory, loadSnippet, createSnippet } from './snippetActions';
+import { loadSnippetDirectory, loadSnippet, createSnippet, deleteSnippet } from './snippetActions';
 import { copyToClipboard } from 'helper/copy';
 import { ICON_TYPES } from 'constants/icon';
 import Button, { IconButton } from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
-import { SCFlexWrapper, SCCreateFormFieldSet, SCLoadHeader, SCButtonGroup, SCSnippetTextWrapper } from './styles';
+import { TrashSVG } from 'components/icons/TrashSVG';
+import {
+  SCFlexWrapper,
+  SCCreateFormFieldSet,
+  SCLoadHeader,
+  SCLoadBtnWrapper,
+  SCButtonGroup,
+  SCSnippetTextWrapper
+} from './styles';
 
 const Snippet = () => {
   const dispatch = useDispatch();
@@ -21,7 +29,8 @@ const Snippet = () => {
   }, [dispatch, snippets]);
 
   useEffect(() => {
-    setContent(snippetFile);
+    setContent(snippetFile.content);
+    setName(snippetFile.name);
   }, [snippetFile]);
 
   const fileButtons = snippets.map((label) => {
@@ -62,26 +71,43 @@ const Snippet = () => {
             />
           </SCCreateFormFieldSet>
         </form>
-        <SCLoadHeader>
-          <h2>Load File</h2>
-          <IconButton
-            type={ICON_TYPES.COPY}
-            onClick={() => {
-              copyToClipboard(snippetFile);
+        <SCSnippetTextWrapper>
+          <TextArea
+            ariaLabel="Enter Content"
+            selected={content}
+            onChange={({ selected }) => {
+              setContent(selected);
             }}
           />
-        </SCLoadHeader>
-        <SCButtonGroup>{fileButtons}</SCButtonGroup>
+        </SCSnippetTextWrapper>
       </div>
-      <SCSnippetTextWrapper>
-        <TextArea
-          ariaLabel="Enter Content"
-          selected={content}
-          onChange={({ selected }) => {
-            setContent(selected);
-          }}
-        />
-      </SCSnippetTextWrapper>
+      <div>
+        <SCLoadHeader>
+          <h2>Load File</h2>
+          {snippetFile.name && (
+            <>
+              <IconButton
+                type={ICON_TYPES.COPY}
+                onClick={() => {
+                  copyToClipboard(snippetFile.content);
+                }}
+              />
+              <svg
+                aria-label="Delete"
+                width="45"
+                height="53"
+                viewBox="0 0 53 53"
+                onClick={() => {
+                  dispatch(deleteSnippet(snippetFile.name));
+                }}
+              >
+                <TrashSVG transform={'translate(0,4)'} />
+              </svg>
+            </>
+          )}
+        </SCLoadHeader>
+        <SCLoadBtnWrapper>{fileButtons}</SCLoadBtnWrapper>
+      </div>
     </SCFlexWrapper>
   );
 };

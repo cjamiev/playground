@@ -31,14 +31,23 @@ export const SCLoadHeader = styled.div`
   }
 `;
 
-export const SCButtonGroup = styled.div`
+export const SCLoadBtnWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 300px;
   margin-left: -10px;
 `;
 
+export const SCButtonGroup = styled.div`
+  display: inline-flex;
+`;
+
 export const SCSnippetTextWrapper = styled.div`
-  width: 100%;
-  margin: 10px;
+  width: 800px;
+  margin-top: 10px;
+  margin-right: 20px;
+
+  textarea {
+    height: 600px;
+  }
 `;
