@@ -2,15 +2,16 @@ import styled, { css } from 'styled-components';
 import { Theme } from 'styles';
 
 const lightModeWrapper = css`
+  position: relative;
   margin-top: 10px;
+  margin-bottom: 10px;
   border-bottom: 1px solid hsl(0, 0%, 47%);
 `;
 
 const darkModeWrapper = css`
-  display: flex;
   height: 50px;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   background-color: ${Theme.primaryDarkColor};
 `;
 
@@ -22,22 +23,23 @@ export const SCTabButtonGroup = styled.div`
 
 const lightModeButton = css`
   color: hsl(201, 100%, 53%);
-  padding: 10px 20px 0px 20px;
-  cursor: pointer;
-  z-index: 1;
+  background-color: ${Theme.primaryBgColor};
+  padding: 10px 20px 5px 20px;
   font-size: 1.5em;
   text-align: center;
   border: 0;
-  background-color: ${Theme.primaryDarkColor};
+  cursor: pointer;
+  z-index: 1;
 
   ${(props) =>
     props.isActive &&
     `
+      position: relative;
+      top: 2px;
       border-radius: 3px 3px 0 0;
       border-top: 1px solid hsl(0, 0%, 47%);
       border-left: 1px solid hsl(0, 0%, 47%);
       border-right: 1px solid hsl(0, 0%, 47%);
-      border-bottom: 1px solid ${Theme.primaryDarkColor};
   `};
 `;
 
@@ -47,8 +49,8 @@ const darkModeButton = css`
   padding: 2px;
   border-radius: 0;
   color: ${Theme.white};
-  cursor: pointer;
   background-color: ${Theme.primaryDarkColor};
+  cursor: pointer;
 
   ${(props) =>
     props.isActive &&
