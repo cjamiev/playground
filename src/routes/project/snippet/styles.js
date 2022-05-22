@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Button from 'components/button';
 
 export const SCFlexWrapper = styled.div`
   display: flex;
@@ -28,14 +29,41 @@ export const SCLoadHeader = styled.div`
 
   h2 {
     margin-top: 10px;
+    margin-left: 20px;
+  }
+
+  svg {
+    cursor: pointer;
+  }
+
+  svg:hover {
+    transform: scale(1.1);
   }
 `;
 
 export const SCLoadBtnWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 300px;
-  margin-left: -10px;
+  flex-flow: column wrap;
+  max-height: 500px;
+  row-gap: 5px;
+  margin-left: 10px;
+`;
+
+export const SCLoadButton = styled(Button)`
+  background-color: hsl(204, 89%, 18%);
+  border: 1px solid hsl(204, 100%, 10%);
+  color: #fff;
+  margin: 0px 10px;
+  border-radius: 0;
+  font-size: 16px;
+  height: 50px;
+  width: 220px;
+  cursor: pointer;
+
+  :hover {
+    background-color: hsl(204, 100%, 35%);
+  }
 `;
 
 export const SCButtonGroup = styled.div`

@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadSnippetDirectory, loadSnippet, createSnippet, deleteSnippet } from './snippetActions';
 import { copyToClipboard } from 'helper/copy';
-import { ICON_TYPES } from 'constants/icon';
-import Button, { IconButton } from 'components/button';
+import Button from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
+import { CopyFileSVG } from 'components/icons/CopyFileSVG';
 import { TrashSVG } from 'components/icons/TrashSVG';
 import {
   SCFlexWrapper,
   SCCreateFormFieldSet,
   SCLoadHeader,
   SCLoadBtnWrapper,
+  SCLoadButton,
   SCButtonGroup,
   SCSnippetTextWrapper
 } from './styles';
@@ -35,11 +36,9 @@ const Snippet = () => {
 
   const fileButtons = snippets.map((label) => {
     return (
-      <Button
+      <SCLoadButton
         key={label}
         label={label}
-        className="load-file__btns"
-        primary
         onClick={() => {
           dispatch(loadSnippet(label));
         }}
@@ -84,27 +83,28 @@ const Snippet = () => {
       <div>
         <SCLoadHeader>
           <h2>Load File</h2>
-          {snippetFile.name && (
-            <>
-              <IconButton
-                type={ICON_TYPES.COPY}
-                onClick={() => {
-                  copyToClipboard(snippetFile.content);
-                }}
-              />
-              <svg
-                aria-label="Delete"
-                width="45"
-                height="53"
-                viewBox="0 0 53 53"
-                onClick={() => {
-                  dispatch(deleteSnippet(snippetFile.name));
-                }}
-              >
-                <TrashSVG transform={'translate(0,4)'} />
-              </svg>
-            </>
-          )}
+          <svg
+            aria-label="Copy"
+            width="45"
+            height="53"
+            viewBox="0 0 53 53"
+            onClick={() => {
+              copyToClipboard(snippetFile.content);
+            }}
+          >
+            <CopyFileSVG transform={'translate(0,4)'} />
+          </svg>
+          <svg
+            aria-label="Delete"
+            width="45"
+            height="53"
+            viewBox="0 0 53 53"
+            onClick={() => {
+              dispatch(deleteSnippet(snippetFile.name));
+            }}
+          >
+            <TrashSVG transform={'translate(0,4)'} />
+          </svg>
         </SCLoadHeader>
         <SCLoadBtnWrapper>{fileButtons}</SCLoadBtnWrapper>
       </div>
