@@ -6,7 +6,7 @@ import { ICON_TYPES } from 'constants/icon';
 import Button, { IconButton } from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
-import { SCCreateFormFieldSet, SCLoadHeader, SCButtonGroup } from './styles';
+import { SCFlexWrapper, SCCreateFormFieldSet, SCLoadHeader, SCButtonGroup, SCSnippetTextWrapper } from './styles';
 
 const Snippet = () => {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const Snippet = () => {
   });
 
   return (
-    <div className="flex--horizontal">
+    <SCFlexWrapper>
       <div>
         <form>
           <SCCreateFormFieldSet>
@@ -73,7 +73,7 @@ const Snippet = () => {
         </SCLoadHeader>
         <SCButtonGroup>{fileButtons}</SCButtonGroup>
       </div>
-      <div className="project__file-area flex--three">
+      <SCSnippetTextWrapper>
         <TextArea
           ariaLabel="Enter Content"
           selected={content}
@@ -81,8 +81,8 @@ const Snippet = () => {
             setContent(selected);
           }}
         />
-      </div>
-    </div>
+      </SCSnippetTextWrapper>
+    </SCFlexWrapper>
   );
 };
 

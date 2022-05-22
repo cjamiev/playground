@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const SCFlexWrapper = styled.div`
+  display: flex;
+`;
+
 export const SCCreateFormFieldSet = styled.fieldset`
   width: 350px;
   padding: 10px;
@@ -32,4 +36,9 @@ export const SCButtonGroup = styled.div`
   flex-direction: column;
   width: 250px;
   margin-left: -10px;
+`;
+
+export const SCSnippetTextWrapper = styled.div`
+  width: 100%;
+  margin: 10px;
 `;
