@@ -11,7 +11,7 @@ import MockViewEndpoint from './MockViewEndpoint';
 import MockCreateEndpoint from './MockCreateEndpoint';
 
 const TABS = [
-  { title: 'Configuration', component: MockConfig },
+  { title: 'Config', component: MockConfig },
   { title: 'View', component: MockViewEndpoint },
   { title: 'Create', component: MockCreateEndpoint },
   { title: 'Log', component: MockLog }

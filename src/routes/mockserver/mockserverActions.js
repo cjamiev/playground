@@ -1,8 +1,8 @@
 import api from 'api';
 import { createAlert } from 'components/alert/alertActions';
 
-const LOAD_MOCKSERVER_CONFIG = 'LOAD_MOCKSERVER_CONFIG';
-const UPDATE_MOCKSERVER_CONFIG = 'UPDATE_MOCKSERVER_CONFIG';
+const LOAD_MOCKSERVER_SETTINGS = 'LOAD_MOCKSERVER_SETTINGS';
+const UPDATE_MOCKSERVER_SETTINGS = 'UPDATE_MOCKSERVER_SETTINGS';
 const LOAD_MOCKREQUESTS = 'LOAD_MOCKREQUESTS';
 const DELETE_MOCK_ENDPOINT = 'DELETE_MOCK_ENDPOINT';
 const LOAD_MOCK_RESPONSE = 'LOAD_MOCK_RESPONSE';
@@ -17,7 +17,7 @@ const loadMockServerConfig = () => {
     api
       .get('/mockserver/config')
       .then((response) => {
-        dispatch({ type: LOAD_MOCKSERVER_CONFIG, data: response.data.data });
+        dispatch({ type: LOAD_MOCKSERVER_SETTINGS, data: response.data.data });
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -31,7 +31,7 @@ const updateMockServerConfig = (payload) => {
       .post('/mockserver/config', JSON.stringify(payload))
       .then((response) => {
         const { message, error } = response.data;
-        dispatch({ type: UPDATE_MOCKSERVER_CONFIG, payload });
+        dispatch({ type: UPDATE_MOCKSERVER_SETTINGS, payload });
         dispatch(
           createAlert({
             content: error ? message : 'Updated',
@@ -190,8 +190,8 @@ const clearMockServerLog = () => {
 };
 
 export {
-  LOAD_MOCKSERVER_CONFIG,
-  UPDATE_MOCKSERVER_CONFIG,
+  LOAD_MOCKSERVER_SETTINGS,
+  UPDATE_MOCKSERVER_SETTINGS,
   LOAD_MOCKREQUESTS,
   DELETE_MOCK_ENDPOINT,
   LOAD_MOCK_RESPONSE,

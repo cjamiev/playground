@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 
 import alertReducer from 'components/alert/alertReducer';
 import clipboardReducer from 'routes/clipboard/clipboardReducer';
-import configReducer from 'routes/config/configReducer';
+import settingsReducer from 'routes/settings/settingsReducer';
 import experimentReducer from 'routes/experiment/experimentReducer';
 import fileReducer from 'routes/file/fileReducer';
 import homeReducer from 'routes/home/homeReducer';
@@ -13,14 +13,7 @@ import projectReducer from 'routes/project/projectReducer';
 import globalReducer from 'components/global/globalReducer';
 import mockserverReducer from 'routes/mockserver/mockserverReducer';
 
-const customMiddleware =
-  ({ dispatch, getState }) =>
-    (next) =>
-      (action) => {
-        return next(action);
-      };
-
-const middlewares = [thunk, customMiddleware];
+const middlewares = [thunk];
 if (process.env.NODE_ENV === 'development') {
   middlewares.push(logger);
 }
@@ -29,7 +22,7 @@ const appliedMiddlewares = applyMiddleware(...middlewares);
 const rootReducer = combineReducers({
   alert: alertReducer,
   clipboard: clipboardReducer,
-  config: configReducer,
+  settings: settingsReducer,
   experiment: experimentReducer,
   file: fileReducer,
   home: homeReducer,

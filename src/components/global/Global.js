@@ -1,15 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/modal';
-import { loadConfig, updateConfig } from 'routes/config/configActions';
+import { loadSettings, updateSettings } from 'routes/settings/settingsActions';
 import { createAlert } from 'components/alert/alertActions';
-import {
-  closeGlobalModal,
-  hideLoadingModal,
-  loadCommand,
-  clearCommand,
-  initializeTimer
-} from './globalActions';
+import { closeGlobalModal, hideLoadingModal, loadCommand, clearCommand, initializeTimer } from './globalActions';
 import { TIME } from 'constants/time';
 
 const ZERO = 0;
@@ -24,7 +18,7 @@ const Global = () => {
     if (!initialized) {
       dispatch(initializeTimer());
       dispatch(loadCommand());
-      dispatch(loadConfig());
+      dispatch(loadSettings());
     }
   }, [dispatch, initialized]);
 
@@ -47,14 +41,14 @@ const Global = () => {
         .sort((item1, item2) => item1.date.getTime() - item2.date.getTime());
 
       const now = new Date();
-      const finishedTimers = sortedTimers.filter(item => item.date.getTime() - now.getTime() <= ZERO);
-      const nonFinishedTimers = sortedTimers.filter(item => item.date.getTime() - now.getTime() > ZERO);
+      const finishedTimers = sortedTimers.filter((item) => item.date.getTime() - now.getTime() <= ZERO);
+      const nonFinishedTimers = sortedTimers.filter((item) => item.date.getTime() - now.getTime() > ZERO);
       const shortestTimer = nonFinishedTimers[ZERO];
       const timeInMilliseconds = shortestTimer.date.getTime() - now.getTime();
       const absoluteTime = timeInMilliseconds > ZERO ? timeInMilliseconds : ZERO;
       const isTimeTooLarge = timeInMilliseconds > TIME.A_DAY;
 
-      finishedTimers.forEach(item =>
+      finishedTimers.forEach((item) =>
         dispatch(createAlert({ content: `Time's up for "${item.name}"`, status: 'info' }))
       );
 
@@ -80,7 +74,12 @@ const Global = () => {
 
     return (
       <div className="global__modal">
-        <Modal message={message} close={() => { dispatch(hideLoadingModal(loadingQueue[ZERO]));}}/>
+        <Modal
+          message={message}
+          close={() => {
+            dispatch(hideLoadingModal(loadingQueue[ZERO]));
+          }}
+        />
       </div>
     );
   } else if (props.message) {

@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
-import { LOAD_CONFIG, loadConfig, updateConfig } from './configActions';
+import { LOAD_SETTINGS, loadConfig, updateConfig } from './configActions';
 import { CREATE_ALERT } from 'components/alert/alertActions';
 
 const error = new Error('Test Message');
@@ -18,9 +18,7 @@ const successObject = {
   timer: 1000
 };
 
-const content = [
-  { name: 'test' }
-];
+const content = [{ name: 'test' }];
 
 describe('configActions', () => {
   it('loadConfig', async () => {
@@ -33,7 +31,7 @@ describe('configActions', () => {
 
     await waitFor(() => {
       expect(api.get).toHaveBeenCalledWith('/db/?name=config.json');
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_CONFIG, data: content });
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_SETTINGS, data: content });
     });
   });
 
@@ -55,9 +53,9 @@ describe('configActions', () => {
     updateConfig(content)(dispatch);
 
     await waitFor(() => {
-      expect(api.post).toHaveBeenCalledWith('/db', { content: JSON.stringify(content), filename: 'config.json'});
+      expect(api.post).toHaveBeenCalledWith('/db', { content: JSON.stringify(content), filename: 'config.json' });
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_CONFIG, data: content });
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_SETTINGS, data: content });
     });
   });
 

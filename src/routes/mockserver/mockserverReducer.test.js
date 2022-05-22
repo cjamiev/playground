@@ -1,6 +1,6 @@
 import {
-  LOAD_MOCKSERVER_CONFIG,
-  UPDATE_MOCKSERVER_CONFIG,
+  LOAD_MOCKSERVER_SETTINGS,
+  UPDATE_MOCKSERVER_SETTINGS,
   LOAD_MOCKREQUESTS,
   DELETE_MOCK_ENDPOINT,
   LOAD_MOCK_RESPONSE,
@@ -17,9 +17,9 @@ describe('mockserverReducer', () => {
     expect(result).toEqual(mockserverInitialState);
   });
 
-  it('LOAD_MOCKSERVER_CONFIG', () => {
+  it('LOAD_MOCKSERVER_SETTINGS', () => {
     const action = {
-      type: LOAD_MOCKSERVER_CONFIG,
+      type: LOAD_MOCKSERVER_SETTINGS,
       data: {
         delay: 0,
         delayUrls: [],
@@ -38,9 +38,9 @@ describe('mockserverReducer', () => {
     });
   });
 
-  it('UPDATE_MOCKSERVER_CONFIG', () => {
+  it('UPDATE_MOCKSERVER_SETTINGS', () => {
     const action = {
-      type: UPDATE_MOCKSERVER_CONFIG,
+      type: UPDATE_MOCKSERVER_SETTINGS,
       payload: {
         testing: 123
       }

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Theme } from 'styles';
 
-export const SCConfigWrapper = styled.div`
+export const SCSettingsWrapper = styled.div`
   display: flex;
   column-gap: 20px;
 

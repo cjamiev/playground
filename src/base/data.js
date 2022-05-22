@@ -68,7 +68,7 @@ export const navigationMap = [
   },
   {
     label: 'Settings',
-    url: '/config',
+    url: '/settings',
     icon: SettingSVG,
     isAtBottom: true,
     props: {

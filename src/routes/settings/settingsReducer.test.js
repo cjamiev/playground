@@ -1,4 +1,4 @@
-import { LOAD_CONFIG } from './configActions';
+import { LOAD_SETTINGS } from './configActions';
 import configReducer, { configInitialState } from './configReducer';
 
 const ONE = 1;
@@ -12,9 +12,9 @@ describe('configReducer', () => {
     expect(result).toEqual(configInitialState);
   });
 
-  it('LOAD_CONFIG', () => {
+  it('LOAD_SETTINGS', () => {
     const action = {
-      type: LOAD_CONFIG,
+      type: LOAD_SETTINGS,
       data: {
         commands: [ONE, TWO, THREE],
         links: [THREE, TWO, ONE]

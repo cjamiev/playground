@@ -3,31 +3,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import Page from 'components/layout';
 import ComponentWrapper from 'components/ComponentWrapper';
 import { loadProject, updateProject } from 'routes/project/projectActions';
-import ConfigTab from './ConfigTab';
+import SettingsTab from './SettingsTab';
 import Tabs from 'components/tabs';
-import { updateConfig } from './configActions';
+import { updateSettings } from './settingsActions';
 import { commandLabels, linkLabels, copyLabels, directoryLabels } from './data';
 import { SCTabButtonGroup, SCTabButton } from './styles';
 
-const Config = () => {
+const Settings = () => {
   const dispatch = useDispatch();
   const { directories, regexes } = useSelector((state) => state.project);
-  const config = useSelector((state) => state.config);
+  const settings = useSelector((state) => state.settings);
 
   useEffect(() => {
     dispatch(loadProject());
   }, [dispatch]);
 
-  const handleCommandChange = (updatedCommandConfiguration) => {
-    dispatch(updateConfig({ commands: updatedCommandConfiguration, links: config.links, copy: config.copy }));
+  const handleCommandChange = (updatedCommandSettingsuration) => {
+    dispatch(updateSettings({ commands: updatedCommandSettingsuration, links: settings.links, copy: settings.copy }));
   };
 
-  const handleLinkChange = (updatedLinkConfiguration) => {
-    dispatch(updateConfig({ commands: config.commands, links: updatedLinkConfiguration, copy: config.copy }));
+  const handleLinkChange = (updatedLinkSettingsuration) => {
+    dispatch(updateSettings({ commands: settings.commands, links: updatedLinkSettingsuration, copy: settings.copy }));
   };
 
-  const handleCopyChange = (updatedCopyConfiguration) => {
-    dispatch(updateConfig({ commands: config.commands, links: config.links, copy: updatedCopyConfiguration }));
+  const handleCopyChange = (updatedCopySettingsuration) => {
+    dispatch(updateSettings({ commands: settings.commands, links: settings.links, copy: updatedCopySettingsuration }));
   };
 
   const handleDirectoryChange = (updatedDirectories) => {
@@ -37,32 +37,32 @@ const Config = () => {
   const TABS = [
     {
       title: 'Commands',
-      component: ComponentWrapper(ConfigTab, {
-        configData: config.commands,
+      component: ComponentWrapper(SettingsTab, {
+        settingsData: settings.commands,
         labels: commandLabels,
         onChange: handleCommandChange
       })
     },
     {
       title: 'Links',
-      component: ComponentWrapper(ConfigTab, {
-        configData: config.links,
+      component: ComponentWrapper(SettingsTab, {
+        settingsData: settings.links,
         labels: linkLabels,
         onChange: handleLinkChange
       })
     },
     {
       title: 'Copy',
-      component: ComponentWrapper(ConfigTab, {
-        configData: config.copy,
+      component: ComponentWrapper(SettingsTab, {
+        settingsData: settings.copy,
         labels: copyLabels,
         onChange: handleCopyChange
       })
     },
     {
       title: 'Directories',
-      component: ComponentWrapper(ConfigTab, {
-        configData: directories,
+      component: ComponentWrapper(SettingsTab, {
+        settingsData: directories,
         labels: directoryLabels,
         onChange: handleDirectoryChange
       })
@@ -76,4 +76,4 @@ const Config = () => {
   );
 };
 
-export default Config;
+export default Settings;

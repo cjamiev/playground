@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 import Button from 'components/button';
 import Text from 'components/form/Text';
 import { TrashSVG } from 'components/icons/TrashSVG';
-import { updateConfig } from './configActions';
+import { updateSettings } from './settingsActions';
 import {
   SCTable,
   SCTableHeaderCell,
-  SCConfigWrapper,
+  SCSettingsWrapper,
   SCTableCell,
   SCTableCellIcon,
   SCTableCellSvg,
@@ -16,7 +16,7 @@ import {
   SCCreateFormFieldSet
 } from './styles';
 
-export const ConfigTable = ({ headers, body }) => {
+export const SettingsTable = ({ headers, body }) => {
   const renderHeaders = headers.map((item) => {
     return <SCTableHeaderCell key={item.label}>{item.label}</SCTableHeaderCell>;
   });
@@ -31,17 +31,17 @@ export const ConfigTable = ({ headers, body }) => {
   );
 };
 
-const ConfigTab = ({ configData, labels, isHidden = false, onChange }) => {
+const SettingsTab = ({ settingsData, labels, isHidden = false, onChange }) => {
   const dispatch = useDispatch();
-  const [newConfig, setNewConfig] = useState({ label: '', value: '' });
-  const [currentConfiguration, setCurrentConfiguration] = useState([]);
+  const [newSettings, setNewSettings] = useState({ label: '', value: '' });
+  const [currentSettingsuration, setCurrentSettingsuration] = useState([]);
 
   useEffect(() => {
-    setCurrentConfiguration(configData);
-  }, [configData]);
+    setCurrentSettingsuration(settingsData);
+  }, [settingsData]);
 
   const renderCommandCells = () => {
-    return currentConfiguration.map((item) => {
+    return currentSettingsuration.map((item) => {
       return (
         <tr key={item.value}>
           <SCTableCell isFirstCell>
@@ -64,9 +64,9 @@ const ConfigTab = ({ configData, labels, isHidden = false, onChange }) => {
               height="53"
               viewBox="0 0 53 53"
               onClick={() => {
-                const updatedConfiguration = currentConfiguration.filter((c) => c.value !== item.value);
+                const updatedSettingsuration = currentSettingsuration.filter((c) => c.value !== item.value);
 
-                onChange(updatedConfiguration);
+                onChange(updatedSettingsuration);
               }}
             >
               <TrashSVG transform={'scale(0.6) translate(35,-2)'} />
@@ -79,41 +79,41 @@ const ConfigTab = ({ configData, labels, isHidden = false, onChange }) => {
 
   return (
     <div>
-      <SCConfigWrapper>
+      <SCSettingsWrapper>
         <div>
-          <ConfigTable headers={labels.tableHeaders} body={renderCommandCells()} />
+          <SettingsTable headers={labels.tableHeaders} body={renderCommandCells()} />
         </div>
         <form>
           <SCCreateFormFieldSet>
             <legend> {labels.legend} </legend>
             <Text
               placeholder={labels.inputLabel}
-              selected={newConfig.label}
+              selected={newSettings.label}
               onChange={({ selected }) => {
-                setNewConfig({ label: selected, value: newConfig.value, id: currentConfiguration.length });
+                setNewSettings({ label: selected, value: newSettings.value, id: currentSettingsuration.length });
               }}
             />
             <Text
               placeholder={labels.inputValue}
-              selected={newConfig.value}
+              selected={newSettings.value}
               onChange={({ selected }) => {
-                setNewConfig({ label: newConfig.label, value: selected, id: currentConfiguration.length });
+                setNewSettings({ label: newSettings.label, value: selected, id: currentSettingsuration.length });
               }}
             />
             <Button
               classColor="primary"
               label="Submit"
               onClick={() => {
-                const updatedConfiguration = [newConfig].concat(currentConfiguration);
+                const updatedSettingsuration = [newSettings].concat(currentSettingsuration);
 
-                onChange(updatedConfiguration);
+                onChange(updatedSettingsuration);
               }}
             />
           </SCCreateFormFieldSet>
         </form>
-      </SCConfigWrapper>
+      </SCSettingsWrapper>
     </div>
   );
 };
 
-export default ConfigTab;
+export default SettingsTab;

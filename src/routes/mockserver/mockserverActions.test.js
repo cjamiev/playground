@@ -1,8 +1,8 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
 import {
-  LOAD_MOCKSERVER_CONFIG,
-  UPDATE_MOCKSERVER_CONFIG,
+  LOAD_MOCKSERVER_SETTINGS,
+  UPDATE_MOCKSERVER_SETTINGS,
   LOAD_MOCKREQUESTS,
   DELETE_MOCK_ENDPOINT,
   LOAD_MOCK_RESPONSE,
@@ -55,7 +55,7 @@ describe('mockserverActions', () => {
     loadMockServerConfig()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCKSERVER_CONFIG, data: [{ test: 123 }] });
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_MOCKSERVER_SETTINGS, data: [{ test: 123 }] });
     });
   });
 

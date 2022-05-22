@@ -1,15 +1,15 @@
 import api from 'api';
 import { createAlert } from 'components/alert/alertActions';
 
-const LOAD_CONFIG = 'LOAD_CONFIG';
+const LOAD_SETTINGS = 'LOAD_SETTINGS';
 const ONE_SECOND = 1000;
 
-const loadConfig = () => {
+const loadSettings = () => {
   return (dispatch) => {
     api
       .get('/db/?name=config.json')
       .then((response) => {
-        dispatch({ type: LOAD_CONFIG, data: JSON.parse(response.data.data) });
+        dispatch({ type: LOAD_SETTINGS, data: JSON.parse(response.data.data) });
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -17,13 +17,13 @@ const loadConfig = () => {
   };
 };
 
-const updateConfig = (content) => {
+const updateSettings = (content) => {
   return (dispatch) => {
     api
       .post('/db', { filename: 'config.json', content: JSON.stringify(content) })
       .then((response) => {
         dispatch(createAlert({ content: 'Updated', timer: ONE_SECOND, status: 'success' }));
-        dispatch({ type: LOAD_CONFIG, data: content });
+        dispatch({ type: LOAD_SETTINGS, data: content });
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -31,8 +31,4 @@ const updateConfig = (content) => {
   };
 };
 
-export {
-  LOAD_CONFIG,
-  loadConfig,
-  updateConfig
-};
+export { LOAD_SETTINGS, loadSettings, updateSettings };

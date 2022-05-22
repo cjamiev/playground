@@ -1,6 +1,6 @@
 import {
-  LOAD_MOCKSERVER_CONFIG,
-  UPDATE_MOCKSERVER_CONFIG,
+  LOAD_MOCKSERVER_SETTINGS,
+  UPDATE_MOCKSERVER_SETTINGS,
   LOAD_MOCKREQUESTS,
   DELETE_MOCK_ENDPOINT,
   LOAD_MOCK_RESPONSE,
@@ -18,13 +18,13 @@ export const mockserverInitialState = {
 
 const mockserverReducer = (state = mockserverInitialState, action) => {
   const mockserverCases = {
-    [LOAD_MOCKSERVER_CONFIG]: () => {
+    [LOAD_MOCKSERVER_SETTINGS]: () => {
       return {
         ...state,
         config: action.data
       };
     },
-    [UPDATE_MOCKSERVER_CONFIG]: () => {
+    [UPDATE_MOCKSERVER_SETTINGS]: () => {
       return {
         ...state,
         config: action.payload

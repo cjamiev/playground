@@ -3,7 +3,7 @@ import { Navigate, Redirect, Route, Routes } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
 
 import Clipboard from './clipboard';
-import Config from './config';
+import Settings from './settings';
 import Experiment from './experiment';
 import ErrorPage from './errorpage';
 import File from './file';
@@ -23,7 +23,7 @@ const AppRoutes = React.memo(() => {
       <Route path={ROUTES.PROJECT.url} element={<Project />} />
       <Route path={ROUTES.HOME.url} element={<Home />} />
       <Route path={ROUTES.MOCKSERVER.url} element={<MockServer />} />
-      <Route path={ROUTES.CONFIG.url} element={<Config />} />
+      <Route path={ROUTES.SETTINGS.url} element={<Settings />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
