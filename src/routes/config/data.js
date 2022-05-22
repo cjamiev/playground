@@ -25,5 +25,3 @@ export const directoryLabels = {
   inputLabel: 'Description',
   inputValue: 'Path'
 };
-
-export const tabs = ['Commands', 'Links', 'Copy', 'Directories'];
