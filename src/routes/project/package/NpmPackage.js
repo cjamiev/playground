@@ -52,6 +52,18 @@ const Package = ({ root }) => {
     );
   });
 
+  const handleSelectAll = () => {
+    const allDeps = {
+      ...versions.devDependencies,
+      ...versions.dependencies
+    };
+    const selectedLatestVersions = Object.keys(allDeps).map((key) => {
+      return { [key]: allDeps[key] };
+    });
+
+    setSelectedDeps(selectedLatestVersions);
+  };
+
   const renderCells = (entry, v) => {
     return Object.keys(entry).map((key) => {
       const depVersion = v ? v[key] : '-';
@@ -113,6 +125,7 @@ const Package = ({ root }) => {
                 dispatch(updatePackage(root, updateDependencyVersions(packageJson, selectedDeps)));
               }}
             />
+            <SCNpmBtn label="Select All" onClick={handleSelectAll} />
           </SCNpmBtnWrapper>
           <SCNpmBtnWrapper>{packageCommands}</SCNpmBtnWrapper>
         </SCFlexWrapper>
