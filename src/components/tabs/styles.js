@@ -51,12 +51,13 @@ const darkModeButton = css`
   color: ${Theme.white};
   background-color: ${Theme.primaryDarkColor};
   cursor: pointer;
+  transition: color 500ms, box-shadow 500ms;
 
   ${(props) =>
     props.isActive &&
     `
       color: hsl(240, 85%, 75%);
-      background: ${Theme.secondaryDarkColor};
+      background-color: ${Theme.secondaryDarkColor};
       box-shadow: 0px 2px 10px hsl(230, 85%, 75%);
       transform: translateY(1px);
     `};

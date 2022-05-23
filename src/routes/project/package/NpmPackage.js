@@ -1,18 +1,36 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { runNpmScript, getDependencyVersions, updatePackage } from './npmPackageActions';
-import Button from 'components/button';
-import Table from 'components/table';
 import { noop } from 'helper/noop';
 import { updateDependencyVersions } from './helper';
+import {
+  SCPackageTitle,
+  SCFlexWrapper,
+  SCNpmBtnWrapper,
+  SCNpmBtn,
+  SCNpmTables,
+  SCTableHeaderCell,
+  SCTableCell
+} from './styles';
 
 const ZERO = 0;
 const ONE = 1;
-const headers = [
-  { label: 'Modules', className: 'flex--three' },
-  { label: 'Current', className: 'flex--one' },
-  { label: 'Latest', className: 'flex--one' }
-];
+const npmHeaders = [{ label: 'Modules' }, { label: 'Current' }, { label: 'Latest' }];
+
+const Table = ({ headers, body }) => {
+  const renderHeaders = headers.map((item) => {
+    return <SCTableHeaderCell key={item.label}>{item.label}</SCTableHeaderCell>;
+  });
+
+  return (
+    <table>
+      <thead>
+        <tr>{renderHeaders}</tr>
+      </thead>
+      <tbody>{body}</tbody>
+    </table>
+  );
+};
 
 const Package = ({ root }) => {
   const dispatch = useDispatch();
@@ -21,75 +39,84 @@ const Package = ({ root }) => {
 
   const { name, description, scripts, dependencies, devDependencies } = packageJson;
 
-  const packageCommands = Object.keys(scripts).map(scriptName => {
+  const packageCommands = Object.keys(scripts).map((scriptName) => {
     return (
-      <Button
+      <SCNpmBtn
         key={scriptName}
         label={scriptName}
         classColor="secondary"
         onClick={() => {
           dispatch(runNpmScript(root, scriptName));
         }}
-      />);
+      />
+    );
   });
 
   const renderCells = (entry, v) => {
-    return Object.keys(entry).map(key => {
+    return Object.keys(entry).map((key) => {
       const depVersion = v ? v[key] : '-';
-      const latestVersion = depVersion === entry[key] ? '-': depVersion;
+      const latestVersion = depVersion === entry[key] ? '-' : depVersion;
       const hasUpdate = latestVersion !== '-';
-      const matched = selectedDeps.find(item => !!item[key]);
-      const isClickable = hasUpdate ? ' clickable' : '';
-      const isSelected = matched ? ' table--selected' : '';
-      const className = `flex--one${isClickable}${isSelected}`;
-      const handleClick = hasUpdate ? () => {
+      const matched = selectedDeps.find((item) => !!item[key]);
+      const isActive = Boolean(matched);
+      const handleClick = () => {
         const updatedSelection = matched
-          ? selectedDeps.filter(item => !item[key])
-          : selectedDeps.concat({ [key]: latestVersion});
+          ? selectedDeps.filter((item) => !item[key])
+          : selectedDeps.concat({ [key]: latestVersion });
 
         setSelectedDeps(updatedSelection);
-      } : noop;
+      };
 
       return (
-        <tr key={key} className="flex--horizontal">
-          <td className="flex--three">{key}</td>
-          <td className="flex--one">{entry[key]}</td>
-          <td className={className} onClick={handleClick}>{latestVersion}</td>
+        <tr key={key}>
+          <SCTableCell>
+            <span>{key}</span>
+          </SCTableCell>
+          <SCTableCell isSmall>
+            <span>{entry[key]}</span>
+          </SCTableCell>
+          <SCTableCell isSmall isClickable isActive={isActive} onClick={hasUpdate ? handleClick : noop}>
+            <span>{latestVersion}</span>
+          </SCTableCell>
         </tr>
       );
     });
   };
 
   return (
-    <div className="flex--horizontal">
-      <div className="flex--vertical flex--center flex--one">
-        <Button
-          label='Load Versions'
-          classColor="primary"
-          onClick={() => {
-            dispatch(getDependencyVersions(root));
-          }}
-        />
-        <Button
-          label='Update Versions'
-          classColor="primary"
-          onClick={() => { dispatch(updatePackage(root, updateDependencyVersions(packageJson, selectedDeps))); }}
-        />
-        {packageCommands}
-      </div>
-      <div className="container--center flex--five">
-        <h2 className="project__title"> {name} - {description} </h2>
-        <h3> Dependencies </h3>
-        <Table
-          headers={headers}
-          body={renderCells(dependencies, versions.dependencies)}
-        />
-        <h3> Dev Dependencies </h3>
-        <Table
-          headers={headers}
-          body={renderCells(devDependencies, versions.devDependencies)}
-        />
-      </div>
+    <div>
+      <SCPackageTitle>
+        Repository: {name} - {description}
+      </SCPackageTitle>
+      <SCFlexWrapper>
+        <SCNpmTables>
+          <div>
+            <h3> Dependencies </h3>
+            <Table headers={npmHeaders} body={renderCells(dependencies, versions.dependencies)} />
+          </div>
+          <div>
+            <h3> Dev Dependencies </h3>
+            <Table headers={npmHeaders} body={renderCells(devDependencies, versions.devDependencies)} />
+          </div>
+        </SCNpmTables>
+        <SCFlexWrapper>
+          <SCNpmBtnWrapper>
+            <SCNpmBtn
+              label="Load Versions"
+              onClick={() => {
+                dispatch(getDependencyVersions(root));
+              }}
+            />
+            <SCNpmBtn
+              label="Update Versions"
+              onClick={() => {
+                dispatch(updatePackage(root, updateDependencyVersions(packageJson, selectedDeps)));
+              }}
+            />
+          </SCNpmBtnWrapper>
+          <SCNpmBtnWrapper>{packageCommands}</SCNpmBtnWrapper>
+        </SCFlexWrapper>
+      </SCFlexWrapper>
     </div>
   );
 };
