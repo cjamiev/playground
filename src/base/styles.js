@@ -7,8 +7,6 @@ export const SCMainLayout = styled.div`
 `;
 
 export const SCNavigation = styled.nav`
-  background-color: ${Theme.primaryDarkColor};
-  color: ${Theme.white};
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
@@ -47,6 +45,8 @@ export const SCNavigationContent = styled.nav`
   position: fixed;
   overflow: hidden;
   height: 100vh;
+  background-color: ${Theme.primaryDarkColor};
+  color: ${Theme.white};
 `;
 
 export const SCNavigationLinks = styled.div`

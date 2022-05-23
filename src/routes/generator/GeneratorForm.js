@@ -34,22 +34,22 @@ const GeneratorForm = ({ style, onChange }) => {
   const [type, setType] = useState('Border');
 
   const CSSForm = formMapper[type];
-  const attributeButtons = Object.keys(formMapper).map(label => {
-    return <Button
-      key={label}
-      label={label}
-      className="load-file__btns"
-      onClick={() => {
-        setType(label);
-      }}
-    />;
+  const attributeButtons = Object.keys(formMapper).map((label) => {
+    return (
+      <Button
+        key={label}
+        label={label}
+        classColor="primary"
+        onClick={() => {
+          setType(label);
+        }}
+      />
+    );
   });
 
   return (
     <div className="generator__form-options">
-      <div className="flex--vertical">
-        {attributeButtons}
-      </div>
+      <div className="flex--vertical">{attributeButtons}</div>
       <div className="generator__form-fields">
         <div className="container--center generator__form-selected-option">
           <label className="generator__form-title">Option {type}</label>
