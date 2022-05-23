@@ -13,149 +13,135 @@ import {
   resetBranch
 } from './gitActions';
 import Text from 'components/form/Text';
-import Dropdown from 'components/form/Dropdown';
-import Button, { IconButton } from 'components/button';
-import { ICON_TYPES } from 'constants/icon';
-import { copyToClipboard } from 'helper/copy';
-
-const ZERO = 0;
-const ONE = 1;
+import Button from 'components/button';
+import {
+  SCGitPageWrapper,
+  SCNameTxt,
+  SCBranchesWrapper,
+  SCBranchBtnWrapper,
+  SCBranchBtn,
+  SCFlexWrapper
+} from './styles';
 
 const Git = ({ root }) => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
-  const [localBranches, setLocalBranches] = useState([]);
-  const [localStashes, setLocalStashes] = useState([]);
+  const [isBranchMode, setIsBranchMode] = useState(true);
   const { branches, stashes } = useSelector((state) => state.project);
 
-  const selectedBranch = localBranches.find((item) => item.selected);
-  const branchName = selectedBranch ? selectedBranch.label : '';
-  const selectedStash = localStashes.find((item) => item.selected);
-  const stashName = selectedStash ? selectedStash.label.split('{')[ONE].charAt(ZERO) : '';
-
-  useEffect(() => {
-    if (branches.length) {
-      const dropdownContent = branches.map((item) => {
-        return { label: item, selected: false };
-      });
-
-      setLocalBranches(dropdownContent);
-    }
-  }, [branches]);
-
-  useEffect(() => {
-    if (stashes.length) {
-      const dropdownContent = stashes.map((item) => {
-        return { label: item, selected: false };
-      });
-
-      setLocalStashes(dropdownContent);
-    }
-  }, [stashes]);
-
-  useEffect(() => {
-    if (branchName) {
-      setName(branchName);
-    }
-  }, [branchName]);
-
-  useEffect(() => {
-    if (stashName) {
-      setName(stashName);
-    }
-  }, [stashName]);
-
   return (
-    <div>
-      <Dropdown
-        label="Branches"
-        values={localBranches}
-        onChange={({ values }) => {
-          setLocalBranches(values);
-        }}
-      />
-      <Dropdown
-        label="Stashes"
-        values={localStashes}
-        onChange={({ values }) => {
-          setLocalStashes(values);
-        }}
-      />
-      <Text
-        placeholder="Name"
-        selected={name}
-        onChange={({ selected }) => {
-          setName(selected);
-        }}
-      />
-      <div className="flex--vertical">
-        <div className="flex--horizontal">
+    <SCGitPageWrapper>
+      <SCBranchesWrapper>
+        <SCBranchBtnWrapper>
+          <h2>Branches</h2>
+          {branches.map((item) => {
+            return (
+              <SCBranchBtn
+                key={item}
+                onClick={() => {
+                  setName(item);
+                  setIsBranchMode(true);
+                }}
+              >
+                {item}
+              </SCBranchBtn>
+            );
+          })}
+        </SCBranchBtnWrapper>
+        <SCBranchBtnWrapper>
+          <h2>Stashes</h2>
+          {stashes.map((item) => {
+            return (
+              <SCBranchBtn
+                key={item}
+                onClick={() => {
+                  setName(item);
+                  setIsBranchMode(false);
+                }}
+              >
+                {item}
+              </SCBranchBtn>
+            );
+          })}
+        </SCBranchBtnWrapper>
+      </SCBranchesWrapper>
+      <div>
+        <SCNameTxt>
+          <Text
+            placeholder="Name"
+            selected={name}
+            onChange={({ selected }) => {
+              setName(selected);
+            }}
+          />
+        </SCNameTxt>
+        <SCFlexWrapper>
           <Button
-            label={`Checkout ${branchName}`}
-            disabled={!branchName}
+            label="Checkout"
+            disabled={!name || !isBranchMode}
             onClick={() => {
-              dispatch(selectBranch(root, branchName));
+              dispatch(selectBranch(root, name));
             }}
           />
           <Button
-            label={`Delete ${branchName}`}
-            disabled={!branchName}
+            label="Delete"
+            disabled={!name || !isBranchMode}
             onClick={() => {
-              dispatch(deleteBranch(root, branchName));
+              dispatch(deleteBranch(root, name));
               dispatch(viewBranches(root));
             }}
           />
           <Button
-            label={`Merge ${name}`}
-            disabled={!name}
+            label="Merge"
+            disabled={!name || !isBranchMode}
             onClick={() => {
               dispatch(mergeBranch(root, name));
             }}
           />
           <Button
-            label={`Create ${name}`}
-            disabled={!name}
+            label="Create"
+            disabled={!name || !isBranchMode}
             onClick={() => {
               dispatch(createBranch(root, name));
               dispatch(viewBranches(root));
             }}
           />
-        </div>
-        <div className="flex--horizontal">
+        </SCFlexWrapper>
+        <SCFlexWrapper>
           <Button
-            label={`Create Stash ${name}`}
-            disabled={!name}
+            label="Create Stash"
+            disabled={!name || isBranchMode}
             onClick={() => {
               dispatch(createStash(root, name));
               dispatch(viewStash(root));
             }}
           />
           <Button
-            label={`Delete Stash ${name}`}
-            disabled={!name}
+            label="Delete Stash"
+            disabled={!name || isBranchMode}
             onClick={() => {
               dispatch(deleteStash(root, name));
               dispatch(viewStash(root));
             }}
           />
           <Button
-            label={`Switch Stash ${stashName}`}
-            disabled={!stashName}
+            label="Switch Stash"
+            disabled={!name || isBranchMode}
             onClick={() => {
-              dispatch(selectStash(root, stashName));
+              dispatch(selectStash(root, name));
             }}
           />
-        </div>
-        <div className="flex--horizontal">
+        </SCFlexWrapper>
+        <SCFlexWrapper>
           <Button
-            label={'Reset'}
+            label="Reset"
             onClick={() => {
               dispatch(resetBranch(root));
             }}
           />
-        </div>
+        </SCFlexWrapper>
       </div>
-    </div>
+    </SCGitPageWrapper>
   );
 };
 
