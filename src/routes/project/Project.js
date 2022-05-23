@@ -6,48 +6,35 @@ import { getPackageJson } from './package/npmPackageActions';
 import { getRemoteUrl, viewBranches, viewStash } from './git/gitActions';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
-import Text from 'components/form/Text';
-import Dropdown from 'components/form/Dropdown';
 import ComponentWrapper from 'components/ComponentWrapper';
 import Git from './git';
 import NpmPackage from './package';
 import Regex from './regex';
 import Snippet from './snippet';
 import useLocalStorage from 'hooks/useLocalStorage';
-import useDebounce from 'hooks/useDebounce';
-import { TIME } from 'constants/time';
+import { SCDirBtnWrapper, SCDirectoryBtn } from './styles';
 
 const DEFAULT_DIR = './';
 const LS_DIR_KEY = 'rootDir';
-const TWELVE = 12;
 
 const Project = () => {
   const dispatch = useDispatch();
   const [root, setRoot] = useLocalStorage(LS_DIR_KEY, DEFAULT_DIR, false);
   const { directories, regexes, packageJson, message } = useSelector((state) => state.project);
-  const [dirKeys, setDirKeys] = useState([]);
   const TABS = [
     { title: 'Git', component: ComponentWrapper(Git, { root }) },
     { title: 'Npm', component: ComponentWrapper(NpmPackage, { root }) },
     { title: 'Regex', component: ComponentWrapper(Regex, { root, directories, regexes }) },
     { title: 'Snippet', component: ComponentWrapper(Snippet, {}) }
   ];
-  const debouncedRoot = useDebounce(root, TIME.A_SECOND);
-
-  useEffect(() => {
-    const DIR_KEYS = directories.map((item) => {
-      return { label: item.label, value: item.value, selected: false };
-    });
-    setDirKeys(DIR_KEYS);
-  }, [directories, root]);
 
   useEffect(() => {
     dispatch(loadProject());
-    dispatch(getRemoteUrl(debouncedRoot));
-    dispatch(viewBranches(debouncedRoot));
-    dispatch(viewStash(debouncedRoot));
-    dispatch(getPackageJson(debouncedRoot));
-  }, [dispatch, debouncedRoot]);
+    dispatch(getRemoteUrl(root));
+    dispatch(viewBranches(root));
+    dispatch(viewStash(root));
+    dispatch(getPackageJson(root));
+  }, [dispatch, root]);
 
   useEffect(() => {
     if (message) {
@@ -70,16 +57,20 @@ const Project = () => {
   return (
     <Page
       sidePanelContent={
-        <div className="container--center">
-          <Dropdown
-            label="Directories"
-            values={dirKeys}
-            onChange={({ values }) => {
-              setRoot(values.find((item) => item.selected).value);
-            }}
-          />
-          <span>{root}</span>
-        </div>
+        <SCDirBtnWrapper>
+          <h3>Select Project</h3>
+          {directories.map((item) => {
+            return (
+              <SCDirectoryBtn
+                key={item.label}
+                label={item.label}
+                onClick={() => {
+                  setRoot(item.value);
+                }}
+              />
+            );
+          })}
+        </SCDirBtnWrapper>
       }
     >
       <Tabs data={TABS} />
