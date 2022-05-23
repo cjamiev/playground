@@ -44,7 +44,6 @@ const Package = ({ root }) => {
       <SCNpmBtn
         key={scriptName}
         label={scriptName}
-        classColor="secondary"
         onClick={() => {
           dispatch(runNpmScript(root, scriptName));
         }}
@@ -70,7 +69,7 @@ const Package = ({ root }) => {
       const latestVersion = depVersion === entry[key] ? '-' : depVersion;
       const hasUpdate = latestVersion !== '-';
       const matched = selectedDeps.find((item) => !!item[key]);
-      const isActive = Boolean(matched);
+      const isActive = hasUpdate && Boolean(matched);
       const handleClick = () => {
         const updatedSelection = matched
           ? selectedDeps.filter((item) => !item[key])
