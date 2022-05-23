@@ -13,7 +13,7 @@ export const SCNavigation = styled.nav`
   flex-shrink: 0;
   flex-direction: column;
   width: 65px;
-  min-height: 937px;
+  height: 100vh;
   transition: width 500ms;
   z-index: 1;
 
@@ -45,15 +45,15 @@ export const SCWeek = styled.span`
 export const SCNavigationContent = styled.nav`
   width: inherit;
   position: fixed;
-  height: 100%;
   overflow: hidden;
+  height: 100vh;
 `;
 
 export const SCNavigationLinks = styled.div`
   position: relative;
   height: 50px;
   cursor: pointer;
-  top: ${({ isAtBottom }) => (isAtBottom ? '495px' : '10px')};
+  top: ${({ isAtBottom }) => (isAtBottom ? '53vh' : '10px')};
 
   :hover {
     background-color: ${Theme.secondaryDarkColor};

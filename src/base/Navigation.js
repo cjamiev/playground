@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import {
-  closeSidePanel,
-  closeGlobalModal,
-  hideLoadingModal,
-  executeCommand
-} from 'components/global/globalActions';
+import { closeSidePanel, closeGlobalModal, hideLoadingModal, executeCommand } from 'components/global/globalActions';
 import { dismissAlert } from 'components/alert/alertActions';
 import { getFormattedDate } from 'clock';
 import {
@@ -14,6 +9,7 @@ import {
   SCWeek,
   SCNavigationContent,
   SCNavigationLinks,
+  SCNavigationBottomLinks,
   SCNavigationIcon,
   SCNavigationLabels
 } from './styles';
@@ -42,18 +38,9 @@ const Navigation = React.memo(() => {
     };
 
     return (
-      <SCNavigationLinks
-        key={item.url}
-        onClick={handleClick}
-        isActive={isActive}
-        isAtBottom={item.isAtBottom}
-      >
+      <SCNavigationLinks key={item.url} onClick={handleClick} isActive={isActive} isAtBottom={item.isAtBottom}>
         <SCNavigationIcon isActive={isActive}>
-          <svg
-            aria-label={`${item.label} Page`}
-            width="45"
-            height="53"
-            viewBox="0 0 53 53">
+          <svg aria-label={`${item.label} Page`} width="45" height="53" viewBox="0 0 53 53">
             <IconSVG {...item.props} />
           </svg>
         </SCNavigationIcon>
