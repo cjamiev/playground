@@ -4,15 +4,17 @@ import { openGlobalModal } from 'components/global/globalActions';
 import { loadProject, clearMessage } from './projectActions';
 import { getPackageJson } from './package/npmPackageActions';
 import { getRemoteUrl, viewBranches, viewStash } from './git/gitActions';
+import { CopyFileSVG } from 'components/icons/CopyFileSVG';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
 import ComponentWrapper from 'components/ComponentWrapper';
+import { copyToClipboard } from 'helper/copy';
 import Git from './git';
 import NpmPackage from './package';
 import Regex from './regex';
 import Snippet from './snippet';
 import useLocalStorage from 'hooks/useLocalStorage';
-import { SCDirBtnWrapper, SCDirectoryBtn } from './styles';
+import { SCDirPath, SCDirSidePanelWrapper, SCDirBtnWrapper, SCDirectoryBtn } from './styles';
 
 const DEFAULT_DIR = './';
 const LS_DIR_KEY = 'rootDir';
@@ -20,7 +22,7 @@ const LS_DIR_KEY = 'rootDir';
 const Project = () => {
   const dispatch = useDispatch();
   const [root, setRoot] = useLocalStorage(LS_DIR_KEY, DEFAULT_DIR, false);
-  const { directories, regexes, packageJson, message } = useSelector((state) => state.project);
+  const { remoteUrl, directories, regexes, packageJson, message } = useSelector((state) => state.project);
   const TABS = [
     { title: 'Git', component: ComponentWrapper(Git, { root }) },
     { title: 'Npm', component: ComponentWrapper(NpmPackage, { root }) },
@@ -57,20 +59,52 @@ const Project = () => {
   return (
     <Page
       sidePanelContent={
-        <SCDirBtnWrapper>
+        <SCDirSidePanelWrapper>
           <h3>Select Project</h3>
-          {directories.map((item) => {
-            return (
-              <SCDirectoryBtn
-                key={item.label}
-                label={item.label}
+          <SCDirPath>
+            <div>
+              <span>{remoteUrl}</span>
+              <svg
+                aria-label="Git Remote Url"
+                width="45"
+                height="53"
+                viewBox="0 0 53 53"
                 onClick={() => {
-                  setRoot(item.value);
+                  copyToClipboard(remoteUrl);
                 }}
-              />
-            );
-          })}
-        </SCDirBtnWrapper>
+              >
+                <CopyFileSVG />
+              </svg>
+            </div>
+            <div>
+              <span>{root}</span>
+              <svg
+                aria-label="Directory Path"
+                width="45"
+                height="53"
+                viewBox="0 0 53 53"
+                onClick={() => {
+                  copyToClipboard(root);
+                }}
+              >
+                <CopyFileSVG />
+              </svg>
+            </div>
+          </SCDirPath>
+          <SCDirBtnWrapper>
+            {directories.map((item) => {
+              return (
+                <SCDirectoryBtn
+                  key={item.label}
+                  label={item.label}
+                  onClick={() => {
+                    setRoot(item.value);
+                  }}
+                />
+              );
+            })}
+          </SCDirBtnWrapper>
+        </SCDirSidePanelWrapper>
       }
     >
       <Tabs data={TABS} />

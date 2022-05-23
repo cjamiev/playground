@@ -63,6 +63,7 @@ export const SCPageHeaderTitle = styled.h1`
 `;
 
 export const SCSidepanel = styled.div`
+  position: relative;
   border-right: 1px solid rgb(228, 228, 228);
   animation: ${({ isTransitioningOut }) => {
     return isTransitioningOut

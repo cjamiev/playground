@@ -26,20 +26,16 @@ const Git = ({ root }) => {
   const [name, setName] = useState('');
   const [localBranches, setLocalBranches] = useState([]);
   const [localStashes, setLocalStashes] = useState([]);
-  const {
-    remoteUrl,
-    branches,
-    stashes
-  } = useSelector((state) => state.project);
+  const { branches, stashes } = useSelector((state) => state.project);
 
-  const selectedBranch = localBranches.find(item => item.selected);
+  const selectedBranch = localBranches.find((item) => item.selected);
   const branchName = selectedBranch ? selectedBranch.label : '';
-  const selectedStash = localStashes.find(item => item.selected);
+  const selectedStash = localStashes.find((item) => item.selected);
   const stashName = selectedStash ? selectedStash.label.split('{')[ONE].charAt(ZERO) : '';
 
   useEffect(() => {
-    if(branches.length) {
-      const dropdownContent = branches.map(item => {
+    if (branches.length) {
+      const dropdownContent = branches.map((item) => {
         return { label: item, selected: false };
       });
 
@@ -48,8 +44,8 @@ const Git = ({ root }) => {
   }, [branches]);
 
   useEffect(() => {
-    if(stashes.length) {
-      const dropdownContent = stashes.map(item => {
+    if (stashes.length) {
+      const dropdownContent = stashes.map((item) => {
         return { label: item, selected: false };
       });
 
@@ -58,26 +54,19 @@ const Git = ({ root }) => {
   }, [stashes]);
 
   useEffect(() => {
-    if(branchName) {
+    if (branchName) {
       setName(branchName);
     }
   }, [branchName]);
 
   useEffect(() => {
-    if(stashName) {
+    if (stashName) {
       setName(stashName);
     }
   }, [stashName]);
 
   return (
     <div>
-      <label>Remote Url: {remoteUrl}</label>
-      <IconButton
-        type={ICON_TYPES.COPY}
-        onClick={() => {
-          copyToClipboard(remoteUrl);
-        }}
-      />
       <Dropdown
         label="Branches"
         values={localBranches}
@@ -104,26 +93,30 @@ const Git = ({ root }) => {
           <Button
             label={`Checkout ${branchName}`}
             disabled={!branchName}
-            onClick={() => { dispatch(selectBranch(root,branchName)); }}
+            onClick={() => {
+              dispatch(selectBranch(root, branchName));
+            }}
           />
           <Button
             label={`Delete ${branchName}`}
             disabled={!branchName}
             onClick={() => {
-              dispatch(deleteBranch(root,branchName));
+              dispatch(deleteBranch(root, branchName));
               dispatch(viewBranches(root));
             }}
           />
           <Button
             label={`Merge ${name}`}
             disabled={!name}
-            onClick={() => { dispatch(mergeBranch(root,name)); }}
+            onClick={() => {
+              dispatch(mergeBranch(root, name));
+            }}
           />
           <Button
             label={`Create ${name}`}
             disabled={!name}
             onClick={() => {
-              dispatch(createBranch(root,name));
+              dispatch(createBranch(root, name));
               dispatch(viewBranches(root));
             }}
           />
@@ -133,7 +126,7 @@ const Git = ({ root }) => {
             label={`Create Stash ${name}`}
             disabled={!name}
             onClick={() => {
-              dispatch(createStash(root,name));
+              dispatch(createStash(root, name));
               dispatch(viewStash(root));
             }}
           />
@@ -141,20 +134,24 @@ const Git = ({ root }) => {
             label={`Delete Stash ${name}`}
             disabled={!name}
             onClick={() => {
-              dispatch(deleteStash(root,name));
+              dispatch(deleteStash(root, name));
               dispatch(viewStash(root));
             }}
           />
           <Button
             label={`Switch Stash ${stashName}`}
             disabled={!stashName}
-            onClick={() => { dispatch(selectStash(root,stashName)); }}
+            onClick={() => {
+              dispatch(selectStash(root, stashName));
+            }}
           />
         </div>
         <div className="flex--horizontal">
           <Button
             label={'Reset'}
-            onClick={() => { dispatch(resetBranch(root)); }}
+            onClick={() => {
+              dispatch(resetBranch(root));
+            }}
           />
         </div>
       </div>
