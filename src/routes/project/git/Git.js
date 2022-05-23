@@ -120,7 +120,12 @@ const Git = ({ root }) => {
             label="Delete Stash"
             disabled={!name || isBranchMode}
             onClick={() => {
-              dispatch(deleteStash(root, name));
+              dispatch(
+                deleteStash(
+                  root,
+                  stashes.findIndex((item) => item === name)
+                )
+              );
               dispatch(viewStash(root));
             }}
           />
