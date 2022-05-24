@@ -21,6 +21,10 @@ export const SCDirPath = styled.div`
     position: relative;
     bottom: 12px;
   }
+
+  svg:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const SCDirBtnWrapper = styled.div`

@@ -93,6 +93,10 @@ export const SCTableCell = styled.td`
 export const SCTableCellSvg = styled.svg`
   position: absolute;
   top: 3px;
+
+  :hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const SCTableHidden = styled.span`

@@ -18,6 +18,10 @@ export const SCFileNameWrapper = styled.div`
     position: relative;
     bottom: 5px;
   }
+
+  svg:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const SCFileBtn = styled(Button)`
