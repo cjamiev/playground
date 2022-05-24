@@ -32,9 +32,7 @@ const Home = () => {
   const handleTaskItemChange = (newItem) => {
     const matched = tasks.find((item) => item.text === newItem.text);
     const updatedTasks = matched
-      ? tasks.map((item) => {
-        return item.text === newItem.text ? newItem : item;
-      })
+      ? tasks.map((item) => (item.text === newItem.text ? newItem : item))
       : tasks.concat(newItem);
 
     setTasks(updatedTasks);
@@ -49,9 +47,7 @@ const Home = () => {
   const handleTimeItemChange = (newTimer) => {
     const matched = timers.find((item) => item.name === newTimer.name);
     const updatedTimers = matched
-      ? timers.map((item) => {
-        return item.name === newTimer.name ? newTimer : item;
-      })
+      ? timers.map((item) => (item.name === newTimer.name ? newTimer : item))
       : timers.concat(newTimer);
     setTimers(updatedTimers);
     dispatch(updateGlobal(updatedTimers));
