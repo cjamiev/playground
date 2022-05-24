@@ -5,6 +5,7 @@ import { loadSettings, updateSettings } from 'routes/settings/settingsActions';
 import { createAlert } from 'components/alert/alertActions';
 import { closeGlobalModal, hideLoadingModal, loadCommand, clearCommand, initializeTimer } from './globalActions';
 import { TIME } from 'constants/time';
+import { SCGlobalModal, SCGlobalModalLoading, SCGlobalModalLoadingName } from './styles';
 
 const ZERO = 0;
 const ONE = 1;
@@ -66,29 +67,29 @@ const Global = () => {
   if (loadingQueue.length) {
     const message = (
       <div>
-        <div className="modal__loading">Loading...</div>
-        <div className="modal__loading-name">{loadingQueue[ZERO]}</div>
+        <SCGlobalModalLoading>Loading...</SCGlobalModalLoading>
+        <SCGlobalModalLoadingName>{loadingQueue[ZERO]}</SCGlobalModalLoadingName>
       </div>
     );
     window.scrollTo({ top: ZERO, behavior: 'smooth' });
 
     return (
-      <div className="global__modal">
+      <SCGlobalModal>
         <Modal
           message={message}
           close={() => {
             dispatch(hideLoadingModal(loadingQueue[ZERO]));
           }}
         />
-      </div>
+      </SCGlobalModal>
     );
   } else if (props.message) {
     window.scrollTo({ top: ZERO, behavior: 'smooth' });
 
     return (
-      <div className="global__modal">
+      <SCGlobalModal>
         <Modal close={close} {...props} />
-      </div>
+      </SCGlobalModal>
     );
   }
 

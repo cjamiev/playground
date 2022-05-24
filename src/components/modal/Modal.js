@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import TextArea from 'components/form/TextArea';
 import Button, { CloseButton } from 'components/button';
 import { noop } from 'helper/noop';
+import { SCModal, SCModalHeader, SCModalTitle, SCModalBody, SCModalFooter } from './styles';
 
 const Modal = (props) => {
   const dispatch = useDispatch();
@@ -55,21 +56,21 @@ const Modal = (props) => {
   };
 
   const renderBody = editable ? (
-    <div className="modal__body scrollbar">
+    <SCModalBody className="scrollbar">
       <TextArea ariaLabel="Modal text area" selected={content} jsonType={true} onChange={handleChange} />
-    </div>
+    </SCModalBody>
   ) : (
-    <div className="modal__body scrollbar">{content}</div>
+    <SCModalBody className="scrollbar">{content}</SCModalBody>
   );
   const renderTitle = (
-    <div className="modal__header">
-      <h2 className="modal__title">{title}</h2>
-    </div>
+    <SCModalHeader>
+      <SCModalTitle>{title}</SCModalTitle>
+    </SCModalHeader>
   );
-  const renderFooter = <div className="modal__footer">{renderButtons}</div>;
+  const renderFooter = <SCModalFooter>{renderButtons}</SCModalFooter>;
 
   return (
-    <div className="modal">
+    <SCModal>
       <CloseButton
         onClick={() => {
           beforeClose();
@@ -79,7 +80,7 @@ const Modal = (props) => {
       {renderTitle}
       {renderBody}
       {renderFooter}
-    </div>
+    </SCModal>
   );
 };
 
