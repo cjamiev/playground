@@ -7,22 +7,16 @@ import RegexOperations from './RegexOperations';
 import StringOperations from './StringOperations';
 import JsonOperations from './JsonOperations';
 import Page from 'components/layout';
-import Button, { IconButton } from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
-import Dropdown from 'components/form/Dropdown';
-import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
-import useStateHistory from 'hooks/useStateHistory';
-
-const ZERO = 0;
-const ONE = 1;
-const TWO = 2;
+import { SCFileBtnWrapper, SCFileNameWrapper, SCFileBtn } from './styles';
+import { SaveSVG } from 'components/icons/SaveSVG';
+import { CopyFileSVG } from 'components/icons/CopyFileSVG';
 
 const File = () => {
   const [name, setName] = useState('');
   const [content, setContent] = useState('');
-  const { set, back, forward } = useStateHistory((value) => { setContent(value); });
   const dispatch = useDispatch();
   const { directory, fileContent } = useSelector((state) => state.file);
 
@@ -44,63 +38,65 @@ const File = () => {
     setName(selected);
   };
 
-  const files = directory.map((item) => {
-    return { label: item, value: item, selected: false };
-  });
-
   return (
     <Page>
       <div className="flex--horizontal">
-        <div className="flex--one">
-          <Dropdown
-            label="Select an existing file"
-            values={files}
-            onChange={({ values }) => {
-              const selectedFile = values.find((item) => item.selected);
-              setName(selectedFile.value);
-              dispatch(loadFile(selectedFile.value));
-              dispatch(dismissAlert());
-            }}
-          />
-          <Text placeholder="Enter File Name" selected={name} onChange={handleNameChange} />
-          <IconButton
-            type={ICON_TYPES.SAVE}
-            onClick={() => {
-              if (name && content) {
-                dispatch(writeFile(name, content));
-              }
-            }}
-          />
-          <IconButton
-            type={ICON_TYPES.COPY}
-            onClick={() => {
-              copyToClipboard(content);
-            }}
-          />
-          <IconButton
-            type={ICON_TYPES.UNDO}
-            onClick={back}
-          />
-          <IconButton
-            type={ICON_TYPES.REDO}
-            onClick={forward}
-          />
-        </div>
+        <SCFileBtnWrapper>
+          <SCFileNameWrapper>
+            <Text placeholder="Enter File Name" selected={name} onChange={handleNameChange} />
+            <svg
+              aria-label="Save"
+              width="45"
+              height="53"
+              viewBox="0 0 53 53"
+              onClick={() => {
+                if (name && content) {
+                  dispatch(writeFile(name, content));
+                }
+              }}
+            >
+              <SaveSVG transform={'scale(0.7) translate(0,-5)'} />
+            </svg>
+            <svg
+              aria-label="Copy"
+              width="45"
+              height="53"
+              viewBox="0 0 53 53"
+              onClick={() => {
+                copyToClipboard(content);
+              }}
+            >
+              <CopyFileSVG transform={'scale(0.7) translate(0,-5)'} />
+            </svg>
+          </SCFileNameWrapper>
+          {directory.map((item) => {
+            return (
+              <SCFileBtn
+                key={item}
+                label={item}
+                onClick={() => {
+                  setName(item);
+                  dispatch(loadFile(item));
+                  dispatch(dismissAlert());
+                }}
+              />
+            );
+          })}
+        </SCFileBtnWrapper>
         <div className="flex--three">
           <TextArea
             ariaLabel="Content text area"
             selected={content}
             onChange={({ selected }) => {
               setContent(selected);
-              set(selected);
             }}
           />
         </div>
         <div className="flex--three">
-          <FileOperations content={content}
+          <FileOperations
+            content={content}
             onChange={(updated) => {
               setContent(updated);
-              set(updated);
             }}
           />
         </div>
