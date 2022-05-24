@@ -56,6 +56,7 @@ const Settings = () => {
       component: ComponentWrapper(SettingsTab, {
         settingsData: settings.copy,
         labels: copyLabels,
+        isHidden: true,
         onChange: handleCopyChange
       })
     },
