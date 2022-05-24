@@ -5,7 +5,7 @@ import { showLoadingModal, hideLoadingModal } from 'components/global/globalActi
 const LOAD_DIRECTORY = 'LOAD_DIRECTORY';
 const LOAD_FILE = 'LOAD_FILE';
 
-const ONE_SECOND = 1000;
+const THREE_SECOND = 3000;
 
 const loadDirectory = () => {
   return (dispatch) => {
@@ -42,7 +42,7 @@ const writeFile = (filename, content) => {
     api
       .post('/file', { filename, content })
       .then((response) => {
-        dispatch(createAlert({ content: 'Updated', timer: ONE_SECOND, status: 'success' }));
+        dispatch(createAlert({ content: 'Updated', timer: THREE_SECOND, status: 'success' }));
         dispatch(loadDirectory());
       })
       .catch((error) => {

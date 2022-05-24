@@ -10,7 +10,7 @@ const LOAD_MOCKSERVER_LOG = 'LOAD_MOCKSERVER_LOG';
 const CLEAR_MOCKSERVER_LOG = 'CLEAR_MOCKSERVER_LOG';
 const CLEAR_MOCK_RESPONSE = 'CLEAR_MOCK_RESPONSE';
 
-const ONE_SECOND = 1000;
+const THREE_SECOND = 3000;
 
 const loadMockServerConfig = () => {
   return (dispatch) => {
@@ -35,7 +35,7 @@ const updateMockServerConfig = (payload) => {
         dispatch(
           createAlert({
             content: error ? message : 'Updated',
-            timer: error ? undefined : ONE_SECOND,
+            timer: error ? undefined : THREE_SECOND,
             status: error ? 'error' : 'success'
           })
         );
@@ -68,7 +68,7 @@ const updateMockRequests = () => {
         dispatch(
           createAlert({
             content: error ? message : 'Updated',
-            timer: error ? undefined : ONE_SECOND,
+            timer: error ? undefined : THREE_SECOND,
             status: error ? 'error' : 'success'
           })
         );
@@ -89,7 +89,7 @@ const deleteMockEndpoint = (endpoint) => {
         dispatch(
           createAlert({
             content: error ? message : 'Updated',
-            timer: error ? undefined : ONE_SECOND,
+            timer: error ? undefined : THREE_SECOND,
             status: error ? 'error' : 'success'
           })
         );
@@ -122,7 +122,7 @@ const updateMockResponse = (payload) => {
         dispatch(
           createAlert({
             content: error ? message : 'Updated',
-            timer: error ? undefined : ONE_SECOND,
+            timer: error ? undefined : THREE_SECOND,
             status: error ? 'error' : 'success'
           })
         );
@@ -144,7 +144,7 @@ const createMockEndpoint = (payload) => {
         dispatch(
           createAlert({
             content: error ? message : 'Updated',
-            timer: error ? undefined : ONE_SECOND,
+            timer: error ? undefined : THREE_SECOND,
             status: error ? 'error' : 'success'
           })
         );
@@ -178,7 +178,7 @@ const clearMockServerLog = () => {
         dispatch(
           createAlert({
             content: error ? message : 'Updated',
-            timer: error ? undefined : ONE_SECOND,
+            timer: error ? undefined : THREE_SECOND,
             status: error ? 'error' : 'success'
           })
         );

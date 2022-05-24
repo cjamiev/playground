@@ -1,7 +1,7 @@
 import api from 'api';
 import { createAlert } from 'components/alert/alertActions';
 
-const ONE_SECOND = 1000;
+const THREE_SECOND = 3000;
 const ZERO = 0;
 const LOAD_GENERATOR_RECORDS = 'LOAD_GENERATOR_RECORDS';
 
@@ -23,7 +23,7 @@ const updatedGeneratorRecords = (content) => {
     api
       .post('/db', { filename: 'generator.json', content: JSON.stringify(content) })
       .then((response) => {
-        dispatch(createAlert({ content: 'Updated', timer: ONE_SECOND, status: 'success' }));
+        dispatch(createAlert({ content: 'Updated', timer: THREE_SECOND, status: 'success' }));
         dispatch({ type: LOAD_GENERATOR_RECORDS, data: content });
       })
       .catch((error) => {

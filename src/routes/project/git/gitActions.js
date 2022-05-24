@@ -13,7 +13,6 @@ const DELETE_STASH = 'DELETE_STASH';
 const SELECT_STASH = 'SELECT_STASH';
 const LOAD_VIEW_STASH = 'LOAD_VIEW_STASH';
 const RESET_BRANCH = 'RESET_BRANCH';
-const ONE_SECOND = 1000;
 const DEFAULT_DIR = './';
 
 const getRemoteUrl = (rootDir = DEFAULT_DIR) => {

@@ -2,7 +2,7 @@ import api from 'api';
 import { createAlert } from 'components/alert/alertActions';
 
 const LOAD_SETTINGS = 'LOAD_SETTINGS';
-const ONE_SECOND = 1000;
+const THREE_SECOND = 3000;
 
 const loadSettings = () => {
   return (dispatch) => {
@@ -22,7 +22,7 @@ const updateSettings = (content) => {
     api
       .post('/db', { filename: 'config.json', content: JSON.stringify(content) })
       .then((response) => {
-        dispatch(createAlert({ content: 'Updated', timer: ONE_SECOND, status: 'success' }));
+        dispatch(createAlert({ content: 'Updated', timer: THREE_SECOND, status: 'success' }));
         dispatch({ type: LOAD_SETTINGS, data: content });
       })
       .catch((error) => {

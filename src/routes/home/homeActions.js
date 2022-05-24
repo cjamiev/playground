@@ -2,7 +2,7 @@ import api from 'api';
 import { createAlert } from 'components/alert/alertActions';
 
 const LOAD_HOME = 'LOAD_HOME';
-const ONE_SECOND = 1000;
+const THREE_SECOND = 3000;
 
 const loadHome = () => {
   return (dispatch) => {
@@ -22,7 +22,7 @@ const updateHome = (content) => {
     api
       .post('/db', { filename: 'home.json', content: JSON.stringify(content) })
       .then((response) => {
-        dispatch(createAlert({ content: 'Updated', timer: ONE_SECOND, status: 'success' }));
+        dispatch(createAlert({ content: 'Updated', timer: THREE_SECOND, status: 'success' }));
         dispatch({ type: LOAD_HOME, data: content });
       })
       .catch((error) => {

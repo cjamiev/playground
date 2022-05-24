@@ -4,7 +4,7 @@ import { showLoadingModal, hideLoadingModal } from 'components/global/globalActi
 
 const LOAD_PROJECT = 'LOAD_PROJECT';
 const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
-const ONE_SECOND = 1000;
+const THREE_SECOND = 3000;
 const DEFAULT_DIR = './';
 
 const loadProject = () => {
@@ -29,7 +29,7 @@ const updateProject = (content) => {
     api
       .post('/db', { filename: 'project.json', content: JSON.stringify(content) })
       .then((response) => {
-        dispatch(createAlert({ content: 'Updated', timer: ONE_SECOND, status: 'success' }));
+        dispatch(createAlert({ content: 'Updated', timer: THREE_SECOND, status: 'success' }));
         dispatch({ type: LOAD_PROJECT, data: content });
       })
       .catch((error) => {
@@ -40,10 +40,4 @@ const updateProject = (content) => {
 
 const clearMessage = () => ({ type: CLEAR_MESSAGE });
 
-export {
-  LOAD_PROJECT,
-  loadProject,
-  updateProject,
-  CLEAR_MESSAGE,
-  clearMessage
-};
+export { LOAD_PROJECT, loadProject, updateProject, CLEAR_MESSAGE, clearMessage };

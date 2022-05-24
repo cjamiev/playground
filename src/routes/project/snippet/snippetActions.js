@@ -3,7 +3,7 @@ import { createAlert } from 'components/alert/alertActions';
 
 const LOAD_SNIPPET = 'LOAD_SNIPPET';
 const LOAD_SNIPPET_DIRECTORY = 'LOAD_SNIPPET_DIRECTORY';
-const ONE_SECOND = 1000;
+const THREE_SECOND = 3000;
 
 const loadSnippetDirectory = () => {
   return (dispatch) => {
@@ -36,7 +36,7 @@ const createSnippet = (filename, content) => {
     api
       .post(`/project/?type=snippet&op=write&name=${filename}`, JSON.stringify(content))
       .then((response) => {
-        dispatch(createAlert({ content: `Created ${filename}`, timer: ONE_SECOND, status: 'success' }));
+        dispatch(createAlert({ content: `Created ${filename}`, timer: THREE_SECOND, status: 'success' }));
         dispatch(loadSnippetDirectory());
       })
       .catch((error) => {
@@ -50,7 +50,7 @@ const deleteSnippet = (filename) => {
     api
       .get(`/project/?type=snippet&op=delete&name=${filename}`)
       .then((response) => {
-        dispatch(createAlert({ content: `Deleted ${filename}`, timer: ONE_SECOND, status: 'success' }));
+        dispatch(createAlert({ content: `Deleted ${filename}`, timer: THREE_SECOND, status: 'success' }));
         dispatch(loadSnippetDirectory());
       })
       .catch((error) => {
