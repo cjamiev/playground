@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TextArea from 'components/form/TextArea';
-import Button, { CloseButton } from 'components/button';
+import Button from 'components/button';
+import { CloseSVG } from 'components/icons/CloseSVG';
 import { noop } from 'helper/noop';
 import { SCModal, SCModalHeader, SCModalTitle, SCModalBody, SCModalFooter } from './styles';
 
@@ -71,12 +72,18 @@ const Modal = (props) => {
 
   return (
     <SCModal>
-      <CloseButton
+      <svg
+        aria-label="Close"
+        width="45"
+        height="53"
+        viewBox="0 0 53 53"
         onClick={() => {
           beforeClose();
           close();
         }}
-      />
+      >
+        <CloseSVG transform={'scale(0.5)'} />
+      </svg>
       {renderTitle}
       {renderBody}
       {renderFooter}

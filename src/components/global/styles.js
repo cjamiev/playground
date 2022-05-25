@@ -21,4 +21,5 @@ export const SCGlobalModalLoadingName = styled.span`
   font-size: 50px;
   display: flex;
   place-content: center;
+  text-align: center;
 `;

@@ -1,27 +1,38 @@
 import styled from 'styled-components';
+import { Theme } from 'styles';
 
 export const SCModal = styled.div`
   z-index: 3;
   position: relative;
   display: flex;
   flex-direction: column;
-  margin: 100px auto;
-  height: 40em;
-  width: 80em;
+  height: 600px;
+  width: 500px;
+  margin: 200px auto;
   pointer-events: auto;
-  background-color: #fff;
-  border: 1px solid #000;
-  border-radius: 2.1em;
+  background-color: hsl(0, 0%, 100%);
+  border: 1px solid hsl(0, 0%, 0%);
+  border-radius: 5px;
   opacity: 1;
+
+  svg {
+    position: absolute;
+    top: 1%;
+    left: 94%;
+    cursor: pointer;
+  }
+
+  svg:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const SCModalHeader = styled.div`
   flex: 1;
   padding: 1em;
-  border-bottom: 1px solid #000;
-  background-color: var(--primary-color);
+  border-bottom: 1px solid hsl(0, 0%, 0%);
+  background-color: ${Theme.primaryDarkColor};
   color: #fff;
-  border-radius: 2em 2em 0 0;
 `;
 
 export const SCModalTitle = styled.h2`
@@ -36,10 +47,9 @@ export const SCModalBody = styled.div`
 
 export const SCModalFooter = styled.div`
   flex: 1;
-  border-top: 1px solid #000;
+  border-top: 1px solid hsl(0, 0%, 0%);
   height: 100%;
-  background-color: var(--primary-color);
-  border-radius: 0 0 2em 2em;
-  text-align: right;
-  padding-right: 20px;
+  background-color: ${Theme.primaryDarkColor};
+  padding-left: 10px;
+  display: flex;
 `;
