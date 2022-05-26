@@ -71,16 +71,6 @@ const Home = () => {
 
   const TABS = [
     {
-      title: 'Timers',
-      component: ComponentWrapper(HomeTimer, {
-        timers,
-        selectedTimer,
-        onChangeTimer: handleTimeItemChange,
-        onRemoveTimer: handleRemoveTimer,
-        onEditTimer: handleEditTimer
-      })
-    },
-    {
       title: 'To do',
       component: ComponentWrapper(HomeTodo, {
         tasks,
@@ -88,6 +78,16 @@ const Home = () => {
         onChange: handleTasksChange,
         onEditTask: handleEditTask,
         onChangeItem: handleTaskItemChange
+      })
+    },
+    {
+      title: 'Timers',
+      component: ComponentWrapper(HomeTimer, {
+        timers,
+        selectedTimer,
+        onChangeTimer: handleTimeItemChange,
+        onRemoveTimer: handleRemoveTimer,
+        onEditTimer: handleEditTimer
       })
     }
   ];
