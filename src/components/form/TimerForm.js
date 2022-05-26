@@ -6,11 +6,12 @@ import Switch from 'components/switch';
 import { convert12HourTo24HourClock, convert24HourTo12HourClock } from './helper';
 import { incrementDate } from 'clock';
 import { PlusOrMinusSVG } from 'components/icons/PlusOrMinusSVG';
+import { SCCreateFormFieldSet } from './styles';
 
 const ZERO = 0;
 const ONE = 1;
 
-const TimerForm = ({ onChange, value }) => {
+const TimerForm = ({ legend = 'Add Timer', onChange, value }) => {
   const today = new Date();
   const [name, setName] = useState('');
   const parsedTodayHour = convert24HourTo12HourClock(today.getHours());
@@ -51,7 +52,8 @@ const TimerForm = ({ onChange, value }) => {
   }, [value]);
 
   return (
-    <div>
+    <SCCreateFormFieldSet>
+      <legend>{legend}</legend>
       <div>
         <Text
           label="Name"
@@ -107,7 +109,7 @@ const TimerForm = ({ onChange, value }) => {
           }}
         />
         <div>
-          30 Days
+          30 Days:
           <svg
             aria-label="Plus 30 days"
             width="20"
@@ -165,7 +167,7 @@ const TimerForm = ({ onChange, value }) => {
         />
       </div>
       <Button
-        label="Save"
+        label="Submit"
         classColor="primary"
         onClick={() => {
           if (name) {
@@ -183,7 +185,7 @@ const TimerForm = ({ onChange, value }) => {
           }
         }}
       />
-    </div>
+    </SCCreateFormFieldSet>
   );
 };
 

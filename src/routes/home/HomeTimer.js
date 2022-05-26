@@ -78,7 +78,6 @@ const HomeTimer = ({ timers, selectedTimer, onChangeTimer, onRemoveTimer, onEdit
   return (
     <SCTimerTab>
       <div>
-        <h2> Add Timer </h2>
         <TimerForm
           onChange={({ name, content }) => {
             const newTimer = { name, value: content, type: 'timer' };
