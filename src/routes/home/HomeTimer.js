@@ -6,7 +6,8 @@ import { formattedTimerClock } from 'clock';
 import { decrementElementIndex, incrementElementIndex, swapArrayElementPositions } from 'arrayHelper';
 import { TrashSVG } from 'components/icons/TrashSVG';
 import { PenSVG } from 'components/icons/PenSVG';
-import { SCHomeCardWrapper, SCHomeFooter } from './styles';
+import TimerForm from 'components/form/TimerForm';
+import { SCTimerTab, SCTimers, SCHomeCardWrapper, SCHomeFooter } from './styles';
 
 const ZERO = 0;
 const ONE = 1;
@@ -64,7 +65,7 @@ const TimerCard = ({ item, onRemoveTimer, onEditTimer }) => {
   );
 };
 
-const HomeTimer = ({ timers, onRemoveTimer, onEditTimer }) => {
+const HomeTimer = ({ timers, selectedTimer, onChangeTimer, onRemoveTimer, onEditTimer }) => {
   const renderTimers =
     timers.length > ZERO ? (
       timers.map((item) => (
@@ -74,7 +75,22 @@ const HomeTimer = ({ timers, onRemoveTimer, onEditTimer }) => {
       <p> No timers to display </p>
     );
 
-  return <div className="flex--horizontal">{renderTimers}</div>;
+  return (
+    <SCTimerTab>
+      <div>
+        <h2> Add Timer </h2>
+        <TimerForm
+          onChange={({ name, content }) => {
+            const newTimer = { name, value: content, type: 'timer' };
+
+            onChangeTimer(newTimer);
+          }}
+          value={selectedTimer}
+        />
+      </div>
+      <SCTimers>{renderTimers}</SCTimers>
+    </SCTimerTab>
+  );
 };
 
 export default HomeTimer;

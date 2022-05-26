@@ -4,6 +4,16 @@ export const SCFlexWrapper = styled.div`
   display: flex;
 `;
 
+export const SCTimerTab = styled.div`
+  display: flex;
+`;
+
+export const SCTimers = styled.div`
+  margin-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
 export const SCHomeCardWrapper = styled.div`
   > div {
     height: ${(props) => (props.isLarge ? '350px' : '250px')};
@@ -61,7 +71,6 @@ export const SCTodoTitleWrapper = styled.div`
     position: relative;
     margin: 0;
     padding: 0;
-    left: 50px;
     cursor: pointer;
   }
   svg:hover {

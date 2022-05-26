@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { openSidePanel, updateGlobal } from 'components/global/globalActions';
+import { updateGlobal } from 'components/global/globalActions';
 import { loadHome, updateHome } from './homeActions';
 import Page from 'components/layout';
 import Button from 'components/button';
@@ -10,7 +10,6 @@ import TimerForm from 'components/form/TimerForm';
 import ComponentWrapper from 'components/ComponentWrapper';
 import HomeTodo from './HomeTodo';
 import HomeTimer from './HomeTimer';
-import HomeSidePanel from './HomeSidePanel';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -68,7 +67,6 @@ const Home = () => {
 
   const handleEditTimer = (name, time) => {
     setSelectedTimer({ name, time });
-    dispatch(openSidePanel());
   };
 
   const TABS = [
@@ -84,21 +82,18 @@ const Home = () => {
     },
     {
       title: 'Timers',
-      component: ComponentWrapper(HomeTimer, { timers, onRemoveTimer: handleRemoveTimer, onEditTimer: handleEditTimer })
+      component: ComponentWrapper(HomeTimer, {
+        timers,
+        selectedTimer,
+        onChangeTimer: handleTimeItemChange,
+        onRemoveTimer: handleRemoveTimer,
+        onEditTimer: handleEditTimer
+      })
     }
   ];
 
   return (
-    <Page
-      sidePanelContent={
-        <HomeSidePanel
-          selectedTask={selectedTask}
-          onChangeItem={handleTaskItemChange}
-          onChangeTimer={handleTimeItemChange}
-          selectedTimer={selectedTimer}
-        />
-      }
-    >
+    <Page>
       <Tabs data={TABS} />
     </Page>
   );

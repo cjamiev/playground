@@ -148,7 +148,7 @@ const HomeTodo = ({ tasks, selectedTask, onChangeItem, onChange, onEditTask }) =
                   moveItemUp(id);
                 }}
               >
-                <ArrowSVG conditions={{ orientation: 'UP' }} />
+                <ArrowSVG conditions={{ orientation: 'LEFT' }} />
               </svg>
               <svg
                 aria-label="Move Down"
@@ -159,7 +159,7 @@ const HomeTodo = ({ tasks, selectedTask, onChangeItem, onChange, onEditTask }) =
                   moveItemDown(id);
                 }}
               >
-                <ArrowSVG conditions={{ orientation: 'DOWN' }} />
+                <ArrowSVG conditions={{ orientation: 'RIGHT' }} />
               </svg>
               <svg
                 aria-label="Edit"
