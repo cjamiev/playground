@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const SCFlexWrapper = styled.div`
+  display: flex;
+`;
+
 export const SCHomeCardWrapper = styled.div`
   > div {
     height: ${(props) => (props.isLarge ? '350px' : '250px')};
@@ -36,6 +40,7 @@ export const SCTodoWrapper = styled.div`
   min-height: 200px;
   padding-top: 10px;
   padding-left: 10px;
+  margin-top: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
 
@@ -56,6 +61,7 @@ export const SCTodoTitleWrapper = styled.div`
     position: relative;
     margin: 0;
     padding: 0;
+    left: 50px;
     cursor: pointer;
   }
   svg:hover {
@@ -69,5 +75,19 @@ export const SCTodoList = styled.ul`
 
   li {
     font-size: 20px;
+  }
+`;
+
+export const SCCreateFormFieldSet = styled.fieldset`
+  width: 350px;
+  padding: 10px;
+  border-width: 2px;
+  border-style: groove;
+  border-color: threedface;
+  border-image: initial;
+  margin-right: 10px;
+
+  input {
+    margin-bottom: 5px;
   }
 `;

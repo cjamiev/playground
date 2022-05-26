@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import Card from 'components/card';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { openGlobalModal } from 'components/global/globalActions';
 import { decrementElementIndex, incrementElementIndex } from 'arrayHelper';
@@ -7,14 +6,47 @@ import { getEllipsisForLongText } from 'stringHelper';
 import { ArrowSVG } from 'components/icons/ArrowSVG';
 import { TrashSVG } from 'components/icons/TrashSVG';
 import { PenSVG } from 'components/icons/PenSVG';
+import Button from 'components/button';
+import Text from 'components/form/Text';
+import ItemCreator from 'components/form/ItemCreator';
 import { noop } from 'helper/noop';
-import { SCTodoWrapper, SCTodoTitleWrapper, SCTodoList, SCHomeFooter } from './styles';
+import {
+  SCFlexWrapper,
+  SCCreateFormFieldSet,
+  SCTodoWrapper,
+  SCTodoTitleWrapper,
+  SCTodoList,
+  SCHomeFooter
+} from './styles';
 
 const ZERO = 0;
 const MAX_LENGTH = 18;
 
-const HomeTodo = ({ tasks, onChange, onEditTask }) => {
+const HomeTodo = ({ tasks, selectedTask, onChangeItem, onChange, onEditTask }) => {
   const dispatch = useDispatch();
+  const [taskText, setTaskText] = useState('');
+  const [taskNotes, setTaskNotes] = useState([]);
+  const [taskUrls, setTaskUrls] = useState([]);
+
+  useEffect(() => {
+    if (selectedTask.text) {
+      setTaskText(selectedTask.text);
+      setTaskNotes(selectedTask.notes);
+      setTaskUrls(selectedTask.urls);
+    }
+  }, [selectedTask]);
+
+  const handleTextChange = ({ selected }) => {
+    setTaskText(selected);
+  };
+
+  const handleNotesChange = (updatedNotes) => {
+    setTaskNotes(updatedNotes);
+  };
+
+  const handleUrlsChange = (updatedUrls) => {
+    setTaskUrls(updatedUrls);
+  };
 
   const removeItem = (id) => {
     const updatedItems = tasks.filter((item) => item.id !== id);
@@ -60,7 +92,37 @@ const HomeTodo = ({ tasks, onChange, onEditTask }) => {
   };
 
   return (
-    <div>
+    <SCFlexWrapper>
+      <form>
+        <SCCreateFormFieldSet>
+          <legend> Add Tasks </legend>
+          <Text data-testid="todo-task" placeholder="Task" selected={taskText} onChange={handleTextChange} />
+          <ItemCreator placeholder="Note" data={taskNotes} onChange={handleNotesChange} />
+          <ItemCreator placeholder="Url" data={taskUrls} onChange={handleUrlsChange} />
+          <Button
+            data-testid="todo-add-btn"
+            classColor="primary"
+            label="Submit"
+            onClick={() => {
+              if (!taskText.length) {
+                return;
+              }
+
+              const newItem = {
+                text: taskText,
+                notes: taskNotes,
+                urls: taskUrls,
+                id: Date.now()
+              };
+              setTaskText('');
+              setTaskNotes([]);
+              setTaskUrls([]);
+
+              onChangeItem(newItem);
+            }}
+          />
+        </SCCreateFormFieldSet>
+      </form>
       {tasks.length > ZERO ? (
         tasks.map(({ id, text, notes, urls }) => (
           <SCTodoWrapper key={id}>
@@ -126,7 +188,7 @@ const HomeTodo = ({ tasks, onChange, onEditTask }) => {
       ) : (
         <p> No tasks to display </p>
       )}
-    </div>
+    </SCFlexWrapper>
   );
 };
 

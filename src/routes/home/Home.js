@@ -44,6 +44,10 @@ const Home = () => {
     dispatch(updateHome({ todos: updatedTasks, timers }));
   };
 
+  const handleEditTask = (item) => {
+    setSelectedTask(item);
+  };
+
   const handleTimeItemChange = (newTimer) => {
     const matched = timers.find((item) => item.name === newTimer.name);
     const updatedTimers = matched
@@ -62,11 +66,6 @@ const Home = () => {
     dispatch(updateHome({ todos: tasks, timers: updatedTimers }));
   };
 
-  const handleEditTask = (item) => {
-    setSelectedTask(item);
-    dispatch(openSidePanel());
-  };
-
   const handleEditTimer = (name, time) => {
     setSelectedTimer({ name, time });
     dispatch(openSidePanel());
@@ -75,7 +74,13 @@ const Home = () => {
   const TABS = [
     {
       title: 'To do',
-      component: ComponentWrapper(HomeTodo, { tasks, onChange: handleTasksChange, onEditTask: handleEditTask })
+      component: ComponentWrapper(HomeTodo, {
+        tasks,
+        selectedTask,
+        onChange: handleTasksChange,
+        onEditTask: handleEditTask,
+        onChangeItem: handleTaskItemChange
+      })
     },
     {
       title: 'Timers',
