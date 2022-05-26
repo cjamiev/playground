@@ -23,13 +23,13 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
 
   const toggleSidePanel = () => {
     if (isSidePanelOpen) {
+      setIsTransitioningOut(true);
       setTimeout(() => {
         dispatch(closeSidePanel());
+        setIsTransitioningOut(false);
       }, TIME.A_SECOND);
-      setIsTransitioningOut(true);
     } else {
       dispatch(openSidePanel());
-      setIsTransitioningOut(false);
     }
   };
 
