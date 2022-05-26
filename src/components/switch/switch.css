@@ -1,14 +1,11 @@
 .switch {
   list-style: none;
-  margin-bottom: 1em;
-  margin-right: 1em;
+  margin: 1em 1em 1em 0;
 }
 
 .switch__item {
   cursor: pointer;
   white-space: nowrap;
-  height: 60px;
-  width: 150px;
   text-align: center;
   font-size: 18px;
   color: #ffffff;
