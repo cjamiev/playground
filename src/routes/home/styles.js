@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 
-export const SCFlexWrapper = styled.div`
-  display: flex;
-`;
-
 export const SCTimerTab = styled.div`
   display: flex;
 `;
 
 export const SCTimers = styled.div`
   margin-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const SCTodoTab = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;

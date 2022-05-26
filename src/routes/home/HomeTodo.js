@@ -10,14 +10,7 @@ import Button from 'components/button';
 import Text from 'components/form/Text';
 import ItemCreator from 'components/form/ItemCreator';
 import { noop } from 'helper/noop';
-import {
-  SCFlexWrapper,
-  SCCreateFormFieldSet,
-  SCTodoWrapper,
-  SCTodoTitleWrapper,
-  SCTodoList,
-  SCHomeFooter
-} from './styles';
+import { SCTodoTab, SCCreateFormFieldSet, SCTodoWrapper, SCTodoTitleWrapper, SCTodoList, SCHomeFooter } from './styles';
 
 const ZERO = 0;
 const MAX_LENGTH = 18;
@@ -92,7 +85,7 @@ const HomeTodo = ({ tasks, selectedTask, onChangeItem, onChange, onEditTask }) =
   };
 
   return (
-    <SCFlexWrapper>
+    <SCTodoTab>
       <form>
         <SCCreateFormFieldSet>
           <legend> Add Tasks </legend>
@@ -188,7 +181,7 @@ const HomeTodo = ({ tasks, selectedTask, onChangeItem, onChange, onEditTask }) =
       ) : (
         <p> No tasks to display </p>
       )}
-    </SCFlexWrapper>
+    </SCTodoTab>
   );
 };
 
