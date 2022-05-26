@@ -1,17 +1,26 @@
 import styled from 'styled-components';
 
 export const SCCreateFormFieldSet = styled.fieldset`
-  position: relative;
   width: 300px;
   padding: 10px;
   border-width: 2px;
   border-style: groove;
   border-color: threedface;
   border-image: initial;
+`;
+
+export const SCTimerQuickModifier = styled.div`
+  position: relative;
+  display: flex;
+  margin: 5px 0;
+
+  span {
+    width: 60px;
+  }
 
   svg {
     position: relative;
-    top: 6px;
+    top: 2px;
     left: 3px;
     margin-right: 5px;
     cursor: pointer;
