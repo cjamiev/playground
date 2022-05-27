@@ -29,19 +29,23 @@ export const SCModal = styled.div`
 
 export const SCModalHeader = styled.div`
   flex: 1;
-  padding: 1em;
+  padding-left: 10px;
   border-bottom: 1px solid hsl(0, 0%, 0%);
   background-color: ${Theme.primaryDarkColor};
   color: #fff;
+  position: relative;
 `;
 
 export const SCModalTitle = styled.h2`
+  position: relative;
   font-size: 36px;
+  top: 15px;
 `;
 
 export const SCModalBody = styled.div`
   flex: 6;
-  padding: 1em;
+  padding-top: 10px;
+  padding-left: 10px;
   overflow-y: auto;
 `;
 
@@ -52,4 +56,5 @@ export const SCModalFooter = styled.div`
   background-color: ${Theme.primaryDarkColor};
   padding-left: 10px;
   display: flex;
+  place-content: center;
 `;
