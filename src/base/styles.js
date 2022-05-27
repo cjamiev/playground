@@ -45,7 +45,7 @@ export const SCNavigationContent = styled.nav`
   position: fixed;
   overflow: hidden;
   height: 100vh;
-  background-color: ${Theme.primaryDarkColor};
+  background-color: ${Theme.lightBlack};
   color: ${Theme.white};
 `;
 
@@ -56,13 +56,13 @@ export const SCNavigationLinks = styled.div`
   top: ${({ isAtBottom }) => (isAtBottom ? '53vh' : '10px')};
 
   :hover {
-    background-color: ${Theme.secondaryDarkColor};
+    background-color: ${Theme.darkBlack};
   }
 
   ${({ isActive }) =>
     isActive &&
     `
-    background-color: ${Theme.secondaryDarkColor};
+    background-color: ${Theme.darkBlack};
   `}
 `;
 

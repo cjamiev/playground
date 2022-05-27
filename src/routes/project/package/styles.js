@@ -28,7 +28,7 @@ export const SCTableHeaderCell = styled.th`
 export const SCTableCell = styled.td`
   position: relative;
   color: ${(props) => (props.isActive ? 'hsl(0,0%,0%)' : 'hsl(0, 0%, 70%)')};
-  background-color: ${(props) => (props.isActive ? 'hsl(240,85%,75%)' : Theme.primaryBgColor)};
+  background-color: ${(props) => (props.isActive ? 'hsl(240,85%,75%)' : Theme.lightWhite)};
   border: 1px solid hsl(0, 0%, 87%);
   height: 40px;
   width: ${(props) => (props.isSmall ? '40px' : '400px')};

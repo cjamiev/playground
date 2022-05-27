@@ -118,13 +118,13 @@ export const SCQuickAccess = styled.footer`
   left: calc(100% - 400px);
   display: flex;
   flex-direction: column;
-  background-color: ${Theme.primaryDarkColor};
+  background-color: ${Theme.lightBlack};
   border-radius: 10px 10px 0 0;
 `;
 
 export const SCQuickAccessBtnGroup = styled.div`
   display: flex;
-  border-bottom: 1px solid ${Theme.secondaryDarkColor};
+  border-bottom: 1px solid ${Theme.lightBlack};
 `;
 
 export const SCQuickAccessBtn = styled.button`
@@ -132,12 +132,12 @@ export const SCQuickAccessBtn = styled.button`
   color: ${Theme.white};
   min-height: 50px;
   cursor: pointer;
-  background-color: ${Theme.primaryDarkColor};
+  background-color: ${Theme.lightBlack};
   flex: 1;
-  ${(props) => props.isActive && `background-color: ${Theme.secondaryDarkColor};`};
+  ${(props) => props.isActive && `background-color: ${Theme.darkBlack};`};
 
   :hover {
-    background-color: ${Theme.secondaryDarkColor};
+    background-color: ${Theme.darkBlack};
     outline: none;
   }
 `;
@@ -146,7 +146,7 @@ export const SCQuickAccessList = styled.div`
   display: flex;
   flex-direction: column;
   height: ${(props) => (props.isVisible ? '500px' : '0px')};
-  background-color: ${Theme.primaryDarkColor};
+  background-color: ${Theme.lightBlack};
   margin-top: 20px;
   transition: height 500ms;
 `;
@@ -155,15 +155,15 @@ export const SCQuickAccessListBtn = styled.button`
   border: none;
   color: ${Theme.white};
   min-height: 50px;
-  background-color: ${Theme.primaryDarkColor};
+  background-color: ${Theme.lightBlack};
   cursor: pointer;
 
   :hover {
-    background-color: ${Theme.secondaryDarkColor};
+    background-color: ${Theme.darkBlack};
     outline: none;
   }
 
   :active {
-    background-color: ${Theme.primaryDarkMatchingGradient};
+    background-color: ${Theme.darkBlack};
   }
 `;

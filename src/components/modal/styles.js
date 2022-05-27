@@ -31,7 +31,7 @@ export const SCModalHeader = styled.div`
   flex: 1;
   padding-left: 10px;
   border-bottom: 1px solid hsl(0, 0%, 0%);
-  background-color: ${Theme.primaryDarkColor};
+  background-color: ${Theme.darkBlack};
   color: #fff;
   position: relative;
 `;
@@ -53,7 +53,7 @@ export const SCModalFooter = styled.div`
   flex: 1;
   border-top: 1px solid hsl(0, 0%, 0%);
   height: 100%;
-  background-color: ${Theme.primaryDarkColor};
+  background-color: ${Theme.darkBlack};
   padding-left: 10px;
   display: flex;
   place-content: center;
