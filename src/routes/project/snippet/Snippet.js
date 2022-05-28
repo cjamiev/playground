@@ -54,9 +54,10 @@ const Snippet = () => {
               }}
             />
             <Button
-              label="Create New"
+              label="Submit"
               classColor="primary"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 if (name && content) {
                   dispatch(createSnippet(name, content));
                 }

@@ -96,7 +96,8 @@ const HomeTodo = ({ tasks, selectedTask, onChangeItem, onChange, onEditTask }) =
             data-testid="todo-add-btn"
             classColor="primary"
             label="Submit"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               if (!taskText.length) {
                 return;
               }

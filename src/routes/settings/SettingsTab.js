@@ -103,7 +103,8 @@ const SettingsTab = ({ settingsData, labels, isHidden = false, onChange }) => {
             <Button
               classColor="primary"
               label="Submit"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 const updatedSettingsuration = [newSettings].concat(currentSettingsuration);
 
                 onChange(updatedSettingsuration);
