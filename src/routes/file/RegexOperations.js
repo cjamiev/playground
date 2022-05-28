@@ -1,19 +1,33 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { openGlobalModal } from 'components/global/globalActions';
 import Button, { InfoButton } from 'components/button';
 import Text from 'components/form/Text';
 import Checkbox from 'components/form/Checkbox';
 import NumberRange from 'components/form/NumberRange';
 import { MODIFIER_TYPES, regexInfo, formRegex, parsedContent } from './helper';
 import { copyToClipboard } from 'helper/copy';
+import { SCFlexWrapper, SCTitleWrapper, SCFileBtnWrapper } from './styles';
+import { InfoSVG } from 'components/icons/InfoSVG';
 
 const ZERO = 0;
 
 const RegexOperations = ({ content, onChange }) => {
+  const dispatch = useDispatch();
   const [find, setFind] = useState('');
   const [replace, setReplace] = useState('');
   const [modifier, setModifier] = useState(MODIFIER_TYPES);
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
+
+  const showRegexContent = () => {
+    dispatch(
+      openGlobalModal({
+        title: 'Info',
+        message: regexInfo()
+      })
+    );
+  };
 
   const selectedModifiers = modifier
     .filter((item) => item.selected)
@@ -23,11 +37,21 @@ const RegexOperations = ({ content, onChange }) => {
   const searchExp = formRegex(find, selectedModifiers);
 
   return (
-    <div className="flex--vertical">
-      <h3>
-        {' '}
-        Regex <InfoButton content={regexInfo()} />{' '}
-      </h3>
+    <SCFlexWrapper isVertical>
+      <SCTitleWrapper>
+        <h3>Regex</h3>
+        <svg
+          aria-label="Regex Info"
+          width="27"
+          height="27"
+          viewBox="0 0 106 106"
+          onClick={() => {
+            showRegexContent();
+          }}
+        >
+          <InfoSVG />
+        </svg>
+      </SCTitleWrapper>
       <Text
         label="Search"
         error={!searchExp.isValid}
@@ -61,20 +85,22 @@ const RegexOperations = ({ content, onChange }) => {
           setModifier(values);
         }}
       />
-      <Button
-        isPrimary
-        label="Convert"
-        onClick={() => {
-          onChange(parsedContent({ content, replace, range: { start, end }, searchExp }));
-        }}
-      />
-      <Button
-        label="Copy RegEx"
-        onClick={() => {
-          copyToClipboard(searchExpDisplay);
-        }}
-      />
-    </div>
+      <SCFileBtnWrapper>
+        <Button
+          isPrimary
+          label="Convert"
+          onClick={() => {
+            onChange(parsedContent({ content, replace, range: { start, end }, searchExp }));
+          }}
+        />
+        <Button
+          label="Copy RegEx"
+          onClick={() => {
+            copyToClipboard(searchExpDisplay);
+          }}
+        />
+      </SCFileBtnWrapper>
+    </SCFlexWrapper>
   );
 };
 

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Theme } from 'styles';
 
 export const SCSwitchBtnWrapper = styled.div`
+  margin-top: 10px;
   margin-bottom: 10px;
 `;
 
