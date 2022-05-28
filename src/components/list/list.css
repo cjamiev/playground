@@ -23,6 +23,7 @@
   display: flex;
   text-align: center;
   place-items: center;
+  column-gap: 10px;
 }
 
 .list__content--vertical {
