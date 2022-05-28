@@ -94,7 +94,7 @@ const HomeTodo = ({ tasks, selectedTask, onChangeItem, onChange, onEditTask }) =
           <ItemCreator placeholder="Url" data={taskUrls} onChange={handleUrlsChange} />
           <Button
             data-testid="todo-add-btn"
-            classColor="primary"
+            isPrimary
             label="Submit"
             onClick={(e) => {
               e.preventDefault();

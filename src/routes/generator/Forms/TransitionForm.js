@@ -14,21 +14,23 @@ const THREE = 3;
 const TransitionForm = ({ style, onChange }) => {
   const [transitionAttributes, setTransitionAttributes] = useState('');
   const [currentTransition, setCurrentTransition] = useState({});
-  const transitionValues = transitionAttributes ? transitionAttributes.split(',').map(entry => {
-    const properties = entry.trim().split(' ');
-    const value = {
-      property: properties[ZERO],
-      duration: properties[ONE],
-      timingFunction: properties[TWO],
-      delay: properties[THREE]
-    };
+  const transitionValues = transitionAttributes
+    ? transitionAttributes.split(',').map((entry) => {
+      const properties = entry.trim().split(' ');
+      const value = {
+        property: properties[ZERO],
+        duration: properties[ONE],
+        timingFunction: properties[TWO],
+        delay: properties[THREE]
+      };
 
-    return { label: value.property, value, selected: false };
-  }): [];
+      return { label: value.property, value, selected: false };
+    })
+    : [];
 
   useEffect(() => {
     setTransitionAttributes(style.transition);
-  },[style.transition]);
+  }, [style.transition]);
 
   return (
     <>
@@ -37,7 +39,7 @@ const TransitionForm = ({ style, onChange }) => {
           label="Edit"
           values={transitionValues}
           onChange={({ values }) => {
-            const matched = values.find(item => item.selected).value;
+            const matched = values.find((item) => item.selected).value;
 
             setCurrentTransition(matched);
           }}
@@ -47,8 +49,8 @@ const TransitionForm = ({ style, onChange }) => {
           values={transitionValues}
           onChange={({ values }) => {
             const updatedTransition = values
-              .filter(item => !item.selected)
-              .map(item => {
+              .filter((item) => !item.selected)
+              .map((item) => {
                 return `${item.value.property} ${item.value.duration} ${item.value.timingFunction} ${item.value.delay}`;
               })
               .join(', ');
@@ -61,15 +63,15 @@ const TransitionForm = ({ style, onChange }) => {
         <Text
           label="Property"
           selected={currentTransition.property}
-          onChange={({selected}) => {
-            setCurrentTransition({ ...currentTransition, property: selected});
+          onChange={({ selected }) => {
+            setCurrentTransition({ ...currentTransition, property: selected });
           }}
         />
         <Text
           label="Duration"
           selected={currentTransition.duration}
-          onChange={({selected}) => {
-            setCurrentTransition({ ...currentTransition, duration: selected});
+          onChange={({ selected }) => {
+            setCurrentTransition({ ...currentTransition, duration: selected });
           }}
         />
         <Dropdown
@@ -78,7 +80,7 @@ const TransitionForm = ({ style, onChange }) => {
             (item.label === currentTransition.timingFunction ? { ...item, selected: true } : item)
           )}
           onChange={({ values }) => {
-            const matched = values.find(item => item.selected);
+            const matched = values.find((item) => item.selected);
 
             setCurrentTransition({ ...currentTransition, timingFunction: matched.label });
           }}
@@ -86,24 +88,32 @@ const TransitionForm = ({ style, onChange }) => {
         <Text
           label="Delay"
           selected={currentTransition.delay}
-          onChange={({selected}) => {
-            setCurrentTransition({ ...currentTransition, delay: selected});
+          onChange={({ selected }) => {
+            setCurrentTransition({ ...currentTransition, delay: selected });
           }}
         />
       </div>
       <Button
         label="Add"
-        classColor="primary"
+        isPrimary
         onClick={() => {
-          if(currentTransition.property
-            && currentTransition.timingFunction
-            && currentTransition.delay
-            && currentTransition.duration) {
-            const filteredTransitionValues = transitionValues.filter(entry => entry.label !== currentTransition.property);
-            const updatedTransitionValues = filteredTransitionValues.map(entry => entry.value).concat([currentTransition]);
-            const updatedTransition = updatedTransitionValues.map(entry => {
-              return `${entry.property} ${entry.duration} ${entry.timingFunction} ${entry.delay}`;
-            }).join(', ');
+          if (
+            currentTransition.property &&
+            currentTransition.timingFunction &&
+            currentTransition.delay &&
+            currentTransition.duration
+          ) {
+            const filteredTransitionValues = transitionValues.filter(
+              (entry) => entry.label !== currentTransition.property
+            );
+            const updatedTransitionValues = filteredTransitionValues
+              .map((entry) => entry.value)
+              .concat([currentTransition]);
+            const updatedTransition = updatedTransitionValues
+              .map((entry) => {
+                return `${entry.property} ${entry.duration} ${entry.timingFunction} ${entry.delay}`;
+              })
+              .join(', ');
 
             onChange({ id: 'transition', selected: updatedTransition });
             setCurrentTransition({});

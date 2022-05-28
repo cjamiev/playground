@@ -46,7 +46,7 @@ const CommandForm = ({ onChange }) => {
       />
       <Button
         label="Save"
-        classColor="primary"
+        isPrimary
         onClick={() => {
           const selectedCommand = commandKeys.find((item) => item.selected);
           if (name && selectedCommand) {

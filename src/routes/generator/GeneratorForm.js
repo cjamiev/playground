@@ -39,7 +39,7 @@ const GeneratorForm = ({ style, onChange }) => {
       <Button
         key={label}
         label={label}
-        classColor="primary"
+        isPrimary
         onClick={() => {
           setType(label);
         }}

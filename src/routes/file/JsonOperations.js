@@ -14,7 +14,6 @@ const JsonOperations = ({ content, onChange }) => {
       <h3> JSON </h3>
       <Button
         label="Validate"
-        classColor="secondary"
         onClick={() => {
           dispatch(dismissAlert());
           const isValid = isJSONString(content);
@@ -28,7 +27,6 @@ const JsonOperations = ({ content, onChange }) => {
       />
       <Button
         label="Stringify"
-        classColor="secondary"
         onClick={() => {
           onChange(
             JSON.stringify(content)
@@ -43,7 +41,6 @@ const JsonOperations = ({ content, onChange }) => {
       />
       <Button
         label="Parse"
-        classColor="secondary"
         onClick={() => {
           const parsed = parseObject(content.replace(/\"/g, '\\"').replace(/\'/g, '"'));
           if (parsed) {
@@ -53,7 +50,6 @@ const JsonOperations = ({ content, onChange }) => {
       />
       <Button
         label="Object"
-        classColor="secondary"
         onClick={() => {
           const result = content
             .replace(/['|"]{/g, '{')
@@ -64,7 +60,6 @@ const JsonOperations = ({ content, onChange }) => {
           onChange(result);
         }}
       />
-
     </div>
   );
 };

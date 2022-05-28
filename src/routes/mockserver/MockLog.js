@@ -21,7 +21,6 @@ const MockLog = () => {
         <td className="flex--one">{timestamp}</td>
         <td className="flex--one horizontal-center">
           <Button
-            classColor="primary"
             label="Load"
             onClick={() => {
               dispatch(
@@ -50,7 +49,7 @@ const MockLog = () => {
   return (
     <section>
       <Button
-        classColor="primary"
+        isPrimary
         label="Clear Log"
         onClick={() => {
           dispatch(clearMockServerLog());

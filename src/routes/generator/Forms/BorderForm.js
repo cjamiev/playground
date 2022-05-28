@@ -31,7 +31,6 @@ const BorderForm = ({ style, onChange }) => {
         <Color id="borderColor" label="Color" selected={style.borderColor} onChange={onChange} />
         <Button
           label="Remove"
-          classColor="secondary"
           onClick={() => {
             onChange({ id: 'borderStyle', selected: '' });
             onChange({ id: 'borderThickness', selected: '' });
@@ -42,34 +41,38 @@ const BorderForm = ({ style, onChange }) => {
       <div>
         <Radio
           label="Is radius same on all sides?"
-          values={[{ label: 'Yes', selected: isSame }, { label: 'No', selected: !isSame }]}
+          values={[
+            { label: 'Yes', selected: isSame },
+            { label: 'No', selected: !isSame }
+          ]}
           onChange={({ values }) => {
-            const isSameRadius = values.find(item => item.selected).label === 'Yes';
+            const isSameRadius = values.find((item) => item.selected).label === 'Yes';
             setIsSame(isSameRadius);
-            if(!isSameRadius) {
-              onChange({ id: 'topLeftRadius', selected: style.borderRadius || ''});
-              onChange({ id: 'topRightRadius', selected: style.borderRadius || ''});
-              onChange({ id: 'bottomRightRadius', selected: style.borderRadius || ''});
-              onChange({ id: 'bottomLeftRadius', selected: style.borderRadius || ''});
-              onChange({ id: 'borderRadius', selected: ''});
+            if (!isSameRadius) {
+              onChange({ id: 'topLeftRadius', selected: style.borderRadius || '' });
+              onChange({ id: 'topRightRadius', selected: style.borderRadius || '' });
+              onChange({ id: 'bottomRightRadius', selected: style.borderRadius || '' });
+              onChange({ id: 'bottomLeftRadius', selected: style.borderRadius || '' });
+              onChange({ id: 'borderRadius', selected: '' });
             } else {
-              onChange({ id: 'topLeftRadius', selected: ''});
-              onChange({ id: 'topRightRadius', selected: ''});
-              onChange({ id: 'bottomRightRadius', selected: ''});
-              onChange({ id: 'bottomLeftRadius', selected: ''});
+              onChange({ id: 'topLeftRadius', selected: '' });
+              onChange({ id: 'topRightRadius', selected: '' });
+              onChange({ id: 'bottomRightRadius', selected: '' });
+              onChange({ id: 'bottomLeftRadius', selected: '' });
             }
           }}
         />
-        { isSame
-          ? (<Range
+        {isSame ? (
+          <Range
             id="borderRadius"
             label="Radius"
             min={PIXEL_MIN}
             max={PIXEL_MAX}
             selected={style.borderRadius}
             onChange={onChange}
-          />)
-          : (<>
+          />
+        ) : (
+          <>
             <Range
               id="topLeftRadius"
               label="Top Left"
@@ -102,7 +105,8 @@ const BorderForm = ({ style, onChange }) => {
               selected={style.bottomLeftRadius}
               onChange={onChange}
             />
-          </>)}
+          </>
+        )}
       </div>
     </div>
   );

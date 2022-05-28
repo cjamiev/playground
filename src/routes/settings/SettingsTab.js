@@ -101,7 +101,7 @@ const SettingsTab = ({ settingsData, labels, isHidden = false, onChange }) => {
               }}
             />
             <Button
-              classColor="primary"
+              isPrimary
               label="Submit"
               onClick={(e) => {
                 e.preventDefault();

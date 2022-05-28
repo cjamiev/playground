@@ -3,7 +3,7 @@ import Dropdown from 'components/form/Dropdown';
 import List from 'components/list';
 import Radio from 'components/form/Radio';
 import Checkbox from 'components/form/Checkbox';
-import Button, { CloseButton, InfoButton, IconButton, ToggleButton } from 'components/button';
+import Button, { InfoButton, IconButton, ToggleButton } from 'components/button';
 import Accordion, { AccordionGroup } from 'components/accordion';
 import { noop } from 'helper/noop';
 import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
@@ -37,7 +37,7 @@ const testData = [
 ];
 
 const StyleGuide = () => {
-  const iconButtons = Object.keys(ICON_TYPES).map(type => {
+  const iconButtons = Object.keys(ICON_TYPES).map((type) => {
     return <IconButton key={type} type={ICON_TYPES[type]} onClick={noop} />;
   });
 
@@ -46,8 +46,8 @@ const StyleGuide = () => {
       <div>
         <h2> Buttons </h2>
         <Button label="Default Button" onClick={noop} />
-        <Button label="Primary Button" classColor="primary" onClick={noop} />
-        <Button label="Secondary Button" classColor="secondary" classSize="wide" onClick={noop} />
+        <Button label="Primary Button" isPrimary onClick={noop} />
+        <Button label="Secondary Button" classSize="wide" onClick={noop} />
       </div>
 
       <div>
@@ -55,7 +55,6 @@ const StyleGuide = () => {
         <div className="flex--horizontal">
           <ToggleButton onClick={noop} />
           <InfoButton onClick={noop} />
-          <CloseButton onClick={noop} />
         </div>
       </div>
 
@@ -114,7 +113,7 @@ const StyleGuide = () => {
             { label: 'Accordion Top', content: <div>Content1</div> },
             {
               label: 'Accordion',
-              content: <Button label="Secondary Button" classColor="secondary" classSize="wide" onClick={noop} />
+              content: <Button label="Secondary Button" classSize="wide" onClick={noop} />
             },
             { label: 'Accordion Bottom', content: 'Content3' }
           ]}

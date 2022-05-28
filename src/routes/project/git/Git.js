@@ -14,14 +14,7 @@ import {
 } from './gitActions';
 import Text from 'components/form/Text';
 import Button from 'components/button';
-import {
-  SCGitPageWrapper,
-  SCNameTxt,
-  SCBranchesWrapper,
-  SCBranchBtnWrapper,
-  SCBranchBtn,
-  SCFlexWrapper
-} from './styles';
+import { SCGitPageWrapper, SCNameTxt, SCBranchesWrapper, SCBranchBtnWrapper, SCGitBtnWrapper } from './styles';
 
 const Git = ({ root }) => {
   const dispatch = useDispatch();
@@ -36,15 +29,15 @@ const Git = ({ root }) => {
           <h2>Branches</h2>
           {branches.map((item) => {
             return (
-              <SCBranchBtn
+              <Button
+                isPrimary
                 key={item}
+                label={item}
                 onClick={() => {
                   setName(item);
                   setIsBranchMode(true);
                 }}
-              >
-                {item}
-              </SCBranchBtn>
+              />
             );
           })}
         </SCBranchBtnWrapper>
@@ -52,15 +45,15 @@ const Git = ({ root }) => {
           <h2>Stashes</h2>
           {stashes.map((item) => {
             return (
-              <SCBranchBtn
+              <Button
+                isPrimary
                 key={item}
+                label={item}
                 onClick={() => {
                   setName(item);
                   setIsBranchMode(false);
                 }}
-              >
-                {item}
-              </SCBranchBtn>
+              />
             );
           })}
         </SCBranchBtnWrapper>
@@ -75,7 +68,7 @@ const Git = ({ root }) => {
             }}
           />
         </SCNameTxt>
-        <SCFlexWrapper>
+        <SCGitBtnWrapper>
           <Button
             label="Checkout"
             disabled={!name || !isBranchMode}
@@ -106,8 +99,8 @@ const Git = ({ root }) => {
               dispatch(viewBranches(root));
             }}
           />
-        </SCFlexWrapper>
-        <SCFlexWrapper>
+        </SCGitBtnWrapper>
+        <SCGitBtnWrapper>
           <Button
             label="Create Stash"
             disabled={!name || isBranchMode}
@@ -136,15 +129,15 @@ const Git = ({ root }) => {
               dispatch(selectStash(root, name));
             }}
           />
-        </SCFlexWrapper>
-        <SCFlexWrapper>
+        </SCGitBtnWrapper>
+        <SCGitBtnWrapper>
           <Button
             label="Reset"
             onClick={() => {
               dispatch(resetBranch(root));
             }}
           />
-        </SCFlexWrapper>
+        </SCGitBtnWrapper>
       </div>
     </SCGitPageWrapper>
   );

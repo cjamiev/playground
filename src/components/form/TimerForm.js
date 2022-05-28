@@ -167,7 +167,7 @@ const TimerForm = ({ legend = 'Add Timer', onChange, value }) => {
       </div>
       <Button
         label="Submit"
-        classColor="primary"
+        isPrimary
         onClick={() => {
           if (name) {
             const parsedHour = convert12HourTo24HourClock(Number(hour), isPm);

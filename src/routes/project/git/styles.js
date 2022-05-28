@@ -22,21 +22,12 @@ export const SCBranchBtnWrapper = styled.div`
   row-gap: 5px;
 `;
 
-export const SCBranchBtn = styled.button`
-  min-width: 200px;
-  height: 60px;
-  margin-bottom: 0px;
-  border-radius: 0;
-  background-color: hsl(204, 89%, 18%);
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-
-  :hover {
-    background-color: hsl(204, 100%, 35%);
-  }
-`;
-
-export const SCFlexWrapper = styled.div`
+export const SCGitBtnWrapper = styled.div`
   display: flex;
+  margin-bottom: 10px;
+
+  button {
+    margin-right: 10px;
+    width: 180px;
+  }
 `;

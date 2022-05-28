@@ -20,7 +20,7 @@ export const SCTableHeaderCell = styled.th`
 
 export const SCTableCellIcon = styled.td`
   position: relative;
-  background-color: ${Theme.lightWhite};
+  background-color: ${Theme.primaryBackgroundColor};
   border: none;
   border-bottom: 1px solid hsl(0, 0%, 87%);
   width: 40px;
@@ -52,7 +52,7 @@ export const SCTableCellIcon = styled.td`
 export const SCTableCell = styled.td`
   position: relative;
   color: hsl(0, 0%, 70%);
-  background-color: ${Theme.lightWhite};
+  background-color: ${Theme.primaryBackgroundColor};
   border: none;
   border-bottom: 1px solid hsl(0, 0%, 87%);
   height: 40px;

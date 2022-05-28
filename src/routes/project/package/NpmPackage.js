@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Button from 'components/button';
 import { runNpmScript, getDependencyVersions, updatePackage } from './npmPackageActions';
 import { noop } from 'helper/noop';
 import { updateDependencyVersions } from './helper';
-import {
-  SCPackageTitle,
-  SCFlexWrapper,
-  SCNpmBtnWrapper,
-  SCNpmBtn,
-  SCNpmTables,
-  SCTableHeaderCell,
-  SCTableCell
-} from './styles';
+import { SCPackageTitle, SCFlexWrapper, SCNpmBtnWrapper, SCNpmTables, SCTableHeaderCell, SCTableCell } from './styles';
 
 const ZERO = 0;
 const ONE = 1;
@@ -41,7 +34,8 @@ const Package = ({ root }) => {
 
   const packageCommands = Object.keys(scripts).map((scriptName) => {
     return (
-      <SCNpmBtn
+      <Button
+        isSecondary
         key={scriptName}
         label={scriptName}
         onClick={() => {
@@ -112,19 +106,21 @@ const Package = ({ root }) => {
         </SCNpmTables>
         <SCFlexWrapper>
           <SCNpmBtnWrapper>
-            <SCNpmBtn
+            <Button
+              isPrimary
               label="Load Versions"
               onClick={() => {
                 dispatch(getDependencyVersions(root));
               }}
             />
-            <SCNpmBtn
+            <Button
+              isPrimary
               label="Update Versions"
               onClick={() => {
                 dispatch(updatePackage(root, updateDependencyVersions(packageJson, selectedDeps)));
               }}
             />
-            <SCNpmBtn label="Select All" onClick={handleSelectAll} />
+            <Button isPrimary label="Select All" onClick={handleSelectAll} />
           </SCNpmBtnWrapper>
           <SCNpmBtnWrapper>{packageCommands}</SCNpmBtnWrapper>
         </SCFlexWrapper>

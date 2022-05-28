@@ -41,7 +41,6 @@ const Modal = (props) => {
         key={dispatchAction.label}
         label={dispatchAction.label}
         disabled={err}
-        classColor="secondary"
         onClick={() => {
           dispatch(dispatchAction.action(dispatchAction.parse(content)));
           beforeClose();

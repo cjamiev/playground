@@ -1,37 +1,35 @@
 import React from 'react';
 import Button from 'components/button';
 import { noop } from 'helper/noop';
+import { SCSwitchBtnWrapper, SCSwitchBtn } from './styles';
 
 const ZERO = 0;
 const ONE = 1;
 
 const Switch = React.memo(({ data, switchIndex, onToggleSwitch = noop }) => {
   const renderSwitchs = data.map((item, itemIndex) => {
-    const isActiveIndex = switchIndex === itemIndex;
-    const activeClass = isActiveIndex ? 'switch__item switch__item--active ' : 'switch__item ';
-    const ariaLabel = isActiveIndex ? `${item.label} mode is on` : `${item.label} mode is off`;
-    const firstClass = itemIndex === ZERO ? 'switch__item--first ': '';
-    const lastClass = itemIndex === data.length - ONE ? 'switch__item--last': '';
-    const switchClass = `${activeClass}${firstClass}${lastClass}`;
+    const isActive = switchIndex === itemIndex;
+    const isFirst = itemIndex === ZERO;
+    const isLast = itemIndex === data.length - ONE;
+    const ariaLabel = isActive ? `${item.label} mode is on` : `${item.label} mode is off`;
 
     return (
-      <Button
+      <SCSwitchBtn
+        isFirst={isFirst}
+        isLast={isLast}
+        isActive={isActive}
         key={item.label}
-        className={switchClass}
-        label={item.label}
         ariaLabel={ariaLabel}
         onClick={() => {
           onToggleSwitch(itemIndex);
         }}
-      />
+      >
+        {item.label}
+      </SCSwitchBtn>
     );
   });
 
-  return (
-    <>
-      <div className="switch">{renderSwitchs}</div>
-    </>
-  );
+  return <SCSwitchBtnWrapper>{renderSwitchs}</SCSwitchBtnWrapper>;
 });
 
 export default Switch;

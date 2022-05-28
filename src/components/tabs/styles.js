@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import { Theme } from 'styles';
 
+const lightPurple = 'hsl(252deg 67% 66%)';
+
 const lightModeWrapper = css`
   position: relative;
   margin-top: 10px;
@@ -12,7 +14,7 @@ const darkModeWrapper = css`
   height: 50px;
   padding: 10px;
   margin-bottom: 10px;
-  background-color: ${Theme.lightBlack};
+  background-color: ${Theme.secondaryBackgroundColor};
 `;
 
 export const SCTabButtonGroup = styled.div`
@@ -23,7 +25,7 @@ export const SCTabButtonGroup = styled.div`
 
 const lightModeButton = css`
   color: hsl(201, 100%, 53%);
-  background-color: ${Theme.lightBlack};
+  background-color: ${Theme.secondaryBackgroundColor};
   padding: 10px 20px 5px 20px;
   font-size: 1.5em;
   text-align: center;
@@ -49,16 +51,16 @@ const darkModeButton = css`
   padding: 2px;
   border-radius: 0;
   color: ${Theme.white};
-  background-color: ${Theme.lightBlack};
+  background-color: ${Theme.secondaryBackgroundColor};
   cursor: pointer;
   transition: color 500ms, box-shadow 500ms;
 
   ${(props) =>
     props.isActive &&
     `
-      color: hsl(240, 85%, 75%);
-      background-color: ${Theme.darkBlack};
-      box-shadow: 0px 2px 10px hsl(230, 85%, 75%);
+      color: ${lightPurple};
+      background-color: ${Theme.secondaryBackgroundColorHover};
+      box-shadow: 0px 2px 10px ${Theme.primaryColor};
       transform: translateY(1px);
     `};
 `;

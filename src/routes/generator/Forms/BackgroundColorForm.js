@@ -5,7 +5,6 @@ import Range from 'components/form/Range';
 import { OPACITY_MAX } from 'constants/css';
 
 const BackgroundColorForm = ({ style, onChange }) => {
-
   return (
     <>
       <Color id="backgroundColor" label="Background Color" selected={style.backgroundColor} onChange={onChange} />
@@ -19,7 +18,6 @@ const BackgroundColorForm = ({ style, onChange }) => {
       />
       <Button
         label="Remove"
-        classColor="secondary"
         onClick={() => {
           onChange({ id: 'backgroundColor', selected: '' });
         }}

@@ -43,7 +43,6 @@ const DisplayCommand = ({ label, name, showArgs }) => {
   return (
     <span className="list__item">
       <Button
-        classColor={'secondary'}
         label={label}
         onClick={() => {
           dispatch(executeCommand(name, arg));
@@ -66,8 +65,8 @@ export const DisplayContent = ({ type, label, value }) => {
   } else if (type === TYPE.COPY) {
     return (
       <Button
+        isPrimary
         label={label}
-        classColor="primary"
         onClick={() => {
           copyToClipboard(value);
         }}

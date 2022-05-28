@@ -89,7 +89,7 @@ const MockViewEndpoint = () => {
         <td className="flex--one">{method}</td>
         <td className="flex--one horizontal-center">
           <Button
-            classColor="primary"
+            isPrimary
             label="Load"
             onClick={() => {
               dispatch(loadMockResponse({ method, url, responsePath }));

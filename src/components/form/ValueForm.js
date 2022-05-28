@@ -36,7 +36,7 @@ const ValueForm = ({ type, onChange }) => {
       )}
       <Button
         label="Save"
-        classColor="primary"
+        isPrimary
         onClick={() => {
           if (name && content) {
             onChange({ name, content });

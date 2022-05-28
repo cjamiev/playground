@@ -1,13 +1,12 @@
 import React from 'react';
 import { getColor, getSize } from './helper';
+import { SCButton } from './styles';
 
-const Button = ({ label, ariaLabel, className, classColor, isSmall = false, disabled = false, onClick }) => {
-  const btnClass = className ? className : `btn ${getSize(isSmall)}${getColor(classColor)}`;
-
+const Button = ({ label, ariaLabel, isPrimary, disabled = false, onClick }) => {
   return (
-    <button aria-label={ariaLabel} className={btnClass} disabled={disabled} onClick={onClick}>
+    <SCButton isPrimary={isPrimary} aria-label={ariaLabel} disabled={disabled} onClick={onClick}>
       {label}
-    </button>
+    </SCButton>
   );
 };
 

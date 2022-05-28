@@ -44,7 +44,6 @@ const TextShadowForm = ({ style, onChange }) => {
       />
       <Button
         label="Remove"
-        classColor="secondary"
         onClick={() => {
           onChange({ id: 'horizontalTextShadow', selected: '' });
         }}

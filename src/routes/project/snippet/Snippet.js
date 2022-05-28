@@ -55,7 +55,7 @@ const Snippet = () => {
             />
             <Button
               label="Submit"
-              classColor="primary"
+              isPrimary
               onClick={(e) => {
                 e.preventDefault();
                 if (name && content) {

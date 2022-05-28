@@ -32,7 +32,7 @@ const Regex = ({ root, directories, regexes }) => {
   const [lineRegex, setLineRegex] = useState('');
   const [replace, setReplace] = useState('');
   const [modifier, setModifier] = useState(MODIFIER_TYPES);
-  const [lineRange, setLineRange] = useState({ start: '', end: ''});
+  const [lineRange, setLineRange] = useState({ start: '', end: '' });
   const [rangeError, setRangeError] = useState('');
 
   const selectedModifiers = modifier
@@ -42,9 +42,8 @@ const Regex = ({ root, directories, regexes }) => {
   const fileRegExp = formRegex(fileRegex);
   const lineRegExp = formRegex(lineRegex, selectedModifiers);
 
-
   useEffect(() => {
-    const REGEX_KEYS = regexes.map(r => {
+    const REGEX_KEYS = regexes.map((r) => {
       return { label: r.description, value: r, selected: false };
     });
     setRegexKeys(REGEX_KEYS);
@@ -56,19 +55,21 @@ const Regex = ({ root, directories, regexes }) => {
         label="Regexes"
         values={regexKeys}
         onChange={({ values }) => {
-          const selected = values.find(item => item.selected);
+          const selected = values.find((item) => item.selected);
 
           setDescription(selected.value.description);
           setFileRegex(selected.value.fileRegex);
           setLineRegex(selected.value.lineRegex);
           setLineRange(selected.value.lineRange);
           setReplace(selected.value.replace);
-          setModifier(modifier.map(item => {
-            return {
-              ...item,
-              selected: selected.value.modifiers.includes(item.value)
-            };
-          }));
+          setModifier(
+            modifier.map((item) => {
+              return {
+                ...item,
+                selected: selected.value.modifiers.includes(item.value)
+              };
+            })
+          );
         }}
       />
       <Text
@@ -125,31 +126,29 @@ const Regex = ({ root, directories, regexes }) => {
       />
       <div className="flex--horizontal">
         <Button
-          classColor="primary"
+          isPrimary
           label="Submit"
           onClick={() => {
-            if(fileRegExp.isValid && lineRegExp.isValid && !rangeError) {
-              dispatch(updateFilesByRegex(
-                root,
-                {
+            if (fileRegExp.isValid && lineRegExp.isValid && !rangeError) {
+              dispatch(
+                updateFilesByRegex(root, {
                   fileRegex,
                   lineRegex,
                   modifiers: selectedModifiers,
                   lineRange,
                   replace
-                }
-              ));
+                })
+              );
             }
           }}
         />
         <Button
-          classColor="secondary"
           label="Save"
           onClick={() => {
-            if(fileRegExp.isValid && lineRegExp.isValid && !rangeError && description) {
-              const updatedRegexes = regexes.find(item => item.description === description)
-                ? regexes.map(item => {
-                  if(item.description === description) {
+            if (fileRegExp.isValid && lineRegExp.isValid && !rangeError && description) {
+              const updatedRegexes = regexes.find((item) => item.description === description)
+                ? regexes.map((item) => {
+                  if (item.description === description) {
                     return {
                       description,
                       fileRegex,
@@ -162,24 +161,25 @@ const Regex = ({ root, directories, regexes }) => {
 
                   return item;
                 })
-                : regexes.concat([{
-                  description,
-                  fileRegex,
-                  lineRegex,
-                  modifiers: selectedModifiers,
-                  lineRange,
-                  replace
-                }]);
+                : regexes.concat([
+                  {
+                    description,
+                    fileRegex,
+                    lineRegex,
+                    modifiers: selectedModifiers,
+                    lineRange,
+                    replace
+                  }
+                ]);
               dispatch(updateProject({ directories, regexes: updatedRegexes }));
             }
           }}
         />
         <Button
-          classColor="secondary"
           label="Delete"
           onClick={() => {
-            if(description) {
-              const updatedRegexes = regexes.filter(item => item.description !== description);
+            if (description) {
+              const updatedRegexes = regexes.filter((item) => item.description !== description);
               dispatch(updateProject({ directories, regexes: updatedRegexes }));
             }
           }}

@@ -9,6 +9,7 @@ import JsonOperations from './JsonOperations';
 import Page from 'components/layout';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
+import Button from 'components/button';
 import { copyToClipboard } from 'helper/copy';
 import { SCFileBtnWrapper, SCFileNameWrapper, SCFileBtn } from './styles';
 import { SaveSVG } from 'components/icons/SaveSVG';
@@ -71,7 +72,8 @@ const File = () => {
           </SCFileNameWrapper>
           {directory.map((item) => {
             return (
-              <SCFileBtn
+              <Button
+                isPrimary
                 key={item}
                 label={item}
                 onClick={() => {

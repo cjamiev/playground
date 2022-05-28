@@ -24,7 +24,10 @@ const RegexOperations = ({ content, onChange }) => {
 
   return (
     <div className="flex--vertical">
-      <h3> Regex <InfoButton content={regexInfo()} /> </h3>
+      <h3>
+        {' '}
+        Regex <InfoButton content={regexInfo()} />{' '}
+      </h3>
       <Text
         label="Search"
         error={!searchExp.isValid}
@@ -59,14 +62,13 @@ const RegexOperations = ({ content, onChange }) => {
         }}
       />
       <Button
-        classColor="primary"
+        isPrimary
         label="Convert"
         onClick={() => {
           onChange(parsedContent({ content, replace, range: { start, end }, searchExp }));
         }}
       />
       <Button
-        classColor="secondary"
         label="Copy RegEx"
         onClick={() => {
           copyToClipboard(searchExpDisplay);

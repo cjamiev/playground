@@ -8,19 +8,22 @@ const PIXEL_MIN = 0;
 const PIXEL_MAX = 50;
 
 const BoxShadowForm = ({ style, onChange }) => {
-  const firstBoxShadowColor = style.colorBoxShadow ? style.colorBoxShadow: '#ffffff';
-  const secondBoxShadowColor = style.secondaryColorBoxShadow ? style.secondaryColorBoxShadow: '#ffffff';
+  const firstBoxShadowColor = style.colorBoxShadow ? style.colorBoxShadow : '#ffffff';
+  const secondBoxShadowColor = style.secondaryColorBoxShadow ? style.secondaryColorBoxShadow : '#ffffff';
 
   return (
     <div className="flex--horizontal">
       <div className="flex--vertical">
         <Radio
           label="Inset?"
-          values={[{ label: 'Yes', selected: Boolean(style.insetBoxShadow) }, { label: 'No', selected: !Boolean(style.insetBoxShadow) }]}
+          values={[
+            { label: 'Yes', selected: Boolean(style.insetBoxShadow) },
+            { label: 'No', selected: !Boolean(style.insetBoxShadow) }
+          ]}
           onChange={({ values }) => {
-            const isInset = values.find(item => item.selected).label === 'Yes';
+            const isInset = values.find((item) => item.selected).label === 'Yes';
 
-            onChange({ id: 'insetBoxShadow', selected: isInset ? 'inset' : ''});
+            onChange({ id: 'insetBoxShadow', selected: isInset ? 'inset' : '' });
           }}
         />
         <Range
@@ -65,7 +68,6 @@ const BoxShadowForm = ({ style, onChange }) => {
         />
         <Button
           label="Remove Both Shadows"
-          classColor="secondary"
           onClick={() => {
             onChange({ id: 'horizontalBoxShadow', selected: '' });
           }}
@@ -74,11 +76,14 @@ const BoxShadowForm = ({ style, onChange }) => {
       <div className="flex--vertical">
         <Radio
           label="Secondary Inset?"
-          values={[{ label: 'Yes', selected: Boolean(style.secondaryInsetBoxShadow) }, { label: 'No', selected: !Boolean(style.secondaryInsetBoxShadow) }]}
+          values={[
+            { label: 'Yes', selected: Boolean(style.secondaryInsetBoxShadow) },
+            { label: 'No', selected: !Boolean(style.secondaryInsetBoxShadow) }
+          ]}
           onChange={({ values }) => {
-            const isInset = values.find(item => item.selected).label === 'Yes';
+            const isInset = values.find((item) => item.selected).label === 'Yes';
 
-            onChange({ id: 'secondaryInsetBoxShadow', selected: isInset ? 'inset' : ''});
+            onChange({ id: 'secondaryInsetBoxShadow', selected: isInset ? 'inset' : '' });
           }}
         />
         <Range
@@ -123,7 +128,6 @@ const BoxShadowForm = ({ style, onChange }) => {
         />
         <Button
           label="Remove Second Shadow"
-          classColor="secondary"
           onClick={() => {
             onChange({ id: 'secondaryHorizontalBoxShadow', selected: '' });
           }}
