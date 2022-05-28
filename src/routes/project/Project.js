@@ -4,6 +4,7 @@ import { openGlobalModal } from 'components/global/globalActions';
 import { loadProject, clearMessage } from './projectActions';
 import { getPackageJson } from './package/npmPackageActions';
 import { getRemoteUrl, viewBranches, viewStash } from './git/gitActions';
+import { loadSnippetDirectory } from './snippet/snippetActions';
 import { CopyFileSVG } from 'components/icons/CopyFileSVG';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
@@ -36,6 +37,7 @@ const Project = () => {
     dispatch(viewBranches(root));
     dispatch(viewStash(root));
     dispatch(getPackageJson(root));
+    dispatch(loadSnippetDirectory());
   }, [dispatch, root]);
 
   useEffect(() => {

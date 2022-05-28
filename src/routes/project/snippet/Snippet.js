@@ -24,12 +24,6 @@ const Snippet = () => {
   const { snippets, snippetFile } = useSelector((state) => state.project);
 
   useEffect(() => {
-    if (!snippets.length) {
-      dispatch(loadSnippetDirectory());
-    }
-  }, [dispatch, snippets]);
-
-  useEffect(() => {
     setContent(snippetFile.content);
     setName(snippetFile.name);
   }, [snippetFile]);

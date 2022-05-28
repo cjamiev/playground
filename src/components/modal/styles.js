@@ -20,6 +20,7 @@ export const SCModal = styled.div`
     top: 1%;
     left: 94%;
     cursor: pointer;
+    z-index: 4;
   }
 
   svg:hover {
