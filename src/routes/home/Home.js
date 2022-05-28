@@ -59,7 +59,7 @@ const Home = () => {
   };
 
   const handleRemoveTimer = (timerToRemove) => {
-    const updatedTimers = timers.filter((item) => item.name !== timerToRemove.name);
+    const updatedTimers = timers.filter((item) => item.name !== timerToRemove);
     setTimers(updatedTimers);
     dispatch(updateGlobal(updatedTimers));
     dispatch(updateHome({ todos: tasks, timers: updatedTimers }));

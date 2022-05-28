@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { openGlobalModal } from 'components/global/globalActions';
 import { IconButton } from 'components/button';
 import Card from 'components/card';
 import useTimer from 'hooks/useTimer';
@@ -7,6 +9,7 @@ import { decrementElementIndex, incrementElementIndex, swapArrayElementPositions
 import { TrashSVG } from 'components/icons/TrashSVG';
 import { PenSVG } from 'components/icons/PenSVG';
 import TimerForm from 'components/form/TimerForm';
+import { noop } from 'helper/noop';
 import { SCTimerTab, SCTimers, SCHomeCardWrapper, SCHomeFooter } from './styles';
 
 const ZERO = 0;
@@ -25,9 +28,33 @@ const getFormattedTime = ({ weeks, days, hours, minutes, seconds }, label) => {
 };
 
 const TimerCard = ({ item, onRemoveTimer, onEditTimer }) => {
+  const dispatch = useDispatch();
   const { year, month, day, hour, minute, second } = item.value;
   const newDate = new Date(year, month - ONE, day, hour, minute, second);
   const time = useTimer(newDate);
+
+  const confirmDeleteTimer = (timerName) => {
+    dispatch(
+      openGlobalModal({
+        title: 'Confirmation Modal',
+        message: `Are you sure you want to delete '${timerName}'`,
+        buttonList: [
+          {
+            label: 'Confirm',
+            isPrimary: true,
+            action: () => {
+              onRemoveTimer(timerName);
+            }
+          },
+          {
+            label: 'Cancel',
+            isSecondary: true,
+            action: noop
+          }
+        ]
+      })
+    );
+  };
 
   return (
     <SCHomeCardWrapper>
@@ -53,7 +80,7 @@ const TimerCard = ({ item, onRemoveTimer, onEditTimer }) => {
               height="53"
               viewBox="0 0 53 53"
               onClick={() => {
-                onRemoveTimer(item);
+                confirmDeleteTimer(item.name);
               }}
             >
               <TrashSVG transform={'translate(0,4)'} />
