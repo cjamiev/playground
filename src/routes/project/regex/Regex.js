@@ -7,6 +7,9 @@ import Text from 'components/form/Text';
 import Checkbox from 'components/form/Checkbox';
 import NumberRange from 'components/form/NumberRange';
 import Dropdown from 'components/form/Dropdown';
+import { SCBtnGroup } from './styles';
+
+const ZERO = 0;
 
 export const MODIFIER_TYPES = [
   { label: 'Global', value: 'g', selected: false },
@@ -22,7 +25,37 @@ export const formRegex = (expression, modifiers) => {
   }
 };
 
-const ZERO = 0;
+const getUpdatedRegex = ({ regexes, description, fileRegex, lineRegex, selectedModifiers, lineRange, replace }) => {
+  const matched = regexes.find((item) => item.description === description);
+
+  if (matched) {
+    return regexes.map((item) => {
+      if (item.description === description) {
+        return {
+          description,
+          fileRegex,
+          lineRegex,
+          modifiers: selectedModifiers,
+          lineRange,
+          replace
+        };
+      }
+
+      return item;
+    });
+  }
+
+  return regexes.concat([
+    {
+      description,
+      fileRegex,
+      lineRegex,
+      modifiers: selectedModifiers,
+      lineRange,
+      replace
+    }
+  ]);
+};
 
 const Regex = ({ root, directories, regexes }) => {
   const dispatch = useDispatch();
@@ -124,7 +157,7 @@ const Regex = ({ root, directories, regexes }) => {
           setModifier(values);
         }}
       />
-      <div className="flex--horizontal">
+      <SCBtnGroup>
         <Button
           isPrimary
           label="Submit"
@@ -146,31 +179,15 @@ const Regex = ({ root, directories, regexes }) => {
           label="Save"
           onClick={() => {
             if (fileRegExp.isValid && lineRegExp.isValid && !rangeError && description) {
-              const updatedRegexes = regexes.find((item) => item.description === description)
-                ? regexes.map((item) => {
-                  if (item.description === description) {
-                    return {
-                      description,
-                      fileRegex,
-                      lineRegex,
-                      modifiers: selectedModifiers,
-                      lineRange,
-                      replace
-                    };
-                  }
-
-                  return item;
-                })
-                : regexes.concat([
-                  {
-                    description,
-                    fileRegex,
-                    lineRegex,
-                    modifiers: selectedModifiers,
-                    lineRange,
-                    replace
-                  }
-                ]);
+              const updatedRegexes = getUpdatedRegex({
+                regexes,
+                description,
+                fileRegex,
+                lineRegex,
+                selectedModifiers,
+                lineRange,
+                replace
+              });
               dispatch(updateProject({ directories, regexes: updatedRegexes }));
             }
           }}
@@ -184,7 +201,7 @@ const Regex = ({ root, directories, regexes }) => {
             }
           }}
         />
-      </div>
+      </SCBtnGroup>
     </div>
   );
 };
