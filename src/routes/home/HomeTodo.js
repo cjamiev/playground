@@ -69,14 +69,14 @@ const HomeTodo = ({ tasks, selectedTask, onChangeItem, onChange, onEditTask }) =
         buttonList: [
           {
             label: 'Confirm',
-            classProps: { classColor: 'primary' },
+            isPrimary: true,
             action: () => {
               removeItem(taskId);
             }
           },
           {
             label: 'Cancel',
-            classProps: { classColor: 'secondary' },
+            isSecondary: true,
             action: noop
           }
         ]

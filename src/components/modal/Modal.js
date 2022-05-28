@@ -20,6 +20,7 @@ const Modal = (props) => {
     if (item.label) {
       return (
         <Button
+          isPrimary={item.isPrimary}
           key={item.label}
           label={item.label}
           {...item.classProps}

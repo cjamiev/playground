@@ -58,4 +58,11 @@ export const SCModalFooter = styled.div`
   padding-left: 10px;
   display: flex;
   place-content: center;
+  column-gap: 10px;
+
+  button {
+    margin-top: 10px;
+    height: 50px;
+    min-width: 100px;
+  }
 `;
