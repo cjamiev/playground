@@ -1,6 +1,5 @@
 import React from 'react';
-import { IconButton } from 'components/button';
-import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
+import { CloseSVG } from 'components/icons/CloseSVG';
 import { SCSidepanel, SCSidepanelHeader, SCSidepanelTitle, SCSidepanelBtn } from './styles';
 
 const SidePanel = ({ isTransitioningOut, sidePanelContent, isSidePanelWide, toggleSidePanel, title }) => {
@@ -13,7 +12,9 @@ const SidePanel = ({ isTransitioningOut, sidePanelContent, isSidePanelWide, togg
           <SCSidepanelTitle>{title}</SCSidepanelTitle>
           {isSidePanelWide && (
             <SCSidepanelBtn>
-              <IconButton type={ICON_TYPES.CLOSE} size={ICON_SIZES.SMALL} onClick={toggleSidePanel} />
+              <svg aria-label="Close Sidepanel" width="27" height="27" viewBox="0 0 53 53" onClick={toggleSidePanel}>
+                <CloseSVG isBlack />
+              </svg>
             </SCSidepanelBtn>
           )}
         </SCSidepanelHeader>

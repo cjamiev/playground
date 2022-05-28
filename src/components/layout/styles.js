@@ -108,6 +108,10 @@ export const SCSidepanelTitle = styled.h2`
 export const SCSidepanelBtn = styled.div`
   display: inline-block;
   margin-left: 10px;
+
+  svg {
+    cursor: pointer;
+  }
 `;
 
 export const SCQuickAccess = styled.footer`

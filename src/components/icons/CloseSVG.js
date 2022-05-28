@@ -1,10 +1,10 @@
 import React from 'react';
 
-export const CloseSVG = ({ transform, conditions = {} }) => {
+export const CloseSVG = ({ transform, conditions = {}, isBlack }) => {
   return (
     <g transform={transform}>
       <g
-        className="icon--white"
+        className={isBlack ? 'icon--black' : 'icon--white'}
         data-testid="component-close"
         aria-label="close"
         transform="matrix(0.83542203,0.81328173,-0.81328173,0.83542203,26.414205,-16.621954)"

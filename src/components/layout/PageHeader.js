@@ -1,7 +1,6 @@
 import React from 'react';
 import Alert from 'components/alert';
-import { IconButton } from 'components/button';
-import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
+import { TripleBarSVG } from 'components/icons/TripleBarSVG';
 import { SCPageHeader, SCPageHeaderTitle, SCSidepanelBtn } from './styles';
 
 const PageHeader = ({ toggleSidePanel, hasSidePanelContent, title }) => {
@@ -10,7 +9,15 @@ const PageHeader = ({ toggleSidePanel, hasSidePanelContent, title }) => {
       <SCPageHeaderTitle>{title}</SCPageHeaderTitle>
       {hasSidePanelContent && (
         <SCSidepanelBtn>
-          <IconButton type={ICON_TYPES.TRIPLE_BAR} size={ICON_SIZES.SMALL} onClick={toggleSidePanel} />
+          <svg
+            aria-label="Open or Close Sidepanel"
+            width="53"
+            height="53"
+            viewBox="0 0 90 90"
+            onClick={toggleSidePanel}
+          >
+            <TripleBarSVG />
+          </svg>
         </SCSidepanelBtn>
       )}
       <Alert />
