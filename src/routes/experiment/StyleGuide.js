@@ -6,7 +6,6 @@ import Checkbox from 'components/form/Checkbox';
 import Button, { ToggleButton } from 'components/button';
 import Accordion, { AccordionGroup } from 'components/accordion';
 import { noop } from 'helper/noop';
-import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
 
 const testData = [
   [
@@ -50,13 +49,7 @@ const StyleGuide = () => {
         <h2> Other Buttons </h2>
         <div className="flex--horizontal">
           <ToggleButton onClick={noop} />
-          <InfoButton onClick={noop} />
         </div>
-      </div>
-
-      <div>
-        <h2> Icon Buttons </h2>
-        {iconButtons}
       </div>
 
       <Checkbox
