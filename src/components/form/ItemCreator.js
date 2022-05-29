@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Text from 'components/form/Text';
-import { PlusOrMinusSVG } from 'components/icons/PlusOrMinusSVG';
+import { PlusSVG } from 'components/icons/PlusSVG';
+import { MinusSVG } from 'components/icons/MinusSVG';
 
 const ItemCreator = ({ data, placeholder, onChange }) => {
   const [items, setItems] = useState([]);
@@ -27,7 +28,7 @@ const ItemCreator = ({ data, placeholder, onChange }) => {
                 onChange(filteredItems);
               }}
             >
-              <PlusOrMinusSVG conditions={{ isPlus: false }} />
+              <MinusSVG />
             </svg>
           </div>
         );
@@ -53,7 +54,7 @@ const ItemCreator = ({ data, placeholder, onChange }) => {
               onChange(updatedItems);
             }}
           >
-            <PlusOrMinusSVG conditions={{ isPlus: true }} />
+            <PlusSVG />
           </svg>
         )}
       </div>

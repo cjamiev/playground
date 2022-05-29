@@ -5,7 +5,8 @@ import TextArea from 'components/form/TextArea';
 import Switch from 'components/switch';
 import { convert12HourTo24HourClock, convert24HourTo12HourClock } from './helper';
 import { incrementDate } from 'clock';
-import { PlusOrMinusSVG } from 'components/icons/PlusOrMinusSVG';
+import { PlusSVG } from 'components/icons/PlusSVG';
+import { MinusSVG } from 'components/icons/MinusSVG';
 import { SCCreateFormFieldSet, SCTimerQuickModifier } from './styles';
 
 const ZERO = 0;
@@ -118,7 +119,7 @@ const TimerForm = ({ legend = 'Add Timer', onChange, value }) => {
               updateTime({ weeks: ONE });
             }}
           >
-            <PlusOrMinusSVG conditions={{ isPlus: true }} />
+            <PlusSVG />
           </svg>
           <svg
             aria-label="Minus week"
@@ -129,7 +130,7 @@ const TimerForm = ({ legend = 'Add Timer', onChange, value }) => {
               updateTime({ weeks: -ONE });
             }}
           >
-            <PlusOrMinusSVG conditions={{ isPlus: false }} />
+            <MinusSVG />
           </svg>
         </SCTimerQuickModifier>
         <SCTimerQuickModifier>
@@ -143,7 +144,7 @@ const TimerForm = ({ legend = 'Add Timer', onChange, value }) => {
               updateTime({ days: 30 });
             }}
           >
-            <PlusOrMinusSVG conditions={{ isPlus: true }} />
+            <PlusSVG />
           </svg>
           <svg
             aria-label="Minus 30 days"
@@ -154,7 +155,7 @@ const TimerForm = ({ legend = 'Add Timer', onChange, value }) => {
               updateTime({ days: -30 });
             }}
           >
-            <PlusOrMinusSVG conditions={{ isPlus: false }} />
+            <MinusSVG />
           </svg>
         </SCTimerQuickModifier>
         <Switch
