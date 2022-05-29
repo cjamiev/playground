@@ -78,28 +78,20 @@ const Snippet = () => {
       <div>
         <SCLoadHeader>
           <h2>Load File</h2>
-          <svg
-            aria-label="Copy"
+          <CopySVG
             width="45"
-            height="53"
-            viewBox="0 0 53 53"
             onClick={() => {
               copyToClipboard(snippetFile.content);
             }}
-          >
-            <CopySVG transform={'translate(0,4)'} />
-          </svg>
-          <svg
-            aria-label="Delete"
+            transform={'translate(0,4)'}
+          />
+          <TrashSVG
+            transform="translate(0,4)"
             width="45"
-            height="53"
-            viewBox="0 0 53 53"
             onClick={() => {
               dispatch(deleteSnippet(snippetFile.name));
             }}
-          >
-            <TrashSVG transform={'translate(0,4)'} />
-          </svg>
+          />
         </SCLoadHeader>
         <SCLoadBtnWrapper>{fileButtons}</SCLoadBtnWrapper>
       </div>

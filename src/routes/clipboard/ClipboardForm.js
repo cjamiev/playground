@@ -49,39 +49,31 @@ const renderCells = ({ entry, removeItem, moveItemUp, moveItemDown }) => {
         </div>
       </td>
       <td className="flex--three">
-        <svg
-          aria-label="Delete"
+        <TrashSVG
           width="27"
           height="27"
-          viewBox="0 0 53 53"
           onClick={() => {
             removeItem(index);
           }}
-        >
-          <TrashSVG />
-        </svg>
-        <svg
-          aria-label="Move Up"
+        />
+        <ArrowSVG
+          conditions={{ orientation: 'UP' }}
+          ariaLabel="Move Up"
           width="27"
           height="27"
-          viewBox="0 0 53 53"
           onClick={() => {
             moveItemUp(index);
           }}
-        >
-          <ArrowSVG conditions={{ orientation: 'UP' }} />
-        </svg>
-        <svg
-          aria-label="Move Down"
+        />
+        <ArrowSVG
+          conditions={{ orientation: 'DOWN' }}
+          ariaLabel="Move Down"
           width="27"
           height="27"
-          viewBox="0 0 53 53"
           onClick={() => {
             moveItemDown(index);
           }}
-        >
-          <ArrowSVG conditions={{ orientation: 'DOWN' }} />
-        </svg>
+        />
       </td>
     </tr>
   ));

@@ -34,16 +34,6 @@ export const SCHomeCardWrapper = styled.div`
   }
 `;
 
-export const SCHomeFooter = styled.div`
-  svg {
-    cursor: pointer;
-  }
-
-  svg:hover {
-    transform: scale(1.1);
-  }
-`;
-
 export const SCTodoWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -72,10 +62,6 @@ export const SCTodoTitleWrapper = styled.div`
     position: relative;
     margin: 0;
     padding: 0;
-    cursor: pointer;
-  }
-  svg:hover {
-    transform: scale(1.1);
   }
 `;
 

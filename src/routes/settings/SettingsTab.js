@@ -9,8 +9,6 @@ import {
   SCTableHeaderCell,
   SCSettingsWrapper,
   SCTableCell,
-  SCTableCellIcon,
-  SCTableCellSvg,
   SCTableHidden,
   SCTableOverlayText,
   SCCreateFormFieldSet
@@ -57,21 +55,17 @@ const SettingsTab = ({ settingsData, labels, isHidden = false, onChange }) => {
               <span>{item.value}</span>
             )}
           </SCTableCell>
-          <SCTableCellIcon>
-            <SCTableCellSvg
-              aria-label="Delete"
+          <SCTableCell isIcon>
+            <TrashSVG
+              transform="scale(0.6) translate(35,-2)"
               width="45"
-              height="53"
-              viewBox="0 0 53 53"
               onClick={() => {
                 const updatedSettingsuration = currentSettingsuration.filter((c) => c.value !== item.value);
 
                 onChange(updatedSettingsuration);
               }}
-            >
-              <TrashSVG transform={'scale(0.6) translate(35,-2)'} />
-            </SCTableCellSvg>
-          </SCTableCellIcon>
+            />
+          </SCTableCell>
         </tr>
       );
     });

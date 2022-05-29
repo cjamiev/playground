@@ -18,37 +18,6 @@ export const SCTableHeaderCell = styled.th`
   text-align: center;
 `;
 
-export const SCTableCellIcon = styled.td`
-  position: relative;
-  background-color: ${Theme.primaryBackgroundColor};
-  border: none;
-  border-bottom: 1px solid hsl(0, 0%, 87%);
-  width: 40px;
-  padding: 0;
-  cursor: pointer;
-
-  ${(props) =>
-    props.isFirstCell &&
-    `::before {
-      position: absolute;
-      content: '';
-      top: 7px;
-      height: 25px;
-      width: 1px;
-      background-color: hsl(0, 0%, 87%);
-    }`};
-
-  ::after {
-    position: absolute;
-    content: '';
-    top: 7px;
-    left: calc(100% - 1px);
-    height: 25px;
-    width: 1px;
-    background-color: hsl(0, 0%, 87%);
-  }
-`;
-
 export const SCTableCell = styled.td`
   position: relative;
   color: hsl(0, 0%, 70%);
@@ -56,7 +25,7 @@ export const SCTableCell = styled.td`
   border: none;
   border-bottom: 1px solid hsl(0, 0%, 87%);
   height: 40px;
-  width: 400px;
+  width: ${(props) => (props.isIcon ? '40px' : '400px')};
   padding: 0;
 
   span {
@@ -64,6 +33,15 @@ export const SCTableCell = styled.td`
     top: 10px;
     left: 5px;
     white-space: nowrap;
+  }
+
+  svg {
+    position: absolute;
+    top: 3px;
+  }
+
+  svg:hover {
+    transform: scale(1.1);
   }
 
   ${(props) => props.isClickable && 'cursor: pointer'};
@@ -87,15 +65,6 @@ export const SCTableCell = styled.td`
     height: 25px;
     width: 1px;
     background-color: hsl(0, 0%, 87%);
-  }
-`;
-
-export const SCTableCellSvg = styled.svg`
-  position: absolute;
-  top: 3px;
-
-  :hover {
-    transform: scale(1.1);
   }
 `;
 

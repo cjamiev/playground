@@ -9,7 +9,7 @@ import { TrashSVG } from 'components/icons';
 import { PenSVG } from 'components/icons/PenSVG';
 import TimerForm from 'components/form/TimerForm';
 import { noop } from 'helper/noop';
-import { SCTimerTab, SCTimers, SCHomeCardWrapper, SCHomeFooter } from './styles';
+import { SCTimerTab, SCTimers, SCHomeCardWrapper } from './styles';
 
 const ZERO = 0;
 const ONE = 1;
@@ -61,30 +61,24 @@ const TimerCard = ({ item, onRemoveTimer, onEditTimer }) => {
         title={item.name}
         body={getFormattedTime(time, item.name)}
         footer={
-          <SCHomeFooter>
-            <svg
-              aria-label="Edit"
+          <>
+            <PenSVG
+              transform="translate(0,4)"
+              ariaLabel="Edit"
               width="45"
               height="53"
-              viewBox="0 0 53 53"
               onClick={() => {
                 onEditTimer(item.name, newDate);
               }}
-            >
-              <PenSVG transform={'translate(0,4)'} />
-            </svg>
-            <svg
-              aria-label="Delete"
+            />
+            <TrashSVG
+              transform="translate(0,4)"
               width="45"
-              height="53"
-              viewBox="0 0 53 53"
               onClick={() => {
                 confirmDeleteTimer(item.name);
               }}
-            >
-              <TrashSVG transform={'translate(0,4)'} />
-            </svg>
-          </SCHomeFooter>
+            />
+          </>
         }
       />
     </SCHomeCardWrapper>

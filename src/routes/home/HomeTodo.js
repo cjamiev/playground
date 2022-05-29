@@ -122,50 +122,39 @@ const HomeTodo = ({ tasks, selectedTask, onChangeItem, onChange, onEditTask }) =
           <SCTodoWrapper key={id}>
             <SCTodoTitleWrapper>
               <h2>{text}</h2>
-              <svg
-                aria-label="Delete"
+              <TrashSVG
                 width="27"
                 height="27"
-                viewBox="0 0 53 53"
                 onClick={() => {
                   confirmDeleteTask(text, id);
                 }}
-              >
-                <TrashSVG />
-              </svg>
-              <svg
-                aria-label="Move Up"
+              />
+              <ArrowSVG
+                conditions={{ orientation: 'LEFT' }}
+                ariaLabel="Move Up"
                 width="27"
                 height="27"
-                viewBox="0 0 53 53"
                 onClick={() => {
                   moveItemUp(id);
                 }}
-              >
-                <ArrowSVG conditions={{ orientation: 'LEFT' }} />
-              </svg>
-              <svg
-                aria-label="Move Down"
+              />
+              <ArrowSVG
+                conditions={{ orientation: 'RIGHT' }}
+                ariaLabel="Move Down"
                 width="27"
                 height="27"
-                viewBox="0 0 53 53"
                 onClick={() => {
                   moveItemDown(id);
                 }}
-              >
-                <ArrowSVG conditions={{ orientation: 'RIGHT' }} />
-              </svg>
-              <svg
+              />
+              <PenSVG
                 aria-label="Edit"
                 width="27"
                 height="27"
-                viewBox="0 0 53 53"
                 onClick={() => {
                   onEditTask({ id, text, notes, urls });
                 }}
-              >
-                <PenSVG />
-              </svg>
+              />
             </SCTodoTitleWrapper>
             <SCTodoList>
               {notes.map((note) => (

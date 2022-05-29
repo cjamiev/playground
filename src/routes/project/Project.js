@@ -66,31 +66,23 @@ const Project = () => {
           <SCDirPath>
             <div>
               <span>{remoteUrl}</span>
-              <svg
-                aria-label="Git Remote Url"
+              <CopySVG
+                ariaLabel="Copy Git Remote Url"
                 width="45"
-                height="53"
-                viewBox="0 0 53 53"
                 onClick={() => {
                   copyToClipboard(remoteUrl);
                 }}
-              >
-                <CopySVG />
-              </svg>
+              />
             </div>
             <div>
               <span>{root}</span>
-              <svg
-                aria-label="Directory Path"
+              <CopySVG
+                ariaLabel="Copy Directory Path"
                 width="45"
-                height="53"
-                viewBox="0 0 53 53"
                 onClick={() => {
                   copyToClipboard(root);
                 }}
-              >
-                <CopySVG />
-              </svg>
+              />
             </div>
           </SCDirPath>
           <SCDirBtnWrapper>

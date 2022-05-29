@@ -45,30 +45,22 @@ const File = () => {
         <SCFileBtnWrapper>
           <SCFileNameWrapper>
             <Text placeholder="Enter File Name" selected={name} onChange={handleNameChange} />
-            <svg
-              aria-label="Save"
+            <SaveSVG
+              transform="scale(0.7) translate(0,-5)"
               width="45"
-              height="53"
-              viewBox="0 0 53 53"
               onClick={() => {
                 if (name && content) {
                   dispatch(writeFile(name, content));
                 }
               }}
-            >
-              <SaveSVG transform={'scale(0.7) translate(0,-5)'} />
-            </svg>
-            <svg
-              aria-label="Copy"
+            />
+            <CopySVG
               width="45"
-              height="53"
-              viewBox="0 0 53 53"
+              transform={'scale(0.7) translate(0,-5)'}
               onClick={() => {
                 copyToClipboard(content);
               }}
-            >
-              <CopySVG transform={'scale(0.7) translate(0,-5)'} />
-            </svg>
+            />
           </SCFileNameWrapper>
           {directory.map((item) => {
             return (

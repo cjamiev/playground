@@ -88,21 +88,14 @@ const PageQuickAccess = () => {
   return (
     <SCQuickAccess ref={ref}>
       <SCQuickAccessBtnGroup>
-        <SCQuickAccessBtn isActive={mode === 'e'} onClick={showCommands}>
-          <svg aria-label="Commands" width="53" height="53" viewBox="0 0 53 53">
-            <PlaySVG transform="scale(0.7) translate(10,10)" />
-            <PlaySVG transform="scale(0.7) translate(20,10)" />
-          </svg>
+        <SCQuickAccessBtn isActive={mode === 'e'}>
+          <PlaySVG ariaLabel="Commands" transform="scale(0.7) translate(10,10)" onClick={showCommands} />
         </SCQuickAccessBtn>
-        <SCQuickAccessBtn isActive={mode === 'l'} onClick={showLinks}>
-          <svg aria-label="Favorite Links" width="53" height="53" viewBox="0 0 53 53">
-            <StarSVG transform="scale(0.7) translate(10,10)" />
-          </svg>
+        <SCQuickAccessBtn isActive={mode === 'l'}>
+          <StarSVG ariaLabel="Favorite Links" transform="scale(0.7) translate(10,10)" onClick={showLinks} />
         </SCQuickAccessBtn>
-        <SCQuickAccessBtn isActive={mode === 'c'} onClick={showPaste}>
-          <svg aria-label="Copy and Paste" width="53" height="53" viewBox="0 0 53 53">
-            <CopySVG transform="scale(0.7) translate(10,10)" />
-          </svg>
+        <SCQuickAccessBtn isActive={mode === 'c'}>
+          <CopySVG transform="scale(0.7) translate(10,10)" onClick={showPaste} />
         </SCQuickAccessBtn>
       </SCQuickAccessBtnGroup>
       <SCQuickAccessList isVisible={mode !== ''}>

@@ -34,39 +34,24 @@ const GeneratorSidePanel = ({
           onSelectRecord(selected);
         }}
       />
-      <svg
-        aria-label="Save"
-        width="53"
-        height="53"
+      <SaveSVG
         viewBox="0 0 90 90"
         onClick={() => {
           onSubmit(selectedName);
         }}
-      >
-        <SaveSVG />
-      </svg>
-      <svg
-        aria-label="Delete"
-        width="53"
-        height="53"
+      />
+      <TrashSVG
         viewBox="0 0 90 90"
         onClick={() => {
           onDelete(selectedName);
         }}
-      >
-        <TrashSVG />
-      </svg>
-      <svg
-        aria-label="Copy"
-        width="53"
-        height="53"
+      />
+      <CopySVG
         viewBox="0 0 90 90"
         onClick={() => {
           copyToClipboard(copyCSS);
         }}
-      >
-        <CopySVG />
-      </svg>
+      />
       <h2>Normal CSS</h2>
       <pre className="generator__printed-css">{normalCSS}</pre>
       <h2>Hover CSS</h2>

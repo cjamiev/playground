@@ -46,17 +46,12 @@ const DataGenerator = () => {
           setSample(selected);
         }}
       />
-      <svg
-        aria-label="Copy"
-        width="53"
-        height="53"
+      <CopySVG
         viewBox="0 0 90 90"
         onClick={() => {
           copyToClipboard(JSON.stringify(result));
         }}
-      >
-        <CopySVG />
-      </svg>
+      />
       <Pagination content={content} />
     </div>
   );
