@@ -110,53 +110,41 @@ const TimerForm = ({ legend = 'Add Timer', onChange, value }) => {
         />
         <SCTimerQuickModifier>
           <span>Week:</span>
-          <svg
+          <PlusSVG
             aria-label="Plus week"
             width="20"
             height="20"
-            viewBox="0 0 53 53"
             onClick={() => {
               updateTime({ weeks: ONE });
             }}
-          >
-            <PlusSVG />
-          </svg>
-          <svg
+          />
+          <MinusSVG
             aria-label="Minus week"
             width="20"
             height="20"
-            viewBox="0 0 53 53"
             onClick={() => {
               updateTime({ weeks: -ONE });
             }}
-          >
-            <MinusSVG />
-          </svg>
+          />
         </SCTimerQuickModifier>
         <SCTimerQuickModifier>
           <span>30 Days:</span>
-          <svg
+          <PlusSVG
             aria-label="Plus 30 days"
             width="20"
             height="20"
-            viewBox="0 0 53 53"
             onClick={() => {
               updateTime({ days: 30 });
             }}
-          >
-            <PlusSVG />
-          </svg>
-          <svg
+          />
+          <MinusSVG
             aria-label="Minus 30 days"
             width="20"
             height="20"
-            viewBox="0 0 53 53"
             onClick={() => {
               updateTime({ days: -30 });
             }}
-          >
-            <MinusSVG />
-          </svg>
+          />
         </SCTimerQuickModifier>
         <Switch
           data={[{ label: 'am' }, { label: 'pm' }]}
