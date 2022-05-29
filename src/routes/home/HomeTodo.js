@@ -4,7 +4,7 @@ import { openGlobalModal } from 'components/global/globalActions';
 import { decrementElementIndex, incrementElementIndex } from 'arrayHelper';
 import { getEllipsisForLongText } from 'stringHelper';
 import { ArrowSVG } from 'components/icons/ArrowSVG';
-import { TrashSVG } from 'components/icons/TrashSVG';
+import { TrashSVG } from 'components/icons';
 import { PenSVG } from 'components/icons/PenSVG';
 import Button from 'components/button';
 import Text from 'components/form/Text';

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { IconButton } from 'components/button';
 import Text from 'components/form/Text';
-import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
+import { PlusOrMinusSVG } from 'components/icons/PlusOrMinusSVG';
 
 const ItemCreator = ({ data, placeholder, onChange }) => {
   const [items, setItems] = useState([]);
@@ -13,19 +12,23 @@ const ItemCreator = ({ data, placeholder, onChange }) => {
 
   return (
     <div>
-      {items.map(val => {
-        return(
+      {items.map((val) => {
+        return (
           <div key={val} className="flex--horizontal">
             <label className="item-creator__label">{val}</label>
-            <IconButton
-              type={ICON_TYPES.MINUS}
-              size={ICON_SIZES.EXTRA_SMALL}
+            <svg
+              aria-label="Remove Item"
+              width="20"
+              height="20"
+              viewBox="0 0 53 53"
               onClick={() => {
-                const filteredItems = items.filter(i => i !== val);
+                const filteredItems = items.filter((i) => i !== val);
                 setItems(filteredItems);
                 onChange(filteredItems);
               }}
-            />
+            >
+              <PlusOrMinusSVG conditions={{ isPlus: false }} />
+            </svg>
           </div>
         );
       })}
@@ -37,16 +40,22 @@ const ItemCreator = ({ data, placeholder, onChange }) => {
             setCurrentItem(selected);
           }}
         />
-        {currentItem && <IconButton
-          type={ICON_TYPES.PLUS}
-          size={ICON_SIZES.EXTRA_SMALL}
-          onClick={() => {
-            const updatedItems = items.concat(currentItem);
-            setItems(updatedItems);
-            setCurrentItem('');
-            onChange(updatedItems);
-          }}
-        />}
+        {currentItem && (
+          <svg
+            aria-label="Add Item"
+            width="20"
+            height="20"
+            viewBox="0 0 53 53"
+            onClick={() => {
+              const updatedItems = items.concat(currentItem);
+              setItems(updatedItems);
+              setCurrentItem('');
+              onChange(updatedItems);
+            }}
+          >
+            <PlusOrMinusSVG conditions={{ isPlus: true }} />
+          </svg>
+        )}
       </div>
     </div>
   );

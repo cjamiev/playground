@@ -3,7 +3,7 @@ import Dropdown from 'components/form/Dropdown';
 import List from 'components/list';
 import Radio from 'components/form/Radio';
 import Checkbox from 'components/form/Checkbox';
-import Button, { InfoButton, IconButton, ToggleButton } from 'components/button';
+import Button, { ToggleButton } from 'components/button';
 import Accordion, { AccordionGroup } from 'components/accordion';
 import { noop } from 'helper/noop';
 import { ICON_TYPES, ICON_SIZES } from 'constants/icon';
@@ -37,10 +37,6 @@ const testData = [
 ];
 
 const StyleGuide = () => {
-  const iconButtons = Object.keys(ICON_TYPES).map((type) => {
-    return <IconButton key={type} type={ICON_TYPES[type]} onClick={noop} />;
-  });
-
   return (
     <>
       <div>

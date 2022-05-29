@@ -6,7 +6,7 @@ import Button from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
 import { CopyFileSVG } from 'components/icons/CopyFileSVG';
-import { TrashSVG } from 'components/icons/TrashSVG';
+import { TrashSVG } from 'components/icons';
 import {
   SCFlexWrapper,
   SCCreateFormFieldSet,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Button from 'components/button';
 import Text from 'components/form/Text';
-import { TrashSVG } from 'components/icons/TrashSVG';
+import { TrashSVG } from 'components/icons';
 import { updateSettings } from './settingsActions';
 import {
   SCTable,

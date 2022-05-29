@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Text from 'components/form/Text';
 import Dropdown from 'components/form/Dropdown';
-import Button, { IconButton } from 'components/button';
+import Button from 'components/button';
 import TimerForm from 'components/form/TimerForm';
 import ValueForm from 'components/form/ValueForm';
 import CommandForm from 'components/form/CommandForm';
@@ -11,6 +11,8 @@ import Table from 'components/table';
 import { updateClipboard } from 'routes/clipboard/clipboardActions';
 import { TYPE } from 'constants/type';
 import { ICON_TYPES } from 'constants/icon';
+import { ArrowSVG } from 'components/icons/ArrowSVG';
+import { TrashSVG } from 'components/icons';
 import { decrementElementIndex, incrementElementIndex, swapArrayElementPositions } from 'arrayHelper';
 
 const ZERO = 0;
@@ -23,6 +25,21 @@ const CLIPBOARD_TYPES = [
   { label: TYPE.TIMER, selected: false }
 ];
 
+const getUpdatedData = (data, currentIndex, entry) => {
+  const matched = data[currentIndex];
+
+  if (matched) {
+    return data.map((item, index) => {
+      if (index === currentIndex) {
+        return entry;
+      }
+      return item;
+    });
+  }
+
+  return [...data, entry];
+};
+
 const renderCells = ({ entry, removeItem, moveItemUp, moveItemDown }) => {
   return entry.map(({ type, label, value }, index) => (
     <tr className="flex--horizontal" key={`${label}-${index}`} data-testid={entry.label}>
@@ -32,24 +49,39 @@ const renderCells = ({ entry, removeItem, moveItemUp, moveItemDown }) => {
         </div>
       </td>
       <td className="flex--three">
-        <IconButton
-          type={ICON_TYPES.TRASH}
+        <svg
+          aria-label="Delete"
+          width="27"
+          height="27"
+          viewBox="0 0 53 53"
           onClick={() => {
             removeItem(index);
           }}
-        />
-        <IconButton
-          type={ICON_TYPES.UP_ARROW}
+        >
+          <TrashSVG />
+        </svg>
+        <svg
+          aria-label="Move Up"
+          width="27"
+          height="27"
+          viewBox="0 0 53 53"
           onClick={() => {
             moveItemUp(index);
           }}
-        />
-        <IconButton
-          type={ICON_TYPES.DOWN_ARROW}
+        >
+          <ArrowSVG conditions={{ orientation: 'UP' }} />
+        </svg>
+        <svg
+          aria-label="Move Down"
+          width="27"
+          height="27"
+          viewBox="0 0 53 53"
           onClick={() => {
             moveItemDown(index);
           }}
-        />
+        >
+          <ArrowSVG conditions={{ orientation: 'DOWN' }} />
+        </svg>
       </td>
     </tr>
   ));
@@ -213,14 +245,7 @@ const ClipboardForm = ({ records }) => {
           label={addLabel}
           isPrimary
           onClick={() => {
-            const updatedData = data[currentIndex]
-              ? data.map((item, index) => {
-                if (index === currentIndex) {
-                  return entry;
-                }
-                return item;
-              })
-              : [...data, entry];
+            const updatedData = getUpdatedData(data, currentIndex, entry);
             setEntry([]);
             setData(updatedData);
             setCurrentIndex(updatedData.length);

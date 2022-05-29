@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import TextArea from 'components/form/TextArea';
 import Pagination from 'components/pagination';
-import { IconButton } from 'components/button';
 import TableRenderer from './TableRenderer';
 import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
 import { dataGenerator } from 'randomHelper';
 import { parseObject } from 'type-check';
+import { CopyFileSVG } from 'components/icons/CopyFileSVG';
 
 const ONE = 1;
 const data = {
@@ -46,12 +46,17 @@ const DataGenerator = () => {
           setSample(selected);
         }}
       />
-      <IconButton
-        type={ICON_TYPES.COPY}
+      <svg
+        aria-label="Copy"
+        width="53"
+        height="53"
+        viewBox="0 0 90 90"
         onClick={() => {
           copyToClipboard(JSON.stringify(result));
         }}
-      />
+      >
+        <CopyFileSVG />
+      </svg>
       <Pagination content={content} />
     </div>
   );

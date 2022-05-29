@@ -1,11 +1,13 @@
-import { HomeSVG } from 'components/icons/HomeSVG';
-import { ClipboardSVG } from 'components/icons/ClipboardSVG';
-import { ArchiveSVG } from 'components/icons/ArchiveSVG';
-import { FlaskSVG } from 'components/icons/FlaskSVG';
-import { LinkSVG } from 'components/icons/LinkSVG';
-import { DirectorySVG } from 'components/icons/DirectorySVG';
-import { SettingSVG } from 'components/icons/SettingSVG';
-import { TextSVG } from 'components/icons/TextSVG';
+import {
+  ArchiveSVG,
+  ClipboardSVG,
+  DirectorySVG,
+  FlaskSVG,
+  HomeSVG,
+  LinkSVG,
+  SettingSVG,
+  TextSVG
+} from 'components/icons';
 
 export const navigationMap = [
   {

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { openGlobalModal } from 'components/global/globalActions';
-import { IconButton } from 'components/button';
 import Card from 'components/card';
 import useTimer from 'hooks/useTimer';
 import { formattedTimerClock } from 'clock';
 import { decrementElementIndex, incrementElementIndex, swapArrayElementPositions } from 'arrayHelper';
-import { TrashSVG } from 'components/icons/TrashSVG';
+import { TrashSVG } from 'components/icons';
 import { PenSVG } from 'components/icons/PenSVG';
 import TimerForm from 'components/form/TimerForm';
 import { noop } from 'helper/noop';

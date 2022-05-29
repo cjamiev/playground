@@ -1,9 +1,10 @@
 import React from 'react';
 import Dropdown from 'components/form/Dropdown';
-import { IconButton} from 'components/button';
 import Text from 'components/form/Text';
 import { copyToClipboard } from 'helper/copy';
-import { ICON_TYPES } from 'constants/icon';
+import { SaveSVG } from 'components/icons/SaveSVG';
+import { CopyFileSVG } from 'components/icons/CopyFileSVG';
+import { TrashSVG } from 'components/icons';
 
 const GeneratorSidePanel = ({
   generatorRecords,
@@ -33,24 +34,39 @@ const GeneratorSidePanel = ({
           onSelectRecord(selected);
         }}
       />
-      <IconButton
-        type={ICON_TYPES.SAVE}
+      <svg
+        aria-label="Save"
+        width="53"
+        height="53"
+        viewBox="0 0 90 90"
         onClick={() => {
           onSubmit(selectedName);
         }}
-      />
-      <IconButton
-        type={ICON_TYPES.TRASH}
+      >
+        <SaveSVG />
+      </svg>
+      <svg
+        aria-label="Delete"
+        width="53"
+        height="53"
+        viewBox="0 0 90 90"
         onClick={() => {
           onDelete(selectedName);
         }}
-      />
-      <IconButton
-        type={ICON_TYPES.COPY}
+      >
+        <TrashSVG />
+      </svg>
+      <svg
+        aria-label="Copy"
+        width="53"
+        height="53"
+        viewBox="0 0 90 90"
         onClick={() => {
           copyToClipboard(copyCSS);
         }}
-      />
+      >
+        <CopyFileSVG />
+      </svg>
       <h2>Normal CSS</h2>
       <pre className="generator__printed-css">{normalCSS}</pre>
       <h2>Hover CSS</h2>
