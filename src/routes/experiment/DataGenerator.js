@@ -7,7 +7,7 @@ import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
 import { dataGenerator } from 'randomHelper';
 import { parseObject } from 'type-check';
-import { CopyFileSVG } from 'components/icons/CopyFileSVG';
+import { CopySVG } from 'components/icons/CopySVG';
 
 const ONE = 1;
 const data = {
@@ -55,7 +55,7 @@ const DataGenerator = () => {
           copyToClipboard(JSON.stringify(result));
         }}
       >
-        <CopyFileSVG />
+        <CopySVG />
       </svg>
       <Pagination content={content} />
     </div>

@@ -5,7 +5,7 @@ import { copyToClipboard } from 'helper/copy';
 import Button from 'components/button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
-import { CopyFileSVG } from 'components/icons/CopyFileSVG';
+import { CopySVG } from 'components/icons/CopySVG';
 import { TrashSVG } from 'components/icons';
 import {
   SCFlexWrapper,
@@ -87,7 +87,7 @@ const Snippet = () => {
               copyToClipboard(snippetFile.content);
             }}
           >
-            <CopyFileSVG transform={'translate(0,4)'} />
+            <CopySVG transform={'translate(0,4)'} />
           </svg>
           <svg
             aria-label="Delete"

@@ -3,7 +3,7 @@ import Dropdown from 'components/form/Dropdown';
 import Text from 'components/form/Text';
 import { copyToClipboard } from 'helper/copy';
 import { SaveSVG } from 'components/icons/SaveSVG';
-import { CopyFileSVG } from 'components/icons/CopyFileSVG';
+import { CopySVG } from 'components/icons/CopySVG';
 import { TrashSVG } from 'components/icons';
 
 const GeneratorSidePanel = ({
@@ -65,7 +65,7 @@ const GeneratorSidePanel = ({
           copyToClipboard(copyCSS);
         }}
       >
-        <CopyFileSVG />
+        <CopySVG />
       </svg>
       <h2>Normal CSS</h2>
       <pre className="generator__printed-css">{normalCSS}</pre>

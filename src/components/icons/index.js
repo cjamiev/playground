@@ -2,7 +2,7 @@ export { ArchiveSVG } from './ArchiveSVG';
 export { ArrowSVG } from './ArrowSVG';
 export { ClipboardSVG } from './ClipboardSVG';
 export { CloseSVG } from './CloseSVG';
-export { CopyFileSVG } from './CopyFileSVG';
+export { CopySVG } from './CopySVG';
 export { DirectorySVG } from './DirectorySVG';
 export { EyeSVG } from './EyeSVG';
 export { FileSVG } from './FileSVG';

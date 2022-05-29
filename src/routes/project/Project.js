@@ -5,7 +5,7 @@ import { loadProject, clearMessage } from './projectActions';
 import { getPackageJson } from './package/npmPackageActions';
 import { getRemoteUrl, viewBranches, viewStash } from './git/gitActions';
 import { loadSnippetDirectory } from './snippet/snippetActions';
-import { CopyFileSVG } from 'components/icons/CopyFileSVG';
+import { CopySVG } from 'components/icons/CopySVG';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
 import ComponentWrapper from 'components/ComponentWrapper';
@@ -75,7 +75,7 @@ const Project = () => {
                   copyToClipboard(remoteUrl);
                 }}
               >
-                <CopyFileSVG />
+                <CopySVG />
               </svg>
             </div>
             <div>
@@ -89,7 +89,7 @@ const Project = () => {
                   copyToClipboard(root);
                 }}
               >
-                <CopyFileSVG />
+                <CopySVG />
               </svg>
             </div>
           </SCDirPath>

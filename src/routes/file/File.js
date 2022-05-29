@@ -13,7 +13,7 @@ import Button from 'components/button';
 import { copyToClipboard } from 'helper/copy';
 import { SCFileBtnWrapper, SCFileNameWrapper, SCFileBtn } from './styles';
 import { SaveSVG } from 'components/icons/SaveSVG';
-import { CopyFileSVG } from 'components/icons/CopyFileSVG';
+import { CopySVG } from 'components/icons/CopySVG';
 
 const File = () => {
   const [name, setName] = useState('');
@@ -67,7 +67,7 @@ const File = () => {
                 copyToClipboard(content);
               }}
             >
-              <CopyFileSVG transform={'scale(0.7) translate(0,-5)'} />
+              <CopySVG transform={'scale(0.7) translate(0,-5)'} />
             </svg>
           </SCFileNameWrapper>
           {directory.map((item) => {

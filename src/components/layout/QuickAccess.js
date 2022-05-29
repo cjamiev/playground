@@ -11,7 +11,7 @@ import {
 import { copyToClipboard } from 'helper/copy';
 import useOnClickOutside from 'hooks/useOnClickOutside';
 import { StarSVG } from 'components/icons/StarSVG';
-import { CopyFileSVG } from 'components/icons/CopyFileSVG';
+import { CopySVG } from 'components/icons/CopySVG';
 import { PlaySVG } from 'components/icons/PlaySVG';
 
 const QuickAccessList = ({ mode }) => {
@@ -101,7 +101,7 @@ const PageQuickAccess = () => {
         </SCQuickAccessBtn>
         <SCQuickAccessBtn isActive={mode === 'c'} onClick={showPaste}>
           <svg aria-label="Copy and Paste" width="53" height="53" viewBox="0 0 53 53">
-            <CopyFileSVG transform="scale(0.7) translate(10,10)" />
+            <CopySVG transform="scale(0.7) translate(10,10)" />
           </svg>
         </SCQuickAccessBtn>
       </SCQuickAccessBtnGroup>
