@@ -40,17 +40,15 @@ const RegexOperations = ({ content, onChange }) => {
     <SCFlexWrapper isVertical>
       <SCTitleWrapper>
         <h3>Regex</h3>
-        <svg
-          aria-label="Regex Info"
+        <InfoSVG
+          ariaLabel="Regex Info"
           width="27"
           height="27"
           viewBox="0 0 106 106"
           onClick={() => {
             showRegexContent();
           }}
-        >
-          <InfoSVG />
-        </svg>
+        />
       </SCTitleWrapper>
       <Text
         label="Search"

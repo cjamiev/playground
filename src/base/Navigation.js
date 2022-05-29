@@ -40,9 +40,7 @@ const Navigation = React.memo(() => {
     return (
       <SCNavigationLinks key={item.url} onClick={handleClick} isActive={isActive} isAtBottom={item.isAtBottom}>
         <SCNavigationIcon isActive={isActive}>
-          <svg aria-label={`${item.label} Page`} width="45" height="53" viewBox="0 0 53 53">
-            <IconSVG {...item.props} />
-          </svg>
+          <IconSVG ariaLabel={`${item.label} Page`} width="45" {...item.props} />
         </SCNavigationIcon>
         <SCNavigationLabels>{item.label}</SCNavigationLabels>
       </SCNavigationLinks>

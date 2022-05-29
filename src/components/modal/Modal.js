@@ -72,18 +72,15 @@ const Modal = (props) => {
 
   return (
     <SCModal>
-      <svg
-        aria-label="Close"
+      <CloseSVG
+        transform="scale(0.5)"
+        ariaLabel="Close Modal"
         width="45"
-        height="53"
-        viewBox="0 0 53 53"
         onClick={() => {
           beforeClose();
           close();
         }}
-      >
-        <CloseSVG transform={'scale(0.5)'} />
-      </svg>
+      />
       {renderTitle}
       {renderBody}
       {renderFooter}

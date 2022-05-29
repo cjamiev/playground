@@ -72,7 +72,6 @@ export const TrashSVG = ({
           <rect
             data-testid="rect24705"
             className="svg__31"
-            aria-label="rect24705"
             width="9.4681206"
             height="3.7872484"
             x="718.04102"

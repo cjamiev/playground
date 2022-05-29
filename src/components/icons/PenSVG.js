@@ -15,7 +15,7 @@ export const PenSVG = ({
   return (
     <SCSVGIcon aria-label={ariaLabel} width={width} height={height} viewBox={viewBox} onClick={onClick}>
       <g transform={transform}>
-        <g data-testid="component-pen" aria-label="pen" transform="matrix(1.354135,0,0,1.354135,-21.893213,6.5195347)">
+        <g data-testid="component-pen" transform="matrix(1.354135,0,0,1.354135,-21.893213,6.5195347)">
           <path
             data-testid="path862"
             className="svg__13"
