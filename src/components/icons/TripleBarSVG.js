@@ -2,7 +2,7 @@ import React from 'react';
 import { defaultSize, defaultViewBox } from './data';
 import { SCSVGIcon } from './styles';
 
-const defaultAriaLabel = 'TripleBar';
+const defaultAriaLabel = 'Triple Bar';
 
 export const TripleBarSVG = ({
   ariaLabel = defaultAriaLabel,

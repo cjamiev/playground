@@ -5,10 +5,7 @@ import api from 'api';
 import { TIME } from 'constants/time';
 
 const projectDb = {
-  directories: [
-    './',
-    'C:/doc'
-  ],
+  directories: ['./', 'C:/doc'],
   regexes: [
     {
       description: 'reduce svg icon numbers to three decimals',
@@ -23,7 +20,6 @@ const projectDb = {
     }
   ]
 };
-const templates = ['template/one', 'template/two'];
 const incorrectDirData = 'The system cannot find the path specified.';
 const apiMock = mockApi(mockGet, mockPost);
 
@@ -46,7 +42,7 @@ describe('Project', () => {
     jest.useFakeTimers();
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
-    const sidePanelBtn = screen.getByLabelText('triple bar');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
     fireEvent.click(sidePanelBtn);
     const dirDropdown = screen.getByText('Directories');
 

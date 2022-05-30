@@ -1,12 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
-import {
-  LOAD_PROJECT,
-  loadProject,
-  updateProject,
-  CLEAR_MESSAGE,
-  clearMessage
-} from './projectActions';
+import { LOAD_PROJECT, loadProject, updateProject, CLEAR_MESSAGE, clearMessage } from './projectActions';
 import { CREATE_ALERT } from 'components/alert/alertActions';
 
 const error = new Error('Test Message');
@@ -23,7 +17,7 @@ const getErrorObject = (name) => {
 const successObject = {
   content: 'Updated',
   status: 'success',
-  timer: 1000
+  timer: 3000
 };
 
 const data = 'test data';
@@ -31,10 +25,7 @@ const message = 'test message';
 const rootDir = 'test-dir';
 const name = 'test-name';
 const projectDb = {
-  directories: [
-    './',
-    'C:/doc'
-  ],
+  directories: ['./', 'C:/doc'],
   regexes: [
     {
       description: 'reduce svg icon numbers to three decimals',

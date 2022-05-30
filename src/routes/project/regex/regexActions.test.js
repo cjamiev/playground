@@ -1,9 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
-import {
-  UPDATE_FILES_BY_REGEX,
-  updateFilesByRegex
-} from './regexActions';
+import { UPDATE_FILES_BY_REGEX, updateFilesByRegex } from './regexActions';
 import { CREATE_ALERT } from 'components/alert/alertActions';
 
 const error = new Error('Test Message');
@@ -20,7 +17,7 @@ const getErrorObject = (name) => {
 const successObject = {
   content: 'Updated',
   status: 'success',
-  timer: 1000
+  timer: 3000
 };
 
 const remoteurl = 'remote url';

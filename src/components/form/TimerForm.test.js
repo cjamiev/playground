@@ -29,7 +29,7 @@ describe('TimerForm', () => {
     const hourField = screen.getByLabelText('Hour text field');
     const minuteField = screen.getByLabelText('Minute text field');
     const secondField = screen.getByLabelText('Second text field');
-    const saveBtn = screen.getByText('Save');
+    const saveBtn = screen.getByText('Submit');
 
     fireEvent.change(nameField, { target: { value: 'Timer1' } });
     fireEvent.change(monthField, { target: { value: '1' } });
@@ -57,7 +57,7 @@ describe('TimerForm', () => {
     const minuteField = screen.getByLabelText('Minute text field');
     const secondField = screen.getByLabelText('Second text field');
     const ampmSwitch = isAmMode ? screen.getByLabelText('pm mode is off') : screen.queryByLabelText('am mode is off');
-    const saveBtn = screen.getByText('Save');
+    const saveBtn = screen.getByText('Submit');
 
     fireEvent.change(nameField, { target: { value: 'Timer1' } });
     fireEvent.change(monthField, { target: { value: '1' } });

@@ -36,14 +36,14 @@ describe('NpmPackage', () => {
   it.skip('should render package deps', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
-    const packageTab = screen.getByText('Npm Package');
+    const packageTab = screen.getByText('Npm');
     fireEvent.click(packageTab);
 
-    Object.keys(packageJson.devDependencies).forEach(depName => {
+    Object.keys(packageJson.devDependencies).forEach((depName) => {
       expect(screen.queryByText(depName)).toBeInTheDocument();
       expect(screen.queryByText(packageJson.devDependencies[depName])).toBeInTheDocument();
     });
-    Object.keys(packageJson.dependencies).forEach(depName => {
+    Object.keys(packageJson.dependencies).forEach((depName) => {
       expect(screen.queryByText(depName)).toBeInTheDocument();
       expect(screen.queryByText(packageJson.dependencies[depName])).toBeInTheDocument();
     });
@@ -52,18 +52,18 @@ describe('NpmPackage', () => {
   it.skip('handle load versions and update versions', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
-    const packageTab = screen.getByText('Npm Package');
+    const packageTab = screen.getByText('Npm');
     fireEvent.click(packageTab);
 
     const versionBtn = screen.getByText('Load Versions');
     const updateBtn = screen.getByText('Update Versions');
     fireEvent.click(versionBtn);
 
-    Object.keys(versions.devDependencies).forEach(depName => {
+    Object.keys(versions.devDependencies).forEach((depName) => {
       expect(screen.queryByText(depName)).toBeInTheDocument();
       expect(screen.queryByText(versions.devDependencies[depName])).toBeInTheDocument();
     });
-    Object.keys(versions.dependencies).forEach(depName => {
+    Object.keys(versions.dependencies).forEach((depName) => {
       expect(screen.queryByText(depName)).toBeInTheDocument();
       expect(screen.queryByText(versions.dependencies[depName])).toBeInTheDocument();
     });
@@ -76,19 +76,22 @@ describe('NpmPackage', () => {
     fireEvent.click(screen.getByText('1.0.1'));
     fireEvent.click(updateBtn);
 
-    expect(apiMock.post).toHaveBeenCalledWith('/project/?type=package&op=update&root=./', JSON.stringify({
-      ...packageJson,
-      dependencies: {
-        'test-dep': '3.0.1',
-        'test-dep2': '4.0.0'
-      }
-    }));
+    expect(apiMock.post).toHaveBeenCalledWith(
+      '/project/?type=package&op=update&root=./',
+      JSON.stringify({
+        ...packageJson,
+        dependencies: {
+          'test-dep': '3.0.1',
+          'test-dep2': '4.0.0'
+        }
+      })
+    );
   });
 
   it('handle script and modal message', async () => {
     fullTestWrapper(Project, {}, defaultStoreProps, ROUTES.PROJECT.url);
 
-    const packageTab = screen.getByText('Npm Package');
+    const packageTab = screen.getByText('Npm');
     fireEvent.click(packageTab);
 
     const scriptBtn = screen.getByText('test-script');

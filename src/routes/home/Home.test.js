@@ -20,7 +20,7 @@ describe.skip('Home', () => {
 
     expect(screen.queryByText('No tasks to display')).toBeInTheDocument();
 
-    const sidePanelBtn = screen.getByLabelText('triple bar');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
     fireEvent.click(sidePanelBtn);
 
     // Add tasks
@@ -31,23 +31,23 @@ describe.skip('Home', () => {
 
     fireEvent.change(taskField, { target: { value: 'taskOne' } });
     fireEvent.change(noteField, { target: { value: 'noteOne' } });
-    fireEvent.click(screen.getByLabelText('plus'));
+    fireEvent.click(screen.getByLabelText('Plus'));
     fireEvent.change(urlField, { target: { value: 'urlOne' } });
-    fireEvent.click(screen.getByLabelText('plus'));
+    fireEvent.click(screen.getByLabelText('Plus'));
     fireEvent.click(addBtn);
 
     fireEvent.change(taskField, { target: { value: 'taskTwo' } });
     fireEvent.change(noteField, { target: { value: 'noteTwo' } });
-    fireEvent.click(screen.getByLabelText('plus'));
+    fireEvent.click(screen.getByLabelText('Plus'));
     fireEvent.change(urlField, { target: { value: 'urlTwo' } });
-    fireEvent.click(screen.getByLabelText('plus'));
+    fireEvent.click(screen.getByLabelText('Plus'));
     fireEvent.click(addBtn);
 
     fireEvent.change(taskField, { target: { value: 'taskThree' } });
     fireEvent.change(noteField, { target: { value: 'noteThree' } });
-    fireEvent.click(screen.getByLabelText('plus'));
+    fireEvent.click(screen.getByLabelText('Plus'));
     fireEvent.change(urlField, { target: { value: 'urlThree' } });
-    fireEvent.click(screen.getByLabelText('plus'));
+    fireEvent.click(screen.getByLabelText('Plus'));
     fireEvent.click(addBtn);
 
     expect(screen.queryByText('taskOne')).toBeInTheDocument();
@@ -63,9 +63,9 @@ describe.skip('Home', () => {
     expect(screen.queryByText('urlThree')).toBeInTheDocument();
 
     // Remove task
-    const downBtn = screen.getAllByLabelText('down arrow')[ZERO];
+    const downBtn = screen.getAllByLabelText('arrow down')[ZERO];
     fireEvent.click(downBtn);
-    const upBtn = screen.getAllByLabelText('up arrow')[TWO];
+    const upBtn = screen.getAllByLabelText('arrow up')[TWO];
     fireEvent.click(upBtn);
 
     const doneBtn = screen.getAllByLabelText('trash')[ONE];
@@ -91,7 +91,7 @@ describe.skip('Home', () => {
     expect(screen.getAllByText('urlOne')).toHaveLength(TWO);
     expect(screen.getAllByText('urlTwo')).toHaveLength(TWO);
 
-    fireEvent.click(screen.getAllByLabelText('minus')[ZERO]);
+    fireEvent.click(screen.getAllByLabelText('Minus')[ZERO]);
 
     fireEvent.click(screen.getByText('Save Task'));
 
@@ -108,7 +108,7 @@ describe.skip('Home', () => {
 
     expect(screen.queryByText('No timers to display')).toBeInTheDocument();
 
-    const sidePanelBtn = screen.getByLabelText('triple bar');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
     fireEvent.click(sidePanelBtn);
 
     const timerField = screen.getByLabelText('Name text field');

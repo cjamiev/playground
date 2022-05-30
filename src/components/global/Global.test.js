@@ -106,7 +106,7 @@ describe('Global', () => {
     reduxTestWrapper(Global, {}, storeWithPopulatedModalQueue, '/home', false);
 
     expect(screen.queryByText(storeWithPopulatedModalQueue.global.modalQueue[ZERO].message)).toBeInTheDocument();
-    fireEvent.click(screen.getByText('X'));
+    fireEvent.click(screen.getByLabelText('Close Modal'));
 
     expect(screen.queryByText(storeWithPopulatedModalQueue.global.modalQueue[ZERO].message)).not.toBeInTheDocument();
   });
@@ -117,7 +117,7 @@ describe('Global', () => {
     expect(screen.queryByText('Loading...')).toBeInTheDocument();
     expect(screen.queryByText(storeWithLoading.global.loadingQueue[ZERO])).toBeInTheDocument();
 
-    fireEvent.click(screen.getByLabelText('Close button'));
+    fireEvent.click(screen.getByLabelText('Close Modal'));
     expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
     expect(screen.queryByText(storeWithLoading.global.loadingQueue[ZERO])).not.toBeInTheDocument();
   });

@@ -8,8 +8,7 @@ const pathname = '/home';
 const ZERO = 0;
 const defaultProps = {
   sidePanelContent: 'test-sidepanelcontent',
-  children: <div>content</div>,
-  footerComponent: <div>footer</div>
+  children: <div>content</div>
 };
 
 describe('Page', () => {
@@ -17,13 +16,12 @@ describe('Page', () => {
     reduxTestWrapper(Page, defaultProps, {}, pathname);
 
     expect(screen.queryByText('content')).toBeInTheDocument();
-    expect(screen.queryByText('footer')).toBeInTheDocument();
   });
 
   it('checks sidepanel does not show', () => {
     reduxTestWrapper(Page, { children: 'content' }, {}, pathname);
 
-    expect(screen.queryByLabelText('triple bar')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('Open or Close Sidepanel')).not.toBeInTheDocument();
   });
 
   it.skip('checks side panel', () => {
@@ -32,7 +30,7 @@ describe('Page', () => {
 
     expect(screen.queryByText(defaultProps.sidePanelContent)).not.toBeInTheDocument();
 
-    const sidePanelButton = screen.getByLabelText('triple bar');
+    const sidePanelButton = screen.getByLabelText('Open or Close Sidepanel');
     fireEvent.click(sidePanelButton);
 
     expect(screen.queryByText(defaultProps.sidePanelContent)).toBeInTheDocument();

@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
-import { LOAD_SETTINGS, loadConfig, updateConfig } from './configActions';
+import { LOAD_SETTINGS, loadSettings, updateSettings } from './settingsActions';
 import { CREATE_ALERT } from 'components/alert/alertActions';
 
 const error = new Error('Test Message');
@@ -15,53 +15,53 @@ const errorObject = {
 const successObject = {
   content: 'Updated',
   status: 'success',
-  timer: 1000
+  timer: 3000
 };
 
 const content = [{ name: 'test' }];
 
-describe('configActions', () => {
-  it('loadConfig', async () => {
+describe('settingsActions', () => {
+  it('loadSettings', async () => {
     api.get.mockResolvedValueOnce({
       data: {
         data: JSON.stringify(content)
       }
     });
-    loadConfig()(dispatch);
+    loadSettings()(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith('/db/?name=config.json');
+      expect(api.get).toHaveBeenCalledWith('/db/?name=settings.json');
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_SETTINGS, data: content });
     });
   });
 
-  it('loadConfig - error', async () => {
+  it('loadSettings - error', async () => {
     api.get.mockRejectedValueOnce(error);
-    loadConfig()(dispatch);
+    loadSettings()(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });
     });
   });
 
-  it('updateConfig', async () => {
+  it('updateSettings', async () => {
     api.post.mockResolvedValue({
       data: {
         message: 'testing 123'
       }
     });
-    updateConfig(content)(dispatch);
+    updateSettings(content)(dispatch);
 
     await waitFor(() => {
-      expect(api.post).toHaveBeenCalledWith('/db', { content: JSON.stringify(content), filename: 'config.json' });
+      expect(api.post).toHaveBeenCalledWith('/db', { content: JSON.stringify(content), filename: 'settings.json' });
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_SETTINGS, data: content });
     });
   });
 
-  it('updateConfig - error', async () => {
+  it('updateSettings - error', async () => {
     api.post.mockRejectedValueOnce(new Error('Test Message'));
-    updateConfig(content)(dispatch);
+    updateSettings(content)(dispatch);
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: errorObject });

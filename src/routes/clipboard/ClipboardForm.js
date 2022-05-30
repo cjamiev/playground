@@ -10,7 +10,6 @@ import List, { DisplayContent } from 'components/list';
 import Table, { SCTableCell } from 'components/table';
 import { updateClipboard } from 'routes/clipboard/clipboardActions';
 import { TYPE } from 'constants/type';
-import { ICON_TYPES } from 'constants/icon';
 import { ArrowSVG } from 'components/icons/ArrowSVG';
 import { TrashSVG } from 'components/icons';
 import { decrementElementIndex, incrementElementIndex, swapArrayElementPositions } from 'arrayHelper';

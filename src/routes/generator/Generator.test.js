@@ -88,7 +88,7 @@ describe('Generator', () => {
   it('handle onChange for Hover and Active states', () => {
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByLabelText('triple bar');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
     fireEvent.click(sidePanelBtn);
 
     const shownCSS = 'filter: blur(5px) ;';
@@ -111,7 +111,7 @@ describe('Generator', () => {
     document.execCommand = jest.fn();
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByLabelText('triple bar');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
     fireEvent.click(sidePanelBtn);
 
     const copyBtn = screen.getByLabelText('copy');
@@ -119,7 +119,9 @@ describe('Generator', () => {
     fireEvent.click(copyBtn);
     const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
 
-    expect(copyEl.value).toEqual('.name {\nheight: 50px;\nwidth: 100px;\nborder: 1px solid #000000;\n}\n\n.name:hover {\n\n}\n\n.name:active {\n\n}');
+    expect(copyEl.value).toEqual(
+      '.name {\nheight: 50px;\nwidth: 100px;\nborder: 1px solid #000000;\n}\n\n.name:hover {\n\n}\n\n.name:active {\n\n}'
+    );
     expect(document.execCommand).toHaveBeenCalledWith('copy');
   });
 
@@ -135,7 +137,7 @@ describe('Generator', () => {
 
     expect(screen.queryByText('background-color: rgba(255,138,138);')).not.toBeInTheDocument();
 
-    const sidePanelBtn = screen.getByLabelText('triple bar');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
     fireEvent.click(sidePanelBtn);
     const dropdownBtn = screen.getByText('Select an existing record');
     fireEvent.click(dropdownBtn);
@@ -166,7 +168,7 @@ describe('Generator', () => {
     });
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByLabelText('triple bar');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
     fireEvent.click(sidePanelBtn);
     const dropdownBtn = screen.getByText('Select an existing record');
     fireEvent.click(dropdownBtn);
@@ -200,7 +202,7 @@ describe('Generator', () => {
     });
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByLabelText('triple bar');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
     fireEvent.click(sidePanelBtn);
     const dropdownBtn = screen.getByText('Select an existing record');
     fireEvent.click(dropdownBtn);
@@ -258,7 +260,7 @@ describe('Generator', () => {
     });
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByLabelText('triple bar');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
     fireEvent.click(sidePanelBtn);
     const nameField = screen.getByLabelText('Name text field');
     fireEvent.change(nameField, { target: { value: 'test' } });
@@ -280,8 +282,8 @@ describe('Generator', () => {
             borderStyle: 'solid',
             borderThickness: '1'
           },
-          hoverStyle: { },
-          activeStyle: { }
+          hoverStyle: {},
+          activeStyle: {}
         }
       }
     ];

@@ -7,7 +7,7 @@ const THREE_SECOND = 3000;
 const loadSettings = () => {
   return (dispatch) => {
     api
-      .get('/db/?name=config.json')
+      .get('/db/?name=settings.json')
       .then((response) => {
         dispatch({ type: LOAD_SETTINGS, data: JSON.parse(response.data.data) });
       })
@@ -20,7 +20,7 @@ const loadSettings = () => {
 const updateSettings = (content) => {
   return (dispatch) => {
     api
-      .post('/db', { filename: 'config.json', content: JSON.stringify(content) })
+      .post('/db', { filename: 'settings.json', content: JSON.stringify(content) })
       .then((response) => {
         dispatch(createAlert({ content: 'Updated', timer: THREE_SECOND, status: 'success' }));
         dispatch({ type: LOAD_SETTINGS, data: content });

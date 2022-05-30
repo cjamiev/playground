@@ -27,7 +27,7 @@ const getErrorObject = (name) => {
 const successObject = {
   content: 'Updated',
   status: 'success',
-  timer: 1000
+  timer: 3000
 };
 
 const remoteurl = 'remote url';
@@ -116,7 +116,10 @@ describe('npmPackageActions', () => {
     updatePackage(rootDir, packageJson)(dispatch);
 
     await waitFor(() => {
-      expect(api.post).toHaveBeenCalledWith(`/project/?type=package&op=update&root=${rootDir}`, JSON.stringify(packageJson));
+      expect(api.post).toHaveBeenCalledWith(
+        `/project/?type=package&op=update&root=${rootDir}`,
+        JSON.stringify(packageJson)
+      );
       expect(dispatch).toHaveBeenCalledWith({ type: UPDATE_PACKAGE, message });
     });
   });

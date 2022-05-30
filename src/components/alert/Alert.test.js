@@ -6,10 +6,12 @@ import { ROUTES } from 'constants/routes';
 
 const ZERO = 0;
 const data = {
+  id: 1,
   content: 'test-content',
   status: 'error'
 };
 const data2 = {
+  id: 2,
   content: 'test-content2',
   status: 'success'
 };

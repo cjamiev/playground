@@ -47,7 +47,7 @@ const errorObject = {
 const successObject = {
   content: 'Updated',
   status: 'success',
-  timer: 1000
+  timer: 3000
 };
 
 describe('mockserverActions', () => {

@@ -48,20 +48,26 @@ export const mockStore = {
     }
   },
   config: {
-    commands: [{
-      label:'commandLabelOne',
-      value: 'commandOne'
-    },{
-      label:'commandLabelTwo',
-      value: 'commandTwo'
-    }],
-    links: [{
-      label: 'linkLabelOne',
-      value: 'linkOne'
-    },{
-      label: 'linkLabelTwo',
-      value: 'linkTwo'
-    }]
+    commands: [
+      {
+        label: 'commandLabelOne',
+        value: 'commandOne'
+      },
+      {
+        label: 'commandLabelTwo',
+        value: 'commandTwo'
+      }
+    ],
+    links: [
+      {
+        label: 'linkLabelOne',
+        value: 'linkOne'
+      },
+      {
+        label: 'linkLabelTwo',
+        value: 'linkTwo'
+      }
+    ]
   },
   experiment: {},
   file: {
@@ -72,13 +78,13 @@ export const mockStore = {
     todos: [
       {
         text: 'todoOne',
-        notes: ['noteOne','noteTwo'],
+        notes: ['noteOne', 'noteTwo'],
         urls: ['urlOne', 'urlTwo'],
         id: 1
       },
       {
         text: 'todoTwo',
-        notes: ['noteTwoOne','noteTwoTwo'],
+        notes: ['noteTwoOne', 'noteTwoTwo'],
         urls: ['urlTwoOne', 'urlTwoTwo'],
         id: 2
       }
@@ -113,40 +119,40 @@ export const mockStore = {
   generator: {
     records: [
       {
-        'name': 'recordOne',
-        'value': {
-          'backgroundStyle': {
-            'backgroundImage': 'url("img/background.jpg")'
+        name: 'recordOne',
+        value: {
+          backgroundStyle: {
+            backgroundImage: 'url("img/background.jpg")'
           },
-          'normalStyle': {
-            'height': '500',
-            'width': '300'
+          normalStyle: {
+            height: '500',
+            width: '300'
           },
-          'hoverStyle': {
-            'scaleY': '1.05',
-            'scaleX': '1.05'
+          hoverStyle: {
+            scaleY: '1.05',
+            scaleX: '1.05'
           },
-          'activeStyle': {
-            'colorBoxShadow': '#000000'
+          activeStyle: {
+            colorBoxShadow: '#000000'
           }
         }
       },
       {
-        'name': 'recordTwo',
-        'value': {
-          'backgroundStyle': {
-            'backgroundImage': 'url("img/background.jpg")'
+        name: 'recordTwo',
+        value: {
+          backgroundStyle: {
+            backgroundImage: 'url("img/background.jpg")'
           },
-          'normalStyle': {
-            'height': '600',
-            'width': '400'
+          normalStyle: {
+            height: '600',
+            width: '400'
           },
-          'hoverStyle': {
-            'scaleY': '1.1',
-            'scaleX': '1.1'
+          hoverStyle: {
+            scaleY: '1.1',
+            scaleX: '1.1'
           },
-          'activeStyle': {
-            'colorBoxShadow': '#ffffff'
+          activeStyle: {
+            colorBoxShadow: '#ffffff'
           }
         }
       }
@@ -175,45 +181,50 @@ export const mockStore = {
       { method: 'GET', url: '/test', responsePath: 'filename' },
       { method: 'POST', url: '/test2', responsePath: 'filename2' }
     ],
-    log: [{
-      timestamp: '7/10/2021 13:48:20',
-      url: 'urlOne',
-      payload: {
-        testing: 1
+    log: [
+      {
+        timestamp: '7/10/2021 13:48:20',
+        url: 'urlOne',
+        payload: {
+          testing: 1
+        }
+      },
+      {
+        timestamp: '8/10/2021 13:48:20',
+        url: 'urlTwo',
+        payload: {
+          testing: 2
+        }
       }
-    }, {
-      timestamp: '8/10/2021 13:48:20',
-      url: 'urlTwo',
-      payload: {
-        testing: 2
-      }
-    }],
+    ],
     mockResponse: undefined
   },
   project: {
     directories: ['dir1', 'dir2'],
-    regexes: [{
-      description: 'regexOne',
-      fileRegex: '^file$',
-      lineRegex: '^line$',
-      modifiers: 'g',
-      lineRange: {
-        start: 0,
-        end: 2
+    regexes: [
+      {
+        description: 'regexOne',
+        fileRegex: '^file$',
+        lineRegex: '^line$',
+        modifiers: 'g',
+        lineRange: {
+          start: 0,
+          end: 2
+        },
+        replace: 'test-replace'
       },
-      replace: 'test-replace'
-    },
-    {
-      description: 'regexTwo',
-      fileRegex: '^file2$',
-      lineRegex: '^line2$',
-      modifiers: 'g',
-      lineRange: {
-        start: 0,
-        end: 2
-      },
-      replace: 'test-replace2'
-    }],
+      {
+        description: 'regexTwo',
+        fileRegex: '^file2$',
+        lineRegex: '^line2$',
+        modifiers: 'g',
+        lineRange: {
+          start: 0,
+          end: 2
+        },
+        replace: 'test-replace2'
+      }
+    ],
     remoteUrl: 'test-url',
     branches: ['branchOne', 'branchTwo'],
     stashes: ['stashOne', 'stashTwo'],
@@ -252,78 +263,80 @@ export const mockStore = {
 };
 
 const HTTP_GET = {
-  '/db/?name=clipboard.json':{ data: JSON.stringify(mockStore.clipboard.records)},
-  '/db/?name=config.json':{ data: JSON.stringify(mockStore.config)},
-  '/db/?name=generator.json':{ data: JSON.stringify(mockStore.generator.records)},
-  '/db/?name=home.json':{ data: JSON.stringify(mockStore.home)},
+  '/db/?name=clipboard.json': { data: JSON.stringify(mockStore.clipboard.records) },
+  '/db/?name=settings.json': { data: JSON.stringify(mockStore.config) },
+  '/db/?name=generator.json': { data: JSON.stringify(mockStore.generator.records) },
+  '/db/?name=home.json': { data: JSON.stringify(mockStore.home) },
   '/db/?name=project.json': {
     data: JSON.stringify({
       directories: mockStore.project.directories,
       regexes: mockStore.project.regex
     })
   },
-  '/command': { data: mockStore.global.commands},
-  '/file/?name=fileOne': { data: 'fileOne contents'},
-  '/file/?name=fileTwo': { data: 'fileTwo contents'},
-  '/file/?name=': { data: 'file contents'},
-  '/file': { data: mockStore.file.directory},
-  '/command?name=': { message: 'running command'},
-  '/mockserver/config': { data: mockStore.mockserver.config},
-  'mockserver/mockRequests': { data: mockStore.mockserver.mocks},
-  'mockserver/loadLog': { data: mockStore.mockserver.log},
-  'mockserver/clearLog': { message: 'Clearing log'},
-  '/project/?type=template&op=read': { data: mockStore.project.templates},
-  '/project/?type=template&op=read&name=': { data: mockStore.project.templateFile},
-  '/project/?type=snippet&op=read': { data: mockStore.project.snippets},
-  '/project/?type=snippet&op=read&name=': { data: mockStore.project.snippetFile},
-  '/project/?type=package&op=read&root=': { data: mockStore.project.packageJson},
-  '/project/?type=package&op=getversions&root=': { data: mockStore.project.versions},
-  '/project/?type=package&op=runscript&root=': { message: 'running script'},
-  '/project/?type=git&op=remoteurl&root=dir1': { data: 'dir1-url'},
-  '/project/?type=git&op=remoteurl&root=incorrectdir': { data: 'The system cannot find the path specified.'},
-  '/project/?type=git&op=remoteurl&root=': { data: mockStore.project.remoteUrl},
-  '/project/?type=git&op=deletebranch&root=': { message: 'deleted branch'},
-  '/project/?type=git&op=createbranch&root=': { message: 'created branch'},
-  '/project/?type=git&op=mergebranch&root=': { message: 'merged branch'},
-  '/project/?type=git&op=selectbranch&root=': { message: 'selected branch'},
-  '/project/?type=git&op=viewbranches&root=':{ data: '* branchOne\nbranchTwo\n'},
-  '/project/?type=git&op=createstash&root=': { message: 'created stash'},
-  '/project/?type=git&op=deletestash&root=': { message: 'deleted stash'},
-  '/project/?type=git&op=selectstash&root=': { message: 'selected stash'},
-  '/project/?type=git&op=viewstash&root=': { data: 'stash@{1}: On master: stash1\nstash@{2}: On master: stash2\n'},
-  '/project/?type=git&op=resetbranch&root=': { message: 'reset branch'}
+  '/command': { data: mockStore.global.commands },
+  '/file/?name=fileOne': { data: 'fileOne contents' },
+  '/file/?name=fileTwo': { data: 'fileTwo contents' },
+  '/file/?name=': { data: 'file contents' },
+  '/file': { data: mockStore.file.directory },
+  '/command?name=': { message: 'running command' },
+  '/mockserver/config': { data: mockStore.mockserver.config },
+  'mockserver/mockRequests': { data: mockStore.mockserver.mocks },
+  'mockserver/loadLog': { data: mockStore.mockserver.log },
+  'mockserver/clearLog': { message: 'Clearing log' },
+  '/project/?type=template&op=read': { data: mockStore.project.templates },
+  '/project/?type=template&op=read&name=': { data: mockStore.project.templateFile },
+  '/project/?type=snippet&op=read': { data: mockStore.project.snippets },
+  '/project/?type=snippet&op=read&name=': { data: mockStore.project.snippetFile },
+  '/project/?type=package&op=read&root=': { data: mockStore.project.packageJson },
+  '/project/?type=package&op=getversions&root=': { data: mockStore.project.versions },
+  '/project/?type=package&op=runscript&root=': { message: 'running script' },
+  '/project/?type=git&op=remoteurl&root=dir1': { data: 'dir1-url' },
+  '/project/?type=git&op=remoteurl&root=incorrectdir': { data: 'The system cannot find the path specified.' },
+  '/project/?type=git&op=remoteurl&root=': { data: mockStore.project.remoteUrl },
+  '/project/?type=git&op=deletebranch&root=': { message: 'deleted branch' },
+  '/project/?type=git&op=createbranch&root=': { message: 'created branch' },
+  '/project/?type=git&op=mergebranch&root=': { message: 'merged branch' },
+  '/project/?type=git&op=selectbranch&root=': { message: 'selected branch' },
+  '/project/?type=git&op=viewbranches&root=': { data: '* branchOne\nbranchTwo\n' },
+  '/project/?type=git&op=createstash&root=': { message: 'created stash' },
+  '/project/?type=git&op=deletestash&root=': { message: 'deleted stash' },
+  '/project/?type=git&op=selectstash&root=': { message: 'selected stash' },
+  '/project/?type=git&op=viewstash&root=': { data: 'stash@{1}: On master: stash1\nstash@{2}: On master: stash2\n' },
+  '/project/?type=git&op=resetbranch&root=': { message: 'reset branch' }
 };
 
 const HTTP_POST = {
-  '/db': { message: 'Updated database'},
-  '/file': { message: 'Updated file'},
-  '/mockserver/config': { message: 'Updated mock config'},
-  'mockserver/mockRequests': { message: 'Updated Mock Request'},
-  '/mockserver/deleteMockEndpoint': { message: 'Deleted Mock Endpoint'},
-  'mockserver/loadMockResponse':  { data: {
-    'headers': {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    'status': 200,
-    'body': {
-      'test': 'testing get'
+  '/db': { message: 'Updated database' },
+  '/file': { message: 'Updated file' },
+  '/mockserver/config': { message: 'Updated mock config' },
+  'mockserver/mockRequests': { message: 'Updated Mock Request' },
+  '/mockserver/deleteMockEndpoint': { message: 'Deleted Mock Endpoint' },
+  'mockserver/loadMockResponse': {
+    data: {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      status: 200,
+      body: {
+        test: 'testing get'
+      }
     }
-  }},
-  '/mockserver/updateMockEndpoint': { message: 'Updated Mock Endpoint'},
-  '/mockserver/createMockEndpoint': { message: 'Created Mock Endpoint'},
-  '/project/?type=template&op=create&root=': { message: 'Creating Template files'},
-  '/project/?type=template&op=write&name=': { message: 'Creating New Template'},
-  '/project/?type=snippet&op=write&name=': { message: 'Creating New Snippet'},
-  '/project/?type=regex&root=': { message: 'Updating files using regex'},
-  '/project/?type=package&op=update&root=': { message: 'Updating package version'}
+  },
+  '/mockserver/updateMockEndpoint': { message: 'Updated Mock Endpoint' },
+  '/mockserver/createMockEndpoint': { message: 'Created Mock Endpoint' },
+  '/project/?type=template&op=create&root=': { message: 'Creating Template files' },
+  '/project/?type=template&op=write&name=': { message: 'Creating New Template' },
+  '/project/?type=snippet&op=write&name=': { message: 'Creating New Snippet' },
+  '/project/?type=regex&root=': { message: 'Updating files using regex' },
+  '/project/?type=package&op=update&root=': { message: 'Updating package version' }
 };
 
 const mockEndpoints = (url, mocks) => {
   const urlKeys = Object.keys(mocks);
-  const matched = urlKeys.find(key => url.includes(key));
+  const matched = urlKeys.find((key) => url.includes(key));
 
-  if(matched) {
+  if (matched) {
     const { data, message } = mocks[matched];
 
     return Promise.resolve({

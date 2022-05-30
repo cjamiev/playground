@@ -1,11 +1,7 @@
 /* eslint-disable max-params */
 import React from 'react';
 import { render } from '@testing-library/react';
-import {
-  applyMiddleware,
-  createStore,
-  compose
-} from 'redux';
+import { applyMiddleware, createStore, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { Router, MemoryRouter } from 'react-router-dom';
@@ -15,7 +11,7 @@ import { rootReducer } from '../src/store';
 import Global from 'components/global';
 import { alertInitialState } from '../src/components/alert/alertReducer';
 import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer';
-import { configInitialState } from '../src/routes/config/configReducer';
+import { settingsInitialState } from '../src/routes/settings/settingsReducer';
 import { experimentInitialState } from '../src/routes/experiment/experimentReducer';
 import { fileInitialState } from '../src/routes/file/fileReducer';
 import { homeInitialState } from '../src/routes/home/homeReducer';
@@ -32,7 +28,7 @@ const appliedMiddlewares = applyMiddleware(...middlewares);
 const defaultStore = {
   alert: alertInitialState,
   clipboard: clipboardInitialState,
-  config: configInitialState,
+  settings: settingsInitialState,
   experiment: experimentInitialState,
   file: fileInitialState,
   home: homeInitialState,
@@ -58,10 +54,22 @@ const reduxTestWrapper = (Component, props = {}, reduxProps = {}, locationPathna
   );
 };
 
-const fullTestWrapper = (Component, props = {}, reduxProps = {}, locationPathname = ROUTES.HOME.url, shouldRenderPage = false) => {
+const fullTestWrapper = (
+  Component,
+  props = {},
+  reduxProps = {},
+  locationPathname = ROUTES.HOME.url,
+  shouldRenderPage = false
+) => {
   const store = createStore(rootReducer, { ...defaultStore, ...reduxProps }, compose(appliedMiddlewares));
 
-  const renderComponent = shouldRenderPage ? (<Page><Component {...props} /></Page>): <Component {...props} />;
+  const renderComponent = shouldRenderPage ? (
+    <Page>
+      <Component {...props} />
+    </Page>
+  ) : (
+    <Component {...props} />
+  );
 
   const wrapper = render(
     <Provider store={store}>
@@ -75,8 +83,4 @@ const fullTestWrapper = (Component, props = {}, reduxProps = {}, locationPathnam
   return { wrapper, history };
 };
 
-export {
-  simpleTestWrapper,
-  reduxTestWrapper,
-  fullTestWrapper
-};
+export { simpleTestWrapper, reduxTestWrapper, fullTestWrapper };

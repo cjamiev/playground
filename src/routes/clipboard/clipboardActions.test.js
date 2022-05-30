@@ -29,7 +29,7 @@ const errorObject = {
 const successObject = {
   content: 'Updated',
   status: 'success',
-  timer: 1000
+  timer: 3000
 };
 
 describe('clipboardActions', () => {
@@ -37,7 +37,10 @@ describe('clipboardActions', () => {
     loadClipboard()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_CLIPBOARD, data: { one: [ONE, TWO, THREE], two: [TWO, THREE, FOUR] } });
+      expect(dispatch).toHaveBeenCalledWith({
+        type: LOAD_CLIPBOARD,
+        data: { one: [ONE, TWO, THREE], two: [TWO, THREE, FOUR] }
+      });
     });
   });
 

@@ -52,7 +52,7 @@ describe('Modal', () => {
   it('handle close', () => {
     reduxTestWrapper(Modal, baseProps);
 
-    fireEvent.click(screen.getByText('X'));
+    fireEvent.click(screen.getByLabelText('Close Modal'));
 
     expect(baseProps.beforeClose).toHaveBeenCalled();
     expect(baseProps.close).toHaveBeenCalled();

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import TextArea from 'components/form/TextArea';
 import Pagination from 'components/pagination';
 import TableRenderer from './TableRenderer';
-import { ICON_TYPES } from 'constants/icon';
 import { copyToClipboard } from 'helper/copy';
 import { dataGenerator } from 'randomHelper';
 import { parseObject } from 'type-check';

@@ -1,15 +1,15 @@
-import { LOAD_SETTINGS } from './configActions';
-import configReducer, { configInitialState } from './configReducer';
+import { LOAD_SETTINGS } from './settingsActions';
+import settingsReducer, { settingsInitialState } from './settingsReducer';
 
 const ONE = 1;
 const TWO = 2;
 const THREE = 3;
 
-describe('configReducer', () => {
+describe('settingsReducer', () => {
   it('default', () => {
-    const result = configReducer(undefined, {});
+    const result = settingsReducer(undefined, {});
 
-    expect(result).toEqual(configInitialState);
+    expect(result).toEqual(settingsInitialState);
   });
 
   it('LOAD_SETTINGS', () => {
@@ -20,10 +20,10 @@ describe('configReducer', () => {
         links: [THREE, TWO, ONE]
       }
     };
-    const result = configReducer(configInitialState, action);
+    const result = settingsReducer(settingsInitialState, action);
 
     expect(result).toEqual({
-      ...configInitialState,
+      ...settingsInitialState,
       commands: action.data.commands,
       links: action.data.links
     });

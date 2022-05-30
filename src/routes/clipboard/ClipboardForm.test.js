@@ -22,14 +22,22 @@ const ZERO = 0;
 const ONE = 1;
 const TWO = 2;
 const existingRecords = {
-  keyOne: [{ title: 'test-title',
-    data: [
-      [{ type: 'copy', label: 'copy1', value: 'value1' },
-        { type: 'copy', label: 'copy2', value: 'value2' },
-        { type: 'copy', label: 'copy3', value: 'value3' }],
-      [{ type: 'copy', label: 'copy4', value: 'value4' },
-        { type: 'copy', label: 'copy5', value: 'value5' }]
-    ] }],
+  keyOne: [
+    {
+      title: 'test-title',
+      data: [
+        [
+          { type: 'copy', label: 'copy1', value: 'value1' },
+          { type: 'copy', label: 'copy2', value: 'value2' },
+          { type: 'copy', label: 'copy3', value: 'value3' }
+        ],
+        [
+          { type: 'copy', label: 'copy4', value: 'value4' },
+          { type: 'copy', label: 'copy5', value: 'value5' }
+        ]
+      ]
+    }
+  ],
   keyTwo: [{ title: 'test-title2', data: [[{ type: 'copy', label: 'copy21', value: 'value21' }]] }]
 };
 
@@ -43,7 +51,7 @@ describe('ClipboardForm', () => {
 
     fireEvent.change(screen.queryByLabelText('Name text field'), { target: { value: 'copy-testname' } });
     fireEvent.change(screen.queryByLabelText('Value text field'), { target: { value: 'copy-testvalue' } });
-    fireEvent.click(screen.getByText('Save'));
+    fireEvent.click(screen.getByText('Submit'));
     fireEvent.click(screen.getByText('Add'));
 
     fireEvent.click(screen.getByText('Type copy'));
@@ -76,16 +84,24 @@ describe('ClipboardForm', () => {
 
     fireEvent.click(screen.getByText('Submit'));
     const newRecords = {
-      'key-testname': [{
-        title: 'title-testname',
-        data: [
-          [{ label: 'copy-testname', value: 'copy-testvalue', type: 'copy' }],
-          [{ label: 'command-testname', value: { showArgs: false, name: 'commandOne' }, type: 'command' }],
-          [{ label: 'link-testname', value: 'link-testvalue', type: 'link' }],
-          [{ label: 'text-testname', value: 'text-testvalue', type: 'text' }],
-          [{ label: 'timer-testname', value: 'Fri Jan 01 2021 05:00:00 GMT-0600 (Central Standard Time)', type: 'timer' }]
-        ]
-      }]
+      'key-testname': [
+        {
+          title: 'title-testname',
+          data: [
+            [{ label: 'copy-testname', value: 'copy-testvalue', type: 'copy' }],
+            [{ label: 'command-testname', value: { showArgs: false, name: 'commandOne' }, type: 'command' }],
+            [{ label: 'link-testname', value: 'link-testvalue', type: 'link' }],
+            [{ label: 'text-testname', value: 'text-testvalue', type: 'text' }],
+            [
+              {
+                label: 'timer-testname',
+                value: 'Fri Jan 01 2021 05:00:00 GMT-0600 (Central Standard Time)',
+                type: 'timer'
+              }
+            ]
+          ]
+        }
+      ]
     };
 
     expect(api.post).toHaveBeenCalledWith('/db', {
@@ -103,8 +119,8 @@ describe('ClipboardForm', () => {
 
     fireEvent.click(screen.getByText('copy1'));
 
-    fireEvent.click(screen.getAllByLabelText('up arrow')[TWO]);
-    fireEvent.click(screen.getAllByLabelText('down arrow')[ZERO]);
+    fireEvent.click(screen.getAllByLabelText('arrow up')[TWO]);
+    fireEvent.click(screen.getAllByLabelText('arrow down')[ZERO]);
     fireEvent.click(screen.getAllByLabelText('trash')[ZERO]);
     fireEvent.click(screen.getByText('Update'));
 
@@ -120,11 +136,17 @@ describe('ClipboardForm', () => {
 
     fireEvent.click(screen.getByText('Submit'));
     const updatedRecords = {
-      keyOne: [{ title: 'test-title',
-        data: [
-          [{ type: 'copy', label: 'copy1', value: 'value1' },
-            { type: 'copy', label: 'copy2', value: 'value2' }]
-        ] }],
+      keyOne: [
+        {
+          title: 'test-title',
+          data: [
+            [
+              { type: 'copy', label: 'copy1', value: 'value1' },
+              { type: 'copy', label: 'copy2', value: 'value2' }
+            ]
+          ]
+        }
+      ],
       keyTwo: [{ title: 'test-title2', data: [[{ type: 'copy', label: 'copy21', value: 'value21' }]] }]
     };
     expect(api.post).toHaveBeenCalledWith('/db', {

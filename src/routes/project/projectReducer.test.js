@@ -1,7 +1,4 @@
-import {
-  LOAD_PROJECT,
-  CLEAR_MESSAGE
-} from './projectActions';
+import { LOAD_PROJECT, CLEAR_MESSAGE } from './projectActions';
 import {
   LOAD_REMOTE_URL,
   DELETE_BRANCH,
@@ -15,24 +12,9 @@ import {
   LOAD_VIEW_STASH,
   RESET_BRANCH
 } from './git/gitActions';
-import {
-  LOAD_PACKAGE,
-  LOAD_VERSIONS,
-  RUN_SCRIPT,
-  UPDATE_PACKAGE
-} from './package/npmPackageActions';
-import {
-  UPDATE_FILES_BY_REGEX
-} from './regex/regexActions';
-import {
-  LOAD_TEMPLATE_DIRECTORY,
-  LOAD_TEMPLATE,
-  CREATE_FILES_FROM_TEMPLATES
-} from './template/templateActions';
-import {
-  LOAD_SNIPPET_DIRECTORY,
-  LOAD_SNIPPET
-} from './snippet/snippetActions';
+import { LOAD_PACKAGE, LOAD_VERSIONS, RUN_SCRIPT, UPDATE_PACKAGE } from './package/npmPackageActions';
+import { UPDATE_FILES_BY_REGEX } from './regex/regexActions';
+import { LOAD_SNIPPET_DIRECTORY, LOAD_SNIPPET } from './snippet/snippetActions';
 import projectReducer, { projectInitialState } from './projectReducer';
 
 const remoteUrl = 'test-url';
@@ -42,10 +24,7 @@ const versions = { one: 2, two: 3, three: 4 };
 const templates = ['template/one', 'template/two'];
 const snippets = ['snippetOne', 'snippetTwo'];
 const projectDb = {
-  directories: [
-    './',
-    'C:/doc'
-  ],
+  directories: ['./', 'C:/doc'],
   regexes: [
     {
       description: 'reduce svg icon numbers to three decimals',
@@ -280,45 +259,6 @@ describe('projectReducer', () => {
   it('UPDATE_FILES_BY_REGEX', () => {
     const action = {
       type: UPDATE_FILES_BY_REGEX,
-      message
-    };
-    const result = projectReducer(projectInitialState, action);
-
-    expect(result).toEqual({
-      ...projectInitialState,
-      message
-    });
-  });
-
-  it('LOAD_TEMPLATE_DIRECTORY', () => {
-    const action = {
-      type: LOAD_TEMPLATE_DIRECTORY,
-      data: templates
-    };
-    const result = projectReducer(projectInitialState, action);
-
-    expect(result).toEqual({
-      ...projectInitialState,
-      templates
-    });
-  });
-
-  it('LOAD_TEMPLATE', () => {
-    const action = {
-      type: LOAD_TEMPLATE,
-      data: 'template content'
-    };
-    const result = projectReducer(projectInitialState, action);
-
-    expect(result).toEqual({
-      ...projectInitialState,
-      templateFile: 'template content'
-    });
-  });
-
-  it('CREATE_FILES_FROM_TEMPLATES', () => {
-    const action = {
-      type: CREATE_FILES_FROM_TEMPLATES,
       message
     };
     const result = projectReducer(projectInitialState, action);

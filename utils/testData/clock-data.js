@@ -18,17 +18,49 @@ const normalizeClockTestData = [
   { testMessage: 'Minutes overflow = 60', args: [0, 60, 0], expectedResult: { hours: 1, minutes: 0, seconds: 0 } },
   { testMessage: 'Seconds overflow = 60', args: [0, 1, 0], expectedResult: { hours: 0, minutes: 1, seconds: 0 } },
   { testMessage: 'Seconds overflow = 3600', args: [0, 0, 3600], expectedResult: { hours: 1, minutes: 0, seconds: 0 } },
-  { testMessage: 'Minutes = 59 && Seconds overflow = 60', args: [0, 59, 60], expectedResult: { hours: 1, minutes: 0, seconds: 0 } },
-  { testMessage: 'Minutes = 61 && Seconds overflow = 3661', args: [0, 61, 3661], expectedResult: { hours: 2, minutes: 2, seconds: 1 } }
+  {
+    testMessage: 'Minutes = 59 && Seconds overflow = 60',
+    args: [0, 59, 60],
+    expectedResult: { hours: 1, minutes: 0, seconds: 0 }
+  },
+  {
+    testMessage: 'Minutes = 61 && Seconds overflow = 3661',
+    args: [0, 61, 3661],
+    expectedResult: { hours: 2, minutes: 2, seconds: 1 }
+  }
 ];
 
 const clockBetweenDatesTestData = [
-  { testMessage: 'same day', args: [dayOne, dayOne], expectedResult: { weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0 } },
-  { testMessage: 'one day difference', args: [dayTwo, dayOne], expectedResult: { weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0 } },
-  { testMessage: 'one hour, one minutes, one second difference', args: [dayOnePlusOnes, dayOne], expectedResult: { weeks: 0, days: 0, hours: 1, minutes: 1, seconds: 1 } },
-  { testMessage: 'one week difference', args: [weekTwo, dayOne], expectedResult: { weeks: 1, days: 0, hours: 0, minutes: 0, seconds: 0 } },
-  { testMessage: 'one week, options with no week', args: [weekTwo, dayOne, { isWeeksRemoved: true }], expectedResult: { weeks: 0, days: 7, hours: 0, minutes: 0, seconds: 0 } },
-  { testMessage: 'one week, options with no week/days', args: [weekTwo, dayOne, { isWeeksRemoved: true, isDaysRemoved: true }], expectedResult: { weeks: 0, days: 0, hours: 168, minutes: 0, seconds: 0 } }
+  {
+    testMessage: 'same day',
+    args: [dayOne, dayOne],
+    expectedResult: { weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }
+  },
+  {
+    testMessage: 'one day difference',
+    args: [dayTwo, dayOne],
+    expectedResult: { weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0 }
+  },
+  {
+    testMessage: 'one hour, one minutes, one second difference',
+    args: [dayOnePlusOnes, dayOne],
+    expectedResult: { weeks: 0, days: 0, hours: 1, minutes: 1, seconds: 1 }
+  },
+  {
+    testMessage: 'one week difference',
+    args: [weekTwo, dayOne],
+    expectedResult: { weeks: 1, days: 0, hours: 0, minutes: 0, seconds: 0 }
+  },
+  {
+    testMessage: 'one week, options with no week',
+    args: [weekTwo, dayOne, { isWeeksRemoved: true }],
+    expectedResult: { weeks: 0, days: 7, hours: 0, minutes: 0, seconds: 0 }
+  },
+  {
+    testMessage: 'one week, options with no week/days',
+    args: [weekTwo, dayOne, { isWeeksRemoved: true, isDaysRemoved: true }],
+    expectedResult: { weeks: 0, days: 0, hours: 168, minutes: 0, seconds: 0 }
+  }
 ];
 
 const formattedTimerClockTestData = [
@@ -49,8 +81,8 @@ const getFormattedClockTestData = [
 ];
 
 const getFormattedDateTestData = [
-  { testMessage: 'Start of year', args: [dayOne], expectedResult: {date: 'Tue, Jan 1', week: 'Week 1' } },
-  { testMessage: 'Second week of year', args: [weekTwo], expectedResult: {date: 'Tue, Jan 8', week: 'Week 2' } }
+  { testMessage: 'Start of year', args: [dayOne], expectedResult: { date: 'Tue, Jan 1', week: 1 } },
+  { testMessage: 'Second week of year', args: [weekTwo], expectedResult: { date: 'Tue, Jan 8', week: 2 } }
 ];
 
 export {

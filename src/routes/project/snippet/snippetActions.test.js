@@ -23,7 +23,7 @@ const getErrorObject = (name) => {
 const successObject = {
   content: 'Updated',
   status: 'success',
-  timer: 1000
+  timer: 3000
 };
 
 const ONE_SECOND = 1000;
@@ -92,8 +92,14 @@ describe('snippetActions', () => {
     createSnippet(name, fileContent)(dispatch);
 
     await waitFor(() => {
-      expect(api.post).toHaveBeenCalledWith(`/project/?type=snippet&op=write&name=${name}`, JSON.stringify(fileContent));
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: { content: `Created ${name}`, timer: ONE_SECOND, status: 'success' } });
+      expect(api.post).toHaveBeenCalledWith(
+        `/project/?type=snippet&op=write&name=${name}`,
+        JSON.stringify(fileContent)
+      );
+      expect(dispatch).toHaveBeenCalledWith({
+        type: CREATE_ALERT,
+        data: { content: `Created ${name}`, timer: ONE_SECOND, status: 'success' }
+      });
     });
   });
 

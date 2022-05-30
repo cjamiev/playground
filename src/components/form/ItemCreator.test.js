@@ -19,12 +19,12 @@ describe('ItemCreator', () => {
     expect(screen.queryByText('three')).toBeInTheDocument();
 
     fireEvent.change(itemField, { target: { value: 'four' } });
-    fireEvent.click(screen.getByLabelText('plus'));
+    fireEvent.click(screen.getByLabelText('Plus'));
     expect(screen.queryByText('four')).toBeInTheDocument();
-    expect(defaultProps.onChange).toHaveBeenCalledWith(['one','two','three', 'four']);
+    expect(defaultProps.onChange).toHaveBeenCalledWith(['one', 'two', 'three', 'four']);
 
-    fireEvent.click(screen.getAllByLabelText('minus')[ONE]);
+    fireEvent.click(screen.getAllByLabelText('Minus')[ONE]);
     expect(screen.queryByText('two')).not.toBeInTheDocument();
-    expect(defaultProps.onChange).toHaveBeenCalledWith(['one','three', 'four']);
+    expect(defaultProps.onChange).toHaveBeenCalledWith(['one', 'three', 'four']);
   });
 });
