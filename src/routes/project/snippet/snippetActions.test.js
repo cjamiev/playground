@@ -26,9 +26,10 @@ const successObject = {
   timer: 3000
 };
 
-const ONE_SECOND = 1000;
+const THREE_SECOND = 3000;
 const snippets = ['snippetOne', 'snippetTwo'];
 const fileContent = 'test contents';
+const fileName = 'test name';
 const message = 'test message';
 
 describe('snippetActions', () => {
@@ -61,11 +62,11 @@ describe('snippetActions', () => {
         data: fileContent
       }
     });
-    loadSnippet('filename')(dispatch);
+    loadSnippet(fileName)(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith('/project/?type=snippet&op=read&name=filename');
-      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_SNIPPET, data: fileContent });
+      expect(api.get).toHaveBeenCalledWith(`/project/?type=snippet&op=read&name=${fileName}`);
+      expect(dispatch).toHaveBeenCalledWith({ type: LOAD_SNIPPET, data: { content: fileContent, name: fileName } });
     });
   });
 
@@ -98,7 +99,7 @@ describe('snippetActions', () => {
       );
       expect(dispatch).toHaveBeenCalledWith({
         type: CREATE_ALERT,
-        data: { content: `Created ${name}`, timer: ONE_SECOND, status: 'success' }
+        data: { content: `Created ${name}`, timer: THREE_SECOND, status: 'success' }
       });
     });
   });

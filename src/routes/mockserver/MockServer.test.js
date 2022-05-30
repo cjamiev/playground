@@ -22,7 +22,7 @@ describe('MockServer', () => {
 
     expect(screen.queryByText('Filter URL:')).not.toBeInTheDocument();
 
-    const viewTabBtn = screen.queryByText('View Endpoints');
+    const viewTabBtn = screen.queryByText('View');
     fireEvent.click(viewTabBtn);
     expect(screen.queryByText('Filter URL:')).toBeInTheDocument();
   });

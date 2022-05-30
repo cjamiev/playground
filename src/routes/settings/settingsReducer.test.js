@@ -17,7 +17,8 @@ describe('settingsReducer', () => {
       type: LOAD_SETTINGS,
       data: {
         commands: [ONE, TWO, THREE],
-        links: [THREE, TWO, ONE]
+        links: [THREE, TWO, ONE],
+        copy: [ONE, THREE, TWO]
       }
     };
     const result = settingsReducer(settingsInitialState, action);
@@ -25,7 +26,8 @@ describe('settingsReducer', () => {
     expect(result).toEqual({
       ...settingsInitialState,
       commands: action.data.commands,
-      links: action.data.links
+      links: action.data.links,
+      copy: action.data.copy
     });
   });
 });

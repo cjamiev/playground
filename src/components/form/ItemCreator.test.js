@@ -19,11 +19,11 @@ describe('ItemCreator', () => {
     expect(screen.queryByText('three')).toBeInTheDocument();
 
     fireEvent.change(itemField, { target: { value: 'four' } });
-    fireEvent.click(screen.getByLabelText('Plus'));
+    fireEvent.click(screen.getByLabelText('Add Item'));
     expect(screen.queryByText('four')).toBeInTheDocument();
     expect(defaultProps.onChange).toHaveBeenCalledWith(['one', 'two', 'three', 'four']);
 
-    fireEvent.click(screen.getAllByLabelText('Minus')[ONE]);
+    fireEvent.click(screen.getAllByLabelText('Remove Item')[ONE]);
     expect(screen.queryByText('two')).not.toBeInTheDocument();
     expect(defaultProps.onChange).toHaveBeenCalledWith(['one', 'three', 'four']);
   });

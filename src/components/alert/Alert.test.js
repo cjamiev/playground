@@ -35,7 +35,7 @@ describe('Alert', () => {
     reduxTestWrapper(Alert, {}, alertStoreProps2);
 
     expect(screen.queryByText(data.content)).toBeInTheDocument();
-    expect(screen.queryByText('1 more item(s)')).toBeInTheDocument();
+    expect(screen.queryByText(data2.content)).toBeInTheDocument();
   });
 
   it('handle dismiss', () => {

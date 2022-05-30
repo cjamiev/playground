@@ -114,7 +114,7 @@ describe('Generator', () => {
     const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
     fireEvent.click(sidePanelBtn);
 
-    const copyBtn = screen.getByLabelText('copy');
+    const copyBtn = screen.getByLabelText('Copy css');
     const appendChildSpy = jest.spyOn(document.body, 'appendChild');
     fireEvent.click(copyBtn);
     const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
@@ -151,7 +151,7 @@ describe('Generator', () => {
     expect(screen.queryByText('background-color: rgba(255,138,138);')).toBeInTheDocument();
   });
 
-  it.skip('handle Delete', async () => {
+  it('handle Delete', async () => {
     jest.mock('api');
     const mockPost = jest.fn();
     const mockGet = jest.fn();
@@ -179,13 +179,13 @@ describe('Generator', () => {
     const testBtn = screen.getByText('test');
     fireEvent.click(testBtn);
 
-    const deleteBtn = screen.getByLabelText('trash');
+    const deleteBtn = screen.getByLabelText('Delete');
     fireEvent.click(deleteBtn);
 
     expect(api.post).toHaveBeenCalledWith('/db', { filename: 'generator.json', content: JSON.stringify([]) });
   });
 
-  it.skip('handle Save', async () => {
+  it('handle Save', async () => {
     jest.mock('api');
     const mockPost = jest.fn();
     const mockGet = jest.fn();
@@ -213,7 +213,7 @@ describe('Generator', () => {
     const testBtn = screen.getByText('test');
     fireEvent.click(testBtn);
 
-    const saveBtn = screen.getByLabelText('save');
+    const saveBtn = screen.getByLabelText('Save');
     fireEvent.click(saveBtn);
 
     const result = [
@@ -243,7 +243,7 @@ describe('Generator', () => {
     expect(api.post).toHaveBeenCalledWith('/db', { filename: 'generator.json', content: JSON.stringify(result) });
   });
 
-  it.skip('handle change name', async () => {
+  it('handle change name', async () => {
     jest.mock('api');
     const mockPost = jest.fn();
     const mockGet = jest.fn();
@@ -265,7 +265,7 @@ describe('Generator', () => {
     const nameField = screen.getByLabelText('Name text field');
     fireEvent.change(nameField, { target: { value: 'test' } });
 
-    const saveBtn = screen.getByLabelText('save');
+    const saveBtn = screen.getByLabelText('Save');
     fireEvent.click(saveBtn);
 
     const result = [

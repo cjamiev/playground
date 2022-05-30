@@ -51,7 +51,7 @@ describe('ClipboardForm', () => {
 
     fireEvent.change(screen.queryByLabelText('Name text field'), { target: { value: 'copy-testname' } });
     fireEvent.change(screen.queryByLabelText('Value text field'), { target: { value: 'copy-testvalue' } });
-    fireEvent.click(screen.getByText('Submit'));
+    fireEvent.click(screen.getByText('Save'));
     fireEvent.click(screen.getByText('Add'));
 
     fireEvent.click(screen.getByText('Type copy'));
@@ -79,10 +79,10 @@ describe('ClipboardForm', () => {
     fireEvent.click(screen.getByText('Type text'));
     fireEvent.click(screen.getByText('timer'));
     fireEvent.change(screen.queryByLabelText('Name text field'), { target: { value: 'timer-testname' } });
-    fireEvent.click(screen.getByText('Save'));
+    fireEvent.click(screen.getAllByText('Submit')[ZERO]);
     fireEvent.click(screen.getByText('Add'));
 
-    fireEvent.click(screen.getByText('Submit'));
+    fireEvent.click(screen.getAllByText('Submit')[ONE]);
     const newRecords = {
       'key-testname': [
         {
@@ -119,9 +119,9 @@ describe('ClipboardForm', () => {
 
     fireEvent.click(screen.getByText('copy1'));
 
-    fireEvent.click(screen.getAllByLabelText('arrow up')[TWO]);
-    fireEvent.click(screen.getAllByLabelText('arrow down')[ZERO]);
-    fireEvent.click(screen.getAllByLabelText('trash')[ZERO]);
+    fireEvent.click(screen.getAllByLabelText('Move Up')[TWO]);
+    fireEvent.click(screen.getAllByLabelText('Move Down')[ZERO]);
+    fireEvent.click(screen.getAllByLabelText('Delete')[ZERO]);
     fireEvent.click(screen.getByText('Update'));
 
     expect(screen.queryByText('copy1')).toBeInTheDocument();

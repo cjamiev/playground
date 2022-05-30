@@ -26,7 +26,10 @@ const apiMock = mockApi(mockGet, mockPost);
 const rootDir = './';
 const defaultStoreProps = {
   project: {
-    directories: ['dir1', 'dir2'],
+    directories: [
+      { label: 'dir1', value: '/dir1' },
+      { label: 'dir2', value: '/dir2' }
+    ],
     regexes: [],
     remoteUrl: 'test-url',
     branches: [],
@@ -39,19 +42,13 @@ const defaultStoreProps = {
 
 describe('Project', () => {
   it('updating root dir', async () => {
-    jest.useFakeTimers();
+    const CALL_NUM = 10;
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
     const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
     fireEvent.click(sidePanelBtn);
-    const dirDropdown = screen.getByText('Directories');
-
-    fireEvent.click(dirDropdown);
     fireEvent.click(screen.getByText('dir1'));
-    act(() => jest.advanceTimersByTime(TIME.A_SECOND));
 
-    await waitFor(() => {
-      expect(screen.getByText('Remote Url: dir1-url')).toBeInTheDocument();
-    });
+    expect(apiMock.get.mock.calls[CALL_NUM]).toEqual(['/project/?type=package&op=read&root=/dir1']);
   });
 });

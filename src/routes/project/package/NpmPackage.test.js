@@ -33,7 +33,7 @@ const defaultStoreProps = {
 };
 
 describe('NpmPackage', () => {
-  it.skip('should render package deps', () => {
+  it('should render package deps', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
     const packageTab = screen.getByText('Npm');
@@ -49,7 +49,7 @@ describe('NpmPackage', () => {
     });
   });
 
-  it.skip('handle load versions and update versions', () => {
+  it('handle load versions and update versions', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
     const packageTab = screen.getByText('Npm');
@@ -98,12 +98,5 @@ describe('NpmPackage', () => {
     fireEvent.click(scriptBtn);
 
     expect(apiMock.get).toHaveBeenCalledWith('/project/?type=package&op=runscript&root=./&content=test-script');
-
-    await waitFor(() => {
-      expect(screen.queryByText('running script')).toBeInTheDocument();
-      fireEvent.click(screen.getByLabelText('Close button'));
-    });
-
-    expect(screen.queryByText('test message')).not.toBeInTheDocument();
   });
 });

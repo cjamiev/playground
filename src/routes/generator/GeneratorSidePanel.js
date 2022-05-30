@@ -47,6 +47,7 @@ const GeneratorSidePanel = ({
         }}
       />
       <CopySVG
+        ariaLabel="Copy css"
         viewBox="0 0 90 90"
         onClick={() => {
           copyToClipboard(copyCSS);

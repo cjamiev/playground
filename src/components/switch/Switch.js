@@ -19,7 +19,7 @@ const Switch = React.memo(({ data, switchIndex, onToggleSwitch = noop }) => {
         isLast={isLast}
         isActive={isActive}
         key={item.label}
-        ariaLabel={ariaLabel}
+        aria-label={ariaLabel}
         onClick={() => {
           onToggleSwitch(itemIndex);
         }}
