@@ -1,2 +1,2 @@
 export { default } from './Table';
-import './table.css';
+export { SCTableCell } from './styles';

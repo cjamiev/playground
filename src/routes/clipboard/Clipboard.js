@@ -9,16 +9,17 @@ import Tabs from 'components/tabs';
 import Text from 'components/form/Text';
 import ComponentWrapper from 'components/ComponentWrapper';
 import ClipboardForm from './ClipboardForm';
+import { SCClipboardContainer } from './styles';
 
 const ZERO = 0;
 
 const ClipboardTab = (props) => {
   return (
-    <div className="clipboard__container">
+    <SCClipboardContainer>
       {props.clip.map((entry) => {
         return <List key={entry.title} header={entry.title} data={entry.data} />;
       })}
-    </div>
+    </SCClipboardContainer>
   );
 };
 

@@ -7,13 +7,14 @@ import TimerForm from 'components/form/TimerForm';
 import ValueForm from 'components/form/ValueForm';
 import CommandForm from 'components/form/CommandForm';
 import List, { DisplayContent } from 'components/list';
-import Table from 'components/table';
+import Table, { SCTableCell } from 'components/table';
 import { updateClipboard } from 'routes/clipboard/clipboardActions';
 import { TYPE } from 'constants/type';
 import { ICON_TYPES } from 'constants/icon';
 import { ArrowSVG } from 'components/icons/ArrowSVG';
 import { TrashSVG } from 'components/icons';
 import { decrementElementIndex, incrementElementIndex, swapArrayElementPositions } from 'arrayHelper';
+import { SCFlexWrapper } from './styles';
 
 const ZERO = 0;
 const ONE = 1;
@@ -42,13 +43,11 @@ const getUpdatedData = (data, currentIndex, entry) => {
 
 const renderCells = ({ entry, removeItem, moveItemUp, moveItemDown }) => {
   return entry.map(({ type, label, value }, index) => (
-    <tr className="flex--horizontal" key={`${label}-${index}`} data-testid={entry.label}>
-      <td className="flex--two">
-        <div className="horizontal-center">
-          <DisplayContent key={`${type}-${label}-${value}`} type={type} label={label} value={value} />
-        </div>
-      </td>
-      <td className="flex--three">
+    <tr key={`${label}-${index}`} data-testid={entry.label}>
+      <SCTableCell>
+        <DisplayContent key={`${type}-${label}-${value}`} type={type} label={label} value={value} />
+      </SCTableCell>
+      <SCTableCell isIcon>
         <TrashSVG
           width="27"
           height="27"
@@ -56,6 +55,8 @@ const renderCells = ({ entry, removeItem, moveItemUp, moveItemDown }) => {
             removeItem(index);
           }}
         />
+      </SCTableCell>
+      <SCTableCell isIcon>
         <ArrowSVG
           conditions={{ orientation: 'UP' }}
           ariaLabel="Move Up"
@@ -65,6 +66,8 @@ const renderCells = ({ entry, removeItem, moveItemUp, moveItemDown }) => {
             moveItemUp(index);
           }}
         />
+      </SCTableCell>
+      <SCTableCell isIcon>
         <ArrowSVG
           conditions={{ orientation: 'DOWN' }}
           ariaLabel="Move Down"
@@ -74,7 +77,7 @@ const renderCells = ({ entry, removeItem, moveItemUp, moveItemDown }) => {
             moveItemDown(index);
           }}
         />
-      </td>
+      </SCTableCell>
     </tr>
   ));
 };
@@ -185,7 +188,7 @@ const ClipboardForm = ({ records }) => {
 
   const renderFormSection = () => {
     return (
-      <div className="container--center flex--one">
+      <div>
         <h2>Form</h2>
         <Dropdown
           label="Existing Key"
@@ -231,7 +234,7 @@ const ClipboardForm = ({ records }) => {
 
   const renderEntrySection = () => {
     return (
-      <div className="container--center flex--three">
+      <div>
         <h2>Entry #{currentIndex + ONE}</h2>
         <Button
           label={addLabel}
@@ -253,10 +256,7 @@ const ClipboardForm = ({ records }) => {
         />
         {entry.length > ZERO && (
           <Table
-            headers={[
-              { label: 'Clip', className: 'flex--two' },
-              { label: 'Actions', className: 'flex--three' }
-            ]}
+            headers={[{ label: 'Clip' }, { label: 'Trash' }, { label: 'Move Up' }, { label: 'Move Down' }]}
             body={renderCells({ entry, removeItem, moveItemUp, moveItemDown })}
           />
         )}
@@ -266,7 +266,7 @@ const ClipboardForm = ({ records }) => {
 
   const renderDataSection = () => {
     return (
-      <div className="container--center flex--one">
+      <div>
         <h2>Data</h2>
         {key && title && (
           <Button
@@ -304,11 +304,11 @@ const ClipboardForm = ({ records }) => {
   };
 
   return (
-    <div className="flex--horizontal">
+    <SCFlexWrapper>
       {renderFormSection()}
       {entry.length > ZERO && renderEntrySection()}
       {data.length > ZERO && renderDataSection()}
-    </div>
+    </SCFlexWrapper>
   );
 };
 

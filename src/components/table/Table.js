@@ -1,18 +1,19 @@
 import React from 'react';
+import { SCTableHeaderCell } from './styles';
 
 const Table = ({ headers, body, isFlex = true }) => {
   const renderHeaders = headers.map((item) => {
     return (
-      <th key={item.label} className={item.className}>
+      <SCTableHeaderCell key={item.label} className={item.className}>
         {item.label}
-      </th>
+      </SCTableHeaderCell>
     );
   });
 
   return (
     <table>
       <thead>
-        <tr className={isFlex ? 'flex--horizontal' : ''}>{renderHeaders}</tr>
+        <tr>{renderHeaders}</tr>
       </thead>
       <tbody>{body}</tbody>
     </table>
