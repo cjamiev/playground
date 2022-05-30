@@ -27,7 +27,6 @@ export const FlaskSVG = ({
           />
           <path
             data-testid="path1193"
-            className="svg__8"
             d="m 914.34083,808.52682 54.83392,-0.7377 21.37547,50.36644 -7.35959,8.89359 -83.84924,-0.98359 -7.14645,-7.88466 z"
           />
           <circle data-testid="circle1195" className="svg__9" cx="945.83667" cy="798.41296" r="4.501822" />
