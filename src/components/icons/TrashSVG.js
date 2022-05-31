@@ -18,7 +18,6 @@ export const TrashSVG = ({
         <g data-testid="component-trash" transform="matrix(1.154256,0,0,1.154256,-807.26747,-135.47148)">
           <rect
             data-testid="rect23670"
-            className="svg__5"
             width="40.310783"
             height="6.2348733"
             x="702.61969"
@@ -28,7 +27,6 @@ export const TrashSVG = ({
           />
           <rect
             data-testid="rect23672"
-            className="svg__5"
             width="28.189356"
             height="31.572081"
             x="708.68042"

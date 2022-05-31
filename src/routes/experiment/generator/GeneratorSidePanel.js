@@ -5,6 +5,7 @@ import { copyToClipboard } from 'helper/copy';
 import { SaveSVG } from 'components/icons/SaveSVG';
 import { CopySVG } from 'components/icons/CopySVG';
 import { TrashSVG } from 'components/icons';
+import { SCDataBtnWrapper } from './styles';
 
 const GeneratorSidePanel = ({
   generatorRecords,
@@ -34,25 +35,26 @@ const GeneratorSidePanel = ({
           onSelectRecord(selected);
         }}
       />
-      <SaveSVG
-        viewBox="0 0 90 90"
-        onClick={() => {
-          onSubmit(selectedName);
-        }}
-      />
-      <TrashSVG
-        viewBox="0 0 90 90"
-        onClick={() => {
-          onDelete(selectedName);
-        }}
-      />
-      <CopySVG
-        ariaLabel="Copy css"
-        viewBox="0 0 90 90"
-        onClick={() => {
-          copyToClipboard(copyCSS);
-        }}
-      />
+      <SCDataBtnWrapper>
+        <SaveSVG
+          viewBox="0 0 80 80"
+          onClick={() => {
+            onSubmit(selectedName);
+          }}
+        />
+        <TrashSVG
+          viewBox="0 0 80 80"
+          onClick={() => {
+            onDelete(selectedName);
+          }}
+        />
+        <CopySVG
+          viewBox="0 0 80 80"
+          onClick={() => {
+            copyToClipboard(copyCSS);
+          }}
+        />
+      </SCDataBtnWrapper>
       <h2>Normal CSS</h2>
       <pre className="generator__printed-css">{normalCSS}</pre>
       <h2>Hover CSS</h2>

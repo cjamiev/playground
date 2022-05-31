@@ -45,6 +45,11 @@ const Global = () => {
       const finishedTimers = sortedTimers.filter((item) => item.date.getTime() - now.getTime() <= ZERO);
       const nonFinishedTimers = sortedTimers.filter((item) => item.date.getTime() - now.getTime() > ZERO);
       const shortestTimer = nonFinishedTimers[ZERO];
+
+      if(!shortestTimer) {
+        return;
+      }
+
       const timeInMilliseconds = shortestTimer.date.getTime() - now.getTime();
       const absoluteTime = timeInMilliseconds > ZERO ? timeInMilliseconds : ZERO;
       const isTimeTooLarge = timeInMilliseconds > TIME.A_DAY;

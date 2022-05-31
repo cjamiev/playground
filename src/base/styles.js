@@ -53,7 +53,7 @@ export const SCNavigationLinks = styled.div`
   position: relative;
   height: 50px;
   cursor: pointer;
-  top: ${({ isAtBottom }) => (isAtBottom ? '53vh' : '10px')};
+  top: 10px;
 
   :hover {
     background-color: ${Theme.secondaryBackgroundColorHover};
