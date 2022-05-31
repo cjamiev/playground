@@ -22,28 +22,12 @@ const defaultStoreProps = {
 };
 
 // act warnings
-describe.skip('Git', () => {
-  it('should handle remote url', () => {
-    document.execCommand = jest.fn();
-    reduxTestWrapper(Project, {}, defaultStoreProps);
-
-    const copyBtn = screen.getByLabelText('copy');
-    const appendChildSpy = jest.spyOn(document.body, 'appendChild');
-    fireEvent.click(copyBtn);
-    const copyEl = appendChildSpy.mock.calls[ZERO][ZERO];
-
-    expect(screen.queryByText(`Remote Url: ${defaultStoreProps.project.remoteUrl}`)).toBeInTheDocument();
-    expect(copyEl.value).toEqual(defaultStoreProps.project.remoteUrl);
-    expect(document.execCommand).toHaveBeenCalledWith('copy');
-  });
-
+describe('Git', () => {
   it('switch branch', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
-    const branchesBtn = screen.getByText('Branches');
-    fireEvent.click(branchesBtn);
     fireEvent.click(screen.getByText('branch1'));
-    fireEvent.click(screen.getByText('Checkout branch1'));
+    fireEvent.click(screen.getByText('Checkout'));
 
     expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=selectbranch&root=${rootDir}&name=branch1`);
   });
@@ -51,10 +35,8 @@ describe.skip('Git', () => {
   it('delete branch', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
-    const branchesBtn = screen.getByText('Branches');
-    fireEvent.click(branchesBtn);
     fireEvent.click(screen.getByText('branch1'));
-    fireEvent.click(screen.getByText('Delete branch1'));
+    fireEvent.click(screen.getByText('Delete'));
 
     expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=deletebranch&root=${rootDir}&name=branch1`);
   });
@@ -65,7 +47,7 @@ describe.skip('Git', () => {
     const nameField = screen.getByLabelText('Name text field');
 
     fireEvent.change(nameField, { target: { value: name } });
-    fireEvent.click(screen.getByText(`Merge ${name}`));
+    fireEvent.click(screen.getByText('Merge'));
 
     expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=mergebranch&root=${rootDir}&name=${name}`);
   });
@@ -76,44 +58,48 @@ describe.skip('Git', () => {
     const nameField = screen.getByLabelText('Name text field');
 
     fireEvent.change(nameField, { target: { value: name } });
-    fireEvent.click(screen.getByText(`Create ${name}`));
+    fireEvent.click(screen.getByText('Create'));
 
     expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=createbranch&root=${rootDir}&name=${name}`);
   });
 
   it('handle create stash', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
-
+    const createCall = 7;
     const nameField = screen.getByLabelText('Name text field');
 
     fireEvent.change(nameField, { target: { value: name } });
-    const createStashBtn = screen.getByText(`Create Stash ${name}`);
+    const createStashBtn = screen.getByText('Create Stash');
     fireEvent.click(createStashBtn);
 
-    expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=createstash&root=${rootDir}&name=${name}`);
+    expect(api.get).toHaveBeenNthCalledWith(
+      createCall,
+      `/project/?type=git&op=createstash&root=${rootDir}&name=${name}`
+    );
   });
 
   it('handle delete stash', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
+    const deleteCall = 7;
 
-    const nameField = screen.getByLabelText('Name text field');
+    fireEvent.click(screen.getByText('stash{1}'));
+    fireEvent.click(screen.getByText('Delete Stash'));
 
-    fireEvent.change(nameField, { target: { value: name } });
-    const deleteStashBtn = screen.getByText(`Delete Stash ${name}`);
-    fireEvent.click(deleteStashBtn);
-
-    expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=deletestash&root=${rootDir}&name=${name}`);
+    // uses index to delete
+    expect(api.get).toHaveBeenNthCalledWith(deleteCall, `/project/?type=git&op=deletestash&root=${rootDir}&name=0`);
   });
 
   it('select stash', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
+    const selectCall = 7;
 
-    const stashesBtn = screen.getByText('Stashes');
-    fireEvent.click(stashesBtn);
     fireEvent.click(screen.getByText('stash{1}'));
-    fireEvent.click(screen.getByText('Switch Stash 1'));
+    fireEvent.click(screen.getByText('Switch Stash'));
 
-    expect(api.get).toHaveBeenCalledWith(`/project/?type=git&op=selectstash&root=${rootDir}&name=1`);
+    expect(api.get).toHaveBeenNthCalledWith(
+      selectCall,
+      `/project/?type=git&op=selectstash&root=${rootDir}&name=stash{1}`
+    );
   });
 
   it('handle reset', () => {

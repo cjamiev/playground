@@ -55,6 +55,7 @@ const File = () => {
               }}
             />
             <CopySVG
+              ariaLabel="Copy File"
               width="45"
               transform={'scale(0.7) translate(0,-5)'}
               onClick={() => {

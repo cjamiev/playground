@@ -19,7 +19,6 @@ import { SCGitPageWrapper, SCNameTxt, SCBranchesWrapper, SCBranchBtnWrapper, SCG
 const Git = ({ root }) => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
-  const [isBranchMode, setIsBranchMode] = useState(true);
   const { branches, stashes } = useSelector((state) => state.project);
 
   return (
@@ -35,7 +34,6 @@ const Git = ({ root }) => {
                 label={item}
                 onClick={() => {
                   setName(item);
-                  setIsBranchMode(true);
                 }}
               />
             );
@@ -51,7 +49,6 @@ const Git = ({ root }) => {
                 label={item}
                 onClick={() => {
                   setName(item);
-                  setIsBranchMode(false);
                 }}
               />
             );
@@ -71,14 +68,14 @@ const Git = ({ root }) => {
         <SCGitBtnWrapper>
           <Button
             label="Checkout"
-            disabled={!name || !isBranchMode}
+            disabled={!name}
             onClick={() => {
               dispatch(selectBranch(root, name));
             }}
           />
           <Button
             label="Delete"
-            disabled={!name || !isBranchMode}
+            disabled={!name}
             onClick={() => {
               dispatch(deleteBranch(root, name));
               dispatch(viewBranches(root));
@@ -86,14 +83,14 @@ const Git = ({ root }) => {
           />
           <Button
             label="Merge"
-            disabled={!name || !isBranchMode}
+            disabled={!name}
             onClick={() => {
               dispatch(mergeBranch(root, name));
             }}
           />
           <Button
             label="Create"
-            disabled={!name || !isBranchMode}
+            disabled={!name}
             onClick={() => {
               dispatch(createBranch(root, name));
               dispatch(viewBranches(root));
@@ -103,7 +100,7 @@ const Git = ({ root }) => {
         <SCGitBtnWrapper>
           <Button
             label="Create Stash"
-            disabled={!name || isBranchMode}
+            disabled={!name}
             onClick={() => {
               dispatch(createStash(root, name));
               dispatch(viewStash(root));
@@ -111,7 +108,7 @@ const Git = ({ root }) => {
           />
           <Button
             label="Delete Stash"
-            disabled={!name || isBranchMode}
+            disabled={!name}
             onClick={() => {
               dispatch(
                 deleteStash(
@@ -124,7 +121,7 @@ const Git = ({ root }) => {
           />
           <Button
             label="Switch Stash"
-            disabled={!name || isBranchMode}
+            disabled={!name}
             onClick={() => {
               dispatch(selectStash(root, name));
             }}

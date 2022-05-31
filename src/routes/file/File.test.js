@@ -8,8 +8,7 @@ const pathname = '/file';
 const ZERO = 0;
 const ONE = 1;
 
-// act warnings
-describe.skip('File', () => {
+describe('File', () => {
   describe(':String ops', () => {
     it('handle sort', () => {
       reduxTestWrapper(File, {}, {}, pathname);
@@ -209,7 +208,7 @@ describe.skip('File', () => {
 
     fireEvent.change(contentField, { target: { value: '1 2 3 4 5' } });
 
-    const copyBtn = screen.getByLabelText('copy');
+    const copyBtn = screen.getByLabelText('Copy File');
 
     const appendChildSpy = jest.spyOn(document.body, 'appendChild');
     fireEvent.click(copyBtn);
@@ -224,7 +223,7 @@ describe.skip('File', () => {
 
     const nameField = screen.getByPlaceholderText('Enter File Name');
     const contentField = screen.getByLabelText('Content text area');
-    const saveBtn = screen.getByLabelText('save');
+    const saveBtn = screen.getByLabelText('Save');
 
     fireEvent.change(nameField, { target: { value: 'test2.txt' } });
     fireEvent.change(contentField, { target: { value: '1 2 3 4 5' } });
@@ -233,30 +232,8 @@ describe.skip('File', () => {
     expect(apiMock.post).toHaveBeenCalledWith('/file', { filename: 'test2.txt', content: '1 2 3 4 5' });
   });
 
-  it('handle undo/redo', () => {
-    reduxTestWrapper(File, {}, {}, pathname);
-    const contentField = screen.getByLabelText('Content text area');
-    const undoBtn = screen.getByLabelText('undo');
-    const redoBtn = screen.getByLabelText('redo');
-
-    fireEvent.change(contentField, { target: { value: '1 2 3 4' } });
-    expect(screen.queryByText('1 2 3 4')).toBeInTheDocument();
-
-    fireEvent.change(contentField, { target: { value: '1 2 3 4 5' } });
-    expect(screen.queryByText('1 2 3 4 5')).toBeInTheDocument();
-
-    fireEvent.click(undoBtn);
-    expect(screen.queryByText('1 2 3 4')).toBeInTheDocument();
-
-    fireEvent.click(redoBtn);
-    expect(screen.queryByText('1 2 3 4 5')).toBeInTheDocument();
-  });
-
   it('handle loading existing file', async () => {
     reduxTestWrapper(File, {}, {}, pathname);
-
-    const fileDropdown = screen.getByText('Select an existing file');
-    fireEvent.click(fileDropdown);
 
     await waitFor(() => {
       expect(screen.queryByText('fileOne')).toBeInTheDocument();

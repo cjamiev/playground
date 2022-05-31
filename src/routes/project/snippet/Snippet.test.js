@@ -13,7 +13,7 @@ const defaultStoreProps = {
 };
 
 // act warnings
-describe.skip('Snippet', () => {
+describe('Snippet', () => {
   it('Load snippet file', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
@@ -35,12 +35,15 @@ describe.skip('Snippet', () => {
 
     const snippetNameField = screen.getByLabelText('Snippet Name text field');
     const snippetTextField = screen.getByLabelText('Enter Content');
-    const createNewBtn = screen.getByText('Create New');
+    const submitBtn = screen.getByText('Submit');
 
     fireEvent.change(snippetNameField, { target: { value: 'TestOne' } });
     fireEvent.change(snippetTextField, { target: { value: 'TestOne Contents' } });
-    fireEvent.click(createNewBtn);
+    fireEvent.click(submitBtn);
 
-    expect(api.post).toHaveBeenCalledWith('/project/?type=snippet&op=write&name=TestOne', JSON.stringify('TestOne Contents'));
+    expect(api.post).toHaveBeenCalledWith(
+      '/project/?type=snippet&op=write&name=TestOne',
+      JSON.stringify('TestOne Contents')
+    );
   });
 });

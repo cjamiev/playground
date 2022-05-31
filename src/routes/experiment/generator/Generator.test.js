@@ -88,7 +88,7 @@ describe('Generator', () => {
   it('handle onChange for Hover and Active states', () => {
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Data Panel');
     fireEvent.click(sidePanelBtn);
 
     const shownCSS = 'filter: blur(5px) ;';
@@ -111,7 +111,7 @@ describe('Generator', () => {
     document.execCommand = jest.fn();
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Data Panel');
     fireEvent.click(sidePanelBtn);
 
     const copyBtn = screen.getByLabelText('Copy css');
@@ -137,7 +137,7 @@ describe('Generator', () => {
 
     expect(screen.queryByText('background-color: rgba(255,138,138);')).not.toBeInTheDocument();
 
-    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Data Panel');
     fireEvent.click(sidePanelBtn);
     const dropdownBtn = screen.getByText('Select an existing record');
     fireEvent.click(dropdownBtn);
@@ -168,7 +168,7 @@ describe('Generator', () => {
     });
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Data Panel');
     fireEvent.click(sidePanelBtn);
     const dropdownBtn = screen.getByText('Select an existing record');
     fireEvent.click(dropdownBtn);
@@ -202,7 +202,7 @@ describe('Generator', () => {
     });
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Data Panel');
     fireEvent.click(sidePanelBtn);
     const dropdownBtn = screen.getByText('Select an existing record');
     fireEvent.click(dropdownBtn);
@@ -260,7 +260,7 @@ describe('Generator', () => {
     });
     reduxTestWrapper(Generator, {}, {}, pathname);
 
-    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
+    const sidePanelBtn = screen.getByLabelText('Open or Close Data Panel');
     fireEvent.click(sidePanelBtn);
     const nameField = screen.getByLabelText('Name text field');
     fireEvent.change(nameField, { target: { value: 'test' } });
