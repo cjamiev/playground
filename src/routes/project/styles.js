@@ -31,6 +31,7 @@ export const SCDirBtnWrapper = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 5px;
+  width: 400px;
 `;
 
 export const SCDirectoryBtn = styled(Button)`

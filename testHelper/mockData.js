@@ -47,25 +47,41 @@ export const mockStore = {
       ]
     }
   },
-  config: {
+  settings: {
     commands: [
       {
+        id: 0,
         label: 'commandLabelOne',
         value: 'commandOne'
       },
       {
+        id: 1,
         label: 'commandLabelTwo',
         value: 'commandTwo'
       }
     ],
     links: [
       {
+        id: 0,
         label: 'linkLabelOne',
         value: 'linkOne'
       },
       {
+        id: 1,
         label: 'linkLabelTwo',
         value: 'linkTwo'
+      }
+    ],
+    copy: [
+      {
+        id: 0,
+        label: 'copyLabelOne',
+        value: 'copyOne'
+      },
+      {
+        id: 1,
+        label: 'copyLabelTwo',
+        value: 'copyTwo'
       }
     ]
   },
@@ -200,7 +216,10 @@ export const mockStore = {
     mockResponse: undefined
   },
   project: {
-    directories: ['dir1', 'dir2'],
+    directories: [
+      { label: 'dir1', value: '/dir1' },
+      { label: 'dir2', value: '/dir2' }
+    ],
     regexes: [
       {
         description: 'regexOne',
@@ -254,8 +273,6 @@ export const mockStore = {
         'test-dep2': '4.0.0'
       }
     },
-    templates: ['templateOne', 'templateTwo'],
-    templateFile: 'template contents',
     snippets: ['snippetOne', 'snippetTwo'],
     snippetFile: 'snippet contents',
     message: ''
