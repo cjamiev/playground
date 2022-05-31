@@ -83,7 +83,7 @@ const Snippet = () => {
             onClick={() => {
               copyToClipboard(snippetFile.content);
             }}
-            transform={'translate(0,4)'}
+            transform='translate(0,4)'
           />
           <TrashSVG
             transform="translate(0,4)"

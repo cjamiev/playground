@@ -14,6 +14,7 @@ import {
   TransformForm,
   TransitionForm
 } from './Forms';
+import { SCGeneratorAttributeBtnWrapper } from './styles';
 
 const formMapper = {
   'Backdrop Filter': BackdropFilterForm,
@@ -49,7 +50,7 @@ const GeneratorForm = ({ style, onChange }) => {
 
   return (
     <div className="generator__form-options">
-      <div className="flex--vertical">{attributeButtons}</div>
+      <SCGeneratorAttributeBtnWrapper>{attributeButtons}</SCGeneratorAttributeBtnWrapper>
       <div className="generator__form-fields">
         <div className="container--center generator__form-selected-option">
           <label className="generator__form-title">Option {type}</label>

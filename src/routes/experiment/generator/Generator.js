@@ -9,7 +9,7 @@ import { loadGeneratorRecords, updatedGeneratorRecords } from './generatorAction
 import { filterOutEmptyKeys } from 'objectHelper';
 import { getCurrentStyles } from './helper';
 import { ALL_CSS } from 'constants/css';
-import { SCGeneratorContainer } from './styles';
+import { SCGeneratorFormTopBtnWrapper, SCGeneratorContainer } from './styles';
 
 const ZERO = 0;
 const ONE = 1;
@@ -170,12 +170,14 @@ const Generator = () => {
       />}
       <div className="generator">
         <div className="generator__form-container">
-          <TripleBarSVG ariaLabel="Open or Close Data Panel" viewBox="0 0 90 90" onClick={toggleDataPanel} />
-          <Switch
-            data={[{ label: 'Normal' }, { label: 'Hover' }, { label: 'Active' }]}
-            switchIndex={mode}
-            onToggleSwitch={handleMode}
-          />
+          <SCGeneratorFormTopBtnWrapper>
+            <TripleBarSVG ariaLabel="Open or Close Data Panel" viewBox="0 0 90 90" onClick={toggleDataPanel} />
+            <Switch
+              data={[{ label: 'Normal' }, { label: 'Hover' }, { label: 'Active' }]}
+              switchIndex={mode}
+              onToggleSwitch={handleMode}
+            />
+          </SCGeneratorFormTopBtnWrapper>
           <GeneratorForm style={currentStyle} onChange={handleChange} />
         </div>
         <div className="generator__result-container">
