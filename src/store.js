@@ -8,10 +8,10 @@ import settingsReducer from 'routes/settings/settingsReducer';
 import experimentReducer from 'routes/experiment/experimentReducer';
 import fileReducer from 'routes/file/fileReducer';
 import homeReducer from 'routes/home/homeReducer';
-import generatorReducer from 'routes/generator/generatorReducer';
+import generatorReducer from 'routes/experiment/generator/generatorReducer';
 import projectReducer from 'routes/project/projectReducer';
 import globalReducer from 'components/global/globalReducer';
-import mockserverReducer from 'routes/mockserver/mockserverReducer';
+import mockserverReducer from 'routes/experiment/mockserver/mockserverReducer';
 
 const middlewares = [thunk];
 if (process.env.NODE_ENV === 'development') {

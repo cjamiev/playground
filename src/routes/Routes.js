@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Redirect, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
 
 import Clipboard from './clipboard';
@@ -7,9 +7,7 @@ import Settings from './settings';
 import Experiment from './experiment';
 import ErrorPage from './errorpage';
 import File from './file';
-import Generator from './generator';
 import Home from './home';
-import MockServer from './mockserver';
 import Project from './project';
 
 const AppRoutes = React.memo(() => {
@@ -19,10 +17,8 @@ const AppRoutes = React.memo(() => {
       <Route path={ROUTES.CLIPBOARD.url} element={<Clipboard />} />
       <Route path={ROUTES.EXPERIMENT.url} element={<Experiment />} />
       <Route path={ROUTES.FILE.url} element={<File />} />
-      <Route path={ROUTES.GENERATOR.url} element={<Generator />} />
       <Route path={ROUTES.PROJECT.url} element={<Project />} />
       <Route path={ROUTES.HOME.url} element={<Home />} />
-      <Route path={ROUTES.MOCKSERVER.url} element={<MockServer />} />
       <Route path={ROUTES.SETTINGS.url} element={<Settings />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>

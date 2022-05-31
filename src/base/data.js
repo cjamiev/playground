@@ -4,9 +4,7 @@ import {
   DirectorySVG,
   FlaskSVG,
   HomeSVG,
-  LinkSVG,
-  SettingSVG,
-  TextSVG
+  SettingSVG
 } from 'components/icons';
 
 export const navigationMap = [
@@ -35,26 +33,9 @@ export const navigationMap = [
     }
   },
   {
-    label: 'Generator',
-    url: '/generator',
-    icon: TextSVG,
-    props: {
-      transform: 'scale(0.4) translate(-5,21)',
-      text: '</>'
-    }
-  },
-  {
     label: 'Experiment',
     url: '/experiment',
     icon: FlaskSVG,
-    props: {
-      transform: 'scale(0.6) translate(6,6)'
-    }
-  },
-  {
-    label: 'Mock Server',
-    url: '/mockserver',
-    icon: LinkSVG,
     props: {
       transform: 'scale(0.6) translate(6,6)'
     }

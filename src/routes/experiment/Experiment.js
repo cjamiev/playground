@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from 'components/button';
-import { createAlert, dismissAlert } from 'components/alert/alertActions';
+import { dismissAlert } from 'components/alert/alertActions';
 import Page from 'components/layout';
 import Tabs from 'components/tabs';
 import TextArea from 'components/form/TextArea';
 import Animation from './Animation';
 import TestNew from './TestNew';
 import DataGenerator from './DataGenerator';
+import MockServer from './mockserver';
+import Generator from './generator';
 import Form from './Form';
 import Wizard from './Wizard';
 import GlobalModal from './GlobalModal';
@@ -19,14 +21,16 @@ import { noop } from 'helper/noop';
 
 const TABS = [
   { title: 'New', component: TestNew },
+  { title: 'Style Guide', component: StyleGuide },
   { title: 'Svg', component: Svg },
   { title: 'Curve', component: SvgCurve },
   { title: 'Animation', component: Animation },
-  { title: 'Mock Data', component: DataGenerator },
   { title: 'Modal', component: GlobalModal },
   { title: 'Wizard', component: Wizard },
   { title: 'Form', component: Form },
-  { title: 'Style Guide', component: StyleGuide }
+  { title: 'Mock Data', component: DataGenerator },
+  { title: 'Mock Server', component: MockServer },
+  { title: 'Generator', component: Generator }
 ];
 
 const TestApi = () => {

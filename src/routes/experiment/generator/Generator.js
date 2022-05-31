@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Page from 'components/layout';
 import Color from 'components/form/Color';
 import Switch from 'components/switch';
+import { TripleBarSVG } from 'components/icons/TripleBarSVG';
 import GeneratorForm from './GeneratorForm';
 import GeneratorSidePanel from './GeneratorSidePanel';
 import { loadGeneratorRecords, updatedGeneratorRecords } from './generatorActions';
 import { filterOutEmptyKeys } from 'objectHelper';
 import { getCurrentStyles } from './helper';
 import { ALL_CSS } from 'constants/css';
+import { SCGeneratorContainer } from './styles';
 
 const ZERO = 0;
 const ONE = 1;
 const TWO = 2;
 
 const Generator = () => {
+  const [showDataPanel, setShowDataPanel] = useState(false);
   const [name, setName] = useState('');
   const [mode, setMode] = useState(ZERO);
   const [backgroundMode, setBackgroundMode] = useState(ZERO);
@@ -52,6 +54,10 @@ const Generator = () => {
     isActive
   });
   const copyCSS = `.name {\n${normalCSS}\n}\n\n.name:hover {\n${hoverCSS}\n}\n\n.name:active {\n${activeCSS}\n}`;
+
+  const toggleDataPanel = () => {
+    setShowDataPanel(!showDataPanel);
+  };
 
   const handleChange = ({ id, selected, values }) => {
     if (isHoverMode) {
@@ -150,23 +156,21 @@ const Generator = () => {
   });
 
   return (
-    <Page
-      sidePanelContent={
-        <GeneratorSidePanel
-          generatorRecords={generatorRecords}
-          selectedName={name}
-          onSelectRecord={handleSelectRecord}
-          onSubmit={handleSubmit}
-          onDelete={handleDelete}
-          normalCSS={normalCSS}
-          hoverCSS={hoverCSS}
-          activeCSS={activeCSS}
-          copyCSS={copyCSS}
-        />
-      }
-    >
+    <SCGeneratorContainer>
+      {showDataPanel && <GeneratorSidePanel
+        generatorRecords={generatorRecords}
+        selectedName={name}
+        onSelectRecord={handleSelectRecord}
+        onSubmit={handleSubmit}
+        onDelete={handleDelete}
+        normalCSS={normalCSS}
+        hoverCSS={hoverCSS}
+        activeCSS={activeCSS}
+        copyCSS={copyCSS}
+      />}
       <div className="generator">
         <div className="generator__form-container">
+          <TripleBarSVG ariaLabel="Open or Close Data Panel" viewBox="0 0 90 90" onClick={toggleDataPanel} />
           <Switch
             data={[{ label: 'Normal' }, { label: 'Hover' }, { label: 'Active' }]}
             switchIndex={mode}
@@ -211,7 +215,7 @@ const Generator = () => {
           </div>
         </div>
       </div>
-    </Page>
+    </SCGeneratorContainer>
   );
 };
 
