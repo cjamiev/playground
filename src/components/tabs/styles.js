@@ -49,19 +49,22 @@ const darkModeButton = css`
   width: 120px;
   height: 30px;
   padding: 2px;
-  border-radius: 0;
+  font-size: 18px;
+  border-radius: 5px;
   color: ${Theme.white};
   background-color: ${Theme.secondaryBackgroundColor};
   cursor: pointer;
   transition: color 500ms, box-shadow 500ms;
+  box-shadow: 5px 5px 9px 0 rgba(0, 0, 0, 0.25), inset -5px -5px 7px 0 rgba(0, 0, 0, 0.25),
+    inset 5px 5px 9px 0 rgba(255, 255, 255, 0.4);
 
   ${(props) =>
     props.isActive &&
     `
       color: ${lightPurple};
       background-color: ${Theme.secondaryBackgroundColorHover};
-      box-shadow: 0px 2px 10px ${Theme.primaryColor};
       transform: translateY(1px);
+      box-shadow: 0px 2px 10px ${Theme.primaryColor}, inset 5px 5px 7px 0 rgba(0, 0, 0, 0.25), inset -5px -5px 7px 0 rgba(255, 255, 255, 0.4);
     `};
 `;
 
