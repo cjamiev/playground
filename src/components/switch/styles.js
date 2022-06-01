@@ -14,6 +14,8 @@ export const SCSwitchBtn = styled.button`
   background-color: ${Theme.secondaryColor};
   outline-offset: 1px;
   margin-right: 6px;
+  box-shadow: rgba(0, 0, 0, 0.3) 4px 4px 8px 0px, rgba(0, 0, 0, 0.2) -8px -8px 8px 0px inset,
+    rgba(255, 255, 255, 0.4) 8px 8px 8px 0px inset;
   cursor: pointer;
 
   ${(props) => props.isFirst && 'border-radius: 50px 0px 0px 50px'};

@@ -3,31 +3,30 @@ import { Theme } from 'styles';
 
 export const SCButton = styled.button`
   min-height: 50px;
+  border-radius: 10px;
+  border-width: 0;
+  color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.3) 4px 4px 8px 0px, rgba(0, 0, 0, 0.2) -8px -8px 8px 0px inset,
+    rgba(255, 255, 255, 0.4) 8px 8px 8px 0px inset;
   cursor: pointer;
 
   :active {
-    transform: translatey(2px);
+    transform: scale(0.98);
   }
 
   ${(props) => {
     return props.isPrimary
       ? `
         background-color: ${Theme.primaryColor};
-        border: 1px solid ${Theme.primaryColorHover};
-        color: #fff;
-
-      :hover {
-        background-color: ${Theme.primaryColorHover};
-        box-shadow: 2px 2px 0px ${Theme.primaryColor};
-      }`
+        
+        :hover {
+          background-color: ${Theme.primaryColorHover};
+        }`
       : `
-      background-color: ${Theme.secondaryColor};
-        border: 1px solid ${Theme.secondaryColorHover};
-        color: #fff;
+        background-color: ${Theme.secondaryColor};
 
         :hover {
           background-color: ${Theme.secondaryColorHover};
-          box-shadow: 2px 2px 0px ${Theme.secondaryColor};
         }
       `;
   }};
