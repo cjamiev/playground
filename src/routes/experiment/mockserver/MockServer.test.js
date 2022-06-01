@@ -11,12 +11,6 @@ const mockLogProps = {
 };
 
 describe('MockServer', () => {
-  it('checks page renders', () => {
-    reduxTestWrapper(MockServer, {}, {}, pathname);
-
-    expect(screen.queryAllByText('Mock Server')[ZERO]).toBeInTheDocument();
-  });
-
   it('tab switch', async () => {
     reduxTestWrapper(MockServer, {}, mockLogProps, pathname);
 

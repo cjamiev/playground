@@ -3,7 +3,7 @@ import { reduxTestWrapper, mockApi } from 'testHelper';
 import Project from '../Project';
 import api from 'api';
 
-const directories = ['./','C:/doc'];
+const directories = ['./', 'C:/doc'];
 const regexOne = {
   description: 'reduce svg icon numbers to three decimals',
   fileRegex: 'Icon.js$',
@@ -22,7 +22,7 @@ const projectDb = {
 };
 
 const mockGet = (url) => {
-  if(url === '/db/?name=project.json') {
+  if (url === '/db/?name=project.json') {
     return Promise.resolve({
       data: {
         data: JSON.stringify(projectDb)
@@ -36,7 +36,9 @@ const mockGet = (url) => {
     });
   }
 };
-const mockPost = () => { return Promise.resolve({});};
+const mockPost = () => {
+  return Promise.resolve({});
+};
 const apiMock = mockApi(mockGet, mockPost);
 
 const rootDir = './';
@@ -54,7 +56,7 @@ const defaultStoreProps = {
 };
 
 // act warnings
-describe.skip('Regex', () => {
+describe('Regex', () => {
   it('Run updated on files with regex', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
@@ -77,16 +79,19 @@ describe.skip('Regex', () => {
     fireEvent.click(globalModifierOption);
     fireEvent.click(submitBtn);
 
-    expect(api.post).toHaveBeenCalledWith(`/project/?type=regex&root=${rootDir}`, JSON.stringify({
-      fileRegex: regexOne.fileRegex,
-      lineRegex: regexOne.lineRegex,
-      modifiers: regexOne.modifiers,
-      lineRange: {
-        start: '0',
-        end: '3'
-      },
-      replace: '123'
-    }));
+    expect(api.post).toHaveBeenCalledWith(
+      `/project/?type=regex&root=${rootDir}`,
+      JSON.stringify({
+        fileRegex: regexOne.fileRegex,
+        lineRegex: regexOne.lineRegex,
+        modifiers: regexOne.modifiers,
+        lineRange: {
+          start: '0',
+          end: '3'
+        },
+        replace: '123'
+      })
+    );
   });
 
   it('Select existing Regex', () => {
@@ -114,12 +119,12 @@ describe.skip('Regex', () => {
 
     const descriptionField = screen.getByLabelText('Description text field');
 
-    fireEvent.change(descriptionField, { target: { value: regexOne.description }});
+    fireEvent.change(descriptionField, { target: { value: regexOne.description } });
     fireEvent.click(screen.getByText('Delete'));
 
     expect(api.post).toHaveBeenCalledWith('/db', {
       filename: 'project.json',
-      content: JSON.stringify({ directories, regexes: []})
+      content: JSON.stringify({ directories, regexes: [] })
     });
   });
 
@@ -138,7 +143,7 @@ describe.skip('Regex', () => {
     const globalModifierOption = screen.getByText('Global');
     const saveBtn = screen.getByText('Save');
 
-    fireEvent.change(descriptionField, { target: { value: regexOne.description }});
+    fireEvent.change(descriptionField, { target: { value: regexOne.description } });
     fireEvent.change(fileRegexField, { target: { value: regexOne.fileRegex } });
     fireEvent.change(lineRegexField, { target: { value: regexOne.lineRegex } });
     fireEvent.change(replaceField, { target: { value: '123' } });
@@ -149,18 +154,22 @@ describe.skip('Regex', () => {
 
     expect(api.post).toHaveBeenCalledWith('/db', {
       filename: 'project.json',
-      content: JSON.stringify({ directories, regexes: [{
-        description: regexOne.description,
-        fileRegex: regexOne.fileRegex,
-        lineRegex: regexOne.lineRegex,
-        modifiers: 'g',
-        lineRange: {
-          start: '0',
-          end: '3'
-        },
-        replace: '123'
-      }
-      ]})
+      content: JSON.stringify({
+        directories,
+        regexes: [
+          {
+            description: regexOne.description,
+            fileRegex: regexOne.fileRegex,
+            lineRegex: regexOne.lineRegex,
+            modifiers: 'g',
+            lineRange: {
+              start: '0',
+              end: '3'
+            },
+            replace: '123'
+          }
+        ]
+      })
     });
   });
 });

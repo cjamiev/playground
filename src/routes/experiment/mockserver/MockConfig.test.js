@@ -37,7 +37,7 @@ const mockConfigProps = {
 };
 
 // Gives act warnings
-describe.skip('MockConfig', () => {
+describe('MockConfig', () => {
   it('checks page renders', () => {
     reduxTestWrapper(MockConfig, {}, mockConfigProps);
 

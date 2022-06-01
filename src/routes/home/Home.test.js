@@ -14,40 +14,37 @@ const today = new Date();
 mockApi(mockGet, mockPost);
 
 // act warnings
-describe.skip('Home', () => {
+describe('Home', () => {
   it('handle tasks', () => {
     reduxTestWrapper(Home, {}, {}, pathname);
 
     expect(screen.queryByText('No tasks to display')).toBeInTheDocument();
 
-    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
-    fireEvent.click(sidePanelBtn);
-
     // Add tasks
     const taskField = screen.getByLabelText('Task text field');
     const noteField = screen.getByLabelText('Note text field');
     const urlField = screen.getByLabelText('Url text field');
-    const addBtn = screen.getByText('Save Task');
+    const addBtn = screen.getByText('Submit');
 
     fireEvent.change(taskField, { target: { value: 'taskOne' } });
     fireEvent.change(noteField, { target: { value: 'noteOne' } });
-    fireEvent.click(screen.getByLabelText('Plus'));
+    fireEvent.click(screen.getByLabelText('Add Item'));
     fireEvent.change(urlField, { target: { value: 'urlOne' } });
-    fireEvent.click(screen.getByLabelText('Plus'));
+    fireEvent.click(screen.getByLabelText('Add Item'));
     fireEvent.click(addBtn);
 
     fireEvent.change(taskField, { target: { value: 'taskTwo' } });
     fireEvent.change(noteField, { target: { value: 'noteTwo' } });
-    fireEvent.click(screen.getByLabelText('Plus'));
+    fireEvent.click(screen.getByLabelText('Add Item'));
     fireEvent.change(urlField, { target: { value: 'urlTwo' } });
-    fireEvent.click(screen.getByLabelText('Plus'));
+    fireEvent.click(screen.getByLabelText('Add Item'));
     fireEvent.click(addBtn);
 
     fireEvent.change(taskField, { target: { value: 'taskThree' } });
     fireEvent.change(noteField, { target: { value: 'noteThree' } });
-    fireEvent.click(screen.getByLabelText('Plus'));
+    fireEvent.click(screen.getByLabelText('Add Item'));
     fireEvent.change(urlField, { target: { value: 'urlThree' } });
-    fireEvent.click(screen.getByLabelText('Plus'));
+    fireEvent.click(screen.getByLabelText('Add Item'));
     fireEvent.click(addBtn);
 
     expect(screen.queryByText('taskOne')).toBeInTheDocument();
@@ -84,16 +81,16 @@ describe.skip('Home', () => {
       expect(screen.queryByText('todoOne')).toBeInTheDocument();
     });
 
-    fireEvent.click(screen.getAllByLabelText('edit')[ZERO]);
+    fireEvent.click(screen.getAllByLabelText('Edit')[ZERO]);
 
     expect(screen.getAllByText('noteOne')).toHaveLength(TWO);
     expect(screen.getAllByText('noteTwo')).toHaveLength(TWO);
     expect(screen.getAllByText('urlOne')).toHaveLength(TWO);
     expect(screen.getAllByText('urlTwo')).toHaveLength(TWO);
 
-    fireEvent.click(screen.getAllByLabelText('Minus')[ZERO]);
+    fireEvent.click(screen.getAllByLabelText('Remove Item')[ZERO]);
 
-    fireEvent.click(screen.getByText('Save Task'));
+    fireEvent.click(screen.getByText('Submit'));
 
     expect(screen.queryByText('noteOne')).not.toBeInTheDocument();
     expect(screen.getAllByText('noteTwo')).toHaveLength(ONE);
@@ -108,19 +105,16 @@ describe.skip('Home', () => {
 
     expect(screen.queryByText('No timers to display')).toBeInTheDocument();
 
-    const sidePanelBtn = screen.getByLabelText('Open or Close Sidepanel');
-    fireEvent.click(sidePanelBtn);
-
     const timerField = screen.getByLabelText('Name text field');
-    const saveBtn = screen.getByText('Save');
+    const submitBtn = screen.getByText('Submit');
 
     // Add timers
     fireEvent.change(timerField, { target: { value: 'timerOne' } });
-    fireEvent.click(saveBtn);
+    fireEvent.click(submitBtn);
     fireEvent.change(timerField, { target: { value: 'timerTwo' } });
-    fireEvent.click(saveBtn);
+    fireEvent.click(submitBtn);
     fireEvent.change(timerField, { target: { value: 'timerThree' } });
-    fireEvent.click(saveBtn);
+    fireEvent.click(submitBtn);
 
     expect(screen.queryByText('timerOne')).toBeInTheDocument();
     expect(screen.queryByText('timerTwo')).toBeInTheDocument();
@@ -141,7 +135,7 @@ describe.skip('Home', () => {
 
     expect(screen.queryByLabelText('Name text field')).not.toBeInTheDocument();
 
-    const editBtn = screen.getAllByLabelText('edit')[ZERO];
+    const editBtn = screen.getAllByLabelText('Edit')[ZERO];
     fireEvent.click(editBtn);
 
     expect(screen.queryByLabelText('Name text field')).toBeInTheDocument();
@@ -149,7 +143,7 @@ describe.skip('Home', () => {
     const oneMinuteFromNow = incrementDate(today, { minutes: 1 }).getMinutes();
 
     fireEvent.change(minuteField, { target: { value: oneMinuteFromNow } });
-    fireEvent.click(screen.getByText('Save'));
+    fireEvent.click(screen.getByText('Submit'));
 
     expect(screen.queryByTestId('timerOne time')).toHaveTextContent('0:0');
   });

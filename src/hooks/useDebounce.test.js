@@ -12,14 +12,20 @@ const TestComponent = () => {
 
   return (
     <>
-      <button onClick={() => { setStr('Test123');}}> Update </button>
+      <button
+        onClick={() => {
+          setStr('Test123');
+        }}
+      >
+        Update
+      </button>
       <div>{debouncedStr}</div>
     </>
   );
 };
 
 describe('useDebounce', () => {
-  it.skip('Should update debouncedValue after delayed time', () => {
+  it('Should update debouncedValue after delayed time', () => {
     jest.useFakeTimers();
     act(() => {
       render(<TestComponent />);

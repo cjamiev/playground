@@ -9,17 +9,21 @@ const ONE = 1;
 const TestComponent = () => {
   const [toggle, setToggle] = useState(false);
   const [count, setCount] = useState(ZERO);
-  const { renderCount, changedProps} = useDebug('TestComponent', { toggle, count }, false);
+  const { renderCount, changedProps } = useDebug('TestComponent', { toggle, count }, false);
 
   const displayCount = `Render Count ${renderCount}`;
   const displayUpdatedProps = `Changed Props ${JSON.stringify(changedProps)}`;
 
   return (
     <>
-      <button onClick={() => { setToggle(!toggle);}}>Toggle</button>
-      <button onClick={() => setCount(prevCount => prevCount + ONE)}>
-        Increment
+      <button
+        onClick={() => {
+          setToggle(!toggle);
+        }}
+      >
+        Toggle
       </button>
+      <button onClick={() => setCount((prevCount) => prevCount + ONE)}>Increment</button>
       <div>{displayCount}</div>
       <div>{displayUpdatedProps}</div>
     </>
@@ -27,7 +31,7 @@ const TestComponent = () => {
 };
 
 describe('useDebug', () => {
-  it.skip('Should render debug info', () => {
+  it('Should render debug info', () => {
     render(<TestComponent />);
 
     expect(screen.queryByText('Render Count 1')).toBeInTheDocument();

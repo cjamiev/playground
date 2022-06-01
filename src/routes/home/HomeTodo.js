@@ -148,7 +148,7 @@ const HomeTodo = ({ tasks, selectedTask, onChangeItem, onChange, onEditTask }) =
                 }}
               />
               <PenSVG
-                aria-label="Edit"
+                ariaLabel="Edit"
                 width="27"
                 height="27"
                 onClick={() => {
