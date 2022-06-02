@@ -72,6 +72,7 @@ export const SCTableHidden = styled.span`
 export const SCTableOverlayText = styled.span`
   display: inline;
   width: 100%;
+  padding-left: 5px;
   cursor: pointer;
 
   ${SCTableCell}:active & {

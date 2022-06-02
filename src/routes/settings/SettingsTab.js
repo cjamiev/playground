@@ -75,7 +75,7 @@ const SettingsTab = ({ settingsData, labels, isHidden = false, onChange }) => {
       return (
         <tr key={item.value}>
           <SCTableCell isFirstCell>
-            <span>{item.label}</span>
+            <SCCellValue>{item.label}</SCCellValue>
           </SCTableCell>
           <TableCellValue item={item} isHidden={isHidden} />
           <SCTableCell isIcon>
