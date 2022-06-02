@@ -11,10 +11,42 @@ import {
   SCTableCell,
   SCTableHidden,
   SCTableOverlayText,
+  SCCellValue,
+  SCCellLongValue,
   SCCreateFormFieldSet
 } from './styles';
 
-export const SettingsTable = ({ headers, body }) => {
+const ZERO = 0;
+const MAX_SIZE = 50;
+
+const getLongValue = (item) => {
+  const isLongValue = item.value.length > MAX_SIZE;
+  const value = isLongValue ? `${item.value.slice(ZERO, MAX_SIZE)}...` : item.value;
+
+  return { isLongValue, value };
+};
+
+const TableCellValue = ({ item, isHidden }) => {
+  const { isLongValue, value } = getLongValue(item);
+
+  if (isHidden) {
+    return (
+      <SCTableCell>
+        <SCTableOverlayText>Click to see</SCTableOverlayText>
+        <SCTableHidden>{item.value}</SCTableHidden>
+      </SCTableCell>
+    );
+  } else {
+    return (
+      <SCTableCell>
+        <SCCellValue>{value}</SCCellValue>
+        {isLongValue && <SCCellLongValue>{item.value}</SCCellLongValue>}
+      </SCTableCell>
+    );
+  }
+};
+
+const SettingsTable = ({ headers, body }) => {
   const renderHeaders = headers.map((item) => {
     return <SCTableHeaderCell key={item.label}>{item.label}</SCTableHeaderCell>;
   });
@@ -45,16 +77,7 @@ const SettingsTab = ({ settingsData, labels, isHidden = false, onChange }) => {
           <SCTableCell isFirstCell>
             <span>{item.label}</span>
           </SCTableCell>
-          <SCTableCell>
-            {isHidden ? (
-              <>
-                <SCTableOverlayText>Click to see</SCTableOverlayText>
-                <SCTableHidden>{item.value}</SCTableHidden>
-              </>
-            ) : (
-              <span>{item.value}</span>
-            )}
-          </SCTableCell>
+          <TableCellValue item={item} isHidden={isHidden} />
           <SCTableCell isIcon>
             <TrashSVG
               transform="scale(0.6) translate(35,-2)"

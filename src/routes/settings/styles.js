@@ -28,13 +28,6 @@ export const SCTableCell = styled.td`
   width: ${(props) => (props.isIcon ? '40px' : '400px')};
   padding: 0;
 
-  span {
-    position: absolute;
-    top: 10px;
-    left: 5px;
-    white-space: nowrap;
-  }
-
   svg {
     position: absolute;
     top: 3px;
@@ -83,6 +76,28 @@ export const SCTableOverlayText = styled.span`
 
   ${SCTableCell}:active & {
     display: none;
+  }
+`;
+
+export const SCCellValue = styled.span`
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  white-space: nowrap;
+`;
+
+export const SCCellLongValue = styled.span`
+  display: none;
+  position: absolute;
+  top: 30px;
+  right: -50px;
+  height: 40px;
+  padding: 10px;
+  background-color: #ffffff;
+  z-index: 1;
+
+  ${SCTableCell}:hover & {
+    display: inline;
   }
 `;
 
