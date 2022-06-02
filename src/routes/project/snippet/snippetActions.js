@@ -31,13 +31,14 @@ const loadSnippet = (name) => {
   };
 };
 
-const createSnippet = (filename, content) => {
+const createSnippet = (name, content) => {
   return (dispatch) => {
     api
-      .post(`/project/?type=snippet&op=write&name=${filename}`, JSON.stringify(content))
+      .post(`/project/?type=snippet&op=write&name=${name}`, JSON.stringify(content))
       .then((response) => {
-        dispatch(createAlert({ content: `Created ${filename}`, timer: THREE_SECOND, status: 'success' }));
+        dispatch(createAlert({ content: `Created ${name}`, timer: THREE_SECOND, status: 'success' }));
         dispatch(loadSnippetDirectory());
+        dispatch({ type: LOAD_SNIPPET, data: { name, content } });
       })
       .catch((error) => {
         dispatch(createAlert({ content: `createSnippet: ${error.message}`, status: 'error' }));
