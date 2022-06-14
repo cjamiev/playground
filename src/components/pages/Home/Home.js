@@ -7,7 +7,7 @@ import Button from 'components/atoms/Button';
 import Text from 'components/atoms/Form/Text';
 import Tabs from 'components/atoms/Tabs';
 import TimerForm from 'components/atoms/Form/TimerForm';
-import ComponentWrapper from 'components/ComponentWrapper';
+import ComponentWrapper from 'components/atoms/ComponentWrapper';
 import HomeTodo from './HomeTodo';
 import HomeTimer from './HomeTimer';
 

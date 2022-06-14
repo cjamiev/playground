@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Page from 'components/layout';
-import ComponentWrapper from 'components/ComponentWrapper';
+import ComponentWrapper from 'components/atoms/ComponentWrapper';
 import { loadProject, updateProject } from 'components/pages/Project/projectActions';
 import SettingsTab from './SettingsTab';
 import Tabs from 'components/atoms/Tabs';
