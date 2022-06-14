@@ -9,7 +9,8 @@ import QuickAccess from './QuickAccess';
 import SidePanel from './SidePanel';
 import { openSidePanel, closeSidePanel } from 'components/molecules/Global/globalActions';
 import { TIME } from 'constants/time';
-import { SCLayout, SCPageWrapper, SCPageContent } from './styles';
+import { SCMainLayout, SCLayout, SCPageWrapper, SCPageContent } from './styles';
+import Navigation from './Navigation';
 
 const NAV_ITEMS = Object.values(ROUTES);
 
@@ -34,26 +35,29 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
   };
 
   return (
-    <SCLayout>
-      {isSidePanelOpen && (
-        <SidePanel
-          isTransitioningOut={isTransitioningOut}
-          sidePanelContent={sidePanelContent}
-          isSidePanelWide={isSidePanelWide}
-          toggleSidePanel={toggleSidePanel}
-          title={currentPage.sidePanelLabel}
-        />
-      )}
-      <SCPageWrapper>
-        <PageHeader
-          toggleSidePanel={toggleSidePanel}
-          hasSidePanelContent={hasSidePanelContent}
-          title={currentPage.label}
-        />
-        <div>{children}</div>
-        <QuickAccess />
-      </SCPageWrapper>
-    </SCLayout>
+    <SCMainLayout>
+      <Navigation />
+      <SCLayout>
+        {isSidePanelOpen && (
+          <SidePanel
+            isTransitioningOut={isTransitioningOut}
+            sidePanelContent={sidePanelContent}
+            isSidePanelWide={isSidePanelWide}
+            toggleSidePanel={toggleSidePanel}
+            title={currentPage.sidePanelLabel}
+          />
+        )}
+        <SCPageWrapper>
+          <PageHeader
+            toggleSidePanel={toggleSidePanel}
+            hasSidePanelContent={hasSidePanelContent}
+            title={currentPage.label}
+          />
+          <div>{children}</div>
+          <QuickAccess />
+        </SCPageWrapper>
+      </SCLayout>
+    </SCMainLayout>
   );
 };
 

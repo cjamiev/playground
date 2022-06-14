@@ -37,6 +37,11 @@ const slideIn = keyframes`
   }
 `;
 
+export const SCMainLayout = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
 export const SCLayout = styled.div`
   height: 100%;
   width: 100%;
