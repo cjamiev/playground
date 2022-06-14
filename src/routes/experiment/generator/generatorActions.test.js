@@ -1,7 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
 import { LOAD_GENERATOR_RECORDS, loadGeneratorRecords, updatedGeneratorRecords } from './generatorActions';
-import { CREATE_ALERT } from 'components/alert/alertActions';
+import { CREATE_ALERT } from 'components/atoms/Alert/alertActions';
 
 const error = new Error('Test Message');
 const dispatch = jest.fn();

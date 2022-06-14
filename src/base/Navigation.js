@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { closeSidePanel, closeGlobalModal, hideLoadingModal, executeCommand } from 'components/global/globalActions';
-import { dismissAlert } from 'components/alert/alertActions';
+import {
+  closeSidePanel,
+  closeGlobalModal,
+  hideLoadingModal,
+  executeCommand
+} from 'components/molecules/Global/globalActions';
+import { dismissAlert } from 'components/atoms/Alert/alertActions';
 import { getFormattedDate } from 'clock';
 import {
   SCNavigation,

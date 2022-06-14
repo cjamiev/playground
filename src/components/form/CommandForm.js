@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import Dropdown from 'components/form/Dropdown';
 import Radio from 'components/form/Radio';
 import Text from 'components/form/Text';

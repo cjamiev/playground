@@ -1,7 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
 import { LOAD_DIRECTORY, loadDirectory, LOAD_FILE, loadFile, WRITE_FILE, writeFile } from './fileActions';
-import { CREATE_ALERT } from 'components/alert/alertActions';
+import { CREATE_ALERT } from 'components/atoms/Alert/alertActions';
 
 const ONE = 1;
 const TWO = 2;

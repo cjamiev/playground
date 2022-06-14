@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TextArea from 'components/form/TextArea';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import { CloseSVG } from 'components/icons/CloseSVG';
 import { noop } from 'helper/noop';
 import { SCModal, SCModalHeader, SCModalTitle, SCModalBody, SCModalFooter } from './styles';

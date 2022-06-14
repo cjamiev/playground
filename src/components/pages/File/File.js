@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadDirectory, loadFile, writeFile } from './fileActions';
-import { dismissAlert } from 'components/alert/alertActions';
+import { dismissAlert } from 'components/atoms/Alert/alertActions';
 import FileOperations from './FileOperations';
 import RegexOperations from './RegexOperations';
 import StringOperations from './StringOperations';
@@ -9,7 +9,7 @@ import JsonOperations from './JsonOperations';
 import Page from 'components/layout';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import { copyToClipboard } from 'helper/copy';
 import { SCFileBtnWrapper, SCFileNameWrapper, SCFileBtn } from './styles';
 import { SaveSVG } from 'components/icons/SaveSVG';

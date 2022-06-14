@@ -25,7 +25,7 @@ import {
   clearCommand,
   CLEAR_COMMAND_RESULT
 } from './globalActions';
-import { CREATE_ALERT } from 'components/alert/alertActions';
+import { CREATE_ALERT } from 'components/atoms/Alert/alertActions';
 
 const ONE = 1;
 const TWO = 2;
@@ -46,7 +46,6 @@ api.get.mockResolvedValue({
     message: 'test message'
   }
 });
-
 
 describe('globalActions', () => {
   it('updateGlobal', () => {

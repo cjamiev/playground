@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import { noop } from 'helper/noop';
 
 const WizardSection = ({ title, content, buttonList = [] }) => {

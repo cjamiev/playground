@@ -1,7 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
 import { UPDATE_FILES_BY_REGEX, updateFilesByRegex } from './regexActions';
-import { CREATE_ALERT } from 'components/alert/alertActions';
+import { CREATE_ALERT } from 'components/atoms/Alert/alertActions';
 
 const error = new Error('Test Message');
 const dispatch = jest.fn();

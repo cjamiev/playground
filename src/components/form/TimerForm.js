@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
-import Switch from 'components/switch';
+import Switch from 'components/molecules/Switch';
 import { convert12HourTo24HourClock, convert24HourTo12HourClock } from './helper';
 import { incrementDate } from 'clock';
 import { PlusSVG } from 'components/icons/PlusSVG';

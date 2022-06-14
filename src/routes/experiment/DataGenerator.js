@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import React, { useState } from 'react';
 import TextArea from 'components/form/TextArea';
-import Pagination from 'components/pagination';
+import Pagination from 'components/atoms/Pagination';
 import TableRenderer from './TableRenderer';
 import { copyToClipboard } from 'helper/copy';
 import { dataGenerator } from 'randomHelper';

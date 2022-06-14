@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { executeCommand } from 'components/global/globalActions';
+import { executeCommand } from 'components/molecules/Global/globalActions';
 import {
   SCQuickAccess,
   SCQuickAccessBtnGroup,

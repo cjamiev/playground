@@ -1,5 +1,5 @@
 import api from 'api';
-import { createAlert } from 'components/alert/alertActions';
+import { createAlert } from 'components/atoms/Alert/alertActions';
 
 const UPDATE_FILES_BY_REGEX = 'UPDATE_FILES_BY_REGEX';
 
@@ -16,7 +16,4 @@ const updateFilesByRegex = (rootDir, content) => {
   };
 };
 
-export {
-  UPDATE_FILES_BY_REGEX,
-  updateFilesByRegex
-};
+export { UPDATE_FILES_BY_REGEX, updateFilesByRegex };

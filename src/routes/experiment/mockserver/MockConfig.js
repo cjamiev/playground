@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DynamicForm, { hasError, updateData } from 'components/form/DynamicForm';
-import { createAlert } from 'components/alert/alertActions';
+import { createAlert } from 'components/atoms/Alert/alertActions';
 import { loadMockServerConfig, updateMockServerConfig, loadMockRequests } from './mockserverActions';
 import Page from 'components/layout';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import { isEmpty } from 'booleanHelper';
 import { mapConfigPayloadToFields, mapFieldsToConfigPayload } from './helper';
 

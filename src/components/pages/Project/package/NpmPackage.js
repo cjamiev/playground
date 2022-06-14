@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import { runNpmScript, getDependencyVersions, updatePackage } from './npmPackageActions';
 import { noop } from 'helper/noop';
 import { updateDependencyVersions } from './helper';

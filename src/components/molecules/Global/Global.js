@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Modal from 'components/modal';
+import Modal from 'components/atoms/Modal';
 import { loadSettings, updateSettings } from 'components/pages/Settings/settingsActions';
-import { createAlert } from 'components/alert/alertActions';
+import { createAlert } from 'components/atoms/Alert/alertActions';
 import { closeGlobalModal, hideLoadingModal, loadCommand, clearCommand, initializeTimer } from './globalActions';
 import { TIME } from 'constants/time';
 import { SCGlobalModal, SCGlobalModalLoading, SCGlobalModalLoadingName } from './styles';

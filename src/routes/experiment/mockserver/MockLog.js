@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMockServerLog, clearMockServerLog } from './mockserverActions';
 import Page from 'components/layout';
-import { openGlobalModal } from 'components/global/globalActions';
+import { openGlobalModal } from 'components/molecules/Global/globalActions';
 import { copyToClipboard } from 'helper/copy';
-import Table from 'components/table';
-import Button from 'components/button';
+import Table from 'components/atoms/Table';
+import Button from 'components/atoms/Button';
 
 const MockLog = () => {
   const dispatch = useDispatch();

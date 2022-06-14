@@ -11,7 +11,7 @@ import {
   updatePackage,
   UPDATE_FILES_BY_REGEX
 } from './npmPackageActions';
-import { CREATE_ALERT } from 'components/alert/alertActions';
+import { CREATE_ALERT } from 'components/atoms/Alert/alertActions';
 
 const error = new Error('Test Message');
 const dispatch = jest.fn();

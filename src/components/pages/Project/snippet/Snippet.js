@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadSnippetDirectory, loadSnippet, createSnippet, deleteSnippet } from './snippetActions';
 import { copyToClipboard } from 'helper/copy';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import Text from 'components/form/Text';
 import TextArea from 'components/form/TextArea';
 import { CopySVG } from 'components/icons/CopySVG';

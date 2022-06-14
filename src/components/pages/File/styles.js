@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Theme } from 'styles';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 
 export const SCFlexWrapper = styled.div`
   display: flex;

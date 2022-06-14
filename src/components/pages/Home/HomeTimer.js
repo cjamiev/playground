@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { openGlobalModal } from 'components/global/globalActions';
-import Card from 'components/card';
+import { openGlobalModal } from 'components/molecules/Global/globalActions';
+import Card from 'components/atoms/Card';
 import useTimer from 'hooks/useTimer';
 import { formattedTimerClock } from 'clock';
 import { decrementElementIndex, incrementElementIndex, swapArrayElementPositions } from 'arrayHelper';

@@ -9,12 +9,12 @@ import {
   clearMockResponse
 } from './mockserverActions';
 import Page from 'components/layout';
-import { openGlobalModal } from 'components/global/globalActions';
+import { openGlobalModal } from 'components/molecules/Global/globalActions';
 import { copyToClipboard } from 'helper/copy';
 import useFilter from 'hooks/useFilter';
 import Text from 'components/form/Text';
-import Table from 'components/table';
-import Button from 'components/button';
+import Table from 'components/atoms/Table';
+import Button from 'components/atoms/Button';
 
 const MockViewEndpoint = () => {
   const dispatch = useDispatch();

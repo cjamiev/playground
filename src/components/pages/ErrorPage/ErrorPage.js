@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import { useNavigate } from 'react-router-dom';
 
 const PREVIOUS_INDEX = -1;

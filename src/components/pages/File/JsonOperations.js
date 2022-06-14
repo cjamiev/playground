@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { createAlert, dismissAlert } from 'components/alert/alertActions';
-import Button from 'components/button';
+import { createAlert, dismissAlert } from 'components/atoms/Alert/alertActions';
+import Button from 'components/atoms/Button';
 import { parseObject, isJSONString } from 'type-check';
 import { SCFlexWrapper, SCFileBtnWrapper } from './styles';
 

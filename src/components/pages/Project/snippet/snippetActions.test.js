@@ -7,7 +7,7 @@ import {
   loadSnippet,
   createSnippet
 } from './snippetActions';
-import { CREATE_ALERT } from 'components/alert/alertActions';
+import { CREATE_ALERT } from 'components/atoms/Alert/alertActions';
 
 const error = new Error('Test Message');
 const dispatch = jest.fn();

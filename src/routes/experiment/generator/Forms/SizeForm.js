@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import Range from 'components/form/Range';
 import { WIDTH_MAX, HEIGHT_MAX } from 'constants/css';
 

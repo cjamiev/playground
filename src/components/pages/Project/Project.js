@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { openGlobalModal } from 'components/global/globalActions';
+import { openGlobalModal } from 'components/molecules/Global/globalActions';
 import { loadProject, clearMessage } from './projectActions';
 import { getPackageJson } from './package/npmPackageActions';
 import { getRemoteUrl, viewBranches, viewStash } from './git/gitActions';
 import { loadSnippetDirectory } from './snippet/snippetActions';
 import { CopySVG } from 'components/icons/CopySVG';
 import Page from 'components/layout';
-import Tabs from 'components/tabs';
+import Tabs from 'components/atoms/Tabs';
 import ComponentWrapper from 'components/ComponentWrapper';
 import { copyToClipboard } from 'helper/copy';
 import Git from './git';

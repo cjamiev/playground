@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import Radio from 'components/form/Radio';
 import Range from 'components/form/Range';
 import Color from 'components/form/Color';

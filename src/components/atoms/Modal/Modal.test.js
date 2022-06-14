@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { reduxTestWrapper } from 'testHelper';
-import Modal from 'components/modal/Modal';
+import Modal from 'components/atoms/Modal/Modal';
 import api from 'api';
 
 const ZERO = 0;

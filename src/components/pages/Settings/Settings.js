@@ -4,7 +4,7 @@ import Page from 'components/layout';
 import ComponentWrapper from 'components/ComponentWrapper';
 import { loadProject, updateProject } from 'components/pages/Project/projectActions';
 import SettingsTab from './SettingsTab';
-import Tabs from 'components/tabs';
+import Tabs from 'components/atoms/Tabs';
 import { updateSettings } from './settingsActions';
 import { commandLabels, linkLabels, copyLabels, directoryLabels } from './data';
 import { SCTabButtonGroup, SCTabButton } from './styles';

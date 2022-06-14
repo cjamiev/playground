@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import Multiselect from './Multiselect';
 import './SwapSelect.css';
 

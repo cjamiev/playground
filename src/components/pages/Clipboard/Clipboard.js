@@ -1,11 +1,11 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadClipboard } from './clipboardActions';
-import { openGlobalModal, clearCommand } from 'components/global/globalActions';
+import { openGlobalModal, clearCommand } from 'components/molecules/Global/globalActions';
 import { copyToClipboard } from 'helper/copy';
 import Page from 'components/layout';
-import List from 'components/list';
-import Tabs from 'components/tabs';
+import List from 'components/molecules/List';
+import Tabs from 'components/atoms/Tabs';
 import Text from 'components/form/Text';
 import ComponentWrapper from 'components/ComponentWrapper';
 import ClipboardForm from './ClipboardForm';

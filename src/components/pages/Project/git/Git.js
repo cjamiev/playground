@@ -13,7 +13,7 @@ import {
   resetBranch
 } from './gitActions';
 import Text from 'components/form/Text';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import { SCGitPageWrapper, SCNameTxt, SCBranchesWrapper, SCBranchBtnWrapper, SCGitBtnWrapper } from './styles';
 
 const Git = ({ root }) => {

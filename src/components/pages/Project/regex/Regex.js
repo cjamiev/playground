@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateProject } from '../projectActions';
 import { updateFilesByRegex } from './regexActions';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import Text from 'components/form/Text';
 import Checkbox from 'components/form/Checkbox';
 import NumberRange from 'components/form/NumberRange';

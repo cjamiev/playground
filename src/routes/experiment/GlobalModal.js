@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { openGlobalModal } from 'components/global/globalActions';
-import Button from 'components/button';
+import { openGlobalModal } from 'components/molecules/Global/globalActions';
+import Button from 'components/atoms/Button';
 
 const ZERO = 0;
 const ONE = 1;

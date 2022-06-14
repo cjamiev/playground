@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DynamicForm, { hasError, updateData } from 'components/form/DynamicForm';
 import { createMockEndpoint } from './mockserverActions';
 import Page from 'components/layout';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import { isEmpty } from 'booleanHelper';
 import { mapFieldsToNewMockPayload, getNewMockFields } from './helper';
 

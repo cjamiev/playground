@@ -1,5 +1,5 @@
 import React from 'react';
-import Table from 'components/table';
+import Table from 'components/atoms/Table';
 
 const getEmptyObject = (keys) => keys.reduce((acc, item) => ({ ...acc, [item.label]: '' }), {});
 

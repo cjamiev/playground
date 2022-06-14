@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { openGlobalModal } from 'components/global/globalActions';
+import { openGlobalModal } from 'components/molecules/Global/globalActions';
 import { decrementElementIndex, incrementElementIndex } from 'arrayHelper';
 import { getEllipsisForLongText } from 'stringHelper';
 import { ArrowSVG } from 'components/icons/ArrowSVG';
 import { TrashSVG } from 'components/icons';
 import { PenSVG } from 'components/icons/PenSVG';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import Text from 'components/form/Text';
 import ItemCreator from 'components/form/ItemCreator';
 import { noop } from 'helper/noop';

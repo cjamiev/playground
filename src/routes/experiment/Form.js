@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import DynamicForm, { hasError, updateData } from 'components/form/DynamicForm';
 import TableRenderer from './TableRenderer';
 import { formData } from './data';

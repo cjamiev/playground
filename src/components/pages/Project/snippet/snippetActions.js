@@ -1,5 +1,5 @@
 import api from 'api';
-import { createAlert } from 'components/alert/alertActions';
+import { createAlert } from 'components/atoms/Alert/alertActions';
 
 const LOAD_SNIPPET = 'LOAD_SNIPPET';
 const LOAD_SNIPPET_DIRECTORY = 'LOAD_SNIPPET_DIRECTORY';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DynamicForm, { hasError, updateData } from 'components/form/DynamicForm';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import WizardSection from './WizardSection';
 import { noop } from 'helper/noop';
 

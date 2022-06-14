@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateGlobal } from 'components/global/globalActions';
+import { updateGlobal } from 'components/molecules/Global/globalActions';
 import { loadHome, updateHome } from './homeActions';
 import Page from 'components/layout';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import Text from 'components/form/Text';
-import Tabs from 'components/tabs';
+import Tabs from 'components/atoms/Tabs';
 import TimerForm from 'components/form/TimerForm';
 import ComponentWrapper from 'components/ComponentWrapper';
 import HomeTodo from './HomeTodo';

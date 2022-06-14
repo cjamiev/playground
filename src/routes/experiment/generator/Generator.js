@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Color from 'components/form/Color';
-import Switch from 'components/switch';
+import Switch from 'components/molecules/Switch';
 import { TripleBarSVG } from 'components/icons/TripleBarSVG';
 import GeneratorForm from './GeneratorForm';
 import GeneratorSidePanel from './GeneratorSidePanel';
@@ -36,7 +36,7 @@ const Generator = () => {
     backgroundColor: '#ffffff'
   });
   const dispatch = useDispatch();
-  const { records } = useSelector(state => state.generator);
+  const { records } = useSelector((state) => state.generator);
 
   useEffect(() => {
     dispatch(loadGeneratorRecords());
@@ -106,10 +106,10 @@ const Generator = () => {
 
   const handleBackgroundMode = (index) => {
     setBackgroundMode(index);
-    if(index) {
+    if (index) {
       setBackgroundStyle({ backgroundImage: 'url("img/background.jpg")' });
     }
-    if(!index) {
+    if (!index) {
       setBackgroundStyle({ backgroundColor: '#ffffff' });
     }
   };
@@ -122,7 +122,7 @@ const Generator = () => {
       setHoverStyle(matched.value.hoverStyle);
       setActiveStyle(matched.value.activeStyle);
       setBackgroundStyle(matched.value.backgroundStyle);
-      setBackgroundMode(matched.value.backgroundStyle.backgroundColor ? ZERO : ONE );
+      setBackgroundMode(matched.value.backgroundStyle.backgroundColor ? ZERO : ONE);
     }
   };
 
@@ -157,17 +157,19 @@ const Generator = () => {
 
   return (
     <SCGeneratorContainer>
-      {showDataPanel && <GeneratorSidePanel
-        generatorRecords={generatorRecords}
-        selectedName={name}
-        onSelectRecord={handleSelectRecord}
-        onSubmit={handleSubmit}
-        onDelete={handleDelete}
-        normalCSS={normalCSS}
-        hoverCSS={hoverCSS}
-        activeCSS={activeCSS}
-        copyCSS={copyCSS}
-      />}
+      {showDataPanel && (
+        <GeneratorSidePanel
+          generatorRecords={generatorRecords}
+          selectedName={name}
+          onSelectRecord={handleSelectRecord}
+          onSubmit={handleSubmit}
+          onDelete={handleDelete}
+          normalCSS={normalCSS}
+          hoverCSS={hoverCSS}
+          activeCSS={activeCSS}
+          copyCSS={copyCSS}
+        />
+      )}
       <div className="generator">
         <div className="generator__form-container">
           <SCGeneratorFormTopBtnWrapper>
@@ -187,7 +189,13 @@ const Generator = () => {
               switchIndex={backgroundMode}
               onToggleSwitch={handleBackgroundMode}
             />
-            {backgroundMode === ZERO && <Color label="Parent Background Color" selected={backgroundStyle.backgroundColor} onChange={handleParentBackgroundColorChange} />}
+            {backgroundMode === ZERO && (
+              <Color
+                label="Parent Background Color"
+                selected={backgroundStyle.backgroundColor}
+                onChange={handleParentBackgroundColorChange}
+              />
+            )}
           </div>
           <div
             style={backgroundStyle}

@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'components/button';
+import Button from 'components/atoms/Button';
 import { noop } from 'helper/noop';
 import { SCSwitchBtnWrapper, SCSwitchBtn } from './styles';
 
