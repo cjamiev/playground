@@ -9,7 +9,7 @@ import QuickAccess from './QuickAccess';
 import SidePanel from './SidePanel';
 import { openSidePanel, closeSidePanel } from 'components/molecules/Global/globalActions';
 import { TIME } from 'constants/time';
-import { SCMainLayout, SCLayout, SCPageWrapper, SCPageContent } from './styles';
+import { SCLayout, SCPageWrapper, SCPage, SCPageContent } from './styles';
 import Navigation from './Navigation';
 
 const NAV_ITEMS = Object.values(ROUTES);
@@ -35,9 +35,9 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
   };
 
   return (
-    <SCMainLayout>
+    <SCLayout>
       <Navigation />
-      <SCLayout>
+      <SCPageWrapper>
         {isSidePanelOpen && (
           <SidePanel
             isTransitioningOut={isTransitioningOut}
@@ -47,7 +47,7 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
             title={currentPage.sidePanelLabel}
           />
         )}
-        <SCPageWrapper>
+        <SCPage>
           <PageHeader
             toggleSidePanel={toggleSidePanel}
             hasSidePanelContent={hasSidePanelContent}
@@ -55,9 +55,9 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
           />
           <div>{children}</div>
           <QuickAccess />
-        </SCPageWrapper>
-      </SCLayout>
-    </SCMainLayout>
+        </SCPage>
+      </SCPageWrapper>
+    </SCLayout>
   );
 };
 

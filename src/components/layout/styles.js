@@ -1,5 +1,4 @@
-import styled, { css, keyframes } from 'styled-components';
-import { Theme } from 'styles';
+import styled, { keyframes } from 'styled-components';
 
 const fadeIn = keyframes`
   0% {
@@ -37,12 +36,12 @@ const slideIn = keyframes`
   }
 `;
 
-export const SCMainLayout = styled.div`
+export const SCLayout = styled.div`
   display: flex;
   width: 100%;
 `;
 
-export const SCLayout = styled.div`
+export const SCPageWrapper = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
@@ -50,7 +49,7 @@ export const SCLayout = styled.div`
   animation: ${fadeIn} 500ms ease 0s 1 normal forwards;
 `;
 
-export const SCPageWrapper = styled.div`
+export const SCPage = styled.div`
   padding-left: 10px;
   width: ${(props) => (props.isSideBarFullSize ? '0px' : '100%')};
 `;
@@ -67,112 +66,11 @@ export const SCPageHeaderTitle = styled.h1`
   margin-left: 10px;
 `;
 
-export const SCSidepanel = styled.div`
-  position: relative;
-  border-right: 1px solid rgb(228, 228, 228);
-  animation: ${({ isTransitioningOut }) => {
-    return isTransitioningOut
-      ? css`
-          ${slideOut} 500ms ease-out 0s 1 normal forwards;
-        `
-      : css`
-          ${slideIn} 500ms ease-out 0s 1 normal forwards;
-        `;
-  }};
-  ${(props) => {
-    return props.isFullSize
-      ? `
-      position: absolute;
-      background-color: ${Theme.white};
-      z-index: 2;
-      width: 100%;
-      height: 100%;
-    `
-      : 'width: 650px';
-  }};
-`;
-
-export const SCSidepanelHeader = styled.div`
-  ${({ isFullSize }) => {
-    return isFullSize
-      ? 'height: 60px;'
-      : `
-      position: relative;
-      height: 100px;
-      white-space: nowrap;
-    `;
-  }}
-`;
-
-export const SCSidepanelTitle = styled.h2`
-  display: inline-block;
-  margin-top: 10px;
-  margin-left: 10px;
-`;
-
 export const SCSidepanelBtn = styled.div`
   display: inline-block;
   margin-left: 10px;
 
   svg {
     cursor: pointer;
-  }
-`;
-
-export const SCQuickAccess = styled.footer`
-  position: fixed;
-  z-index: 2;
-  width: 400px;
-  bottom: -20px;
-  left: calc(100% - 400px);
-  display: flex;
-  flex-direction: column;
-  background-color: ${Theme.secondaryBackgroundColor};
-  border-radius: 10px 10px 0 0;
-`;
-
-export const SCQuickAccessBtnGroup = styled.div`
-  display: flex;
-  border-bottom: 1px solid ${Theme.secondaryBackgroundColor};
-`;
-
-export const SCQuickAccessBtn = styled.button`
-  border: none;
-  color: ${Theme.white};
-  min-height: 50px;
-  cursor: pointer;
-  background-color: ${Theme.secondaryBackgroundColor};
-  flex: 1;
-  ${(props) => props.isActive && `background-color: ${Theme.secondaryBackgroundColorHover};`};
-
-  :hover {
-    background-color: ${Theme.secondaryBackgroundColorHover};
-    outline: none;
-  }
-`;
-
-export const SCQuickAccessList = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: ${(props) => (props.isVisible ? '500px' : '0px')};
-  background-color: ${Theme.secondaryBackgroundColor};
-  margin-top: 20px;
-  transition: height 500ms;
-`;
-
-export const SCQuickAccessListBtn = styled.button`
-  border: none;
-  color: ${Theme.white};
-  min-height: 50px;
-  background-color: ${Theme.secondaryBackgroundColor};
-  cursor: pointer;
-
-  :hover {
-    background-color: ${Theme.secondaryBackgroundColorHover};
-    outline: none;
-  }
-
-  :active {
-    background-color: ${Theme.secondaryBackgroundColorHover};
   }
 `;
