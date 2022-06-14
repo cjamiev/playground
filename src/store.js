@@ -5,13 +5,10 @@ import thunk from 'redux-thunk';
 import alertReducer from 'components/atoms/Alert/alertReducer';
 import clipboardReducer from 'components/pages/Clipboard/clipboardReducer';
 import settingsReducer from 'components/pages/Settings/settingsReducer';
-import experimentReducer from 'routes/experiment/experimentReducer';
 import fileReducer from 'components/pages/File/fileReducer';
 import homeReducer from 'components/pages/Home/homeReducer';
-import generatorReducer from 'routes/experiment/generator/generatorReducer';
 import projectReducer from 'components/pages/Project/projectReducer';
 import globalReducer from 'components/molecules/Global/globalReducer';
-import mockserverReducer from 'routes/experiment/mockserver/mockserverReducer';
 
 const middlewares = [thunk];
 if (process.env.NODE_ENV === 'development') {
@@ -23,12 +20,9 @@ const rootReducer = combineReducers({
   alert: alertReducer,
   clipboard: clipboardReducer,
   settings: settingsReducer,
-  experiment: experimentReducer,
   file: fileReducer,
   home: homeReducer,
-  generator: generatorReducer,
   global: globalReducer,
-  mockserver: mockserverReducer,
   project: projectReducer
 });
 

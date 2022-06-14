@@ -2,7 +2,7 @@ import React from 'react';
 import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from 'store';
-import Routes from 'routes/Routes';
+import AppRouter from 'components/router';
 import Global from 'components/molecules/Global';
 import Navigation from 'components/atoms/Navigation';
 import styled from 'styled-components';
@@ -21,7 +21,7 @@ function App() {
         <Global />
         <SCMainLayout>
           <Navigation />
-          <Routes />
+          <AppRouter />
         </SCMainLayout>
       </HashRouter>
     </Provider>

@@ -26,14 +26,6 @@ export const navigationMap = [
     }
   },
   {
-    label: 'Experiment',
-    url: '/experiment',
-    icon: FlaskSVG,
-    props: {
-      transform: 'scale(0.6) translate(6,6)'
-    }
-  },
-  {
     label: 'Project',
     url: '/project',
     icon: DirectorySVG,
