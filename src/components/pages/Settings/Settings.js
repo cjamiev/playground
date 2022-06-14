@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Page from 'components/layout';
 import ComponentWrapper from 'components/ComponentWrapper';
-import { loadProject, updateProject } from 'routes/project/projectActions';
+import { loadProject, updateProject } from 'components/pages/Project/projectActions';
 import SettingsTab from './SettingsTab';
 import Tabs from 'components/tabs';
 import { updateSettings } from './settingsActions';

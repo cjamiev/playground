@@ -2,13 +2,13 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
 
-import Clipboard from './clipboard';
-import Settings from './settings';
+import Clipboard from 'components/pages/Clipboard';
+import Settings from 'components/pages/Settings';
 import Experiment from './experiment';
-import ErrorPage from './errorpage';
-import File from './file';
-import Home from './home';
-import Project from './project';
+import ErrorPage from 'components/pages/ErrorPage';
+import File from 'components/pages/File';
+import Home from 'components/pages/Home';
+import Project from 'components/pages/Project';
 
 const AppRoutes = React.memo(() => {
   return (

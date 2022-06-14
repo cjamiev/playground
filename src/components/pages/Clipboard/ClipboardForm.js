@@ -8,7 +8,7 @@ import ValueForm from 'components/form/ValueForm';
 import CommandForm from 'components/form/CommandForm';
 import List, { DisplayContent } from 'components/list';
 import Table, { SCTableCell } from 'components/table';
-import { updateClipboard } from 'routes/clipboard/clipboardActions';
+import { updateClipboard } from 'components/pages/Clipboard/clipboardActions';
 import { TYPE } from 'constants/type';
 import { ArrowSVG } from 'components/icons/ArrowSVG';
 import { TrashSVG } from 'components/icons';

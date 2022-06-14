@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/modal';
-import { loadSettings, updateSettings } from 'routes/settings/settingsActions';
+import { loadSettings, updateSettings } from 'components/pages/Settings/settingsActions';
 import { createAlert } from 'components/alert/alertActions';
 import { closeGlobalModal, hideLoadingModal, loadCommand, clearCommand, initializeTimer } from './globalActions';
 import { TIME } from 'constants/time';
@@ -46,7 +46,7 @@ const Global = () => {
       const nonFinishedTimers = sortedTimers.filter((item) => item.date.getTime() - now.getTime() > ZERO);
       const shortestTimer = nonFinishedTimers[ZERO];
 
-      if(!shortestTimer) {
+      if (!shortestTimer) {
         return;
       }
 

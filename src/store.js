@@ -3,13 +3,13 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import alertReducer from 'components/alert/alertReducer';
-import clipboardReducer from 'routes/clipboard/clipboardReducer';
-import settingsReducer from 'routes/settings/settingsReducer';
+import clipboardReducer from 'components/pages/Clipboard/clipboardReducer';
+import settingsReducer from 'components/pages/Settings/settingsReducer';
 import experimentReducer from 'routes/experiment/experimentReducer';
-import fileReducer from 'routes/file/fileReducer';
-import homeReducer from 'routes/home/homeReducer';
+import fileReducer from 'components/pages/File/fileReducer';
+import homeReducer from 'components/pages/Home/homeReducer';
 import generatorReducer from 'routes/experiment/generator/generatorReducer';
-import projectReducer from 'routes/project/projectReducer';
+import projectReducer from 'components/pages/Project/projectReducer';
 import globalReducer from 'components/global/globalReducer';
 import mockserverReducer from 'routes/experiment/mockserver/mockserverReducer';
 
