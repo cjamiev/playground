@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Dropdown from 'components/form/Dropdown';
+import Dropdown from 'components/atoms/Form/Dropdown';
 import Button from 'components/atoms/Button';
 import { sortByDelimiter, sortDescendingByDelimiter } from 'sort';
 import { DELIMITER_TYPES, MODIFIER_TYPES } from './helper';

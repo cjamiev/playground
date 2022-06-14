@@ -1,5 +1,5 @@
 import React from 'react';
-import { CloseSVG } from 'components/icons/CloseSVG';
+import { CloseSVG } from 'components/atoms/Icons/CloseSVG';
 import { SCSidepanel, SCSidepanelHeader, SCSidepanelTitle, SCSidepanelBtn } from './styles';
 
 const SidePanel = ({ isTransitioningOut, sidePanelContent, isSidePanelWide, toggleSidePanel, title }) => {

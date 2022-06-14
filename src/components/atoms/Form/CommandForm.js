@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Button from 'components/atoms/Button';
-import Dropdown from 'components/form/Dropdown';
-import Radio from 'components/form/Radio';
-import Text from 'components/form/Text';
-import TextArea from 'components/form/TextArea';
+import Dropdown from 'components/atoms/Form/Dropdown';
+import Radio from 'components/atoms/Form/Radio';
+import Text from 'components/atoms/Form/Text';
+import TextArea from 'components/atoms/Form/TextArea';
 import { TYPE } from 'constants/type';
 
 const ZERO = 0;

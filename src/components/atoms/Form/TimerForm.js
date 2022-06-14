@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'components/atoms/Button';
-import Text from 'components/form/Text';
-import TextArea from 'components/form/TextArea';
+import Text from 'components/atoms/Form/Text';
+import TextArea from 'components/atoms/Form/TextArea';
 import Switch from 'components/molecules/Switch';
 import { convert12HourTo24HourClock, convert24HourTo12HourClock } from './helper';
 import { incrementDate } from 'clock';
-import { PlusSVG } from 'components/icons/PlusSVG';
-import { MinusSVG } from 'components/icons/MinusSVG';
+import { PlusSVG } from 'components/atoms/Icons/PlusSVG';
+import { MinusSVG } from 'components/atoms/Icons/MinusSVG';
 import { SCCreateFormFieldSet, SCTimerQuickModifier } from './styles';
 
 const ZERO = 0;

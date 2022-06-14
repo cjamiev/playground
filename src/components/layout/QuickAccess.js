@@ -10,9 +10,9 @@ import {
 } from './styles';
 import { copyToClipboard } from 'helper/copy';
 import useOnClickOutside from 'hooks/useOnClickOutside';
-import { StarSVG } from 'components/icons/StarSVG';
-import { CopySVG } from 'components/icons/CopySVG';
-import { PlaySVG } from 'components/icons/PlaySVG';
+import { StarSVG } from 'components/atoms/Icons/StarSVG';
+import { CopySVG } from 'components/atoms/Icons/CopySVG';
+import { PlaySVG } from 'components/atoms/Icons/PlaySVG';
 
 const QuickAccessList = ({ mode }) => {
   const dispatch = useDispatch();

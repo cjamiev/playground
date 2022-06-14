@@ -1,7 +1,7 @@
 import React from 'react';
-import Dropdown from 'components/form/Dropdown';
-import Color from 'components/form/Color';
-import Range from 'components/form/Range';
+import Dropdown from 'components/atoms/Form/Dropdown';
+import Color from 'components/atoms/Form/Color';
+import Range from 'components/atoms/Form/Range';
 import { FONT_SIZE_MAX, TEXT_ALIGN_TYPES } from 'constants/css';
 
 const FontForm = ({ style, onChange }) => {
@@ -9,9 +9,9 @@ const FontForm = ({ style, onChange }) => {
     (item.label === style.textAlign ? { ...item, selected: true } : item)
   );
   const removeList = [
-    { label: 'Color', value: 'fontColor'},
-    { label: 'Size', value: 'fontSize'},
-    { label: 'Alignment', value: 'textAlign'}
+    { label: 'Color', value: 'fontColor' },
+    { label: 'Size', value: 'fontSize' },
+    { label: 'Alignment', value: 'textAlign' }
   ];
 
   return (
@@ -20,19 +20,13 @@ const FontForm = ({ style, onChange }) => {
         label="Remove Attribute"
         values={removeList}
         onChange={({ values }) => {
-          const removeId = values.find(item => item.selected).value;
+          const removeId = values.find((item) => item.selected).value;
 
-          onChange({ id: removeId, selected: ''});
-        }} />
-      <Dropdown id="textAlign" label="Alignment" values={textAlignValues} onChange={onChange} />
-      <Range
-        id="fontSize"
-        label="Size"
-        min="0"
-        max={FONT_SIZE_MAX}
-        selected={style.fontSize}
-        onChange={onChange}
+          onChange({ id: removeId, selected: '' });
+        }}
       />
+      <Dropdown id="textAlign" label="Alignment" values={textAlignValues} onChange={onChange} />
+      <Range id="fontSize" label="Size" min="0" max={FONT_SIZE_MAX} selected={style.fontSize} onChange={onChange} />
       <Color id="fontColor" label="Color" selected={style.fontColor} onChange={onChange} />
     </>
   );

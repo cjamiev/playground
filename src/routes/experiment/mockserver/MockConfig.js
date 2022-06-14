@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import DynamicForm, { hasError, updateData } from 'components/form/DynamicForm';
+import DynamicForm, { hasError, updateData } from 'components/atoms/Form/DynamicForm';
 import { createAlert } from 'components/atoms/Alert/alertActions';
 import { loadMockServerConfig, updateMockServerConfig, loadMockRequests } from './mockserverActions';
 import Page from 'components/layout';

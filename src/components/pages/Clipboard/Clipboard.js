@@ -6,7 +6,7 @@ import { copyToClipboard } from 'helper/copy';
 import Page from 'components/layout';
 import List from 'components/molecules/List';
 import Tabs from 'components/atoms/Tabs';
-import Text from 'components/form/Text';
+import Text from 'components/atoms/Form/Text';
 import ComponentWrapper from 'components/ComponentWrapper';
 import ClipboardForm from './ClipboardForm';
 import { SCClipboardContainer } from './styles';

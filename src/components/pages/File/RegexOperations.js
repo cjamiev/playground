@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { openGlobalModal } from 'components/molecules/Global/globalActions';
 import Button, { InfoButton } from 'components/atoms/Button';
-import Text from 'components/form/Text';
-import Checkbox from 'components/form/Checkbox';
-import NumberRange from 'components/form/NumberRange';
+import Text from 'components/atoms/Form/Text';
+import Checkbox from 'components/atoms/Form/Checkbox';
+import NumberRange from 'components/atoms/Form/NumberRange';
 import { MODIFIER_TYPES, regexInfo, formRegex, parsedContent } from './helper';
 import { copyToClipboard } from 'helper/copy';
 import { SCFlexWrapper, SCTitleWrapper, SCFileBtnWrapper } from './styles';
-import { InfoSVG } from 'components/icons/InfoSVG';
+import { InfoSVG } from 'components/atoms/Icons/InfoSVG';
 
 const ZERO = 0;
 

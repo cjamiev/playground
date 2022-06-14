@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Radio from 'components/form/Radio';
+import Radio from 'components/atoms/Form/Radio';
 import StringOperations from './StringOperations';
 import JsonOperations from './JsonOperations';
 import RegexOperations from './RegexOperations';
@@ -23,21 +23,9 @@ const FileOperations = ({ content, onChange }) => {
           setOps(values);
         }}
       />
-      {selectedOp === ZERO && (
-        <StringOperations content={content}
-          onChange={onChange}
-        />
-      )}
-      {selectedOp === ONE && (
-        <JsonOperations content={content}
-          onChange={onChange}
-        />
-      )}
-      {selectedOp === TWO && (
-        <RegexOperations content={content}
-          onChange={onChange}
-        />
-      )}
+      {selectedOp === ZERO && <StringOperations content={content} onChange={onChange} />}
+      {selectedOp === ONE && <JsonOperations content={content} onChange={onChange} />}
+      {selectedOp === TWO && <RegexOperations content={content} onChange={onChange} />}
     </div>
   );
 };

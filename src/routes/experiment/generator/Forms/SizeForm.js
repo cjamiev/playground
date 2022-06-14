@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'components/atoms/Button';
-import Range from 'components/form/Range';
+import Range from 'components/atoms/Form/Range';
 import { WIDTH_MAX, HEIGHT_MAX } from 'constants/css';
 
 const PIXEL_MIN = 50;

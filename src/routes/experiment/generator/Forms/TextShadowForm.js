@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from 'components/atoms/Button';
-import Dropdown from 'components/form/Dropdown';
-import Color from 'components/form/Color';
-import Range from 'components/form/Range';
+import Dropdown from 'components/atoms/Form/Dropdown';
+import Color from 'components/atoms/Form/Color';
+import Range from 'components/atoms/Form/Range';
 
 const PIXEL_MIN = 0;
 const PIXEL_MAX = 30;

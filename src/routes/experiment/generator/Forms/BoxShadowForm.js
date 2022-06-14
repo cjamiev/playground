@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from 'components/atoms/Button';
-import Radio from 'components/form/Radio';
-import Range from 'components/form/Range';
-import Color from 'components/form/Color';
+import Radio from 'components/atoms/Form/Radio';
+import Range from 'components/atoms/Form/Range';
+import Color from 'components/atoms/Form/Color';
 
 const PIXEL_MIN = 0;
 const PIXEL_MAX = 50;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import DynamicForm, { hasError, updateData } from 'components/form/DynamicForm';
+import DynamicForm, { hasError, updateData } from 'components/atoms/Form/DynamicForm';
 import { createMockEndpoint } from './mockserverActions';
 import Page from 'components/layout';
 import Button from 'components/atoms/Button';

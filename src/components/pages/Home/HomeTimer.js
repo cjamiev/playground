@@ -5,9 +5,9 @@ import Card from 'components/atoms/Card';
 import useTimer from 'hooks/useTimer';
 import { formattedTimerClock } from 'clock';
 import { decrementElementIndex, incrementElementIndex, swapArrayElementPositions } from 'arrayHelper';
-import { TrashSVG } from 'components/icons';
-import { PenSVG } from 'components/icons/PenSVG';
-import TimerForm from 'components/form/TimerForm';
+import { TrashSVG } from 'components/atoms/Icons';
+import { PenSVG } from 'components/atoms/Icons/PenSVG';
+import TimerForm from 'components/atoms/Form/TimerForm';
 import { noop } from 'helper/noop';
 import { SCTimerTab, SCTimers, SCHomeCardWrapper } from './styles';
 

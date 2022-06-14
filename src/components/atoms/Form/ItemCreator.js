@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Text from 'components/form/Text';
-import { PlusSVG } from 'components/icons/PlusSVG';
-import { MinusSVG } from 'components/icons/MinusSVG';
+import Text from 'components/atoms/Form/Text';
+import { PlusSVG } from 'components/atoms/Icons/PlusSVG';
+import { MinusSVG } from 'components/atoms/Icons/MinusSVG';
 import { SCFlexWrapper } from './styles';
 
 const ItemCreator = ({ data, placeholder, onChange }) => {

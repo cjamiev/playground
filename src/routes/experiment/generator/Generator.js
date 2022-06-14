@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Color from 'components/form/Color';
+import Color from 'components/atoms/Form/Color';
 import Switch from 'components/molecules/Switch';
-import { TripleBarSVG } from 'components/icons/TripleBarSVG';
+import { TripleBarSVG } from 'components/atoms/Icons/TripleBarSVG';
 import GeneratorForm from './GeneratorForm';
 import GeneratorSidePanel from './GeneratorSidePanel';
 import { loadGeneratorRecords, updatedGeneratorRecords } from './generatorActions';

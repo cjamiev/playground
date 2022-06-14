@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Button from 'components/atoms/Button';
-import Text from 'components/form/Text';
-import { TrashSVG } from 'components/icons';
+import Text from 'components/atoms/Form/Text';
+import { TrashSVG } from 'components/atoms/Icons';
 import { updateSettings } from './settingsActions';
 import {
   SCTable,

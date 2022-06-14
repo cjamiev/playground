@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { openGlobalModal } from 'components/molecules/Global/globalActions';
 import { decrementElementIndex, incrementElementIndex } from 'arrayHelper';
 import { getEllipsisForLongText } from 'stringHelper';
-import { ArrowSVG } from 'components/icons/ArrowSVG';
-import { TrashSVG } from 'components/icons';
-import { PenSVG } from 'components/icons/PenSVG';
+import { ArrowSVG } from 'components/atoms/Icons/ArrowSVG';
+import { TrashSVG } from 'components/atoms/Icons';
+import { PenSVG } from 'components/atoms/Icons/PenSVG';
 import Button from 'components/atoms/Button';
-import Text from 'components/form/Text';
-import ItemCreator from 'components/form/ItemCreator';
+import Text from 'components/atoms/Form/Text';
+import ItemCreator from 'components/atoms/Form/ItemCreator';
 import { noop } from 'helper/noop';
 import { SCTodoTab, SCCreateFormFieldSet, SCTodoWrapper, SCTodoTitleWrapper, SCTodoList, SCHomeFooter } from './styles';
 

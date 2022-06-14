@@ -4,7 +4,7 @@ import Button from 'components/atoms/Button';
 import { dismissAlert } from 'components/atoms/Alert/alertActions';
 import Page from 'components/layout';
 import Tabs from 'components/atoms/Tabs';
-import TextArea from 'components/form/TextArea';
+import TextArea from 'components/atoms/Form/TextArea';
 import Animation from './Animation';
 import TestNew from './TestNew';
 import DataGenerator from './DataGenerator';

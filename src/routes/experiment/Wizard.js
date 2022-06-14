@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Button from 'components/atoms/Button';
-import DynamicForm, { hasError, updateData } from 'components/form/DynamicForm';
+import DynamicForm, { hasError, updateData } from 'components/atoms/Form/DynamicForm';
 import DynamicWizard from 'components/molecules/Wizard';
 import TableRenderer from './TableRenderer';
 import { testTitles, testData } from './data';

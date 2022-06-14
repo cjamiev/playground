@@ -12,7 +12,7 @@ import Page from 'components/layout';
 import { openGlobalModal } from 'components/molecules/Global/globalActions';
 import { copyToClipboard } from 'helper/copy';
 import useFilter from 'hooks/useFilter';
-import Text from 'components/form/Text';
+import Text from 'components/atoms/Form/Text';
 import Table from 'components/atoms/Table';
 import Button from 'components/atoms/Button';
 

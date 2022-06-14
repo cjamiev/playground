@@ -1,21 +1,21 @@
 import React from 'react';
-import Range from 'components/form/Range';
-import Dropdown from 'components/form/Dropdown';
+import Range from 'components/atoms/Form/Range';
+import Dropdown from 'components/atoms/Form/Dropdown';
 
 const PERCENT_MIN = 0;
 const PERCENT_MAX = 100;
 
 const BackdropFilterForm = ({ style, onChange }) => {
   const removeList = [
-    { label: 'Blur', value: 'backdropBlur'},
-    { label: 'Brightness', value: 'backdropBrightness'},
-    { label: 'Contrast', value: 'backdropContrast'},
-    { label: 'Grayscale', value: 'backdropGrayscale'},
-    { label: 'Hue Rotate', value: 'backdropHueRotate'},
-    { label: 'Invert', value: 'backdropInvert'},
-    { label: 'Opacity', value: 'backdropOpacity'},
-    { label: 'Saturate', value: 'backdropSaturate'},
-    { label: 'Sepia', value: 'backdropSepia'}
+    { label: 'Blur', value: 'backdropBlur' },
+    { label: 'Brightness', value: 'backdropBrightness' },
+    { label: 'Contrast', value: 'backdropContrast' },
+    { label: 'Grayscale', value: 'backdropGrayscale' },
+    { label: 'Hue Rotate', value: 'backdropHueRotate' },
+    { label: 'Invert', value: 'backdropInvert' },
+    { label: 'Opacity', value: 'backdropOpacity' },
+    { label: 'Saturate', value: 'backdropSaturate' },
+    { label: 'Sepia', value: 'backdropSepia' }
   ];
 
   return (
@@ -24,10 +24,11 @@ const BackdropFilterForm = ({ style, onChange }) => {
         label="Remove Attribute"
         values={removeList}
         onChange={({ values }) => {
-          const removeId = values.find(item => item.selected).value;
+          const removeId = values.find((item) => item.selected).value;
 
-          onChange({ id: removeId, selected: ''});
-        }} />
+          onChange({ id: removeId, selected: '' });
+        }}
+      />
       <div className="flex--horizontal">
         <Range
           id="backdropBlur"

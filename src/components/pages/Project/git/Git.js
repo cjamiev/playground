@@ -12,7 +12,7 @@ import {
   selectStash,
   resetBranch
 } from './gitActions';
-import Text from 'components/form/Text';
+import Text from 'components/atoms/Form/Text';
 import Button from 'components/atoms/Button';
 import { SCGitPageWrapper, SCNameTxt, SCBranchesWrapper, SCBranchBtnWrapper, SCGitBtnWrapper } from './styles';
 

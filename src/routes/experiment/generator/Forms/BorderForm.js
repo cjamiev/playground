@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Button from 'components/atoms/Button';
-import Dropdown from 'components/form/Dropdown';
-import Radio from 'components/form/Radio';
-import Color from 'components/form/Color';
-import Range from 'components/form/Range';
+import Dropdown from 'components/atoms/Form/Dropdown';
+import Radio from 'components/atoms/Form/Radio';
+import Color from 'components/atoms/Form/Color';
+import Range from 'components/atoms/Form/Range';
 import { THICKNESS_MAX, BORDER_TYPES } from 'constants/css';
 
 const PIXEL_MIN = 0;

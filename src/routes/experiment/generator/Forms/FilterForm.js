@@ -1,21 +1,21 @@
 import React from 'react';
-import Range from 'components/form/Range';
-import Dropdown from 'components/form/Dropdown';
+import Range from 'components/atoms/Form/Range';
+import Dropdown from 'components/atoms/Form/Dropdown';
 
 const PERCENT_MIN = 0;
 const PERCENT_MAX = 100;
 
 const FilterForm = ({ style, onChange }) => {
   const removeList = [
-    { label: 'Blur', value: 'blur'},
-    { label: 'Brightness', value: 'brightness'},
-    { label: 'Contrast', value: 'contrast'},
-    { label: 'Grayscale', value: 'grayscale'},
-    { label: 'Hue Rotate', value: 'hueRotate'},
-    { label: 'Invert', value: 'invert'},
-    { label: 'Opacity', value: 'filterOpacity'},
-    { label: 'Saturate', value: 'saturate'},
-    { label: 'Sepia', value: 'sepia'}
+    { label: 'Blur', value: 'blur' },
+    { label: 'Brightness', value: 'brightness' },
+    { label: 'Contrast', value: 'contrast' },
+    { label: 'Grayscale', value: 'grayscale' },
+    { label: 'Hue Rotate', value: 'hueRotate' },
+    { label: 'Invert', value: 'invert' },
+    { label: 'Opacity', value: 'filterOpacity' },
+    { label: 'Saturate', value: 'saturate' },
+    { label: 'Sepia', value: 'sepia' }
   ];
 
   return (
@@ -24,19 +24,13 @@ const FilterForm = ({ style, onChange }) => {
         label="Remove Attribute"
         values={removeList}
         onChange={({ values }) => {
-          const removeId = values.find(item => item.selected).value;
+          const removeId = values.find((item) => item.selected).value;
 
-          onChange({ id: removeId, selected: ''});
-        }} />
+          onChange({ id: removeId, selected: '' });
+        }}
+      />
       <div className="flex--horizontal">
-        <Range
-          id="blur"
-          label="Blur"
-          min={PERCENT_MIN}
-          max={PERCENT_MAX}
-          selected={style.blur}
-          onChange={onChange}
-        />
+        <Range id="blur" label="Blur" min={PERCENT_MIN} max={PERCENT_MAX} selected={style.blur} onChange={onChange} />
         <Range
           id="brightness"
           label="Brightness"

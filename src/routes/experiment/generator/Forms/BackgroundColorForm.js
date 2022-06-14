@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'components/atoms/Button';
-import Color from 'components/form/Color';
-import Range from 'components/form/Range';
+import Color from 'components/atoms/Form/Color';
+import Range from 'components/atoms/Form/Range';
 import { OPACITY_MAX } from 'constants/css';
 
 const BackgroundColorForm = ({ style, onChange }) => {

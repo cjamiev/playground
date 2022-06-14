@@ -7,13 +7,13 @@ import RegexOperations from './RegexOperations';
 import StringOperations from './StringOperations';
 import JsonOperations from './JsonOperations';
 import Page from 'components/layout';
-import Text from 'components/form/Text';
-import TextArea from 'components/form/TextArea';
+import Text from 'components/atoms/Form/Text';
+import TextArea from 'components/atoms/Form/TextArea';
 import Button from 'components/atoms/Button';
 import { copyToClipboard } from 'helper/copy';
 import { SCFileBtnWrapper, SCFileNameWrapper, SCFileBtn } from './styles';
-import { SaveSVG } from 'components/icons/SaveSVG';
-import { CopySVG } from 'components/icons/CopySVG';
+import { SaveSVG } from 'components/atoms/Icons/SaveSVG';
+import { CopySVG } from 'components/atoms/Icons/CopySVG';
 
 const File = () => {
   const [name, setName] = useState('');

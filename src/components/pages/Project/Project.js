@@ -5,7 +5,7 @@ import { loadProject, clearMessage } from './projectActions';
 import { getPackageJson } from './package/npmPackageActions';
 import { getRemoteUrl, viewBranches, viewStash } from './git/gitActions';
 import { loadSnippetDirectory } from './snippet/snippetActions';
-import { CopySVG } from 'components/icons/CopySVG';
+import { CopySVG } from 'components/atoms/Icons/CopySVG';
 import Page from 'components/layout';
 import Tabs from 'components/atoms/Tabs';
 import ComponentWrapper from 'components/ComponentWrapper';

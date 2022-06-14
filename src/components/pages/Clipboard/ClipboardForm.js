@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Text from 'components/form/Text';
-import Dropdown from 'components/form/Dropdown';
+import Text from 'components/atoms/Form/Text';
+import Dropdown from 'components/atoms/Form/Dropdown';
 import Button from 'components/atoms/Button';
-import TimerForm from 'components/form/TimerForm';
-import ValueForm from 'components/form/ValueForm';
-import CommandForm from 'components/form/CommandForm';
+import TimerForm from 'components/atoms/Form/TimerForm';
+import ValueForm from 'components/atoms/Form/ValueForm';
+import CommandForm from 'components/atoms/Form/CommandForm';
 import List, { DisplayContent } from 'components/molecules/List';
 import Table, { SCTableCell } from 'components/atoms/Table';
 import { updateClipboard } from 'components/pages/Clipboard/clipboardActions';
 import { TYPE } from 'constants/type';
-import { ArrowSVG } from 'components/icons/ArrowSVG';
-import { TrashSVG } from 'components/icons';
+import { ArrowSVG } from 'components/atoms/Icons/ArrowSVG';
+import { TrashSVG } from 'components/atoms/Icons';
 import { decrementElementIndex, incrementElementIndex, swapArrayElementPositions } from 'arrayHelper';
 import { SCFlexWrapper } from './styles';
 

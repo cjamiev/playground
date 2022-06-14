@@ -1,6 +1,6 @@
 import { toDashCaseFromCamelCase } from 'stringHelper';
 import { filterOutEmptyKeys } from 'objectHelper';
-import { hexToRGB } from 'components/form/Color';
+import { hexToRGB } from 'components/atoms/Form/Color';
 import { OPACITY_MAX } from 'constants/css';
 
 const ZERO = 0;
@@ -37,7 +37,7 @@ const getBoxShadowProperty = ({
   if (!horizontalBoxShadow || !verticalBoxShadow || !blurRadiusBoxShadow || !spreadBoxShadow || !colorBoxShadow) {
     return;
   }
-  const inset = insetBoxShadow ? 'inset ': '';
+  const inset = insetBoxShadow ? 'inset ' : '';
 
   return `${inset}${horizontalBoxShadow}px ${verticalBoxShadow}px ${blurRadiusBoxShadow}px ${spreadBoxShadow}px ${colorBoxShadow}`;
 };
@@ -50,17 +50,7 @@ const getTextShadowProperty = ({ horizontalTextShadow, verticalTextShadow, blurR
   return `${horizontalTextShadow}px ${verticalTextShadow}px ${blurRadiusTextShadow}px ${colorTextShadow}`;
 };
 
-const getFilterProperty = ({
-  blur,
-  brightness,
-  contrast,
-  grayscale,
-  hueRotate,
-  invert,
-  opacity,
-  saturate,
-  sepia
-}) => {
+const getFilterProperty = ({ blur, brightness, contrast, grayscale, hueRotate, invert, opacity, saturate, sepia }) => {
   const filterBlur = blur ? `blur(${blur}px) ` : '';
   const filterBrightness = brightness ? `brightness(${brightness}%) ` : '';
   const filterContrast = contrast ? `contrast(${contrast}%)  ` : '';
@@ -74,24 +64,14 @@ const getFilterProperty = ({
   return `${filterBlur}${filterBrightness}${filterContrast}${filterGrayscale}${filterHueRotate}${filterInvert}${filterOpacity}${filterSaturate}${filterSepia}`;
 };
 
-const getTransformProperty = ({
-  rotateX,
-  rotateY,
-  rotateZ,
-  translateX,
-  translateY,
-  scaleX,
-  scaleY,
-  skewX,
-  skewY
-}) => {
+const getTransformProperty = ({ rotateX, rotateY, rotateZ, translateX, translateY, scaleX, scaleY, skewX, skewY }) => {
   const transformRotateX = rotateX ? `rotateX(${rotateX}deg) ` : '';
   const transformRotateY = rotateY ? `rotateY(${rotateY}deg) ` : '';
   const transformRotateZ = rotateZ ? `rotateZ(${rotateZ}deg) ` : '';
   const transformTranslateX = translateX ? `translateX(${translateX}px) ` : '';
   const transformTranslateY = translateY ? `translateY(${translateY}px) ` : '';
-  const transformScaleX = scaleX ? `scaleX(${scaleX/HUNDRED}) ` : '';
-  const transformScaleY = scaleY ? `scaleY(${scaleY/HUNDRED}) ` : '';
+  const transformScaleX = scaleX ? `scaleX(${scaleX / HUNDRED}) ` : '';
+  const transformScaleY = scaleY ? `scaleY(${scaleY / HUNDRED}) ` : '';
   const transformSkewX = skewX ? `skewX(${skewX}deg) ` : '';
   const transformSkewY = skewY ? `skewY(${skewY}deg) ` : '';
 
@@ -228,15 +208,17 @@ const getInlineStyle = ({
 
   const style = {
     border: getBorderProperty({ borderThickness, borderStyle, borderColor }),
-    borderRadius: borderRadius ? `${borderRadius}px` : getPixelProperties({
-      first: topLeftRadius,
-      second: topRightRadius,
-      third: bottomRightRadius,
-      fourth: bottomLeftRadius
-    }),
+    borderRadius: borderRadius
+      ? `${borderRadius}px`
+      : getPixelProperties({
+        first: topLeftRadius,
+        second: topRightRadius,
+        third: bottomRightRadius,
+        fourth: bottomLeftRadius
+      }),
     outline: getOutlineProperty({ outlineThickness, outlineStyle, outlineColor }),
     outlineOffset: outlineOffset && `${outlineOffset}px`,
-    boxShadow: firstBoxShadow && secondBoxShadow ? `${firstBoxShadow}, ${secondBoxShadow}`: firstBoxShadow,
+    boxShadow: firstBoxShadow && secondBoxShadow ? `${firstBoxShadow}, ${secondBoxShadow}` : firstBoxShadow,
     backgroundColor: getColorProperty(rgbColor, normalizedOpacity),
     color: fontColor,
     fontSize: fontSize && `${fontSize}px`,
@@ -281,8 +263,12 @@ const getInlineStyle = ({
       skewY
     }),
     transition,
-    margin: margin ? `${margin}px`: getPixelProperties({ first: marginTop, second: marginRight, third: marginBottom, fourth: marginLeft }),
-    padding: padding ? `${padding}px`:getPixelProperties({ first: paddingTop, second: paddingRight, third: paddingBottom, fourth: paddingLeft }),
+    margin: margin
+      ? `${margin}px`
+      : getPixelProperties({ first: marginTop, second: marginRight, third: marginBottom, fourth: marginLeft }),
+    padding: padding
+      ? `${padding}px`
+      : getPixelProperties({ first: paddingTop, second: paddingRight, third: paddingBottom, fourth: paddingLeft }),
     width: getLengthProperty(width),
     height: getLengthProperty(height)
   };

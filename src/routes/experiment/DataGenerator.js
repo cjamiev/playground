@@ -1,12 +1,12 @@
 /* eslint-disable no-magic-numbers */
 import React, { useState } from 'react';
-import TextArea from 'components/form/TextArea';
+import TextArea from 'components/atoms/Form/TextArea';
 import Pagination from 'components/atoms/Pagination';
 import TableRenderer from './TableRenderer';
 import { copyToClipboard } from 'helper/copy';
 import { dataGenerator } from 'randomHelper';
 import { parseObject } from 'type-check';
-import { CopySVG } from 'components/icons/CopySVG';
+import { CopySVG } from 'components/atoms/Icons/CopySVG';
 
 const ONE = 1;
 const data = {

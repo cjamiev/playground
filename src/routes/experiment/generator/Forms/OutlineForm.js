@@ -1,7 +1,7 @@
 import React from 'react';
-import Dropdown from 'components/form/Dropdown';
-import Color from 'components/form/Color';
-import Range from 'components/form/Range';
+import Dropdown from 'components/atoms/Form/Dropdown';
+import Color from 'components/atoms/Form/Color';
+import Range from 'components/atoms/Form/Range';
 import { BORDER_TYPES, THICKNESS_MAX } from 'constants/css';
 
 const PIXEL_MIN = 0;
@@ -12,8 +12,8 @@ const OutlineForm = ({ style, onChange }) => {
     (item.label === style.outlineStyle ? { ...item, selected: true } : item)
   );
   const removeList = [
-    { label: 'Outline', value: 'outlineStyle'},
-    { label: 'Offset', value: 'outlineOffset'}
+    { label: 'Outline', value: 'outlineStyle' },
+    { label: 'Offset', value: 'outlineOffset' }
   ];
 
   return (
@@ -22,10 +22,11 @@ const OutlineForm = ({ style, onChange }) => {
         label="Remove Attribute"
         values={removeList}
         onChange={({ values }) => {
-          const removeId = values.find(item => item.selected).value;
+          const removeId = values.find((item) => item.selected).value;
 
-          onChange({ id: removeId, selected: ''});
-        }} />
+          onChange({ id: removeId, selected: '' });
+        }}
+      />
       <Dropdown id="outlineStyle" label="Outline Type" values={outlineValues} onChange={onChange} />
       <Range
         id="outlineThickness"

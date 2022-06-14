@@ -1,8 +1,8 @@
 import React from 'react';
-import Dropdown from 'components/form/Dropdown';
+import Dropdown from 'components/atoms/Form/Dropdown';
 import List from 'components/molecules/List';
-import Radio from 'components/form/Radio';
-import Checkbox from 'components/form/Checkbox';
+import Radio from 'components/atoms/Form/Radio';
+import Checkbox from 'components/atoms/Form/Checkbox';
 import Button, { ToggleButton } from 'components/atoms/Button';
 import Accordion, { AccordionGroup } from 'components/atoms/Accordion';
 import { noop } from 'helper/noop';

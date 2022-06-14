@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Text from 'components/form/Text';
+import Text from 'components/atoms/Form/Text';
 import Button from 'components/atoms/Button';
-import Dropdown from 'components/form/Dropdown';
-import Color from 'components/form/Color';
-import Range from 'components/form/Range';
+import Dropdown from 'components/atoms/Form/Dropdown';
+import Color from 'components/atoms/Form/Color';
+import Range from 'components/atoms/Form/Range';
 import { TRANSITION_TIMING_FUNCTION } from 'constants/css';
 
 const ZERO = 0;

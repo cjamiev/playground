@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux';
 import { updateProject } from '../projectActions';
 import { updateFilesByRegex } from './regexActions';
 import Button from 'components/atoms/Button';
-import Text from 'components/form/Text';
-import Checkbox from 'components/form/Checkbox';
-import NumberRange from 'components/form/NumberRange';
-import Dropdown from 'components/form/Dropdown';
+import Text from 'components/atoms/Form/Text';
+import Checkbox from 'components/atoms/Form/Checkbox';
+import NumberRange from 'components/atoms/Form/NumberRange';
+import Dropdown from 'components/atoms/Form/Dropdown';
 import { SCBtnGroup } from './styles';
 
 const ZERO = 0;

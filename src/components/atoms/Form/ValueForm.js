@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'components/atoms/Button';
-import Text from 'components/form/Text';
-import TextArea from 'components/form/TextArea';
+import Text from 'components/atoms/Form/Text';
+import TextArea from 'components/atoms/Form/TextArea';
 import { TYPE } from 'constants/type';
 
 const ValueForm = ({ type, onChange }) => {

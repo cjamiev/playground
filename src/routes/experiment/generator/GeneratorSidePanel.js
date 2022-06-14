@@ -1,10 +1,10 @@
 import React from 'react';
-import Dropdown from 'components/form/Dropdown';
-import Text from 'components/form/Text';
+import Dropdown from 'components/atoms/Form/Dropdown';
+import Text from 'components/atoms/Form/Text';
 import { copyToClipboard } from 'helper/copy';
-import { SaveSVG } from 'components/icons/SaveSVG';
-import { CopySVG } from 'components/icons/CopySVG';
-import { TrashSVG } from 'components/icons';
+import { SaveSVG } from 'components/atoms/Icons/SaveSVG';
+import { CopySVG } from 'components/atoms/Icons/CopySVG';
+import { TrashSVG } from 'components/atoms/Icons';
 import { SCDataBtnWrapper } from './styles';
 
 const GeneratorSidePanel = ({
