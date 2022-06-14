@@ -9,7 +9,7 @@ import { CopySVG } from 'components/atoms/Icons/CopySVG';
 import Page from 'components/layout';
 import Tabs from 'components/atoms/Tabs';
 import ComponentWrapper from 'components/atoms/ComponentWrapper';
-import { copyToClipboard } from 'helper/copy';
+import { copyToClipboard } from 'utils/copy';
 import Git from './git';
 import NpmPackage from './package';
 import Regex from './regex';

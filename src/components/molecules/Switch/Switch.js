@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'components/atoms/Button';
-import { noop } from 'helper/noop';
+import { noop } from 'utils/noop';
 import { SCSwitchBtnWrapper, SCSwitchBtn } from './styles';
 
 const ZERO = 0;

@@ -3,7 +3,7 @@ import { act } from 'react-dom/test-utils';
 import { render, screen } from '@testing-library/react';
 import useAnimation from './useAnimation';
 import { TIME } from 'constants/time';
-import { noop } from 'helper/noop';
+import { noop } from 'utils/noop';
 
 const ZERO = 0;
 const HALF_SECOND = 500;
@@ -13,9 +13,7 @@ window.cancelAnimationFrame = noop;
 const TestComponent = () => {
   const elapsed = useAnimation('linear', TIME.A_SECOND, ZERO);
 
-  return (
-    <div data-testid="elapsed">{elapsed}</div>
-  );
+  return <div data-testid="elapsed">{elapsed}</div>;
 };
 
 describe('useAnimation', () => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadSnippetDirectory, loadSnippet, createSnippet, deleteSnippet } from './snippetActions';
-import { copyToClipboard } from 'helper/copy';
+import { copyToClipboard } from 'utils/copy';
 import Button from 'components/atoms/Button';
 import Text from 'components/atoms/Form/Text';
 import TextArea from 'components/atoms/Form/TextArea';

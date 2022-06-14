@@ -1,9 +1,7 @@
-import { truthPermutatorTestData } from './testData/permutator-data';
+import { truthPermutatorTestData } from 'testData/permutator-data';
 import { testFunctionHelper } from 'testHelper';
-import {
-  truthPermutator
-} from './permutator';
+import { truthPermutator } from './permutator';
 
 describe(':truthPermutator', () => {
-  truthPermutatorTestData.forEach(data => testFunctionHelper(data, truthPermutator));
+  truthPermutatorTestData.forEach((data) => testFunctionHelper(data, truthPermutator));
 });

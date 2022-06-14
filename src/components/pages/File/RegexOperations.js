@@ -6,7 +6,7 @@ import Text from 'components/atoms/Form/Text';
 import Checkbox from 'components/atoms/Form/Checkbox';
 import NumberRange from 'components/atoms/Form/NumberRange';
 import { MODIFIER_TYPES, regexInfo, formRegex, parsedContent } from './helper';
-import { copyToClipboard } from 'helper/copy';
+import { copyToClipboard } from 'utils/copy';
 import { SCFlexWrapper, SCTitleWrapper, SCFileBtnWrapper } from './styles';
 import { InfoSVG } from 'components/atoms/Icons/InfoSVG';
 

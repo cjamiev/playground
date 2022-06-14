@@ -3,21 +3,14 @@
     "src/**/*.js",
     "!src/index.js",
     "!src/store/index.js",
-    "!src/routes/experiment/**",
     "server/**/*.js",
     "!server/index.js",
-    "!server/static/**"
+    "!server/static/**",
+    "!src/testHelper/**"
   ],
   "moduleDirectories": [
     "src",
-    "testHelper",
     "node_modules"
-  ],
-  "moduleNameMapper": {
-    "testHelper(.*)$": "<rootDir>/testHelper/$1"
-  },
-  "testPathIgnorePatterns": [
-    "testHelper/*"
   ],
   "testRegex": "(server|src|utils)/.*\\.test.(js)$",
   "testEnvironment": "node",

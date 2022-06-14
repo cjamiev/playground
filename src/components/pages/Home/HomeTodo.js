@@ -9,7 +9,7 @@ import { PenSVG } from 'components/atoms/Icons/PenSVG';
 import Button from 'components/atoms/Button';
 import Text from 'components/atoms/Form/Text';
 import ItemCreator from 'components/atoms/Form/ItemCreator';
-import { noop } from 'helper/noop';
+import { noop } from 'utils/noop';
 import { SCTodoTab, SCCreateFormFieldSet, SCTodoWrapper, SCTodoTitleWrapper, SCTodoList, SCHomeFooter } from './styles';
 
 const ZERO = 0;

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import TextArea from 'components/atoms/Form/TextArea';
 import Button from 'components/atoms/Button';
 import { CloseSVG } from 'components/atoms/Icons/CloseSVG';
-import { noop } from 'helper/noop';
+import { noop } from 'utils/noop';
 import { SCModal, SCModalHeader, SCModalTitle, SCModalBody, SCModalFooter } from './styles';
 
 const Modal = (props) => {

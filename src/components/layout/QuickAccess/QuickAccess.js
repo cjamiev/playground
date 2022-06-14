@@ -8,7 +8,7 @@ import {
   SCQuickAccessList,
   SCQuickAccessListBtn
 } from './styles';
-import { copyToClipboard } from 'helper/copy';
+import { copyToClipboard } from 'utils/copy';
 import useOnClickOutside from 'hooks/useOnClickOutside';
 import { StarSVG } from 'components/atoms/Icons/StarSVG';
 import { CopySVG } from 'components/atoms/Icons/CopySVG';

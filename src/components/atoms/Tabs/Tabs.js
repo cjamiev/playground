@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { noop } from 'helper/noop';
+import { noop } from 'utils/noop';
 import { SCTabButtonGroup, SCTabButton } from './styles';
 
 const ZERO = 0;

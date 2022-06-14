@@ -1,15 +1,6 @@
-import {
-  getObjectPathTestData,
-  resolvePathTestData
-} from './testData/objectHelper-data';
+import { getObjectPathTestData, resolvePathTestData } from 'testData/objectHelper-data';
 import { testFunctionHelper } from 'testHelper';
-import {
-  cloneDeep,
-  getObjectPath,
-  map,
-  removeProperty,
-  resolvePath
-} from './objectHelper';
+import { cloneDeep, getObjectPath, map, removeProperty, resolvePath } from './objectHelper';
 
 const targetObject = {
   one: 1,
@@ -50,7 +41,7 @@ it(':map', () => {
     length: 4
   };
 
-  const recievedResult = map(item => item + 1)(obj);
+  const recievedResult = map((item) => item + 1)(obj);
 
   expect(recievedResult).toEqual(expectedResult);
 });
@@ -64,9 +55,9 @@ it(':removeProperty', () => {
 });
 
 describe(':getObjectPath', () => {
-  getObjectPathTestData.forEach(data => testFunctionHelper(data, getObjectPath));
+  getObjectPathTestData.forEach((data) => testFunctionHelper(data, getObjectPath));
 });
 
 describe(':resolvePath', () => {
-  resolvePathTestData.forEach(data => testFunctionHelper(data, resolvePath));
+  resolvePathTestData.forEach((data) => testFunctionHelper(data, resolvePath));
 });

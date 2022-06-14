@@ -5,7 +5,7 @@ import {
   normalizeClockTestData,
   getFormattedClockTestData,
   getFormattedDateTestData
-} from './testData/clock-data';
+} from 'testData/clock-data';
 import { testFunctionHelper } from 'testHelper';
 import {
   incrementDate,
@@ -17,25 +17,25 @@ import {
 } from './clock';
 
 describe(':incrementDate', () => {
-  incrementDateTestData.forEach(data => testFunctionHelper(data, incrementDate));
+  incrementDateTestData.forEach((data) => testFunctionHelper(data, incrementDate));
 });
 
 describe(':clockBetweenDates', () => {
-  clockBetweenDatesTestData.forEach(data => testFunctionHelper(data, clockBetweenDates));
+  clockBetweenDatesTestData.forEach((data) => testFunctionHelper(data, clockBetweenDates));
 });
 
 describe(':formattedTimerClock', () => {
-  formattedTimerClockTestData.forEach(data => testFunctionHelper(data, formattedTimerClock));
+  formattedTimerClockTestData.forEach((data) => testFunctionHelper(data, formattedTimerClock));
 });
 
 describe(':normalizeClock', () => {
-  normalizeClockTestData.forEach(data => testFunctionHelper(data, normalizeClock));
+  normalizeClockTestData.forEach((data) => testFunctionHelper(data, normalizeClock));
 });
 
 describe(':getFormattedClock', () => {
-  getFormattedClockTestData.forEach(data => testFunctionHelper(data, getFormattedClock));
+  getFormattedClockTestData.forEach((data) => testFunctionHelper(data, getFormattedClock));
 });
 
 describe(':getFormattedDate', () => {
-  getFormattedDateTestData.forEach(data => testFunctionHelper(data, getFormattedDate));
+  getFormattedDateTestData.forEach((data) => testFunctionHelper(data, getFormattedDate));
 });

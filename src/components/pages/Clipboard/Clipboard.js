@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadClipboard } from './clipboardActions';
 import { openGlobalModal, clearCommand } from 'components/molecules/Global/globalActions';
-import { copyToClipboard } from 'helper/copy';
+import { copyToClipboard } from 'utils/copy';
 import Page from 'components/layout';
 import List from 'components/molecules/List';
 import Tabs from 'components/atoms/Tabs';

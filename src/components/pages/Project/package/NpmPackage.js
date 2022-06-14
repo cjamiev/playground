@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from 'components/atoms/Button';
 import { runNpmScript, getDependencyVersions, updatePackage } from './npmPackageActions';
-import { noop } from 'helper/noop';
+import { noop } from 'utils/noop';
 import { updateDependencyVersions } from './helper';
 import { SCPackageTitle, SCFlexWrapper, SCNpmBtnWrapper, SCNpmTables, SCTableHeaderCell, SCTableCell } from './styles';
 

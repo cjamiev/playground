@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import Button from 'components/atoms/Button';
-import { noop } from 'helper/noop';
+import { noop } from 'utils/noop';
 
 const WizardSection = ({ title, content, buttonList = [] }) => {
   const renderButtons = buttonList.map((item) => {

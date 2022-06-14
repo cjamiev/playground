@@ -7,7 +7,7 @@ import {
   incrementElementIndexTestData,
   swapArrayElementPositionsTestData,
   unqiueTestData
-} from './testData/arrayHelper-data';
+} from 'testData/arrayHelper-data';
 import { testFunctionHelper } from 'testHelper';
 import {
   decrementElementIndex,
@@ -21,33 +21,33 @@ import {
 } from './arrayHelper';
 
 describe(':swapArrayElementPositions', () => {
-  swapArrayElementPositionsTestData.forEach(data => testFunctionHelper(data, swapArrayElementPositions));
+  swapArrayElementPositionsTestData.forEach((data) => testFunctionHelper(data, swapArrayElementPositions));
 });
 
 describe(':decrementElementIndex', () => {
-  decrementElementIndexTestData.forEach(data => testFunctionHelper(data, decrementElementIndex));
+  decrementElementIndexTestData.forEach((data) => testFunctionHelper(data, decrementElementIndex));
 });
 
 describe(':incrementElementIndex', () => {
-  incrementElementIndexTestData.forEach(data => testFunctionHelper(data, incrementElementIndex));
+  incrementElementIndexTestData.forEach((data) => testFunctionHelper(data, incrementElementIndex));
 });
 
 describe(':difference', () => {
-  differenceTestData.forEach(data => testFunctionHelper(data, difference));
+  differenceTestData.forEach((data) => testFunctionHelper(data, difference));
 });
 
 describe(':drop', () => {
-  dropTestData.forEach(data => testFunctionHelper(data, drop));
+  dropTestData.forEach((data) => testFunctionHelper(data, drop));
 });
 
 describe(':flatten', () => {
-  flattenTestData.forEach(data => testFunctionHelper(data, flatten));
+  flattenTestData.forEach((data) => testFunctionHelper(data, flatten));
 });
 
 describe(':flattenDeep', () => {
-  flattenDeepTestData.forEach(data => testFunctionHelper(data, flattenDeep));
+  flattenDeepTestData.forEach((data) => testFunctionHelper(data, flattenDeep));
 });
 
 describe(':unique', () => {
-  unqiueTestData.forEach(data => testFunctionHelper(data, unique));
+  unqiueTestData.forEach((data) => testFunctionHelper(data, unique));
 });

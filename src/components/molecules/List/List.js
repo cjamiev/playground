@@ -3,7 +3,7 @@ import { formattedTimerClock } from 'utils/clock';
 import { useDispatch } from 'react-redux';
 import { executeCommand } from 'components/molecules/Global/globalActions';
 import useTimer from 'hooks/useTimer';
-import { copyToClipboard } from 'helper/copy';
+import { copyToClipboard } from 'utils/copy';
 import Button from 'components/atoms/Button';
 import { TYPE } from 'constants/type';
 

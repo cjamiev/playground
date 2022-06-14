@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DynamicForm, { hasError, updateData } from 'components/atoms/Form/DynamicForm';
 import Button from 'components/atoms/Button';
 import WizardSection from './WizardSection';
-import { noop } from 'helper/noop';
+import { noop } from 'utils/noop';
 
 const ZERO = 0;
 const ONE = 1;

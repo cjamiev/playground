@@ -5,7 +5,7 @@ import {
   getEllipsisForLongTextTestData,
   lowerCaseFirstLetterTestData,
   capitalizeFirstLetterTestData
-} from './testData/stringHelper-data';
+} from 'testData/stringHelper-data';
 import { testFunctionHelper } from 'testHelper';
 import {
   reverseString,
@@ -17,25 +17,25 @@ import {
 } from './stringHelper';
 
 describe(':reverseString', () => {
-  reverseStringTestData.forEach(data => testFunctionHelper(data, reverseString));
+  reverseStringTestData.forEach((data) => testFunctionHelper(data, reverseString));
 });
 
 describe(':toDashCaseFromCamelCase', () => {
-  toDashCaseFromCamelCaseTestData.forEach(data => testFunctionHelper(data, toDashCaseFromCamelCase));
+  toDashCaseFromCamelCaseTestData.forEach((data) => testFunctionHelper(data, toDashCaseFromCamelCase));
 });
 
 describe(':toCamelCaseFromDashCase', () => {
-  toCamelCaseFromDashCaseTestData.forEach(data => testFunctionHelper(data, toCamelCaseFromDashCase));
+  toCamelCaseFromDashCaseTestData.forEach((data) => testFunctionHelper(data, toCamelCaseFromDashCase));
 });
 
 describe(':getEllipsisForLongText', () => {
-  getEllipsisForLongTextTestData.forEach(data => testFunctionHelper(data, getEllipsisForLongText));
+  getEllipsisForLongTextTestData.forEach((data) => testFunctionHelper(data, getEllipsisForLongText));
 });
 
 describe(':lowerCaseFirstLetter', () => {
-  lowerCaseFirstLetterTestData.forEach(data => testFunctionHelper(data, lowerCaseFirstLetter));
+  lowerCaseFirstLetterTestData.forEach((data) => testFunctionHelper(data, lowerCaseFirstLetter));
 });
 
 describe(':capitalizeFirstLetter', () => {
-  capitalizeFirstLetterTestData.forEach(data => testFunctionHelper(data, capitalizeFirstLetter));
+  capitalizeFirstLetterTestData.forEach((data) => testFunctionHelper(data, capitalizeFirstLetter));
 });

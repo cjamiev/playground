@@ -10,7 +10,7 @@ import Page from 'components/layout';
 import Text from 'components/atoms/Form/Text';
 import TextArea from 'components/atoms/Form/TextArea';
 import Button from 'components/atoms/Button';
-import { copyToClipboard } from 'helper/copy';
+import { copyToClipboard } from 'utils/copy';
 import { SCFileBtnWrapper, SCFileNameWrapper, SCFileBtn } from './styles';
 import { SaveSVG } from 'components/atoms/Icons/SaveSVG';
 import { CopySVG } from 'components/atoms/Icons/CopySVG';

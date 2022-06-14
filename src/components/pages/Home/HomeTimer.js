@@ -8,7 +8,7 @@ import { decrementElementIndex, incrementElementIndex, swapArrayElementPositions
 import { TrashSVG } from 'components/atoms/Icons';
 import { PenSVG } from 'components/atoms/Icons/PenSVG';
 import TimerForm from 'components/atoms/Form/TimerForm';
-import { noop } from 'helper/noop';
+import { noop } from 'utils/noop';
 import { SCTimerTab, SCTimers, SCHomeCardWrapper } from './styles';
 
 const ZERO = 0;

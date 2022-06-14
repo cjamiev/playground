@@ -4,7 +4,7 @@ import {
   numericAscendingSortTestData,
   numericDescendingSortTestData,
   sortByDelimiterTestData
-} from './testData/sort-data';
+} from 'testData/sort-data';
 import { testFunctionHelper } from 'testHelper';
 import {
   alphaAscendingSort,
@@ -15,21 +15,21 @@ import {
 } from './sort';
 
 describe(':alphaAscendingSort', () => {
-  alphaAscendingSortTestData.forEach(data => testFunctionHelper(data, alphaAscendingSort));
+  alphaAscendingSortTestData.forEach((data) => testFunctionHelper(data, alphaAscendingSort));
 });
 
 describe(':alphaDescendingSort', () => {
-  alphaDescendingSortTestData.forEach(data => testFunctionHelper(data, alphaDescendingSort));
+  alphaDescendingSortTestData.forEach((data) => testFunctionHelper(data, alphaDescendingSort));
 });
 
 describe(':numericAscendingSort', () => {
-  numericAscendingSortTestData.forEach(data => testFunctionHelper(data, numericAscendingSort));
+  numericAscendingSortTestData.forEach((data) => testFunctionHelper(data, numericAscendingSort));
 });
 
 describe(':numericDescendingSort', () => {
-  numericDescendingSortTestData.forEach(data => testFunctionHelper(data, numericDescendingSort));
+  numericDescendingSortTestData.forEach((data) => testFunctionHelper(data, numericDescendingSort));
 });
 
 describe(':sortByDelimiter', () => {
-  sortByDelimiterTestData.forEach(data => testFunctionHelper(data, sortByDelimiter));
+  sortByDelimiterTestData.forEach((data) => testFunctionHelper(data, sortByDelimiter));
 });
