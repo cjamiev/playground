@@ -4,8 +4,13 @@ import { Provider } from 'react-redux';
 import { configureStore } from 'store';
 import Routes from 'routes/Routes';
 import Global from 'components/molecules/Global';
-import Navigation from './Navigation';
-import { SCMainLayout } from './styles';
+import Navigation from 'components/atoms/Navigation';
+import styled from 'styled-components';
+
+const SCMainLayout = styled.div`
+  display: flex;
+  width: 100%;
+`;
 
 const store = configureStore();
 

@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 import { Theme } from 'styles';
 
-export const SCMainLayout = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
 export const SCNavigation = styled.nav`
   display: flex;
   flex-shrink: 0;
