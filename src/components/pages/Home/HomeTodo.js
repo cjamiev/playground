@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { openGlobalModal } from 'components/molecules/Global/globalActions';
-import { decrementElementIndex, incrementElementIndex } from 'arrayHelper';
-import { getEllipsisForLongText } from 'stringHelper';
+import { decrementElementIndex, incrementElementIndex } from 'utils/arrayHelper';
+import { getEllipsisForLongText } from 'utils/stringHelper';
 import { ArrowSVG } from 'components/atoms/Icons/ArrowSVG';
 import { TrashSVG } from 'components/atoms/Icons';
 import { PenSVG } from 'components/atoms/Icons/PenSVG';

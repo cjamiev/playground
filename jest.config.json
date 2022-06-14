@@ -4,7 +4,6 @@
     "!src/index.js",
     "!src/store/index.js",
     "!src/routes/experiment/**",
-    "utils/*.js",
     "server/**/*.js",
     "!server/index.js",
     "!server/static/**"
@@ -12,7 +11,6 @@
   "moduleDirectories": [
     "src",
     "testHelper",
-    "utils",
     "node_modules"
   ],
   "moduleNameMapper": {

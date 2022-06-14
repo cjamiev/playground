@@ -8,7 +8,7 @@ import {
   executeCommand
 } from 'components/molecules/Global/globalActions';
 import { dismissAlert } from 'components/atoms/Alert/alertActions';
-import { getFormattedDate } from 'clock';
+import { getFormattedDate } from 'utils/clock';
 import {
   SCNavigation,
   SCWeek,

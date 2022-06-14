@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { clockBetweenDates, getFormattedClock } from 'clock';
+import { clockBetweenDates, getFormattedClock } from 'utils/clock';
 import { TIME } from 'constants/time';
 
 const ONE = 1;
@@ -23,7 +23,7 @@ const useDebug = (name, props, shouldPrintConsole = true) => {
   const debugInfo = {
     renderCount: countRef.current,
     changedProps: changedProps.current,
-    timeFromLastRender: `${(Date.now() - lastRenderTimestamp.current)/TIME.A_SECOND}s`,
+    timeFromLastRender: `${(Date.now() - lastRenderTimestamp.current) / TIME.A_SECOND}s`,
     lastRenderTimestamp: getFormattedClock(new Date(lastRenderTimestamp.current))
   };
 
@@ -32,7 +32,7 @@ const useDebug = (name, props, shouldPrintConsole = true) => {
   useEffect(() => {
     previousProps.current = props;
     lastRenderTimestamp.current = Date.now();
-    if(shouldPrintConsole) {
+    if (shouldPrintConsole) {
       console.log('[debug-info]', name, debugInfo);
     }
   });

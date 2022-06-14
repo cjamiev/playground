@@ -1,7 +1,7 @@
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { reduxTestWrapper, mockGet, mockPost, mockApi } from 'testHelper';
 import Home from './Home';
-import { incrementDate } from 'clock';
+import { incrementDate } from 'utils/clock';
 import { TIME } from 'constants/time';
 
 const pathname = '/home';

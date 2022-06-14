@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { formattedTimerClock } from 'clock';
+import { formattedTimerClock } from 'utils/clock';
 import { useDispatch } from 'react-redux';
 import { executeCommand } from 'components/molecules/Global/globalActions';
 import useTimer from 'hooks/useTimer';

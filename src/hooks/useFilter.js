@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { clockBetweenDates } from 'clock';
+import { clockBetweenDates } from 'utils/clock';
 
 const ZERO = 0;
 

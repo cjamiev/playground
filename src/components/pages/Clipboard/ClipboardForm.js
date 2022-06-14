@@ -12,7 +12,7 @@ import { updateClipboard } from 'components/pages/Clipboard/clipboardActions';
 import { TYPE } from 'constants/type';
 import { ArrowSVG } from 'components/atoms/Icons/ArrowSVG';
 import { TrashSVG } from 'components/atoms/Icons';
-import { decrementElementIndex, incrementElementIndex, swapArrayElementPositions } from 'arrayHelper';
+import { decrementElementIndex, incrementElementIndex, swapArrayElementPositions } from 'utils/arrayHelper';
 import { SCFlexWrapper } from './styles';
 
 const ZERO = 0;
