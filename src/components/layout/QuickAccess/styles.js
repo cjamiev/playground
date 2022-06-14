@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Theme } from 'styles';
+import { Theme } from 'theme';
 
 export const SCQuickAccess = styled.footer`
   position: fixed;

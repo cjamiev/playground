@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Theme } from 'styles';
+import { Theme } from 'theme';
 
 export const SCSidepanel = styled.div`
   position: relative;

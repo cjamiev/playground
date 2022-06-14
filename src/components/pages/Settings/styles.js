@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Theme } from 'styles';
+import { Theme } from 'theme';
 
 export const SCSettingsWrapper = styled.div`
   display: flex;
