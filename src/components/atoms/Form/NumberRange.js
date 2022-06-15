@@ -1,5 +1,5 @@
 import React from 'react';
-import { isNumber } from 'type-check';
+import { isNumber } from 'utils/type-check';
 
 const ZERO = 0;
 

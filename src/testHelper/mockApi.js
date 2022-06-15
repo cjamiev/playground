@@ -1,3 +1,5 @@
+import api from 'api';
+
 export const mockStore = {
   alert: {
     queue: []
@@ -379,4 +381,12 @@ export const mockGet = (url) => {
 
 export const mockPost = (url) => {
   return mockEndpoints(url, HTTP_POST);
+};
+
+export const mockApi = (mockMethodGet, mockMethodPost) => {
+  jest.mock('api');
+  api.post = jest.fn(mockMethodPost);
+  api.get = jest.fn(mockMethodGet);
+
+  return api;
 };

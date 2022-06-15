@@ -1,4 +1,4 @@
-import { changeByDaysTestData, daysBetweenTestData, weeksBetweenTestData } from 'testData/dateHelper-data';
+import { changeByDaysTestData, daysBetweenTestData, weeksBetweenTestData } from 'testHelper/testData/dateHelper-data';
 import { testFunctionHelper } from 'testHelper';
 import { changeByDays, daysBetween, weeksBetween } from './dateHelper';
 

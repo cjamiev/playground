@@ -1,5 +1,3 @@
-import api from 'api';
-
 const testFunctionHelper = ({ testMessage = '', args, expectedResult }, functionToTest) => {
   const recievedResult = functionToTest(...args);
 
@@ -8,14 +6,14 @@ const testFunctionHelper = ({ testMessage = '', args, expectedResult }, function
 
 const mockDate = (date) => {
   // eslint-disable-next-line no-magic-numbers
-  const DATE_TO_USE = date ? date: new Date(2021,0,1,5,0,0);
+  const DATE_TO_USE = date ? date : new Date(2021, 0, 1, 5, 0, 0);
   const _Date = Date;
   const MockDate = (...args) => {
     switch (args.length) {
-    case 0:
-      return DATE_TO_USE;
-    default:
-      return new _Date(...args);
+      case 0:
+        return DATE_TO_USE;
+      default:
+        return new _Date(...args);
     }
   };
   MockDate.UTC = _Date.UTC;
@@ -49,17 +47,4 @@ const mockLocalStorage = (defaultStorage) => {
   Object.defineProperty(window, 'localStorage', { value: localStorageMock() });
 };
 
-const mockApi = (mockGet, mockPost) => {
-  jest.mock('api');
-  api.post = jest.fn(mockPost);
-  api.get = jest.fn(mockGet);
-
-  return api;
-};
-
-export {
-  testFunctionHelper,
-  mockDate,
-  mockLocalStorage,
-  mockApi
-};
+export { testFunctionHelper, mockDate, mockLocalStorage };

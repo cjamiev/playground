@@ -7,7 +7,7 @@ import {
   incrementElementIndexTestData,
   swapArrayElementPositionsTestData,
   unqiueTestData
-} from 'testData/arrayHelper-data';
+} from 'testHelper/testData/arrayHelper-data';
 import { testFunctionHelper } from 'testHelper';
 import {
   decrementElementIndex,

@@ -5,7 +5,7 @@ const ONE = 1;
 const TWO = 2;
 const THREE = 3;
 
-describe('generatorReducer', () => {
+describe.skip('generatorReducer', () => {
   it('default', () => {
     const result = generatorReducer(undefined, {});
 

@@ -1,4 +1,4 @@
-import { convertDecimalToBinaryTestData } from 'testData/binary-data';
+import { convertDecimalToBinaryTestData } from 'testHelper/testData/binary-data';
 import { testFunctionHelper } from 'testHelper';
 import { convertDecimalToBinary } from './binary';
 

@@ -1,18 +1,5 @@
-export {
-  simpleTestWrapper,
-  reduxTestWrapper,
-  fullTestWrapper
-} from './componentSetup';
+export { simpleTestWrapper, reduxTestWrapper, fullTestWrapper } from './componentSetup';
 
-export {
-  testFunctionHelper,
-  mockDate,
-  mockLocalStorage,
-  mockApi
-} from './helper';
+export { testFunctionHelper, mockDate, mockLocalStorage } from './helper';
 
-export {
-  mockGet,
-  mockPost,
-  mockStore
-} from './mockData';
+export { mockGet, mockPost, mockStore, mockApi } from './mockApi';

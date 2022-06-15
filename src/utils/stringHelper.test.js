@@ -5,7 +5,7 @@ import {
   getEllipsisForLongTextTestData,
   lowerCaseFirstLetterTestData,
   capitalizeFirstLetterTestData
-} from 'testData/stringHelper-data';
+} from 'testHelper/testData/stringHelper-data';
 import { testFunctionHelper } from 'testHelper';
 import {
   reverseString,

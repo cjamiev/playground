@@ -12,7 +12,7 @@ import {
   ERROR_COMMAND_RESULT,
   CLEAR_COMMAND_RESULT
 } from './globalActions';
-import { isNumber } from 'type-check';
+import { isNumber } from 'utils/type-check';
 
 export const globalInitialState = {
   timers: [],
@@ -66,10 +66,7 @@ const globalReducer = (state = globalInitialState, action) => {
     [SHOW_LOADING_MODAL]: () => {
       return {
         ...state,
-        loadingQueue: [
-          ...state.loadingQueue,
-          action.data
-        ]
+        loadingQueue: [...state.loadingQueue, action.data]
       };
     },
     [HIDE_LOADING_MODAL]: () => {

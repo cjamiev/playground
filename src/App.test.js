@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { simpleTestWrapper } from 'testHelper';
-import App from './index';
+import App from './App';
 
 const ZERO = 0;
 

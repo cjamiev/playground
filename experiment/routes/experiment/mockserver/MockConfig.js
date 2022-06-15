@@ -5,7 +5,7 @@ import { createAlert } from 'components/atoms/Alert/alertActions';
 import { loadMockServerConfig, updateMockServerConfig, loadMockRequests } from './mockserverActions';
 import Page from 'components/layout';
 import Button from 'components/atoms/Button';
-import { isEmpty } from 'booleanHelper';
+import { isEmpty } from 'utils/booleanHelper';
 import { mapConfigPayloadToFields, mapFieldsToConfigPayload } from './helper';
 
 const MockConfig = () => {

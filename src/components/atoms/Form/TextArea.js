@@ -1,5 +1,5 @@
 import React from 'react';
-import { isJSONString } from 'type-check';
+import { isJSONString } from 'utils/type-check';
 
 const TWO = 2;
 

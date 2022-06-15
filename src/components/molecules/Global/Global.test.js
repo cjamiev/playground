@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, screen } from '@testing-library/react';
 import { reduxTestWrapper, fullTestWrapper, mockLocalStorage } from 'testHelper';
-import Global from 'components/Global';
+import Global from './Global';
 import { closeGlobal } from './globalActions';
 import { TIME } from 'constants/time';
 import { ROUTES } from 'constants/routes';

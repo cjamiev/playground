@@ -22,7 +22,7 @@ const content = [
   { name: 'test', value: { parentBackgroundColor: {}, hoverStyle: {}, normalStyle: {}, activeStyle: {} } }
 ];
 
-describe('generatorActions', () => {
+describe.skip('generatorActions', () => {
   it('loadGeneratorRecords', async () => {
     api.get.mockResolvedValueOnce({
       data: {

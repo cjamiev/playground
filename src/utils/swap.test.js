@@ -1,4 +1,4 @@
-import { swapPositionsTestData, decrementIndexTestData, incrementIndexTestData } from 'testData/swap-data';
+import { swapPositionsTestData, decrementIndexTestData, incrementIndexTestData } from 'testHelper/testData/swap-data';
 import { testFunctionHelper } from 'testHelper';
 import { decrementIndex, incrementIndex, swapPositions } from './swap';
 

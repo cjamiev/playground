@@ -1,4 +1,4 @@
-import { isEmptyTestData, xOrTestData } from 'testData/booleanHelper-data';
+import { isEmptyTestData, xOrTestData } from 'testHelper/testData/booleanHelper-data';
 import { testFunctionHelper } from 'testHelper';
 import { isEmpty, xOr } from './booleanHelper';
 

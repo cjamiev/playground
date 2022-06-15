@@ -201,7 +201,7 @@ const configPayload = {
   overrideResponse: { testing: 123 }
 };
 
-describe('helper (mockserver)', () => {
+describe.skip('helper (mockserver)', () => {
   it('getNewMockFields', () => {
     expect(getNewMockFields()).toEqual(newmockFields);
   });

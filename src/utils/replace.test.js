@@ -1,4 +1,4 @@
-import { replaceLineTestData } from 'testData/replace-data';
+import { replaceLineTestData } from 'testHelper/testData/replace-data';
 import { testFunctionHelper } from 'testHelper';
 import { replaceLine } from './replace';
 

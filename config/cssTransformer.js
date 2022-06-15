@@ -1,8 +1,9 @@
+const path = require('path');
+
 module.exports = {
-  process() {
-    return 'module.exports = {};';
-  },
-  getCacheKey() {
-    return 'cssTransform';
+  process(sourceText, sourcePath, options) {
+    return {
+      code: `module.exports = ${JSON.stringify(path.basename(sourcePath))};`
+    };
   }
 };

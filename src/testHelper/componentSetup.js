@@ -5,19 +5,16 @@ import { applyMiddleware, createStore, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import Page from '../src/components/layout';
-import { rootReducer } from '../src/store';
-import Global from 'components/global';
-import { alertInitialState } from '../src/components/alert/alertReducer';
-import { clipboardInitialState } from '../src/routes/clipboard/clipboardReducer';
-import { settingsInitialState } from '../src/routes/settings/settingsReducer';
-import { experimentInitialState } from '../src/routes/experiment/experimentReducer';
-import { fileInitialState } from '../src/routes/file/fileReducer';
-import { homeInitialState } from '../src/routes/home/homeReducer';
-import { generatorInitialState } from '../src/routes/experiment/generator/generatorReducer';
-import { projectInitialState } from '../src/routes/project/projectReducer';
-import { globalInitialState } from '../src/components/global/globalReducer';
-import { mockserverInitialState } from '../src/routes/experiment/mockserver/mockserverReducer';
+import Page from 'components/layout';
+import { rootReducer } from 'store';
+import Global from 'components/molecules/Global';
+import { alertInitialState } from 'components/atoms/Alert/alertReducer';
+import { clipboardInitialState } from 'components/pages/Clipboard/clipboardReducer';
+import { settingsInitialState } from 'components/pages/Settings/settingsReducer';
+import { fileInitialState } from 'components/pages/File/fileReducer';
+import { homeInitialState } from 'components/pages/Home/homeReducer';
+import { projectInitialState } from 'components/pages/Project/projectReducer';
+import { globalInitialState } from 'components/molecules/Global/globalReducer';
 import { ROUTES } from 'constants/routes';
 
 const middlewares = [thunk];
@@ -27,12 +24,9 @@ const defaultStore = {
   alert: alertInitialState,
   clipboard: clipboardInitialState,
   settings: settingsInitialState,
-  experiment: experimentInitialState,
   file: fileInitialState,
   home: homeInitialState,
-  generator: generatorInitialState,
   global: globalInitialState,
-  mockserver: mockserverInitialState,
   project: projectInitialState
 };
 

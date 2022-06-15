@@ -29,7 +29,7 @@ const mockCreateEndpointProps = {
   }
 };
 
-describe('MockCreateEndpoint', () => {
+describe.skip('MockCreateEndpoint', () => {
   it('checks page renders', () => {
     reduxTestWrapper(MockCreateEndpoint, {}, mockCreateEndpointProps);
 

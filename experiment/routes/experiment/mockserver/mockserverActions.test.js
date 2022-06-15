@@ -50,7 +50,7 @@ const successObject = {
   timer: 3000
 };
 
-describe('mockserverActions', () => {
+describe.skip('mockserverActions', () => {
   it('loadMockServerConfig', async () => {
     loadMockServerConfig()(dispatch);
 

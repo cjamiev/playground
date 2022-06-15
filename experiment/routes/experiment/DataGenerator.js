@@ -5,7 +5,7 @@ import Pagination from 'components/atoms/Pagination';
 import TableRenderer from './TableRenderer';
 import { copyToClipboard } from 'helper/copy';
 import { dataGenerator } from 'randomHelper';
-import { parseObject } from 'type-check';
+import { parseObject } from 'utils/type-check';
 import { CopySVG } from 'components/atoms/Icons/CopySVG';
 
 const ONE = 1;

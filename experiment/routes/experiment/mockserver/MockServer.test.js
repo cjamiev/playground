@@ -10,7 +10,7 @@ const mockLogProps = {
   mockserver: mockserverInitialState
 };
 
-describe('MockServer', () => {
+describe.skip('MockServer', () => {
   it('tab switch', async () => {
     reduxTestWrapper(MockServer, {}, mockLogProps, pathname);
 

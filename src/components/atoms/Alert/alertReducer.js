@@ -1,5 +1,5 @@
 import { CREATE_ALERT, DISMISS_ALERT } from './alertActions';
-import { isNumber } from 'type-check';
+import { isNumber } from 'utils/type-check';
 
 export const alertInitialState = {
   queue: []
@@ -8,8 +8,8 @@ export const alertInitialState = {
 const alertReducer = (state = alertInitialState, action) => {
   const alertCases = {
     [CREATE_ALERT]: () => {
-      const matched = state.queue.find(item => item.content === action.data.content);
-      if(!matched) {
+      const matched = state.queue.find((item) => item.content === action.data.content);
+      if (!matched) {
         return {
           queue: [
             ...state.queue,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { isNumber } from 'type-check';
+import { isNumber } from 'utils/type-check';
 
 export const OPERATION_TYPES = [
   { label: 'String', value: 0, selected: true },

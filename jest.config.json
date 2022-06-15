@@ -12,6 +12,10 @@
     "src",
     "node_modules"
   ],
+  "testPathIgnorePatterns": [
+    "src/testHelper/*",
+    "experiment/*"
+  ],
   "testRegex": "(server|src|utils)/.*\\.test.(js)$",
   "testEnvironment": "node",
   "transform": {

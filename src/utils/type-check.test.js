@@ -6,7 +6,7 @@ import {
   isObjectTestData,
   isObjectLikeTestData,
   isStringTestData
-} from 'testData/type-check-data';
+} from 'testHelper/testData/type-check-data';
 import { testFunctionHelper } from 'testHelper';
 import { isBoolean, isJSONString, isNil, isNumber, isObject, isObjectLike, isString } from './type-check';
 

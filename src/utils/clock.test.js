@@ -5,7 +5,7 @@ import {
   normalizeClockTestData,
   getFormattedClockTestData,
   getFormattedDateTestData
-} from 'testData/clock-data';
+} from 'testHelper/testData/clock-data';
 import { testFunctionHelper } from 'testHelper';
 import {
   incrementDate,

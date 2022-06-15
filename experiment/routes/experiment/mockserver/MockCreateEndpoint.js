@@ -4,7 +4,7 @@ import DynamicForm, { hasError, updateData } from 'components/atoms/Form/Dynamic
 import { createMockEndpoint } from './mockserverActions';
 import Page from 'components/layout';
 import Button from 'components/atoms/Button';
-import { isEmpty } from 'booleanHelper';
+import { isEmpty } from 'utils/booleanHelper';
 import { mapFieldsToNewMockPayload, getNewMockFields } from './helper';
 
 const MockCreateEndpoint = () => {
