@@ -1,5 +1,31 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { Theme } from 'theme';
+
+const slideOut = keyframes`
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    width: 0;
+    opacity: 0;
+    transform: translateX(-600px);
+  }
+`;
+
+const slideIn = keyframes`
+  0% {
+    width: 0;
+    opacity: 0;
+    transform: translateX(-600px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
 
 export const SCSidepanel = styled.div`
   position: relative;

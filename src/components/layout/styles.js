@@ -10,32 +10,6 @@ const fadeIn = keyframes`
   }
 `;
 
-const slideOut = keyframes`
-  0% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  100% {
-    width: 0;
-    opacity: 0;
-    transform: translateX(-600px);
-  }
-`;
-
-const slideIn = keyframes`
-  0% {
-    width: 0;
-    opacity: 0;
-    transform: translateX(-600px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`;
-
 export const SCLayout = styled.div`
   display: flex;
   width: 100%;
