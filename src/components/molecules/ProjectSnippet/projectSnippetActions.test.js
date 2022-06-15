@@ -6,7 +6,7 @@ import {
   LOAD_SNIPPET,
   loadSnippet,
   createSnippet
-} from './snippetActions';
+} from 'components/molecules/ProjectSnippet/projectSnippetActions';
 import { CREATE_ALERT } from 'components/layout/Alert/alertActions';
 
 const error = new Error('Test Message');

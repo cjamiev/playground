@@ -1,6 +1,6 @@
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { fullTestWrapper, reduxTestWrapper, mockApi, mockGet, mockPost, mockStore } from 'testHelper';
-import Project from '../Project';
+import Project from 'components/pages/Project';
 import api from 'api';
 import { ROUTES } from 'constants/routes';
 import { TIME } from 'constants/time';

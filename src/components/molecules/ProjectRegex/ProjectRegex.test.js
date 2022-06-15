@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { reduxTestWrapper, mockApi } from 'testHelper';
-import Project from '../Project';
+import Project from 'components/pages/Project';
 import api from 'api';
 
 const directories = ['./', 'C:/doc'];
@@ -56,11 +56,11 @@ const defaultStoreProps = {
 };
 
 // act warnings
-describe('ProjectRegex', () => {
+describe('Regex', () => {
   it('Run updated on files with regex', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
-    const packageTab = screen.getByText('ProjectRegex');
+    const packageTab = screen.getByText('Regex');
     fireEvent.click(packageTab);
 
     const fileProjectRegexField = screen.getByLabelText('File ProjectRegex text field');
@@ -97,7 +97,7 @@ describe('ProjectRegex', () => {
   it('Select existing ProjectRegex', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
-    const packageTab = screen.getByText('ProjectRegex');
+    const packageTab = screen.getByText('Regex');
     fireEvent.click(packageTab);
 
     fireEvent.click(screen.getByText('ProjectRegexes'));
@@ -114,7 +114,7 @@ describe('ProjectRegex', () => {
   it('Delete existing ProjectRegex', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
-    const packageTab = screen.getByText('ProjectRegex');
+    const packageTab = screen.getByText('Regex');
     fireEvent.click(packageTab);
 
     const descriptionField = screen.getByLabelText('Description text field');
@@ -131,7 +131,7 @@ describe('ProjectRegex', () => {
   it('Save regex', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
-    const packageTab = screen.getByText('ProjectRegex');
+    const packageTab = screen.getByText('Regex');
     fireEvent.click(packageTab);
 
     const descriptionField = screen.getByLabelText('Description text field');

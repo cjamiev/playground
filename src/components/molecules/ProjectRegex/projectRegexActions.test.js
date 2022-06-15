@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
-import { UPDATE_FILES_BY_REGEX, updateFilesByProjectRegex } from './regexActions';
+import { UPDATE_FILES_BY_REGEX, updateFilesByProjectRegex } from './projectRegexActions';
 import { CREATE_ALERT } from 'components/layout/Alert/alertActions';
 
 const error = new Error('Test Message');

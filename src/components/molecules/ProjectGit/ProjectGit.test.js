@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { reduxTestWrapper, mockApi, mockGet, mockPost } from 'testHelper';
-import Project from '../Project';
+import Project from 'components/pages/Project';
 import api from 'api';
 
 const apiMock = mockApi(mockGet, mockPost);
