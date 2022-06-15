@@ -12,7 +12,6 @@ import SwapSelect from './SwapSelect';
 import Select from './Select';
 import Text from './Text';
 import TextArea from './TextArea';
-import './form.css';
 
 const typeMap = {
   button: Button,
