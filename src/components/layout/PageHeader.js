@@ -1,5 +1,5 @@
 import React from 'react';
-import Alert from 'components/atoms/Alert';
+import Alert from './Alert';
 import { TripleBarSVG } from 'components/atoms/Icons/TripleBarSVG';
 import { SCPageHeader, SCPageHeaderTitle, SCSidepanelBtn } from './styles';
 

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { dismissAlert } from 'components/atoms/Alert/alertActions';
+import { dismissAlert } from './alertActions';
 import { SCAlertWrapper, SCAlert, SCAlertHeader, SCAlertContent } from './styles';
 
 const ZERO = 0;

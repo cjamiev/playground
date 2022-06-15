@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from 'components/atoms/Button';
 import Text from 'components/atoms/Form/Text';
 import TextArea from 'components/atoms/Form/TextArea';
-import Switch from 'components/molecules/Switch';
+import Switch from 'components/atoms/Switch';
 import { convert12HourTo24HourClock, convert24HourTo12HourClock } from './helper';
 import { incrementDate } from 'utils/clock';
 import { PlusSVG } from 'components/atoms/Icons/PlusSVG';

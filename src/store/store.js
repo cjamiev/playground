@@ -2,7 +2,7 @@ import { applyMiddleware, createStore, compose, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-import alertReducer from 'components/atoms/Alert/alertReducer';
+import alertReducer from 'components/layout/Alert/alertReducer';
 import clipboardReducer from 'components/pages/Clipboard/clipboardReducer';
 import settingsReducer from 'components/pages/Settings/settingsReducer';
 import fileReducer from 'components/pages/File/fileReducer';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Color from 'components/atoms/Form/Color';
-import Switch from 'components/molecules/Switch';
+import Switch from 'components/atoms/Switch';
 import { TripleBarSVG } from 'components/atoms/Icons/TripleBarSVG';
 import GeneratorForm from './GeneratorForm';
 import GeneratorSidePanel from './GeneratorSidePanel';
@@ -63,35 +63,35 @@ const Generator = () => {
     if (isHoverMode) {
       const updatedStyle = values
         ? {
-          ...hoverStyle,
-          [id]: values.find((item) => item.selected).label
-        }
+            ...hoverStyle,
+            [id]: values.find((item) => item.selected).label
+          }
         : {
-          ...hoverStyle,
-          [id]: selected
-        };
+            ...hoverStyle,
+            [id]: selected
+          };
       setHoverStyle(updatedStyle);
     } else if (isActiveMode) {
       const updatedStyle = values
         ? {
-          ...activeStyle,
-          [id]: values.find((item) => item.selected).label
-        }
+            ...activeStyle,
+            [id]: values.find((item) => item.selected).label
+          }
         : {
-          ...activeStyle,
-          [id]: selected
-        };
+            ...activeStyle,
+            [id]: selected
+          };
       setActiveStyle(updatedStyle);
     } else {
       const updatedStyle = values
         ? {
-          ...normalStyle,
-          [id]: values.find((item) => item.selected).label
-        }
+            ...normalStyle,
+            [id]: values.find((item) => item.selected).label
+          }
         : {
-          ...normalStyle,
-          [id]: selected
-        };
+            ...normalStyle,
+            [id]: selected
+          };
       setNormalStyle(updatedStyle);
     }
   };

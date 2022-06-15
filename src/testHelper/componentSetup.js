@@ -8,7 +8,7 @@ import { MemoryRouter } from 'react-router-dom';
 import Page from 'components/layout';
 import { rootReducer } from 'store';
 import Global from 'components/molecules/Global';
-import { alertInitialState } from 'components/atoms/Alert/alertReducer';
+import { alertInitialState } from 'components/layout/Alert/alertReducer';
 import { clipboardInitialState } from 'components/pages/Clipboard/clipboardReducer';
 import { settingsInitialState } from 'components/pages/Settings/settingsReducer';
 import { fileInitialState } from 'components/pages/File/fileReducer';
