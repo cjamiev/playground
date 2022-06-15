@@ -2,35 +2,33 @@ import React, { useState } from 'react';
 import { act } from 'react-dom/test-utils';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { TIME } from 'constants/time';
-import useDebounce from './useDebounce';
+import debounce from './debounce';
 
 const TWO = 2;
 
 const TestComponent = () => {
   const [str, setStr] = useState('Test');
-  const debouncedStr = useDebounce(str, TIME.A_SECOND);
+  const handleClick = debounce(() => {
+    setStr('Test123');
+  }, TIME.A_SECOND);
 
   return (
     <>
-      <button
-        onClick={() => {
-          setStr('Test123');
-        }}
-      >
-        Update
-      </button>
-      <div>{debouncedStr}</div>
+      <button onClick={handleClick()}>Update</button>
+      <div>{str}</div>
     </>
   );
 };
 
-describe('useDebounce', () => {
+describe('debounce', () => {
   it('Should update debouncedValue after delayed time', () => {
     jest.useFakeTimers();
-    act(() => {
-      render(<TestComponent />);
 
-      expect(screen.queryByText('Test')).toBeInTheDocument();
+    render(<TestComponent />);
+
+    expect(screen.queryByText('Test')).toBeInTheDocument();
+
+    act(() => {
       fireEvent.click(screen.getByText('Update'));
       expect(screen.queryByText('Test')).toBeInTheDocument();
 
