@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import Button from 'components/atoms/Button';
 import Text from 'components/atoms/Form/Text';
 import { TrashSVG } from 'components/atoms/Icons';
-import { updateSettings } from './settingsActions';
 import {
   SCTable,
   SCTableHeaderCell,
@@ -61,7 +60,7 @@ const SettingsTable = ({ headers, body }) => {
   );
 };
 
-const SettingsTab = ({ settingsData, labels, isHidden = false, onChange }) => {
+export const SettingsTab = ({ settingsData, labels, isHidden = false, onChange }) => {
   const dispatch = useDispatch();
   const [newSettings, setNewSettings] = useState({ label: '', value: '' });
   const [currentSettingsuration, setCurrentSettingsuration] = useState([]);
@@ -133,5 +132,3 @@ const SettingsTab = ({ settingsData, labels, isHidden = false, onChange }) => {
     </div>
   );
 };
-
-export default SettingsTab;
