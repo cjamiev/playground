@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { formattedTimerClock } from 'utils/clock';
 import { useDispatch } from 'react-redux';
-import { executeCommand } from 'components/molecules/Global/globalActions';
-import useTimer from 'hooks/useTimer';
 import { copyToClipboard } from 'utils/copy';
+import { executeCommand } from 'components/molecules/Global/globalActions';
 import Button from 'components/atoms/Button';
 import { TYPE } from 'constants/type';
+import { formattedTimerClock } from 'utils/clock';
+import useTimer from 'hooks/useTimer';
 
 const ONE = 1;
 
@@ -19,7 +19,7 @@ const getFormattedTime = ({ weeks, days, hours, minutes, seconds }) => {
   return formattedTimerClock(hours, minutes, seconds);
 };
 
-const DisplayTimer = ({ label, value }) => {
+const ClipboardDisplayTimer = ({ label, value }) => {
   const time = useTimer(new Date(value));
 
   return (
@@ -32,7 +32,7 @@ const DisplayTimer = ({ label, value }) => {
   );
 };
 
-const DisplayCommand = ({ label, name, showArgs }) => {
+const ClipboardDisplayCommand = ({ label, name, showArgs }) => {
   const dispatch = useDispatch();
   const [arg, setArg] = useState('');
 
@@ -53,7 +53,7 @@ const DisplayCommand = ({ label, name, showArgs }) => {
   );
 };
 
-export const DisplayContent = ({ type, label, value }) => {
+export const ClipboardDisplayContent = ({ type, label, value }) => {
   if (type === TYPE.TEXT) {
     return <span className="list__item">{value}</span>;
   } else if (type === TYPE.LINK) {
@@ -73,35 +73,10 @@ export const DisplayContent = ({ type, label, value }) => {
       />
     );
   } else if (type === TYPE.COMMAND) {
-    return <DisplayCommand label={label} name={value.name} showArgs={value.showArgs} />;
+    return <ClipboardDisplayCommand label={label} name={value.name} showArgs={value.showArgs} />;
   } else if (type === TYPE.TIMER) {
-    return <DisplayTimer label={label} value={value} />;
+    return <ClipboardDisplayTimer label={label} value={value} />;
   }
 
   return null;
 };
-
-const List = React.memo(({ header, data, handleClick }) => {
-  const renderContent = data.map((entry, index) => {
-    const renderEntry = entry.map(({ type, label, value }) => {
-      return <DisplayContent key={`${type}-${label}-${value}`} type={type} label={label} value={value} />;
-    });
-
-    const className = handleClick ? 'list__content clickable' : 'list__content';
-
-    return (
-      <div key={index} className={className} onClick={() => handleClick && handleClick(index, entry)}>
-        {renderEntry}
-      </div>
-    );
-  });
-
-  return (
-    <div className="list">
-      {header && <div className="list__header">{header}</div>}
-      {renderContent}
-    </div>
-  );
-});
-
-export default List;

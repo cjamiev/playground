@@ -4,11 +4,11 @@ import { loadClipboard } from './clipboardActions';
 import { openGlobalModal, clearCommand } from 'components/molecules/Global/globalActions';
 import { copyToClipboard } from 'utils/copy';
 import Page from 'components/layout';
-import List from 'components/molecules/List';
+import ClipboardList from 'components/molecules/ClipboardList';
 import Tabs from 'components/atoms/Tabs';
 import Text from 'components/atoms/Form/Text';
 import ComponentWrapper from 'components/atoms/ComponentWrapper';
-import ClipboardForm from './ClipboardForm';
+import ClipboardForm from 'components/organisms/ClipboardForm';
 import { SCClipboardContainer } from './styles';
 
 const ZERO = 0;
@@ -17,7 +17,7 @@ const ClipboardTab = (props) => {
   return (
     <SCClipboardContainer>
       {props.clip.map((entry) => {
-        return <List key={entry.title} header={entry.title} data={entry.data} />;
+        return <ClipboardList key={entry.title} header={entry.title} data={entry.data} />;
       })}
     </SCClipboardContainer>
   );
@@ -95,7 +95,7 @@ const Clipboard = () => {
     <Page sidePanelContent={<ClipboardForm records={records} />} isSidePanelWide={true}>
       <Text placeholder="Filter by label" selected={filter} onChange={handleFilterChange} />
       {TABS.length > ZERO && !filter && <Tabs data={TABS} />}
-      {filter && <List header={`filtered by ${filter}`} data={filteredData || []} />}
+      {filter && <ClipboardList header={`filtered by ${filter}`} data={filteredData || []} />}
     </Page>
   );
 };

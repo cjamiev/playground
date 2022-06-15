@@ -1,7 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
 import { LOAD_CLIPBOARD, ERROR_CLIPBOARD, loadClipboard, updateClipboard } from './clipboardActions';
-import { CREATE_ALERT } from 'components/atoms/Alert/alertActions';
+import { CREATE_ALERT } from 'components/layout/Alert/alertActions';
 
 const ONE = 1;
 const TWO = 2;

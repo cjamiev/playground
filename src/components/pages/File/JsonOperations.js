@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { createAlert, dismissAlert } from 'components/atoms/Alert/alertActions';
+import { createAlert, dismissAlert } from 'components/layout/Alert/alertActions';
 import Button from 'components/atoms/Button';
 import { parseObject, isJSONString } from 'utils/type-check';
 import { SCFlexWrapper, SCFileBtnWrapper } from './styles';

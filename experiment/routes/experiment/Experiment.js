@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from 'components/atoms/Button';
-import { dismissAlert } from 'components/atoms/Alert/alertActions';
+import { dismissAlert } from 'components/layout/Alert/alertActions';
 import Page from 'components/layout';
 import Tabs from 'components/atoms/Tabs';
 import TextArea from 'components/atoms/Form/TextArea';

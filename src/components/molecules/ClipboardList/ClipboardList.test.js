@@ -2,7 +2,7 @@ import { fireEvent, screen } from '@testing-library/react';
 import { simpleTestWrapper, reduxTestWrapper } from 'testHelper';
 import { incrementDate } from 'utils/clock';
 import api from 'api';
-import List from './List';
+import ClipboardList from './ClipboardList';
 
 jest.mock('api');
 api.get.mockResolvedValue({
@@ -15,18 +15,18 @@ const ZERO = 0;
 const today = new Date();
 const getProps = (entry) => {
   return {
-    header: 'List',
+    header: 'ClipboardList',
     data: [[entry]]
   };
 };
 
-describe('List', () => {
+describe('ClipboardList', () => {
   it('invalid type', () => {
     const invalidTypeData = {
       type: 'invalid',
       label: 'invalid-label'
     };
-    simpleTestWrapper(List, getProps(invalidTypeData));
+    simpleTestWrapper(ClipboardList, getProps(invalidTypeData));
 
     expect(screen.queryByText(invalidTypeData.label)).not.toBeInTheDocument();
   });
@@ -37,7 +37,7 @@ describe('List', () => {
       label: 'cjamiev/playground',
       value: 'https://github.com/cjamiev/playground'
     };
-    simpleTestWrapper(List, getProps(linkData));
+    simpleTestWrapper(ClipboardList, getProps(linkData));
 
     expect(screen.queryByText(linkData.label)).toBeInTheDocument();
   });
@@ -49,7 +49,7 @@ describe('List', () => {
       value: 'cjamiev1836'
     };
     document.execCommand = jest.fn();
-    simpleTestWrapper(List, getProps(copyData));
+    simpleTestWrapper(ClipboardList, getProps(copyData));
 
     const copyBtn = screen.getByText(copyData.label);
     const appendChildSpy = jest.spyOn(document.body, 'appendChild');
@@ -66,7 +66,7 @@ describe('List', () => {
       type: 'text',
       value: 'testing123'
     };
-    simpleTestWrapper(List, getProps(textData));
+    simpleTestWrapper(ClipboardList, getProps(textData));
 
     expect(screen.queryByText(textData.value)).toBeInTheDocument();
   });
@@ -78,7 +78,7 @@ describe('List', () => {
       value: { name: 'test-filename', showArgs: true }
     };
     const args = '12345';
-    reduxTestWrapper(List, getProps(commandData));
+    reduxTestWrapper(ClipboardList, getProps(commandData));
 
     const commandInput = screen.queryByLabelText(`args for ${commandData.label}`);
     fireEvent.change(commandInput, { target: { value: args } });
@@ -96,7 +96,7 @@ describe('List', () => {
       label: 'One hour from now',
       value: incrementDate(today, { hours: 1 })
     };
-    simpleTestWrapper(List, getProps(timerOneHourData));
+    simpleTestWrapper(ClipboardList, getProps(timerOneHourData));
 
     expect(screen.queryByText(timerOneHourData.label)).toBeInTheDocument();
   });
@@ -107,7 +107,7 @@ describe('List', () => {
       label: 'Two days from now',
       value: incrementDate(today, { days: 2 })
     };
-    simpleTestWrapper(List, getProps(timerTwoDaysData));
+    simpleTestWrapper(ClipboardList, getProps(timerTwoDaysData));
 
     expect(screen.queryByText(timerTwoDaysData.label)).toBeInTheDocument();
   });
@@ -118,7 +118,7 @@ describe('List', () => {
       label: 'Two weeks from now',
       value: incrementDate(today, { weeks: 2 })
     };
-    simpleTestWrapper(List, getProps(timerTwoWeeksData));
+    simpleTestWrapper(ClipboardList, getProps(timerTwoWeeksData));
 
     expect(screen.queryByText(timerTwoWeeksData.label)).toBeInTheDocument();
   });

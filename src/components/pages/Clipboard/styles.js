@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 import { Theme } from 'theme';
 
-export const SCFlexWrapper = styled.div`
-  margin-left: 10px;
-  display: flex;
-  column-gap: 30px;
-`;
-
 export const SCClipboardContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto auto;

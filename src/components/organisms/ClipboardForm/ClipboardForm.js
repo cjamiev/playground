@@ -6,7 +6,8 @@ import Button from 'components/atoms/Button';
 import TimerForm from 'components/atoms/Form/TimerForm';
 import ValueForm from 'components/atoms/Form/ValueForm';
 import CommandForm from 'components/atoms/Form/CommandForm';
-import List, { DisplayContent } from 'components/molecules/List';
+import ClipboardList from 'components/molecules/ClipboardList';
+import { ClipboardDisplayContent } from 'components/atoms/ClipboardDisplayContent';
 import Table, { SCTableCell } from 'components/atoms/Table';
 import { updateClipboard } from 'components/pages/Clipboard/clipboardActions';
 import { TYPE } from 'constants/type';
@@ -44,7 +45,7 @@ const renderCells = ({ entry, removeItem, moveItemUp, moveItemDown }) => {
   return entry.map(({ type, label, value }, index) => (
     <tr key={`${label}-${index}`} data-testid={entry.label}>
       <SCTableCell>
-        <DisplayContent key={`${type}-${label}-${value}`} type={type} label={label} value={value} />
+        <ClipboardDisplayContent key={`${type}-${label}-${value}`} type={type} label={label} value={value} />
       </SCTableCell>
       <SCTableCell isIcon>
         <TrashSVG
@@ -297,7 +298,7 @@ const ClipboardForm = ({ records }) => {
             }}
           />
         )}
-        <List key={title} header={title} data={data} handleClick={handleClickEntry} />
+        <ClipboardList key={title} header={title} data={data} handleClick={handleClickEntry} />
       </div>
     );
   };

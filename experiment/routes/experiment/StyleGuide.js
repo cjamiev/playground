@@ -1,6 +1,6 @@
 import React from 'react';
 import Dropdown from 'components/atoms/Form/Dropdown';
-import List from 'components/molecules/List';
+import ClipboardList from 'components/melecules/ClipboardList';
 import Radio from 'components/atoms/Form/Radio';
 import Checkbox from 'components/atoms/Form/Checkbox';
 import Button, { ToggleButton } from 'components/atoms/Button';
@@ -78,7 +78,7 @@ const StyleGuide = () => {
 
       <div>
         <h2> List </h2>
-        <List header="test header" data={testData} />
+        <ClipboardList header="test header" data={testData} />
       </div>
 
       <div>

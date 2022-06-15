@@ -1,5 +1,5 @@
 import api from 'api';
-import { createAlert } from 'components/atoms/Alert/alertActions';
+import { createAlert } from 'components/layout/Alert/alertActions';
 
 const THREE_SECOND = 3000;
 const ZERO = 0;

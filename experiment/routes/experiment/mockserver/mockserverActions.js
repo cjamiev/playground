@@ -1,5 +1,5 @@
 import api from 'api';
-import { createAlert } from 'components/atoms/Alert/alertActions';
+import { createAlert } from 'components/layout/Alert/alertActions';
 
 const LOAD_MOCKSERVER_SETTINGS = 'LOAD_MOCKSERVER_SETTINGS';
 const UPDATE_MOCKSERVER_SETTINGS = 'UPDATE_MOCKSERVER_SETTINGS';

@@ -7,7 +7,7 @@ import {
   hideLoadingModal,
   executeCommand
 } from 'components/molecules/Global/globalActions';
-import { dismissAlert } from 'components/atoms/Alert/alertActions';
+import { dismissAlert } from 'components/layout/Alert/alertActions';
 import { getFormattedDate } from 'utils/clock';
 import {
   SCNavigation,

@@ -1,7 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
 import { LOAD_PROJECT, loadProject, updateProject, CLEAR_MESSAGE, clearMessage } from './projectActions';
-import { CREATE_ALERT } from 'components/atoms/Alert/alertActions';
+import { CREATE_ALERT } from 'components/layout/Alert/alertActions';
 
 const error = new Error('Test Message');
 const dispatch = jest.fn();

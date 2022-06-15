@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { dismissAlert } from 'components/atoms/Alert/alertActions';
+import { dismissAlert } from 'components/layout/Alert/alertActions';
 import Tabs from 'components/atoms/Tabs';
 import MockConfig from './MockConfig';
 import MockLog from './MockLog';

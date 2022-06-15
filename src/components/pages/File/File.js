@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadDirectory, loadFile, writeFile } from './fileActions';
-import { dismissAlert } from 'components/atoms/Alert/alertActions';
+import { dismissAlert } from 'components/layout/Alert/alertActions';
 import FileOperations from './FileOperations';
 import RegexOperations from './RegexOperations';
 import StringOperations from './StringOperations';

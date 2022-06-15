@@ -25,7 +25,7 @@ import {
   clearCommand,
   CLEAR_COMMAND_RESULT
 } from './globalActions';
-import { CREATE_ALERT } from 'components/atoms/Alert/alertActions';
+import { CREATE_ALERT } from 'components/layout/Alert/alertActions';
 
 const ONE = 1;
 const TWO = 2;

@@ -21,7 +21,7 @@ import {
   clearMockServerLog,
   clearMockResponse
 } from './mockserverActions';
-import { CREATE_ALERT } from 'components/atoms/Alert/alertActions';
+import { CREATE_ALERT } from 'components/layout/Alert/alertActions';
 
 const error = new Error('Test Message');
 const dispatch = jest.fn();
