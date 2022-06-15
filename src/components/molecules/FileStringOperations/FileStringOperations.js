@@ -5,7 +5,7 @@ import { sortByDelimiter, sortDescendingByDelimiter } from 'utils/sort';
 import { DELIMITER_TYPES, MODIFIER_TYPES } from './helper';
 import { SCFileBtnWrapper } from './styles';
 
-const StringOperations = ({ content, onChange }) => {
+export const FileStringOperations = ({ content, onChange }) => {
   const [delimiters, setDelimiters] = useState(DELIMITER_TYPES);
   const [modifier, setModifier] = useState(MODIFIER_TYPES);
 
@@ -65,5 +65,3 @@ const StringOperations = ({ content, onChange }) => {
     </div>
   );
 };
-
-export default StringOperations;

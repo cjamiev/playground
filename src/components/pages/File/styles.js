@@ -1,18 +1,4 @@
 import styled from 'styled-components';
-import { Theme } from 'theme';
-import Button from 'components/atoms/Button';
-
-export const SCFlexWrapper = styled.div`
-  display: flex;
-  ${(props) => props.isVertical && 'flex-direction: column'};
-`;
-
-export const SCTitleWrapper = styled.div`
-  display: flex;
-  svg {
-    cursor: pointer;
-  }
-`;
 
 export const SCFileBtnWrapper = styled.div`
   display: flex;

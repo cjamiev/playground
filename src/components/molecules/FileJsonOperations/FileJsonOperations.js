@@ -7,7 +7,7 @@ import { SCFlexWrapper, SCFileBtnWrapper } from './styles';
 
 const TWO = 2;
 
-const JsonOperations = ({ content, onChange }) => {
+export const FileJsonOperations = ({ content, onChange }) => {
   const dispatch = useDispatch();
 
   return (
@@ -67,5 +67,3 @@ const JsonOperations = ({ content, onChange }) => {
     </SCFlexWrapper>
   );
 };
-
-export default JsonOperations;

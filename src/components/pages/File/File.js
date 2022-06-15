@@ -2,16 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadDirectory, loadFile, writeFile } from './fileActions';
 import { dismissAlert } from 'components/layout/Alert/alertActions';
-import FileOperations from './FileOperations';
-import RegexOperations from './RegexOperations';
-import StringOperations from './StringOperations';
-import JsonOperations from './JsonOperations';
+import { FileOperations } from 'components/organisms/FileOperations';
 import Page from 'components/layout';
 import Text from 'components/atoms/Form/Text';
 import TextArea from 'components/atoms/Form/TextArea';
 import Button from 'components/atoms/Button';
 import { copyToClipboard } from 'utils/copy';
-import { SCFileBtnWrapper, SCFileNameWrapper, SCFileBtn } from './styles';
+import { SCFileBtnWrapper, SCFileNameWrapper } from './styles';
 import { SaveSVG } from 'components/atoms/Icons/SaveSVG';
 import { CopySVG } from 'components/atoms/Icons/CopySVG';
 

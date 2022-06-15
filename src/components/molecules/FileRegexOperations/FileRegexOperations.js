@@ -12,7 +12,7 @@ import { InfoSVG } from 'components/atoms/Icons/InfoSVG';
 
 const ZERO = 0;
 
-const RegexOperations = ({ content, onChange }) => {
+export const FileRegexOperations = ({ content, onChange }) => {
   const dispatch = useDispatch();
   const [find, setFind] = useState('');
   const [replace, setReplace] = useState('');
@@ -101,5 +101,3 @@ const RegexOperations = ({ content, onChange }) => {
     </SCFlexWrapper>
   );
 };
-
-export default RegexOperations;
