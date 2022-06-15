@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import api from 'api';
-import { UPDATE_FILES_BY_REGEX, updateFilesByRegex } from './regexActions';
+import { UPDATE_FILES_BY_REGEX, updateFilesByProjectRegex } from './regexActions';
 import { CREATE_ALERT } from 'components/layout/Alert/alertActions';
 
 const error = new Error('Test Message');
@@ -26,8 +26,8 @@ const message = 'test message';
 const rootDir = 'test-dir';
 const name = 'test-name';
 const regexContent = {
-  fileRegex: /Icon.js$/,
-  lineRegex: /[.][0-9]{2,}/g,
+  fileProjectRegex: /Icon.js$/,
+  lineProjectRegex: /[.][0-9]{2,}/g,
   lineRange: {
     start: 0,
     end: 3
@@ -36,13 +36,13 @@ const regexContent = {
 };
 
 describe('projectActions', () => {
-  it('updateFilesByRegex', async () => {
+  it('updateFilesByProjectRegex', async () => {
     api.post.mockResolvedValueOnce({
       data: {
         message
       }
     });
-    updateFilesByRegex(rootDir, regexContent)(dispatch);
+    updateFilesByProjectRegex(rootDir, regexContent)(dispatch);
 
     await waitFor(() => {
       expect(api.post).toHaveBeenCalledWith(`/project/?type=regex&root=${rootDir}`, JSON.stringify(regexContent));
@@ -50,12 +50,12 @@ describe('projectActions', () => {
     });
   });
 
-  it('updateFilesByRegex - error', async () => {
+  it('updateFilesByProjectRegex - error', async () => {
     api.post.mockRejectedValueOnce(error);
-    updateFilesByRegex()(dispatch);
+    updateFilesByProjectRegex()(dispatch);
 
     await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('updateFilesByRegex:') });
+      expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: getErrorObject('updateFilesByProjectRegex:') });
     });
   });
 });

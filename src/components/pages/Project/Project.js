@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openGlobalModal } from 'components/molecules/Global/globalActions';
 import { loadProject, clearMessage } from './projectActions';
-import { getPackageJson } from './package/npmPackageActions';
-import { getRemoteUrl, viewBranches, viewStash } from './git/gitActions';
-import { loadSnippetDirectory } from './snippet/snippetActions';
+import { getPackageJson } from 'components/molecules/ProjectPackage/projectPackageActions';
+import { getRemoteUrl, viewBranches, viewStash } from 'components/molecules/ProjectGit/projectGitActions';
+import { loadSnippetDirectory } from 'components/molecules/ProjectSnippet/projectSnippetActions';
 import { CopySVG } from 'components/atoms/Icons/CopySVG';
 import Page from 'components/layout';
 import Tabs from 'components/atoms/Tabs';
 import ComponentWrapper from 'components/atoms/ComponentWrapper';
 import { copyToClipboard } from 'utils/copy';
-import Git from './git';
-import NpmPackage from './package';
-import Regex from './regex';
-import Snippet from './snippet';
+import ProjectGit from 'components/molecules/ProjectGit';
+import ProjectPackage from 'components/molecules/ProjectPackage';
+import ProjectRegex from 'components/molecules/ProjectRegex';
+import ProjectSnippet from 'components/molecules/ProjectSnippet';
 import useLocalStorage from 'hooks/useLocalStorage';
 import { SCDirPath, SCDirSidePanelWrapper, SCDirBtnWrapper, SCDirectoryBtn } from './styles';
 
@@ -25,10 +25,10 @@ const Project = () => {
   const [root, setRoot] = useLocalStorage(LS_DIR_KEY, DEFAULT_DIR, false);
   const { remoteUrl, directories, regexes, packageJson, message } = useSelector((state) => state.project);
   const TABS = [
-    { title: 'Git', component: ComponentWrapper(Git, { root }) },
-    { title: 'Npm', component: ComponentWrapper(NpmPackage, { root }) },
-    { title: 'Regex', component: ComponentWrapper(Regex, { root, directories, regexes }) },
-    { title: 'Snippet', component: ComponentWrapper(Snippet, {}) }
+    { title: 'Git', component: ComponentWrapper(ProjectGit, { root }) },
+    { title: 'Npm', component: ComponentWrapper(ProjectPackage, { root }) },
+    { title: 'Regex', component: ComponentWrapper(ProjectRegex, { root, directories, regexes }) },
+    { title: 'Snippet', component: ComponentWrapper(ProjectSnippet, {}) }
   ];
 
   useEffect(() => {

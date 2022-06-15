@@ -11,18 +11,24 @@ import {
   deleteStash,
   selectStash,
   resetBranch
-} from './gitActions';
+} from './projectGitActions';
 import Text from 'components/atoms/Form/Text';
 import Button from 'components/atoms/Button';
-import { SCGitPageWrapper, SCNameTxt, SCBranchesWrapper, SCBranchBtnWrapper, SCGitBtnWrapper } from './styles';
+import {
+  SCProjectGitPageWrapper,
+  SCNameTxt,
+  SCBranchesWrapper,
+  SCBranchBtnWrapper,
+  SCProjectGitBtnWrapper
+} from './styles';
 
-const Git = ({ root }) => {
+const ProjectGit = ({ root }) => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const { branches, stashes } = useSelector((state) => state.project);
 
   return (
-    <SCGitPageWrapper>
+    <SCProjectGitPageWrapper>
       <SCBranchesWrapper>
         <SCBranchBtnWrapper>
           <h2>Branches</h2>
@@ -65,7 +71,7 @@ const Git = ({ root }) => {
             }}
           />
         </SCNameTxt>
-        <SCGitBtnWrapper>
+        <SCProjectGitBtnWrapper>
           <Button
             label="Checkout"
             disabled={!name}
@@ -96,8 +102,8 @@ const Git = ({ root }) => {
               dispatch(viewBranches(root));
             }}
           />
-        </SCGitBtnWrapper>
-        <SCGitBtnWrapper>
+        </SCProjectGitBtnWrapper>
+        <SCProjectGitBtnWrapper>
           <Button
             label="Create Stash"
             disabled={!name}
@@ -126,18 +132,18 @@ const Git = ({ root }) => {
               dispatch(selectStash(root, name));
             }}
           />
-        </SCGitBtnWrapper>
-        <SCGitBtnWrapper>
+        </SCProjectGitBtnWrapper>
+        <SCProjectGitBtnWrapper>
           <Button
             label="Reset"
             onClick={() => {
               dispatch(resetBranch(root));
             }}
           />
-        </SCGitBtnWrapper>
+        </SCProjectGitBtnWrapper>
       </div>
-    </SCGitPageWrapper>
+    </SCProjectGitPageWrapper>
   );
 };
 
-export default Git;
+export default ProjectGit;

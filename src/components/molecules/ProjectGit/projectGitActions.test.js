@@ -23,7 +23,7 @@ import {
   viewStash,
   RESET_BRANCH,
   resetBranch
-} from './gitActions';
+} from './projectGitActions';
 import { CREATE_ALERT } from 'components/layout/Alert/alertActions';
 
 const error = new Error('Test Message');
@@ -49,7 +49,7 @@ const message = 'test message';
 const rootDir = 'test-dir';
 const name = 'test-name';
 
-describe('gitActions', () => {
+describe('projectGitActions', () => {
   it('getRemoteUrl', async () => {
     api.get.mockResolvedValueOnce({
       data: {

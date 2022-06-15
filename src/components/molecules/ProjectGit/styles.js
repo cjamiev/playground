@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Theme } from 'theme';
 
-export const SCGitPageWrapper = styled.div`
+export const SCProjectGitPageWrapper = styled.div`
   display: flex;
   column-gap: 20px;
 `;
@@ -22,7 +22,7 @@ export const SCBranchBtnWrapper = styled.div`
   row-gap: 5px;
 `;
 
-export const SCGitBtnWrapper = styled.div`
+export const SCProjectGitBtnWrapper = styled.div`
   display: flex;
   margin-bottom: 10px;
 

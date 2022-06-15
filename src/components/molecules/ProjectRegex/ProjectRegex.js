@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateProject } from '../projectActions';
-import { updateFilesByRegex } from './regexActions';
+import { updateProject } from 'components/pages/Project/projectActions';
+import { updateFilesByProjectRegex } from './projectRegexActions';
 import Button from 'components/atoms/Button';
 import Text from 'components/atoms/Form/Text';
 import Checkbox from 'components/atoms/Form/Checkbox';
@@ -17,7 +17,7 @@ export const MODIFIER_TYPES = [
   { label: 'Multiline', value: 'm', selected: false }
 ];
 
-export const formRegex = (expression, modifiers) => {
+export const formProjectRegex = (expression, modifiers) => {
   try {
     return { regex: new RegExp(expression, modifiers), isValid: true };
   } catch (e) {
@@ -25,7 +25,15 @@ export const formRegex = (expression, modifiers) => {
   }
 };
 
-const getUpdatedRegex = ({ regexes, description, fileRegex, lineRegex, selectedModifiers, lineRange, replace }) => {
+const getUpdatedProjectRegex = ({
+  regexes,
+  description,
+  fileProjectRegex,
+  lineProjectRegex,
+  selectedModifiers,
+  lineRange,
+  replace
+}) => {
   const matched = regexes.find((item) => item.description === description);
 
   if (matched) {
@@ -33,8 +41,8 @@ const getUpdatedRegex = ({ regexes, description, fileRegex, lineRegex, selectedM
       if (item.description === description) {
         return {
           description,
-          fileRegex,
-          lineRegex,
+          fileProjectRegex,
+          lineProjectRegex,
           modifiers: selectedModifiers,
           lineRange,
           replace
@@ -48,8 +56,8 @@ const getUpdatedRegex = ({ regexes, description, fileRegex, lineRegex, selectedM
   return regexes.concat([
     {
       description,
-      fileRegex,
-      lineRegex,
+      fileProjectRegex,
+      lineProjectRegex,
       modifiers: selectedModifiers,
       lineRange,
       replace
@@ -57,12 +65,12 @@ const getUpdatedRegex = ({ regexes, description, fileRegex, lineRegex, selectedM
   ]);
 };
 
-const Regex = ({ root, directories, regexes }) => {
+const ProjectRegex = ({ root, directories, regexes }) => {
   const dispatch = useDispatch();
-  const [regexKeys, setRegexKeys] = useState([]);
+  const [regexKeys, setProjectRegexKeys] = useState([]);
   const [description, setDescription] = useState('');
-  const [fileRegex, setFileRegex] = useState('');
-  const [lineRegex, setLineRegex] = useState('');
+  const [fileProjectRegex, setFileProjectRegex] = useState('');
+  const [lineProjectRegex, setLineProjectRegex] = useState('');
   const [replace, setReplace] = useState('');
   const [modifier, setModifier] = useState(MODIFIER_TYPES);
   const [lineRange, setLineRange] = useState({ start: '', end: '' });
@@ -72,27 +80,27 @@ const Regex = ({ root, directories, regexes }) => {
     .filter((item) => item.selected)
     .map((item) => item.value)
     .join('');
-  const fileRegExp = formRegex(fileRegex);
-  const lineRegExp = formRegex(lineRegex, selectedModifiers);
+  const fileRegExp = formProjectRegex(fileProjectRegex);
+  const lineRegExp = formProjectRegex(lineProjectRegex, selectedModifiers);
 
   useEffect(() => {
     const REGEX_KEYS = regexes.map((r) => {
       return { label: r.description, value: r, selected: false };
     });
-    setRegexKeys(REGEX_KEYS);
+    setProjectRegexKeys(REGEX_KEYS);
   }, [regexes]);
 
   return (
     <div className="flex--vertical">
       <Dropdown
-        label="Regexes"
+        label="ProjectRegexes"
         values={regexKeys}
         onChange={({ values }) => {
           const selected = values.find((item) => item.selected);
 
           setDescription(selected.value.description);
-          setFileRegex(selected.value.fileRegex);
-          setLineRegex(selected.value.lineRegex);
+          setFileProjectRegex(selected.value.fileProjectRegex);
+          setLineProjectRegex(selected.value.lineProjectRegex);
           setLineRange(selected.value.lineRange);
           setReplace(selected.value.replace);
           setModifier(
@@ -114,21 +122,21 @@ const Regex = ({ root, directories, regexes }) => {
       />
       <div className="flex--horizontal">
         <Text
-          label="File Regex"
+          label="File ProjectRegex"
           error={!fileRegExp.isValid}
           errorMessage="Not valid regex expression"
-          selected={fileRegex}
+          selected={fileProjectRegex}
           onChange={({ selected }) => {
-            setFileRegex(selected);
+            setFileProjectRegex(selected);
           }}
         />
         <Text
-          label="Line Regex"
+          label="Line ProjectRegex"
           error={!lineRegExp.isValid}
           errorMessage="Not valid regex expression"
-          selected={lineRegex}
+          selected={lineProjectRegex}
           onChange={({ selected }) => {
-            setLineRegex(selected);
+            setLineProjectRegex(selected);
           }}
         />
         <Text
@@ -164,9 +172,9 @@ const Regex = ({ root, directories, regexes }) => {
           onClick={() => {
             if (fileRegExp.isValid && lineRegExp.isValid && !rangeError) {
               dispatch(
-                updateFilesByRegex(root, {
-                  fileRegex,
-                  lineRegex,
+                updateFilesByProjectRegex(root, {
+                  fileProjectRegex,
+                  lineProjectRegex,
                   modifiers: selectedModifiers,
                   lineRange,
                   replace
@@ -179,16 +187,16 @@ const Regex = ({ root, directories, regexes }) => {
           label="Save"
           onClick={() => {
             if (fileRegExp.isValid && lineRegExp.isValid && !rangeError && description) {
-              const updatedRegexes = getUpdatedRegex({
+              const updatedProjectRegexes = getUpdatedProjectRegex({
                 regexes,
                 description,
-                fileRegex,
-                lineRegex,
+                fileProjectRegex,
+                lineProjectRegex,
                 selectedModifiers,
                 lineRange,
                 replace
               });
-              dispatch(updateProject({ directories, regexes: updatedRegexes }));
+              dispatch(updateProject({ directories, regexes: updatedProjectRegexes }));
             }
           }}
         />
@@ -196,8 +204,8 @@ const Regex = ({ root, directories, regexes }) => {
           label="Delete"
           onClick={() => {
             if (description) {
-              const updatedRegexes = regexes.filter((item) => item.description !== description);
-              dispatch(updateProject({ directories, regexes: updatedRegexes }));
+              const updatedProjectRegexes = regexes.filter((item) => item.description !== description);
+              dispatch(updateProject({ directories, regexes: updatedProjectRegexes }));
             }
           }}
         />
@@ -206,4 +214,4 @@ const Regex = ({ root, directories, regexes }) => {
   );
 };
 
-export default Regex;
+export default ProjectRegex;

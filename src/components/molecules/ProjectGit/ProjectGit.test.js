@@ -22,7 +22,7 @@ const defaultStoreProps = {
 };
 
 // act warnings
-describe('Git', () => {
+describe('ProjectGit', () => {
   it('switch branch', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 

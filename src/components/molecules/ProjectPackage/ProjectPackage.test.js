@@ -32,7 +32,7 @@ const defaultStoreProps = {
   }
 };
 
-describe('NpmPackage', () => {
+describe('ProjectPackage', () => {
   it('should render package deps', () => {
     reduxTestWrapper(Project, {}, defaultStoreProps);
 
