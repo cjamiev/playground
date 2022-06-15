@@ -85,7 +85,7 @@ const TimerCard = ({ item, onRemoveTimer, onEditTimer }) => {
   );
 };
 
-const HomeTimer = ({ timers, selectedTimer, onChangeTimer, onRemoveTimer, onEditTimer }) => {
+export const HomeTimer = ({ timers, selectedTimer, onChangeTimer, onRemoveTimer, onEditTimer }) => {
   const renderTimers =
     timers.length > ZERO ? (
       timers.map((item) => (
@@ -111,5 +111,3 @@ const HomeTimer = ({ timers, selectedTimer, onChangeTimer, onRemoveTimer, onEdit
     </SCTimerTab>
   );
 };
-
-export default HomeTimer;

@@ -8,8 +8,8 @@ import Text from 'components/atoms/Form/Text';
 import Tabs from 'components/atoms/Tabs';
 import TimerForm from 'components/atoms/Form/TimerForm';
 import ComponentWrapper from 'components/atoms/ComponentWrapper';
-import HomeTodo from './HomeTodo';
-import HomeTimer from './HomeTimer';
+import { HomeTodo } from 'components/molecules/HomeTodo';
+import { HomeTimer } from 'components/molecules/HomeTimer';
 
 const Home = () => {
   const dispatch = useDispatch();

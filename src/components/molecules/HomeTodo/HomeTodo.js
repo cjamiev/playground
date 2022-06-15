@@ -10,12 +10,12 @@ import Button from 'components/atoms/Button';
 import Text from 'components/atoms/Form/Text';
 import ItemCreator from 'components/atoms/Form/ItemCreator';
 import { noop } from 'utils/noop';
-import { SCTodoTab, SCCreateFormFieldSet, SCTodoWrapper, SCTodoTitleWrapper, SCTodoList, SCHomeFooter } from './styles';
+import { SCTodoTab, SCCreateFormFieldSet, SCTodoWrapper, SCTodoTitleWrapper, SCTodoList } from './styles';
 
 const ZERO = 0;
 const MAX_LENGTH = 18;
 
-const HomeTodo = ({ tasks, selectedTask, onChangeItem, onChange, onEditTask }) => {
+export const HomeTodo = ({ tasks, selectedTask, onChangeItem, onChange, onEditTask }) => {
   const dispatch = useDispatch();
   const [taskText, setTaskText] = useState('');
   const [taskNotes, setTaskNotes] = useState([]);
@@ -174,5 +174,3 @@ const HomeTodo = ({ tasks, selectedTask, onChangeItem, onChange, onEditTask }) =
     </SCTodoTab>
   );
 };
-
-export default HomeTodo;
