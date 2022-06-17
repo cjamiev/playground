@@ -1,21 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Testing Page</title>
+    <style>
+      /*
+        Organize css  
+        Font & Text:font-family, font-size, font-weight, line-height, text-align, word-spacing
+        Color & Background: background-color, background-image, background-position, color
+        Box: height, width, border
+      */
+    </style>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Testing Page</title>
-  <style></style>
-</head>
+  <body>
+    <!-- Textual Tags-->
+    <h1>This is a h1</h1>
+    <p>This is a p</p>
+    <label> This is a label </label>
 
-<body>
-  <h1>Testing Page</h1>
+    <!-- Semantical Tags-->
+    <div>This is a div</div>
+    <span> This is a span </span>
+    <header>This is a header</header>
+    <nav>This is a nav</nav>
+    <main>This is a main</main>
+    <section>This is a section</section>
+    <article>This is an article</article>
+    <aside>This is an aside</aside>
+    <footer>This is an footer</footer>
 
-</body>
+    <!-- Input Tags-->
+    <input type="button" value="A button" />
+    <input type="text" />
+    <input type="password" />
 
-<script>
+    <input type="radio" name="radiogroup" value="Radio Button 1" />
+    <input type="radio" name="radiogroup" value="Radio Button 2" />
 
-</script>
+    <input type="checkbox" value="Checkbox Button 1" />
 
+    <textarea cols="40" rows="10">This is a text area</textarea>
+
+    <select name="selectinput">
+      <option value="value1">Selection 1</option>
+      <option value="value2">Selection 2</option>
+    </select>
+
+    <!-- Form Tag-->
+    <form>
+      <fieldset>
+        <legend>Personalia:</legend>
+        <value for="name">Name:</value>
+        <input id="name" type="text" /><br />
+        <value for="email">Email:</value>
+        <input id="email" type="text" /><br />
+        <value for="dob">Date of birth:</value>
+        <input id="dob" type="text" /><br />
+        <input type="submit" value="Submit" />
+      </fieldset>
+    </form>
+
+    <!-- List Tag-->
+    <ul>
+      <li>List 1</li>
+      <li>List 2</li>
+    </ul>
+
+    <!-- Link Tag-->
+    <a href="http://www.google.com" target="_blank">This is a hyperlink</a>
+    <img src="smiley.gif" alt="Smiley face" height="42" width="42" />
+
+    <!-- Separation Tag-->
+    <br />
+    <hr />
+
+    <!-- Table Tag-->
+    <table>
+      <thead>
+        <tr>
+          <th>Column 1 Header</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cell 11</td>
+        </tr>
+        <tr>
+          <td>Cell 21</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      window.body = addEventListener('click', (params) => {
+        console.log('click at location:', params);
+      });
+
+      /* Events add 'on' in front for attribute
+Events
+------
+click
+change
+mouseover
+mouseout
+mouseup
+mousedown
+mousemove
+keyup
+keydown
+keypress
+drag
+drop
+blur
+focus
+load
+beforeunload
+
+localStorage/sessionStorage
+------------
+localStorage.setItem(k,v);
+localStorage.getItem(k);
+localStorage.removeItem(k);
+localStorage.clear();
+
+Date(year, monthIndex [, day [, hours [, minutes [, seconds [, milliseconds]]]]])
+----
+const d = new Date();
+const year = d.getFullYear();
+// zero is january
+const month = d.getMonth();
+const date = d.getDate();
+const hours = d.getHours();
+const minutes = d.getMinutes();
+const seconds = d.getSeconds();
+const ms = d.getMilliseconds();
+const day = d.getDay();
+// milliseconds since January 1, 1970
+const time = d.getTime();
+*/
+
+      /*
+Quick performance testing
+console.time(label)
+console.timeEnd(label)
+*/
+    </script>
+  </body>
 </html>

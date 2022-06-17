@@ -1,17 +1,17 @@
-const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('../stringHelper');
-const { getAttributeList } = require('./attributeHelper');
+import { capitalizeFirstLetter, toCamelCaseFromDashCase } from '../src/utils/stringHelper';
+import { getAttributeList } from './attributeHelper';
 
 const ZERO = 0;
 const ONE = 1;
 
 const handleRemoveMode = (line, counter) => {
-  if(counter === ZERO && line.includes('</')) {
+  if (counter === ZERO && line.includes('</')) {
     return { flag: false, counter: 0 };
-  } else if(line.includes('</')) {
+  } else if (line.includes('</')) {
     return { flag: true, counter: counter - ONE };
-  } else if(line.includes('<') && line.includes('/>')) {
+  } else if (line.includes('<') && line.includes('/>')) {
     return { flag: true, counter };
-  } else if(line.includes('<') && line.includes('>')) {
+  } else if (line.includes('<') && line.includes('>')) {
     return { flag: true, counter: counter + ONE };
   }
 };
@@ -22,9 +22,9 @@ const trimSvgComponent = (section) => {
 
   return section
     .split('\n')
-    .filter(currentLine => !(currentLine.includes('data-testid="remove-') && currentLine.includes('/>')))
-    .map(currentLine => {
-      if(isRemoving) {
+    .filter((currentLine) => !(currentLine.includes('data-testid="remove-') && currentLine.includes('/>')))
+    .map((currentLine) => {
+      if (isRemoving) {
         const { flag, counter } = handleRemoveMode(currentLine, count);
 
         isRemoving = flag;
@@ -44,13 +44,13 @@ const trimSvgComponent = (section) => {
 };
 
 const handleConditionMode = (line, counter) => {
-  if(counter === ZERO && line.includes('</')) {
+  if (counter === ZERO && line.includes('</')) {
     return { flag: false, counter: 0 };
-  } else if(line.includes('</')) {
+  } else if (line.includes('</')) {
     return { flag: true, counter: counter - ONE };
-  } else if(line.includes('<') && line.includes('/>')) {
+  } else if (line.includes('<') && line.includes('/>')) {
     return { flag: true, counter };
-  } else if(line.includes('<') && line.includes('>')) {
+  } else if (line.includes('<') && line.includes('>')) {
     return { flag: true, counter: counter + ONE };
   }
 };
@@ -66,23 +66,24 @@ const findSubcomponent = (section) => {
 
   const updatedSvgObj = section
     .split('\n')
-    .map(currentLine => {
+    .map((currentLine) => {
       if (!isAddingSubcomponent && currentLine.includes('data-testid="subcomponent-')) {
-        currentSubcomponent.name && subcomponents.push({
-          name: currentSubcomponent.name,
-          value: currentSubcomponent.value.join('\n')
-        });
+        currentSubcomponent.name &&
+          subcomponents.push({
+            name: currentSubcomponent.name,
+            value: currentSubcomponent.value.join('\n')
+          });
         isAddingSubcomponent = true;
 
-        const dashCaseName = getAttributeList(currentLine, 'data-testid="subcomponent-')[ZERO]
-          .replace('data-testid="subcomponent-','')
-          .replace('"','');
+        const dashCaseName = getAttributeList(currentLine, 'data-testid="subcomponent-')
+          [ZERO].replace('data-testid="subcomponent-', '')
+          .replace('"', '');
         const name = capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName));
         currentSubcomponent.name = name;
         currentSubcomponent.value = [currentLine];
 
         return '';
-      } else if(isAddingSubcomponent) {
+      } else if (isAddingSubcomponent) {
         const { flag, counter } = handleConditionMode(currentLine, count);
 
         isAddingSubcomponent = flag;
@@ -97,12 +98,13 @@ const findSubcomponent = (section) => {
     .filter(Boolean)
     .join('\n');
 
-  currentSubcomponent.name && subcomponents.push({
-    name: currentSubcomponent.name,
-    value: currentSubcomponent.value.join('\n')
-  });
+  currentSubcomponent.name &&
+    subcomponents.push({
+      name: currentSubcomponent.name,
+      value: currentSubcomponent.value.join('\n')
+    });
 
-  return { subcomponents, updatedSvgObj};
+  return { subcomponents, updatedSvgObj };
 };
 
 const getSvgSubcomponents = (section) => {
@@ -110,11 +112,11 @@ const getSvgSubcomponents = (section) => {
 
   let updatedSvgObj = section
     .split('\n')
-    .map(currentLine => {
+    .map((currentLine) => {
       if (currentLine.includes('data-testid="subcomponent-') && currentLine.includes('/>')) {
-        const dashCaseName = getAttributeList(currentLine, 'data-testid="subcomponent-')[ZERO]
-          .replace('data-testid="subcomponent-','')
-          .replace('"','');
+        const dashCaseName = getAttributeList(currentLine, 'data-testid="subcomponent-')
+          [ZERO].replace('data-testid="subcomponent-', '')
+          .replace('"', '');
         const name = capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName));
         subcomponents.push({
           name,
@@ -129,7 +131,7 @@ const getSvgSubcomponents = (section) => {
     .filter(Boolean)
     .join('\n');
 
-  while(updatedSvgObj.includes('data-testid="subcomponent-')) {
+  while (updatedSvgObj.includes('data-testid="subcomponent-')) {
     const result = findSubcomponent(updatedSvgObj);
     subcomponents = subcomponents.concat(result.subcomponents);
 
@@ -137,7 +139,10 @@ const getSvgSubcomponents = (section) => {
   }
 
   // Error correction not sure what is the source of this problem
-  updatedSvgObj = updatedSvgObj.split('\n').filter(item => !item.includes('DELETE')).join('\n');
+  updatedSvgObj = updatedSvgObj
+    .split('\n')
+    .filter((item) => !item.includes('DELETE'))
+    .join('\n');
 
   return { updatedSvgObj, subcomponents };
 };
@@ -149,20 +154,18 @@ const addCondition = (section) => {
 
   const updatedSvgObj = section
     .split('\n')
-    .map(currentLine => {
+    .map((currentLine) => {
       if (!isAddingCondition && currentLine.includes('data-testid="condition-')) {
         isAddingCondition = true;
 
-        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
-          .replace('data-testid="condition-','')
-          .replace('"','');
+        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')
+          [ZERO].replace('data-testid="condition-', '')
+          .replace('"', '');
         const name = `show${capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName))}`;
         conditions.push(name);
 
-        return currentLine
-          .replace('data-testid="condition-','data-testid="')
-          .replace('<', `{ ${name} && <`);
-      } else if(isAddingCondition) {
+        return currentLine.replace('data-testid="condition-', 'data-testid="').replace('<', `{ ${name} && <`);
+      } else if (isAddingCondition) {
         const { flag, counter } = handleConditionMode(currentLine, count);
 
         isAddingCondition = flag;
@@ -175,7 +178,7 @@ const addCondition = (section) => {
     })
     .join('\n');
 
-  return { conditions, updatedSvgObj};
+  return { conditions, updatedSvgObj };
 };
 
 const addConditionsToSvgComponents = (section) => {
@@ -183,16 +186,16 @@ const addConditionsToSvgComponents = (section) => {
 
   let updatedSvgObj = section
     .split('\n')
-    .map(currentLine => {
+    .map((currentLine) => {
       if (currentLine.includes('data-testid="condition-') && currentLine.includes('/>')) {
-        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')[ZERO]
-          .replace('data-testid="condition-','')
-          .replace('"','');
+        const dashCaseName = getAttributeList(currentLine, 'data-testid="condition-')
+          [ZERO].replace('data-testid="condition-', '')
+          .replace('"', '');
         const name = `show${capitalizeFirstLetter(toCamelCaseFromDashCase(dashCaseName))}`;
         conditions.push(name);
 
         return currentLine
-          .replace('data-testid="condition-','data-testid="')
+          .replace('data-testid="condition-', 'data-testid="')
           .replace('<', `{ ${name} && <`)
           .replace('/>', '/> }');
       }
@@ -201,7 +204,7 @@ const addConditionsToSvgComponents = (section) => {
     })
     .join('\n');
 
-  while(updatedSvgObj.includes('data-testid="condition-')) {
+  while (updatedSvgObj.includes('data-testid="condition-')) {
     const result = addCondition(updatedSvgObj);
     conditions = conditions.concat(result.conditions);
 
@@ -211,8 +214,4 @@ const addConditionsToSvgComponents = (section) => {
   return { updatedSvgObj, conditions };
 };
 
-module.exports = {
-  trimSvgComponent,
-  getSvgSubcomponents,
-  addConditionsToSvgComponents
-};
+export { trimSvgComponent, getSvgSubcomponents, addConditionsToSvgComponents };

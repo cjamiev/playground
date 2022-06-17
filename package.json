@@ -1,6 +1,6 @@
 {
   "name": "playground",
-  "version": "2.23.0",
+  "version": "2.24.0",
   "description": "Project to help with daily tasks and other projects",
   "main": "src/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "work": "npm run server & npm run start",
     "prod": "node server/index.js > server.log 2>&1",
     "build": "webpack --config config/webpack.prod.js",
-    "script": "node experiment/script && npm run lint",
+    "svg": "node -r esm svgCreator/script && npm run lint",
     "lint": "eslint --fix --ext .js ./src",
     "eslint": "eslint --ext .js src/ -f html -o coverage/eslint-report.html",
     "t": "jest --env=jsdom --watch",

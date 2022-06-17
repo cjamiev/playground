@@ -53,6 +53,7 @@ import { TrashSVG } from './TrashSVG';
 import { TriangleSVG } from './TriangleSVG';
 import { TripleSVG } from './TripleSVG';
 import { TripleDotSVG } from './TripleDotSVG';
+import './svg.css';
 
 const svgMap = {
   Archive: ArchiveSVG,

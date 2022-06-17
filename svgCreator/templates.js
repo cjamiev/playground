@@ -1,10 +1,13 @@
-const defaultClass = [{
-  cssClass: '.svg--primary-color {\n  fill: #000000;\n  stroke: #000000;\n}\n',
-  className: 'svg--primary-color'
-}, {
-  cssClass: '.svg--marked-color {\n  fill: #ff0000;\n  stroke: #ff0000;\n}\n',
-  className: 'svg--marked-color'
-}];
+const defaultClass = [
+  {
+    cssClass: '.svg--primary-color {\n  fill: #000000;\n  stroke: #000000;\n}\n',
+    className: 'svg--primary-color'
+  },
+  {
+    cssClass: '.svg--marked-color {\n  fill: #ff0000;\n  stroke: #ff0000;\n}\n',
+    className: 'svg--marked-color'
+  }
+];
 
 const subcomponentTemplate = `export const {{name}} = ({ transform, conditions = {} }) => {
 {{conditions}}
@@ -58,7 +61,7 @@ export const {{name}} = ({ transform, conditions = {} }) => {
 
 `;
 
-const importTemplate = 'import {\n {{imports}} \n} from \'./{{name}}\';';
+const importTemplate = "import {\n {{imports}} \n} from './{{name}}';";
 const indexTemplate = `
 {{imports}}
 import './svg.css';
@@ -118,7 +121,7 @@ const SvgMapper = () => {
 export default SvgMapper;
 `;
 
-module.exports = {
+export {
   defaultClass,
   componentTemplate,
   componentWithoutSubcomponentTemplate,
