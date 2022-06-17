@@ -1,4 +1,4 @@
-import { ArchiveSVG, ClipboardSVG, DirectorySVG, FlaskSVG, HomeSVG, SettingSVG } from 'components/atoms/Icons';
+import { ArchiveSVG, ClipboardSVG, DirectorySVG, FlaskSVG, HomeSVG, SettingSVG, TextSVG } from 'components/atoms/Icons';
 
 export const navigationMap = [
   {
@@ -18,20 +18,20 @@ export const navigationMap = [
     }
   },
   {
-    label: 'Clipboard',
-    url: '/clipboard',
-    icon: ClipboardSVG,
+    label: 'Experiment',
+    url: '/experiment',
+    icon: FlaskSVG,
     props: {
       transform: 'scale(0.6) translate(6,6)'
     }
   },
   {
-    label: 'Project',
-    url: '/project',
-    icon: DirectorySVG,
-    isAtBottom: true,
+    label: 'Generator',
+    url: '/generator',
+    icon: TextSVG,
     props: {
-      transform: 'scale(0.6) translate(6,6)'
+      transform: 'scale(0.4) translate(0,15)',
+      text: '</>'
     }
   },
   {

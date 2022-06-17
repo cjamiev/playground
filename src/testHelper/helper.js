@@ -10,10 +10,10 @@ const mockDate = (date) => {
   const _Date = Date;
   const MockDate = (...args) => {
     switch (args.length) {
-      case 0:
-        return DATE_TO_USE;
-      default:
-        return new _Date(...args);
+    case 0:
+      return DATE_TO_USE;
+    default:
+      return new _Date(...args);
     }
   };
   MockDate.UTC = _Date.UTC;

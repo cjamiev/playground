@@ -23,7 +23,7 @@ module.exports = (env) => {
       proxy: [
         {
           context: ['**'],
-          target: 'http://localhost:1000'
+          target: 'http://localhost:1002'
         }
       ]
     },
@@ -48,16 +48,11 @@ module.exports = (env) => {
         },
         {
           test: /\.css$/,
-          use: [
-            'style-loader',
-            'css-loader'
-          ]
+          use: ['style-loader', 'css-loader']
         },
         {
           test: /\.html$/,
-          use: [
-            'html-loader'
-          ]
+          use: ['html-loader']
         },
         {
           test: /\.(svg|png|jpg|gif)$/,
@@ -77,4 +72,3 @@ module.exports = (env) => {
     ]
   };
 };
-

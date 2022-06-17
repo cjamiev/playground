@@ -1,15 +1,16 @@
 import api from 'api';
 import { createAlert } from 'components/layout/Alert/alertActions';
 
-const LOAD_HOME = 'LOAD_HOME';
 const THREE_SECOND = 3000;
+const ZERO = 0;
+const LOAD_GENERATOR_RECORDS = 'LOAD_GENERATOR_RECORDS';
 
-const loadHome = () => {
+const loadGeneratorRecords = () => {
   return (dispatch) => {
     api
-      .get('/file/?name=home.json')
+      .get('/file/?name=generator.json')
       .then((response) => {
-        dispatch({ type: LOAD_HOME, data: JSON.parse(response.data.data) });
+        dispatch({ type: LOAD_GENERATOR_RECORDS, data: JSON.parse(response.data.data) });
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -17,13 +18,13 @@ const loadHome = () => {
   };
 };
 
-const updateHome = (content) => {
+const updatedGeneratorRecords = (content) => {
   return (dispatch) => {
     api
-      .post('/file', { filename: 'home.json', content: JSON.stringify(content) })
+      .post('/file', { filename: 'generator.json', content: JSON.stringify(content) })
       .then((response) => {
         dispatch(createAlert({ content: 'Updated', timer: THREE_SECOND, status: 'success' }));
-        dispatch({ type: LOAD_HOME, data: content });
+        dispatch({ type: LOAD_GENERATOR_RECORDS, data: content });
       })
       .catch((error) => {
         dispatch(createAlert({ content: error.message, status: 'error' }));
@@ -31,4 +32,4 @@ const updateHome = (content) => {
   };
 };
 
-export { LOAD_HOME, loadHome, updateHome };
+export { LOAD_GENERATOR_RECORDS, loadGeneratorRecords, updatedGeneratorRecords };

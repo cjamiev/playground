@@ -21,7 +21,7 @@ describe('Settings', () => {
     fireEvent.change(screen.getByLabelText('File text field'), { target: { value: 'commandThree' } });
     fireEvent.click(screen.getByText('Submit'));
 
-    expect(api.post).toHaveBeenCalledWith('/db', {
+    expect(api.post).toHaveBeenCalledWith('/file', {
       content: JSON.stringify({
         commands: [{ label: 'commandLabelThree', value: 'commandThree', id: 2 }].concat(mockStore.settings.commands),
         links: mockStore.settings.links,

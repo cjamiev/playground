@@ -282,11 +282,11 @@ export const mockStore = {
 };
 
 const HTTP_GET = {
-  '/db/?name=clipboard.json': { data: JSON.stringify(mockStore.clipboard.records) },
-  '/db/?name=settings.json': { data: JSON.stringify(mockStore.config) },
-  '/db/?name=generator.json': { data: JSON.stringify(mockStore.generator.records) },
-  '/db/?name=home.json': { data: JSON.stringify(mockStore.home) },
-  '/db/?name=project.json': {
+  '/file/?name=clipboard.json': { data: JSON.stringify(mockStore.clipboard.records) },
+  '/file/?name=settings.json': { data: JSON.stringify(mockStore.config) },
+  '/file/?name=generator.json': { data: JSON.stringify(mockStore.generator.records) },
+  '/file/?name=home.json': { data: JSON.stringify(mockStore.home) },
+  '/file/?name=project.json': {
     data: JSON.stringify({
       directories: mockStore.project.directories,
       regexes: mockStore.project.regex
@@ -325,7 +325,7 @@ const HTTP_GET = {
 };
 
 const HTTP_POST = {
-  '/db': { message: 'Updated database' },
+  '/file': { message: 'Updated database' },
   '/file': { message: 'Updated file' },
   '/mockserver/config': { message: 'Updated mock config' },
   'mockserver/mockRequests': { message: 'Updated Mock Request' },

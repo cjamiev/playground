@@ -8,7 +8,6 @@ import {
   executeCommand
 } from 'components/molecules/Global/globalActions';
 import { dismissAlert } from 'components/layout/Alert/alertActions';
-import { getFormattedDate } from 'utils/clock';
 import {
   SCNavigation,
   SCWeek,
@@ -54,10 +53,7 @@ const Navigation = React.memo(() => {
 
   return (
     <SCNavigation>
-      <SCNavigationContent>
-        <SCWeek isTwoDigit={getFormattedDate().week > SINGLE_DIGIT}>{getFormattedDate().week}</SCWeek>
-        {renderNavItems}
-      </SCNavigationContent>
+      <SCNavigationContent>{renderNavItems}</SCNavigationContent>
     </SCNavigation>
   );
 });

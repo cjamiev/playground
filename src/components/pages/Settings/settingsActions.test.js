@@ -30,7 +30,7 @@ describe('settingsActions', () => {
     loadSettings()(dispatch);
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith('/db/?name=settings.json');
+      expect(api.get).toHaveBeenCalledWith('/file/?name=settings.json');
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_SETTINGS, data: content });
     });
   });
@@ -53,7 +53,7 @@ describe('settingsActions', () => {
     updateSettings(content)(dispatch);
 
     await waitFor(() => {
-      expect(api.post).toHaveBeenCalledWith('/db', { content: JSON.stringify(content), filename: 'settings.json' });
+      expect(api.post).toHaveBeenCalledWith('/file', { content: JSON.stringify(content), filename: 'settings.json' });
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ALERT, data: successObject });
       expect(dispatch).toHaveBeenCalledWith({ type: LOAD_SETTINGS, data: content });
     });

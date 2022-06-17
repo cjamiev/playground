@@ -1,7 +1,7 @@
 export const ROUTES = {
   HOME: { label: 'Home', url: '/home' },
-  FILE: { label: 'File', sidePanelLabel: 'File Operations', url: '/file' },
-  CLIPBOARD: { label: 'Clipboard', sidePanelLabel: 'Add New Clipboard Items', url: '/clipboard' },
-  PROJECT: { label: 'Project', url: '/project' },
+  FILE: { label: 'File', url: '/file' },
+  EXPERIMENT: { label: 'Experiment', sidePanelLabel: 'Test', url: '/experiment' },
+  GENERATOR: { label: 'Generator', url: '/generator' },
   SETTINGS: { label: 'Settings', url: '/settings' }
 };

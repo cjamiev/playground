@@ -2,7 +2,7 @@ const http = require('http');
 const url = require('url');
 const { router } = require('./router');
 
-const DEFAULT_PORT = 1000;
+const DEFAULT_PORT = 1002;
 const SECOND_ARGUMENT = 2;
 const port = process.argv[SECOND_ARGUMENT] || DEFAULT_PORT;
 const UTF8 = 'utf-8';
@@ -38,10 +38,14 @@ const resolvePostBody = async (request) => {
   return await promise;
 };
 
-const send = (response, { data = {}, message = '', error = false }, { status, headers, body, shouldStringify = true } = {}) => {
-  if(status, headers, body) {
+const send = (
+  response,
+  { data = {}, message = '', error = false },
+  { status, headers, body, shouldStringify = true } = {}
+) => {
+  if ((status, headers, body)) {
     response.writeHead(status, headers);
-    response.end(shouldStringify ? JSON.stringify(body): body, UTF8);
+    response.end(shouldStringify ? JSON.stringify(body) : body, UTF8);
   } else {
     const STANDARD_STATUS = error ? STATUS_ERROR : STATUS_OK;
 
@@ -54,15 +58,12 @@ const handleRequest = async (request, response) => {
   const queryParameters = url.parse(request.url, true).query;
   const payload = request.method === METHOD_POST ? await resolvePostBody(request) : {};
 
-  const {
-    data,
-    message,
-    error,
-    status,
-    headers,
-    body,
-    shouldStringify
-  } = await router({ reqUrl: request.url, reqMethod: request.method, queryParameters, payload });
+  const { data, message, error, status, headers, body, shouldStringify } = await router({
+    reqUrl: request.url,
+    reqMethod: request.method,
+    queryParameters,
+    payload
+  });
   send(response, { data, message, error }, { status, headers, body, shouldStringify });
 };
 
