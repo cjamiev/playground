@@ -1,6 +1,6 @@
 {
   "name": "playground",
-  "version": "2.22.0",
+  "version": "2.23.0",
   "description": "Project to help with daily tasks and other projects",
   "main": "src/index.js",
   "scripts": {
@@ -16,6 +16,7 @@
     "test": "jest --env=jsdom --coverage > test.log 2>&1",
     "check": "npm run eslint && npm run test && npm run build",
     "u": "rm -r node_modules/*",
+    "q": "node -r esm experiment/main.js",
     "tsc": "npx tsc -p tsconfig.json",
     "tsc:watch": "npx tsc --watch -p tsconfig.json",
     "qt": "node -r esm build/q.js"

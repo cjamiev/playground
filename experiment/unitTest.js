@@ -1,12 +1,13 @@
 /* eslint-disable max-params */
 /* eslint-disable no-magic-numbers */
-const { isEqual } = require('../server/utils/dataHelper');
+import { isEqual } from '../src/utils/comparison';
 
 const getFormatedMessage = (testMessage, args, expectedResult, receivedResult) => {
   const failMessage = `\nfail: ${testMessage} \n`;
-  const argumentsMessage = args.length > 1 ?
-    `${args.map((item, index) => 'input' + (index + 1) + ':' + JSON.stringify(item)).join(',\n')} \n` :
-    `input: ${args.map(item => JSON.stringify(item))} \n`;
+  const argumentsMessage =
+    args.length > 1
+      ? `${args.map((item, index) => 'input' + (index + 1) + ':' + JSON.stringify(item)).join(',\n')} \n`
+      : `input: ${args.map((item) => JSON.stringify(item))} \n`;
   const expectedResultMessage = `Expected: ${JSON.stringify(expectedResult)} \n`;
   const receivedResultMessage = `Received: ${JSON.stringify(receivedResult)} \n`;
 
@@ -27,10 +28,10 @@ const executeTests = ({ testMessage = '', args, expectedResult }, functionToTest
 };
 
 const unitTest = (testData, functionToTest, failOnly = false) => {
-  const results = testData.map(testItem => executeTests(testItem, functionToTest));
-  const passedCount = results.filter(entry => entry.passed).length;
+  const results = testData.map((testItem) => executeTests(testItem, functionToTest));
+  const passedCount = results.filter((entry) => entry.passed).length;
 
-  results.forEach(entry => {
+  results.forEach((entry) => {
     if (failOnly && entry.passed) {
       return;
     } else {
@@ -41,4 +42,4 @@ const unitTest = (testData, functionToTest, failOnly = false) => {
   console.log(`Total Tests: ${testData.length}, Passed: ${passedCount}, Failed: ${testData.length - passedCount}`);
 };
 
-module.exports = { unitTest };
+export { unitTest };

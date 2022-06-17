@@ -37,4 +37,4 @@ const performanceTest = (functionToTest, args, iterations = DEFAULT_ITERATIONS) 
   log(`Total Time for ${iterations} runs:` + time + 'ms');
 };
 
-module.exports = { comparePerformanceTests, performanceTest };
+export { comparePerformanceTests, performanceTest };
