@@ -5,7 +5,6 @@ import thunk from 'redux-thunk';
 import alertReducer from 'components/layout/Alert/alertReducer';
 import settingsReducer from 'components/pages/Settings/settingsReducer';
 import generatorReducer from 'components/pages/Generator/generatorReducer';
-import fileReducer from 'components/pages/File/fileReducer';
 import homeReducer from 'components/pages/Home/homeReducer';
 import globalReducer from 'components/molecules/Global/globalReducer';
 
@@ -18,7 +17,6 @@ const appliedMiddlewares = applyMiddleware(...middlewares);
 const rootReducer = combineReducers({
   alert: alertReducer,
   settings: settingsReducer,
-  file: fileReducer,
   home: homeReducer,
   global: globalReducer,
   generator: generatorReducer

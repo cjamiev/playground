@@ -10,14 +10,6 @@ export const navigationMap = [
     }
   },
   {
-    label: 'File',
-    url: '/file',
-    icon: ArchiveSVG,
-    props: {
-      transform: 'scale(0.6) translate(6,6)'
-    }
-  },
-  {
     label: 'Experiment',
     url: '/experiment',
     icon: FlaskSVG,
