@@ -18,9 +18,7 @@ const successObject = {
   timer: 3000
 };
 
-const content = [
-  { name: 'test', value: { parentBackgroundColor: {}, hoverStyle: {}, normalStyle: {}, activeStyle: {} } }
-];
+const content = [{ name: 'test' }];
 
 describe('homeActions', () => {
   it('loadHome', async () => {

@@ -1,8 +1,7 @@
 import { LOAD_HOME } from './homeActions';
 
 export const homeInitialState = {
-  todos: [],
-  timers: []
+  homeData: {}
 };
 
 const homeReducer = (state = homeInitialState, action) => {
@@ -10,8 +9,7 @@ const homeReducer = (state = homeInitialState, action) => {
     [LOAD_HOME]: () => {
       return {
         ...state,
-        todos: action.data.todos,
-        timers: action.data.timers
+        homeData: action.data
       };
     }
   };
