@@ -4,7 +4,8 @@ import Page from 'components/layout/Page';
 import { openGlobalModal } from 'components/molecules/Global/globalActions';
 import { loadHome, updateHome } from './homeActions';
 import { noop } from 'utils/noop';
-import { SCHomeButton } from './styles';
+import { SCHomeSidePanelWrapper, SCHomeSidePanelButton } from './styles';
+import styled from 'styled-components';
 
 const ZERO = 0;
 const ONE = 1;
@@ -58,16 +59,34 @@ const HomePlaceHolderComponent = () => {
   };
 
   return (
-    <Page>
-      <SCHomeButton onClick={updateHomeModal}> Update Home Data</SCHomeButton>
-      <div> key:{homeData.testKey} </div>
-      <div> count:{homeData.count} </div>
-    </Page>
+    <>
+      <SCHomeSidePanelWrapper>
+        <SCHomeSidePanelButton onClick={updateHomeModal}> Update Home Data</SCHomeSidePanelButton>
+        <div> key:{homeData.testKey} </div>
+        <div> count:{homeData.count} </div>
+      </SCHomeSidePanelWrapper>
+    </>
   );
 };
 
+const SCDiv = styled.div`
+  font-size: 36px;
+  color: ${(props) => (props.isRed ? 'red' : 'blue')};
+
+  :hover {
+    color: green;
+  }
+`;
+
 const Home = () => {
-  return <HomePlaceHolderComponent />;
+  const [item, setItem] = useState('Test Red');
+
+  return (
+    <Page sidePanelContent={<HomePlaceHolderComponent />}>
+      <SCDiv isRed={true}>{item}</SCDiv>
+      <SCDiv isRed={false}>Test Blue</SCDiv>
+    </Page>
+  );
 };
 
 export default Home;
