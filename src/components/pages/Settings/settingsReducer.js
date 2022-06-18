@@ -1,9 +1,7 @@
 import { LOAD_SETTINGS } from './settingsActions';
 
 export const settingsInitialState = {
-  commands: [],
-  links: [],
-  copy: []
+  data: {}
 };
 
 const settingsReducer = (state = settingsInitialState, action) => {
@@ -11,9 +9,7 @@ const settingsReducer = (state = settingsInitialState, action) => {
     [LOAD_SETTINGS]: () => {
       return {
         ...state,
-        commands: action.data.commands,
-        links: action.data.links,
-        copy: action.data.copy
+        data: action.data.commands
       };
     }
   };

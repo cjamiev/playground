@@ -10,11 +10,13 @@ import DataGenerator from './DataGenerator';
 import Form from './Form';
 import Wizard from './Wizard';
 import GlobalModal from './GlobalModal';
+import Grid from './Grid';
 import Svg from './Svg';
 import SvgCurve from './SvgCurve';
 import { noop } from 'utils/noop';
 
 const TABS = [
+  { title: 'Table', component: Grid },
   { title: 'Svg', component: Svg },
   { title: 'Curve', component: SvgCurve },
   { title: 'Animation', component: Animation },

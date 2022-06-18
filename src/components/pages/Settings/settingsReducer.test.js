@@ -16,18 +16,14 @@ describe('settingsReducer', () => {
     const action = {
       type: LOAD_SETTINGS,
       data: {
-        commands: [ONE, TWO, THREE],
-        links: [THREE, TWO, ONE],
-        copy: [ONE, THREE, TWO]
+        testKey: 'valueKey'
       }
     };
     const result = settingsReducer(settingsInitialState, action);
 
     expect(result).toEqual({
       ...settingsInitialState,
-      commands: action.data.commands,
-      links: action.data.links,
-      copy: action.data.copy
+      data: action.data
     });
   });
 });
