@@ -1,6 +1,6 @@
 {
   "name": "playground",
-  "version": "2.27.0",
+  "version": "2.28.0",
   "description": "Project to help with daily tasks and other projects",
   "main": "src/index.js",
   "scripts": {
