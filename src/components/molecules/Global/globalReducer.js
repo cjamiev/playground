@@ -1,48 +1,21 @@
 import {
-  UPDATE_GLOBAL_TIMER,
-  INITIALIZE_TIMER,
   OPEN_GLOBAL_MODAL,
   CLOSE_GLOBAL_MODAL,
   SHOW_LOADING_MODAL,
   HIDE_LOADING_MODAL,
   OPEN_SIDE_PANEL,
-  CLOSE_SIDE_PANEL,
-  LOAD_COMMAND_RESULT,
-  EXECUTE_COMMAND_RESULT,
-  ERROR_COMMAND_RESULT,
-  CLEAR_COMMAND_RESULT
+  CLOSE_SIDE_PANEL
 } from './globalActions';
 import { isNumber } from 'utils/type-check';
 
 export const globalInitialState = {
-  timers: [],
-  initialized: false,
   modalQueue: [],
   loadingQueue: [],
-  isSidePanelOpen: false,
-  commandResponse: '',
-  commands: []
+  isSidePanelOpen: false
 };
 
 const globalReducer = (state = globalInitialState, action) => {
   const globalCases = {
-    [UPDATE_GLOBAL_TIMER]: () => {
-      localStorage.setItem('globaltimers', JSON.stringify(action.data));
-
-      return {
-        ...state,
-        timers: action.data
-      };
-    },
-    [INITIALIZE_TIMER]: () => {
-      const globaltimers = localStorage.getItem('globaltimers') || '[]';
-
-      return {
-        ...state,
-        initialized: true,
-        timers: JSON.parse(globaltimers)
-      };
-    },
     [OPEN_GLOBAL_MODAL]: () => {
       return {
         ...state,
@@ -82,30 +55,6 @@ const globalReducer = (state = globalInitialState, action) => {
     },
     [CLOSE_SIDE_PANEL]: () => {
       return { ...state, isSidePanelOpen: false };
-    },
-    [LOAD_COMMAND_RESULT]: () => {
-      return {
-        ...state,
-        commands: action.data
-      };
-    },
-    [EXECUTE_COMMAND_RESULT]: () => {
-      return {
-        ...state,
-        commandResponse: action.data
-      };
-    },
-    [ERROR_COMMAND_RESULT]: () => {
-      return {
-        ...state,
-        commandResponse: action.error
-      };
-    },
-    [CLEAR_COMMAND_RESULT]: () => {
-      return {
-        ...state,
-        commandResponse: ''
-      };
     }
   };
 
