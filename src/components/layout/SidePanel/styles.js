@@ -30,6 +30,7 @@ const slideIn = keyframes`
 export const SCSidepanel = styled.div`
   position: relative;
   border-right: 1px solid rgb(228, 228, 228);
+  height: 100vh;
   animation: ${({ isTransitioningOut }) => {
     return isTransitioningOut
       ? css`

@@ -8,15 +8,7 @@ import {
   executeCommand
 } from 'components/molecules/Global/globalActions';
 import { dismissAlert } from 'components/layout/Alert/alertActions';
-import {
-  SCNavigation,
-  SCWeek,
-  SCNavigationContent,
-  SCNavigationLinks,
-  SCNavigationBottomLinks,
-  SCNavigationIcon,
-  SCNavigationLabels
-} from './styles';
+import { SCNavigation, SCNavigationLinks, SCNavigationIcon, SCNavigationLabels } from './styles';
 import { navigationMap } from './data';
 
 const SINGLE_DIGIT = 9;
@@ -42,20 +34,22 @@ const Navigation = React.memo(() => {
     };
 
     return (
-      <SCNavigationLinks key={item.url} onClick={handleClick} isActive={isActive} isAtBottom={item.isAtBottom}>
+      <SCNavigationLinks
+        key={item.url}
+        onClick={handleClick}
+        isActive={isActive}
+        isFirst={item.isFirst}
+        isLast={item.isLast}
+      >
         <SCNavigationIcon isActive={isActive}>
           <IconSVG ariaLabel={`${item.label} Page`} width="45" {...item.props} />
         </SCNavigationIcon>
-        <SCNavigationLabels>{item.label}</SCNavigationLabels>
+        {/* <SCNavigationLabels>{item.label}</SCNavigationLabels> */}
       </SCNavigationLinks>
     );
   });
 
-  return (
-    <SCNavigation>
-      <SCNavigationContent>{renderNavItems}</SCNavigationContent>
-    </SCNavigation>
-  );
+  return <SCNavigation>{renderNavItems}</SCNavigation>;
 });
 
 export default Navigation;

@@ -7,7 +7,8 @@ export const navigationMap = [
     icon: HomeSVG,
     props: {
       transform: 'scale(0.6) translate(6,6)'
-    }
+    },
+    isFirst: true
   },
   {
     label: 'Experiment',
@@ -22,7 +23,7 @@ export const navigationMap = [
     url: '/generator',
     icon: TextSVG,
     props: {
-      transform: 'scale(0.4) translate(0,15)',
+      transform: 'scale(0.4) translate(-7,25)',
       text: '</>'
     }
   },
@@ -33,6 +34,7 @@ export const navigationMap = [
     isAtBottom: true,
     props: {
       transform: 'scale(0.6) translate(6,6)'
-    }
+    },
+    isLast: true
   }
 ];

@@ -11,6 +11,7 @@ const fadeIn = keyframes`
 `;
 
 export const SCLayout = styled.div`
+  position: relative;
   display: flex;
   width: 100%;
 `;
