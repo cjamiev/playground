@@ -1,8 +1,8 @@
+/* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Color from 'components/atoms/Form/Color';
 import Switch from 'components/atoms/Switch';
-import { TripleBarSVG } from 'components/atoms/Icons/TripleBarSVG';
 import Page from 'components/layout/Page';
 import GeneratorForm from './GeneratorForm';
 import GeneratorSidePanel from './GeneratorSidePanel';
@@ -17,7 +17,6 @@ const ONE = 1;
 const TWO = 2;
 
 const Generator = () => {
-  const [showDataPanel, setShowDataPanel] = useState(false);
   const [name, setName] = useState('');
   const [mode, setMode] = useState(ZERO);
   const [backgroundMode, setBackgroundMode] = useState(ZERO);
@@ -64,35 +63,35 @@ const Generator = () => {
     if (isHoverMode) {
       const updatedStyle = values
         ? {
-          ...hoverStyle,
-          [id]: values.find((item) => item.selected).label
-        }
+            ...hoverStyle,
+            [id]: values.find((item) => item.selected).label
+          }
         : {
-          ...hoverStyle,
-          [id]: selected
-        };
+            ...hoverStyle,
+            [id]: selected
+          };
       setHoverStyle(updatedStyle);
     } else if (isActiveMode) {
       const updatedStyle = values
         ? {
-          ...activeStyle,
-          [id]: values.find((item) => item.selected).label
-        }
+            ...activeStyle,
+            [id]: values.find((item) => item.selected).label
+          }
         : {
-          ...activeStyle,
-          [id]: selected
-        };
+            ...activeStyle,
+            [id]: selected
+          };
       setActiveStyle(updatedStyle);
     } else {
       const updatedStyle = values
         ? {
-          ...normalStyle,
-          [id]: values.find((item) => item.selected).label
-        }
+            ...normalStyle,
+            [id]: values.find((item) => item.selected).label
+          }
         : {
-          ...normalStyle,
-          [id]: selected
-        };
+            ...normalStyle,
+            [id]: selected
+          };
       setNormalStyle(updatedStyle);
     }
   };
@@ -157,25 +156,25 @@ const Generator = () => {
   });
 
   return (
-    <Page>
+    <Page
+      sidePanelContent={
+        <GeneratorSidePanel
+          generatorRecords={generatorRecords}
+          selectedName={name}
+          onSelectRecord={handleSelectRecord}
+          onSubmit={handleSubmit}
+          onDelete={handleDelete}
+          normalCSS={normalCSS}
+          hoverCSS={hoverCSS}
+          activeCSS={activeCSS}
+          copyCSS={copyCSS}
+        />
+      }
+    >
       <SCGeneratorContainer>
-        {showDataPanel && (
-          <GeneratorSidePanel
-            generatorRecords={generatorRecords}
-            selectedName={name}
-            onSelectRecord={handleSelectRecord}
-            onSubmit={handleSubmit}
-            onDelete={handleDelete}
-            normalCSS={normalCSS}
-            hoverCSS={hoverCSS}
-            activeCSS={activeCSS}
-            copyCSS={copyCSS}
-          />
-        )}
         <div className="generator">
           <div className="generator__form-container">
             <SCGeneratorFormTopBtnWrapper>
-              <TripleBarSVG ariaLabel="Open or Close Data Panel" viewBox="0 0 90 90" onClick={toggleDataPanel} />
               <Switch
                 data={[{ label: 'Normal' }, { label: 'Hover' }, { label: 'Active' }]}
                 switchIndex={mode}
