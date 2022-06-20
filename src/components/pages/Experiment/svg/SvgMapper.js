@@ -14,6 +14,7 @@ const testData = [
   },
   { component: 'Calculator', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'CalendarClock', transform: 'translate(0,0)', conditions: { showClock: true }, subcomponents: [] },
+  { component: 'Card', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Caret', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'CheckMark', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Circle', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
@@ -33,10 +34,12 @@ const testData = [
   { component: 'Directory', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'DownArrow', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Download', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
+  { component: 'Dropdown', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Exit', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Eye', transform: 'translate(0,0)', conditions: { showCross: true }, subcomponents: [] },
   { component: 'File', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Flask', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
+  { component: 'Form', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Graph', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Grid', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'HeartBeat', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
@@ -44,6 +47,7 @@ const testData = [
   { component: 'Image', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Info', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Link', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
+  { component: 'List', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Lock', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Minus', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Moon', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
@@ -66,6 +70,7 @@ const testData = [
   { component: 'Star', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Stop', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Sun', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
+  { component: 'Table', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Text', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Toggle', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
   { component: 'Trash', transform: 'translate(0,0)', conditions: {}, subcomponents: [] },
@@ -83,7 +88,6 @@ const testData = [
     transform: `translate(${translateX},${translateY})`
   };
 });
-
 const SvgMapper = ({ data = testData }) => {
   const renderData = svgDataMapper(data).map((item) => {
     const SvgComponent = item.component;

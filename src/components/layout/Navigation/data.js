@@ -1,4 +1,17 @@
-import { ArchiveSVG, ClipboardSVG, DirectorySVG, FlaskSVG, HomeSVG, SettingSVG, TextSVG } from 'components/atoms/Icons';
+import {
+  ArchiveSVG,
+  CardSVG,
+  ClipboardSVG,
+  DirectorySVG,
+  DropdownSVG,
+  FlaskSVG,
+  FormSVG,
+  HomeSVG,
+  ListSVG,
+  SettingSVG,
+  TableSVG,
+  TextSVG
+} from 'components/atoms/Icons';
 
 export const navigationMap = [
   {
@@ -10,6 +23,51 @@ export const navigationMap = [
     },
     isFirst: true,
     labelShift: '-5px'
+  },
+  {
+    label: 'Table',
+    url: '/table',
+    icon: TableSVG,
+    props: {
+      transform: 'scale(0.6) translate(6,6)'
+    },
+    labelShift: '-5px'
+  },
+  {
+    label: 'Card',
+    url: '/card',
+    icon: CardSVG,
+    props: {
+      transform: 'scale(0.6) translate(6,6)'
+    },
+    labelShift: '0px'
+  },
+  {
+    label: 'List',
+    url: '/list',
+    icon: ListSVG,
+    props: {
+      transform: 'scale(0.6) translate(6,6)'
+    },
+    labelShift: '5px'
+  },
+  {
+    label: 'Dropdown',
+    url: '/dropdown',
+    icon: DropdownSVG,
+    props: {
+      transform: 'scale(0.6) translate(6,6)'
+    },
+    labelShift: '-30px'
+  },
+  {
+    label: 'Form',
+    url: '/form',
+    icon: FormSVG,
+    props: {
+      transform: 'scale(0.6) translate(6,6)'
+    },
+    labelShift: '-2px'
   },
   {
     label: 'Experiment',
