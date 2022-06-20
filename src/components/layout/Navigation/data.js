@@ -25,8 +25,8 @@ export const navigationMap = [
     labelShift: '-5px'
   },
   {
-    label: 'Table',
-    url: '/table',
+    label: 'Tables',
+    url: '/tables',
     icon: TableSVG,
     props: {
       transform: 'scale(0.6) translate(6,6)'
@@ -34,8 +34,8 @@ export const navigationMap = [
     labelShift: '-5px'
   },
   {
-    label: 'Card',
-    url: '/card',
+    label: 'Cards',
+    url: '/cards',
     icon: CardSVG,
     props: {
       transform: 'scale(0.6) translate(6,6)'
@@ -43,8 +43,8 @@ export const navigationMap = [
     labelShift: '0px'
   },
   {
-    label: 'List',
-    url: '/list',
+    label: 'Lists',
+    url: '/lists',
     icon: ListSVG,
     props: {
       transform: 'scale(0.6) translate(6,6)'
@@ -52,8 +52,8 @@ export const navigationMap = [
     labelShift: '5px'
   },
   {
-    label: 'Dropdown',
-    url: '/dropdown',
+    label: 'Dropdowns',
+    url: '/dropdowns',
     icon: DropdownSVG,
     props: {
       transform: 'scale(0.6) translate(6,6)'
@@ -61,8 +61,8 @@ export const navigationMap = [
     labelShift: '-30px'
   },
   {
-    label: 'Form',
-    url: '/form',
+    label: 'Forms',
+    url: '/forms',
     icon: FormSVG,
     props: {
       transform: 'scale(0.6) translate(6,6)'
