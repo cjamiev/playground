@@ -44,7 +44,7 @@ const Navigation = React.memo(() => {
         <SCNavigationIcon isActive={isActive}>
           <IconSVG ariaLabel={`${item.label} Page`} width="45" {...item.props} />
         </SCNavigationIcon>
-        {/* <SCNavigationLabels>{item.label}</SCNavigationLabels> */}
+        <SCNavigationLabels shift={item.labelShift}>{item.label}</SCNavigationLabels>
       </SCNavigationLinks>
     );
   });

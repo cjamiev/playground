@@ -8,7 +8,8 @@ export const navigationMap = [
     props: {
       transform: 'scale(0.6) translate(6,6)'
     },
-    isFirst: true
+    isFirst: true,
+    labelShift: '-5px'
   },
   {
     label: 'Experiment',
@@ -16,7 +17,8 @@ export const navigationMap = [
     icon: FlaskSVG,
     props: {
       transform: 'scale(0.6) translate(6,6)'
-    }
+    },
+    labelShift: '-35px'
   },
   {
     label: 'Generator',
@@ -25,7 +27,8 @@ export const navigationMap = [
     props: {
       transform: 'scale(0.4) translate(-7,25)',
       text: '</>'
-    }
+    },
+    labelShift: '-30px'
   },
   {
     label: 'Settings',
@@ -35,6 +38,7 @@ export const navigationMap = [
     props: {
       transform: 'scale(0.6) translate(6,6)'
     },
-    isLast: true
+    isLast: true,
+    labelShift: '-15px'
   }
 ];

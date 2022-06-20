@@ -66,9 +66,19 @@ export const SCNavigationIcon = styled.div`
 `;
 
 export const SCNavigationLabels = styled.span`
-  position: relative;
-  top: 10px;
-  left: 70px;
   font-size: 24px;
-  white-space: nowrap;
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 8px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  bottom: 98px;
+  left: ${(props) => (props.shift ? props.shift : '0px')};
+
+  ${SCNavigationLinks}:hover & {
+    visibility: visible;
+  }
 `;
