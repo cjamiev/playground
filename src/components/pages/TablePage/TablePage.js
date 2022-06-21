@@ -1,6 +1,7 @@
 import React from 'react';
 import Page from 'components/layout/Page';
 import BorderlessTable from 'components/atoms/BorderlessTable';
+import FilledTable from 'components/atoms/FilledTable';
 import StandardTable from 'components/atoms/StandardTable';
 
 const labels = {
@@ -19,6 +20,14 @@ const borderlessTableData = {
   ]
 };
 
+const filledTableData = {
+  tableHeaders: [{ label: 'Most Played' }, { label: 'Players Now' }, { label: 'Peak Today' }],
+  tableBody: [
+    { label: 'Lost Ark', value: '381,654', value2: '462,085' },
+    { label: 'Counter-Strike: Global Offensive', value: '369,336', value2: '850,323' }
+  ]
+};
+
 const TablePage = () => {
   return (
     <Page>
@@ -34,6 +43,9 @@ const TablePage = () => {
 
       <h2> Borderless Table </h2>
       <BorderlessTable tableHeaders={borderlessTableData.tableHeaders} tableBody={borderlessTableData.tableBody} />
+
+      <h2> Filled Table </h2>
+      <FilledTable tableHeaders={filledTableData.tableHeaders} tableBody={filledTableData.tableBody} />
     </Page>
   );
 };
