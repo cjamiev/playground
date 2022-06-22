@@ -5,7 +5,6 @@ import { ROUTES } from 'constants/routes';
 import Button from 'components/atoms/Button';
 import PageHeader from './PageHeader';
 import PageContent from './PageContent';
-import QuickAccess from './QuickAccess';
 import SidePanel from './SidePanel';
 import { openSidePanel, closeSidePanel } from 'components/molecules/Global/globalActions';
 import { TIME } from 'constants/time';
@@ -55,7 +54,6 @@ const Page = ({ sidePanelContent, isSidePanelWide, children, footerComponent }) 
             title={currentPage.label}
           />
           <div>{children}</div>
-          <QuickAccess />
         </SCPage>
       </SCPageWrapper>
     </SCLayout>
