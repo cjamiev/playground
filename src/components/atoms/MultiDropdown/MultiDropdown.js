@@ -27,6 +27,7 @@ const MultiDropdown = ({ data }) => {
         {data.map((item) => {
           return (
             <SCMultiDropdownBtn
+              key={item.label}
               onClick={() => {
                 setMode(item.label);
               }}

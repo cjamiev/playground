@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import { Theme } from 'theme';
 
 export const SCMultiDropdown = styled.div`
-  z-index: 2;
-  width: 400px;
   display: flex;
+  position: relative;
   flex-direction: column;
+  width: 400px;
   background-color: ${Theme.secondaryBackgroundColor};
   border-radius: 10px 10px 0 0;
 `;
@@ -32,12 +32,16 @@ export const SCMultiDropdownBtn = styled.button`
 
 export const SCMultiDropdownList = styled.div`
   display: flex;
+  position: absolute;
   flex-direction: column;
+  width: 100%;
+  top: 50px;
   height: ${(props) => (props.isVisible ? '500px' : '0px')};
   visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
-  margin-top: ${(props) => (props.isVisible ? '10px' : '0px')};
+  padding-top: ${(props) => (props.isVisible ? '10px' : '0px')};
   background-color: ${Theme.secondaryBackgroundColor};
   transition: height 500ms;
+  z-index: 2;
 `;
 
 export const SCMultiDropdownListBtn = styled.button`
