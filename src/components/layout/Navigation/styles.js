@@ -8,7 +8,7 @@ export const SCNavigation = styled.nav`
   left: 50%;
   transform: translateX(-50%);
   height: 70px;
-  border-radius: 10px;
+  border-radius: 20px;
   z-index: 1;
   background-color: ${Theme.secondaryBackgroundColor};
   color: ${Theme.white};
@@ -33,15 +33,15 @@ export const SCNavigationLinks = styled.div`
   ${({ isFirst }) =>
     isFirst &&
     `
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
   `}
 
   ${({ isLast }) =>
     isLast &&
     `
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
   `}
 `;
 
