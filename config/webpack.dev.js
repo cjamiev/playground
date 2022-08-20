@@ -18,12 +18,12 @@ module.exports = (env) => {
     },
     devServer: {
       historyApiFallback: true,
-      port: 2000,
+      port: 2101,
       open: true,
       proxy: [
         {
           context: ['**'],
-          target: 'http://localhost:1002'
+          target: 'http://localhost:2100'
         }
       ]
     },

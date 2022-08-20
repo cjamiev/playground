@@ -2,7 +2,7 @@ const http = require('http');
 const url = require('url');
 const { router } = require('./router');
 
-const DEFAULT_PORT = 1002;
+const DEFAULT_PORT = 2100;
 const SECOND_ARGUMENT = 2;
 const port = process.argv[SECOND_ARGUMENT] || DEFAULT_PORT;
 const UTF8 = 'utf-8';
