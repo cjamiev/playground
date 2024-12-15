@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            font-family: sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        p,
+        span,
+        div,
+        label,
+        td,
+        th {
+            font-size: 16px;
+            color: #5e5959;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #5e5959;
+        }
+
+        button,
+        input {
+            font-size: 16px;
+        }
+
+        li {
+            padding: 5px;
+        }
+
+        button,
+        input[type='button'],
+        input[type="text"],
+        input[type="email"] {
+            padding: 10px;
+            border-radius: 5px;
+            min-width: 200px;
+            min-height: 50px;
+            border: 1px solid #ccc;
+        }
+
+        /* Form */
+        fieldset {
+            position: relative;
+        }
+
+        fieldset>label {
+            position: relative;
+            bottom: 2px;
+        }
+
+        /* Checkbox */
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            border: 0.5px solid #aaa;
+            border-radius: 5px;
+            line-height: 20px;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        input[type="checkbox"]:checked {
+            width: 20px;
+            height: 20px;
+            accent-color: #aaa;
+            line-height: 20px;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        input[type="checkbox"]:focus {
+            outline: 0.5px solid #aaa;
+        }
+
+        /* Radio */
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            border: 0.5px solid #aaa;
+            border-radius: 5px;
+            line-height: 20px;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        input[type="radio"]:checked {
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            accent-color: #aaa;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        input[type="radio"]:focus {
+            outline: none;
+        }
+
+        /* Switch */
+        input[type="checkbox"][role="switch"] {
+            width: 36px;
+            height: 20px;
+            border: 0.5px solid #aaa;
+            border-radius: 1.25em;
+            line-height: 20px;
+            appearance: none;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        input[type="checkbox"][role="switch"]:active {
+            outline: none;
+        }
+
+        input[type="checkbox"][role="switch"]:checked {
+            background-color: #aaa;
+        }
+
+        input[type="checkbox"][role="switch"]::before {
+            display: block;
+            aspect-ratio: 1;
+            line-height: 20px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #ccc;
+            content: "";
+            transition: margin 0.1s ease-in-out;
+            margin-top: 2px;
+        }
+
+        input[type="checkbox"][role="switch"]:checked::before {
+            margin-left: 20px;
+        }
+
+
+        /* Button */
+        button,
+        input[type='button'] {
+            cursor: pointer;
+        }
+
+        button:hover,
+        input[type='button']:hover {
+            background-color: #ccc;
+        }
+
+        input:focus,
+        input[type='button']:focus {
+            outline: 1px solid #aaa;
+        }
+
+
+        summary {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: fit-content;
+            list-style: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        details>ul {
+            list-style: none;
+            padding: 5px;
+        }
+
+        details>ul>li {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        fieldset {
+            border: none;
+        }
+
+        label {
+            overflow-wrap: break-word;
+            tab-size: 4;
+            text-rendering: optimizelegibility;
+            text-size-adjust: 100%;
+            text-underline-offset: 1.6px;
+        }
+
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        th {
+            border: 1px solid #ccc;
+            margin: 0;
+            padding: 5px;
+        }
+
+        td {
+            border: 1px solid #ccc;
+            margin: 0;
+            padding: 5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #ecebeb;
+        }
+
+        tbody>tr:hover {
+            background-color: #d6d3d3;
+        }
+
+        ::-webkit-input-placeholder,
+        ::placeholder {
+            color: #5e5959;
+            opacity: 1;
+            /* Firefox */
+        }
+
+
+        nav>ul {
+            display: flex;
+            list-style: none;
+            border-bottom: 1px solid #ccc;
+            width: fit-content;
+        }
+
+        nav>ul>li {
+            cursor: pointer
+        }
+
+        .standard-container {
+            margin: 5px;
+        }
+
+        .tab-active {
+            border-bottom: 2px solid #8b8b8b;
+        }
+
+        .btn-secondary {
+            background-color: #8a8a8a;
+        }
+
+        .modal-wrapper {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            top: 0;
+            left: 0;
+        }
+
+        .modal-wrapper__hide {
+            display: none;
+        }
+
+        .modal {
+            position: relative;
+            top: 25%;
+            left: 25%;
+            width: 50%;
+            height: 50%;
+            opacity: 100%;
+            background-color: white;
+        }
+    </style>
+    <title>Page Title</title>
+</head>
+
+<body>
+
+    <section>
+        <h2>Form</h2>
+        <fieldset class="standard-container">
+            <input type="checkbox" value="1" name="checkboxgroup" />
+            <label>Ckbox1</label>
+            <input type="checkbox" value="2" name="checkboxgroup" />
+            <label>Ckbox2</label>
+        </fieldset>
+        <fieldset class="standard-container">
+            <input type="radio" value="1" name="radiogroup" />
+            <label>Radio1</label>
+            <input type="radio" value="2" name="radiogroup" />
+            <label>Radio2</label>
+        </fieldset>
+        <fieldset class="standard-container">
+            <input type="checkbox" role="switch" value="1" name="1" />
+            <label>Switch</label>
+        </fieldset>
+        <fieldset class="standard-container">
+            <input type="text" placeholder="placeholder" />
+        </fieldset>
+    </section>
+
+    <section>
+        <h2>Buttons</h2>
+        <div class="standard-container">
+            <button>Primary</button>
+            <button class="btn-secondary">Secondary</button>
+        </div>
+        <div class="standard-container">
+            <input type="button" value="Primary" />
+            <input type="button" class="btn-secondary" value="Secondary" />
+        </div>
+    </section>
+
+    <section>
+        <h2>Tables</h2>
+        <div class="standard-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                    </tr>
+                    <tr>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                    </tr>
+                    <tr>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h2>List</h2>
+        <div>
+            <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>Three</li>
+            </ul>
+        </div>
+        <h2>Tab</h2>
+        <div>
+            <nav>
+                <ul>
+                    <li id="tab1" class="tab-active" onclick="switchTab('tab1')">Nav1</li>
+                    <li id="tab2" onclick="switchTab('tab2')">Nav2</li>
+                    <li id="tab3" onclick="switchTab('tab3')">Nav3</li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <section>
+        <h2>Dropdown</h2>
+        <details class="standard-container">
+            <summary role="button">Count</summary>
+            <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>Three</li>
+            </ul>
+        </details>
+    </section>
+
+    <section>
+        <h2>Modal</h2>
+        <button onclick="showModal()">Show Modal</button>
+        <div class="modal-wrapper modal-wrapper__hide">
+            <div class="modal">
+                <span>Here it is</span>
+                <button onclick="hideModal()">Hide Modal</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const switchTab = (elementId) => {
+            const elToRemoveClass = document.querySelector('.tab-active');
+            if (elToRemoveClass.id !== elementId) {
+                elToRemoveClass.classList.remove('tab-active');
+                const elToAddClass = document.getElementById(elementId);
+                elToAddClass.classList.add('tab-active');
+            }
+        }
+
+        const showModal = () => {
+            const elToRemoveClass = document.querySelector('.modal-wrapper');
+            elToRemoveClass.classList.remove('modal-wrapper__hide');
+        }
+
+        const hideModal = () => {
+            const elToRemoveClass = document.querySelector('.modal-wrapper');
+            elToRemoveClass.classList.add('modal-wrapper__hide');
+        }
+    </script>
+
+</body>
+
+</html>
