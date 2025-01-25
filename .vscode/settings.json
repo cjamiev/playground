@@ -3,24 +3,13 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "eslint.alwaysShowStatus": true,
-  "eslint.options": {
-    "extensions": [
-      ".html",
-      ".js",
-    ]
-  },
-  "eslint.validate": [
-    "javascript"
-  ],
   "files.exclude": {
-    "node_modules/":true
+    "node_modules/":true,
+    "backend/node-server/node_modules": true,
+    "frontend/react-app/node_modules": true,
+    "frontend/vanilla-app/node_modules": true
   },
   "terminal.integrated.profiles.windows": {
-    "PowerShell": {
-      "source": "PowerShell",
-      "icon": "terminal-powershell"
-    },
     "Command Prompt": {
       "path": [
         "${env:windir}\\Sysnative\\cmd.exe",
@@ -30,7 +19,7 @@
       "icon": "terminal-cmd"
     },
     "GitBash": {
-      "path": "B:\\Install\\Git\\bin\\bash.exe",
+      "path": "D:\\Install\\Git\\bin\\bash.exe",
       "args": []
     }
   },

@@ -1,0 +1,16 @@
+{
+  "name": "node-server",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "prod": "node src/index.js > server.log 2>&1"
+  },
+  "keywords": [],
+  "author": "CJV",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "3.1.9",
+    "prettier": "2.7.1"
+  }
+}

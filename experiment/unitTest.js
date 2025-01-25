@@ -1,6 +1,4 @@
-/* eslint-disable max-params */
-/* eslint-disable no-magic-numbers */
-import { isEqual } from '../src/utils/comparison';
+const { isEqual } = require('./util');
 
 const getFormatedMessage = (testMessage, args, expectedResult, receivedResult) => {
   const failMessage = `\nfail: ${testMessage} \n`;
@@ -42,4 +40,4 @@ const unitTest = (testData, functionToTest, failOnly = false) => {
   console.log(`Total Tests: ${testData.length}, Passed: ${passedCount}, Failed: ${testData.length - passedCount}`);
 };
 
-export { unitTest };
+module.exports = { unitTest };

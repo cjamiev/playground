@@ -1,0 +1,94 @@
+Loading Indicator: fill up bar, hourglass, dots, spinner,
+
+// test with contenteditable
+.definitely-centered {
+  display: grid;
+  place-items: center;
+}
+
+// test with resize
+.deconstructed-pancake {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.dp-child {
+  flex: 1 1 150px;
+  // flex: 0 1 150px; has no stretching
+  margin: 5px;
+}
+
+.sidebar-fit {
+  display: grid;
+  grid-template-columns: minmax(150px, 25%) auto;
+}
+
+.pancake-stack {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.holy-grail-layout {
+  display: grid;
+  grid-template: auto 1fr auto/ auto 1fr auto;
+}
+.header, .footer {
+  grid-column: 1/4;
+}
+.left-side, .right-side {
+grid-column: 1/2;
+}
+.main {
+grid-column: 2/3;
+}
+
+.12-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+.span-12 {
+  grid-column: 1 /13;
+}
+.span-6 {
+  grid-column: 2 / 8;
+}
+
+.ram {
+  display: grid;
+  grid-gap: 1rem;
+  grid-columns: repeat(auto-fit, minmax(150px, 1fr));
+  // try auto-fill as well
+}
+
+.line-up {
+  height: auto;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+.card {
+ display: flex;
+ flex-direction: column;
+ padding: 1rem;
+ justify-content: space-between;
+ // title, description, box
+}
+
+.clamp-my-style {
+  display: grid;
+  place-items: center;
+}
+.card {
+  width: clamp(23ch, 50%, 46ch);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.respect-aspect {
+  display: grid;
+  place-items: center;
+}
+.visual {
+  aspect-ratio: 16/9;
+}

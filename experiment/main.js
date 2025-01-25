@@ -1,7 +1,12 @@
-/* eslint-disable no-magic-numbers */
-import { loadFile, writeToFile } from './io';
-import { unitTest } from './unitTest';
-import { comparePerformanceTests, performanceTest } from './performanceTest';
+const { loadFile, writeToFile } = require('./io');
+const { unitTest } = require('./unitTest');
+const { comparePerformanceTests, performanceTest } = require('./performanceTest');
+
+/*
+const temp1 = loadFile('./tmp/temp1.txt');
+
+console.log(temp1);
+*/
 
 const squareTestData = [
   { testMessage: 'zero', args: [0], expectedResult: 0 },
@@ -16,8 +21,3 @@ const square = (value) => {
 
 unitTest(squareTestData, square);
 
-/*
-const temp1 = loadFile('./tmp/temp1.txt');
-
-console.log(temp1);
-*/

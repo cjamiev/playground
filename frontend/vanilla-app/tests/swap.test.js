@@ -1,0 +1,15 @@
+import { swapPositionsTestData, decrementIndexTestData, incrementIndexTestData } from './testData/swap-data';
+import { testFunctionHelper } from './testHelper';
+import { decrementIndex, incrementIndex, swapPositions } from '../utils/swap';
+
+describe(':decrementIndex', () => {
+  decrementIndexTestData.forEach((data) => testFunctionHelper(data, decrementIndex));
+});
+
+describe(':incrementIndex', () => {
+  incrementIndexTestData.forEach((data) => testFunctionHelper(data, incrementIndex));
+});
+
+describe(':swapPositions', () => {
+  swapPositionsTestData.forEach((data) => testFunctionHelper(data, swapPositions));
+});

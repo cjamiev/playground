@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    .container {
+      max-width: 1000px;
+      max-height: 700px;
+    }
+
+    .deconstructed-pancake {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+
+    .dp-child {
+      flex: 0 1 150px;
+      margin: 5px;
+    }
+
+    .pancake-stack {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      resize: both;
+      overflow: auto;
+    }
+
+    .child {
+      border: 1px solid black;
+    }
+  </style>
+  <title>Replace Me</title>
+</head>
+
+<body>
+
+  <div>
+    <span>Deconstructed Pancake</span>
+    <div class="deconstructed-pancake">
+      <div class="dp-child child">
+        Testing
+      </div>
+      <div class="dp-child child">
+        Testing2
+      </div>
+      <div class="dp-child child">
+        Testing3
+      </div>
+      <div class="dp-child child">
+        Testing4
+      </div>
+      <div class="dp-child child">
+        Testing5
+      </div>
+      <div class="dp-child child">
+        Testing6
+      </div>
+    </div>
+
+    <span>Pancake Stack</span>
+    <div class="container">
+      <div class="pancake-stack">
+        <div class="child">Child1 testing size</div>
+        <div class="child">Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. De carne lumbering
+          animata corpora quaeritis. Summus brains sit​​, morbo vel maleficia? De apocalypsi gorger omero undead
+          survivor dictum mauris. Hi mindless mortuis soulless creaturas, imo evil stalking monstra adventus resi
+          dentevil vultus comedat cerebella viventium.</div>
+        <div class="child">Child3</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

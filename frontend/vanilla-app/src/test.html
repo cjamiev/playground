@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    .table-wrapper {
+      border: 1px solid rgb(199, 199, 199);
+      border-radius: 15px;
+      padding: 20px;
+      width: fit-content;
+    }
+
+    table {
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    thead>tr {
+      border-top: 1px solid rgb(199, 199, 199);
+      border-bottom: 1px solid rgb(199, 199, 199);
+    }
+
+    table tr:nth-child(odd) {
+      background-color: #f2f2f2;
+    }
+
+    .header-cell4 {
+      padding: 10px 5px;
+    }
+
+    td:first-child,
+    th:first-child {
+      border-radius: 10px 0 0 10px;
+    }
+
+    td:last-child,
+    th:last-child {
+      border-radius: 0 10px 10px 0;
+    }
+
+    .inline-flex {
+      display: inline-flex;
+      flex-direction: column;
+    }
+
+    .flex {
+      display: flex;
+    }
+  </style>
+  <title>Replace Me</title>
+</head>
+
+<body>
+
+  <h2>Separated Table</h2>
+  <div class="table-wrapper">
+    <h3>Payment Activity</h3>
+    <table>
+      <thead>
+        <tr>
+          <th class="header-cell4">Payments</th>
+          <th class="header-cell4">Status</th>
+          <th class="header-cell4">Date</th>
+          <th class="header-cell4">Amount</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td class="row-cell4">AutoPay Pament</td>
+          <td class="row-cell4">Scheduled</td>
+          <td class="row-cell4">12/01/24</td>
+          <td class="row-cell4 cell-bold">$1,720.67</td>
+        </tr>
+        <tr>
+          <td class="row-cell4">Monthly Pament</td>
+          <td class="row-cell4">Posted</td>
+          <td class="row-cell4">11/01/24</td>
+          <td class="row-cell4 cell-bold">$1,720.67</td>
+        </tr>
+        <tr>
+          <td class="row-cell4">Monthly Pament</td>
+          <td class="row-cell4">Posted</td>
+          <td class="row-cell4">11/01/24</td>
+          <td class="row-cell4 cell-bold">$1,720.67</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <span>Test before</span>
+  <div class="inline-flex">
+    <span>1</span>
+    <span>3</span>
+    <div>2</div>
+  </div>
+  <span>Test after</span>
+
+  <span>Test2 before</span>
+  <div class="flex">
+    <span>1</span>
+    <span>3</span>
+    <div>2</div>
+  </div>
+  <span>Test2 after</span>
+
+</body>
+
+</html>

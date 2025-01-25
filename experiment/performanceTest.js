@@ -1,5 +1,3 @@
-/* eslint-disable max-params */
-/* eslint-disable no-magic-numbers */
 const log = console.log;
 
 const DEFAULT_ITERATIONS = 100;
@@ -37,4 +35,4 @@ const performanceTest = (functionToTest, args, iterations = DEFAULT_ITERATIONS) 
   log(`Total Time for ${iterations} runs:` + time + 'ms');
 };
 
-export { comparePerformanceTests, performanceTest };
+module.exports = { comparePerformanceTests, performanceTest };

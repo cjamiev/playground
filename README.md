@@ -1,15 +1,45 @@
 # Playground
+This project is just for fun and educational purposes.  Its used for the following:
+- Experimenting: Testing out a new framework or library without the constraints of a practical use case. 
+- Snippets: Storage for code such as utility functions, css snippets for re-use in any other project. 
+- Prep: Place to practice and study for future interviews.  Including storing answers for technical questions.
 
-For experimenting
+## Commands
+- Vite Project: ```npm create vite@latest <project-name>```
+- SpringBoot: https://start.spring.io/
 
-## utils
+## File Structure
+```
+|-- frontend/
+|   |-- vanilla-app/
+|   |-- react-app/
+|-- backend/
+|   |-- node-server/
+|   |-- springboot-server/
+|-- e2e/
+|-- database/
+|-- other/
+|-- experiment/
+|-- q.js
+```
 
-Re-usable pure functions will be stored here
+## Usage
+Frontend projects will be inside frontend/ but separated by framework
+Backend projects similariy will be inside backend/
+Database projects will be in database/
+e2e projects will be in e2e/ folder
+For quick testing the file q.js is used and for a bit more with TDD experiment/ is used
+Anything that doesn't fit in the above category will be stored in other/
 
-## server
+### vanilla-app
+- Storage for CSS and HTML Snippets
+- Utility javascript functions
 
-Simple node server for allowing reading/writing, storing information, executing commands, etc.
+### react-app
+- Template for most common react features useContext, useEffect, useRef, etc.
 
+### node-server
+Simple node server for allowing reading/writing files.
 Copy the following to capture api call payloads.
 
 ```
@@ -28,23 +58,14 @@ post: (payload) => {
   }
 ```
 
-## q.js
-
-For quick testing of javascript code run 'node q.js'
-
-## experiment
-
-Folder for quick testing, experimenting of code, and some examples.
-
-## SVG Components
+### svg-creator
+This script will convert tmp/input.svg -> tmp/svg/**.js hence converts svg to react components. 
 
 Step 1: Create objects
-
 - In one file <name>-canvas.svg
 - Check all sizes are relatively correct
 
 Step 2: Id the objects
-
 - Set id with component-<name> for objects that should be a react component
 - Set id with subcomponent-<name> for objects that should be a subcomponent
 - Set id with condition-<name> for conditional objects in groups
@@ -52,71 +73,12 @@ Step 2: Id the objects
 - Set id with element-<name> for convenience
 
 Step 3: Clean up objects
-
 - Copy over to <name>-template.svg objects that are ready or redone
 - Place items in correct positions
 - Collapse related objects in the same position.
 - Ungroup and re-group to remove transformations on groups
 
 Step 4: Convert to React Components
-
 - Copy content to experiment/example.svg
 - Run node experiment/svgCreator.js or npm run script
 - Search for prexisting translate and scale (redo previous steps to remove them)
-
-## ToDo
-
-SvgCreator:
-
-- Clean up code
-- Add more unit tests
-
-Project:
-
-- Add Wizard for using Template {{(variable-name):(type):(options)}}
-- Delete operation for Snippet/Template
-
-Generator:
-
-- Flex/Grid
-- Neomorphism, Glassmorphism, Aurora
-- Add ability to change width of generator div
-- SVG Animator
-- Animation: position, scale, filters, rotation, opacity
-- Background Image Gradient Form
-- Default Values on Form load
-- Other attributes: Visibility (visible/hidden), cursor (pointer/text), overflow (auto/hidden)
-  font-weight (normal, bolder, bolder, lighter), text-decoration, font family
-- Move Remove Attribute dropdown to it's own section
-
-Dropdown:
-
-- Pass different content
-- Show on hover
-
-Config Page:
-
-- Set theme and update app with theme
-
-Table:
-
-- Sort
-- Config (add/remove columns)
-- Export to csv
-
-Wizard:
-
-- CSS for header, footer
-- Progress Item List
-
-Form Validation Hook
-
-Package Tab:
-
-- Notified when a script finished
-
-Unit Test:
-
-- InfoButton needs test
-- Snippet more coverage
-- server/\*\*

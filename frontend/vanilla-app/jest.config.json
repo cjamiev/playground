@@ -1,0 +1,24 @@
+{
+  "collectCoverageFrom": [
+    "utils/**/*.js",
+    "!tests/**"
+  ],
+  "moduleDirectories": [
+    "src",
+    "tests",
+    "utils",
+    "node_modules"
+  ],
+  "testPathIgnorePatterns": [],
+  "testRegex": "(src|tests)/.*\\.test.(js|jsx)$",
+  "testEnvironment": "node",
+  "transform": {
+    "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest"
+  },
+  "setupFilesAfterEnv": [
+    "<rootDir>/config/setupTests.js"
+  ],
+  "watchPathIgnorePatterns": [
+    "tmp/*"
+  ]
+}

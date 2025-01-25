@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
 const UTF8_ENCODING = 'utf8';
 
@@ -22,4 +22,4 @@ const writeToFile = (filepath, content) => {
   }
 };
 
-export { loadFile, writeToFile };
+module.exports = { loadFile, writeToFile };

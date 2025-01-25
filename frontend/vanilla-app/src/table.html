@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .table-wrapper {
+            border: 1px solid rgb(199, 199, 199);
+            border-radius: 15px;
+            padding: 20px;
+            width: fit-content;
+        }
+
+
+        .header-cell {
+            border-bottom: 1px solid black;
+            color: rgb(75, 75, 75);
+            padding: 5px;
+        }
+
+        .row-cell {
+            border-bottom: 1px solid rgb(199, 199, 199);
+            color: rgb(80, 80, 80);
+            padding: 5px;
+        }
+
+
+        .header-cell2 {
+            padding: 5px;
+            color: rgb(75, 75, 75);
+        }
+
+        .row-cell2 {
+            padding: 5px;
+            color: rgb(80, 80, 80);
+        }
+
+        .row:nth-child(odd) {
+            background-color: rgba(242, 242, 242, 0.5);
+        }
+
+        .first-cell {
+            min-width: 500px;
+        }
+
+        .header-cell3 {
+            font-weight: 400;
+            color: rgb(75, 75, 75);
+            padding: 15px;
+            border-bottom: 1px solid rgb(107, 106, 106);
+        }
+
+        .row-cell3 {
+            padding: 15px;
+            color: rgb(80, 80, 80);
+        }
+    </style>
+    <title>Table</title>
+</head>
+
+<body>
+    <h1>Table</h1>
+
+    <h2>Simple Table</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th class="header-cell">Name</th>
+                    <th class="header-cell">Item Name</th>
+                    <th class="header-cell">Item Price</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="row-cell">Alvin</td>
+                    <td class="row-cell">Eclair</td>
+                    <td class="row-cell">$0.87</td>
+                </tr>
+                <tr>
+                    <td class="row-cell">Alan</td>
+                    <td class="row-cell">Jellybean</td>
+                    <td class="row-cell">$3.76</td>
+                </tr>
+                <tr>
+                    <td class="row-cell">Jonathan</td>
+                    <td class="row-cell">Lollipop</td>
+                    <td class="row-cell">$7.00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Striped Table</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th class="header-cell2"> Name</th>
+                    <th class="header-cell2"> Item Name</th>
+                    <th class="header-cell2"> Item Price</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr class="row">
+                    <td class="row-cell2"> Alvin</td>
+                    <td class="row-cell2"> Eclair</td>
+                    <td class="row-cell2"> $0.87</td>
+                </tr>
+                <tr class="row">
+                    <td class="row-cell2"> Alan</td>
+                    <td class="row-cell2"> Jellybean</td>
+                    <td class="row-cell2"> $3.76</td>
+                </tr>
+                <tr class="row">
+                    <td class="row-cell2"> Jonathan</td>
+                    <td class="row-cell2"> Lollipop</td>
+                    <td class="row-cell2"> $7.00</td>
+                </tr>
+                <tr class="row">
+                    <td class="row-cell2"> Jaine</td>
+                    <td class="row-cell2"> Jones</td>
+                    <td class="row-cell2"> $8.11</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Borderless Table</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th class="first-cell header-cell3">Account </th>
+                    <th class="header-cell3">Balance</th>
+                    <th class="header-cell3">Day change</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="first-cell row-cell3">Individual - TOD X123123</td>
+                    <td class="row-cell3">$100,000.00</td>
+                    <td class="row-cell3">+$1.00</td>
+                </tr>
+                <tr>
+                    <td class="first-cell row-cell3">Available to trade</td>
+                    <td class="row-cell3">$500</td>
+                    <td class="row-cell3"></td>
+                </tr>
+                <tr>
+                    <td class="first-cell row-cell3">Available to widthdraw</td>
+                    <td class="row-cell3">$50</td>
+                    <td class="row-cell3"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
