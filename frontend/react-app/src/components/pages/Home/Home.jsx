@@ -1,90 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import Page from '../../layout/Page';
-import { openGlobalModal } from '../../molecules/Global/globalActions';
-import { loadHome, updateHome } from './homeActions';
-import { noop } from '../../../utils/noop';
-import { SCHomeSidePanelWrapper, SCHomeSidePanelButton } from './styles';
+import { SCDescription, SCSectionWrapper, SCNoteTitle, SCNotesWrapper } from './styles';
 
-const ZERO = 0;
-const ONE = 1;
-
-const HomePlaceHolderComponent = () => {
-  const dispatch = useDispatch();
-  const { homeData } = useSelector((state) => state.home);
-
-  useEffect(() => {
-    dispatch(loadHome());
-  }, [dispatch]);
-
-  const updateHomeModal = () => {
-    dispatch(
-      openGlobalModal({
-        title: 'Modal Test',
-        message: 'Increment or Decrement count',
-        buttonList: [
-          {
-            label: 'Increment',
-            isPrimary: true,
-            action: () => {
-              dispatch(
-                updateHome({
-                  ...homeData,
-                  count: homeData.count + ONE
-                })
-              );
-            }
-          },
-          {
-            label: 'Decrement',
-            isPrimary: true,
-            action: () => {
-              dispatch(
-                updateHome({
-                  ...homeData,
-                  count: homeData.count - ONE
-                })
-              );
-            }
-          },
-          {
-            label: 'Cancel',
-            isSecondary: true,
-            action: noop
-          }
-        ]
-      })
-    );
-  };
-
-  return (
-    <>
-      <SCHomeSidePanelWrapper>
-        <SCHomeSidePanelButton onClick={updateHomeModal}> Update Home Data</SCHomeSidePanelButton>
-        <div> key:{homeData.testKey} </div>
-        <div> count:{homeData.count} </div>
-      </SCHomeSidePanelWrapper>
-    </>
-  );
-};
-
-const SCDiv = styled.div`
-  font-size: 36px;
-  color: ${(props) => (props.isRed ? 'red' : 'blue')};
-
-  :hover {
-    color: green;
-  }
-`;
+/*
+ToDo:
+  - Form Validation Hook
+  - lazy loading Example
+  - Side Panel and Modal usage
+  - Live coding: Add tabs, loading images, form validation
+  - Add unit tests for examples
+*/
 
 const Home = () => {
-  const [item, setItem] = useState('Test Red');
-
   return (
-    <Page sidePanelContent={<HomePlaceHolderComponent />}>
-      <SCDiv isRed={true}>{item}</SCDiv>
-      <SCDiv isRed={false}>Test Blue</SCDiv>
+    <Page sidePanelContent={<div>Testing</div>}>
+      <SCDescription>
+        This app is for prepping and studying for React interviews
+      </SCDescription>
+      <SCSectionWrapper>
+        <section>
+          <h2>Interview Page</h2>
+          <SCNoteTitle> Features to keep track of </SCNoteTitle>
+          <SCNotesWrapper>
+            <li>useState/useEffect, useReducer, useRef</li>
+            <li>createContext{'({})'}, {'<'}Name.Provider value={'{someValue}'}{'>'}</li>
+            <li>dispatch{'({type, payload})'}, reducer(state, actions)</li>
+            <li>Custom Hook</li>
+            <li>Cleaning up {'(return () => { clearInterval(timerId)})'}</li>
+            <li>memo(component) only works on primitive data values, useMemo, useCallback, Webworker</li>
+            <li>useTransition</li>
+            <li>Calling and handling API response</li>
+            <li>document.add/RemoveEventListener{'("mousedown", (event: Event) => { const el = event.target; })'}</li>
+          </SCNotesWrapper>
+        </section>
+      </SCSectionWrapper>
+      <SCSectionWrapper>
+        <section>
+          <h2>Live Coding</h2>
+          <SCNoteTitle> Quick Projects to Practice for live coding </SCNoteTitle>
+          <SCNotesWrapper>
+            <li>Todo App</li>
+            <li>Load Multiple Images (wip)</li>
+          </SCNotesWrapper>
+          <SCNoteTitle> Keep in mind while live coding </SCNoteTitle>
+          <SCNotesWrapper>
+            <li>don't confuse custom handlers with actual dom events. ie onClick vs onHandleClick</li>
+            <li>same with using ref must be on html element not react element</li>
+            <li>file needs to end in jsx/tsx</li>
+            <li>remember to import react</li>
+          </SCNotesWrapper>
+        </section>
+      </SCSectionWrapper>
     </Page>
   );
 };

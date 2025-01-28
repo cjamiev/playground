@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 
-const useOnClickOutside = (ref, handler) => {
+const useOnClickOutside = (elmentRef, handleOnClick) => {
+
   useEffect(() => {
     const listener = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        handler();
+      if (elmentRef.current && !elmentRef.current.contains(event.target)) {
+        handleOnClick();
       }
     };
 
@@ -13,7 +14,7 @@ const useOnClickOutside = (ref, handler) => {
     return () => {
       document.removeEventListener('click', listener);
     };
-  }, [ref, handler]);
+  }, [elmentRef, handleOnClick]);
 };
 
 export default useOnClickOutside;

@@ -103,5 +103,6 @@ export const SCAlertContent = styled.div`
   span {
     font-size: 16px;
     white-space: normal;
+    color: black;
   }
 `;

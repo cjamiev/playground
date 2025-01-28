@@ -12,8 +12,18 @@ const fadeIn = keyframes`
 
 export const SCLayout = styled.div`
   position: relative;
-  display: flex;
   width: 100%;
+  height: 100%;
+  ${(props) => props.$isLightMode ? 
+`
+  background-color: white;
+  color: black;
+`:
+`
+  background-color: #282A35;
+  color: white;
+`
+}
 `;
 
 export const SCPageWrapper = styled.div`

@@ -1,1 +1,1 @@
-export { rootReducer, configureStore } from './store';
+export { store } from './store';

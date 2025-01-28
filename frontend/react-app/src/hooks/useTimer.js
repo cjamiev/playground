@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { clockBetweenDates } from '../../../utilsclock';
+import { clockBetweenDates } from '../../../utils/clock';
 
 const ONE_SECOND = 1000;
 

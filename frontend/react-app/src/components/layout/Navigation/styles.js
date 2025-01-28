@@ -2,83 +2,31 @@ import styled from 'styled-components';
 import { Theme } from '../../../theme';
 
 export const SCNavigation = styled.nav`
-  position: fixed;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  border-bottom: 1px dashed #9f9fa8;
+  position: relative;
   display: flex;
-  top: 90%;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 70px;
-  border-radius: 20px;
-  z-index: 1;
-  background-color: ${Theme.secondaryBackgroundColor};
-  color: ${Theme.white};
 `;
 
-export const SCNavigationLinks = styled.div`
-  width: 65px;
-  height: 65px;
+export const SCNavigationLink = styled.div`
+  list-style-type: none;
+  padding: 10px;
+  margin-bottom: 5px;
+  margin-right: 5px;
   cursor: pointer;
-  position: relative;
+  border-bottom: 1px solid transparent;
 
   :hover {
-    background-color: ${Theme.secondaryBackgroundColorHover};
+    border-bottom: 1px solid #444444;
   }
-
-  ${({ isActive }) =>
-    isActive &&
-    `
-    background-color: ${Theme.secondaryBackgroundColorHover};
-  `}
-
-  ${({ isFirst }) =>
-    isFirst &&
-    `
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-  `}
-
-  ${({ isLast }) =>
-    isLast &&
-    `
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-  `}
 `;
 
-export const SCNavigationIcon = styled.div`
-  position: relative;
-  top: 12px;
-  left: 15px;
-
-  ${({ isActive }) =>
-    isActive &&
-    `
-    ::after {
-      content: "";
-      position: absolute;
-      height: 3px;
-      width: 45px;
-      left: -5px;
-      bottom: 15px;
-      background-color: ${Theme.white};
-    }
-  `}
-`;
-
-export const SCNavigationLabels = styled.span`
-  font-size: 24px;
-  visibility: hidden;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  padding: 8px;
-  border-radius: 10px;
-  position: relative;
-  z-index: 1;
-  bottom: 98px;
-  left: ${(props) => (props.shift ? props.shift : '0px')};
-
-  ${SCNavigationLinks}:hover & {
-    visibility: visible;
-  }
+export const SCNavigationThemeMode = styled.button`
+  width: 100px;
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  font-size: 12px;
 `;

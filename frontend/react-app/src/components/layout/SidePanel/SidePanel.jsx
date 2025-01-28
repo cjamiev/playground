@@ -1,20 +1,12 @@
-import React from 'react';
-import { CloseSVG } from '../../atoms/Icons/CloseSVG';
-import { SCSidepanel, SCSidepanelHeader, SCSidepanelTitle, SCSidepanelBtn } from './styles';
+import { SCSidepanel, SCSidepanelHeader, SCSidepanelTitle } from './styles';
 
-const SidePanel = ({ isTransitioningOut, sidePanelContent, isSidePanelWide, toggleSidePanel, title }) => {
-  const sidePanelHeaderClassName = isSidePanelWide ? 'sidepanel__header--full' : 'sidepanel__header';
+const SidePanel = ({ sidePanelContent, title }) => {
 
   return (
-    <SCSidepanel isFullSize={isSidePanelWide} isTransitioningOut={isTransitioningOut}>
+    <SCSidepanel>
       {title && (
-        <SCSidepanelHeader isFullSize={isSidePanelWide}>
+        <SCSidepanelHeader>
           <SCSidepanelTitle>{title}</SCSidepanelTitle>
-          {isSidePanelWide && (
-            <SCSidepanelBtn>
-              <CloseSVG isBlack ariaLabel="Close Sidepanel" width="27" height="27" onClick={toggleSidePanel} />
-            </SCSidepanelBtn>
-          )}
         </SCSidepanelHeader>
       )}
       {sidePanelContent}

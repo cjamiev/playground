@@ -1,54 +1,45 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import {
-  closeSidePanel,
-  closeGlobalModal,
-  hideLoadingModal,
-} from '../../molecules/Global/globalActions';
+import { useThemeContext } from '../../../context/ThemeProvider';
 import { dismissAlert } from '../../layout/Alert/alertActions';
-import { SCNavigation, SCNavigationLinks, SCNavigationIcon, SCNavigationLabels } from './styles';
-import { navigationMap } from './data';
+import { SCNavigation, SCNavigationLink, SCNavigationThemeMode } from './styles';
+import { ROUTES, ROUTE_LIST } from '../../../constants/routes';
 
-const SINGLE_DIGIT = 9;
-
-const Navigation = React.memo(() => {
+const Navigation = () => {
+  const { isLightMode, switchMode } = useThemeContext();
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const [currentUrl, setCurrentUrl] = useState(location.pathname);
 
-  const renderNavItems = navigationMap.map((item) => {
-    const isActive = currentUrl === item.url;
-    const IconSVG = item.icon;
+  const renderNavItems = ROUTE_LIST.map((key) => {
+    const route = ROUTES[key];
+    const isActive = currentUrl === route.url;
     const handleClick = () => {
-      if (currentUrl !== item.url) {
-        navigate(item.url);
-        setCurrentUrl(item.url);
-        dispatch(closeGlobalModal());
-        dispatch(hideLoadingModal());
+      if (currentUrl !== route.url) {
+        navigate(route.url);
+        setCurrentUrl(route.url);
         dispatch(dismissAlert());
         dispatch(closeSidePanel());
       }
     };
 
     return (
-      <SCNavigationLinks
-        key={item.url}
+      <SCNavigationLink
+        key={route.url}
         onClick={handleClick}
-        isActive={isActive}
-        isFirst={item.isFirst}
-        isLast={item.isLast}
+        $isActive={isActive}
       >
-        <SCNavigationIcon isActive={isActive}>
-          <IconSVG ariaLabel={`${item.label} Page`} width="45" {...item.props} />
-        </SCNavigationIcon>
-        <SCNavigationLabels shift={item.labelShift}>{item.label}</SCNavigationLabels>
-      </SCNavigationLinks>
+        {route.label}
+      </SCNavigationLink>
     );
   });
 
-  return <SCNavigation>{renderNavItems}</SCNavigation>;
-});
+  return (<SCNavigation>
+    {renderNavItems}
+    <SCNavigationThemeMode onClick={switchMode}>{isLightMode ? 'Light Mode' : 'Dark Mode'}</SCNavigationThemeMode>
+  </SCNavigation>);
+};
 
 export default Navigation;
