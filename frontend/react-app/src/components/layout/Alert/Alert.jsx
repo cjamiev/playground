@@ -29,7 +29,7 @@ const Alert = () => {
       {queue.map((item) => {
         return (
           <SCAlert key={item.id}>
-            <SCAlertHeader status={item.status}>
+            <SCAlertHeader $status={item.status}>
               {item.status}
               <button
                 onClick={() => {
@@ -39,7 +39,7 @@ const Alert = () => {
                 X
               </button>
             </SCAlertHeader>
-            <SCAlertContent status={item.status}>
+            <SCAlertContent $status={item.status}>
               <span>{item.content}</span>
             </SCAlertContent>
           </SCAlert>

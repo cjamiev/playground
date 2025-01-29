@@ -24,7 +24,7 @@ const Page = ({ sidePanelContent, children }) => {
           title={currentPage.sidePanelLabel}
         />}
         <SCPage>
-          <PageHeader title={currentPage.label} />
+          <PageHeader title={currentPage.pageLabel} />
           <div>{children}</div>
         </SCPage>
       </SCPageWrapper>

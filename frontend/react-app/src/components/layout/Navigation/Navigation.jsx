@@ -31,7 +31,7 @@ const Navigation = () => {
         onClick={handleClick}
         $isActive={isActive}
       >
-        {route.label}
+        {route.linkLabel}
       </SCNavigationLink>
     );
   });

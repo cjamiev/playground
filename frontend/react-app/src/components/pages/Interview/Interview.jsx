@@ -417,48 +417,46 @@ const Interview = () => {
 
   return (
     <Page>
-      <div className={wrapperClassName} >
-        <div>
-          <h2>Context Provider Example</h2>
-          <CountProvider>
-            <CountCTXComponent />
-          </CountProvider>
-        </div>
-        <div>
-          <h2>Reducer Example</h2>
-          <SimpleCrudComponent />
-        </div>
-        <div>
-          <h2>Custom Hook Example</h2>
-          <DebounceComponent />
-        </div>
-        <div>
-          <h2>Memo Example</h2>
-          <ExpensiveComponent />
-        </div>
-        <div>
-          <h2>Cleanup Example</h2>
-          <CleanupComponent />
-        </div>
-      </div>
-      <div className={wrapperClassName}>
-        <div>
-          <h2>API Example</h2>
-          <FetchComponent />
-        </div>
-        <div>
-          <h2>Event Handling Example</h2>
-          <EventComponent />
-        </div>
-        <div>
-          <h2>Webworker Example</h2>
-          <WebWorkerComponent />
-        </div>
-      </div>
-      <div className={wrapperClassName}>
-        <div>
-          <h2>Transition Example</h2>
-          <TransitionComponent />
+      <div style={{ display: 'flex' }}>
+        <div className={wrapperClassName} >
+          <div>
+            <h2>Context Provider Example</h2>
+            <CountProvider>
+              <CountCTXComponent />
+            </CountProvider>
+          </div>
+          <div>
+            <h2>Reducer Example</h2>
+            <SimpleCrudComponent />
+          </div>
+          <div>
+            <h2>Custom Hook Example</h2>
+            <DebounceComponent />
+          </div>
+          <div>
+            <h2>Memo Example</h2>
+            <ExpensiveComponent />
+          </div>
+          <div>
+            <h2>Cleanup Example</h2>
+            <CleanupComponent />
+          </div>
+          <div>
+            <h2>API Example</h2>
+            <FetchComponent />
+          </div>
+          <div>
+            <h2>Event Handling Example</h2>
+            <EventComponent />
+          </div>
+          <div>
+            <h2>Webworker Example</h2>
+            <WebWorkerComponent />
+          </div>
+          <div>
+            <h2>Transition Example</h2>
+            <TransitionComponent />
+          </div>
         </div>
       </div>
     </Page>

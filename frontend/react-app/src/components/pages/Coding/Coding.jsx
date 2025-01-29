@@ -1,8 +1,7 @@
 import Page from '../../layout/Page';
 import Todo from '../../atoms/Todo';
-import { SCWrapper } from './styles';
 
-const LiveCoding = () => {
+const Coding = () => {
   return (
     <Page>
       <Todo />
@@ -10,4 +9,4 @@ const LiveCoding = () => {
   );
 };
 
-export default LiveCoding;
+export default Coding;

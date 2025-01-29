@@ -5,9 +5,11 @@ import { SCDescription, SCSectionWrapper, SCNoteTitle, SCNotesWrapper } from './
 ToDo:
   - Form Validation Hook
   - lazy loading Example
-  - Side Panel and Modal usage
-  - Live coding: Add tabs, loading images, form validation
+  - Side Panel
+  - Coding: Add tabs, loading images, form validation
   - Add unit tests for examples
+  - Add View Code
+  - useDeferredValue
 */
 
 const Home = () => {
@@ -35,7 +37,7 @@ const Home = () => {
       </SCSectionWrapper>
       <SCSectionWrapper>
         <section>
-          <h2>Live Coding</h2>
+          <h2>Coding</h2>
           <SCNoteTitle> Quick Projects to Practice for live coding </SCNoteTitle>
           <SCNotesWrapper>
             <li>Todo App</li>

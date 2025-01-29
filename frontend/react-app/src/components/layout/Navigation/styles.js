@@ -18,8 +18,9 @@ export const SCNavigationLink = styled.div`
   cursor: pointer;
   border-bottom: 1px solid transparent;
 
-  :hover {
+  &:hover {
     border-bottom: 1px solid #444444;
+    transform: scale(1.05);
   }
 `;
 

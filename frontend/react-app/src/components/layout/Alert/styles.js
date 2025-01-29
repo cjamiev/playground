@@ -52,13 +52,13 @@ export const SCAlertHeader = styled.h2`
   padding: 5px 10px;
 
   ${(props) => {
-    if (props.status === 'success') {
+    if (props.$status === 'success') {
       return statusSuccess;
     }
-    if (props.status === 'error') {
+    if (props.$status === 'error') {
       return statusError;
     }
-    if (props.status === 'info') {
+    if (props.$status === 'info') {
       return statusInfo;
     } else {
       return statusWarning;
@@ -79,13 +79,13 @@ export const SCAlertHeader = styled.h2`
 
 const getBorderColor = css`
   ${(props) => {
-    if (props.status === 'success') {
+    if (props.$status === 'success') {
       return bgColorSuccess;
     }
-    if (props.status === 'error') {
+    if (props.$status === 'error') {
       return bgColorError;
     }
-    if (props.status === 'info') {
+    if (props.$status === 'info') {
       return bgColorInfo;
     } else {
       return bgColorWarning;

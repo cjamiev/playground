@@ -36,16 +36,25 @@ export const SCPageWrapper = styled.div`
 
 export const SCPage = styled.div`
   padding-left: 10px;
-  width: ${(props) => (props.isSideBarFullSize ? '0px' : '100%')};
-`;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-export const SCPageHeader = styled.div`
+  > div {
+    width: 100%;
+  }
+  `;
+  
+  export const SCPageHeader = styled.div`
   position: relative;
   height: 100px;
+  width: 100%;
   white-space: nowrap;
-`;
-
-export const SCPageHeaderTitle = styled.h1`
+  text-align: center;
+  `;
+  
+  export const SCPageHeaderTitle = styled.h1`
   display: inline-block;
   margin-top: 10px;
   margin-left: 10px;
