@@ -256,11 +256,11 @@ const Todo = () => {
           <SCFilterLabel>Filter </SCFilterLabel>
           <SCSearchFilter onChange={onHandleFilterChange} value={filterBy} />
           <SCFilterLabel>Sort By:</SCFilterLabel>
-          <SCSortBtn id="sort-name" type='radio' name='sort' checked={sortBy === 'name'} onClick={() => setSortBy('name')} />
+          <SCSortBtn id="sort-name" type='radio' name='sort' checked={sortBy === 'name'} onChange={() => setSortBy('name')} />
           <SCSortLabel htmlFor="sort-name">Name</SCSortLabel>
-          <SCSortBtn id="sort-desc" type='radio' name='sort' checked={sortBy === 'description'} onClick={() => setSortBy('description')} />
+          <SCSortBtn id="sort-desc" type='radio' name='sort' checked={sortBy === 'description'} onChange={() => setSortBy('description')} />
           <SCSortLabel htmlFor="sort-desc">Description</SCSortLabel>
-          <SCSortBtn id="sort-priority" type='radio' name='sort' checked={sortBy === 'priority'} onClick={() => setSortBy('priority')} />
+          <SCSortBtn id="sort-priority" type='radio' name='sort' checked={sortBy === 'priority'} onChange={() => setSortBy('priority')} />
           <SCSortLabel htmlFor="sort-priority">Priority</SCSortLabel>
         </SCSortAndFilterWrapper>
       </SCTodoForm>

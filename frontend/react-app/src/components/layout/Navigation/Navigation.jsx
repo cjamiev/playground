@@ -21,7 +21,6 @@ const Navigation = () => {
         navigate(route.url);
         setCurrentUrl(route.url);
         dispatch(dismissAlert());
-        dispatch(closeSidePanel());
       }
     };
 

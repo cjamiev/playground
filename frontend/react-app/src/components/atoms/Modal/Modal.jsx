@@ -4,10 +4,11 @@ import { SCModalWrapper, SCModal, SCCloseBtn, SCModalHeader, SCModalTitle, SCMod
 
 const Modal = ({ isModalVisible, title, message, close, buttonList = [] }) => {
   const { isLightMode } = useThemeContext();
-  const renderButtons = buttonList.map((item) => {
+  const renderButtons = buttonList.map((item, index) => {
     if (item.label) {
       return (
         <button
+          autoFocus={index === 0}
           key={item.label}
           label={item.label}
           onClick={() => {
