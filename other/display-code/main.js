@@ -1,15 +1,27 @@
 const fs = require('fs');
 
-const codeToTranslate = '';
+const codeToTranslate = ``;
 
-const bracketWord = /\[\w+\,/;
-const endBracketWord = /\w+\]/;
-const namedFuncStart = /\w+\(\w+\,/;
-const namedFuncStart2 = /\w+\(\{/;
-const namedFuncComplete = /\w+\(\w+\)\;/;
-const funcComplete = /\(\w+\)/;
-const funcEmpty = /\w+\(\"\"\)/;
-const JS_KEYWORDS = ['=', '===', '!==', 'return', 'switch', 'case', 'default'];
+const bracketWord = /\[\w+\,/; // [word,
+const endBracketWord = /\w+\]/; // word]
+const namedFuncStart = /\w+\(\w+\,/; // word(word,
+const namedFuncStart2 = /\w+\(\{/; // word({
+const namedFuncComplete = /\w+\(\w+\)\;/; // word(word);
+const funcComplete = /\(\w+\)/; // (word)
+const funcEmpty = /\w+\(\"\"\)/; // word("")
+
+const startingTag = /\<\w+/; // <tag
+const startingTagComplete = /\<\w+\>/; // <tag
+const endingTag = /\<\/\w+\>/ // </tag>
+const simpleAttribute = /\w+\=\"\w+\"/ //attribute="value"
+const varAttribute = /\w+\=\{\w+\}/ //attribute={value}
+const varAttributeEnd = /\w+\=\{\w+\}\>/ //attribute={value}>
+const startingFuncAttribute = /\w+\=\{\(\w+\)/ //attribute={(value)
+const emptyTag = /\<\>/
+const closingTag = /\/\>/
+const emptyClosingTag = /\<\/\>/
+
+const JS_KEYWORDS = ['=', '===', '!==', ' + ', ' ? ', ' : ', 'return', 'switch', 'case', 'default'];
 const JS_VARS = ['let', 'const'];
 const BLANKS = '<span className="mk-white"></span>';
 const BLANKS2 = '<span className="mk-white"> </span>';
@@ -46,8 +58,14 @@ const translateLineToHTML = (line) => {
     if('),' === seg) {
       return getSpanElement('mk-purple', ')', true) + '\n' + getSpanElement('mk-white', ',');
     } 
+    if(');' === seg) {
+      return getSpanElement('mk-purple', ')', true) + '\n' + getSpanElement('mk-white', ';');
+    } 
     if('},' === seg) {
       return getSpanElement('mk-yellow', '}', true) + '\n' + getSpanElement('mk-white', ',');
+    } 
+    if('}}' === seg) {
+      return getSpanElement('mk-yellow', '}', true) + '\n' + getSpanElement('mk-white', '}', true);
     } 
     if('({' === seg) {
       return getSpanElement('mk-puple', '(', true) + '\n' + getSpanElement('mk-yellow', '{', true);
@@ -90,7 +108,7 @@ const translateLineToHTML = (line) => {
       return `<span className="mk-white">${word}</span><span className="mk-white">{'('}</span><span className="mk-white">{'{'}</span>`;
     }
     if(namedFuncComplete.test(seg)) {
-      const seperated = word.replace(')','').split('(',);
+      const seperated = seg.replace(')','').split('(',);
       return `<span className="mk-white">${seperated[0]}</span><span className="mk-white">{'('}</span><span className="mk-white">${seperated[1]}</span>`;
     }
     if(funcComplete.test(seg)) {
@@ -100,6 +118,37 @@ const translateLineToHTML = (line) => {
     if(funcEmpty.test(seg)) {
       const word = seg.replace('("");','')
       return `<span className="mk-white">${word}</span><span className="mk-white">{'("");'}</span>`;
+    }
+    if(startingTagComplete.test(seg)) {
+      const word = seg.replace('<','').replace('>','')
+      return `<span className="mk-white">{'<'}</span><span className="mk-white">${word}</span><span className="mk-white">{'>'}</span>`;
+    }
+    if(startingTag.test(seg)) {
+      const word = seg.replace('<','')
+      return `<span className="mk-white">{'<'}</span><span className="mk-white">${word}</span>`;
+    }
+    if(endingTag.test(seg)) {
+      const word = seg.replace('</','').replace('>','')
+      return `<span className="mk-white">{'</'}</span><span className="mk-white">${word}</span><span className="mk-white">{'>'}</span>`;
+    }
+    if(simpleAttribute.test(seg)) {
+      const segments = seg.split('="')
+      return `<span className="mk-white">${segments[0]}</span><span className="mk-red">{'='}</span><span className="mk-white">{'"'}</span><span className="mk-white">${segments[1].replace('"',"")}</span><span className="mk-white">{'"'}</span>`;
+    }
+    if(varAttributeEnd.test(seg)) {
+      const segments = seg.split('={')
+      return `<span className="mk-white">${segments[0]}</span><span className="mk-red">{'='}</span><span className="mk-white">{'{'}</span><span className="mk-white">${segments[1].replace('}>',"")}</span><span className="mk-white">{'}'}</span><span className="mk-white">{'>'}</span>`;
+    }
+    if(varAttribute.test(seg)) {
+      const segments = seg.split('={')
+      return `<span className="mk-white">${segments[0]}</span><span className="mk-red">{'='}</span><span className="mk-white">{'{'}</span><span className="mk-white">${segments[1].replace('}',"")}</span><span className="mk-white">{'}'}</span>`;
+    }
+    if(startingFuncAttribute.test(seg)) {
+      const segments = seg.split('={(')
+      return `<span className="mk-white">${segments[0]}</span><span className="mk-red">{'='}</span><span className="mk-white">{'{'}</span><span className="mk-white">{'('}</span><span className="mk-white">${segments[1].replace('"',"")}</span><span className="mk-white">{')'}</span>`;
+    }
+    if(emptyTag.test(seg) || emptyClosingTag.test(seg) || closingTag.test(seg)) {
+      return `<span className="mk-white">{'${seg}'}</span>`;
     }
     else {
       return getSpanElement('mk-white', seg);
