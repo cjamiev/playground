@@ -4,6 +4,7 @@
   "description": "Project to help with daily tasks and other projects",
   "main": "src/index.js",
   "scripts": {
+    "code": "node other/display-code/main.js",
     "sudoku": "node other/sudoku/main.js",
     "svg": "node other/svg-creator/main.js",
     "clean": "rm tmp/svg/*",

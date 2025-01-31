@@ -5,10 +5,8 @@ import { SCDescription, SCSectionWrapper, SCNoteTitle, SCNotesWrapper } from './
 ToDo:
   - Form Validation Hook
   - lazy loading Example
-  - Side Panel
-  - Coding: Add tabs, loading images, form validation
+  - Coding: Add tabs, loading images, form validation, Timer app, Kanban Board
   - Add unit tests for examples
-  - Add View Code
   - useDeferredValue
 */
 
