@@ -1,3 +1,7 @@
+/*
+* The purpose of this file is to generate JSX that allows React Code to be displayable in the UI
+* with some level of color coding. This script is not perfect but should reduce 90% of the manual labor.
+*/
 const fs = require('fs');
 const templates = require('./templates');
 
@@ -14,26 +18,26 @@ const methodEmpty = /\.\w+\(\(\)/ // .func(()
 const method = /\.\w+\(\w+/ // .func(var
 const method2 = /\.\w+\(\(\w+\,/ // .func((var,
 
-const stringValue = /\'.+\'\,/ //'word',
-const stringValue2 = /\'.+\'\:/ //'word':
-const stringValue3 = /\'.+\'\;/ //'word';
-const propValue = /\{\w+\}/ //{word}
+const stringValue = /\'.+\'\,/ // 'word',
+const stringValue2 = /\'.+\'\:/ // 'word':
+const stringValue3 = /\'.+\'\;/ // 'word';
+const propValue = /\{\w+\}/ // {word}
 const numberValue = /\d+\,/ // number,
 const numberValue2 = /\d+\;/ // number;
 
 const startingTag = /\<\w+/; // <tag
 const startingTagComplete = /\<\w+\>/; // <tag
 const endingTag = /\<\/\w+\.*\w*\>/ // </tag> or </customtag.word>
-const simpleAttribute = /\w+\=\'\w+\'/ //attribute='value'
-const simpleAttributeSplitStart = /\w+\=\'\w+/ //attribute='value
-const simpleAttributeSplitEnd = /\w+\'/ //value'
-const varAttribute = /\w+\=\{\w+\}/ //attribute={value}
-const varAttributeEnd = /\w+\=\{\w+\.*\w+\}\>/ //attribute={value}> or attribute={obj.value}> 
-const startingFuncAttribute = /\w+\=\{\(\w*\)/ //attribute={(value) or attribute={(value) 
-const endingFuncAttribute = /\w+\(\w+\.*\w*\)\}\>/ //attribute(value)}> or attribute(obj.id)}> 
-const emptyTag = /\<\>/
-const closingTag = /\/\>/
-const emptyClosingTag = /\<\/\>/
+const simpleAttribute = /\w+\=\'\w+\'/ // attribute='value'
+const simpleAttributeSplitStart = /\w+\=\'\w+/ // attribute='value
+const simpleAttributeSplitEnd = /\w+\'/ // value'
+const varAttribute = /\w+\=\{\w+\}/ // attribute={value}
+const varAttributeEnd = /\w+\=\{\w+\.*\w+\}\>/ // attribute={value}> or attribute={obj.value}> 
+const startingFuncAttribute = /\w+\=\{\(\w*\)/ // attribute={(value) or attribute={(value) 
+const endingFuncAttribute = /\w+\(\w+\.*\w*\)\}\>/ // attribute(value)}> or attribute(obj.id)}> 
+const emptyTag = /\<\>/ // <>
+const closingTag = /\/\>/ // />
+const emptyClosingTag = /\<\/\>/ // </>
 
 const JS_KEYWORDS = ['=', '===', '!==', ' + ', ' ? ', ' : ', 'if', 'else', 'return', 'switch', 'for', 'case', 'default', 'export', 'import', 'from'];
 const JS_VARS = ['let', 'const'];
