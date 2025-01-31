@@ -9,8 +9,9 @@ const currentTranslationTest = templates.currentTranslationTest;
 
 const bracketWord = /\[\w+\,/; // [word,
 const endBracketWord = /\w+\]/; // word]
-const namedFuncStart = /\w+\(\w+\,/; // word(word,
-const namedFuncStart2 = /\w+\(\{/; // word({
+const namedFuncStart = /\w+\(\w+/; // word(word
+const namedFuncStart2 = /\w+\(\w+\,/; // word(word,
+const namedFuncStart3 = /\w+\(\{/; // word({
 const namedFuncComplete = /\w+\(\w+\)\;/; // word(word);
 const funcComplete = /\(\w+\)/; // (word)
 const funcEmpty = /\w+\(\'\'\)\;/; // word('');
@@ -120,17 +121,21 @@ const translateLineToHTML = (line) => {
       const word = seg.replace(']','');
       return `<span className='mk-white'>${word}</span>\n<span className='mk-white'>{']'}</span>`;
     }
-    if(namedFuncStart.test(seg)) {
-      const word = seg.replace('(','').replace(',','');
-      return `<span className='mk-white'>{'('}</span>\n<span className='mk-white'>${word}</span>\n<span className='mk-white'>{','}</span>`;
+    if(namedFuncComplete.test(seg)) {
+      const seperated = seg.replace(')','').replace(';','').split('(',);
+      return `<span className='mk-green'>${seperated[0]}</span>\n<span className='mk-purple'>{'('}</span>\n<span className='mk-white'>${seperated[1]}</span>\n<span className='mk-purple'>{')'}</span>\n<span className='mk-white'>{';'}</span>`;
+    }
+    if(namedFuncStart3.test(seg)) {
+      const word = seg.replace('(','').replace('{','');
+      return `<span className='mk-white'>${word}</span>\n<span className='mk-white'>{'('}</span>\n<span className='mk-dkblue'>{'{'}</span>`;
     }
     if(namedFuncStart2.test(seg)) {
       const word = seg.replace('(','').replace('{','');
       return `<span className='mk-white'>${word}</span>\n<span className='mk-white'>{'('}</span>\n<span className='mk-dkblue'>{'{'}</span>`;
     }
-    if(namedFuncComplete.test(seg)) {
-      const seperated = seg.replace(')','').replace(';','').split('(',);
-      return `<span className='mk-green'>${seperated[0]}</span>\n<span className='mk-purple'>{'('}</span>\n<span className='mk-white'>${seperated[1]}</span>\n<span className='mk-purple'>{')'}</span>\n<span className='mk-white'>{';'}</span>`;
+    if(namedFuncStart.test(seg)) {
+      const word = seg.replace('(','');
+      return `<span className='mk-white'>{'('}</span>\n<span className='mk-green'>${word}</span>`;
     }
     if(funcComplete.test(seg) && !startingFuncAttribute.test(seg)) {
       const word = seg.replace('(','').replace(')','');

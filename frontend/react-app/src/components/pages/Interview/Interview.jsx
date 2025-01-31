@@ -7,11 +7,16 @@ import {
   useMemo,
   useRef,
   useTransition,
-} from "react";
+} from 'react';
 import { useThemeContext } from '../../../context/ThemeProvider';
 import Page from '../../layout/Page';
-import './interview.css'
+import './interview.css';
 import { useWebWorker } from '../../../hooks/useWebWorker';
+import {
+  DisplayContextExample,
+  DisplayProviderExample,
+  DisplayUseContextExample
+} from './InterviewDisplayCode';
 
 const CountContext = createContext({
   count: 0,
@@ -35,9 +40,9 @@ const CountCTXComponent = () => {
 
   return (
     <div>
-      <span>Count: {count}</span>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
+      <span> Count: {count} </span>
+      <button onClick={increment}> Increment </button>
+      <button onClick={decrement}> Decrement </button>
     </div>
   );
 };
@@ -47,17 +52,17 @@ const simpleReducer = (
   action
 ) => {
   switch (action.type) {
-    case "ADD":
+    case 'ADD':
       return state.concat(action.payload);
-    case "DELETE":
-      return state.filter((item) => item.id !== action.payload.id);
+    case 'DELETE':
+      return state.filter(item => item.id !== action.payload.id);
     default:
       return state;
   }
 };
 const SimpleCrudComponent = () => {
   const [list, dispatch] = useReducer(simpleReducer, []);
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
 
   const onHandleNameChange = (event) => {
     setName(event.target.value);
@@ -65,38 +70,38 @@ const SimpleCrudComponent = () => {
 
   const addToList = () => {
     dispatch({
-      type: "ADD",
+      type: 'ADD',
       payload: {
         id: list.length,
         name
       },
     });
-    setName("");
+    setName('');
   };
 
   const deleteTodo = (id) => {
-    dispatch({ type: "DELETE", payload: { id } });
+    dispatch({ type: 'DELETE', payload: { id } });
   };
 
   return (
     <div>
       <div>
         <input
-          type="text"
-          placeholder="Enter Name"
+          type='text'
+          placeholder='Enter Name'
           onChange={(event) => {
             onHandleNameChange(event);
           }}
           value={name}
         />
-        <button onClick={addToList}>Submit</button>
+        <button onClick={addToList}> Submit </button>
       </div>
       {list
-        .map((item) => {
+        .map(item => {
           return (
             <div key={item.id}>
-              <span>Name:{item.name}</span>
-              <button onClick={() => deleteTodo(item.id)}>Delete</button>
+              <span> Name: {item.name} </span>
+              <button onClick={() => deleteTodo(item.id)}> Delete </button>
             </div>
           );
         })}
@@ -104,9 +109,9 @@ const SimpleCrudComponent = () => {
   );
 };
 
-const dictionaryURL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+const dictionaryURL = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 const FetchComponent = () => {
-  const [word, setWord] = useState("");
+  const [word, setWord] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [definition, setDefinition] = useState([]);
 
@@ -117,8 +122,8 @@ const FetchComponent = () => {
   const onSubmit = () => {
     setIsLoading(true);
     fetch(dictionaryURL + word)
-      .then((response) => response.json())
-      .then((response) => setDefinition(response
+      .then(response => response.json())
+      .then(response => setDefinition(response
         .map(i => i.meanings)
         .map(entry => entry.map(item => item.definitions.map(i => i.definition)))
         .reduce((curr, accum) => {
@@ -140,15 +145,15 @@ const FetchComponent = () => {
     <>
       <div>
         <input
-          type="text"
-          placeholder="Enter Word"
+          type='text'
+          placeholder='Enter Word'
           onChange={(event) => {
             onHandleWordChange(event);
           }}
           value={word}
         />
-        <button onClick={onSubmit}>Submit</button>
-        <button onClick={onClear}>clear</button>
+        <button onClick={onSubmit}> Submit </button>
+        <button onClick={onClear}> clear </button>
         {isLoading ? <div>Loading</div> : <div>{definition.map((d, i) => { return <div key={i}>{d}</div> })}</div>}
       </div>
     </>
@@ -156,18 +161,18 @@ const FetchComponent = () => {
 };
 
 const fruits = [
-  "apple",
-  "grape",
-  "grapefruit",
-  "jackfruit",
-  "pineapple",
-  "strawberry",
-  "raspberry",
-  "blueberry",
-  "blackberry",
+  'apple',
+  'grape',
+  'grapefruit',
+  'jackfruit',
+  'pineapple',
+  'strawberry',
+  'raspberry',
+  'blueberry',
+  'blackberry',
 ];
 const useDebounceValue = (value, time) => {
-  const [debouncedValue, setDebouncedValue] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState('');
 
   useEffect(() => {
     let timeOutId = 0;
@@ -185,7 +190,7 @@ const useDebounceValue = (value, time) => {
   return debouncedValue;
 };
 const DebounceComponent = () => {
-  const [word, setWord] = useState("");
+  const [word, setWord] = useState('');
   const [list, setList] = useState(fruits);
   const debouncedValue = useDebounceValue(word, 250);
 
@@ -204,8 +209,8 @@ const DebounceComponent = () => {
   return (
     <div>
       <input
-        type="text"
-        placeholder="Enter Fruit"
+        type='text'
+        placeholder='Enter Fruit'
         onChange={(event) => {
           onHandleWordChange(event);
         }}
@@ -222,7 +227,7 @@ const DebounceComponent = () => {
 
 const ExpensiveSection = ({ children, trackingIndex }) => {
   const expensiveFunction = useMemo(() => {
-    console.log("running expensive component:", trackingIndex);
+    console.log('running expensive component:', trackingIndex);
     let sum = 0;
     for (let i = 0; i < 1e5; i++) {
       sum += i;
@@ -230,11 +235,11 @@ const ExpensiveSection = ({ children, trackingIndex }) => {
     return sum;
   }, []);
 
-  console.log("expensiveValue:", trackingIndex, expensiveFunction);
+  console.log('expensiveValue:', trackingIndex, expensiveFunction);
   return <>{children}</>;
 };
 const ExpensiveComponent = () => {
-  const [newItem, setNewItem] = useState("");
+  const [newItem, setNewItem] = useState('');
   const [list, setList] = useState([]);
   const inputRef = useRef(null);
 
@@ -263,14 +268,14 @@ const ExpensiveComponent = () => {
     <div>
       <input
         ref={inputRef}
-        type="text"
-        placeholder="Enter New Item"
+        type='text'
+        placeholder='Enter New Item'
         value={newItem}
         onChange={(event) => {
           onHandleEntryChange(event);
         }}
         onKeyDown={(event) => {
-          if (event.code === "Enter") {
+          if (event.code === 'Enter') {
             onSubmit();
           }
         }}
@@ -301,10 +306,10 @@ const useMouseClick = () => {
       setCoordinates({ x: event.clientX, y: event.clientY });
     };
 
-    addEventListener("mousedown", getCoordinates);
+    addEventListener('mousedown', getCoordinates);
 
     return () => {
-      removeEventListener("mousedown", getCoordinates);
+      removeEventListener('mousedown', getCoordinates);
     };
   }, []);
 
@@ -404,7 +409,7 @@ const TransitionComponent = () => {
   }
 
   return (<div>
-    <input type="text" onChange={onHandleChange} value={input} />
+    <input type='text' onChange={onHandleChange} value={input} />
     {isPending ? <div>Loading...</div> : <div>
       {list.map(item => <div key={item}>{item}</div>)}
     </div>}
@@ -413,12 +418,12 @@ const TransitionComponent = () => {
 
 const Interview = () => {
   const { isLightMode } = useThemeContext();
-  const wrapperClassName = isLightMode ? 'wrapper' : 'wrapper dm-wrapper';
+  const sectionClassName = isLightMode ? 'section-wrapper' : 'section-wrapper dm-wrapper';
 
   return (
     <Page>
-      <div style={{ display: 'flex' }}>
-        <div className={wrapperClassName} >
+      <div className='page-wrapper'>
+        <div className={sectionClassName} >
           <div>
             <h2>Context Provider Example</h2>
             <CountProvider>
@@ -458,8 +463,13 @@ const Interview = () => {
             <TransitionComponent />
           </div>
         </div>
+        <div className='code-wrapper'>
+          <DisplayContextExample />
+          <DisplayProviderExample />
+          <DisplayUseContextExample />
+        </div>
       </div>
-    </Page>
+    </Page >
   );
 };
 
