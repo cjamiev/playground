@@ -8,6 +8,7 @@ const ColorMap = {
   'PURPLE' : 'mk-purple',
   'WHITE' : 'mk-white',
 }
+const ColorSequence = [ColorMap.YELLOW, ColorMap.PURPLE, ColorMap.BLUE]; 
 
 const getWrappedContent = (segment) => {
   if(segment === "'" || segment === "''") {
@@ -29,28 +30,46 @@ const getSpanElement = ({ colorName, indentCount, segment, shouldWrap = false, a
   return `<span className='${className}'>${wrappedSegment}${extraSpace}</span>`
 }
 
-const getOpenBrace = (indentCount = 0) => {
-  return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: '{', shouldWrap: true });
+const getOpenBrace = ({ indentCount = 0, blockTracker }) => {
+  const currentColorIndex = blockTracker.length;
+  const colorName = ColorSequence[currentColorIndex > 2 ? currentColorIndex % 3 : currentColorIndex];
+  blockTracker.push(colorName);
+  
+  return getSpanElement( { colorName, indentCount, segment: '{', shouldWrap: true });
 }
 
-const getCloseBrace = (indentCount = 0) => {
-  return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: '}', shouldWrap: true });
+const getCloseBrace = ({ indentCount = 0, blockTracker }) => {
+  const colorName = blockTracker.pop();
+  
+  return getSpanElement( { colorName, indentCount, segment: '}', shouldWrap: true });
 }
 
-const getOpenParenthesis = (indentCount = 0) => {
-  return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: '(', shouldWrap: true });
+const getOpenParenthesis = ({ indentCount = 0, blockTracker }) => {
+  const currentColorIndex = blockTracker.length;
+  const colorName = ColorSequence[currentColorIndex > 2 ? currentColorIndex % 3 : currentColorIndex];
+  blockTracker.push(colorName);
+  
+  return getSpanElement( { colorName, indentCount, segment: '(', shouldWrap: true });
 }
 
-const getCloseParenthesis = (indentCount = 0) => {
-  return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: ')', shouldWrap: true });
+const getCloseParenthesis = ({ indentCount = 0, blockTracker }) => {
+  const colorName = blockTracker.pop();
+  
+  return getSpanElement( { colorName, indentCount, segment: ')', shouldWrap: true });
 }
 
-const getOpenBracket = (indentCount = 0) => {
-  return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: '[', shouldWrap: true });
+const getOpenBracket = ({ indentCount = 0, blockTracker }) => {
+  const currentColorIndex = blockTracker.length;
+  const colorName = ColorSequence[currentColorIndex > 2 ? currentColorIndex % 3 : currentColorIndex];
+  blockTracker.push(colorName);
+  
+  return getSpanElement( { colorName, indentCount, segment: '[', shouldWrap: true });
 }
 
-const getCloseBracket = (indentCount = 0) => {
-  return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: ']', shouldWrap: true });
+const getCloseBracket = ({ indentCount = 0, blockTracker }) => {
+  const colorName = blockTracker.pop();
+
+  return getSpanElement( { colorName, indentCount, segment: ']', shouldWrap: true });
 }
 
 const getComma = () => {

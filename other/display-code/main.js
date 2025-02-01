@@ -62,9 +62,11 @@ const emptyClosingTag = /\<\/\>/ // </>
 
 const JS_KEYWORDS = ['=', '===', '!==', ' + ', ' ? ', ' : ', 'if', 'else', 'return', 'switch', 'for', 'case', 'default', 'export', 'import', 'from'];
 const JS_VARS = ['let', 'const'];
-const BLANKS = "<span className='mk-white'></span>";
-const BLANKS2 = "<span className='mk-white'> </span>";
+const BLANKS = `<span className=${ColorMap.WHITE}></span>`;
+const BLANKS2 = `<span className=${ColorMap.WHITE}> </span>`;
 const JS_SYMBOLS = ['{', '}', '[', ']', '(', ')'];
+
+const blockTracker = []; // Keep track of color code for {}, [], () as they alternate with the ColorSequence
 
 const translateLineToHTML = (line) => {
   const segments = line.split(' ');
@@ -77,97 +79,112 @@ const translateLineToHTML = (line) => {
     if(JS_VARS.find(item => item === seg)) {
       return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: seg });
     }
-    if(JS_SYMBOLS.find(item => item === seg)) {
-      return getSpanElement( { colorName: ColorMap.DARK_BLUE, indentCount, segment: seg, shouldWrap });
+    if('(' === seg) {
+      return getOpenParenthesis({ indentCount, blockTracker });
+    }
+    if(')' === seg) {
+      return getCloseParenthesis({ indentCount, blockTracker });
+    }
+    if('{' === seg) {
+      return getOpenBrace({ indentCount, blockTracker });
+    }
+    if('}' === seg) {
+      return getCloseBrace({ indentCount, blockTracker });
+    }
+    if('[' === seg) {
+      return getOpenBracket({ indentCount, blockTracker });
+    }
+    if(']' === seg) {
+      return getCloseBracket({ indentCount, blockTracker });
     }
     if('},' === seg) {
-      return getCloseBrace(indentCount) + '\n' + getComma();
+      return getCloseBrace({ indentCount, blockTracker }) + '\n' + getComma();
     }
     if('};' === seg) {
-      return getCloseBrace(indentCount) + '\n' + getSemicolon();
+      return getCloseBrace({ indentCount, blockTracker }) + '\n' + getSemicolon();
     }
     if('),' === seg) {
-      return getCloseParenthesis(indentCount) + '\n' + getComma();
+      return getCloseParenthesis({ indentCount, blockTracker }) + '\n' + getComma();
     }
     if(');' === seg) {
-      return getCloseParenthesis(indentCount) + '\n' + getSemicolon();
+      return getCloseParenthesis({ indentCount, blockTracker }) + '\n' + getSemicolon();
     }
     if('},' === seg) {
-      return getCloseBrace(indentCount) + '\n' + getComma();
+      return getCloseBrace({ indentCount, blockTracker }) + '\n' + getComma();
     }
     if('}}' === seg) {
-      return getCloseBrace(indentCount) + '\n' + getCloseBrace();
+      return getCloseBrace({ indentCount, blockTracker }) + '\n' + getCloseBrace({ blockTracker });
     }
     if('})}' === seg) {
-      return getCloseBrace(indentCount) + '\n' + getCloseParenthesis() + '\n' + getCloseBrace();
+      return getCloseBrace({ indentCount, blockTracker }) + '\n' + getCloseParenthesis({ blockTracker }) + '\n' + getCloseBrace({ blockTracker });
     }
     if('({' === seg) {
-      return getOpenParenthesis(indentCount) + '\n' + getOpenBrace();
+      return getOpenParenthesis({ indentCount, blockTracker }) + '\n' + getOpenBrace({ blockTracker });
     }
     if('})' === seg) {
-      return getCloseBrace(indentCount)+ '\n' + getCloseParenthesis();
+      return getCloseBrace({ indentCount, blockTracker })+ '\n' + getCloseParenthesis({ blockTracker });
     }
     if('});' === seg) {
-      return getCloseBrace(indentCount)+ '\n' + getCloseParenthesis() + '\n' + getSemicolon();
+      return getCloseBrace({ indentCount, blockTracker })+ '\n' + getCloseParenthesis({ blockTracker }) + '\n' + getSemicolon();
     }
     if('()' === seg) {
-      return getSpanElement( { colorName: ColorMap.DARK_BLUE, indentCount, segment: '()', shouldWrap });
+      return getOpenParenthesis({ indentCount, blockTracker }) + getCloseParenthesis({ blockTracker });
     }
     if('=>' === seg) {
       return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: '=>', shouldWrap });
     }
     if('([])' === seg) {
-      return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: '(', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.BLUE, segment: '[]'}) + '\n' + getCloseParenthesis();
+      return getOpenParenthesis({ indentCount, blockTracker }) + '\n' + getOpenBracket({ blockTracker }) + getCloseBracket({ blockTracker }) + '\n' + getCloseParenthesis({ blockTracker });
     }
     if('[])' === seg) {
-      return getSpanElement( { colorName: ColorMap.BLUE, segment: '[]', shouldWrap }) + '\n' + getCloseParenthesis();
+      return getOpenBracket({ indentCount, blockTracker }) + getCloseBracket({ blockTracker }) + '\n' + getCloseParenthesis({ blockTracker });
     }
     if('[]);' === seg) {
-      return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: '[]', shouldWrap }) + '\n' + getCloseParenthesis() + '\n' + getSemicolon();
+      return getOpenBracket({ indentCount, blockTracker }) + getCloseBracket({ blockTracker })  + '\n' + getCloseParenthesis({ blockTracker }) + '\n' + getSemicolon();
     }
     if(bracketWord.test(seg)) {
       const word = seg.replace('[','').replace(',','');
-      return getOpenBracket(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getComma();
+      return getOpenBracket({ indentCount, blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getComma();
     }
     if(endBracketWord.test(seg)) {
       const word = seg.replace(']','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word }) + '\n' + getCloseBracket();
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word }) + '\n' + getOpenBracket({ blockTracker });
     }
     if(namedFuncComplete.test(seg)) {
       const words = seg.replace(')','').replace(';','').split('(',);
-      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getOpenParenthesis() + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: words[1] }) + '\n' + getCloseParenthesis() + '\n' + getSemicolon();
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getOpenParenthesis({ blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: words[1] }) + '\n' + getCloseParenthesis({ blockTracker }) + '\n' + getSemicolon();
     }
     if(namedFuncStart3.test(seg)) {
       const word = seg.replace('(','').replace('{','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + getOpenParenthesis() + '\n' + getOpenBrace();
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + getOpenParenthesis({ blockTracker }) + '\n' + getOpenBrace({ blockTracker });
     }
     if(namedFuncStart2.test(seg)) {
       const word = seg.replace('(','').replace('{','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + getOpenParenthesis() + '\n' + getOpenBrace();
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + getOpenParenthesis({ blockTracker }) + '\n' + getOpenBrace({ blockTracker });
     }
     if(namedFuncStart.test(seg)) {
       const word = seg.replace('(','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '(', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: word });
+      return getOpenParenthesis({ indentCount, blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: word });
     }
     if(funcComplete.test(seg) && !startingFuncAttribute.test(seg)) {
       const word = seg.replace('(','').replace(')','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '(', }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getCloseParenthesis();
+      return getOpenParenthesis({ indentCount, blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getCloseParenthesis({ blockTracker });
     }
     if(funcEmpty.test(seg)) {
       const word = seg.replace("('');",'');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + getOpenParenthesis() + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: "''", shouldWrap }) + '\n' + getCloseParenthesis() + '\n' + getSemicolon();
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + getOpenParenthesis({ blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: "''", shouldWrap }) + '\n' + getCloseParenthesis({ blockTracker }) + '\n' + getSemicolon();
     }
     if(methodEmpty.test(seg)) {
       const word = seg.replace('.','').replace('(()','');
-      return getPeriod() + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: word }) + '\n' + getOpenParenthesis()+ '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: "()", shouldWrap });
+      return getPeriod() + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: word }) + '\n' + getOpenParenthesis({ blockTracker })+ '\n' + getOpenParenthesis({ blockTracker }) + getCloseParenthesis({ blockTracker });
     }
     if(method.test(seg)) {
       const words = seg.replace('.','').split('(');
-      return getPeriod() + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: words[0] }) + '\n' + getOpenParenthesis()+ '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1] });
+      return getPeriod() + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: words[0] }) + '\n' + getOpenParenthesis({ blockTracker })+ '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1] });
     }
     if(method2.test(seg)) {
       const words = seg.replace('.','').split('((');
-      return getPeriod() + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: words[0] }) + '\n' + getOpenParenthesis()+ '\n' + getOpenParenthesis() + '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1].replace(',','') }) + '\n' + getSingleQuote() + '\n' + getComma();
+      return getPeriod() + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: words[0] }) + '\n' + getOpenParenthesis({ blockTracker })+ '\n' + getOpenParenthesis({ blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1].replace(',','') }) + '\n' + getSingleQuote() + '\n' + getComma();
     }
     if(startingTagComplete.test(seg)) {
       const word = seg.replace('<','').replace('>','');
@@ -207,26 +224,26 @@ const translateLineToHTML = (line) => {
     }
     if(varAttributeEnd.test(seg)) {
       const words = seg.split('={');
-      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getEqual() + '\n' + getOpenBrace() + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: words[1].replace('}>','')}) + '\n' + getCloseBracket() + '\n' + getGreaterThan();
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getEqual() + '\n' + getOpenBrace({ blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: words[1].replace('}>','')}) + '\n' + getOpenBracket({ blockTracker }) + '\n' + getGreaterThan();
     }
     if(varAttribute.test(seg)) {
       const words = seg.split('={');
-      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getEqual() + '\n' + getOpenBrace() + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: words[1].replace('}','')}) + '\n' + getCloseParenthesis();
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getEqual() + '\n' + getOpenBrace({ blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: words[1].replace('}','')}) + '\n' + getCloseParenthesis({ blockTracker });
     }
     if(startingFuncAttribute.test(seg)) {
       const words = seg.split('={(');
-      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getEqual() + '\n' + getOpenBrace() + '\n' + getOpenParenthesis() + '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1].replace(')','')}) + '\n' + getCloseParenthesis();
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getEqual() + '\n' + getOpenBrace({ blockTracker }) + '\n' + getOpenParenthesis({ blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1].replace(')','')}) + '\n' + getCloseParenthesis({ blockTracker });
     }
     if(endingFuncAttribute.test(seg)) {
       const words = seg.split('(');
-      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getOpenParenthesis() + '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1].replace(')}>') }) + '\n' + getCloseParenthesis() + '\n' + getCloseBrace() + '\n' + getGreaterThan();
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getOpenParenthesis({ blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1].replace(')}>') }) + '\n' + getCloseParenthesis({ blockTracker }) + '\n' + getCloseBrace({ blockTracker }) + '\n' + getGreaterThan();
     }
     if(emptyTag.test(seg) || emptyClosingTag.test(seg) || closingTag.test(seg)) {
       return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: seg, shouldWrap });
     }
     if(propValue.test(seg)) {
       const word = seg.replace('{','').replace('}','');
-      return getCloseBrace(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getCloseBrace();
+      return getCloseBrace({ indentCount, blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getCloseBrace({ blockTracker });
     }
     if(numberValue.test(seg)) {
       const word = seg.replace(',','');
