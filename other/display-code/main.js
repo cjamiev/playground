@@ -132,114 +132,114 @@ const translateLineToHTML = (line) => {
     }
     if(bracketWord.test(seg)) {
       const word = seg.replace('[','').replace(',','');
-      return `<span className='mk-white${indentClass}'>{'['}</span>\n<span className='mk-white'>${word}</span>\n<span className='mk-white'>{','}</span>`;
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '[', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getSpanElement({ className: ColorMap.WHITE, segment: ',', shouldWrap });
     }
     if(endBracketWord.test(seg)) {
       const word = seg.replace(']','');
-      return `<span className='mk-white${indentClass}'>${word}</span>\n<span className='mk-white'>{']'}</span>`;
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word }) + '\n' + getSpanElement({ className: ColorMap.WHITE, segment: ']', shouldWrap });
     }
     if(namedFuncComplete.test(seg)) {
-      const seperated = seg.replace(')','').replace(';','').split('(',);
-      return `<span className='mk-green${indentClass}'>${seperated[0]}</span>\n<span className='mk-purple'>{'('}</span>\n<span className='mk-white'>${seperated[1]}</span>\n<span className='mk-purple'>{')'}</span>\n<span className='mk-white'>{';'}</span>`;
+      const words = seg.replace(')','').replace(';','').split('(',);
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getSpanElement({ className: ColorMap.PURPLE, segment: '(', shouldWrap }) + `<span className='mk-white'>${words[1]}</span>\n<span className='mk-purple'>{')'}</span>\n<span className='mk-white'>{';'}</span>`;
     }
     if(namedFuncStart3.test(seg)) {
       const word = seg.replace('(','').replace('{','');
-      return `<span className='mk-white${indentClass}'>${word}</span>\n<span className='mk-white'>{'('}</span>\n<span className='mk-dkblue'>{'{'}</span>`;
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + + getSpanElement({ className: ColorMap.PURPLE, segment: '(', shouldWrap }) + `<span className='mk-dkblue'>{'{'}</span>`;
     }
     if(namedFuncStart2.test(seg)) {
       const word = seg.replace('(','').replace('{','');
-      return `<span className='mk-white${indentClass}'>${word}</span>\n<span className='mk-white'>{'('}</span>\n<span className='mk-dkblue'>{'{'}</span>`;
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + + getSpanElement({ className: ColorMap.PURPLE, segment: '(', shouldWrap }) + `<span className='mk-dkblue'>{'{'}</span>`;
     }
     if(namedFuncStart.test(seg)) {
       const word = seg.replace('(','');
-      return `<span className='mk-white${indentClass}'>{'('}</span>\n<span className='mk-green'>${word}</span>`;
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '(', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: word });
     }
     if(funcComplete.test(seg) && !startingFuncAttribute.test(seg)) {
       const word = seg.replace('(','').replace(')','');
-      return `<span className='mk-white${indentClass}'>{'('}</span>\n<span className='mk-white'>${word}</span>\n<span className='mk-white'>{')'}</span>`;
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '(', }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + `<span className='mk-white'>{')'}</span>`;
     }
     if(funcEmpty.test(seg)) {
       const word = seg.replace("('');",'');
-      return `<span className='mk-white${indentClass}'>${word}</span>\n<span className='mk-white'>{"('');"}</span>`;
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + `<span className='mk-white'>{"('');"}</span>`;
     }
     if(methodEmpty.test(seg)) {
       const word = seg.replace('.','').replace('(()','');
-      return `<span className='mk-white${indentClass}'>{'.'}</span>\n<span className='mk-green'>${word}</span>\n<span className='mk-blue'>{'('}</span>\n<span className='mk-yellow'>{'()'}</span>`;
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '.', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: word }) + '\n' + `<span className='mk-blue'>{'('}</span>\n<span className='mk-yellow'>{'()'}</span>`;
     }
     if(method.test(seg)) {
-      const segments = seg.replace('.','').split('(');
-      return `<span className='mk-white${indentClass}'>{'.'}</span>\n<span className='mk-green'>${segments[0]}</span>\n<span className='mk-blue'>{'('}</span>\n<span className='mk-orange'>${segments[1]}</span>`;
+      const words = seg.replace('.','').split('(');
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '.', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: words[0] }) + '\n' + `<span className='mk-blue'>{'('}</span>\n<span className='mk-orange'>${words[1]}</span>`;
     }
     if(method2.test(seg)) {
-      const segments = seg.replace('.','').split('((');
-      return `<span className='mk-white${indentClass}'>{'.'}</span>\n<span className='mk-green'>${segments[0]}</span>\n<span className='mk-blue'>{'('}</span>\n<span className='mk-yellow'>{'('}</span>\n<span className='mk-orange'>${segments[1].replace(',','')}</span>\n<span className='mk-white'>{','}</span>`;
+      const words = seg.replace('.','').split('((');
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '.', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: words[0] }) + '\n' + `<span className='mk-blue'>{'('}</span>\n<span className='mk-yellow'>{'('}</span>\n<span className='mk-orange'>${words[1].replace(',','')}</span>\n<span className='mk-white'>{','}</span>`;
     }
     if(startingTagComplete.test(seg)) {
       const word = seg.replace('<','').replace('>','');
-      return `<span className='mk-white${indentClass}'>{'<'}</span>\n<span className='mk-red'>${word}</span>\n<span className='mk-white'>{'>'}</span>`;
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '<', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: word }) + '\n' + `<span className='mk-white'>{'>'}</span>`;
     }
     if(startingTag.test(seg)) {
       const word = seg.replace('<','');
-      return `<span className='mk-white${indentClass}'>{'<'}</span>\n<span className='mk-red'>${word}</span>`;
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '<', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: word });
     }
     if(endingTag.test(seg)) {
       const word = seg.replace('</','').replace('>','');
-      return `<span className='mk-white${indentClass}'>{'</'}</span>\n<span className='mk-red'>${word}</span>\n<span className='mk-white'>{'>'}</span>`;
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '</', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: word }) + '\n' + `<span className='mk-white'>{'>'}</span>`;
     }
     if(simpleAttribute.test(seg)) {
-      const segments = seg.split("='");
-      return `<span className='mk-green${indentClass}'> ${segments[0]}</span>\n<span className='mk-red'>{'='}</span>\n<span className='mk-white'>{"'"}</span>\n<span className='mk-yellow'>${segments[1].replace("'",'')}</span>\n<span className='mk-white'>{"'"}</span>`;
+      const words = seg.split("='");
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + `<span className='mk-red'>{'='}</span>\n<span className='mk-white'>{"'"}</span>\n<span className='mk-yellow'>${words[1].replace("'",'')}</span>\n<span className='mk-white'>{"'"}</span>`;
     }
     if(simpleAttributeSplitStart.test(seg)) {
-      const segments = seg.split("='");
-      return `<span className='mk-green${indentClass}'> ${segments[0]}</span>\n<span className='mk-red'>{'='}</span>\n<span className='mk-white'>{"'"}</span>\n<span className='mk-yellow'>${segments[1]}</span>`;
+      const words = seg.split("='");
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + `<span className='mk-red'>{'='}</span>\n<span className='mk-white'>{"'"}</span>\n<span className='mk-yellow'>${words[1]}</span>`;
     }
     if(stringValue3.test(seg)) {
       const word = seg.replace("'",'').replace("'",'').replace(";",'');
-      return `<span className='mk-yellow${indentClass}'>{"'"}</span>\n<span className='mk-yellow'>{'${word}'}</span>\n<span className='mk-yellow'>{"'"}</span>\n<span className='mk-white'>{';'}</span>`;
+      return getSpanElement({ colorName: ColorMap.YELLOW, indentCount, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: word }) + '\n' + `<span className='mk-yellow'>{"'"}</span>\n<span className='mk-white'>{';'}</span>`;
     }
     if(stringValue2.test(seg)) {
       const word = seg.replace("'",'').replace("'",'').replace(":",'');
-      return `<span className='mk-yellow${indentClass}'>{"'"}</span>\n<span className='mk-yellow'>{'${word}'}</span>\n<span className='mk-yellow'>{"'"}</span>\n<span className='mk-white'>{':'}</span>`;
+      return getSpanElement({ colorName: ColorMap.YELLOW, indentCount, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: word }) + '\n' + `<span className='mk-yellow'>{"'"}</span>\n<span className='mk-white'>{':'}</span>`;
     }
     if(stringValue.test(seg)) {
       const word = seg.replace("'",'').replace("'",'');
-      return `<span className='mk-yellow${indentClass}'>{"'"}</span>\n<span className='mk-yellow'>{'${word}'}</span>\n<span className='mk-yellow'>{"'"}</span>`;
+      return getSpanElement({ colorName: ColorMap.YELLOW, indentCount, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: word }) + '\n' + `<span className='mk-yellow'>{"'"}</span>`;
     }
     if(simpleAttributeSplitEnd.test(seg)) {
       const word = seg.replace("'",'');
-      return `<span className='mk-yellow${indentClass}'> ${word}</span>\n<span className='mk-red'>{"'"}</span>`;
+      return getSpanElement({ colorName: ColorMap.YELLOW, indentCount, segment: word }) + '\n' + `<span className='mk-red'>{"'"}</span>`;
     }
     if(varAttributeEnd.test(seg)) {
-      const segments = seg.split('={');
-      return `<span className='mk-green${indentClass}'> ${segments[0]}</span>\n<span className='mk-red'>{'='}</span>\n<span className='mk-dkblue'>{'{'}</span>\n<span className='mk-white'>${segments[1].replace('}>','')}</span>\n<span className='mk-dkblue'>{'}'}</span>\n<span className='mk-white'>{'>'}</span>`;
+      const words = seg.split('={');
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + `<span className='mk-red'>{'='}</span>\n<span className='mk-dkblue'>{'{'}</span>\n<span className='mk-white'>${words[1].replace('}>','')}</span>\n<span className='mk-dkblue'>{'}'}</span>\n<span className='mk-white'>{'>'}</span>`;
     }
     if(varAttribute.test(seg)) {
-      const segments = seg.split('={');
-      return `<span className='mk-green${indentClass}'> ${segments[0]}</span>\n<span className='mk-red'>{'='}</span>\n<span className='mk-dkblue'>{'{'}</span>\n<span className='mk-white'>${segments[1].replace('}','')}</span>\n<span className='mk-dkblue'>{'}'}</span>`;
+      const words = seg.split('={');
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + `<span className='mk-red'>{'='}</span>\n<span className='mk-dkblue'>{'{'}</span>\n<span className='mk-white'>${words[1].replace('}','')}</span>\n<span className='mk-dkblue'>{'}'}</span>`;
     }
     if(startingFuncAttribute.test(seg)) {
-      const segments = seg.split('={(');
-      return `<span className='mk-green${indentClass}'> ${segments[0]}</span>\n<span className='mk-red'>{'='}</span>\n<span className='mk-dkblue'>{'{'}</span>\n<span className='mk-yellow'>{'('}</span>\n<span className='mk-orange'>${segments[1].replace(')','')}</span>\n<span className='mk-yellow'>{')'}</span>`;
+      const words = seg.split('={(');
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + `<span className='mk-red'>{'='}</span>\n<span className='mk-dkblue'>{'{'}</span>\n<span className='mk-yellow'>{'('}</span>\n<span className='mk-orange'>${words[1].replace(')','')}</span>\n<span className='mk-yellow'>{')'}</span>`;
     }
     if(endingFuncAttribute.test(seg)) {
-      const segments = seg.split('(');
-      return `<span className='mk-green${indentClass}'> ${segments[0]}</span>\n<span className='mk-red'>{'('}</span>\n<span className='mk-orange'>${segments[1].replace(')}>','')}</span>\n<span className='mk-yellow'>{')'}</span>\n<span className='mk-blue'>{'}'}</span>\n<span className='mk-white'>{'>'}</span>`;
+      const words = seg.split('(');
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + `<span className='mk-red'>{'('}</span>\n<span className='mk-orange'>${words[1].replace(')}>','')}</span>\n<span className='mk-yellow'>{')'}</span>\n<span className='mk-blue'>{'}'}</span>\n<span className='mk-white'>{'>'}</span>`;
     }
     if(emptyTag.test(seg) || emptyClosingTag.test(seg) || closingTag.test(seg)) {
-      return `<span className='mk-white${indentClass}'>{'${seg}'}</span>`;
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: seg, shouldWrap });
     }
     if(propValue.test(seg)) {
       const word = seg.replace('{','').replace('}','');
-      return `<span className='mk-blue${indentClass}'>{'{'}</span>\n<span className='mk-white'>{'${word}'}</span>\n<span className='mk-blue'>{'}'}</span>`;
+      return getSpanElement({ colorName: ColorMap.BLUE, indentCount, segment: '{', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getSpanElement({ className: ColorMap.PURPLE, segment: '}', shouldWrap });
     }
     if(numberValue.test(seg)) {
       const word = seg.replace(',','');
-      return `<span className='mk-purple${indentClass}'>{'${word}'}</span>\n<span className='mk-white'>{','}</span>`;
+      return getSpanElement({ colorName: ColorMap.PURPLE, indentCount, segment: word }) + '\n' + getSpanElement({ className: ColorMap.WHITE, segment: ',', shouldWrap });
     }
     if(numberValue2.test(seg)) {
       const word = seg.replace(';','');
-      return `<span className='mk-purple${indentClass}'>{'${word}'}</span>\n<span className='mk-white'>{';'}</span>`;
+      return getSpanElement({ colorName: ColorMap.PURPLE, indentCount, segment: word }) + '\n' + getSpanElement({ className: ColorMap.WHITE, segment: ';', shouldWrap });
     }
     else {
       return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: seg, });
