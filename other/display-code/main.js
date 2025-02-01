@@ -64,7 +64,6 @@ const JS_KEYWORDS = ['=', '===', '!==', ' + ', ' ? ', ' : ', 'if', 'else', 'retu
 const JS_VARS = ['let', 'const'];
 const BLANKS = `<span className=${ColorMap.WHITE}></span>`;
 const BLANKS2 = `<span className=${ColorMap.WHITE}> </span>`;
-const JS_SYMBOLS = ['{', '}', '[', ']', '(', ')'];
 
 const blockTracker = []; // Keep track of color code for {}, [], () as they alternate with the ColorSequence
 
@@ -148,7 +147,7 @@ const translateLineToHTML = (line) => {
     }
     if(endBracketWord.test(seg)) {
       const word = seg.replace(']','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word }) + '\n' + getOpenBracket({ blockTracker });
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word }) + '\n' + getCloseBracket({ blockTracker });
     }
     if(namedFuncComplete.test(seg)) {
       const words = seg.replace(')','').replace(';','').split('(',);
@@ -159,12 +158,12 @@ const translateLineToHTML = (line) => {
       return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + getOpenParenthesis({ blockTracker }) + '\n' + getOpenBrace({ blockTracker });
     }
     if(namedFuncStart2.test(seg)) {
-      const word = seg.replace('(','').replace('{','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + getOpenParenthesis({ blockTracker }) + '\n' + getOpenBrace({ blockTracker });
+      const words = seg.split('(');
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: words[0] }) + '\n' + getOpenParenthesis({ blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: words[1].replace(',','') }) + '\n' + getComma();
     }
     if(namedFuncStart.test(seg)) {
-      const word = seg.replace('(','');
-      return getOpenParenthesis({ indentCount, blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: word });
+      const words = seg.split('(');
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: words[0] }) + '\n' + getOpenParenthesis({ blockTracker }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: words[1] });
     }
     if(funcComplete.test(seg) && !startingFuncAttribute.test(seg)) {
       const word = seg.replace('(','').replace(')','');

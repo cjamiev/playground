@@ -35,13 +35,13 @@ const getOpenBrace = ({ indentCount = 0, blockTracker }) => {
   const colorName = ColorSequence[currentColorIndex > 2 ? currentColorIndex % 3 : currentColorIndex];
   blockTracker.push(colorName);
   
-  return getSpanElement( { colorName, indentCount, segment: '{', shouldWrap: true });
+  return getSpanElement( { colorName, indentCount, segment: '{', shouldWrap: true, addSpace: false });
 }
 
 const getCloseBrace = ({ indentCount = 0, blockTracker }) => {
   const colorName = blockTracker.pop();
   
-  return getSpanElement( { colorName, indentCount, segment: '}', shouldWrap: true });
+  return getSpanElement( { colorName, indentCount, segment: '}', shouldWrap: true, addSpace: false });
 }
 
 const getOpenParenthesis = ({ indentCount = 0, blockTracker }) => {
@@ -49,13 +49,13 @@ const getOpenParenthesis = ({ indentCount = 0, blockTracker }) => {
   const colorName = ColorSequence[currentColorIndex > 2 ? currentColorIndex % 3 : currentColorIndex];
   blockTracker.push(colorName);
   
-  return getSpanElement( { colorName, indentCount, segment: '(', shouldWrap: true });
+  return getSpanElement( { colorName, indentCount, segment: '(', shouldWrap: true, addSpace: false });
 }
 
 const getCloseParenthesis = ({ indentCount = 0, blockTracker }) => {
   const colorName = blockTracker.pop();
   
-  return getSpanElement( { colorName, indentCount, segment: ')', shouldWrap: true });
+  return getSpanElement( { colorName, indentCount, segment: ')', shouldWrap: true, addSpace: false });
 }
 
 const getOpenBracket = ({ indentCount = 0, blockTracker }) => {
@@ -63,13 +63,13 @@ const getOpenBracket = ({ indentCount = 0, blockTracker }) => {
   const colorName = ColorSequence[currentColorIndex > 2 ? currentColorIndex % 3 : currentColorIndex];
   blockTracker.push(colorName);
   
-  return getSpanElement( { colorName, indentCount, segment: '[', shouldWrap: true });
+  return getSpanElement( { colorName, indentCount, segment: '[', shouldWrap: true, addSpace: false });
 }
 
 const getCloseBracket = ({ indentCount = 0, blockTracker }) => {
   const colorName = blockTracker.pop();
 
-  return getSpanElement( { colorName, indentCount, segment: ']', shouldWrap: true });
+  return getSpanElement( { colorName, indentCount, segment: ']', shouldWrap: true, addSpace: false });
 }
 
 const getComma = () => {
