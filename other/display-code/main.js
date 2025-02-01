@@ -4,19 +4,28 @@
 */
 const fs = require('fs');
 const templates = require('./templates');
+const {
+  ColorMap,
+  getDivElement,
+  getSpanElement,
+  getOpenBrace,
+  getCloseBrace,
+  getOpenParenthesis,
+  getCloseParenthesis,
+  getOpenBracket,
+  getCloseBracket,
+  getComma,
+  getPeriod,
+  getSemicolon,
+  getColon,
+  getLessThan,
+  getCloseTag,
+  getGreaterThan,
+  getEqual,
+  getSingleQuote
+} = require('./helper');
 
 const currentTranslationTest = templates.currentTranslationTest;
-
-const ColorMap = {
-  'RED' : 'mk-red',
-  'ORANGE' : 'mk-orange',
-  'YELLOW' : 'mk-yellow',
-  'GREEN' : 'mk-green',
-  'BLUE' : 'mk-blue',
-  'DARK_BLUE' : 'mk-dkblue',
-  'PURPLE' : 'mk-purple',
-  'WHITE' : 'mk-white',
-}
 
 const bracketWord = /\[\w+\,/; // [word,
 const endBracketWord = /\w+\]/; // word]
@@ -56,30 +65,10 @@ const JS_VARS = ['let', 'const'];
 const BLANKS = "<span className='mk-white'></span>";
 const BLANKS2 = "<span className='mk-white'> </span>";
 const JS_SYMBOLS = ['{', '}', '[', ']', '(', ')'];
-const getDivElement = (line) => {
-  return `<div className='line'>\n${line}\n</div>`
-}
-
-const getWrappedContent = (segment) => {
-  if(segment === "'" || segment === "''") {
-    return `{"${segment}"}`
-  }
-  return `{'${segment}'}`
-}
-
-const getSpanElement = ({ colorName, indentCount, segment, shouldWrap = false, addSpace = true }) => {
-  const indentClassName = indentCount ? ` indent-${indentCount}` : '';
-  const className = colorName + indentClassName;
-  const wrappedSegment = shouldWrap ? getWrappedContent(segment) : segment;
-  const extraSpace = addSpace ? ' ' : '';
-
-  return `<span className='${className}'>${wrappedSegment}${extraSpace}</span>`
-}
 
 const translateLineToHTML = (line) => {
   const segments = line.split(' ');
   const shouldWrap = true;
-  const addSpace = false;
   return segments.map((seg, index) => {
     const indentCount = index === 0 ? 1 : 0;
     if(JS_KEYWORDS.find(item => item === seg)) {
@@ -92,34 +81,34 @@ const translateLineToHTML = (line) => {
       return getSpanElement( { colorName: ColorMap.DARK_BLUE, indentCount, segment: seg, shouldWrap });
     }
     if('},' === seg) {
-      return getSpanElement( { colorName: ColorMap.DARK_BLUE, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.WHITE, segment: ',' });
+      return getCloseBrace(indentCount) + '\n' + getComma();
     }
     if('};' === seg) {
-      return getSpanElement( { colorName: ColorMap.DARK_BLUE, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.WHITE, segment: ';' });
+      return getCloseBrace(indentCount) + '\n' + getSemicolon();
     }
     if('),' === seg) {
-      return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: ')', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.WHITE, segment: ',' });
+      return getCloseParenthesis(indentCount) + '\n' + getComma();
     }
     if(');' === seg) {
-      return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: ')', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.WHITE, segment: ';' });
+      return getCloseParenthesis(indentCount) + '\n' + getSemicolon();
     }
     if('},' === seg) {
-      return getSpanElement( { colorName: ColorMap.YELLOW, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.WHITE, segment: ',' });
+      return getCloseBrace(indentCount) + '\n' + getComma();
     }
     if('}}' === seg) {
-      return getSpanElement( { colorName: ColorMap.YELLOW, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.BLUE, segment: '}', shouldWrap });
+      return getCloseBrace(indentCount) + '\n' + getCloseBrace();
     }
     if('})}' === seg) {
-      return getSpanElement( { colorName: ColorMap.YELLOW, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.PURPLE, segment: ')', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.BLUE, segment: '}', shouldWrap });
+      return getCloseBrace(indentCount) + '\n' + getCloseParenthesis() + '\n' + getCloseBrace();
     }
     if('({' === seg) {
-      return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: '(', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.YELLOW, segment: '{', shouldWrap });
+      return getOpenParenthesis(indentCount) + '\n' + getOpenBrace();
     }
     if('})' === seg) {
-      return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.YELLOW, segment: ')', shouldWrap });
+      return getCloseBrace(indentCount)+ '\n' + getCloseParenthesis();
     }
     if('});' === seg) {
-      return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.YELLOW, segment: ')', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: ';' });
+      return getCloseBrace(indentCount)+ '\n' + getCloseParenthesis() + '\n' + getSemicolon();
     }
     if('()' === seg) {
       return getSpanElement( { colorName: ColorMap.DARK_BLUE, indentCount, segment: '()', shouldWrap });
@@ -128,33 +117,33 @@ const translateLineToHTML = (line) => {
       return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: '=>', shouldWrap });
     }
     if('([])' === seg) {
-      return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: '(', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.BLUE, segment: '[]'}) + '\n' + getSpanElement( { colorName: ColorMap.BLUE, segment: ')', shouldWrap });
+      return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: '(', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.BLUE, segment: '[]'}) + '\n' + getCloseParenthesis();
     }
     if('[])' === seg) {
-      return getSpanElement( { colorName: ColorMap.BLUE, segment: '[]', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.BLUE, segment: ')', shouldWrap});
+      return getSpanElement( { colorName: ColorMap.BLUE, segment: '[]', shouldWrap }) + '\n' + getCloseParenthesis();
     }
     if('[]);' === seg) {
-      return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: '[]', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.BLUE, segment: ')', shouldWrap}) + '\n' + getSpanElement( { colorName: ColorMap.WHITE, segment: ';'});
+      return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: '[]', shouldWrap }) + '\n' + getCloseParenthesis() + '\n' + getSemicolon();
     }
     if(bracketWord.test(seg)) {
       const word = seg.replace('[','').replace(',','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '[', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: ',', shouldWrap });
+      return getOpenBracket(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getComma();
     }
     if(endBracketWord.test(seg)) {
       const word = seg.replace(']','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: ']', shouldWrap });
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word }) + '\n' + getCloseBracket();
     }
     if(namedFuncComplete.test(seg)) {
       const words = seg.replace(')','').replace(';','').split('(',);
-      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getSpanElement({ colorName: ColorMap.PURPLE, segment: '(', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: words[1] }) + '\n' + getSpanElement({ colorName: ColorMap.PURPLE, segment: ')', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: ';', shouldWrap });
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getOpenParenthesis() + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: words[1] }) + '\n' + getCloseParenthesis() + '\n' + getSemicolon();
     }
     if(namedFuncStart3.test(seg)) {
       const word = seg.replace('(','').replace('{','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + getSpanElement({ colorName: ColorMap.PURPLE, segment: '(', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.DARK_BLUE, segment: '{', shouldWrap });
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + getOpenParenthesis() + '\n' + getOpenBrace();
     }
     if(namedFuncStart2.test(seg)) {
       const word = seg.replace('(','').replace('{','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + getSpanElement({ colorName: ColorMap.PURPLE, segment: '(', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.DARK_BLUE, segment: '{', shouldWrap });
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + getOpenParenthesis() + '\n' + getOpenBrace();
     }
     if(namedFuncStart.test(seg)) {
       const word = seg.replace('(','');
@@ -162,55 +151,55 @@ const translateLineToHTML = (line) => {
     }
     if(funcComplete.test(seg) && !startingFuncAttribute.test(seg)) {
       const word = seg.replace('(','').replace(')','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '(', }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: ')', shouldWrap });
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '(', }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getCloseParenthesis();
     }
     if(funcEmpty.test(seg)) {
       const word = seg.replace("('');",'');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + + getSpanElement({ colorName: ColorMap.PURPLE, segment: '(', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: "''", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.PURPLE, segment: ')', shouldWrap }) + getSpanElement({ colorName: ColorMap.WHITE, segment: ';', shouldWrap });
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: word, }) + '\n' + getOpenParenthesis() + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: "''", shouldWrap }) + '\n' + getCloseParenthesis() + '\n' + getSemicolon();
     }
     if(methodEmpty.test(seg)) {
       const word = seg.replace('.','').replace('(()','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '.', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: word }) + '\n' + getSpanElement({ colorName: ColorMap.BLUE, segment: "(", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: "()", shouldWrap });
+      return getPeriod() + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: word }) + '\n' + getOpenParenthesis()+ '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: "()", shouldWrap });
     }
     if(method.test(seg)) {
       const words = seg.replace('.','').split('(');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '.', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: words[0] }) + '\n' + getSpanElement({ colorName: ColorMap.BLUE, segment: "(", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1] });
+      return getPeriod() + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: words[0] }) + '\n' + getOpenParenthesis()+ '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1] });
     }
     if(method2.test(seg)) {
       const words = seg.replace('.','').split('((');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '.', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: words[0] }) + '\n' + getSpanElement({ colorName: ColorMap.BLUE, segment: "(", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: "(", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1].replace(',','') }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: ',', shouldWrap });
+      return getPeriod() + '\n' + getSpanElement({ colorName: ColorMap.GREEN, segment: words[0] }) + '\n' + getOpenParenthesis()+ '\n' + getOpenParenthesis() + '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1].replace(',','') }) + '\n' + getSingleQuote() + '\n' + getComma();
     }
     if(startingTagComplete.test(seg)) {
       const word = seg.replace('<','').replace('>','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '<', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: word }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: '>', shouldWrap });
+      return getLessThan(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: word }) + '\n' + getGreaterThan();
     }
     if(startingTag.test(seg)) {
       const word = seg.replace('<','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '<', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: word });
+      return getLessThan(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: word });
     }
     if(endingTag.test(seg)) {
       const word = seg.replace('</','').replace('>','');
-      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: '</', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: word }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: '>', shouldWrap });
+      return getCloseTag(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: word }) + '\n' + getGreaterThan();
     }
     if(simpleAttribute.test(seg)) {
       const words = seg.split("='");
-      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: "=", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: words[1].replace("'",'')}) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: "'", shouldWrap }) ;
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getEqual() + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: words[1].replace("'",'')}) + '\n' + getSingleQuote() + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: "'", shouldWrap }) ;
     }
     if(simpleAttributeSplitStart.test(seg)) {
       const words = seg.split("='");
-      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: "=", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: words[1] });
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getEqual() + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: words[1] });
     }
     if(stringValue3.test(seg)) {
       const word = seg.replace("'",'').replace("'",'').replace(";",'');
-      return getSpanElement({ colorName: ColorMap.YELLOW, indentCount, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: word }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: ";", shouldWrap });
+      return getSingleQuote(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: word }) + '\n' + getSingleQuote() + '\n' + getSemicolon();
     }
     if(stringValue2.test(seg)) {
       const word = seg.replace("'",'').replace("'",'').replace(":",'');
-      return getSpanElement({ colorName: ColorMap.YELLOW, indentCount, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: word }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: ":", shouldWrap });
+      return getSingleQuote(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: word }) + '\n' + getSingleQuote() + '\n' + getColon();
     }
     if(stringValue.test(seg)) {
       const word = seg.replace("'",'').replace("'",'');
-      return getSpanElement({ colorName: ColorMap.YELLOW, indentCount, segment: "'", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: word }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: "'", shouldWrap });
+      return getSingleQuote(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: word }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: "'", shouldWrap });
     }
     if(simpleAttributeSplitEnd.test(seg)) {
       const word = seg.replace("'",'');
@@ -218,40 +207,39 @@ const translateLineToHTML = (line) => {
     }
     if(varAttributeEnd.test(seg)) {
       const words = seg.split('={');
-      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: "=", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.DARK_BLUE, segment: "{", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: words[1].replace('}>','')}) + '\n' + getSpanElement({ colorName: ColorMap.DARK_BLUE, segment: "}", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: ">", shouldWrap });
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getEqual() + '\n' + getOpenBrace() + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: words[1].replace('}>','')}) + '\n' + getCloseBracket() + '\n' + getGreaterThan();
     }
     if(varAttribute.test(seg)) {
       const words = seg.split('={');
-      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: "=", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.DARK_BLUE, segment: "{", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: words[1].replace('}','')}) + '\n' + getSpanElement({ colorName: ColorMap.DARK_BLUE, segment: ")", shouldWrap });
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getEqual() + '\n' + getOpenBrace() + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: words[1].replace('}','')}) + '\n' + getCloseParenthesis();
     }
     if(startingFuncAttribute.test(seg)) {
       const words = seg.split('={(');
-      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: "=", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.DARK_BLUE, segment: "{", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: "(", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1].replace(')','')}) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: ")", shouldWrap });
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getEqual() + '\n' + getOpenBrace() + '\n' + getOpenParenthesis() + '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1].replace(')','')}) + '\n' + getCloseParenthesis();
     }
     if(endingFuncAttribute.test(seg)) {
       const words = seg.split('(');
-      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getSpanElement({ colorName: ColorMap.BLUE, segment: "(", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1].replace(')}>') }) + '\n' + getSpanElement({ colorName: ColorMap.YELLOW, segment: ")", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.BLUE, segment: "}", shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: ">", shouldWrap });
+      return getSpanElement({ colorName: ColorMap.GREEN, indentCount, segment: words[0] }) + '\n' + getOpenParenthesis() + '\n' + getSpanElement({ colorName: ColorMap.ORANGE, segment: words[1].replace(')}>') }) + '\n' + getCloseParenthesis() + '\n' + getCloseBrace() + '\n' + getGreaterThan();
     }
     if(emptyTag.test(seg) || emptyClosingTag.test(seg) || closingTag.test(seg)) {
       return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: seg, shouldWrap });
     }
     if(propValue.test(seg)) {
       const word = seg.replace('{','').replace('}','');
-      return getSpanElement({ colorName: ColorMap.BLUE, indentCount, segment: '{', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getSpanElement({ colorName: ColorMap.PURPLE, segment: '}', shouldWrap });
+      return getCloseBrace(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: word }) + '\n' + getCloseBrace();
     }
     if(numberValue.test(seg)) {
       const word = seg.replace(',','');
-      return getSpanElement({ colorName: ColorMap.PURPLE, indentCount, segment: word }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: ',', shouldWrap });
+      return getSpanElement({ colorName: ColorMap.PURPLE, indentCount, segment: word }) + '\n' + getComma();
     }
     if(numberValue2.test(seg)) {
       const word = seg.replace(';','');
-      return getSpanElement({ colorName: ColorMap.PURPLE, indentCount, segment: word }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: ';', shouldWrap });
+      return getSpanElement({ colorName: ColorMap.PURPLE, indentCount, segment: word }) + '\n' + getSemicolon();
     }
     else {
       return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: seg, });
     }
   }).filter(item => item !== BLANKS && item !== BLANKS2).join('\n');
-
 };
 
 const translateCodeToHTML = (input) => {
