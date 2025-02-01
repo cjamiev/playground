@@ -7,6 +7,17 @@ const templates = require('./templates');
 
 const currentTranslationTest = templates.currentTranslationTest;
 
+const ColorMap = {
+  'RED' : 'mk-red',
+  'ORANGE' : 'mk-orange',
+  'YELLOW' : 'mk-yellow',
+  'GREEN' : 'mk-green',
+  'BLUE' : 'mk-blue',
+  'DARK_BLUE' : 'mk-dkblue',
+  'PURPLE' : 'mk-purple',
+  'WHITE' : 'mk-white',
+}
+
 const bracketWord = /\[\w+\,/; // [word,
 const endBracketWord = /\w+\]/; // word]
 const namedFuncStart = /\w+\(\w+/; // word(word
@@ -48,72 +59,77 @@ const JS_SYMBOLS = ['{', '}', '[', ']', '(', ')'];
 const getDivElement = (line) => {
   return `<div className='line'>\n${line}\n</div>`
 } 
-const getSpanElement = (className, seg, indentClass = '', shouldWrap = false) => {
-  const segment = shouldWrap ? `{'${seg}'}`: seg;
-  return `<span className='${className}${indentClass}'>${segment} </span>`
-} 
+
+const getSpanElement = ({ colorName, indentCount, segment, shouldWrap = false, addSpace = true }) => {
+  const indentClassName = indentCount ? ` indent-${indentCount}` : '';
+  const className = colorName + indentClassName;
+  const wrappedSegment = shouldWrap ? `{'${segment}'}`: segment;
+  const extraSpace = addSpace ? ' ' : '';
+
+  return `<span className='${className}'>${wrappedSegment}${extraSpace}</span>`
+}
 
 const translateLineToHTML = (line) => {
   const segments = line.split(' ');
+  const shouldWrap = true;
+  const addSpace = false;
   return segments.map((seg, index) => {
     const indentClass = index === 0 ? ' indent-1': '';
+    const indentCount = index === 0 ? 1 : 0;
     if(JS_KEYWORDS.find(item => item === seg)) {
-      return getSpanElement('mk-red', seg, indentClass);
-    } 
+      return getSpanElement( { colorName: ColorMap.RED, indentCount, segment: seg });
+    }
     if(JS_VARS.find(item => item === seg)) {
-      return getSpanElement('mk-blue', seg, indentClass);
-    } 
-    if('createContext({' === seg) {
-      return getSpanElement('mk-green', 'createContext', indentClass) + '\n' + getSpanElement('mk-yellow', '(', '', true) + '\n' + getSpanElement('mk-purple', '{', '', true);
-    } 
+      return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: seg });
+    }
     if(JS_SYMBOLS.find(item => item === seg)) {
-      return getSpanElement('mk-dkblue', seg, indentClass, true);
-    } 
+      return getSpanElement( { colorName: ColorMap.DARK_BLUE, indentCount, segment: seg, shouldWrap });
+    }
     if('},' === seg) {
-      return getSpanElement('mk-dkblue', '}', indentClass, true) + '\n' + getSpanElement('mk-white', ',');
-    } 
+      return getSpanElement( { colorName: ColorMap.DARK_BLUE, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.WHITE, segment: ',' });
+    }
     if('};' === seg) {
-      return getSpanElement('mk-dkblue', '}', indentClass, true) + '\n' + getSpanElement('mk-white', ';');
-    } 
+      return getSpanElement( { colorName: ColorMap.DARK_BLUE, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.WHITE, segment: ';' });
+    }
     if('),' === seg) {
-      return getSpanElement('mk-purple', ')', indentClass, true) + '\n' + getSpanElement('mk-white', ',');
-    } 
+      return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: ')', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.WHITE, segment: ',' });
+    }
     if(');' === seg) {
-      return getSpanElement('mk-purple', ')', indentClass, true) + '\n' + getSpanElement('mk-white', ';');
-    } 
+      return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: ')', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.WHITE, segment: ';' });
+    }
     if('},' === seg) {
-      return getSpanElement('mk-yellow', '}', indentClass, true) + '\n' + getSpanElement('mk-white', ',');
-    } 
+      return getSpanElement( { colorName: ColorMap.YELLOW, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.WHITE, segment: ',' });
+    }
     if('}}' === seg) {
-      return getSpanElement('mk-yellow', '}', indentClass, true) + '\n' + getSpanElement('mk-blue', '}', '', true);
-    } 
+      return getSpanElement( { colorName: ColorMap.YELLOW, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.BLUE, segment: '}', shouldWrap });
+    }
     if('})}' === seg) {
-      return getSpanElement('mk-yellow', '}', indentClass, true) + '\n' + getSpanElement('mk-purple', ')', '', true) + '\n' + getSpanElement('mk-blue', '}', '', true);
-    } 
+      return getSpanElement( { colorName: ColorMap.YELLOW, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.PURPLE, segment: ')', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.BLUE, segment: '}', shouldWrap });
+    }
     if('({' === seg) {
-      return getSpanElement('mk-purple', '(', indentClass, true) + '\n' + getSpanElement('mk-yellow', '{', '', true);
-    } 
+      return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: '(', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.YELLOW, segment: '{', shouldWrap });
+    }
     if('})' === seg) {
-      return getSpanElement('mk-purple', '}', indentClass, true) + '\n' + getSpanElement('mk-yellow', ')', '', true);
-    } 
+      return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.YELLOW, segment: ')', shouldWrap });
+    }
     if('});' === seg) {
-      return getSpanElement('mk-purple', '}', indentClass, true) + '\n' + getSpanElement('mk-yellow', ')', '', true) + '\n' + getSpanElement('mk-white', ';', '');
-    } 
+      return getSpanElement( { colorName: ColorMap.PURPLE, indentCount, segment: '}', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.YELLOW, segment: ')', shouldWrap }) + '\n' + getSpanElement({ colorName: ColorMap.WHITE, segment: ';' });
+    }
     if('()' === seg) {
-      return getSpanElement('mk-dkblue', seg, indentClass, true);
-    } 
+      return getSpanElement( { colorName: ColorMap.DARK_BLUE, indentCount, segment: '()', shouldWrap });
+    }
     if('=>' === seg) {
-      return getSpanElement('mk-blue', seg, indentClass, true);
-    } 
+      return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: '=>', shouldWrap });
+    }
     if('([])' === seg) {
-      return getSpanElement('mk-blue', '(', indentClass, true) + '\n' + getSpanElement('mk-blue', '[]', '') + '\n' + getSpanElement('mk-blue', ')', '');
-    } 
+      return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: '(', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.BLUE, segment: '[]'}) + '\n' + getSpanElement( { colorName: ColorMap.BLUE, segment: ')' });
+    }
     if('[])' === seg) {
-      return getSpanElement('mk-blue', '[]', indentClass, true) + '\n' + getSpanElement('mk-blue', ')', '');
-    } 
+      return getSpanElement( { colorName: ColorMap.BLUE, segment: '[]', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.BLUE, segment: ')'});
+    }
     if('[]);' === seg) {
-      return getSpanElement('mk-blue', '[]', indentClass, true) + '\n' + getSpanElement('mk-blue', ')', '') + '\n' + getSpanElement('mk-white', ';', '');
-    } 
+      return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: '[]', shouldWrap }) + '\n' + getSpanElement( { colorName: ColorMap.BLUE, segment: ')'}) + '\n' + getSpanElement( { colorName: ColorMap.WHITE, segment: ';'});
+    }
     if(bracketWord.test(seg)) {
       const word = seg.replace('[','').replace(',','');
       return `<span className='mk-white${indentClass}'>{'['}</span>\n<span className='mk-white'>${word}</span>\n<span className='mk-white'>{','}</span>`;
@@ -226,7 +242,7 @@ const translateLineToHTML = (line) => {
       return `<span className='mk-purple${indentClass}'>{'${word}'}</span>\n<span className='mk-white'>{';'}</span>`;
     }
     else {
-      return getSpanElement('mk-white', seg, indentClass);
+      return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: seg, });
     }
   }).filter(item => item !== BLANKS && item !== BLANKS2).join('\n');
 
