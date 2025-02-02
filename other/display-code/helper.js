@@ -89,19 +89,23 @@ const getColon = () => {
 }
 
 const getLessThan = (indentCount = 0) => {
-  return getSpanElement( { colorName: ColorMap.WHITE, indentCount, segment: '<', shouldWrap: true });
+  return getSpanElement( { colorName: ColorMap.WHITE, indentCount, segment: '<', shouldWrap: true, addSpace: false });
 }
 
 const getCloseTag = (indentCount = 0) => {
-  return getSpanElement( { colorName: ColorMap.WHITE, indentCount, segment: '</', shouldWrap: true });
+  return getSpanElement( { colorName: ColorMap.WHITE, indentCount, segment: '</', shouldWrap: true, addSpace: false });
 }
 
 const getGreaterThan = (indentCount = 0) => {
-  return getSpanElement( { colorName: ColorMap.WHITE, indentCount, segment: '>', shouldWrap: true });
+  return getSpanElement( { colorName: ColorMap.WHITE, indentCount, segment: '>', shouldWrap: true, addSpace: false });
 }
 
 const getEqual = () => {
-  return getSpanElement({ colorName: ColorMap.RED, segment: "=", shouldWrap: true });
+  return getSpanElement({ colorName: ColorMap.RED, segment: " =", shouldWrap: true });
+}
+
+const getArrow = () => {
+  return getSpanElement({ colorName: ColorMap.BLUE, segment: "=>", shouldWrap: true });
 }
 
 const getSingleQuote = (indentCount) => {
@@ -126,5 +130,6 @@ module.exports = {
   getCloseTag,
   getGreaterThan,
   getEqual,
+  getArrow,
   getSingleQuote
 }

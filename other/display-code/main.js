@@ -22,6 +22,7 @@ const {
   getCloseTag,
   getGreaterThan,
   getEqual,
+  getArrow,
   getSingleQuote
 } = require('./helper');
 
@@ -47,7 +48,7 @@ const numberValue = /\d+\,/ // number,
 const numberValue2 = /\d+\;/ // number;
 
 const startingTag = /\<\w+/; // <tag
-const startingTagComplete = /\<\w+\>/; // <tag
+const startingTagComplete = /\<\w+\>/; // <tag>
 const endingTag = /\<\/\w+\.*\w*\>/ // </tag> or </customtag.word>
 const simpleAttribute = /\w+\=\'\w+\'/ // attribute='value'
 const simpleAttributeSplitStart = /\w+\=\'\w+/ // attribute='value
@@ -60,16 +61,15 @@ const emptyTag = /\<\>/ // <>
 const closingTag = /\/\>/ // />
 const emptyClosingTag = /\<\/\>/ // </>
 
-const JS_KEYWORDS = ['=', '===', '!==', ' + ', ' ? ', ' : ', 'if', 'else', 'return', 'switch', 'for', 'case', 'default', 'export', 'import', 'from'];
+const JS_KEYWORDS = ['=', '===', '!==', '+', '?', ':', 'if', 'else', 'return', 'switch', 'for', 'case', 'default', 'export', 'import', 'from'];
 const JS_VARS = ['let', 'const'];
-const BLANKS = `<span className=${ColorMap.WHITE}></span>`;
-const BLANKS2 = `<span className=${ColorMap.WHITE}> </span>`;
 
 const blockTracker = []; // Keep track of color code for {}, [], () as they alternate with the ColorSequence
+const shouldWrap = true;
+const addSpace = false;
 
 const translateLineToHTML = (line) => {
-  const segments = line.split(' ');
-  const shouldWrap = true;
+  const segments = line.split(' ').filter(Boolean);
   return segments.map((seg, index) => {
     const indentCount = index === 0 ? 1 : 0;
     if(JS_KEYWORDS.find(item => item === seg)) {
@@ -96,50 +96,11 @@ const translateLineToHTML = (line) => {
     if(']' === seg) {
       return getCloseBracket({ indentCount, blockTracker });
     }
-    if('},' === seg) {
-      return getCloseBrace({ indentCount, blockTracker }) + '\n' + getComma();
-    }
-    if('};' === seg) {
-      return getCloseBrace({ indentCount, blockTracker }) + '\n' + getSemicolon();
-    }
-    if('),' === seg) {
-      return getCloseParenthesis({ indentCount, blockTracker }) + '\n' + getComma();
-    }
-    if(');' === seg) {
-      return getCloseParenthesis({ indentCount, blockTracker }) + '\n' + getSemicolon();
-    }
-    if('},' === seg) {
-      return getCloseBrace({ indentCount, blockTracker }) + '\n' + getComma();
-    }
-    if('}}' === seg) {
-      return getCloseBrace({ indentCount, blockTracker }) + '\n' + getCloseBrace({ blockTracker });
-    }
-    if('})}' === seg) {
-      return getCloseBrace({ indentCount, blockTracker }) + '\n' + getCloseParenthesis({ blockTracker }) + '\n' + getCloseBrace({ blockTracker });
-    }
-    if('({' === seg) {
-      return getOpenParenthesis({ indentCount, blockTracker }) + '\n' + getOpenBrace({ blockTracker });
-    }
-    if('})' === seg) {
-      return getCloseBrace({ indentCount, blockTracker })+ '\n' + getCloseParenthesis({ blockTracker });
-    }
-    if('});' === seg) {
-      return getCloseBrace({ indentCount, blockTracker })+ '\n' + getCloseParenthesis({ blockTracker }) + '\n' + getSemicolon();
-    }
-    if('()' === seg) {
-      return getOpenParenthesis({ indentCount, blockTracker }) + getCloseParenthesis({ blockTracker });
-    }
     if('=>' === seg) {
-      return getSpanElement( { colorName: ColorMap.BLUE, indentCount, segment: '=>', shouldWrap });
+      return getArrow();
     }
-    if('([])' === seg) {
-      return getOpenParenthesis({ indentCount, blockTracker }) + '\n' + getOpenBracket({ blockTracker }) + getCloseBracket({ blockTracker }) + '\n' + getCloseParenthesis({ blockTracker });
-    }
-    if('[])' === seg) {
-      return getOpenBracket({ indentCount, blockTracker }) + getCloseBracket({ blockTracker }) + '\n' + getCloseParenthesis({ blockTracker });
-    }
-    if('[]);' === seg) {
-      return getOpenBracket({ indentCount, blockTracker }) + getCloseBracket({ blockTracker })  + '\n' + getCloseParenthesis({ blockTracker }) + '\n' + getSemicolon();
+    if('>' === seg) {
+      return getGreaterThan();
     }
     if(bracketWord.test(seg)) {
       const word = seg.replace('[','').replace(',','');
@@ -187,7 +148,7 @@ const translateLineToHTML = (line) => {
     }
     if(startingTagComplete.test(seg)) {
       const word = seg.replace('<','').replace('>','');
-      return getLessThan(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: word }) + '\n' + getGreaterThan();
+      return getLessThan(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: word, addSpace: false }) + '\n' + getGreaterThan();
     }
     if(startingTag.test(seg)) {
       const word = seg.replace('<','');
@@ -195,7 +156,7 @@ const translateLineToHTML = (line) => {
     }
     if(endingTag.test(seg)) {
       const word = seg.replace('</','').replace('>','');
-      return getCloseTag(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: word }) + '\n' + getGreaterThan();
+      return getCloseTag(indentCount) + '\n' + getSpanElement({ colorName: ColorMap.RED, segment: word, addSpace: false }) + '\n' + getGreaterThan();
     }
     if(simpleAttribute.test(seg)) {
       const words = seg.split("='");
@@ -246,20 +207,27 @@ const translateLineToHTML = (line) => {
     }
     if(numberValue.test(seg)) {
       const word = seg.replace(',','');
-      return getSpanElement({ colorName: ColorMap.PURPLE, indentCount, segment: word }) + '\n' + getComma();
+      return getSpanElement({ colorName: ColorMap.PURPLE, indentCount, segment: word, addSpace }) + '\n' + getComma();
     }
     if(numberValue2.test(seg)) {
       const word = seg.replace(';','');
-      return getSpanElement({ colorName: ColorMap.PURPLE, indentCount, segment: word }) + '\n' + getSemicolon();
+      return getSpanElement({ colorName: ColorMap.PURPLE, indentCount, segment: word, addSpace }) + '\n' + getSemicolon();
     }
     else {
       return getSpanElement({ colorName: ColorMap.WHITE, indentCount, segment: seg, });
     }
-  }).filter(item => item !== BLANKS && item !== BLANKS2).join('\n');
+  }).join('\n');
 };
 
 const translateCodeToHTML = (input) => {
-  const htmlPieces = input.split('\n').map(line => {
+  const htmlPieces = input
+    .replaceAll('(', ' ( ')
+    .replaceAll(')', ' ) ')
+    .replaceAll('{', ' { ')
+    .replaceAll('}', ' } ')
+    .replaceAll('[', ' [ ')
+    .replaceAll(']', ' ] ')
+    .split('\n').map(line => {
     if(line.trim() === '') {
       return "<div className='line' />";
     } else {
