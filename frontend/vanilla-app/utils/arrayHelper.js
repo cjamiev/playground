@@ -29,6 +29,18 @@ const flattenDeep = (arr = []) =>
 
 const unique = (arr = []) => arr.filter((item, position) => arr.indexOf(item) === position);
 
+const unqueByKey = (ary, keyToFilterOn) => {
+  return ary.filter((item, index) => {
+    const subary = ary.slice(index+1);
+    if(subary.some(subitem => subitem[keyToFilterOn] === item[keyToFilterOn])) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  })
+}
+
 export {
   decrementElementIndex,
   difference,
@@ -37,5 +49,6 @@ export {
   flattenDeep,
   incrementElementIndex,
   swapArrayElementPositions,
-  unique
+  unique,
+  unqueByKey
 };
