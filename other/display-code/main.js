@@ -6,7 +6,6 @@ const fs = require('fs');
 const templates = require('./templates');
 const {
   ColorMap,
-  getDivElement,
   getSpanElement,
   getOpenBrace,
   getCloseBrace,
@@ -14,16 +13,10 @@ const {
   getCloseParenthesis,
   getOpenBracket,
   getCloseBracket,
-  getComma,
-  getPeriod,
-  getSemicolon,
-  getColon,
   getLessThan,
   getCloseTag,
   getGreaterThan,
-  getEqual,
   getArrow,
-  getSingleQuote
 } = require('./helper');
 const { parseCode } = require('./parser');
 
