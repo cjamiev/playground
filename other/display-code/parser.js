@@ -1,8 +1,3 @@
-const fs = require('fs');
-const templates = require('./templates');
-
-const currentTranslationTest = templates.currentTranslationTest;
-
 const bracketWord = /\[\w+\,/; // [word,
 const endBracketWord = /\w+\]/; // word]
 const namedFuncComplete = /\w+\(\w+\)\;/; // word(word);
@@ -19,11 +14,11 @@ const stringValue = /\'.+\'\,/ // 'word',
 const stringValue2 = /\'.+\'\:/ // 'word':
 const stringValue3 = /\'.+\'\;/ // 'word';
 const propValue = /\{\w+\}/ // {word}
-const numberValue4 = /\d+\)/ // number)
-const numberValue3 = /\d+\;/ // number;
+const numberValue3 = /\d+\)/ // number)
 const numberValue2 = /\d+\,/ // number,
 const numberValue = /\d+/ // number
-const booleanValue = ['true', 'false']; // need to add ; or );
+const wordValue = /\w+\;/ // value;
+const booleanValue = ['true', 'false']; // need to add ; or ); 
 
 const startingTag = /\<\w+/; // <tag
 const startingTagComplete = /\<\w+\>/; // <tag>
@@ -40,26 +35,17 @@ const closingTag = /\/\>/ // />
 const emptyClosingTag = /\<\/\>/ // </>
 
 const wordRegex = /\w+/; // alphanumeric
+const objectValue = /[a-zA-Z.]+/ // fail safe for something like <({obj.param.param})>
 const startsWithWord = /^\w+.+/
 const endsWithWord = /.+\w+$/
-const JS_KEYWORDS = ['=', '===', '!==', '=>', '+', '-', '%', '/', '?', '&&', '||', '+=', ':', 'if', 'else', 'return', 'switch', 'for', 'case', 'default', 'export', 'import', 'from'];
-const blockSymbols = ['{', '}', '[', ']', '(', ')'];
-const newLine = '\n';
-const JS_VARS = ['let', 'const', 'function'];
 
-const mapLineToObject = (line) => {
+const standardTagList = ['div', 'button', 'input', 'span', 'ul', 'li', 'label'];
+
+const mapLineOfCode = (line) => {
   const segments = line.split(' ').filter(Boolean);
   return segments.map(segment => {
-    if(segment === newLine) {
-      return [{ segment }];
-    }
-    if(JS_VARS.find(key => key === segment)) {
-      return [{ segment, colorCode: 'Blue' }];
-    }
-    if(JS_KEYWORDS.find(key => key === segment)) {
-      return [{ segment, colorCode: 'Red' }];
-    }
-    if(blockSymbols.find(key => key === segment)) {
+    if('=>' === segment) {
+
       return [{ segment }];
     }
     if(!wordRegex.test(segment)) {
@@ -126,48 +112,54 @@ const mapLineToObject = (line) => {
     }
     if(startingTagComplete.test(segment)) {
       const word = segment.replace('<','').replace('>','')
+      const isTag = standardTagList.some(item => item === word);
+      const isCustomTag = !isTag;
 
-      return [{ segment: '<' }, { segment: word, isTag: true }, { segment: '>' }];
+      return [{ segment: '<' }, { segment: word, isTag, isCustomTag }, { segment: '>' }];
     }
     if(startingTag.test(segment)) {
       const word = segment.replace('<','');
+      const isTag = standardTagList.some(item => item === word);
+      const isCustomTag = !isTag;
       
-      return [{ segment: '<' }, { segment: word, isTag: true }];
+      return [{ segment: '<' }, { segment: word, isTag, isCustomTag }];
     }
     if(endingTag.test(segment)) {
       const word = segment.replace('</','').replace('>','');
+      const isTag = standardTagList.some(item => item === word);
+      const isCustomTag = !isTag;
       
-      return [{ segment: '</' }, { segment: word, isTag: true }, { segment: '>' },];
+      return [{ segment: '</' }, { segment: word, isTag, isCustomTag }, { segment: '>' },];
     }
     if(simpleAttribute.test(segment)) {
-      const words = segment.replaceAll("'",'').split('=','');
+      const words = segment.replaceAll("'",'').split('=');
       
-      return [{ segment: words[0], isAttribute: true }, { segment: '=' }, { segment: "'" },{ segment: words[1] }, { segment: "'" },];
+      return [{ segment: words[0], isAttribute: true }, { segment: '=' }, { segment: "'", isStringLiteral: true },{ segment: words[1], isStringLiteral: true }, { segment: "'", isStringLiteral: true },];
     }
     if(simpleAttributeSplitStart.test(segment)) {
-      const words = segment.replace("'",'').split('=','');
+      const words = segment.replace("'",'').split('=');
       
-      return [{ segment: words[0], isAttribute: true }, { segment: '=' }, { segment: "'" },{ segment: words[1] } ];
+      return [{ segment: words[0], isAttribute: true }, { segment: '=' }, { segment: "'", isStringLiteral: true },{ segment: words[1], isStringLiteral: true } ];
     }
     if(stringValue3.test(segment)) {
       const word = segment.replace("'",'').replace("';",'');
 
-      return [{ segment: "'"}, { segment: word }, { segment: "'"}, { segment: ";"}];
+      return [{ segment: "'", isStringLiteral: true}, { segment: word, isStringLiteral: true }, { segment: "'", isStringLiteral: true}, { segment: ";"}];
     }
     if(stringValue2.test(segment)) {
       const word = segment.replace("'",'').replace("':",'');
 
-      return [{ segment: "'"}, { segment: word }, { segment: "'"}, { segment: ":"}];
+      return [{ segment: "'", isStringLiteral: true}, { segment: word, isStringLiteral: true }, { segment: "'", isStringLiteral: true}, { segment: ":"}];
     }
     if(stringValue.test(segment)) {
       const word = segment.replace("'",'').replace("',",'');
 
-      return [{ segment: "'"}, { segment: word }, { segment: "'"}, { segment: ","}];
+      return [{ segment: "'", isStringLiteral: true}, { segment: word, isStringLiteral: true }, { segment: "'", isStringLiteral: true}, { segment: ","}];
     }
     if(simpleAttributeSplitEnd.test(segment)) {
       const word = segment.replace("'",'');
       
-      return [{ segment: word }, { segment: "'" },];
+      return [{ segment: word, isStringLiteral: true }, { segment: "'", isStringLiteral: true },];
     }
     if(varAttributeEnd.test(segment)) {
       const words = segment.replace("}>",'').split('={');
@@ -180,12 +172,12 @@ const mapLineToObject = (line) => {
       return [{ segment: words[0], isAttribute: true }, { segment: "=" }, { segment: "{" }, { segment: words[1] }, { segment: "}" },];
     }
     if(startingFuncAttribute.test(segment)) {
-      const words = segment.replace(')','').split("={(",'');
+      const words = segment.replace(')','').split("={(");
       
       return [{ segment: words[0], isAttribute: true }, { segment: "=" }, { segment: "{" }, { segment: "(" }, { segment: words[1] }, { segment: ")" },];
     }
     if(endingFuncAttribute.test(segment)) {
-      const words = segment.replace(')}>','').split("(",'');
+      const words = segment.replace(')}>','').split("(");
       
       return [{ segment: words[0], isAttribute: true }, { segment: "(" }, { segment: words[1] }, { segment: ")" }, { segment: "}" }, { segment: ">" },];
     }
@@ -196,18 +188,26 @@ const mapLineToObject = (line) => {
       const word = segment.replace('{','').replace('}','');
       return [{ segment: '{' }, { segment: word }, { segment: '}' }];
     }
-    if(numberValue3.test(segment)) {
+    if(wordValue.test(segment)) {
       const word = segment.replace(';','');
 
-      return [{ segment: word }, { segment: ';'}];
+      return [{ segment: word, isValue: true }, { segment: ';'}];
+    }
+    if(numberValue3.test(segment)) {
+      const word = segment.replace(')','');
+
+      return [{ segment: word, isValue: true }, { segment: ')'}];
     }
     if(numberValue2.test(segment)) {
       const word = segment.replace(',','');
 
-      return [{ segment: word }, { segment: ','}];
+      return [{ segment: word, isValue: true }, { segment: ','}];
     }
     if(numberValue.test(segment)) {
-      return [{ segment }];
+      return [{ segment, isValue: true }];
+    }
+    if(booleanValue.find(key => key === segment)) {
+      return [{ segment, isValue: true }];
     }
     if(startsWithWord.test(segment)) {
       const symbols = segment.replace(wordRegex,'').split('');
@@ -221,27 +221,35 @@ const mapLineToObject = (line) => {
 
       return symbols.map(symbol => { return { segment: symbol }}).concat([{segment: word}]);
     }
+    if(objectValue.test(segment)) {
+      const matchedWord = segment.match(objectValue);
+      const newAry = segment.split(objectValue).join('').split('');
+      
+      newAry.splice(matchedWord.index, 0, matchedWord[0])
+      return newAry.map(segment => { return { segment } });
+    }
 
     return [{ segment }];
   })
 };
 
-const mapCodeToObject = (input) => {
+const parseCode = (input) => {
   const codeAsObjects = input
     .split('\n')
-    .map(line => {
+    .map((line) => {
       if(line.trim() === '') {
         return [[{ segment: '\n' }]];
       }
       else {
-        return mapLineToObject(line);
+        return mapLineOfCode(line).concat([[{ segment: '\n'}]]);
       } 
-  }).reduce((current, accumulator) => {return [...current, ...accumulator ]},[])
+  })
+  .reduce((current, accumulator) => {return [...current, ...accumulator ]},[])
   .reduce((current, accumulator) => {return [...current, ...accumulator ]},[]);
 
   return codeAsObjects;
 }
 
-const result = JSON.stringify(mapCodeToObject(currentTranslationTest), undefined, 2);
-
-fs.writeFileSync('./tmp/out.json', result);
+module.exports = {
+  parseCode
+};
