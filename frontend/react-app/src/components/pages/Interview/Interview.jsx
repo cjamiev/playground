@@ -16,7 +16,11 @@ import {
   DisplayContextExample,
   DisplayProviderExample,
   DisplayUseContextExample
-} from './InterviewDisplayCode';
+} from './ContextExample';
+import {
+  DisplayReducerFunctionExample,
+  DisplayReducerExample
+} from './ReducerExample';
 
 const CountContext = createContext({
   count: 0,
@@ -125,7 +129,9 @@ const FetchComponent = () => {
       .then(response => response.json())
       .then(response => setDefinition(response
         .map(i => i.meanings)
-        .map(entry => entry.map(item => item.definitions.map(i => i.definition)))
+        .map(entry =>
+          entry.map(item =>
+            item.definitions.map(i => i.definition)))
         .reduce((curr, accum) => {
           return [...curr, ...accum]
         }, [])
@@ -339,10 +345,12 @@ const CleanupComponent = () => {
     }
   })
 
-  return <div>
-    {show && <span>{timer}</span>}
-    <button onClick={() => setShow(!show)}>{show ? 'Hide Timer' : 'Show Timer'}</button>
-  </div>
+  return (
+    <div>
+      {show && <span>{timer}</span>}
+      <button onClick={() => setShow(!show)}>{show ? 'Hide Timer' : 'Show Timer'}</button>
+    </div>
+  );
 };
 
 const WebWorkerComponent = () => {
@@ -379,16 +387,18 @@ const WebWorkerComponent = () => {
     }
   }
 
-  return <div>
-    <label>Enter Number</label>
-    <input onChange={(e) => onHandleChange(e)} value={numberToCheck} />
-    {isLoading ?
-      <div>Is Loading...</div> :
-      <div>
-        <span>{result}</span>
-        <span>{error}</span>
-      </div>}
-  </div>
+  return (
+    <div>
+      <label>Enter Number</label>
+      <input onChange={(e) => onHandleChange(e)} value={numberToCheck} />
+      {isLoading ?
+        <div>Is Loading...</div> :
+        <div>
+          <span>{result}</span>
+          <span>{error}</span>
+        </div>}
+    </div>
+  );
 };
 
 const LIST_SIZE = 2000;
@@ -408,12 +418,14 @@ const TransitionComponent = () => {
     })
   }
 
-  return (<div>
-    <input type='text' onChange={onHandleChange} value={input} />
-    {isPending ? <div>Loading...</div> : <div>
-      {list.map(item => <div key={item}>{item}</div>)}
-    </div>}
-  </div>)
+  return (
+    <div>
+      <input type='text' onChange={onHandleChange} value={input} />
+      {isPending ? <div>Loading...</div> : <div>
+        {list.map(item => <div key={item}>{item}</div>)}
+      </div>}
+    </div>
+  );
 };
 
 const Interview = () => {
@@ -464,9 +476,11 @@ const Interview = () => {
           </div>
         </div>
         <div className='code-wrapper'>
-          <DisplayContextExample />
+          {/* <DisplayContextExample />
           <DisplayProviderExample />
-          <DisplayUseContextExample />
+          <DisplayUseContextExample /> */}
+          <DisplayReducerFunctionExample />
+          <DisplayReducerExample />
         </div>
       </div>
     </Page >
