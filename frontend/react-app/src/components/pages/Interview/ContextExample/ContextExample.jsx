@@ -15,7 +15,7 @@ export const DisplayContextExample = () => {
           <span className='mk-blue'>const </span>
           <span className='mk-white'>CountContext </span>
           <span className='mk-red'>= </span>
-          <span className='mk-green'>createContext </span>
+          <span className='mk-green'>createContext</span>
           <span className='mk-yellow'>{'('}</span>
           <span className='mk-purple'>{'{'}</span>
         </div>
@@ -44,7 +44,7 @@ export const DisplayContextExample = () => {
         </div>
         <div className='line'>
           <span className='mk-purple'>{'}'}</span>
-          <span className='mk-yellow'>{')'} </span>
+          <span className='mk-yellow'>{')'}</span>
           <span className='mk-white'>; </span>
         </div>
       </>
@@ -74,8 +74,8 @@ export const DisplayProviderExample = () => {
           <span className='mk-blue'>const </span>
           <span className='mk-green'>CountProvider </span>
           <span className='mk-red'>= </span>
-          <span className='mk-purple'>{'('}</span>
-          <span className='mk-yellow'>{'{'} </span>
+          <span className='mk-yellow'>{'('}</span>
+          <span className='mk-purple'>{'{'} </span>
           <span className='mk-orange'>children </span>
           <span className='mk-purple'>{'}'}</span>
           <span className='mk-yellow'>{')'} </span>
@@ -84,15 +84,15 @@ export const DisplayProviderExample = () => {
         </div>
         <div className='line'>
           <span className='mk-blue indent-1'>const </span>
-          <span className='mk-white'>{'['}</span>
+          <span className='mk-purple'>{'['}</span>
           <span className='mk-white'>count</span>
-          <span className='mk-white'>{','}</span>
+          <span className='mk-white'>{','} </span>
           <span className='mk-white'>setCount</span>
-          <span className='mk-white'>{']'}</span>
+          <span className='mk-purple'>{']'} </span>
           <span className='mk-red'>= </span>
           <span className='mk-green'>useState</span>
           <span className='mk-purple'>{'('}</span>
-          <span className='mk-white'>0</span>
+          <span className='mk-purple'>0</span>
           <span className='mk-purple'>{')'}</span>
           <span className='mk-white'>{';'}</span>
         </div>
@@ -111,7 +111,7 @@ export const DisplayProviderExample = () => {
           <span className='mk-red'>+ </span>
           <span className='mk-purple'>1</span>
           <span className='mk-blue'>{')'} </span>
-          <span className='mk-dkblue'>{'}'}</span>
+          <span className='mk-purple'>{'}'}</span>
           <span className='mk-white'>;</span>
         </div>
         <div className='line'>
@@ -129,7 +129,7 @@ export const DisplayProviderExample = () => {
           <span className='mk-red'>- </span>
           <span className='mk-purple'>1</span>
           <span className='mk-blue'>{')'} </span>
-          <span className='mk-dkblue'>{'}'}</span>
+          <span className='mk-purple'>{'}'}</span>
           <span className='mk-white'>;</span>
         </div>
         <div className='line'>
@@ -181,31 +181,12 @@ export const DisplayProviderExample = () => {
   );
 };
 
-const useContextExampleCode = `const CountCTXComponent = () => {
-  const { count, increment, decrement } = useContext(CountContext);
-
-  return (
-    <div>
-      <span>Count: {count}</span>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
-    </div>
-  );
-};
-`;
+const useContextExampleCode = `const { count, increment, decrement } = useContext(CountContext);`;
 
 export const DisplayUseContextExample = () => {
   return (
     <DisplayCode content={useContextExampleCode}>
       <>
-        <div className='line'>
-          <span className='mk-blue'>const </span>
-          <span className='mk-green'>CountCTXComponent </span>
-          <span className='mk-red'>= </span>
-          <span className='mk-yellow'>{'()'} </span>
-          <span className='mk-blue'>{'=>'} </span>
-          <span className='mk-yellow'>{'{'} </span>
-        </div>
         <div className='line'>
           <span className='mk-blue indent-1'>const </span>
           <span className='mk-purple'>{'{'} </span>
@@ -227,69 +208,6 @@ export const DisplayUseContextExample = () => {
           <span className='mk-white'>CountContext</span>
           <span className='mk-purple'>{')'}</span>
           <span className='mk-white'>{';'}</span>
-        </div>
-        <div className='line' />
-        <div className='line'>
-          <span className='mk-red indent-1'>return </span>
-          <span className='mk-purple'>{'('} </span>
-        </div>
-        <div className='line'>
-          <span className='mk-white indent-2'>{'<'}</span>
-          <span className='mk-red'>div</span>
-          <span className='mk-white'>{'>'}</span>
-        </div>
-        <div className='line'>
-          <span className='mk-white indent-3'>{'<'}</span>
-          <span className='mk-red'>span</span>
-          <span className='mk-white'>{'>'}</span>
-          <span className='mk-white'>Count: </span>
-          <span className='mk-blue'>{'{'}</span>
-          <span className='mk-white'>{'count'}</span>
-          <span className='mk-blue'>{'}'}</span>
-          <span className='mk-white'>{'</'}</span>
-          <span className='mk-red'>span</span>
-          <span className='mk-white'>{'>'}</span>
-        </div>
-        <div className='line'>
-          <span className='mk-white indent-3'>{'<'}</span>
-          <span className='mk-red'>button</span>
-          <span className='mk-green'> onClick</span>
-          <span className='mk-red'>{'='}</span>
-          <span className='mk-dkblue'>{'{'}</span>
-          <span className='mk-white'>increment</span>
-          <span className='mk-dkblue'>{'}'}</span>
-          <span className='mk-white'>{'>'}</span>
-          <span className='mk-white'>Increment</span>
-          <span className='mk-white'>{'</'}</span>
-          <span className='mk-red'>button</span>
-          <span className='mk-white'>{'>'}</span>
-        </div>
-        <div className='line'>
-          <span className='mk-white indent-3'>{'<'}</span>
-          <span className='mk-red'>button</span>
-          <span className='mk-green'> onClick</span>
-          <span className='mk-red'>{'='}</span>
-          <span className='mk-dkblue'>{'{'}</span>
-          <span className='mk-white'>decrement</span>
-          <span className='mk-dkblue'>{'}'}</span>
-          <span className='mk-white'>{'>'}</span>
-          <span className='mk-white'>Decrement</span>
-          <span className='mk-white'>{'</'}</span>
-          <span className='mk-red'>button</span>
-          <span className='mk-white'>{'>'}</span>
-        </div>
-        <div className='line'>
-          <span className='mk-white indent-2'>{'</'}</span>
-          <span className='mk-red'>div</span>
-          <span className='mk-white'>{'>'}</span>
-        </div>
-        <div className='line'>
-          <span className='mk-purple indent-1'>{')'} </span>
-          <span className='mk-white'>; </span>
-        </div>
-        <div className='line'>
-          <span className='mk-yellow'>{'}'} </span>
-          <span className='mk-white'>;</span>
         </div>
       </>
     </DisplayCode>

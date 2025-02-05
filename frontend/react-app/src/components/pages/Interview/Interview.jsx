@@ -28,12 +28,16 @@ import {
   DisplayReducerFunctionExample,
   DisplayReducerExample
 } from './ReducerExample';
+import {
+  DisplayHookExample
+} from './HookExample';
 
 const CountContext = createContext({
   count: 0,
   increment: () => { },
   decrement: () => { },
 });
+
 const CountProvider = ({ children }) => {
   const [count, setCount] = useState(0);
   const increment = () => { setCount(c => c + 1) };
@@ -46,6 +50,7 @@ const CountProvider = ({ children }) => {
     </CountContext.Provider>
   );
 };
+
 const CountCTXComponent = () => {
   const { count, increment, decrement } = useContext(CountContext);
 
@@ -71,6 +76,7 @@ const simpleReducer = (
       return state;
   }
 };
+
 const SimpleCrudComponent = () => {
   const [list, dispatch] = useReducer(simpleReducer, []);
   const [name, setName] = useState('');
@@ -202,6 +208,7 @@ const useDebounceValue = (value, time) => {
 
   return debouncedValue;
 };
+
 const DebounceComponent = () => {
   const [word, setWord] = useState('');
   const [list, setList] = useState(fruits);
@@ -500,6 +507,9 @@ const Interview = () => {
           {concept === conceptList[1] && <>
             <DisplayReducerFunctionExample />
             <DisplayReducerExample />
+          </>}
+          {concept === conceptList[2] && <>
+            <DisplayHookExample />
           </>}
         </SCDisplayCode>
       </SCContentWrapper>
