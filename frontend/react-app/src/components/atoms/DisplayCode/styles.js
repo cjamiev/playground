@@ -7,7 +7,7 @@ export const SCCodeWrapper = styled.code`
   border: 2px solid ${(props) => props.$islightmode ? '#eee' : '#1b181b'};
   border-radius: 8px;
   background-color: ${(props) => props.$islightmode ? '#fcfcfa' : '#221f22'};
-  font-family: mono-space;
+  font-family: cursive;
   position: relative;
   counter-reset: section;
 
