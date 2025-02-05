@@ -20,7 +20,7 @@ export const SCModal = styled.div`
   top: 20%;
   left: 35%;
   pointer-events: auto;
-  background-color: ${(props) => props.$islightmode ? 'white' : '#282A35'};
+  background-color: ${(props) => props.$islightmode ? Theme.colors['lightPrimaryColor'] : Theme.colors['darkPrimaryColor']};
   > div {
     color: ${(props) => props.$islightmode ? 'black' : 'white'};
   }
@@ -32,7 +32,7 @@ export const SCModal = styled.div`
 export const SCModalHeader = styled.div`
   flex: 2 1 100px;
   padding-left: 10px;
-  border-bottom: 1px dashed ${(props) => props.$islightmode ? '#282A35' : 'white'};
+  border-bottom: 1px dashed ${(props) => props.$islightmode ? Theme.colors['darkPrimaryColor'] : Theme.colors['lightPrimaryColor']};
   position: relative;
 `;
 
@@ -67,7 +67,7 @@ export const SCModalBody = styled.div`
 
 export const SCModalFooter = styled.div`
   flex: 2 1 100px;
-  border-top: 1px dashed ${(props) => props.$islightmode ? '#282A35' : 'white'};
+  border-top: 1px dashed ${(props) => props.$islightmode ? Theme.colors['darkPrimaryColor'] : Theme.colors['lightPrimaryColor']};
   height: 100%;
   padding-left: 10px;
   display: flex;

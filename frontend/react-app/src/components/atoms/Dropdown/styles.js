@@ -24,7 +24,7 @@ export const SCDropdownContent = styled.div`
   z-index: 2;
 
   width: 400px;
-  height: 400px;
+  height: fit-content;
   top: 25px;
 
   > div > button {

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Theme } from '../../../theme';
 
 export const SCSectionWrapper = styled.div`
   margin: auto;
@@ -27,7 +28,7 @@ export const SCTodoInput = styled.input`
   `
   `:
   `
-    background-color: #282A35;
+    background-color: ${Theme.colors['darkPrimaryColor']};
     color: white;
     ::placeholder {
     color: white;

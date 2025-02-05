@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { Theme } from '../../theme';
 
 const fadeIn = keyframes`
   0% {
@@ -16,11 +17,11 @@ export const SCLayout = styled.div`
   height: 100%;
   ${(props) => props.$isLightMode ? 
 `
-  background-color: white;
+  background-color: ${Theme.colors['lightPrimaryColor']};
   color: black;
 `:
 `
-  background-color: #282A35;
+  background-color: ${Theme.colors['darkPrimaryColor']};
   color: white;
 `
 }
