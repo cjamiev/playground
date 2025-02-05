@@ -17,6 +17,7 @@ export const SCCodeWrapper = styled.code`
   .mk-green { color: #a9dc76; } 
   .mk-orange { color: #fc9867 } 
   .mk-purple { color: #ab9df2; } 
+  .mk-dkpurple { color:#8c7dda; } 
   .mk-red { color: #ff6188; } 
   .mk-blue { color: #78dce8; }  
   .mk-dkblue { color: #3a6bf3; }  

@@ -51,7 +51,7 @@ const getColor = (entry) => {
     return ColorMap.GREEN;
   }
   if(entry.isValue) {
-    return ColorMap.PURPLE;
+    return ColorMap.DARK_PURPLE;
   }
   if(entry.isStringLiteral) {
     return ColorMap.YELLOW;

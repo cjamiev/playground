@@ -6,9 +6,10 @@ const ColorMap = {
   'BLUE' : 'mk-blue',
   'DARK_BLUE' : 'mk-dkblue',
   'PURPLE' : 'mk-purple',
+  'DARK_PURPLE' : 'mk-dkpurple',
   'WHITE' : 'mk-white',
 }
-const ColorSequence = [ColorMap.YELLOW, ColorMap.PURPLE, ColorMap.BLUE]; 
+const ColorSequence = [ColorMap.YELLOW, ColorMap.PURPLE, ColorMap.DARK_BLUE]; 
 
 const getWrappedContent = (segment) => {
   if(segment === "'" || segment === "''") {

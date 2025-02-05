@@ -44,22 +44,22 @@ export const DisplayHookExample = () => {
         <span className='mk-red'>= </span>
         <span className='mk-green'>useState</span>
         <span className='mk-purple'>{'('}</span>
-        <span className='mk-white'>''</span>
+        <span className='mk-yellow'>''</span>
         <span className='mk-purple'>{')'}</span>
         <span className='mk-purple'>;</span>
       </div><div className="line">
       </div><div className="line">
         <span className='mk-green indent-1'>useEffect</span>
         <span className='mk-purple'>{'('}</span>
-        <span className='mk-blue'>{'('}</span>
-        <span className='mk-blue'>{')'} </span>
+        <span className='mk-dkblue'>{'('}</span>
+        <span className='mk-dkblue'>{')'} </span>
         <span className='mk-blue'>{'=>'} </span>
-        <span className='mk-blue'>{'{'}</span>
+        <span className='mk-dkblue'>{'{'}</span>
       </div><div className="line">
         <span className='mk-blue indent-2'>let </span>
         <span className='mk-white'>timeOutId </span>
         <span className='mk-red'>= </span>
-        <span className='mk-purple'>0 </span>
+        <span className='mk-dkpurple'>0</span>
         <span className='mk-white'>; </span>
       </div><div className="line">
         <span className='mk-red indent-2'>if </span>
@@ -72,10 +72,10 @@ export const DisplayHookExample = () => {
         <span className='mk-red'>= </span>
         <span className='mk-green'>setTimeout</span>
         <span className='mk-purple'>{'('}</span>
-        <span className='mk-blue'>{'('}</span>
-        <span className='mk-blue'>{')'}</span>
+        <span className='mk-dkblue'>{'('}</span>
+        <span className='mk-dkblue'>{')'}</span>
         <span className='mk-blue'> {'=>'} </span>
-        <span className='mk-blue'>{'{'}</span>
+        <span className='mk-dkblue'>{'{'}</span>
       </div><div className="line">
         <span className='mk-green indent-4'>setDebouncedValue</span>
         <span className='mk-yellow'>{'('}</span>
@@ -83,7 +83,7 @@ export const DisplayHookExample = () => {
         <span className='mk-yellow'>{')'}</span>
         <span className='mk-white'>; </span>
       </div><div className="line">
-        <span className='mk-blue indent-3'>{'}'}</span>
+        <span className='mk-dkblue indent-3'>{'}'}</span>
         <span className='mk-white'>, </span>
         <span className='mk-white'>time</span>
         <span className='mk-purple'>{')'}</span>
@@ -107,13 +107,13 @@ export const DisplayHookExample = () => {
         <span className='mk-yellow indent-2'>{'}'}</span>
         <span className='mk-white'>; </span>
       </div><div className="line">
-        <span className='mk-blue indent-1'>{'}'}</span>
+        <span className='mk-dkblue indent-1'>{'}'}</span>
         <span className='mk-white'>, </span>
-        <span className='mk-blue'>{'['}</span>
+        <span className='mk-dkblue'>{'['}</span>
         <span className='mk-white'>value</span>
         <span className='mk-white'>, </span>
         <span className='mk-white'>time</span>
-        <span className='mk-blue'>{']'}</span>
+        <span className='mk-dkblue'>{']'}</span>
         <span className='mk-purple'>{')'} </span>
         <span className='mk-white'>; </span>
       </div><div className="line">

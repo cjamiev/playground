@@ -70,13 +70,13 @@ export const DisplayReducerFunctionExample = () => {
         <span className='mk-white'>state</span>
         <span className='mk-white'>.</span>
         <span className='mk-green'>filter</span>
-        <span className='mk-blue'>{'('}</span>
+        <span className='mk-dkblue'>{'('}</span>
         <span className='mk-orange'>item </span>
         <span className='mk-blue'>{'=>'} </span>
         <span className='mk-white'>item.id </span>
         <span className='mk-red'>!== </span>
-        <span className='mk-white'>action.payload.id </span>
-        <span className='mk-blue'>{')'}</span>
+        <span className='mk-white'>action.payload.id</span>
+        <span className='mk-dkblue'>{')'}</span>
         <span className='mk-white'>; </span>
       </div>
       <div className='line'>
@@ -143,7 +143,7 @@ export const DisplayReducerExample = () => {
         <span className='mk-purple'>{'{'}</span>
       </div><div className="line">
         <span className='mk-green indent-1'>dispatch</span>
-        <span className='mk-blue'>{'('}</span>
+        <span className='mk-dkblue'>{'('}</span>
         <span className='mk-yellow'>{'{'}</span>
       </div><div className="line">
         <span className='mk-white indent-2'>type</span>
@@ -168,7 +168,7 @@ export const DisplayReducerExample = () => {
         <span className='mk-white'>, </span>
       </div><div className="line">
         <span className='mk-yellow indent-1'>{'}'}</span>
-        <span className='mk-blue'>{')'}</span>
+        <span className='mk-dkblue'>{')'}</span>
         <span className='mk-white'>; </span>
       </div><div className="line">
         <span className='mk-purple'>{'}'}</span>
@@ -185,7 +185,7 @@ export const DisplayReducerExample = () => {
         <span className='mk-purple'>{'{'}</span>
       </div><div className="line">
         <span className='mk-green indent-1'>dispatch</span>
-        <span className='mk-blue'>{'('}</span>
+        <span className='mk-dkblue'>{'('}</span>
         <span className='mk-yellow'>{'{'}</span>
         <span className='mk-white'>type </span>
         <span className='mk-white'>: </span>
@@ -199,7 +199,7 @@ export const DisplayReducerExample = () => {
         <span className='mk-white'> id </span>
         <span className='mk-purple'>{'}'} </span>
         <span className='mk-yellow'>{'}'}</span>
-        <span className='mk-blue'>{')'}</span>
+        <span className='mk-dkblue'>{')'}</span>
         <span className='mk-white'>; </span>
       </div><div className="line">
         <span className='mk-purple'>{'}'}</span>

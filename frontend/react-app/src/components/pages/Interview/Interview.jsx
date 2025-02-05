@@ -31,6 +31,12 @@ import {
 import {
   DisplayHookExample
 } from './HookExample';
+import {
+  DisplayMemoExample
+} from './MemoExample';
+import {
+  DisplayApiExample
+} from './ApiExample';
 
 const CountContext = createContext({
   count: 0,
@@ -258,6 +264,7 @@ const ExpensiveSection = ({ children, trackingIndex }) => {
   console.log('expensiveValue:', trackingIndex, expensiveFunction);
   return <>{children}</>;
 };
+
 const ExpensiveComponent = () => {
   const [newItem, setNewItem] = useState('');
   const [list, setList] = useState([]);
@@ -335,34 +342,13 @@ const useMouseClick = () => {
 
   return coordinates;
 };
+
 const EventComponent = () => {
   const { x, y } = useMouseClick();
 
   return (
     <div>
       <span>Click Location: {'{'}{x},{y}{'}'}</span>
-    </div>
-  );
-};
-
-const CleanupComponent = () => {
-  const [timer, setTimer] = useState(0);
-  const [show, setShow] = useState(true);
-
-  useEffect(() => {
-    const timeoutId = setInterval(() => {
-      setTimer(c => c + 1);
-    }, 1000)
-
-    return () => {
-      clearInterval(timeoutId);
-    }
-  })
-
-  return (
-    <div>
-      {show && <span>{timer}</span>}
-      <button onClick={() => setShow(!show)}>{show ? 'Hide Timer' : 'Show Timer'}</button>
     </div>
   );
 };
@@ -442,7 +428,7 @@ const TransitionComponent = () => {
   );
 };
 
-const conceptList = ['React  Context', 'Reducer', 'React Custom Hook', 'React Memo', 'Clean Up', 'Api Call', 'Event Handling', 'Web Worker', 'useTransition'];
+const conceptList = ['React  Context', 'Reducer', 'React Custom Hook', 'React Memo', 'Api Call', 'Event Handling', 'Web Worker', 'useTransition'];
 const Interview = () => {
   const [concept, setConcept] = useState(conceptList[0]);
   const { isLightMode } = useThemeContext();
@@ -478,22 +464,18 @@ const Interview = () => {
             <ExpensiveComponent />
           </div>}
           {concept === conceptList[4] && <div>
-            <h2>Cleanup Example</h2>
-            <CleanupComponent />
-          </div>}
-          {concept === conceptList[5] && <div>
             <h2>API Example</h2>
             <FetchComponent />
           </div>}
-          {concept === conceptList[6] && <div>
+          {concept === conceptList[5] && <div>
             <h2>Event Handling Example</h2>
             <EventComponent />
           </div>}
-          {concept === conceptList[7] && <div>
+          {concept === conceptList[6] && <div>
             <h2>Webworker Example</h2>
             <WebWorkerComponent />
           </div>}
-          {concept === conceptList[8] && <div>
+          {concept === conceptList[7] && <div>
             <h2>Transition Example</h2>
             <TransitionComponent />
           </div>}
@@ -510,6 +492,12 @@ const Interview = () => {
           </>}
           {concept === conceptList[2] && <>
             <DisplayHookExample />
+          </>}
+          {concept === conceptList[3] && <>
+            <DisplayMemoExample />
+          </>}
+          {concept === conceptList[4] && <>
+            <DisplayApiExample />
           </>}
         </SCDisplayCode>
       </SCContentWrapper>

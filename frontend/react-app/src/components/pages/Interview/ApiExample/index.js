@@ -1,4 +1,3 @@
 export { 
-  DisplayReducerFunctionExample,
-  DisplayReducerExample
+  DisplayApiExample
 } from './ApiExample';
