@@ -1,5 +1,6 @@
-import './displaycode.css';
 import { copyToClipboard } from '../../../utils/copy';
+import { useThemeContext } from '../../../context/ThemeProvider';
+import { SCCodeWrapper } from './styles';
 
 /*
 *  Main Div:
@@ -20,13 +21,15 @@ import { copyToClipboard } from '../../../utils/copy';
 */
 
 const DisplayCode = ({ children, content = 'no content' }) => {
+  const { isLightMode } = useThemeContext();
+
   return (
-    <div className='mk-background'>
+    <SCCodeWrapper $islightmode={isLightMode}>
       <button className='copy-btn' onClick={() => { copyToClipboard(content) }}>Copy</button>
       <code>
         {children}
       </code>
-    </div>
+    </SCCodeWrapper>
   );
 };
 
