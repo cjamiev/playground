@@ -1,15 +1,14 @@
 import { useRef, useState } from 'react';
+import { useThemeContext } from '../../../context/ThemeProvider';
 import {
   SCDropdown,
   SCDropdownBtn,
   SCDropdownContent,
-  SCDropdownHeader,
-  SCDropdownBody,
-  SCDropdownFooter
 } from './styles';
 import useOnClickOutside from '../../../hooks/useOnClickOutside';
 
-const Dropdown = ({ label, header, body, footer }) => {
+const Dropdown = ({ label, content }) => {
+  const { isLightMode } = useThemeContext();
   const [isVisible, setIsVisible] = useState(false);
   const dropdownRef = useRef(null);
   useOnClickOutside(dropdownRef, () => setIsVisible(false));
@@ -19,13 +18,9 @@ const Dropdown = ({ label, header, body, footer }) => {
   };
 
   return (
-    <SCDropdown ref={dropdownRef}>
-      <SCDropdownBtn onClick={toggle}>{label}</SCDropdownBtn>
-      <SCDropdownContent isVisible={isVisible}>
-        <SCDropdownHeader>{header}</SCDropdownHeader>
-        <SCDropdownBody>{body}</SCDropdownBody>
-        <SCDropdownFooter>{footer}</SCDropdownFooter>
-      </SCDropdownContent>
+    <SCDropdown ref={dropdownRef} $islightmode={isLightMode}>
+      <SCDropdownBtn onClick={toggle} $islightmode={isLightMode}>{label}</SCDropdownBtn>
+      <SCDropdownContent $isvisible={isVisible} $islightmode={isLightMode}>{content}</SCDropdownContent>
     </SCDropdown>
   );
 };

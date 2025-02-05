@@ -10,8 +10,15 @@ import {
 } from 'react';
 import { useThemeContext } from '../../../context/ThemeProvider';
 import Page from '../../layout/Page';
-import './interview.css';
 import { useWebWorker } from '../../../hooks/useWebWorker';
+import Dropdown from '../../atoms/Dropdown';
+import {
+  SCButtonList,
+  SCDropdownWrapper,
+  SCDisplayCode,
+  SCContentWrapper,
+  SCSectionWrapper
+} from './styles';
 import {
   DisplayContextExample,
   DisplayProviderExample,
@@ -428,61 +435,74 @@ const TransitionComponent = () => {
   );
 };
 
+const conceptList = ['React  Context', 'Reducer', 'React Custom Hook', 'React Memo', 'Clean Up', 'Api Call', 'Event Handling', 'Web Worker', 'useTransition'];
 const Interview = () => {
+  const [concept, setConcept] = useState(conceptList[0]);
   const { isLightMode } = useThemeContext();
-  const sectionClassName = isLightMode ? 'section-wrapper' : 'section-wrapper dm-wrapper';
 
   return (
     <Page>
-      <div className='page-wrapper'>
-        <div className={sectionClassName} >
-          <div>
+      <SCDropdownWrapper>
+        <Dropdown label='Select Concept' content={<SCButtonList>
+          {conceptList.map(item => {
+            return <button key={item} onClick={() => setConcept(item)}>{item}</button>
+          })}
+        </SCButtonList>} />
+        <h2>{concept}</h2>
+      </SCDropdownWrapper>
+      <SCContentWrapper>
+        <SCSectionWrapper $islightmode={isLightMode}>
+          {concept === conceptList[0] && <div>
             <h2>Context Provider Example</h2>
             <CountProvider>
               <CountCTXComponent />
             </CountProvider>
-          </div>
-          <div>
+          </div>}
+          {concept === conceptList[1] && <div>
             <h2>Reducer Example</h2>
             <SimpleCrudComponent />
-          </div>
-          <div>
+          </div>}
+          {concept === conceptList[2] && <div>
             <h2>Custom Hook Example</h2>
             <DebounceComponent />
-          </div>
-          <div>
+          </div>}
+          {concept === conceptList[3] && <div>
             <h2>Memo Example</h2>
             <ExpensiveComponent />
-          </div>
-          <div>
+          </div>}
+          {concept === conceptList[4] && <div>
             <h2>Cleanup Example</h2>
             <CleanupComponent />
-          </div>
-          <div>
+          </div>}
+          {concept === conceptList[5] && <div>
             <h2>API Example</h2>
             <FetchComponent />
-          </div>
-          <div>
+          </div>}
+          {concept === conceptList[6] && <div>
             <h2>Event Handling Example</h2>
             <EventComponent />
-          </div>
-          <div>
+          </div>}
+          {concept === conceptList[7] && <div>
             <h2>Webworker Example</h2>
             <WebWorkerComponent />
-          </div>
-          <div>
+          </div>}
+          {concept === conceptList[8] && <div>
             <h2>Transition Example</h2>
             <TransitionComponent />
-          </div>
-        </div>
-        <div className='code-wrapper'>
-          {/* <DisplayContextExample />
-          <DisplayProviderExample />
-          <DisplayUseContextExample /> */}
-          <DisplayReducerFunctionExample />
-          <DisplayReducerExample />
-        </div>
-      </div>
+          </div>}
+        </SCSectionWrapper>
+        <SCDisplayCode>
+          {concept === conceptList[0] && <>
+            <DisplayContextExample />
+            <DisplayProviderExample />
+            <DisplayUseContextExample />
+          </>}
+          {concept === conceptList[1] && <>
+            <DisplayReducerFunctionExample />
+            <DisplayReducerExample />
+          </>}
+        </SCDisplayCode>
+      </SCContentWrapper>
     </Page >
   );
 };
