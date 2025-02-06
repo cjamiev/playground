@@ -92,7 +92,7 @@ const mapLineOfCode = (line) => {
     if(funcEmpty.test(segment)) {
       const word = segment.replace("('');",'');
 
-      return [{ segment: word}, { segment: '(' }, { segment: "''" }, { segment: ')' }, { segment: ';' }];
+      return [{ segment: word}, { segment: '(' }, { segment: "''", isStringLiteral }, { segment: ')' }, { segment: ';' }];
     }
     if(methodEmpty.test(segment)) {
       const symbols = segment.split(wordRegex);

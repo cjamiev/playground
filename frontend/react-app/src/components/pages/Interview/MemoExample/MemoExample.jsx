@@ -52,7 +52,7 @@ export const DisplayMemoExample = () => {
         <span className='mk-dkpurple'>0</span>
         <span className='mk-white'>; </span>
         <span className='mk-white'>i </span>
-        <span className='mk-white'>{'<'}</span>
+        <span className='mk-red'>{'<'} </span>
         <span className='mk-dkpurple'>1e5</span>
         <span className='mk-white'>; </span>
         <span className='mk-white'>i</span>

@@ -13,13 +13,13 @@ export const SCCodeWrapper = styled.code`
 
   .mk-comments { color: #727072; } 
   .mk-white { color: ${(props) => props.$islightmode ? '#221f22' : '#fcfcfa'}; } 
-  .mk-yellow { color: #ffd866; } 
-  .mk-green { color: #a9dc76; } 
+  .mk-yellow { color: ${(props) => props.$islightmode ? '#f3c334' : '#ffd866'}; } 
+  .mk-green { color: ${(props) => props.$islightmode ? '#87bb53' : '#a9dc76'}; } 
   .mk-orange { color: #fc9867 } 
   .mk-purple { color: #ab9df2; } 
   .mk-dkpurple { color:#8c7dda; } 
-  .mk-red { color: #ff6188; } 
-  .mk-blue { color: #78dce8; }  
+  .mk-red { color: ${(props) => props.$islightmode ? '#ff1c55' : '#ff6188'}; } 
+  .mk-blue { color: ${(props) => props.$islightmode ? '#49b6c2' : '#78dce8'}; }  
   .mk-dkblue { color: #3a6bf3; }  
 
   .line {

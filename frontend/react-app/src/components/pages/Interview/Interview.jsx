@@ -37,6 +37,9 @@ import {
 import {
   DisplayApiExample
 } from './ApiExample';
+import {
+  DisplayTransitionExample
+} from './TransitionExample';
 
 const CountContext = createContext({
   count: 0,
@@ -408,14 +411,14 @@ const TransitionComponent = () => {
   const [list, setList] = useState([]);
 
   const onHandleChange = (e) => {
-    setInput(e.target.value)
+    setInput(e.target.value);
     startTransition(() => {
       const updatedList = [];
       for (let i = 0; i < LIST_SIZE; i++) {
         updatedList.push(e.target.value);
       }
-      setList(updatedList)
-    })
+      setList(updatedList);
+    });
   }
 
   return (
@@ -428,7 +431,7 @@ const TransitionComponent = () => {
   );
 };
 
-const conceptList = ['React  Context', 'Reducer', 'React Custom Hook', 'React Memo', 'Api Call', 'Event Handling', 'Web Worker', 'useTransition'];
+const conceptList = ['React  Context', 'Reducer', 'React Custom Hook', 'React Memo', 'Api Call', 'Web Worker', 'useTransition'];
 const Interview = () => {
   const [concept, setConcept] = useState(conceptList[0]);
   const { isLightMode } = useThemeContext();
@@ -468,14 +471,10 @@ const Interview = () => {
             <FetchComponent />
           </div>}
           {concept === conceptList[5] && <div>
-            <h2>Event Handling Example</h2>
-            <EventComponent />
-          </div>}
-          {concept === conceptList[6] && <div>
             <h2>Webworker Example</h2>
             <WebWorkerComponent />
           </div>}
-          {concept === conceptList[7] && <div>
+          {concept === conceptList[6] && <div>
             <h2>Transition Example</h2>
             <TransitionComponent />
           </div>}
@@ -498,6 +497,9 @@ const Interview = () => {
           </>}
           {concept === conceptList[4] && <>
             <DisplayApiExample />
+          </>}
+          {concept === conceptList[6] && <>
+            <DisplayTransitionExample />
           </>}
         </SCDisplayCode>
       </SCContentWrapper>
