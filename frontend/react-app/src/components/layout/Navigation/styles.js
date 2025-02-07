@@ -30,4 +30,6 @@ export const SCNavigationThemeMode = styled.button`
   top: 15px;
   right: 30px;
   font-size: 12px;
+  background-color: ${(props) => props.$islightmode ? Theme.colors['lightPrimaryColor'] : Theme.colors['darkSecondaryColor']};
+  color: ${(props) => (props.$islightmode ? '#000' : '#fff')};
 `;

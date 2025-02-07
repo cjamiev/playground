@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { Theme } from '../../../theme';
 
 export const SCDropdown = styled.div`
-  width: 400px;
+  width: 300px;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -10,7 +11,7 @@ export const SCDropdown = styled.div`
 
 export const SCDropdownBtn = styled.button`
   cursor: pointer;
-  background-color: ${(props) => (props.$islightmode ? '#fff' : '#000')};
+  background-color: ${(props) => props.$islightmode ? Theme.colors['lightPrimaryColor'] : Theme.colors['darkSecondaryColor']};
   color: ${(props) => (props.$islightmode ? '#000' : '#fff')};
 `;
 
@@ -23,12 +24,12 @@ export const SCDropdownContent = styled.div`
   margin-top: ${(props) => (props.$isvisible ? '10px' : '0px')};
   z-index: 2;
 
-  width: 400px;
+  width: 300px;
   height: fit-content;
   top: 25px;
 
   > div > button {
-    background-color: ${(props) => (props.$islightmode ? '#fff' : '#000')};
+    background-color: ${(props) => props.$islightmode ? Theme.colors['lightPrimaryColor'] : Theme.colors['darkSecondaryColor']};
     color: ${(props) => (props.$islightmode ? '#000' : '#fff')};
     border: 1px solid ${(props) => (props.$islightmode ? '#eee' : '#111')};;
 

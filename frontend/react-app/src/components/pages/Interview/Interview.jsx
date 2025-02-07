@@ -431,7 +431,7 @@ const TransitionComponent = () => {
   );
 };
 
-const conceptList = ['React  Context', 'Reducer', 'React Custom Hook', 'React Memo', 'Api Call', 'Web Worker', 'useTransition'];
+const conceptList = ['React  Context', 'Reducer', 'React Custom Hook', 'React Memo', 'useTransition'];
 const Interview = () => {
   const [concept, setConcept] = useState(conceptList[0]);
   const { isLightMode } = useThemeContext();
@@ -467,14 +467,6 @@ const Interview = () => {
             <ExpensiveComponent />
           </div>}
           {concept === conceptList[4] && <div>
-            <h2>API Example</h2>
-            <FetchComponent />
-          </div>}
-          {concept === conceptList[5] && <div>
-            <h2>Webworker Example</h2>
-            <WebWorkerComponent />
-          </div>}
-          {concept === conceptList[6] && <div>
             <h2>Transition Example</h2>
             <TransitionComponent />
           </div>}
@@ -494,9 +486,6 @@ const Interview = () => {
           </>}
           {concept === conceptList[3] && <>
             <DisplayMemoExample />
-          </>}
-          {concept === conceptList[4] && <>
-            <DisplayApiExample />
           </>}
           {concept === conceptList[6] && <>
             <DisplayTransitionExample />

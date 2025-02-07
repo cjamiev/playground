@@ -37,7 +37,7 @@ const Navigation = () => {
 
   return (<SCNavigation>
     {renderNavItems}
-    <SCNavigationThemeMode onClick={switchMode}>{isLightMode ? 'Light Mode' : 'Dark Mode'}</SCNavigationThemeMode>
+    <SCNavigationThemeMode $islightmode={isLightMode} onClick={switchMode}>{isLightMode ? 'Light Mode' : 'Dark Mode'}</SCNavigationThemeMode>
   </SCNavigation>);
 };
 

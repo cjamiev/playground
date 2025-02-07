@@ -20,7 +20,7 @@ const Dropdown = ({ label, content }) => {
   return (
     <SCDropdown ref={dropdownRef} $islightmode={isLightMode}>
       <SCDropdownBtn onClick={toggle} $islightmode={isLightMode}>{label}</SCDropdownBtn>
-      <SCDropdownContent $isvisible={isVisible} $islightmode={isLightMode}>{content}</SCDropdownContent>
+      <SCDropdownContent onClick={toggle} $isvisible={isVisible} $islightmode={isLightMode}>{content}</SCDropdownContent>
     </SCDropdown>
   );
 };
