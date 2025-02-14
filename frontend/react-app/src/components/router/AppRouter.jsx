@@ -4,6 +4,7 @@ import { ROUTES } from '../../constants/routes';
 import ErrorPage from '../pages/ErrorPage';
 import Home from '../pages/Home';
 import Interview from '../pages/Interview';
+import JsConcepts from '../pages/JsConcepts';
 import LiveCoding from '../pages/Coding';
 
 const AppRouter = () => {
@@ -13,6 +14,7 @@ const AppRouter = () => {
       <Route path={ROUTES.HOME.url} element={<Home />} />
       <Route path={ROUTES.CODING.url} element={<LiveCoding />} />
       <Route path={ROUTES.INTERVIEW.url} element={<Interview />} />
+      <Route path={ROUTES.JS_CONCEPTS.url} element={<JsConcepts />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

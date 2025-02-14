@@ -17,7 +17,9 @@ import {
   SCDropdownWrapper,
   SCDisplayCode,
   SCContentWrapper,
-  SCSectionWrapper
+  SCSectionWrapper,
+  SCExampleWrapper,
+  SCNotesWrapper
 } from './styles';
 import {
   DisplayContextExample,
@@ -34,9 +36,6 @@ import {
 import {
   DisplayMemoExample
 } from './MemoExample';
-import {
-  DisplayApiExample
-} from './ApiExample';
 import {
   DisplayTransitionExample
 } from './TransitionExample';
@@ -71,6 +70,27 @@ const CountCTXComponent = () => {
     </div>
   );
 };
+
+const ContextNotes = ({ isLightMode }) => {
+  return (<SCNotesWrapper $islightmode={isLightMode}>
+    <div>
+      Context is best used for state that rarely changes and is global. For example
+      CSS Theme or User Session info. Use it to avoid prop drilling.
+      Use Redux for more complicated apps with state that is constantly changing.
+    </div>
+
+    <div>
+      Start with local state, then lift state up if parent components needs access.
+      If you more than one non-sibling component has same state then consider using
+      context.
+    </div>
+
+    <div>
+      Remember if a component is not in the subtree of a context provider you will not receive
+      the props and have no visible errors.
+    </div>
+  </SCNotesWrapper>)
+}
 
 const simpleReducer = (
   state,
@@ -135,58 +155,29 @@ const SimpleCrudComponent = () => {
   );
 };
 
-const dictionaryURL = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
-const FetchComponent = () => {
-  const [word, setWord] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [definition, setDefinition] = useState([]);
-
-  const onHandleWordChange = (event) => {
-    setWord(event.target.value);
-  };
-
-  const onSubmit = () => {
-    setIsLoading(true);
-    fetch(dictionaryURL + word)
-      .then(response => response.json())
-      .then(response => setDefinition(response
-        .map(i => i.meanings)
-        .map(entry =>
-          entry.map(item =>
-            item.definitions.map(i => i.definition)))
-        .reduce((curr, accum) => {
-          return [...curr, ...accum]
-        }, [])
-        .reduce((curr, accum) => {
-          return [...curr, ...accum]
-        }, [])))
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
-
-  const onClear = () => {
-    setDefinition([]);
-  };
-
-  return (
-    <>
-      <div>
-        <input
-          type='text'
-          placeholder='Enter Word'
-          onChange={(event) => {
-            onHandleWordChange(event);
-          }}
-          value={word}
-        />
-        <button onClick={onSubmit}> Submit </button>
-        <button onClick={onClear}> clear </button>
-        {isLoading ? <div>Loading</div> : <div>{definition.map((d, i) => { return <div key={i}>{d}</div> })}</div>}
-      </div>
-    </>
-  );
-};
+const ReducerNotes = ({ isLightMode }) => {
+  return (<SCNotesWrapper $islightmode={isLightMode}>
+    <div>
+      useReducer(reducer, initialArg, init?)
+    </div>
+    <div>
+      Reducer is ideal for when you have related variables that should be mutated together.
+    </div>
+    <div>
+      Remember setState fires asynchronously so useReducer would be more efficient if you
+      need to ensure that certain variables get updated at the same time.
+    </div>
+    <div>
+      Do not mutate state directly in reducer function.  Instead return a new object.
+    </div>
+    <div>
+      useReducer takes in three parameters: the pure reducer function that returns a new state,
+      initialArgument on first render, and an optional initializer function. If you need a function
+      that creates initial state that takes parameter use the third parameter (the second parameter
+      becomes input for the third parameter's function).
+    </div>
+  </SCNotesWrapper>)
+}
 
 const fruits = [
   'apple',
@@ -253,6 +244,31 @@ const DebounceComponent = () => {
     </div>
   );
 };
+
+const HookNotes = ({ isLightMode }) => {
+  return (<SCNotesWrapper $islightmode={isLightMode}>
+    <div>
+      Hooks are used to separate stateful logic from a component.
+    </div>
+    <div>
+      Rules of Hooks:
+      <ul>
+        <li>
+          hooks must be top level (order must be same)
+        </li>
+        <li>
+          note hooks cannot be wrapped inside of an conditions/loops
+        </li>
+        <li>
+          must be from react functions or custom hooks
+        </li>
+        <li>
+          convention is to start with the word 'use'
+        </li>
+      </ul>
+    </div>
+  </SCNotesWrapper>)
+}
 
 const ExpensiveSection = ({ children, trackingIndex }) => {
   const expensiveFunction = useMemo(() => {
@@ -326,83 +342,23 @@ const ExpensiveComponent = () => {
   );
 };
 
-const useMouseClick = () => {
-  const [coordinates, setCoordinates] = useState({
-    x: 0,
-    y: 0,
-  });
-  useEffect(() => {
-    const getCoordinates = (event) => {
-      setCoordinates({ x: event.clientX, y: event.clientY });
-    };
-
-    addEventListener('mousedown', getCoordinates);
-
-    return () => {
-      removeEventListener('mousedown', getCoordinates);
-    };
-  }, []);
-
-  return coordinates;
-};
-
-const EventComponent = () => {
-  const { x, y } = useMouseClick();
-
-  return (
+const MemoNotes = ({ isLightMode }) => {
+  return (<SCNotesWrapper $islightmode={isLightMode}>
     <div>
-      <span>Click Location: {'{'}{x},{y}{'}'}</span>
+      To optimize expensive calls we have memo, useMemo, and useCallback functions.
+      Use these carefully as they all add extra comparison costs.
     </div>
-  );
-};
-
-const WebWorkerComponent = () => {
-  const [numberToCheck, setNumberToCheck] = useState(0);
-  function workerFunction() {
-    this.onmessage = function (e) {
-      const n = Number(e.data);
-      let isPrime = n % 2 === 0 ? false : true;
-      let divisor = !isPrime ? 2 : 1;
-      if (n > 2 && isPrime) {
-        for (let i = 3; i <= Math.sqrt(n); i += 2) {
-          if (n % i === 0) {
-            divisor = i;
-            isPrime = false;
-            break;
-          }
-        }
-      }
-      if (n < 2) {
-        this.postMessage(`${n} is NOT prime as it is less than 2 which is not part of definition`)
-      } else {
-        this.postMessage(`${n} ${isPrime ? 'is prime' : `NOT prime as it is divisble by ${divisor}`}`)
-      }
-    }
-  }
-  const { result, error, isLoading } = useWebWorker(workerFunction, numberToCheck);
-
-  const onHandleChange = (e) => {
-    const value = e.target.value;
-    if (!isNaN(value)) {
-      setNumberToCheck(value)
-    } else {
-      setNumberToCheck(0);
-    }
-  }
-
-  return (
     <div>
-      <label>Enter Number</label>
-      <input onChange={(e) => onHandleChange(e)} value={numberToCheck} />
-      {isLoading ?
-        <div>Is Loading...</div> :
-        <div>
-          <span>{result}</span>
-          <span>{error}</span>
-        </div>}
+      You can wrap components around with memo.  However this only works if the
+      props are primitives.  If you pass objects then the reference will be compared
+      which will not work correctly.
     </div>
-  );
-};
+    <div>
+      useMemo for expensive computations for a variable.
+      useCallback for functions that you pass as a prop.
+    </div>
+  </SCNotesWrapper>)
+}
 
 const LIST_SIZE = 2000;
 const TransitionComponent = () => {
@@ -431,6 +387,14 @@ const TransitionComponent = () => {
   );
 };
 
+const TransitionNotes = ({ isLightMode }) => {
+  return (<SCNotesWrapper $islightmode={isLightMode}>
+    <div>
+    </div>
+  </SCNotesWrapper>)
+}
+
+
 const conceptList = ['React  Context', 'Reducer', 'React Custom Hook', 'React Memo', 'useTransition'];
 const Interview = () => {
   const [concept, setConcept] = useState(conceptList[0]);
@@ -447,29 +411,36 @@ const Interview = () => {
         <h2>{concept}</h2>
       </SCDropdownWrapper>
       <SCContentWrapper>
-        <SCSectionWrapper $islightmode={isLightMode}>
-          {concept === conceptList[0] && <div>
-            <h2>Context Provider Example</h2>
-            <CountProvider>
-              <CountCTXComponent />
-            </CountProvider>
-          </div>}
-          {concept === conceptList[1] && <div>
-            <h2>Reducer Example</h2>
-            <SimpleCrudComponent />
-          </div>}
-          {concept === conceptList[2] && <div>
-            <h2>Custom Hook Example</h2>
-            <DebounceComponent />
-          </div>}
-          {concept === conceptList[3] && <div>
-            <h2>Memo Example</h2>
-            <ExpensiveComponent />
-          </div>}
-          {concept === conceptList[4] && <div>
-            <h2>Transition Example</h2>
-            <TransitionComponent />
-          </div>}
+        <SCSectionWrapper>
+          <SCExampleWrapper $islightmode={isLightMode}>
+            {concept === conceptList[0] && <div>
+              <h2>Context Provider Example</h2>
+              <CountProvider>
+                <CountCTXComponent />
+              </CountProvider>
+            </div>}
+            {concept === conceptList[1] && <div>
+              <h2>Reducer Example</h2>
+              <SimpleCrudComponent />
+            </div>}
+            {concept === conceptList[2] && <div>
+              <h2>Custom Hook Example</h2>
+              <DebounceComponent />
+            </div>}
+            {concept === conceptList[3] && <div>
+              <h2>Memo Example</h2>
+              <ExpensiveComponent />
+            </div>}
+            {concept === conceptList[4] && <div>
+              <h2>Transition Example</h2>
+              <TransitionComponent />
+            </div>}
+          </SCExampleWrapper>
+          {concept === conceptList[0] && <ContextNotes isLightMode={isLightMode} />}
+          {concept === conceptList[1] && <ReducerNotes isLightMode={isLightMode} />}
+          {concept === conceptList[2] && <HookNotes isLightMode={isLightMode} />}
+          {concept === conceptList[3] && <MemoNotes isLightMode={isLightMode} />}
+          {concept === conceptList[4] && <TransitionNotes isLightMode={isLightMode} />}
         </SCSectionWrapper>
         <SCDisplayCode>
           {concept === conceptList[0] && <>
