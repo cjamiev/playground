@@ -10,7 +10,6 @@ import {
 } from 'react';
 import { useThemeContext } from '../../../context/ThemeProvider';
 import Page from '../../layout/Page';
-import { useWebWorker } from '../../../hooks/useWebWorker';
 import Dropdown from '../../atoms/Dropdown';
 import {
   SCButtonList,
@@ -396,7 +395,7 @@ const TransitionNotes = ({ isLightMode }) => {
 
 
 const conceptList = ['React  Context', 'Reducer', 'React Custom Hook', 'React Memo', 'useTransition'];
-const Interview = () => {
+const ReactPage = () => {
   const [concept, setConcept] = useState(conceptList[0]);
   const { isLightMode } = useThemeContext();
 
@@ -458,7 +457,7 @@ const Interview = () => {
           {concept === conceptList[3] && <>
             <DisplayMemoExample />
           </>}
-          {concept === conceptList[6] && <>
+          {concept === conceptList[4] && <>
             <DisplayTransitionExample />
           </>}
         </SCDisplayCode>
@@ -467,4 +466,4 @@ const Interview = () => {
   );
 };
 
-export default Interview;
+export default ReactPage;

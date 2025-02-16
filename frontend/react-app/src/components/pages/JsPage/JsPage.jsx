@@ -10,6 +10,9 @@ import {
   DisplayApiExample
 } from './ApiExample';
 import {
+  DisplayEventExample
+} from './EventExample';
+import {
   SCButtonList,
   SCDropdownWrapper,
   SCDisplayCode,
@@ -78,6 +81,7 @@ const useMouseClick = () => {
     x: 0,
     y: 0,
   });
+
   useEffect(() => {
     const getCoordinates = (event) => {
       setCoordinates({ x: event.clientX, y: event.clientY });
@@ -152,7 +156,7 @@ const WebWorkerComponent = () => {
 };
 
 const conceptList = ['Fetch', 'Events', 'Web Workers'];
-const JsConcepts = () => {
+const JsPage = () => {
   const [concept, setConcept] = useState(conceptList[0]);
   const { isLightMode } = useThemeContext();
 
@@ -185,10 +189,11 @@ const JsConcepts = () => {
         </SCSectionWrapper>
         <SCDisplayCode>
           {concept === conceptList[0] && <DisplayApiExample />}
+          {concept === conceptList[1] && <DisplayEventExample />}
         </SCDisplayCode>
       </SCContentWrapper>
     </Page >
   );
 };
 
-export default JsConcepts;
+export default JsPage;
