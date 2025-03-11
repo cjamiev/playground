@@ -1,4 +1,4 @@
-const currentTranslationTest = `{
+export const currentTranslationTest = `{
 useEffect(() => {
   const getCoordinates = (event) => {
     setCoordinates ( { x: event.clientX, y: event.clientY } ) ;
@@ -11,7 +11,3 @@ useEffect(() => {
   };
 }, []);
 }`;
-
-module.exports = {
-  currentTranslationTest
-}

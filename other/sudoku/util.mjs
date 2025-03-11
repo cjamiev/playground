@@ -1,5 +1,4 @@
-const { sudokuNumbers } = require('./constants');
-
+import { sudokuNumbers } from './constants.mjs';
 
 const areArraysEqual = (ary1, ary2) => {
   return ary1.every((item, index) => item === ary2[index]);
@@ -56,4 +55,4 @@ const getMaxRun = (possibleGrid, usedMatrix) => {
   return absoluteMax - currentRun;
 };
 
-module.exports = { areArraysEqual, getCloneGrid, hasValidMatrix, addNumbersInGrid, getMaxRun };
+export { areArraysEqual, getCloneGrid, hasValidMatrix, addNumbersInGrid, getMaxRun };

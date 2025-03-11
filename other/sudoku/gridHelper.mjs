@@ -1,5 +1,5 @@
-const { sudokuNumbers } = require('./constants');
-const { getCloneGrid, getMaxRun } = require('./util');
+import { sudokuNumbers } from './constants.mjs';
+import { getCloneGrid, getMaxRun } from './util.mjs';
 
 // convert rows to columns
 const getColumn = (grid, verticalIndex) => {
@@ -101,4 +101,4 @@ const getGoodNumbers = (possibleGrid, usedMatrix) => {
   }
 };
 
-module.exports = { getPossibleGrid, getGoodNumbers };
+export { getPossibleGrid, getGoodNumbers };

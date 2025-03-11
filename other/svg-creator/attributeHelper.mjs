@@ -87,4 +87,4 @@ const sortAttributes = (data) => {
   return updatedLines.join('\n');
 };
 
-module.exports = { getAttributeList, getSortedStyleAttribute, sortAttributes };
+export { getAttributeList, getSortedStyleAttribute, sortAttributes };

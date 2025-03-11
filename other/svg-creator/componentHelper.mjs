@@ -1,5 +1,5 @@
-const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('./stringHelper');
-const {
+import { capitalizeFirstLetter, toCamelCaseFromDashCase } from './stringHelper.mjs';
+import {
   subcomponentTemplate,
   componentTemplate,
   componentWithoutSubcomponentTemplate,
@@ -7,9 +7,9 @@ const {
   indexTemplate,
   svgMapperTemplate,
   singleTemplate
-} = require('./templates');
-const { getAttributeList } = require('./attributeHelper');
-const { trimSvgComponent, getSvgSubcomponents, addConditionsToSvgComponents } = require('./parseComponentHelper');
+} from './templates.mjs';
+import { getAttributeList } from './attributeHelper.mjs';
+import { trimSvgComponent, getSvgSubcomponents, addConditionsToSvgComponents } from './parseComponentHelper.mjs';
 
 const ZERO = 0;
 const ONE = 1;
@@ -199,4 +199,4 @@ const createReactComponents = (svgTagAttributes, data) => {
   return getGeneratedContent(svgTagAttributes, parsedData);
 };
 
-module.exports = { createSingleComponent, createReactComponents };
+export { createSingleComponent, createReactComponents };

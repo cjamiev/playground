@@ -1,17 +1,17 @@
 /* eslint-disable max-depth */
 /* eslint-disable complexity */
-const { initialGrid, incrementGrid, modifierMap } = require('./constants');
-const { getDiagonalNumbersInGrid, resetNotDiagonalGrid, resetIncrementGrid } = require('./generateHelper');
-const { printGrid } = require('./printHelper');
-const {
+import { initialGrid, incrementGrid, modifierMap } from './constants.mjs';
+import { getDiagonalNumbersInGrid, resetNotDiagonalGrid, resetIncrementGrid } from './generateHelper.mjs';
+import { printGrid } from './printHelper.mjs';
+import {
   getPossibleGrid,
   getGoodNumbers
-} = require('./gridHelper');
-const {
+} from './gridHelper.mjs';
+import {
   getCloneGrid,
   addNumbersInGrid,
   hasValidMatrix
-} = require('./util');
+} from './util.mjs';
 
 const getRemainingNumbersInGrid = (grid, trackingGrid) => {
   let newGrid = getCloneGrid(grid);

@@ -1,6 +1,6 @@
-const { modifierMap } = require('./constants');
-const { getCloneGrid } = require('./util');
-const { getUniqueNumbers } = require('./randomHelper');
+import { modifierMap } from './constants.mjs';
+import { getCloneGrid } from './util.mjs';
+import { getUniqueNumbers } from './randomHelper.mjs';
 
 // Create random 3x3 matrices for the diagonal sections of the grid
 const getDiagonalNumbersInGrid = (newGrid) => {
@@ -49,4 +49,4 @@ const resetIncrementGrid = (incrementGrid) => {
   return incrementGrid;
 };
 
-module.exports = { getDiagonalNumbersInGrid, resetNotDiagonalGrid, resetIncrementGrid };
+export { getDiagonalNumbersInGrid, resetNotDiagonalGrid, resetIncrementGrid };

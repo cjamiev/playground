@@ -233,7 +233,7 @@ const mapLineOfCode = (line) => {
   })
 };
 
-const parseCode = (input) => {
+export const parseCode = (input) => {
   const codeAsObjects = input
     .split('\n')
     .map((line) => {
@@ -249,7 +249,3 @@ const parseCode = (input) => {
 
   return codeAsObjects;
 }
-
-module.exports = {
-  parseCode
-};

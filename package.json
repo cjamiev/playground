@@ -4,11 +4,11 @@
   "description": "Project to help with daily tasks and other projects",
   "main": "src/index.js",
   "scripts": {
-    "code": "node other/display-code/main.js",
-    "sudoku": "node other/sudoku/main.js",
-    "svg": "node other/svg-creator/main.js",
+    "displaycode": "node other/display-code/main.mjs",
+    "sudoku": "node other/sudoku/main.mjs",
+    "svg": "node other/svg-creator/main.mjs",
     "clean": "rm tmp/svg/*",
-    "q": "node experiment/main.js"
+    "main": "node experiment/main.mjs"
   },
   "keywords": [],
   "author": "CJV",

@@ -86,7 +86,7 @@ const getArrow = () => {
   return getSpanElement({ colorName: ColorMap.BLUE, segment: "=>", shouldWrap: true });
 }
 
-module.exports = {
+export {
   ColorMap,
   getSpanElement,
   getOpenBrace,

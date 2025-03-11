@@ -50,7 +50,7 @@ const capitalizeFirstLetter = (string) => {
   return string.charAt(ZERO).toUpperCase() + string.slice(ONE);
 };
 
-module.exports = {
+export {
   reverseString,
   toDashCaseFromCamelCase,
   toCamelCaseFromDashCase,

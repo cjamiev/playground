@@ -1,5 +1,5 @@
-const { resetNotDiagonalGrid } = require('./generateHelper');
-const { printGrid } = require('./printHelper');
+import { resetNotDiagonalGrid } from './generateHelper.mjs';
+import { printGrid } from './printHelper.mjs';
 
 const gridWithDiagonal = [
   [4, 8, 7, 0, 0, 0, 0, 0, 0],
@@ -13,4 +13,4 @@ const gridWithDiagonal = [
   [0, 0, 0, 0, 0, 0, 3, 7, 9]
 ];
 
-module.exports = { gridWithDiagonal };
+export { gridWithDiagonal };

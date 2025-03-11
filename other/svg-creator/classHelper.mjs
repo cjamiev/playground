@@ -1,5 +1,5 @@
-const { getAttributeList, getSortedStyleAttribute } = require('./attributeHelper');
-const { defaultClass } = require('./templates');
+import { getAttributeList, getSortedStyleAttribute } from './attributeHelper.mjs';
+import { defaultClass } from './templates.mjs';
 
 const ZERO = 0;
 
@@ -62,4 +62,4 @@ const replaceStylesWithClass = (data, classes) => {
   return updatedLines.join('\n');
 };
 
-module.exports = { generateClassesFromStyles, replaceStylesWithClass };
+export { generateClassesFromStyles, replaceStylesWithClass };

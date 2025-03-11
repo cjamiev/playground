@@ -1,5 +1,5 @@
-const { capitalizeFirstLetter, toCamelCaseFromDashCase } = require('./stringHelper');
-const { getAttributeList } = require('./attributeHelper');
+import { capitalizeFirstLetter, toCamelCaseFromDashCase } from './stringHelper.mjs';
+import { getAttributeList } from './attributeHelper.mjs';
 
 const ZERO = 0;
 const ONE = 1;
@@ -214,4 +214,4 @@ const addConditionsToSvgComponents = (section) => {
   return { updatedSvgObj, conditions };
 };
 
-module.exports = { trimSvgComponent, getSvgSubcomponents, addConditionsToSvgComponents };
+export { trimSvgComponent, getSvgSubcomponents, addConditionsToSvgComponents };

@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'node:fs';
 
 const UTF8_ENCODING = 'utf8';
 
@@ -21,4 +21,19 @@ const writeToFile = (filepath, content) => {
   }
 };
 
-module.exports = { loadFile, writeToFile };
+const makeDirectory = folderpath => {
+  try {
+    !fs.existsSync(folderpath) && fs.mkdirSync(folderpath);
+    return {
+      error: false,
+      message: 'Created directory:' + folderpath
+    };
+  } catch (e) {
+    return {
+      error: true,
+      message: e
+    };
+  }
+};
+
+export { loadFile, writeToFile, makeDirectory };

@@ -2,9 +2,9 @@
 * The purpose of this file is to generate JSX that allows React Code to be displayable in the UI
 * with some level of color coding. This script is not perfect but should reduce 90% of the manual labor.
 */
-const fs = require('fs');
-const templates = require('./templates');
-const {
+import fs from 'node:fs';
+import { currentTranslationTest } from './templates.mjs';
+import {
   ColorMap,
   getSpanElement,
   getOpenBrace,
@@ -17,10 +17,8 @@ const {
   getCloseTag,
   getGreaterThan,
   getArrow,
-} = require('./helper');
-const { parseCode } = require('./parser');
-
-const currentTranslationTest = templates.currentTranslationTest;
+} from './helper.mjs';
+import { parseCode } from './parser.mjs';
 
 const mapBlockToFunction = {
   '{': getOpenBrace, 

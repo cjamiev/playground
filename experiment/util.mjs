@@ -16,7 +16,7 @@ const isEmpty = targetObject => !isNotEmpty(targetObject);
 
 const xOr = (a, b) => (!a && b) || (a && !b);
 
-const isEqual = (entry1, entry2) => {
+export const isEqual = (entry1, entry2) => {
   if (!(isObjectLike(entry1) && isObjectLike(entry1))) {
     return entry1 === entry2;
   }
@@ -43,6 +43,3 @@ const isEqual = (entry1, entry2) => {
   return checkEquality;
 };
 
-module.exports = {
-  isEqual
-};

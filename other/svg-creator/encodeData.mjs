@@ -127,7 +127,7 @@ const decodeData = (encodedData) => {
   });
 };
 
-module.exports = {
+export {
   encodeData,
   decodedData
 };

@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "q",
+      "type": "shell",
+      "command": "node q.js",
+      "presentation": {
+        "reveal": "never",
+        "revealProblems": "onProblem",
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "main",
+      "type": "shell",
+      "command": "node experiment/main.mjs",
+      "presentation": {
+        "reveal": "never",
+        "revealProblems": "onProblem",
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

@@ -26,7 +26,7 @@ const traverseGrid = () => {
   }
 };
 
-module.exports = {
+export {
   printGrid,
   printGridAsData
 };

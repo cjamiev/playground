@@ -1,4 +1,4 @@
-const { getAttributeList } = require('./attributeHelper');
+import { getAttributeList } from './attributeHelper.mjs';
 
 const ONE = 1;
 const TWO = 2;
@@ -52,4 +52,4 @@ const removeExtraneousInformation = (data) => {
   return { svgTagAttributes, cleanSvgFile };
 };
 
-module.exports = { formatTagsToOneLine, removeExtraneousInformation };
+export { formatTagsToOneLine, removeExtraneousInformation };

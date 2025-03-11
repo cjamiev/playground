@@ -1,8 +1,8 @@
-const { loadFile, writeToFile } = require('./io');
-const { formatTagsToOneLine, removeExtraneousInformation } = require('./cleanupHelper');
-const { generateClassesFromStyles, replaceStylesWithClass } = require('./classHelper');
-const { sortAttributes } = require('./attributeHelper');
-const { createSingleComponent, createReactComponents } = require('./componentHelper');
+import { loadFile, writeToFile } from './io.mjs';
+import { formatTagsToOneLine, removeExtraneousInformation } from './cleanupHelper.mjs';
+import { generateClassesFromStyles, replaceStylesWithClass } from './classHelper.mjs';
+import { sortAttributes } from './attributeHelper.mjs';
+import { createSingleComponent, createReactComponents } from './componentHelper.mjs';
 
 const parseSVGFile = (svgPath) => {
   const svgFile = loadFile(svgPath);
@@ -49,4 +49,4 @@ const createSvgComponents = (svgPath, targetPath, isSingleComponent) => {
   writeComponentsToFile({ classes, svgTagAttributes, data }, targetPath, isSingleComponent);
 };
 
-module.exports = { createSvgComponents };
+export { createSvgComponents };

@@ -1,21 +1,21 @@
-const {
+import {
   formatTagsToOneLine,
   removeExtraneousInformation
-} = require('./cleanupHelper');
-const {
+} from './cleanupHelper';
+import {
   generateClassesFromStyles,
   replaceStylesWithClass
-} = require('./classHelper');
-const {
+} from './classHelper';
+import {
   getAttributeList,
   getSortedStyleAttribute,
   sortAttributes
-} = require('./attributeHelper');
-const {
+} from './attributeHelper';
+import {
   createSingleComponent,
   createReactComponents
-} = require('./createHelper');
-const { defaultClass } = require('./templates');
+} from './createHelper';
+import { defaultClass } from './templates.mjs';
 
 const tag = '<tagname one="val1 val2 val3" two-one="val1;val2;val3" two-two="val2;val3;val4" three-two="val1" four="one two three" />';
 const svgData = `

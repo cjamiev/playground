@@ -1,10 +1,10 @@
-const { sudokuNumbers } = require('./constants');
+import { sudokuNumbers } from './constants.mjs';
 
 const getRandomInt = (max) => {
   return Math.floor(Math.random() * max);
 };
 
-const getUniqueNumbers = () => {
+export const getUniqueNumbers = () => {
   const generatedNumbers = [];
   const remainingNumbers = [...sudokuNumbers];
 
@@ -18,5 +18,3 @@ const getUniqueNumbers = () => {
 
   return generatedNumbers;
 };
-
-module.exports = { getUniqueNumbers };

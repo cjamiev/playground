@@ -61,7 +61,7 @@ export const {{name}} = ({ transform, conditions = {} }) => {
 
 `;
 
-const constTemplate = 'const {\n {{consts}} \n} = require(\'./{{name}}\';';
+const constTemplate = 'const {\n {{consts}} \n} from \'./{{name}}\';';
 const indexTemplate = `
 {{consts}}
 const './svg.css';
@@ -84,7 +84,7 @@ export default svgDataMapper;
 `;
 
 const svgMapperTemplate = `import React from 'react';
-const svgDataMapper = require('./index';
+const svgDataMapper from './index';
 
 {{jsonDataTemplate}}
 const SvgMapper = ({ data = testData }) => {
@@ -121,7 +121,7 @@ const SvgMapper = () => {
 export default SvgMapper;
 `;
 
-module.exports = {
+export {
   defaultClass,
   componentTemplate,
   componentWithoutSubcomponentTemplate,
