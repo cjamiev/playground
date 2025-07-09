@@ -1,0 +1,79 @@
+.card-wrapper {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+  max-width: 400px;
+  background: #fff;
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+  min-width: 320px;
+}
+
+.card-wrapper:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.16);
+}
+
+
+.card-title-wrapper {
+  margin-bottom: 24px;
+}
+
+.card-title {
+  margin: 0;
+  color: #1a247e;
+}
+
+.card-text {
+  color: black;
+}
+
+.item-tag {
+  display: inline-block;
+  background: #e0e7ff;
+  color: #1a247e;
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-right: 6px;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.card-label {
+  color: black;
+  font-weight: 600;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.card-edit-btn {
+  margin-top: 16px;
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  background: #060c4a;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.card-edit-btn:hover {
+  background: #28386e;
+  color: white;
+}
+
+.card-google-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: #2c369a;
+  text-decoration: underline;
+  font-weight: 700;
+  margin-right: 8px;
+}

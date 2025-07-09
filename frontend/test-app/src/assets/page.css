@@ -1,0 +1,20 @@
+.page-nav { 
+  display: flex;
+  gap: 16px;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+}
+
+.page-title {
+  text-align: center;
+  color: #1a247e;
+  margin-bottom: 32px;
+}
+
+.page-body-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 4vw;
+}
