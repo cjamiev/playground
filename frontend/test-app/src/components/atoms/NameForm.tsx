@@ -36,7 +36,7 @@ function NameForm({ onSubmit, initialValues, isEditing, cancelEdit }: NameFormPr
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Updating existing' : 'Add a New Name'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Name'}</div>
       <label className="form-label">
         Name:
         <input

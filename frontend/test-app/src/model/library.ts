@@ -42,13 +42,8 @@ export interface Song {
   id: string; // name + album
   name: string;
   album: string;
+  band: string;
   rank: number;
-  link: string;
-  tags: string;
-}
-
-export interface Video {
-  name: string;
   link: string;
   tags: string;
 }
@@ -80,6 +75,23 @@ export interface Game {
   lowestPrice: string;
   releaseDate: string;
   tags: string;
+}
+
+export enum FAVORITE_TYPE {
+  art,
+  music,
+  game,
+  programming,
+  entertainment,
+  other
+}
+
+export interface Favorite {
+  name: string;
+  link: string;
+  type: FAVORITE_TYPE;
+  tags: string;
+  notes: string;
 }
 
 export const DefaultName: Name = {
@@ -114,6 +126,7 @@ export const DefaultSong: Song = {
   id: '',
   name: '',
   album: '',
+  band: '',
   rank: 1,
   link: '',
   tags: '',
@@ -152,4 +165,12 @@ export const DefaultGame: Game = {
   lowestPrice: "",
   releaseDate: "",
   tags: ''
+}
+
+export const DefaultFavorite: Favorite = {
+  name: '',
+  link: '',
+  type: FAVORITE_TYPE.other,
+  tags: '',
+  notes: ''
 }

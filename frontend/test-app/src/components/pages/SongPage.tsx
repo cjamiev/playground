@@ -16,6 +16,7 @@ const SongPage: React.FC = () => {
   const filteredSongs = songs.filter((s: Song) =>
     s.name.toLowerCase().includes(search.toLowerCase()) ||
     s.album.toLowerCase().includes(search.toLowerCase()) ||
+    s.band.toLowerCase().includes(search.toLowerCase()) ||
     s.tags.split(',').some((tag) => tag.toLowerCase().includes(search.toLowerCase()))
   );
   const sortedSongs = [...filteredSongs].sort((a, b) => a.rank - b.rank);
@@ -52,6 +53,7 @@ const SongPage: React.FC = () => {
       id: String(songs.length + 1),
       name: form.name,
       album: form.album,
+      band: form.band,
       rank: form.rank,
       link: form.link,
       tags: form.tags,
@@ -73,12 +75,13 @@ const SongPage: React.FC = () => {
             id: s.id,
             name: form.name,
             album: form.album,
+            band: form.band,
             rank: form.rank,
             link: form.link,
             tags: form.tags,
           }
           : s
-      )
+      ).filter((w) => w.name !== 'delete');
       handleSubmit(updatedSongs);
       return updatedSongs;
     });
@@ -91,6 +94,7 @@ const SongPage: React.FC = () => {
       id: selectedSong.id,
       name: selectedSong.name,
       album: selectedSong.album,
+      band: selectedSong.band,
       rank: selectedSong.rank,
       link: selectedSong.link,
       tags: selectedSong.tags,
@@ -103,9 +107,13 @@ const SongPage: React.FC = () => {
     setEditForm(DefaultSong);
   };
 
+  const handleSearchClick = (selectedText: string) => {
+    setSearch(selectedText);
+  }
+
   return (
     <div className="page-wrapper">
-      <h1 className="page-title">Song</h1>
+      <h1 className="page-title">Songs</h1>
       <div className="page-body-layout">
         <SongList
           songs={sortedSongs}
@@ -115,7 +123,7 @@ const SongPage: React.FC = () => {
           onSelectSong={setSelectedIdx}
         />
         {sortedSongs.length > 0 && (
-          <SongCard song={selectedSong} onEdit={startEdit} />
+          <SongCard song={selectedSong} onEdit={startEdit} handleSearchClick={handleSearchClick} />
         )}
         <SongForm onSubmit={isEditing ? handleEditSong : handleAddSong} initialValues={editForm} isEditing={isEditing} cancelEdit={cancelEdit} />
       </div>

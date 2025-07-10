@@ -10,6 +10,12 @@
   border: 1px solid #e0e7ff;
 }
 
+.form-title {
+  color: #000;
+  font-weight: 600;
+  font-size: 24px;
+}
+
 .form-label {
   color: #312e81;
   font-weight: 500;

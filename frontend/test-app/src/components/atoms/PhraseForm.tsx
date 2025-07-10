@@ -31,13 +31,13 @@ function PhraseForm({ onSubmit, initialValues, isEditing, cancelEdit }: PhraseFo
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-      onSubmit(form);
-      setForm({ id: '', value: '', origin: '', tags: '' });
+    onSubmit(form);
+    setForm({ id: '', value: '', origin: '', tags: '' });
   };
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Updating existing' : 'Add a New Phrase'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Phrase'}</div>
       <label className="form-label">
         Phrase:
         <textarea

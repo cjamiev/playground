@@ -71,7 +71,7 @@ const VideoPage: React.FC = () => {
             tags: form.tags,
           }
           : v
-      )
+      ).filter((w) => w.name !== 'delete');
       handleSubmit(updatedVideos);
       return updatedVideos;
     });
@@ -95,7 +95,7 @@ const VideoPage: React.FC = () => {
 
   return (
     <div className="page-wrapper">
-      <h1 className="page-title">Video</h1>
+      <h1 className="page-title">Videos</h1>
       <div className="page-body-layout">
         <VideoList
           videos={sortedVideos}

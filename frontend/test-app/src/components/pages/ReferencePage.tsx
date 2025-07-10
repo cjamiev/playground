@@ -76,7 +76,7 @@ const ReferencePage: React.FC = () => {
             tags: form.tags,
           }
           : r
-      )
+      ).filter((w) => w.value !== 'delete');
       handleSubmit(updatedReferences);
       return updatedReferences;
     });
@@ -102,7 +102,7 @@ const ReferencePage: React.FC = () => {
 
   return (
     <div className="page-wrapper">
-      <h1 className="page-title">Reference</h1>
+      <h1 className="page-title">References</h1>
       <div className="page-body-layout">
         <ReferenceList
           references={sortedReferences}

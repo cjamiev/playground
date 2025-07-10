@@ -4,9 +4,10 @@ import { type Song } from '../../model/library';
 interface SongCardProps {
   song: Song;
   onEdit: () => void;
+  handleSearchClick: (selectedText: string) => void;
 }
 
-const SongCard: React.FC<SongCardProps> = ({ song, onEdit }) => {
+const SongCard: React.FC<SongCardProps> = ({ song, onEdit, handleSearchClick }) => {
   return (
     <div className='card-wrapper'>
       <>
@@ -15,6 +16,9 @@ const SongCard: React.FC<SongCardProps> = ({ song, onEdit }) => {
         </div>
         <div>
           <span className="card-label">Album:</span> <span className="card-text">{song.album}</span>
+        </div>
+        <div>
+          <span className="card-label">Band:</span> <span className="card-text" onClick={() => { handleSearchClick(song.band); }}>{song.band}</span>
         </div>
         <div>
           <span className="card-label">Rank:</span> <span className="card-text">{song.rank}</span>

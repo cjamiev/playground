@@ -74,7 +74,7 @@ const ShowPage: React.FC = () => {
             tags: form.tags,
           }
           : s
-      )
+      ).filter((w) => w.name !== 'delete');
       handleSubmit(updatedShows);
       return updatedShows;
     });
@@ -99,7 +99,7 @@ const ShowPage: React.FC = () => {
 
   return (
     <div className="page-wrapper">
-      <h1 className="page-title">Show</h1>
+      <h1 className="page-title">Shows</h1>
       <div className="page-body-layout">
         <ShowList
           shows={sortedShows}

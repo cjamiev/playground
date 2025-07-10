@@ -37,7 +37,7 @@ function FilmForm({ onSubmit, initialValues, isEditing, cancelEdit }: FilmFormPr
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Updating existing' : 'Add a New Film'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Film'}</div>
       <label className="form-label">
         Film Name:
         <input

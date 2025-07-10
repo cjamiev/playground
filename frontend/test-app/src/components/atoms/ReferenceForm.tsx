@@ -38,7 +38,7 @@ function ReferenceForm({ onSubmit, initialValues, isEditing, cancelEdit }: Refer
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Updating existing' : 'Add a New Reference'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Reference'}</div>
       <label className="form-label">
         Reference:
         <textarea

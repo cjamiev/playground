@@ -5,7 +5,7 @@ import WordList from '../atoms/WordList';
 import { DefaultWord, type Word } from '../../model/library';
 import api from '../../api';
 
-const WordPage: React.FC = () => {
+const ConstructedWordPage: React.FC = () => {
   const [isLoadingWords, setIsLoadingWords] = useState<boolean>(true);
   const [words, setWords] = useState<Word[]>([]);
   const [selectedIdx, setSelectedIdx] = useState(0);
@@ -26,7 +26,7 @@ const WordPage: React.FC = () => {
   }, [search, sortedWords.length, sortedWords, selectedIdx]);
 
   const loadWordRecords = () => {
-    api.get('http://localhost:3000/library/specific-type?type=words')
+    api.get('http://localhost:3000/library/specific-type?type=constructed-words')
       .then(response => setWords(JSON.parse(response.data.records)))
       .catch(error => console.error('Error:', error))
       .finally(() => { setIsLoadingWords(false) });
@@ -40,7 +40,7 @@ const WordPage: React.FC = () => {
 
   const handleSubmit = (words: Word[]) => {
     api.put('http://localhost:3000/library/update-records', JSON.stringify({
-      type: 'words',
+      type: 'constructed-words',
       records: JSON.stringify(words)
     }))
       .then(data => console.log(data))
@@ -74,7 +74,7 @@ const WordPage: React.FC = () => {
             tags: form.tags,
           }
           : w
-      ).filter((w) => w.tags !== 'delete')
+      ).filter((w) => w.value !== 'delete');
       handleSubmit(updatedWords);
       return updatedWords;
     });
@@ -99,7 +99,7 @@ const WordPage: React.FC = () => {
 
   return (
     <div className="page-wrapper">
-      <h1 className="page-title">Words</h1>
+      <h1 className="page-title">Constructed Words</h1>
       <div className="page-body-layout">
         <WordList
           words={sortedWords}
@@ -117,4 +117,4 @@ const WordPage: React.FC = () => {
   );
 };
 
-export default WordPage; 
+export default ConstructedWordPage; 

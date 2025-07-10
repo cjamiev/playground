@@ -25,7 +25,7 @@ const NamePage: React.FC = () => {
   }, [search, sortedNames.length, sortedNames, selectedIdx]);
 
   const loadNameRecords = () => {
-    api.get('http://localhost:3000/library/specific-type?type=names')
+    api.get('http://localhost:3000/library/specific-type?type=constructed-names')
       .then(response => setNames(JSON.parse(response.data.records)))
       .catch(error => console.error('Error:', error))
       .finally(() => { setIsLoadingNames(false) });
@@ -39,7 +39,7 @@ const NamePage: React.FC = () => {
 
   const handleSubmit = (names: Name[]) => {
     api.put('http://localhost:3000/library/update-records', JSON.stringify({
-      type: 'names',
+      type: 'constructed-names',
       records: JSON.stringify(names)
     }))
       .then(data => console.log(data))
@@ -95,7 +95,7 @@ const NamePage: React.FC = () => {
 
   return (
     <div className="page-wrapper">
-      <h1 className="page-title">Names</h1>
+      <h1 className="page-title">Constructed Names</h1>
       <div className="page-body-layout">
         <NameList
           names={sortedNames}

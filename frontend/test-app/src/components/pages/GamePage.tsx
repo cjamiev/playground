@@ -79,7 +79,7 @@ const GamePage: React.FC = () => {
             tags: form.tags,
           }
           : g
-      )
+      ).filter((w) => w.name !== 'delete');
       handleSubmit(updatedGames);
       return updatedGames;
     });
@@ -106,7 +106,7 @@ const GamePage: React.FC = () => {
 
   return (
     <div className="page-wrapper">
-      <h1 className="page-title">Game</h1>
+      <h1 className="page-title">Games</h1>
       <div className="page-body-layout">
         <GameList
           games={sortedGames}

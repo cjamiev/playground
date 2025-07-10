@@ -39,7 +39,7 @@ function GameForm({ onSubmit, initialValues, isEditing, cancelEdit }: GameFormPr
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Updating existing' : 'Add a New Game'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Game'}</div>
       <label className="form-label">
         Game Name:
         <input

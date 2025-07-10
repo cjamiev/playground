@@ -72,7 +72,7 @@ const BookPage: React.FC = () => {
             tags: form.tags,
           }
           : b
-      )
+      ).filter((w) => w.name !== 'delete');
       handleSubmit(updatedBooks);
       return updatedBooks;
     });
@@ -96,7 +96,7 @@ const BookPage: React.FC = () => {
 
   return (
     <div className="page-wrapper">
-      <h1 className="page-title">Book</h1>
+      <h1 className="page-title">Books</h1>
       <div className="page-body-layout">
         <BookList
           books={sortedBooks}

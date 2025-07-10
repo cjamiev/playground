@@ -13,6 +13,7 @@ function SongForm({ onSubmit, initialValues, isEditing, cancelEdit }: SongFormPr
     id: '',
     name: '',
     album: '',
+    band: '',
     rank: 1,
     link: '',
     tags: '',
@@ -34,12 +35,12 @@ function SongForm({ onSubmit, initialValues, isEditing, cancelEdit }: SongFormPr
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(form);
-    setForm({ id: '', name: '', album: '', rank: 1, link: '', tags: '' });
+    setForm({ id: '', name: '', album: '', band: '', rank: 1, link: '', tags: '' });
   };
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Updating existing' : 'Add a New Song'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Song'}</div>
       <label className="form-label">
         Song Name:
         <input
@@ -57,6 +58,16 @@ function SongForm({ onSubmit, initialValues, isEditing, cancelEdit }: SongFormPr
           type="text"
           name="album"
           value={form.album}
+          onChange={handleChange}
+          className="form-input"
+        />
+      </label>
+      <label className="form-label">
+        Band:
+        <input
+          type="text"
+          name="band"
+          value={form.band}
           onChange={handleChange}
           className="form-input"
         />

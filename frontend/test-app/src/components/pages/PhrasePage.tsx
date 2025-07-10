@@ -74,7 +74,7 @@ const PhrasePage: React.FC = () => {
             tags: form.tags,
           }
           : p
-      )
+      ).filter((w) => w.value !== 'delete');
       handleSubmit(updatedPhrases);
       return updatedPhrases;
     });
@@ -99,7 +99,7 @@ const PhrasePage: React.FC = () => {
 
   return (
     <div className="page-wrapper">
-      <h1 className="page-title">Phrase</h1>
+      <h1 className="page-title">Phrases</h1>
       <div className="page-body-layout">
         <PhraseList
           phrases={sortedPhrases}

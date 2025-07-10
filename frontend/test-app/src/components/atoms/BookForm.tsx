@@ -37,7 +37,7 @@ function BookForm({ onSubmit, initialValues, isEditing, cancelEdit }: BookFormPr
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Updating existing' : 'Add a New Book'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Book'}</div>
       <label className="form-label">
         Book Name:
         <input

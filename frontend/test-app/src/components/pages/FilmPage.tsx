@@ -75,7 +75,7 @@ const FilmPage: React.FC = () => {
             tags: form.tags,
           }
           : f
-      )
+      ).filter((w) => w.name !== 'delete');
       handleSubmit(updatedFilms);
       return updatedFilms;
     });
@@ -100,7 +100,7 @@ const FilmPage: React.FC = () => {
 
   return (
     <div className="page-wrapper">
-      <h1 className="page-title">Film</h1>
+      <h1 className="page-title">Films</h1>
       <div className="page-body-layout">
         <FilmList
           films={sortedFilms}

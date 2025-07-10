@@ -31,13 +31,13 @@ function WordForm({ onSubmit, initialValues, isEditing, cancelEdit }: WordFormPr
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-      onSubmit(form);
-      setForm({ value: '', definition: '', type: WORD_TYPE.noun, tags: '' });
+    onSubmit(form);
+    setForm({ value: '', definition: '', type: WORD_TYPE.noun, tags: '' });
   };
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Updating existing' : 'Add a New Word'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Word'}</div>
       <label className="form-label">
         Word:
         <input

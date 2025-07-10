@@ -37,7 +37,7 @@ function ShowForm({ onSubmit, initialValues, isEditing, cancelEdit }: ShowFormPr
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Updating existing' : 'Add a New Show'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Show'}</div>
       <label className="form-label">
         Show Name:
         <input
