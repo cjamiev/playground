@@ -12,6 +12,7 @@ import BookPage from './components/pages/BookPage';
 import HomePage from './components/pages/HomePage';
 import FavoritePage from './components/pages/FavoritePage';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import WordPartPage from './components/pages/WordPartPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Link to="/">Home</Link>
         <Link to="/constructed-word">Constructed Word</Link>
         <Link to="/word">Word</Link>
+        <Link to="/word-part">WordPart</Link>
         <Link to="/constructed-name">Constructed Name</Link>
         <Link to="/name">Name</Link>
         <Link to="/phrase">Phrase</Link>
@@ -35,6 +37,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/constructed-word" element={<ConstructedWordPage />} />
         <Route path="/word" element={<WordPage />} />
+        <Route path="/word-part" element={<WordPartPage />} />
         <Route path="/constructed-name" element={<ConstructedNamePage />} />
         <Route path="/name" element={<NamePage />} />
         <Route path="/phrase" element={<PhrasePage />} />

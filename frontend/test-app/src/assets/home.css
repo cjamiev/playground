@@ -1,0 +1,11 @@
+.readme-edit { 
+  width: 100%; 
+  font-size: 16px; 
+  margin-bottom: 12px; 
+}
+
+.readme-view { 
+  margin-bottom: 12; 
+  font-size: '18px'; 
+  color: black;
+}

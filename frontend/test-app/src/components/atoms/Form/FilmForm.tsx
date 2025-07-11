@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { type Book } from '../../model/library';
+import { type Film } from '../../../model/library';
 
-interface BookFormProps {
-  onSubmit: (form: Book) => void;
-  initialValues?: Book;
+interface FilmFormProps {
+  onSubmit: (form: Film) => void;
+  initialValues?: Film;
   isEditing: boolean;
   cancelEdit: () => void;
 }
 
-function BookForm({ onSubmit, initialValues, isEditing, cancelEdit }: BookFormProps) {
-  const [form, setForm] = useState<Book>({
+function FilmForm({ onSubmit, initialValues, isEditing, cancelEdit }: FilmFormProps) {
+  const [form, setForm] = useState<Film>({
     name: '',
-    isComic: false,
+    rank: 1,
+    service: '',
     tags: '',
   });
 
@@ -24,22 +25,21 @@ function BookForm({ onSubmit, initialValues, isEditing, cancelEdit }: BookFormPr
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const target = e.target as HTMLInputElement;
-    const { name, value, type } = target;
-    setForm((prev) => ({ ...prev, [name]: type === 'checkbox' ? target.checked : value }));
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: name === 'rank' ? Number(value) : value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(form);
-    setForm({ name: '', isComic: false, tags: '' });
+    setForm({ name: '', rank: 1, service: '', tags: '' });
   };
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Book'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Film'}</div>
       <label className="form-label">
-        Book Name:
+        Film Name:
         <input
           type="text"
           name="name"
@@ -50,14 +50,27 @@ function BookForm({ onSubmit, initialValues, isEditing, cancelEdit }: BookFormPr
         />
       </label>
       <label className="form-label">
-        Is Comic:
+        Service:
         <input
-          type="checkbox"
-          name="isComic"
-          checked={form.isComic}
+          type="text"
+          name="service"
+          value={form.service}
           onChange={handleChange}
-          className="form-wrapper-checkbox"
+          className="form-input"
         />
+      </label>
+      <label className="form-label">
+        Rank:
+        <input
+          type="range"
+          name="rank"
+          value={form.rank}
+          min={1}
+          max={5}
+          onChange={handleChange}
+          className="form-input"
+        />
+        <span>{form.rank}</span>
       </label>
       <label className="form-label">
         Tags (comma separated):
@@ -87,4 +100,4 @@ function BookForm({ onSubmit, initialValues, isEditing, cancelEdit }: BookFormPr
   );
 }
 
-export default BookForm; 
+export default FilmForm; 

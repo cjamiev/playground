@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import FilmForm from '../atoms/FilmForm';
-import FilmCard from '../atoms/FilmCard';
-import FilmList from '../atoms/FilmList';
+import FilmForm from '../atoms/Form/FilmForm';
+import FilmCard from '../atoms/Card/FilmCard';
+import FilmList from '../atoms/List/FilmList';
 import { DefaultFilm, type Film } from '../../model/library';
 import api from '../../api';
 

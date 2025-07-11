@@ -1,5 +1,5 @@
 import React from 'react';
-import { type Name } from '../../model/library';
+import { type Name } from '../../../model/library';
 
 interface NameListProps {
   names: Name[];

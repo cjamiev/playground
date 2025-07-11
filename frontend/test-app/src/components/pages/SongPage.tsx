@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import SongForm from '../atoms/SongForm';
-import SongCard from '../atoms/SongCard';
-import SongList from '../atoms/SongList';
+import SongForm from '../atoms/Form/SongForm';
+import SongCard from '../atoms/Card/SongCard';
+import SongList from '../atoms/List/SongList';
 import { DefaultSong, type Song } from '../../model/library';
 import api from '../../api';
 

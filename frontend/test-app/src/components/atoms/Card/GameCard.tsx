@@ -1,5 +1,5 @@
 import React from 'react';
-import { type Game } from '../../model/library';
+import { type Game } from '../../../model/library';
 
 interface GameCardProps {
   game: Game;

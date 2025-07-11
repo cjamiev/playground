@@ -1,37 +1,37 @@
 import React from 'react';
-import { type Film } from '../../model/library';
+import { type Show } from '../../../model/library';
 
-interface FilmCardProps {
-  film: Film;
+interface ShowCardProps {
+  show: Show;
   onEdit: () => void;
 }
 
-const FilmCard: React.FC<FilmCardProps> = ({ film, onEdit }) => {
+const ShowCard: React.FC<ShowCardProps> = ({ show, onEdit }) => {
   return (
     <div className='card-wrapper'>
       <>
         <div className="card-title-wrapper">
-          <h2 className="card-title">{film.name}</h2>
+          <h2 className="card-title">{show.name}</h2>
         </div>
         <div>
-          <span className="card-label">Service:</span> <span className="card-text">{film.service}</span>
+          <span className="card-label">Service:</span> <span className="card-text">{show.service}</span>
         </div>
         <div>
-          <span className="card-label">Rank:</span> <span className="card-text">{film.rank}</span>
+          <span className="card-label">Rank:</span> <span className="card-text">{show.rank}</span>
         </div>
         <div className="item-tags-row">
-          <span className="card-label">Tags:</span> {film.tags.split(",").map((tag, i) => (
+          <span className="card-label">Tags:</span> {show.tags.split(",").map((tag, i) => (
             <span key={i} className="item-tag">{tag}</span>
           ))}
         </div>
         <div className="card-footer">
           <a
-            href={`https://www.google.com/search?q=${encodeURIComponent(film.name + ' ' + film.service)}`}
+            href={`https://www.google.com/search?q=${encodeURIComponent(show.name + ' ' + show.service)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="card-google-link"
           >
-            Google Film
+            Google Show
           </a>
           <button
             onClick={onEdit}
@@ -45,4 +45,4 @@ const FilmCard: React.FC<FilmCardProps> = ({ film, onEdit }) => {
   );
 };
 
-export default FilmCard; 
+export default ShowCard; 

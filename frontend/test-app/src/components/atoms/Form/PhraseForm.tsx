@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { GENDER_TYPE, type Name } from '../../model/library';
+import { type Phrase } from '../../../model/library';
 
-interface NameFormProps {
-  onSubmit: (form: Name) => void;
-  initialValues?: Name;
+interface PhraseFormProps {
+  onSubmit: (form: Phrase) => void;
+  initialValues?: Phrase;
   isEditing: boolean;
   cancelEdit: () => void;
 }
 
-function NameForm({ onSubmit, initialValues, isEditing, cancelEdit }: NameFormProps) {
+function PhraseForm({ onSubmit, initialValues, isEditing, cancelEdit }: PhraseFormProps) {
   const [form, setForm] = useState({
+    id: '',
     value: '',
-    gender: GENDER_TYPE.male,
     origin: '',
+    tags: '',
   });
 
   useEffect(() => {
@@ -22,7 +23,7 @@ function NameForm({ onSubmit, initialValues, isEditing, cancelEdit }: NameFormPr
   }, [initialValues]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -31,36 +32,21 @@ function NameForm({ onSubmit, initialValues, isEditing, cancelEdit }: NameFormPr
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(form);
-    setForm({ value: '', gender: GENDER_TYPE.male, origin: '' });
+    setForm({ id: '', value: '', origin: '', tags: '' });
   };
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Name'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Phrase'}</div>
       <label className="form-label">
-        Name:
-        <input
-          type="text"
+        Phrase:
+        <textarea
           name="value"
           value={form.value}
           onChange={handleChange}
           required
-          className="form-input"
+          className="form-textarea"
         />
-      </label>
-      <label className="form-label">
-        Gender:
-        <select
-          name="gender"
-          value={form.gender}
-          onChange={handleChange}
-          required
-          className="form-select"
-        >
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
       </label>
       <label className="form-label">
         Origin:
@@ -68,6 +54,16 @@ function NameForm({ onSubmit, initialValues, isEditing, cancelEdit }: NameFormPr
           type="text"
           name="origin"
           value={form.origin}
+          onChange={handleChange}
+          className="form-input"
+        />
+      </label>
+      <label className="form-label">
+        Tags (comma separated):
+        <input
+          type="text"
+          name="tags"
+          value={form.tags}
           onChange={handleChange}
           className="form-input"
         />
@@ -90,4 +86,4 @@ function NameForm({ onSubmit, initialValues, isEditing, cancelEdit }: NameFormPr
   );
 }
 
-export default NameForm; 
+export default PhraseForm; 

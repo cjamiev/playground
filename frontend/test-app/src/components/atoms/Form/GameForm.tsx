@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { type Song } from '../../model/library';
+import { type Game } from '../../../model/library';
 
-interface SongFormProps {
-  onSubmit: (form: Song) => void;
-  initialValues?: Song;
+interface GameFormProps {
+  onSubmit: (form: Game) => void;
+  initialValues?: Game;
   isEditing: boolean;
   cancelEdit: () => void;
 }
 
-function SongForm({ onSubmit, initialValues, isEditing, cancelEdit }: SongFormProps) {
-  const [form, setForm] = useState<Song>({
-    id: '',
+function GameForm({ onSubmit, initialValues, isEditing, cancelEdit }: GameFormProps) {
+  const [form, setForm] = useState<Game>({
     name: '',
-    album: '',
-    band: '',
     rank: 1,
-    link: '',
+    price: '',
+    lowestPrice: '',
+    releaseDate: '',
     tags: '',
   });
 
@@ -35,14 +34,14 @@ function SongForm({ onSubmit, initialValues, isEditing, cancelEdit }: SongFormPr
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(form);
-    setForm({ id: '', name: '', album: '', band: '', rank: 1, link: '', tags: '' });
+    setForm({ name: '', rank: 1, price: '', lowestPrice: '', releaseDate: '', tags: '' });
   };
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Song'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Game'}</div>
       <label className="form-label">
-        Song Name:
+        Game Name:
         <input
           type="text"
           name="name"
@@ -53,21 +52,31 @@ function SongForm({ onSubmit, initialValues, isEditing, cancelEdit }: SongFormPr
         />
       </label>
       <label className="form-label">
-        Album:
+        Price:
         <input
           type="text"
-          name="album"
-          value={form.album}
+          name="price"
+          value={form.price}
           onChange={handleChange}
           className="form-input"
         />
       </label>
       <label className="form-label">
-        Band:
+        Lowest Price:
         <input
           type="text"
-          name="band"
-          value={form.band}
+          name="lowestPrice"
+          value={form.lowestPrice}
+          onChange={handleChange}
+          className="form-input"
+        />
+      </label>
+      <label className="form-label">
+        Release Date:
+        <input
+          type="date"
+          name="releaseDate"
+          value={form.releaseDate}
           onChange={handleChange}
           className="form-input"
         />
@@ -84,16 +93,6 @@ function SongForm({ onSubmit, initialValues, isEditing, cancelEdit }: SongFormPr
           className="form-input"
         />
         <span>{form.rank}</span>
-      </label>
-      <label className="form-label">
-        Link:
-        <input
-          type="text"
-          name="link"
-          value={form.link}
-          onChange={handleChange}
-          className="form-input"
-        />
       </label>
       <label className="form-label">
         Tags (comma separated):
@@ -123,4 +122,4 @@ function SongForm({ onSubmit, initialValues, isEditing, cancelEdit }: SongFormPr
   );
 }
 
-export default SongForm; 
+export default GameForm; 

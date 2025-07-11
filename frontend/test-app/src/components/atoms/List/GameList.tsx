@@ -1,47 +1,47 @@
 import React from 'react';
-import { type Book } from '../../model/library';
+import { type Game } from '../../../model/library';
 
-interface BookListProps {
-  books: Book[];
+interface GameListProps {
+  games: Game[];
   selectedIdx: number;
   search: string;
   onSearchChange: (value: string) => void;
-  onSelectBook: (idx: number) => void;
+  onSelectGame: (idx: number) => void;
 }
 
-const BookList: React.FC<BookListProps> = ({
-  books,
+const GameList: React.FC<GameListProps> = ({
+  games,
   selectedIdx,
   search,
   onSearchChange,
-  onSelectBook,
+  onSelectGame,
 }) => {
   return (
     <div className="list-section">
       <input
         type="text"
-        placeholder="Search books..."
+        placeholder="Search games..."
         value={search}
         onChange={e => onSearchChange(e.target.value)}
         className="search-bar"
       />
       <ul className="list-wrapper">
-        {books.map((book, idx) => (
+        {games.map((game, idx) => (
           <li key={idx} className="list-item">
             <button
               className={`list-item-btn${selectedIdx === idx ? ' selected' : ''}`}
-              onClick={() => onSelectBook(idx)}
+              onClick={() => onSelectGame(idx)}
             >
-              {book.name}
+              {game.name}
             </button>
           </li>
         ))}
-        {books.length === 0 && (
-          <li className="no-items-msg">No books found.</li>
+        {games.length === 0 && (
+          <li className="no-items-msg">No games found.</li>
         )}
       </ul>
     </div>
   );
 };
 
-export default BookList; 
+export default GameList; 

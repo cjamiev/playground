@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import WordForm from '../atoms/WordForm';
-import WordCard from '../atoms/WordCard';
-import WordList from '../atoms/WordList';
+import React, { useEffect, useMemo, useState } from 'react';
+import WordForm from '../atoms/Form/WordForm';
+import WordCard from '../atoms/Card/WordCard';
+import WordList from '../atoms/List/WordList';
 import { DefaultWord, type Word } from '../../model/library';
 import api from '../../api';
 
@@ -17,7 +17,7 @@ const WordPage: React.FC = () => {
     w.value.toLowerCase().includes(search.toLowerCase()) ||
     w.tags.split(',').some((tag) => tag.toLowerCase().includes(search.toLowerCase()))
   );
-  const sortedWords = [...filteredWords].sort((a, b) => a.value.localeCompare(b.value));
+  const sortedWords = useMemo(() => { return [...filteredWords].sort((a, b) => a.value.localeCompare(b.value)) }, [filteredWords]);
   const selectedWord = sortedWords[selectedIdx] || sortedWords[0];
 
   useEffect(() => {

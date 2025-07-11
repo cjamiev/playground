@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { type Phrase } from '../../model/library';
+import { WORD_TYPE, type Word } from '../../../model/library';
 
-interface PhraseFormProps {
-  onSubmit: (form: Phrase) => void;
-  initialValues?: Phrase;
+interface WordFormProps {
+  onSubmit: (form: Word) => void;
+  initialValues?: Word;
   isEditing: boolean;
   cancelEdit: () => void;
 }
 
-function PhraseForm({ onSubmit, initialValues, isEditing, cancelEdit }: PhraseFormProps) {
+function WordForm({ onSubmit, initialValues, isEditing, cancelEdit }: WordFormProps) {
   const [form, setForm] = useState({
-    id: '',
     value: '',
-    origin: '',
+    definition: '',
+    type: WORD_TYPE.noun,
     tags: '',
   });
 
@@ -23,7 +23,7 @@ function PhraseForm({ onSubmit, initialValues, isEditing, cancelEdit }: PhraseFo
   }, [initialValues]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -32,31 +32,45 @@ function PhraseForm({ onSubmit, initialValues, isEditing, cancelEdit }: PhraseFo
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(form);
-    setForm({ id: '', value: '', origin: '', tags: '' });
+    setForm({ value: '', definition: '', type: WORD_TYPE.noun, tags: '' });
   };
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Phrase'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Word'}</div>
       <label className="form-label">
-        Phrase:
-        <textarea
+        Word:
+        <input
+          type="text"
           name="value"
           value={form.value}
           onChange={handleChange}
           required
+          className="form-input"
+        />
+      </label>
+      <label className="form-label">
+        Definition:
+        <textarea
+          name="definition"
+          value={form.definition}
+          onChange={handleChange}
           className="form-textarea"
         />
       </label>
       <label className="form-label">
-        Origin:
-        <input
-          type="text"
-          name="origin"
-          value={form.origin}
+        Type:
+        <select
+          name="type"
+          value={form.type}
           onChange={handleChange}
-          className="form-input"
-        />
+          required
+          className="form-select"
+        >
+          <option value="noun">Noun</option>
+          <option value="adjective">Adjective</option>
+          <option value="verb">Verb</option>
+        </select>
       </label>
       <label className="form-label">
         Tags (comma separated):
@@ -69,6 +83,7 @@ function PhraseForm({ onSubmit, initialValues, isEditing, cancelEdit }: PhraseFo
         />
       </label>
       <div>
+
         <button
           type="submit"
           className="form-submit"
@@ -86,4 +101,4 @@ function PhraseForm({ onSubmit, initialValues, isEditing, cancelEdit }: PhraseFo
   );
 }
 
-export default PhraseForm; 
+export default WordForm; 

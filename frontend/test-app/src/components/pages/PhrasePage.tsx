@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import PhraseForm from '../atoms/PhraseForm';
-import PhraseCard from '../atoms/PhraseCard';
-import PhraseList from '../atoms/PhraseList';
+import PhraseForm from '../atoms/Form/PhraseForm';
+import PhraseCard from '../atoms/Card/PhraseCard';
+import PhraseList from '../atoms/List/PhraseList';
 import { DefaultPhrase, type Phrase } from '../../model/library';
 import api from '../../api';
 

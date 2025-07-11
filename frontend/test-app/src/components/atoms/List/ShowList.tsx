@@ -1,47 +1,47 @@
 import React from 'react';
-import { type Word } from '../../model/library';
+import { type Show } from '../../../model/library';
 
-interface WordListProps {
-  words: Word[];
+interface ShowListProps {
+  shows: Show[];
   selectedIdx: number;
   search: string;
   onSearchChange: (value: string) => void;
-  onSelectWord: (idx: number) => void;
+  onSelectShow: (idx: number) => void;
 }
 
-const WordList: React.FC<WordListProps> = ({
-  words,
+const ShowList: React.FC<ShowListProps> = ({
+  shows,
   selectedIdx,
   search,
   onSearchChange,
-  onSelectWord,
+  onSelectShow,
 }) => {
   return (
     <div className="list-section">
       <input
         type="text"
-        placeholder="Search words..."
+        placeholder="Search shows..."
         value={search}
         onChange={e => onSearchChange(e.target.value)}
         className="search-bar"
       />
       <ul className="list-wrapper">
-        {words.map((word, idx) => (
+        {shows.map((show, idx) => (
           <li key={idx} className="list-item">
             <button
               className={`list-item-btn${selectedIdx === idx ? ' selected' : ''}`}
-              onClick={() => onSelectWord(idx)}
+              onClick={() => onSelectShow(idx)}
             >
-              {word.value}
+              {show.name}
             </button>
           </li>
         ))}
-        {words.length === 0 && (
-          <li className="no-items-msg">No words found.</li>
+        {shows.length === 0 && (
+          <li className="no-items-msg">No shows found.</li>
         )}
       </ul>
     </div>
   );
 };
 
-export default WordList; 
+export default ShowList; 

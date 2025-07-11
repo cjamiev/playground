@@ -1,47 +1,47 @@
 import React from 'react';
-import { type Reference } from '../../model/library';
+import { type Book } from '../../../model/library';
 
-interface ReferenceListProps {
-  references: Reference[];
+interface BookListProps {
+  books: Book[];
   selectedIdx: number;
   search: string;
   onSearchChange: (value: string) => void;
-  onSelectReference: (idx: number) => void;
+  onSelectBook: (idx: number) => void;
 }
 
-const ReferenceList: React.FC<ReferenceListProps> = ({
-  references,
+const BookList: React.FC<BookListProps> = ({
+  books,
   selectedIdx,
   search,
   onSearchChange,
-  onSelectReference,
+  onSelectBook,
 }) => {
   return (
     <div className="list-section">
       <input
         type="text"
-        placeholder="Search references..."
+        placeholder="Search books..."
         value={search}
         onChange={e => onSearchChange(e.target.value)}
         className="search-bar"
       />
       <ul className="list-wrapper">
-        {references.map((reference, idx) => (
+        {books.map((book, idx) => (
           <li key={idx} className="list-item">
             <button
               className={`list-item-btn${selectedIdx === idx ? ' selected' : ''}`}
-              onClick={() => onSelectReference(idx)}
+              onClick={() => onSelectBook(idx)}
             >
-              {reference.value}
+              {book.name}
             </button>
           </li>
         ))}
-        {references.length === 0 && (
-          <li className="no-items-msg">No references found.</li>
+        {books.length === 0 && (
+          <li className="no-items-msg">No books found.</li>
         )}
       </ul>
     </div>
   );
 };
 
-export default ReferenceList; 
+export default BookList; 

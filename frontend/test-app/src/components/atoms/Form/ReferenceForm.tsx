@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { WORD_TYPE, type Word } from '../../model/library';
+import { type Reference } from '../../../model/library';
 
-interface WordFormProps {
-  onSubmit: (form: Word) => void;
-  initialValues?: Word;
+interface ReferenceFormProps {
+  onSubmit: (form: Reference) => void;
+  initialValues?: Reference;
   isEditing: boolean;
   cancelEdit: () => void;
 }
 
-function WordForm({ onSubmit, initialValues, isEditing, cancelEdit }: WordFormProps) {
+function ReferenceForm({ onSubmit, initialValues, isEditing, cancelEdit }: ReferenceFormProps) {
   const [form, setForm] = useState({
+    id: '',
     value: '',
+    origin: '',
     definition: '',
-    type: WORD_TYPE.noun,
     tags: '',
   });
 
@@ -23,7 +24,7 @@ function WordForm({ onSubmit, initialValues, isEditing, cancelEdit }: WordFormPr
   }, [initialValues]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -32,20 +33,29 @@ function WordForm({ onSubmit, initialValues, isEditing, cancelEdit }: WordFormPr
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(form);
-    setForm({ value: '', definition: '', type: WORD_TYPE.noun, tags: '' });
+    setForm({ id: '', value: '', origin: '', definition: '', tags: '' });
   };
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Word'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Reference'}</div>
       <label className="form-label">
-        Word:
-        <input
-          type="text"
+        Reference:
+        <textarea
           name="value"
           value={form.value}
           onChange={handleChange}
           required
+          className="form-textarea"
+        />
+      </label>
+      <label className="form-label">
+        Origin:
+        <input
+          type="text"
+          name="origin"
+          value={form.origin}
+          onChange={handleChange}
           className="form-input"
         />
       </label>
@@ -59,20 +69,6 @@ function WordForm({ onSubmit, initialValues, isEditing, cancelEdit }: WordFormPr
         />
       </label>
       <label className="form-label">
-        Type:
-        <select
-          name="type"
-          value={form.type}
-          onChange={handleChange}
-          required
-          className="form-select"
-        >
-          <option value="noun">Noun</option>
-          <option value="adjective">Adjective</option>
-          <option value="verb">Verb</option>
-        </select>
-      </label>
-      <label className="form-label">
         Tags (comma separated):
         <input
           type="text"
@@ -83,7 +79,6 @@ function WordForm({ onSubmit, initialValues, isEditing, cancelEdit }: WordFormPr
         />
       </label>
       <div>
-
         <button
           type="submit"
           className="form-submit"
@@ -101,4 +96,4 @@ function WordForm({ onSubmit, initialValues, isEditing, cancelEdit }: WordFormPr
   );
 }
 
-export default WordForm; 
+export default ReferenceForm; 

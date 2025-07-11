@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import GameForm from '../atoms/GameForm';
-import GameCard from '../atoms/GameCard';
-import GameList from '../atoms/GameList';
+import GameForm from '../atoms/Form/GameForm';
+import GameCard from '../atoms/Card/GameCard';
+import GameList from '../atoms/List/GameList';
 import { DefaultGame, type Game } from '../../model/library';
 import api from '../../api';
 

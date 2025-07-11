@@ -27,9 +27,9 @@ function FavoriteForm({ onSubmit, initialValues, isEditing, cancelEdit }: Favori
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ 
-      ...prev, 
-      [name]: name === 'type' ? Number(value) as FAVORITE_TYPE : value 
+    setForm((prev) => ({
+      ...prev,
+      [name]: name === 'type' ? Number(value) as FAVORITE_TYPE : value
     }));
   };
 

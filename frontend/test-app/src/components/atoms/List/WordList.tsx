@@ -1,47 +1,47 @@
 import React from 'react';
-import { type Song } from '../../model/library';
+import { type Word } from '../../../model/library';
 
-interface SongListProps {
-  songs: Song[];
+interface WordListProps {
+  words: Word[];
   selectedIdx: number;
   search: string;
   onSearchChange: (value: string) => void;
-  onSelectSong: (idx: number) => void;
+  onSelectWord: (idx: number) => void;
 }
 
-const SongList: React.FC<SongListProps> = ({
-  songs,
+const WordList: React.FC<WordListProps> = ({
+  words,
   selectedIdx,
   search,
   onSearchChange,
-  onSelectSong,
+  onSelectWord,
 }) => {
   return (
     <div className="list-section">
       <input
         type="text"
-        placeholder="Search songs..."
+        placeholder="Search words..."
         value={search}
         onChange={e => onSearchChange(e.target.value)}
         className="search-bar"
       />
       <ul className="list-wrapper">
-        {songs.map((song, idx) => (
+        {words.map((word, idx) => (
           <li key={idx} className="list-item">
             <button
               className={`list-item-btn${selectedIdx === idx ? ' selected' : ''}`}
-              onClick={() => onSelectSong(idx)}
+              onClick={() => onSelectWord(idx)}
             >
-              {song.name}
+              {word.value}
             </button>
           </li>
         ))}
-        {songs.length === 0 && (
-          <li className="no-items-msg">No songs found.</li>
+        {words.length === 0 && (
+          <li className="no-items-msg">No words found.</li>
         )}
       </ul>
     </div>
   );
 };
 
-export default SongList; 
+export default WordList; 

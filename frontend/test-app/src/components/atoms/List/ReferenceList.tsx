@@ -1,47 +1,47 @@
 import React from 'react';
-import { type Phrase } from '../../model/library';
+import { type Reference } from '../../../model/library';
 
-interface PhraseListProps {
-  phrases: Phrase[];
+interface ReferenceListProps {
+  references: Reference[];
   selectedIdx: number;
   search: string;
   onSearchChange: (value: string) => void;
-  onSelectPhrase: (idx: number) => void;
+  onSelectReference: (idx: number) => void;
 }
 
-const PhraseList: React.FC<PhraseListProps> = ({
-  phrases,
+const ReferenceList: React.FC<ReferenceListProps> = ({
+  references,
   selectedIdx,
   search,
   onSearchChange,
-  onSelectPhrase,
+  onSelectReference,
 }) => {
   return (
     <div className="list-section">
       <input
         type="text"
-        placeholder="Search phrases..."
+        placeholder="Search references..."
         value={search}
         onChange={e => onSearchChange(e.target.value)}
         className="search-bar"
       />
       <ul className="list-wrapper">
-        {phrases.map((phrase, idx) => (
+        {references.map((reference, idx) => (
           <li key={idx} className="list-item">
             <button
               className={`list-item-btn${selectedIdx === idx ? ' selected' : ''}`}
-              onClick={() => onSelectPhrase(idx)}
+              onClick={() => onSelectReference(idx)}
             >
-              {phrase.value}
+              {reference.value}
             </button>
           </li>
         ))}
-        {phrases.length === 0 && (
-          <li className="no-items-msg">No phrases found.</li>
+        {references.length === 0 && (
+          <li className="no-items-msg">No references found.</li>
         )}
       </ul>
     </div>
   );
 };
 
-export default PhraseList; 
+export default ReferenceList; 

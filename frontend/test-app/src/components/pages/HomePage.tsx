@@ -1,25 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import api from '../../api';
 
-const DEFAULT_TEXT = 'Welcome to your Home Page! You can edit this text.';
 
 const HomePage: React.FC = () => {
-  const [text, setText] = React.useState(DEFAULT_TEXT);
-  const [editValue, setEditValue] = React.useState(text);
-  const [isEditing, setIsEditing] = React.useState(false);
+  const [isLoadingReadme, setIsLoadingReadme] = useState<boolean>(true);
+  const [readme, setReadme] = useState<string>("");
+  const [editValue, setEditValue] = useState(readme);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const backupRecords = () => {
+    api.get('http://localhost:3000/library/backup')
+      .then(response => console.log(response))
+      .catch(error => console.error('Error:', error))
+  }
+
+  const loadReadmeRecords = () => {
+    api.get('http://localhost:3000/library/specific-type?type=readme')
+      .then(response => setReadme(response.data.records))
+      .catch(error => console.error('Error:', error))
+      .finally(() => { setIsLoadingReadme(false) });
+  }
+
+  useEffect(() => {
+    if (isLoadingReadme) {
+      loadReadmeRecords();
+    }
+  }, [isLoadingReadme]);
+
+  const handleSubmit = (readme: string) => {
+    api.put('http://localhost:3000/library/update-records', JSON.stringify({
+      type: 'readme',
+      records: readme
+    }))
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+  }
 
   const handleEdit = () => {
-    setEditValue(text);
+    setEditValue(readme);
     setIsEditing(true);
   };
 
   const handleSave = () => {
-    setText(editValue);
+    setReadme(editValue);
     setIsEditing(false);
+    handleSubmit(editValue)
   };
 
   const handleCancel = () => {
     setIsEditing(false);
-    setEditValue(text);
+    setEditValue(readme);
   };
 
   return (
@@ -29,10 +59,10 @@ const HomePage: React.FC = () => {
         {isEditing ? (
           <>
             <textarea
+              className="readme-edit"
               value={editValue}
               onChange={e => setEditValue(e.target.value)}
               rows={4}
-              style={{ width: '100%', fontSize: '16px', marginBottom: '12px' }}
             />
             <div>
               <button className="add-new-btn" onClick={handleSave} style={{ marginRight: 8 }}>Save</button>
@@ -41,11 +71,12 @@ const HomePage: React.FC = () => {
           </>
         ) : (
           <>
-            <div style={{ marginBottom: 12, fontSize: '18px' }}>{text}</div>
+            <div className="readme-view">{readme}</div>
             <button className="add-new-btn" onClick={handleEdit}>Edit</button>
           </>
         )}
       </div>
+      <button className="add-new-btn" onClick={backupRecords}>Backup</button>
     </div>
   );
 };

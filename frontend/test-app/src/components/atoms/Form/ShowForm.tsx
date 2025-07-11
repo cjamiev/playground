@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { type Film } from '../../model/library';
+import { type Show } from '../../../model/library';
 
-interface FilmFormProps {
-  onSubmit: (form: Film) => void;
-  initialValues?: Film;
+interface ShowFormProps {
+  onSubmit: (form: Show) => void;
+  initialValues?: Show;
   isEditing: boolean;
   cancelEdit: () => void;
 }
 
-function FilmForm({ onSubmit, initialValues, isEditing, cancelEdit }: FilmFormProps) {
-  const [form, setForm] = useState<Film>({
+function ShowForm({ onSubmit, initialValues, isEditing, cancelEdit }: ShowFormProps) {
+  const [form, setForm] = useState<Show>({
     name: '',
     rank: 1,
     service: '',
@@ -37,9 +37,9 @@ function FilmForm({ onSubmit, initialValues, isEditing, cancelEdit }: FilmFormPr
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Film'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Show'}</div>
       <label className="form-label">
-        Film Name:
+        Show Name:
         <input
           type="text"
           name="name"
@@ -100,4 +100,4 @@ function FilmForm({ onSubmit, initialValues, isEditing, cancelEdit }: FilmFormPr
   );
 }
 
-export default FilmForm; 
+export default ShowForm; 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { type Song } from '../../model/library';
+import { type Song } from '../../../model/library';
 
 interface SongCardProps {
   song: Song;

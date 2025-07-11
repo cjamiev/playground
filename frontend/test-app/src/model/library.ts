@@ -23,6 +23,19 @@ export interface Word {
   tags: string;
 }
 
+export enum WORD_PART_TYPE {
+  suffix,
+  prefix,
+  vowel,
+  consonant,
+}
+
+export interface WordPart {
+  value: string;
+  definition: string;
+  type: WORD_PART_TYPE;
+}
+
 export interface Phrase {
   id: string;
   value: string;
@@ -174,3 +187,9 @@ export const DefaultFavorite: Favorite = {
   tags: '',
   notes: ''
 }
+
+export const DefaultWordPart: WordPart = {
+  value: '',
+  definition: '',
+  type: WORD_PART_TYPE.prefix,
+};

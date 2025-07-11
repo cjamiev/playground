@@ -1,5 +1,5 @@
 import React from 'react';
-import { type Favorite } from '../../model/library';
+import { type Favorite } from '../../../model/library';
 
 interface FavoriteLinkProps {
   favorite: Favorite;

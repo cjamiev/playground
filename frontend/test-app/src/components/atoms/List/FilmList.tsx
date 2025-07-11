@@ -1,5 +1,5 @@
 import React from 'react';
-import { type Film } from '../../model/library';
+import { type Film } from '../../../model/library';
 
 interface FilmListProps {
   films: Film[];

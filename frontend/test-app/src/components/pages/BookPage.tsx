@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import BookForm from '../atoms/BookForm';
-import BookCard from '../atoms/BookCard';
-import BookList from '../atoms/BookList';
+import React, { useState, useEffect, useMemo } from 'react';
+import BookForm from '../atoms/Form/BookForm';
+import BookCard from '../atoms/Card/BookCard';
+import BookList from '../atoms/List/BookList';
 import { DefaultBook, type Book } from '../../model/library';
 import api from '../../api';
 
@@ -17,7 +17,7 @@ const BookPage: React.FC = () => {
     b.name.toLowerCase().includes(search.toLowerCase()) ||
     b.tags.split(',').some((tag) => tag.toLowerCase().includes(search.toLowerCase()))
   );
-  const sortedBooks = [...filteredBooks];
+  const sortedBooks = useMemo(() => { return [...filteredBooks] }, [filteredBooks]);
   const selectedBook = sortedBooks[selectedIdx] || sortedBooks[0];
 
   useEffect(() => {

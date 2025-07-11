@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { type Reference } from '../../model/library';
+import { type Book } from '../../../model/library';
 
-interface ReferenceFormProps {
-  onSubmit: (form: Reference) => void;
-  initialValues?: Reference;
+interface BookFormProps {
+  onSubmit: (form: Book) => void;
+  initialValues?: Book;
   isEditing: boolean;
   cancelEdit: () => void;
 }
 
-function ReferenceForm({ onSubmit, initialValues, isEditing, cancelEdit }: ReferenceFormProps) {
-  const [form, setForm] = useState({
-    id: '',
-    value: '',
-    origin: '',
-    definition: '',
+function BookForm({ onSubmit, initialValues, isEditing, cancelEdit }: BookFormProps) {
+  const [form, setForm] = useState<Book>({
+    name: '',
+    isComic: false,
     tags: '',
   });
 
@@ -26,46 +24,39 @@ function ReferenceForm({ onSubmit, initialValues, isEditing, cancelEdit }: Refer
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const target = e.target as HTMLInputElement;
+    const { name, value, type } = target;
+    setForm((prev) => ({ ...prev, [name]: type === 'checkbox' ? target.checked : value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(form);
-    setForm({ id: '', value: '', origin: '', definition: '', tags: '' });
+    setForm({ name: '', isComic: false, tags: '' });
   };
 
   return (
     <form className="form-wrapper" onSubmit={handleSubmit}>
-      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Reference'}</div>
+      <div className="form-title">{isEditing ? 'Update Existing' : 'Add a New Book'}</div>
       <label className="form-label">
-        Reference:
-        <textarea
-          name="value"
-          value={form.value}
-          onChange={handleChange}
-          required
-          className="form-textarea"
-        />
-      </label>
-      <label className="form-label">
-        Origin:
+        Book Name:
         <input
           type="text"
-          name="origin"
-          value={form.origin}
+          name="name"
+          value={form.name}
           onChange={handleChange}
+          required
           className="form-input"
         />
       </label>
       <label className="form-label">
-        Definition:
-        <textarea
-          name="definition"
-          value={form.definition}
+        Is Comic:
+        <input
+          type="checkbox"
+          name="isComic"
+          checked={form.isComic}
           onChange={handleChange}
-          className="form-textarea"
+          className="form-wrapper-checkbox"
         />
       </label>
       <label className="form-label">
@@ -96,4 +87,4 @@ function ReferenceForm({ onSubmit, initialValues, isEditing, cancelEdit }: Refer
   );
 }
 
-export default ReferenceForm; 
+export default BookForm; 

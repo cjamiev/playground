@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import NameForm from '../atoms/NameForm';
-import NameCard from '../atoms/NameCard';
-import NameList from '../atoms/NameList';
+import React, { useState, useEffect, useMemo } from 'react';
+import NameForm from '../atoms/Form/NameForm';
+import NameCard from '../atoms/Card/NameCard';
+import NameList from '../atoms/List/NameList';
 import { DefaultName, type Name } from '../../model/library';
 import api from '../../api';
 
@@ -16,7 +16,7 @@ const NamePage: React.FC = () => {
   const filteredNames = names.filter(n =>
     n.value.toLowerCase().includes(search.toLowerCase())
   );
-  const sortedNames = [...filteredNames].sort((a, b) => a.value.localeCompare(b.value));
+  const sortedNames = useMemo(() => { return [...filteredNames].sort((a, b) => a.value.localeCompare(b.value)) }, [filteredNames]);
   const selectedName = sortedNames[selectedIdx] || sortedNames[0];
 
   useEffect(() => {

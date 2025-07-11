@@ -1,5 +1,5 @@
 import React from 'react';
-import { GENDER_TYPE, type Name } from '../../model/library';
+import { GENDER_TYPE, type Name } from '../../../model/library';
 
 interface NameCardProps {
   name: Name;

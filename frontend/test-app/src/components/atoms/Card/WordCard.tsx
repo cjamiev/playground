@@ -1,5 +1,5 @@
 import React from 'react';
-import { WORD_TYPE, type Word } from '../../model/library';
+import { WORD_TYPE, type Word } from '../../../model/library';
 
 interface WordCardProps {
   word: Word;

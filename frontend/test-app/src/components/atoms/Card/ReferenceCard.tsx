@@ -1,29 +1,32 @@
 import React from 'react';
-import { type Phrase } from '../../model/library';
+import { type Reference } from '../../../model/library';
 
-interface PhraseCardProps {
-  phrase: Phrase;
+interface ReferenceCardProps {
+  reference: Reference;
   onEdit: () => void;
 }
 
-const PhraseCard: React.FC<PhraseCardProps> = ({ phrase, onEdit }) => {
+const ReferenceCard: React.FC<ReferenceCardProps> = ({ reference, onEdit }) => {
   return (
     <div className='card-wrapper'>
       <>
         <div className="card-title-wrapper">
-          <h2 className="card-title">{phrase.value}</h2>
+          <h2 className="card-title">{reference.value}</h2>
         </div>
         <div>
-          <span className="card-label">Origin:</span> <span className="card-text">{phrase.origin}</span>
+          <span className="card-label">Origin:</span> <span className="card-text">{reference.origin}</span>
+        </div>
+        <div>
+          <span className="card-label">Definition:</span> <span className="card-text">{reference.definition}</span>
         </div>
         <div className="item-tags-row">
-          <span className="card-label">Tags:</span> {phrase.tags.split(",").map((tag, i) => (
+          <span className="card-label">Tags:</span> {reference.tags.split(",").map((tag, i) => (
             <span key={i} className="item-tag">{tag}</span>
           ))}
         </div>
         <div className="card-footer">
           <a
-            href={`https://www.google.com/search?q=${encodeURIComponent(phrase.value)}`}
+            href={`https://www.google.com/search?q=${encodeURIComponent(reference.value)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="card-google-link"
@@ -31,12 +34,12 @@ const PhraseCard: React.FC<PhraseCardProps> = ({ phrase, onEdit }) => {
             Google
           </a>
           <a
-            href={`https://www.google.com/search?q=${encodeURIComponent(phrase.value)}+meaning`}
+            href={`https://www.google.com/search?q=${encodeURIComponent(reference.value)}+summary`}
             target="_blank"
             rel="noopener noreferrer"
             className="card-google-link"
           >
-            Get Meaning
+            Get Summary
           </a>
           <button
             onClick={onEdit}
@@ -50,4 +53,4 @@ const PhraseCard: React.FC<PhraseCardProps> = ({ phrase, onEdit }) => {
   );
 };
 
-export default PhraseCard; 
+export default ReferenceCard; 

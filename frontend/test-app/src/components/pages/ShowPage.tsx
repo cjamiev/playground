@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ShowForm from '../atoms/ShowForm';
-import ShowCard from '../atoms/ShowCard';
-import ShowList from '../atoms/ShowList';
+import ShowForm from '../atoms/Form/ShowForm';
+import ShowCard from '../atoms/Card/ShowCard';
+import ShowList from '../atoms/List/ShowList';
 import { DefaultShow, type Show } from '../../model/library';
 import api from '../../api';
 

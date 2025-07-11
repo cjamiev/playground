@@ -14,15 +14,15 @@ interface FavoriteSidebarProps {
   allTags: string[];
 }
 
-const FavoriteSidebar: React.FC<FavoriteSidebarProps> = ({ 
-  favorite, 
-  isOpen, 
-  onClose, 
-  onEdit, 
-  onSubmit, 
-  editForm, 
-  isEditing, 
-  onCancelEdit, 
+const FavoriteSidebar: React.FC<FavoriteSidebarProps> = ({
+  favorite,
+  isOpen,
+  onClose,
+  onEdit,
+  onSubmit,
+  editForm,
+  isEditing,
+  onCancelEdit,
   allTags
 }) => {
   if (!favorite && !isEditing) return null;
@@ -42,14 +42,14 @@ const FavoriteSidebar: React.FC<FavoriteSidebarProps> = ({
           </button>
         </div>
       </div>
-      
+
       <div className="sidebar-content">
         {isEditing ? (
-          <FavoriteForm 
-            onSubmit={onSubmit} 
-            initialValues={editForm} 
-            isEditing={isEditing} 
-            cancelEdit={onCancelEdit} 
+          <FavoriteForm
+            onSubmit={onSubmit}
+            initialValues={editForm}
+            isEditing={isEditing}
+            cancelEdit={onCancelEdit}
           />
         ) : (
           favorite && (
@@ -58,24 +58,24 @@ const FavoriteSidebar: React.FC<FavoriteSidebarProps> = ({
                 <h4>Name</h4>
                 <p className="detail-value">{favorite.name}</p>
               </div>
-              
+
               <div className="detail-section">
                 <h4>Type</h4>
                 <p className="detail-value">{favorite.type}</p>
               </div>
-              
+
               <div className="detail-section">
                 <h4>Link</h4>
-                <a 
-                  href={favorite.link} 
-                  target="_blank" 
+                <a
+                  href={favorite.link}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="detail-link"
                 >
                   {favorite.link}
                 </a>
               </div>
-              
+
               <div className="detail-section">
                 <h4>Tags</h4>
                 <div className="tags-container">
@@ -86,7 +86,7 @@ const FavoriteSidebar: React.FC<FavoriteSidebarProps> = ({
                   ))}
                 </div>
               </div>
-              
+
               <div className="detail-section">
                 <h4>Notes</h4>
                 <p className="detail-value">{favorite.notes}</p>

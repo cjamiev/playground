@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ReferenceForm from '../atoms/ReferenceForm';
-import ReferenceCard from '../atoms/ReferenceCard';
-import ReferenceList from '../atoms/ReferenceList';
+import ReferenceForm from '../atoms/Form/ReferenceForm';
+import ReferenceCard from '../atoms/Card/ReferenceCard';
+import ReferenceList from '../atoms/List/ReferenceList';
 import { DefaultReference, type Reference } from '../../model/library';
 import api from '../../api';
 
