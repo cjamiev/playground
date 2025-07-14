@@ -4,20 +4,20 @@ const api = {
   get: (url: string) => {
     return axios.get(url);
   },
-  post: (url: string, payload: unknown) => {
+  post: (url: string, payload: string) => {
     return axios.post(url, payload, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
   },
-  put: (url: string, payload: unknown) => {
+  put: (url: string, payload: string) => {
     return axios.put(url, payload, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
   }
-};
+}
 
 export default api;

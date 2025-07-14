@@ -1,52 +1,128 @@
 import React, { useState, useEffect } from 'react';
-import SongForm from '../atoms/Form/SongForm';
-import SongCard from '../atoms/Card/SongCard';
-import SongList from '../atoms/List/SongList';
+import { loadRecordsByType, updateRecordsByType } from '../../api/library-service';
+import Banner from '../atoms/Banner';
+import AddCard from '../atoms/AddCard';
+import Search from '../atoms/Search';
+import Modal from '../atoms/Modal';
+import Sidepanel from '../atoms/Sidepanel';
+import Footer from '../atoms/Footer';
+import Pagination from '../atoms/Pagination';
+import SongCard from '../atoms/Song/SongCard';
+import SongForm from '../atoms/Song/SongForm';
 import { DefaultSong, type Song } from '../../model/library';
-import api from '../../api';
+import { fakeSongs } from '../../mocked/songs';
+import { copyContents } from '../../utils/copyToClipboard';
+import { getCSV, getJSON } from '../../utils/contentMapper';
+import { useStorage } from '../../context/StorageContext';
+import { getRecordsFromStorage } from '../../utils/storage';
+
+const SONGS_PER_PAGE = 24;
+const songSearchByOptions = [
+  { value: 'name', label: 'Name' },
+  { value: 'tags', label: 'Tags' },
+  { value: 'band', label: 'Band' }
+];
+const songSortByOptions = [
+  { value: 'name', label: 'Name' },
+  { value: 'rank', label: 'Rank' },
+  { value: 'band', label: 'Band' }
+];
 
 const SongPage: React.FC = () => {
+  const { isBackendAvailable, isLoadingPing } = useStorage();
   const [isLoadingSongs, setIsLoadingSongs] = useState<boolean>(true);
   const [songs, setSongs] = useState<Song[]>([]);
-  const [selectedIdx, setSelectedIdx] = useState(0);
+
   const [search, setSearch] = useState('');
-  const [isEditing, setIsEditing] = useState(false);
+  const [searchBy, setSearchBy] = useState('name');
+  const [sortBy, setSortBy] = useState<string>('name');
+
   const [editForm, setEditForm] = useState<Song>(DefaultSong);
 
-  const filteredSongs = songs.filter((s: Song) =>
-    s.name.toLowerCase().includes(search.toLowerCase()) ||
-    s.album.toLowerCase().includes(search.toLowerCase()) ||
-    s.band.toLowerCase().includes(search.toLowerCase()) ||
-    s.tags.split(',').some((tag) => tag.toLowerCase().includes(search.toLowerCase()))
-  );
-  const sortedSongs = [...filteredSongs].sort((a, b) => a.rank - b.rank);
-  const selectedSong = sortedSongs[selectedIdx] || sortedSongs[0];
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [isAddMode, setIsAddMode] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
-  useEffect(() => {
-    if (sortedSongs.length === 0) return;
-    if (!sortedSongs[selectedIdx]) setSelectedIdx(0);
-  }, [search, sortedSongs.length, sortedSongs, selectedIdx]);
-  const loadSongRecords = () => {
-    api.get('http://localhost:3000/library/specific-type?type=songs')
-      .then(response => setSongs(JSON.parse(response.data.records)))
-      .catch(error => console.error('Error:', error))
-      .finally(() => { setIsLoadingSongs(false) });
-  }
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [songToDelete, setSongToDelete] = useState<Song | null>(null);
+  const [showCSVModal, setShowCSVModal] = useState(false);
+  const [showJSONModal, setShowJSONModal] = useState(false);
+  const [showBanner, setShowBanner] = useState<{ show: boolean; type: string }>({ show: false, type: 'success' });
+  const [currentPage, setCurrentPage] = useState(1);
 
-  useEffect(() => {
-    if (isLoadingSongs) {
-      loadSongRecords();
+  const filteredSongs = songs.filter((s: Song) => {
+    if (searchBy === 'tags') {
+      return s.tags.split(',').some((tag) => tag.toLowerCase().includes(search.toLowerCase()));
+    } else if (searchBy === 'band') {
+      return s.band.toLowerCase().includes(search.toLowerCase());
+    } else {
+      return s.name.toLowerCase().includes(search.toLowerCase());
     }
-  }, [isLoadingSongs]);
+  });
 
-  const handleSubmit = (songs: Song[]) => {
-    api.put('http://localhost:3000/library/update-records', JSON.stringify({
-      type: 'songs',
-      records: JSON.stringify(songs)
-    }))
-      .then(data => console.log(data))
-      .catch(error => console.error('Error:', error));
-  }
+  const sortedSongs = [...filteredSongs].sort((a, b) => {
+    if (sortBy === 'name') {
+      return a.name.localeCompare(b.name);
+    }
+    if (sortBy === 'band') {
+      return a.band.localeCompare(b.band);
+    } else {
+      return a.rank - b.rank;
+    }
+  });
+  const totalPages = Math.ceil(sortedSongs.length / SONGS_PER_PAGE);
+  const paginatedSongs = sortedSongs.slice((currentPage - 1) * SONGS_PER_PAGE, currentPage * SONGS_PER_PAGE);
+
+  const allTags = Array.from(
+    new Set(
+      songs.flatMap((song) =>
+        song.tags
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter(Boolean)
+      )
+    )
+  ).sort((a, b) => a.localeCompare(b));
+
+  useEffect(() => {
+    if (isBackendAvailable && isLoadingSongs) {
+      loadRecordsByType('songs').then((records: Song[]) => {
+        setSongs(records);
+        setIsLoadingSongs(false);
+      });
+    }
+    if (!isBackendAvailable && !isLoadingPing) {
+      const savedSongs = getRecordsFromStorage('songs', [...fakeSongs]);
+      setSongs(savedSongs);
+      setIsLoadingSongs(false);
+    }
+  }, [isBackendAvailable, isLoadingPing, isLoadingSongs]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, searchBy, sortBy, songs.length]);
+
+  const handleSubmit = async (payload: Song[]) => {
+    if (!isBackendAvailable && !isLoadingPing) {
+      localStorage.setItem('songs', JSON.stringify(payload));
+    } else {
+      updateRecordsByType(JSON.stringify(payload), 'songs')
+        .then((isSuccess: boolean) => {
+          if (isSuccess) {
+            setShowBanner({ show: true, type: 'success' });
+            setTimeout(() => setShowBanner({ show: false, type: '' }), 2500);
+          } else {
+            setShowBanner({ show: true, type: 'error' });
+            setTimeout(() => setShowBanner({ show: false, type: '' }), 2500);
+          }
+        })
+        .catch((error: unknown) => {
+          setShowBanner({ show: true, type: 'error' });
+          setTimeout(() => setShowBanner({ show: false, type: '' }), 2500);
+          console.error('Error:', error);
+        });
+    }
+  };
 
   const handleAddSong = (form: Song) => {
     const newSong = {
@@ -56,79 +132,221 @@ const SongPage: React.FC = () => {
       band: form.band,
       rank: form.rank,
       link: form.link,
-      tags: form.tags,
+      tags: form.tags
     };
-    setSongs(prev => {
+    setSongs((prev) => {
       const updatedSongs = [newSong, ...prev];
       handleSubmit(updatedSongs);
       return updatedSongs;
     });
+    setIsPanelOpen(false);
+    setIsAddMode(false);
+    setIsEditing(false);
+    setEditForm(DefaultSong);
     setSearch('');
-    setSelectedIdx(0);
   };
 
   const handleEditSong = (form: Song) => {
-    setSongs(prev => {
+    setSongs((prev) => {
       const updatedSongs = prev.map((s) =>
-        s.id === selectedSong.id
+        s.id === form.id
           ? {
-            id: s.id,
-            name: form.name,
-            album: form.album,
-            band: form.band,
-            rank: form.rank,
-            link: form.link,
-            tags: form.tags,
-          }
+              id: s.id,
+              name: form.name,
+              album: form.album,
+              band: form.band,
+              rank: form.rank,
+              link: form.link,
+              tags: form.tags
+            }
           : s
-      ).filter((w) => w.name !== 'delete');
+      );
+
       handleSubmit(updatedSongs);
       return updatedSongs;
     });
+    setIsPanelOpen(false);
+    setIsAddMode(false);
     setIsEditing(false);
     setEditForm(DefaultSong);
   };
 
-  const startEdit = () => {
+  const startEdit = (selectedSong: Song, isClone?: boolean) => {
     setEditForm({
-      id: selectedSong.id,
+      id: isClone ? String(songs.length + 1) : selectedSong.id,
       name: selectedSong.name,
       album: selectedSong.album,
       band: selectedSong.band,
       rank: selectedSong.rank,
       link: selectedSong.link,
-      tags: selectedSong.tags,
+      tags: selectedSong.tags
     });
-    setIsEditing(true);
+    setIsEditing(!isClone);
+    setIsAddMode(Boolean(isClone));
+    setIsPanelOpen(true);
+  };
+
+  const startAdd = () => {
+    setEditForm(DefaultSong);
+    setIsEditing(false);
+    setIsAddMode(true);
+    setIsPanelOpen(true);
   };
 
   const cancelEdit = () => {
+    setIsPanelOpen(false);
+    setIsAddMode(false);
     setIsEditing(false);
     setEditForm(DefaultSong);
   };
 
-  const handleSearchClick = (selectedText: string) => {
-    setSearch(selectedText);
-  }
+  const handleDeleteSong = (song: Song) => {
+    setSongToDelete(song);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteSong = () => {
+    if (songToDelete) {
+      setSongs((prev) => {
+        const updatedSongs = prev.filter((s) => s.id !== songToDelete.id);
+        handleSubmit(updatedSongs);
+        return updatedSongs;
+      });
+      setShowDeleteModal(false);
+      setSongToDelete(null);
+    }
+  };
+
+  const cancelDeleteSong = () => {
+    setShowDeleteModal(false);
+    setSongToDelete(null);
+  };
+
+  const handleClickTag = (tag: string) => {
+    setSearchBy('tags');
+    setSearch(tag);
+  };
+
+  const handleChangeSearchBy = (filter: string) => {
+    setSearchBy(filter);
+  };
+
+  const handleChangeSortBy = (val: string) => setSortBy(val);
+
+  const handleOpenCSVModal = () => setShowCSVModal(true);
+  const handleCloseCSVModal = () => setShowCSVModal(false);
+  const handleOpenJSONModal = () => setShowJSONModal(true);
+  const handleCloseJSONModal = () => setShowJSONModal(false);
+
+  const handlePrevious = () => {
+    setCurrentPage((p) => Math.max(1, p - 1));
+  };
+  const handlePageSelect = (pageIndex: number) => {
+    setCurrentPage(pageIndex);
+  };
+  const handleNext = () => {
+    setCurrentPage((p) => Math.min(totalPages, p + 1));
+  };
 
   return (
     <div className="page-wrapper">
+      <Banner isVisible={showBanner.show} type={showBanner.type} />
       <h1 className="page-title">Songs</h1>
+      <Search
+        search={search}
+        onSearchChange={setSearch}
+        searchBy={searchBy}
+        handleChangeSearchBy={handleChangeSearchBy}
+        sortBy={sortBy}
+        handleChangeSortBy={handleChangeSortBy}
+        searchByOptions={songSearchByOptions}
+        sortByOptions={songSortByOptions}
+      />
       <div className="page-body-layout">
-        <SongList
-          songs={sortedSongs}
-          selectedIdx={selectedIdx}
-          search={search}
-          onSearchChange={setSearch}
-          onSelectSong={setSelectedIdx}
-        />
-        {sortedSongs.length > 0 && (
-          <SongCard song={selectedSong} onEdit={startEdit} handleSearchClick={handleSearchClick} />
+        {!isLoadingSongs ? (
+          <div className="cards-container">
+            {!search && currentPage === 1 ? <AddCard onClick={startAdd} /> : null}
+            {paginatedSongs.map((song, idx) => (
+              <SongCard
+                key={idx}
+                song={song}
+                onEdit={() => {
+                  startEdit(song);
+                }}
+                onClone={() => {
+                  startEdit(song, true);
+                }}
+                onDelete={() => handleDeleteSong(song)}
+                onHandleClickTag={handleClickTag}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="loading-container">Loading...</div>
         )}
-        <SongForm onSubmit={isEditing ? handleEditSong : handleAddSong} initialValues={editForm} isEditing={isEditing} cancelEdit={cancelEdit} />
       </div>
+      <Footer>
+        <div>
+          <button className="primary-btn" onClick={handleOpenCSVModal}>
+            Show CSV
+          </button>
+          <button className="primary-btn" onClick={handleOpenJSONModal}>
+            Show JSON
+          </button>
+        </div>
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          handlePrevious={handlePrevious}
+          handlePageSelect={handlePageSelect}
+          handleNext={handleNext}
+        />
+      </Footer>
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={cancelDeleteSong}
+        title={songToDelete ? `Are you sure you want to delete "${songToDelete.name}"?` : 'Error missing song'}
+      >
+        <div className="modal-actions">
+          <button className="form-submit" onClick={confirmDeleteSong}>
+            Confirm
+          </button>
+          <button className="form-cancel-btn" onClick={cancelDeleteSong}>
+            Cancel
+          </button>
+        </div>
+      </Modal>
+      <Modal isOpen={showCSVModal} onClose={handleCloseCSVModal} title="CSV Export">
+        <div className="modal-data-display">
+          <button onClick={() => copyContents(getCSV(songs))} className="modal-copy-btn">
+            Copy
+          </button>
+          <pre className="modal-data-content">{getCSV(songs)}</pre>
+        </div>
+      </Modal>
+      <Modal isOpen={showJSONModal} onClose={handleCloseJSONModal} title="JSON Export">
+        <div className="modal-data-display">
+          <button onClick={() => copyContents(getJSON(songs))} className="modal-copy-btn">
+            Copy
+          </button>
+          <pre className="modal-data-content">{getJSON(songs)}</pre>
+        </div>
+      </Modal>
+      <Sidepanel
+        isOpen={isPanelOpen && (isAddMode || isEditing)}
+        onClose={cancelEdit}
+        title={isEditing ? 'Updating existing' : 'Add a New Song'}
+      >
+        <SongForm
+          onSubmit={isEditing ? handleEditSong : handleAddSong}
+          initialValues={editForm}
+          isEditing={isEditing}
+          cancelEdit={cancelEdit}
+          allTags={allTags}
+        />
+      </Sidepanel>
     </div>
   );
 };
 
-export default SongPage; 
+export default SongPage;

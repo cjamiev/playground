@@ -1,204 +1,349 @@
-import React, { useEffect, useState } from 'react';
-import FavoriteLink from '../atoms/FavoriteLink';
-import FavoriteSidebar from '../atoms/FavoriteSidebar';
-import { DefaultFavorite, FAVORITE_TYPE, type Favorite } from '../../model/library';
-import api from '../../api';
+import React, { useState, useEffect } from 'react';
+import { loadRecordsByType, updateRecordsByType } from '../../api/library-service';
+import Banner from '../atoms/Banner';
+import AddCard from '../atoms/AddCard';
+import Search from '../atoms/Search';
+import Modal from '../atoms/Modal';
+import Sidepanel from '../atoms/Sidepanel';
+import Footer from '../atoms/Footer';
+import Pagination from '../atoms/Pagination';
+import FavoriteCard from '../atoms/Favorite/FavoriteCard';
+import FavoriteForm from '../atoms/Favorite/FavoriteForm';
+import { DefaultFavorite, type Favorite } from '../../model/library';
+import { fakeFavorites } from '../../mocked/favorites';
+import { copyContents } from '../../utils/copyToClipboard';
+import { getCSV, getJSON } from '../../utils/contentMapper';
+import { useStorage } from '../../context/StorageContext';
+import { getRecordsFromStorage } from '../../utils/storage';
+
+const FAVORITES_PER_PAGE = 24;
+const favoriteSearchByOptions = [
+  { value: 'name', label: 'Name' },
+  { value: 'tags', label: 'Tags' },
+  { value: 'notes', label: 'Notes' }
+];
+const favoriteSortByOptions = [
+  { value: 'name', label: 'Name' },
+  { value: 'type', label: 'Type' }
+];
 
 const FavoritePage: React.FC = () => {
+  const { isBackendAvailable, isLoadingPing } = useStorage();
   const [isLoadingFavorites, setIsLoadingFavorites] = useState<boolean>(true);
   const [favorites, setFavorites] = useState<Favorite[]>([]);
+
   const [search, setSearch] = useState('');
-  const [isEditing, setIsEditing] = useState(false);
+  const [searchBy, setSearchBy] = useState('name');
+  const [sortBy, setSortBy] = useState<string>('name');
+
   const [editForm, setEditForm] = useState<Favorite>(DefaultFavorite);
-  const [selectedFavorite, setSelectedFavorite] = useState<Favorite | null>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const sortedFavorites = [...favorites].sort((a, b) => a.name.localeCompare(b.name));
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [isAddMode, setIsAddMode] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
-  // Filter by search
-  const filteredFavorites = sortedFavorites.filter(fav => {
-    const searchLower = search.toLowerCase();
-    const nameMatch = fav.name.toLowerCase().includes(searchLower);
-    const tagsMatch = fav.tags
-      .split(',')
-      .some(tag => tag.trim().toLowerCase().includes(searchLower));
-    return nameMatch || tagsMatch;
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [favoriteToDelete, setFavoriteToDelete] = useState<Favorite | null>(null);
+  const [showCSVModal, setShowCSVModal] = useState(false);
+  const [showJSONModal, setShowJSONModal] = useState(false);
+  const [showBanner, setShowBanner] = useState<{ show: boolean; type: string }>({ show: false, type: 'success' });
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const filteredFavorites = favorites.filter((f: Favorite) => {
+    if (searchBy === 'tags') {
+      return f.tags.split(',').some((tag) => tag.toLowerCase().includes(search.toLowerCase()));
+    } else if (searchBy === 'notes') {
+      return f.notes.toLowerCase().includes(search.toLowerCase());
+    } else {
+      return f.name.toLowerCase().includes(search.toLowerCase());
+    }
   });
 
-  // Group favorites by type
-  const groupedFavorites = filteredFavorites.reduce((groups, favorite) => {
-    const type = favorite.type;
-    if (!groups[type]) {
-      groups[type] = [];
+  const sortedFavorites = [...filteredFavorites].sort((a, b) => {
+    if (sortBy === 'name') {
+      return a.name.localeCompare(b.name);
+    } else {
+      return a.type - b.type;
     }
-    groups[type].push(favorite);
-    return groups;
-  }, {} as Record<FAVORITE_TYPE, Favorite[]>);
+  });
+  const totalPages = Math.ceil(sortedFavorites.length / FAVORITES_PER_PAGE);
+  const paginatedFavorites = sortedFavorites.slice(
+    (currentPage - 1) * FAVORITES_PER_PAGE,
+    currentPage * FAVORITES_PER_PAGE
+  );
 
-  const getTypeDisplayName = (type: FAVORITE_TYPE): string => {
-    switch (type) {
-      case FAVORITE_TYPE.art: return 'Art';
-      case FAVORITE_TYPE.music: return 'Music';
-      case FAVORITE_TYPE.game: return 'Games';
-      case FAVORITE_TYPE.programming: return 'Programming';
-      case FAVORITE_TYPE.entertainment: return 'Entertainment';
-      case FAVORITE_TYPE.other: return 'Other';
-      default: return 'Other';
-    }
-  };
-
-  const loadFavoriteRecords = () => {
-    api.get('http://localhost:3000/library/specific-type?type=favorites')
-      .then(response => setFavorites(JSON.parse(response.data.records)))
-      .catch(error => console.error('Error:', error))
-      .finally(() => { setIsLoadingFavorites(false) });
-  }
+  const allTags = Array.from(
+    new Set(
+      favorites.flatMap((favorite) =>
+        favorite.tags
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter(Boolean)
+      )
+    )
+  ).sort((a, b) => a.localeCompare(b));
 
   useEffect(() => {
-    if (isLoadingFavorites) {
-      loadFavoriteRecords();
+    if (isBackendAvailable && isLoadingFavorites) {
+      loadRecordsByType('favorites').then((records: Favorite[]) => {
+        setFavorites(records);
+        setIsLoadingFavorites(false);
+      });
     }
-  }, [isLoadingFavorites]);
+    if (!isBackendAvailable && !isLoadingPing) {
+      const savedFavorites = getRecordsFromStorage('favorites', [...fakeFavorites]);
+      setFavorites(savedFavorites);
+      setIsLoadingFavorites(false);
+    }
+  }, [isBackendAvailable, isLoadingPing, isLoadingFavorites]);
 
-  const handleSubmit = (favorites: Favorite[]) => {
-    api.put('http://localhost:3000/library/update-records', JSON.stringify({
-      type: 'favorites',
-      records: JSON.stringify(favorites)
-    }))
-      .then(data => console.log(data))
-      .catch(error => console.error('Error:', error));
-  }
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, searchBy, sortBy, favorites.length]);
 
-  const handleFavoriteClick = (favorite: Favorite) => {
-    setSelectedFavorite(favorite);
-    setIsSidebarOpen(true);
+  const handleSubmit = async (payload: Favorite[]) => {
+    if (!isBackendAvailable && !isLoadingPing) {
+      localStorage.setItem('favorites', JSON.stringify(payload));
+    } else {
+      updateRecordsByType(JSON.stringify(payload), 'favorites')
+        .then((isSuccess: boolean) => {
+          if (isSuccess) {
+            setShowBanner({ show: true, type: 'success' });
+            setTimeout(() => setShowBanner({ show: false, type: '' }), 2500);
+          } else {
+            setShowBanner({ show: true, type: 'error' });
+            setTimeout(() => setShowBanner({ show: false, type: '' }), 2500);
+          }
+        })
+        .catch((error: unknown) => {
+          setShowBanner({ show: true, type: 'error' });
+          setTimeout(() => setShowBanner({ show: false, type: '' }), 2500);
+          console.error('Error:', error);
+        });
+    }
   };
 
-  const closeSidebar = () => {
-    setIsSidebarOpen(false);
-    setSelectedFavorite(null);
-  };
-
-  const handleSidebarEdit = (favorite: Favorite) => {
-    setEditForm({
-      name: favorite.name,
-      link: favorite.link,
-      type: favorite.type,
-      tags: favorite.tags,
-      notes: favorite.notes,
+  const handleAddFavorite = (form: Favorite) => {
+    const newFavorite = {
+      name: form.name,
+      link: form.link,
+      type: form.type,
+      tags: form.tags,
+      notes: form.notes
+    };
+    setFavorites((prev) => {
+      const updatedFavorites = [newFavorite, ...prev];
+      handleSubmit(updatedFavorites);
+      return updatedFavorites;
     });
-    setIsEditing(true);
-  };
-
-  const handleAddNew = () => {
+    setIsPanelOpen(false);
+    setIsAddMode(false);
+    setIsEditing(false);
     setEditForm(DefaultFavorite);
-    setIsEditing(true);
-    setSelectedFavorite(DefaultFavorite);
-    setIsSidebarOpen(true);
+    setSearch('');
   };
 
-  const handleFormSubmit = (form: Favorite) => {
-    if (isEditing && selectedFavorite && selectedFavorite.name !== DefaultFavorite.name) {
-      setFavorites(prev => {
-        const updatedFavorites = prev.map((f) =>
-          f.name === selectedFavorite.name
-            ? {
+  const handleEditFavorite = (form: Favorite) => {
+    setFavorites((prev) => {
+      const updatedFavorites = prev.map((f) =>
+        f.name === form.name && f.link === form.link
+          ? {
               name: form.name,
               link: form.link,
               type: form.type,
               tags: form.tags,
-              notes: form.notes,
+              notes: form.notes
             }
-            : f);
-
-        handleSubmit(updatedFavorites);
-        return updatedFavorites;
-      }
+          : f
       );
-    } else {
-      const newFavorite = {
-        name: form.name,
-        link: form.link,
-        type: form.type,
-        tags: form.tags,
-        notes: form.notes,
-      };
-      setFavorites(prev => {
-        const updatedFavorites = [newFavorite, ...prev];
-        handleSubmit(updatedFavorites);
-        return updatedFavorites;
-      });
-    }
+
+      handleSubmit(updatedFavorites);
+      return updatedFavorites;
+    });
+    setIsPanelOpen(false);
+    setIsAddMode(false);
     setIsEditing(false);
     setEditForm(DefaultFavorite);
-    closeSidebar();
+  };
+
+  const startEdit = (selectedFavorite: Favorite, isClone?: boolean) => {
+    setEditForm({
+      name: selectedFavorite.name,
+      link: selectedFavorite.link,
+      type: selectedFavorite.type,
+      tags: selectedFavorite.tags,
+      notes: selectedFavorite.notes
+    });
+    setIsEditing(!isClone);
+    setIsAddMode(Boolean(isClone));
+    setIsPanelOpen(true);
+  };
+
+  const startAdd = () => {
+    setEditForm(DefaultFavorite);
+    setIsEditing(false);
+    setIsAddMode(true);
+    setIsPanelOpen(true);
   };
 
   const cancelEdit = () => {
+    setIsPanelOpen(false);
+    setIsAddMode(false);
     setIsEditing(false);
     setEditForm(DefaultFavorite);
   };
 
-  // Compute all unique tags
-  const allTags = Array.from(
-    new Set(
-      favorites.flatMap(fav => fav.tags.split(',').map(tag => tag.trim()).filter(Boolean))
-    )
-  ).sort((a, b) => a.localeCompare(b));
+  const handleDeleteFavorite = (favorite: Favorite) => {
+    setFavoriteToDelete(favorite);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteFavorite = () => {
+    if (favoriteToDelete) {
+      setFavorites((prev) => {
+        const updatedFavorites = prev.filter(
+          (f) => !(f.name === favoriteToDelete.name && f.link === favoriteToDelete.link)
+        );
+        handleSubmit(updatedFavorites);
+        return updatedFavorites;
+      });
+      setShowDeleteModal(false);
+      setFavoriteToDelete(null);
+    }
+  };
+
+  const cancelDeleteFavorite = () => {
+    setShowDeleteModal(false);
+    setFavoriteToDelete(null);
+  };
+
+  const handleClickTag = (tag: string) => {
+    setSearchBy('tags');
+    setSearch(tag);
+  };
+
+  const handleChangeSearchBy = (filter: string) => {
+    setSearchBy(filter);
+  };
+
+  const handleChangeSortBy = (val: string) => setSortBy(val);
+
+  const handleOpenCSVModal = () => setShowCSVModal(true);
+  const handleCloseCSVModal = () => setShowCSVModal(false);
+  const handleOpenJSONModal = () => setShowJSONModal(true);
+  const handleCloseJSONModal = () => setShowJSONModal(false);
+
+  const handlePrevious = () => {
+    setCurrentPage((p) => Math.max(1, p - 1));
+  };
+  const handlePageSelect = (pageIndex: number) => {
+    setCurrentPage(pageIndex);
+  };
+  const handleNext = () => {
+    setCurrentPage((p) => Math.min(totalPages, p + 1));
+  };
 
   return (
     <div className="page-wrapper">
-      <h1 className="page-title">Favorite</h1>
-
-      {/* Search Bar */}
-      <div className="favorite-search-bar">
-        <input
-          type="text"
-          placeholder="Search favorites by name..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
+      <Banner isVisible={showBanner.show} type={showBanner.type} />
+      <h1 className="page-title">Favorites</h1>
+      <Search
+        search={search}
+        onSearchChange={setSearch}
+        searchBy={searchBy}
+        handleChangeSearchBy={handleChangeSearchBy}
+        sortBy={sortBy}
+        handleChangeSortBy={handleChangeSortBy}
+        searchByOptions={favoriteSearchByOptions}
+        sortByOptions={favoriteSortByOptions}
+      />
+      <div className="page-body-layout">
+        {!isLoadingFavorites ? (
+          <div className="cards-container">
+            {!search && currentPage === 1 ? <AddCard onClick={startAdd} /> : null}
+            {paginatedFavorites.map((favorite, idx) => (
+              <FavoriteCard
+                key={idx}
+                favorite={favorite}
+                onEdit={() => {
+                  startEdit(favorite);
+                }}
+                onClone={() => {
+                  startEdit(favorite, true);
+                }}
+                onDelete={() => handleDeleteFavorite(favorite)}
+                onHandleClickTag={handleClickTag}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="loading-container">Loading...</div>
+        )}
       </div>
-
-      <div className="small-cards-section">
-        <div className="section-header">
-          <h2>Quick Access</h2>
-          <button className="add-new-btn" onClick={handleAddNew}>
-            Add New
+      <Footer>
+        <div>
+          <button className="primary-btn" onClick={handleOpenCSVModal}>
+            Show CSV
+          </button>
+          <button className="primary-btn" onClick={handleOpenJSONModal}>
+            Show JSON
           </button>
         </div>
-        <div className="favorite-type-group-wrapper">
-          {Object.entries(groupedFavorites).map(([type, typeFavorites]) => (
-            <div key={type} className="favorite-type-group">
-              <h3>{getTypeDisplayName(Number(type) as FAVORITE_TYPE)}</h3>
-              <div className="small-cards-container">
-                {typeFavorites.map((favorite, index) => (
-                  <FavoriteLink
-                    key={index}
-                    favorite={favorite}
-                    onFavoriteClick={handleFavoriteClick}
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          handlePrevious={handlePrevious}
+          handlePageSelect={handlePageSelect}
+          handleNext={handleNext}
+        />
+      </Footer>
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={cancelDeleteFavorite}
+        title={
+          favoriteToDelete ? `Are you sure you want to delete "${favoriteToDelete.name}"?` : 'Error missing favorite'
+        }
+      >
+        <div className="modal-actions">
+          <button className="form-submit" onClick={confirmDeleteFavorite}>
+            Confirm
+          </button>
+          <button className="form-cancel-btn" onClick={cancelDeleteFavorite}>
+            Cancel
+          </button>
         </div>
-      </div>
-
-      {/* Sidebar */}
-      <FavoriteSidebar
-        favorite={selectedFavorite}
-        isOpen={isSidebarOpen}
-        onClose={closeSidebar}
-        onEdit={handleSidebarEdit}
-        onSubmit={handleFormSubmit}
-        editForm={editForm}
-        isEditing={isEditing}
-        onCancelEdit={cancelEdit}
-        allTags={allTags}
-      />
+      </Modal>
+      <Modal isOpen={showCSVModal} onClose={handleCloseCSVModal} title="CSV Export">
+        <div className="modal-data-display">
+          <button onClick={() => copyContents(getCSV(favorites))} className="modal-copy-btn">
+            Copy
+          </button>
+          <pre className="modal-data-content">{getCSV(favorites)}</pre>
+        </div>
+      </Modal>
+      <Modal isOpen={showJSONModal} onClose={handleCloseJSONModal} title="JSON Export">
+        <div className="modal-data-display">
+          <button onClick={() => copyContents(getJSON(favorites))} className="modal-copy-btn">
+            Copy
+          </button>
+          <pre className="modal-data-content">{getJSON(favorites)}</pre>
+        </div>
+      </Modal>
+      <Sidepanel
+        isOpen={isPanelOpen && (isAddMode || isEditing)}
+        onClose={cancelEdit}
+        title={isEditing ? 'Updating existing' : 'Add a New Favorite'}
+      >
+        <FavoriteForm
+          onSubmit={isEditing ? handleEditFavorite : handleAddFavorite}
+          initialValues={editForm}
+          isEditing={isEditing}
+          cancelEdit={cancelEdit}
+          allTags={allTags}
+        />
+      </Sidepanel>
     </div>
   );
 };
 
-export default FavoritePage; 
+export default FavoritePage;

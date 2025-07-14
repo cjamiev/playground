@@ -10,6 +10,12 @@ export interface Name {
   origin: string;
 }
 
+export const DefaultName: Name = {
+  value: '',
+  gender: GENDER_TYPE.male,
+  origin: ''
+};
+
 export enum WORD_TYPE {
   noun,
   adjective,
@@ -22,6 +28,13 @@ export interface Word {
   type: WORD_TYPE;
   tags: string;
 }
+
+export const DefaultWord: Word = {
+  value: '',
+  definition: '',
+  type: WORD_TYPE.noun,
+  tags: ''
+};
 
 export enum WORD_PART_TYPE {
   suffix,
@@ -36,12 +49,25 @@ export interface WordPart {
   type: WORD_PART_TYPE;
 }
 
+export const DefaultWordPart: WordPart = {
+  value: '',
+  definition: '',
+  type: WORD_PART_TYPE.prefix,
+};
+
 export interface Phrase {
   id: string;
   value: string;
   origin: string;
   tags: string;
 }
+
+export const DefaultPhrase: Phrase = {
+  id: '',
+  value: '',
+  origin: '',
+  tags: ''
+};
 
 export interface Reference {
   id: string;
@@ -50,6 +76,14 @@ export interface Reference {
   definition: string;
   tags: string;
 }
+
+export const DefaultReference: Reference = {
+  id: '',
+  value: '',
+  origin: '',
+  definition: '',
+  tags: ''
+};
 
 export interface Song {
   id: string; // name + album
@@ -61,33 +95,62 @@ export interface Song {
   tags: string;
 }
 
+export const DefaultSong: Song = {
+  id: '',
+  name: '',
+  album: '',
+  band: '',
+  rank: 1,
+  link: '',
+  tags: '',
+}
+
 export interface Book {
   name: string;
-  isComic: boolean;
   tags: string;
+}
+
+export const DefaultBook: Book = {
+  name: '',
+  tags: '',
 }
 
 export interface Film {
   name: string;
   rank: number;
-  service: string;
   tags: string;
+}
+
+export const DefaultFilm: Film = {
+  name: '',
+  rank: 1,
+  tags: '',
 }
 
 export interface Show {
   name: string;
   rank: number;
-  service: string;
   tags: string;
+}
+
+export const DefaultShow: Show = {
+  name: '',
+  rank: 1,
+  tags: '',
 }
 
 export interface Game {
   name: string;
   rank: number;
-  price: string;
   lowestPrice: string;
-  releaseDate: string;
   tags: string;
+}
+
+export const DefaultGame: Game = {
+  name: '',
+  rank: 1,
+  lowestPrice: "",
+  tags: ''
 }
 
 export enum FAVORITE_TYPE {
@@ -107,79 +170,6 @@ export interface Favorite {
   notes: string;
 }
 
-export const DefaultName: Name = {
-  value: '',
-  gender: GENDER_TYPE.male,
-  origin: ''
-};
-
-export const DefaultWord: Word = {
-  value: '',
-  definition: '',
-  type: WORD_TYPE.noun,
-  tags: ''
-};
-
-export const DefaultPhrase: Phrase = {
-  id: '',
-  value: '',
-  origin: '',
-  tags: ''
-};
-
-export const DefaultReference: Reference = {
-  id: '',
-  value: '',
-  origin: '',
-  definition: '',
-  tags: ''
-};
-
-export const DefaultSong: Song = {
-  id: '',
-  name: '',
-  album: '',
-  band: '',
-  rank: 1,
-  link: '',
-  tags: '',
-}
-
-export const DefaultVideo: Video = {
-  name: '',
-  link: '',
-  tags: '',
-}
-
-export const DefaultBook: Book = {
-  name: '',
-  isComic: false,
-  tags: '',
-}
-
-export const DefaultFilm: Film = {
-  name: '',
-  rank: 1,
-  service: '',
-  tags: '',
-}
-
-export const DefaultShow: Show = {
-  name: '',
-  rank: 1,
-  service: '',
-  tags: '',
-}
-
-export const DefaultGame: Game = {
-  name: '',
-  rank: 1,
-  price: "",
-  lowestPrice: "",
-  releaseDate: "",
-  tags: ''
-}
-
 export const DefaultFavorite: Favorite = {
   name: '',
   link: '',
@@ -188,8 +178,44 @@ export const DefaultFavorite: Favorite = {
   notes: ''
 }
 
-export const DefaultWordPart: WordPart = {
-  value: '',
-  definition: '',
-  type: WORD_PART_TYPE.prefix,
-};
+export interface Project {
+  id: string;
+  name: string;
+  details: string;
+  rank: number;
+}
+
+export const DefaultProject: Project = {
+  id: '',
+  name: '',
+  details: '',
+  rank: 1
+}
+
+export interface Countdown {
+  id: string;
+  name: string;
+  date: string;
+}
+
+export const DefaultCountdown: Countdown = {
+  id: '',
+  name: '',
+  date: ''
+}
+
+export interface Password {
+  name: string;
+  username: string;
+  password: string;
+  updatedDate: string;
+  link: string;
+}
+
+export const DefaultPassword: Password = {
+  name: '',
+  username: '',
+  password: '',
+  updatedDate: '',
+  link: '',
+}

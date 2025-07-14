@@ -1,40 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../api';
+import { loadRecordsByType, updateRecordsByType } from '../../api/library-service';
+import { useStorage } from '../../context/StorageContext';
+import Banner from '../atoms/Banner';
+import { getRecordsFromStorage } from '../../utils/storage';
 
 
 const HomePage: React.FC = () => {
+  const { isBackendAvailable, isLoadingPing } = useStorage();
   const [isLoadingReadme, setIsLoadingReadme] = useState<boolean>(true);
   const [readme, setReadme] = useState<string>("");
   const [editValue, setEditValue] = useState(readme);
   const [isEditing, setIsEditing] = useState(false);
-
-  const backupRecords = () => {
-    api.get('http://localhost:3000/library/backup')
-      .then(response => console.log(response))
-      .catch(error => console.error('Error:', error))
-  }
-
-  const loadReadmeRecords = () => {
-    api.get('http://localhost:3000/library/specific-type?type=readme')
-      .then(response => setReadme(response.data.records))
-      .catch(error => console.error('Error:', error))
-      .finally(() => { setIsLoadingReadme(false) });
-  }
+  const [showBanner, setShowBanner] = useState<{ show: boolean; type: string }>({ show: false, type: 'success' });
 
   useEffect(() => {
-    if (isLoadingReadme) {
-      loadReadmeRecords();
+    if (isBackendAvailable && isLoadingReadme) {
+      loadRecordsByType('readme', false).then((records: string) => {
+        setReadme(records);
+        setIsLoadingReadme(false);
+      });
     }
-  }, [isLoadingReadme]);
+    if (!isBackendAvailable && !isLoadingPing) {
+      const savedReadmes = getRecordsFromStorage('readme', '');
+      setReadme(savedReadmes);
+      setIsLoadingReadme(false);
+    }
+  }, [isBackendAvailable, isLoadingPing, isLoadingReadme]);
 
-  const handleSubmit = (readme: string) => {
-    api.put('http://localhost:3000/library/update-records', JSON.stringify({
-      type: 'readme',
-      records: readme
-    }))
-      .then(data => console.log(data))
-      .catch(error => console.error('Error:', error));
-  }
+  const handleSubmit = async (payload: string) => {
+    if (!isBackendAvailable && !isLoadingPing) {
+      localStorage.setItem('readme', JSON.stringify(payload));
+    } else {
+      updateRecordsByType(payload, 'readme')
+        .then((isSuccess: boolean) => {
+          if (isSuccess) {
+            setShowBanner({ show: true, type: 'success' });
+            setTimeout(() => setShowBanner({ show: false, type: '' }), 2500);
+          } else {
+            setShowBanner({ show: true, type: 'error' });
+            setTimeout(() => setShowBanner({ show: false, type: '' }), 2500);
+          }
+        })
+        .catch((error: unknown) => {
+          setShowBanner({ show: true, type: 'error' });
+          setTimeout(() => setShowBanner({ show: false, type: '' }), 2500);
+          console.error('Error:', error);
+        });
+    }
+  };
 
   const handleEdit = () => {
     setEditValue(readme);
@@ -54,6 +67,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="page-wrapper">
+      <Banner isVisible={showBanner.show} type={showBanner.type} />
       <h1 className="page-title">Home</h1>
       <div className="home-editable-text">
         {isEditing ? (
@@ -76,7 +90,6 @@ const HomePage: React.FC = () => {
           </>
         )}
       </div>
-      <button className="add-new-btn" onClick={backupRecords}>Backup</button>
     </div>
   );
 };
