@@ -2,11 +2,7 @@
 This project is just for fun and educational purposes.  Its used for the following:
 - Experimenting: Testing out a new framework or library without the constraints of a practical use case. 
 - Snippets: Storage for code such as utility functions, css snippets for re-use in any other project. 
-- Prep: Place to practice and study for future interviews.  Including storing answers for technical questions.
-
-## Commands
-- Vite Project: ```npm create vite@latest <project-name>```
-- SpringBoot: https://start.spring.io/
+- Prep: Place to practice and study for future interviews.
 
 ## File Structure
 ```
@@ -14,8 +10,7 @@ This project is just for fun and educational purposes.  Its used for the followi
 |   |-- vanilla-app/
 |   |-- react-app/
 |-- backend/
-|   |-- node-server/
-|   |-- springboot-server/
+|   |-- java-template
 |-- e2e/
 |-- database/
 |-- other/
@@ -38,25 +33,8 @@ Anything that doesn't fit in the above category will be stored in other/
 ### react-app
 - Template for most common react features useContext, useEffect, useRef, etc.
 
-### node-server
-Simple node server for allowing reading/writing files.
-Copy the following to capture api call payloads.
-
-```
-post: (payload) => {
-    return fetch('http://localhost:{port}/', {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload),
-      method: 'POST',
-      crossDomain: true
-    })
-      .then(resp => resp.json())
-      .catch(error => console.log('error:', error));
-  }
-```
+### java-template
+- Template for common Java work.
 
 ### svg-creator
 This script will convert tmp/input.svg -> tmp/svg/**.js hence converts svg to react components. 
