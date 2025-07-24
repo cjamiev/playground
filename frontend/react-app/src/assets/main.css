@@ -6,7 +6,7 @@ html {
   background-color: var(--primary-bg-color);
 }
 
-.root {
+#root {
   height: 100%;
   width: 100%;
   overflow: hidden;

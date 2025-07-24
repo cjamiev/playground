@@ -29,6 +29,7 @@ const Navigation = () => {
         key={route.url}
         onClick={handleClick}
         $isActive={isActive}
+        $islightmode={isLightMode}
       >
         {route.linkLabel}
       </SCNavigationLink>

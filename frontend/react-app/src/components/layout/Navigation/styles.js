@@ -4,7 +4,6 @@ import { Theme } from '../../../theme';
 export const SCNavigation = styled.nav`
   padding: 10px;
   width: 100%;
-  height: 100%;
   border-bottom: 1px dashed #9f9fa8;
   position: relative;
   display: flex;
@@ -19,7 +18,7 @@ export const SCNavigationLink = styled.div`
   border-bottom: 1px solid transparent;
 
   &:hover {
-    border-bottom: 1px solid #444444;
+    border-bottom: 1px solid ${(props) => props.$islightmode ? '#444' : '#fff'};;
     transform: scale(1.05);
   }
 `;
