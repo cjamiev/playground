@@ -27,10 +27,12 @@ For quick testing the file q.js is used and for a bit more with TDD experiment/ 
 Anything that doesn't fit in the above category will be stored in other/
 
 ### vanilla-app
-- Storage for CSS and HTML Snippets
+- Used for testing vanilla html, javascript, css with no dependencies
+- Storage for CSS HTML Snippets
 - Utility javascript functions
 
 ### react-app
+- Used to experiment with random react apps
 - Template for most common react features useContext, useEffect, useRef, etc.
 
 ### java-template

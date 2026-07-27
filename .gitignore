@@ -9,5 +9,3 @@
 /backend/node-server/static/bundle.js
 
 /frontend/react-app/node_modules
-/frontend/vanilla-app/node_modules
-/frontend/vanilla-app/coverage
